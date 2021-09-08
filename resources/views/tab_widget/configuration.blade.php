@@ -54,15 +54,39 @@ $(document).ready(function(){
     //drawCustomersMagaya();
 
     ZOHO.embeddedApp.on("PageLoad",function(data){
-          //get all records of the given module
-    ZOHO.CRM.API.getAllRecords({Entity: "Accounts", sort_order: "asc"})
-        .then(function(response){
-            if (!_.isEmpty (response.data)) {
-                $.map (response.data, function (k, i){
-                    accounts.push(k);
-                })
-            }
-        })
+        ZOHO.CRM.API.getOrgVariable("magaya__magaya_url")
+            .then(function (response) {
+                console.log("Gettinf org variable dsfgdsfsdf" , response.Success.Content)
+                url = response.Success.Content;
+            })
+            .catch(function(error) {
+                    console.log("Error org variable url", error)
+            })
+        ZOHO.CRM.API.getOrgVariable("magaya__magaya_network_id")
+            .then(function (response) {
+                console.log("Gettinf network id" , response.Success.Content)
+                   network_id = response.Success.Content;
+            })
+            .catch(function(error) {
+                    console.log("Error org variable network id", error)
+            })
+        ZOHO.CRM.API.getOrgVariable("magaya__magaya_user")
+            .then(function (response) {
+                console.log("Gettinf user" , response.Success.Content)
+                    user = response.Success.Content;
+            })
+            .catch(function(error) {
+                    console.log("Error org variable user", error)
+            })
+        ZOHO.CRM.API.getOrgVariable("magaya__magaya_pass")
+            .then(function (response) {
+                console.log("Gettinf user" , response.Success.Content)
+                    pass = response.Success.Content;
+            })
+            .catch(function(error) {
+                    console.log("Error org variable pass", error)
+            })
+
     });
     ZOHO.embeddedApp.init();
 
