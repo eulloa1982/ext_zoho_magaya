@@ -27,6 +27,34 @@ storeCharge.subscribe(() => {
 
 })
 
+<<<<<<< HEAD
+=======
+                let field = _.get(CHARGES_FIELDS, [v, 'field'])
+                let values = _.has(CHARGES_FIELDS, [v, "values"]) ? _.get(CHARGES_FIELDS, [v, 'values']) : ''
+                //si tiene una lista de valores, es un select y lo imprimimos
+                if (!_.isEmpty(values)) {
+                    input = `<select data-id="${id}" name="${v}" class="form-control ${no_border}">`
+                        $.map(values, function(val) {
+                            if (val === k)
+                                input += `<option value="${val}" selected>${val}</option>`
+                            else
+                                input += `<option value="${val}" selected>${val}</option>`
+                        })
+                    input += `</select>`
+                }
+                append += `<div class="row" style="margin: 5px 5px 5px 5px">
+                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px">${field}</div>
+                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px">${input}</div>
+                    </div>`
+            }
+        })
+
+        $("#info-datad").append(append)
+    }
+
+})
+
+>>>>>>> parent of 3703978 (Merge branch 'esteban' of https://github.com/eulloa1982/zoho_crm_magaya_ext into esteban)
 
 ///////subscriber charges, render UI table
 storeCharge.subscribe(() => {

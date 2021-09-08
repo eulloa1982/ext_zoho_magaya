@@ -81,8 +81,13 @@ $(document).ready(function(){
                 fields: [
                     { type: "control", width: 10, title:"Options", editButton: false, deleteButton: false,
                     itemTemplate: function(value, item) {
+<<<<<<< HEAD
                         var $iconPencil = $(`<a><span class="material-icons edit" data-id="${item.id}">create</span></a>`);
                         var $iconTrash = $(`<a><span class="material-icons delete" data-id=${item.id}>clear</span></a>`);
+=======
+                        var $iconPencil = $(`<a><span class="material-icons oculto edit" data-id="${item.id}">create</span></a>`);
+                        var $iconTrash = $(`<a><span class="material-icons oculto delete" data-id=${item.id}>clear</span></a>`);
+>>>>>>> parent of 3703978 (Merge branch 'esteban' of https://github.com/eulloa1982/zoho_crm_magaya_ext into esteban)
                         var $other = $(`<a><input type="checkbox" class="add" id="data-show" data-id=${item.id}/></a>`);
                         //var $other = $(`<a class="add">Show</a>`);
                         return $("<div>").attr({class: "btn-toolbar"})
