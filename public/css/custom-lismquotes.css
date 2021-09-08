@@ -1,0 +1,142 @@
+.no-border {
+    border:none;
+    background: #eeeddd;
+}
+
+.btn-slide:hover, .edit:hover, .delete:hover{
+    cursor: pointer;
+}
+
+.no-border:focus {
+    font-size   : 105%;
+    transform: translateX(-10%);
+    transition: .3s ease-out;
+    font: 1.5em "handwriting", sans-serif;
+    padding: 0 10px;
+    margin : 0;
+    width: 70%;
+}
+
+input:active {
+    border:1px solid #000;
+}
+.editable {
+    border: 1px solid #03A9F4;
+    padding: 1px 1px 1px 1px;
+}
+
+.edit, .delete, .check {
+    opacity: 0.07;
+    margin-left: 15px;
+}
+.edit:hover, .delete:hover, .check:hover {
+    opacity: 0.9;
+}
+
+.jsgrid-control-field {
+    max-width: 5px;
+}
+
+
+/* panel layout mechanics */
+.panel-wrap, .panel-wrap2, .data-show-panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 60em;
+  transform: translateX(100%);
+  transition: .3s ease-out;
+  z-index: 2000;
+  box-shadow: 10px 15px 15px 15px black;
+
+}
+.panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+  color: #333;
+  overflow: auto;
+  padding: 1em;
+}
+.panel-datashow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+  color: #333;
+  overflow: auto;
+  padding: 1em;
+}
+
+/* simulate panel state control --
+this can also be triggered by a
+class name added to the body tag.
+Just using a checkbox sibling here
+for simplicity
+*/
+[id="btnControl"]:checked ~ .panel-wrap {
+  transform: translateX(0%);
+}
+
+[id="btnControl2"]:checked ~ .panel-wrap2 {
+  transform: translateX(0%);
+}
+
+[class="data-show"]:checked ~ .data-show-panel {
+    transform: translate(0%);
+}
+
+/* demo display */
+*,*:before, *:after {box-sizing: border-box;}
+
+h3 {
+  margin: 0;
+}
+p {
+  line-height: 1.4;
+  margin: 2em 0 0 0;
+}
+[type="checkbox"] {
+  font-size: 1em;
+  float: right;
+}
+
+/*** prueba adaptar estilo  */
+#btnControl, #btnControl2 {
+    display: none;
+}
+
+.panel .row{
+    border: 2px solid #0b3355;
+    margin: 5px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;
+}
+
+/**********panel editing*************/
+#panel {
+    background: #FAFAD2;
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 60em;
+    /*transform: translateX(100%);*/
+    transition: .3s ease-out;
+    z-index: 2000;
+    box-shadow: 10px 15px 15px 15px black;
+}
+.active {
+    background-position: right 12px;
+}
+
+#table-charges input, #table-charges-new input, #table-items input, #table-items-new input {
+    background-color: rgb(255, 255, 255);
+    border: none;
+}
