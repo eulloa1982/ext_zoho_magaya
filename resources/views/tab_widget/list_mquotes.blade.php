@@ -1,5 +1,79 @@
 @extends('base_listmquote')
 @section('main')
+<style>
+    /***boton cerrar */
+.noselect {
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+		-webkit-tap-highlight-color: transparent;
+}
+.noselect{
+	width: 150px;
+	height: 50px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	background: red;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+	background: #e62222;
+}
+.noselect, .noselect span {
+	transition: 200ms;
+}
+.noselect .text {
+	transform: translateX(35px);
+	color: white;
+	font-weight: bold;
+}
+.noselect .icon {
+	position: absolute;
+	border-left: 1px solid #c41b1b;
+	transform: translateX(110px);
+	height: 40px;
+	width: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+button svg {
+	width: 15px;
+	fill: #eee;
+}
+.noselect:hover {
+	background: #ff3636;
+}
+.noselect:hover .text {
+	color: transparent;
+}
+.noselect:hover .icon {
+	width: 150px;
+	border-left: none;
+	transform: translateX(0);
+}
+.noselect:focus {
+	outline: none;
+}
+</style>
+<div class="panel-search" id="panel-search">
+    <div class="panel">
+    <button class="noselect"><span class='text'>Close</span><span id="close-all" data-close="panel-search" class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg></span></button>
+
+        <div id="search">
+
+            <table id="quote-search"><tr><th></th><th>Number</th><th>Cient</th><th>Amount</th><th>Modified Time</th></tr>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 
 <div class="container">
     <div class="row">
@@ -7,27 +81,31 @@
 			<div class="container-fluid" style="margin-top: 20px; padding: 0px;">
 				<div class="card">
 					<div class="card-header" style="padding: 0px;background-color: #0b3355;border-color:#0b3355;">
-						<div class="row">
+
+                    <div class="row">
 							<div class="col-md-3" style="padding: 5px 0px;">
 								<p style="color: white; font-weight: bold; font-size: 24px;padding-left: 20px;margin:0px">Edit mQuote</p>
 							</div>
 							<div class="col-md-7" style="padding: 5px 0px;">
 								<form class="form-inline my-2 my-lg-0">
 									<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="margin-left:-100px;">
-									<span class="input-group-btn"><button class="btn btn-primary"><span class="material-icons">search</span></button></span>
+									<span class="input-group-btn"><span class="btn btn-primary" id="search-by-name"><span class="material-icons">search</span></span></span>
 								</form>
 							</div>
-								 	<div class="col-md-2" style="padding: 5px 0px;">
+
+
+
+                                    <div class="col-md-2" style="padding: 5px 0px;">
 								 		<div class="btn-group">
 									 		<button type="button" class="btn btn-primary addMquote" style="margin-right: 20px; font-weight: bold;">Add</button>
-			  								<button type="button" class="btn btn-primary"><span class="material-icons">more_horiz</span></button>
+			  								<!--button type="button" class="btn btn-primary"><span class="material-icons">more_horiz</span></button>
 			 								<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
 			    							<span class="caret"></span>
 			  								</button>
 											<div class="dropdown-menu">
 												<a class="dropdown-item" href="#">Mass Update</a>
 												<a class="dropdown-item" href="#">Mass Delete</a>
-											</div>
+											</div-->
 
 								 		</div>
 
@@ -75,7 +153,7 @@
 		</div>
 
 <!-- Edit Modal HTML -->
-<div id="mquoteModal" class="modal fade" id="edit" tabindex="-10" role="dialog" aria-labelledby="edit" aria-hidden="true">
+<div id="mquoteModal" class="modal fade" id="edit" tabindex="-10" role="dialog" aria-labelledby="edit" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header" style="background: #0b3355;color: white;">
@@ -88,20 +166,27 @@
                         <!-- panel editing----------->
                         <div id="panel">
                             <div class="panel">
-                                <div class="row principal">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-success"><span class="material-icons">more_horiz</span></button>
-                                        <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="sr-only">Toggle Dropdown</span>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" id="clone-item">Clone</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" id="delete-item">Delete</a>
-                                        </div>
-                                    </div>
+                            <fieldset class="fieldset"><legend class="legend">Panel Editing</legend>
+                                <div class="row">
+                                    <button class="noselect"><span class='text'>Close</span><span id="close-all" data-close="panel" class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg></span></button>
+
+                                        <!--div class="btn-group">
+                                            <button type="button" class="btn btn-success"><span class="material-icons">more_horiz</span></button>
+                                            <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" id="clone-item">Clone</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" id="delete-item">Delete</a>
+                                            </div>
+                                        </div-->
                                 </div>
+                            </fieldset>
+                            <fieldset class="fieldset"><legend class="legend">Item</legend>
+
                                 <div id="info-datad"></div>
+                            </fieldset>
 
                             </div>
                         </div>
@@ -127,33 +212,33 @@
 									<div class="row" style="margin-bottom:20px;margin-top: 20px;">
 										<div class="col-md-2">
 											<label class="col-md-12" style="font-weight: bold;">Number</label>
-											<input type="text" name="Name" id="Name" class="form-control" placeholder="Quote Number" />
+											<input type="text" name="Name" id="NameQuote" class="form-control no-border" placeholder="Quote Number" />
 										</div>
 										<div class="col-md-2">
 											<label class="col-md-12" style="font-weight: bold;">Issued By</label>
-                                            <input type="text" name='magaya__IssuedByName' id='magaya__IssuedByName' class='form-control' readonly/>
+                                            <input type="text" name='magaya__IssuedByName' class='form-control' readonly/>
 
 										</div>
 										<div class="col-md-4">
 											<label class="col-md-12" style="font-weight: bold;">Expiration Date</label>
-                                            <input type="text" name="magaya__ExpirationDate" id="ExpirationDate" class="form-control" />
+                                            <input type="text" name="magaya__ExpirationDate" class="form-control no-border" />
 										</div>
 										<div class="col-md-4">
 											<label class="col-md-12" style="font-weight: bold;">Seller Name</label>
-                                            <input name="magaya__SellerName" id="magaya__SellerName" class="form-control" readonly/>
+                                            <input name="magaya__SellerName" class="form-control" readonly/>
 										</div>
 									</div>
 									<div class="row" style="margin-bottom:10px; margin-top: 30px;">
 										<div class="col-md-4">
 											<label class="col-md-12" style="font-weight: bold;">Trasnportation Mode</label>
-                                            <select name='magaya__TransportationMode' id='magaya__TransportationMode' class='form-control' />
+                                            <select name='magaya__TransportationMode' class='form-control no-border' />
                                                 <option></option>
                                             </select>
 
 										</div>
 										<div class="col-md-4">
 											<label class="col-md-12" style="font-weight: bold;">Direction</label>
-                                            <select name='magaya__Direction' id='magaya__Direction' class='form-control'>
+                                            <select name='magaya__Direction' class='form-control no-border'>
                                                 <option value='Outgoing'>Out Going</option>
                                                 <option value='Incoming'>In comming</option>
                                             </select>
@@ -162,14 +247,14 @@
 										<div class="col-md-4">
 											<label class="col-md-12" style="font-weight: bold;">Description</label>
 											<div class="form-group">
-                                                <textarea rows="2" name='magaya__Description' id='magaya__Description' class='form-control'></textarea>
+                                                <textarea rows="2" name='magaya__Description' id='magaya__Description' class='form-control no-border'></textarea>
 											</div>
 										</div>
 									</div>
 									<div class="row" style="margin-bottom:25px;">
 										<div class="col-md-4">
 												<label class="col-md-12" style="font-weight: bold;">Stage</label>
-                                                <select name="magaya__Status" class="form-control">
+                                                <select name="magaya__Status" class="form-control no-border">
                                                     <option value="Draft">Draft</option>
                                                     <option value="Done">Done</option>
                                                     <option value="Sent">Sent</option>
@@ -177,10 +262,7 @@
                                                     <option value="Refused">Refused</option>
                                                 </select>
                                             </div>
-										<div class="col-md-4">
-												<label class="col-md-12" style="font-weight: bold;">Deal</label>
-												<input type="text" name="Deal" class="form-control">
-										</div>
+
 									</div>
 								</div>
                                 <!------------------------------------------------------------->
@@ -192,46 +274,46 @@
                                 <!------------------------------------------------------------->
 								<div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="menu2-tab" style="min-height: 600px;">
 
-                                    <input type="checkbox" id="btnControl"/>
-                                    <label class="btn btn-sm btn-primary float-right" for="btnControl" style="background-color: #0b3355; float: rigth;">Add Row</label>
+                                    <label class="btn btn-sm btn-primary float-right open-panel" data-panel="panel-charge" for="btnControl" style="background-color: #0b3355; float: rigth;">Add Charge</label>
                                     <!---- wrapper for new charge form-->
-                                    <div class="panel-wrap">
+                                    <div class="panel-charge" id="panel-charge">
                                         <div class="panel">
+											<button class="noselect"><span class='text'>Close</span><span id="close-all" data-close="panel-charge" class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg></span></button>
+
+											<fieldset class="fieldset"><legend class="legend">Status and Description</legend>
                                                 <div class="row">
                                                     <div class="col-md-2">
                                                         <span>Status</span>
                                                         <div class="input-group">
-                                                            <div class="input-group-text"><i class="fas fa-user-check"></i></div>
-                                                                <select name='ChargeStatus' class='form-control'>
-                                                                    <option value="Open">Open</option>
-                                                                    <option value="Paid">Paid</option>
-                                                                    <option value="Posted">Posted</option>
-                                                                </select>
+                                                            <select name='ChargeStatus' class='form-control'>
+                                                                <option value="Open">Open</option>
+                                                                <option value="Paid">Paid</option>
+                                                                <option value="Posted">Posted</option>
+                                                            </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-2">
+                                                    <div class="col-md-4">
                                                         <span>Charge Type</span>
                                                         <div class="input-group">
-                                                            <div class="input-group-text"><i class="fas fa-user-check"></i></div>
-                                                                <select name='ChargeType' id='ChargeType' class='form-control'>
-                                                                    <option value="select"></option>
-                                                                </select>
+                                                            <select name='ChargeType' id='ChargeType' class='form-control'>
+                                                                <option value="select"></option>
+                                                            </select>
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-6">
                                                         <span>Description</span>
                                                         <div class="input-group">
-                                                            <div class="input-group-text"><i class="fas fa-user-check"></i></div>
-                                                                <input type="text" name='DescriptionCharges' id='DescriptionCharges' class='form-control' />
+                                                            <input type="text" name='DescriptionCharges' id='DescriptionCharges' class='form-control' />
                                                         </div>
                                                     </div>
                                                 </div>
+											</fieldset>
+											<fieldset class="fieldset"><legend class="legend">Currency</legend>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                     <span>Currency</span>
                                                         <div class="input-group">
-                                                            <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
                                                             <select name='Currency' id='Currency' class='form-control'>
                                                                 <option value='USD'>USD</option>
                                                             </select>
@@ -241,7 +323,6 @@
                                                     <div class="col-md-4">
                                                     <span>Paid As</span>
                                                         <div class="input-group">
-                                                            <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
                                                             <select name='PaidAs' class='form-control'>
                                                                 <option value='Prepaid'>Prepaid</option>
                                                                 <option value='Collect'>Collect</option>
@@ -249,12 +330,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
+											</fieldset>
 
+											<fieldset class="fieldset"><legend class="legend">Quantity</legend>
                                                 <div class="row">
-                                                    <div class="col-md-2">
+                                                    <div class="col-md-4">
                                                     <span>Quantity</span>
                                                         <div class="input-group">
-                                                            <div class="input-group-text"><i class="fas fa-cash-register"></i></div>
                                                             <input type="text" name='Quantity' id='Quantity' class='form-control' />
                                                         </div>
                                                     </div>
@@ -262,64 +344,56 @@
                                                     <div class="col-md-2">
                                                     <span>Unity</span>
                                                         <div class="input-group">
-                                                            <div class="input-group-text"><i class="fas fa-chart-pie"></i></div>
-                                                                <select name='Unity' class='form-control'>
-                                                                    <option value='U'>U</option>
-                                                                    <option value='Lb'>Lb</option>
-                                                                    <option value='Kg'>Kg</option>
-                                                                </select>
+                                                            <select name='Unity' class='form-control'>
+                                                                <option value='U'>U</option>
+                                                                <option value='Lb'>Lb</option>
+                                                                <option value='Kg'>Kg</option>
+                                                            </select>
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-2">
+                                                    <div class="col-md-4">
                                                     <span>Price</span>
                                                         <div class="input-group">
-                                                            <div class="input-group-text"><i class="fas fa-hand-holding-usd"></i></div>
-                                                                <input type="text" name='Price' id='Price' class='form-control' />
+                                                            <input type="text" name='Price' id='Price' class='form-control' />
                                                         </div>
                                                     </div>
                                                 </div>
+											</fieldset>
+											<fieldset class="fieldset"><legend class="legend">Taxes</legend>
                                                 <div class="row">
-                                                    <div class="col-md-2">
+                                                    <div class="col-md-4">
                                                         <span>Tax Code</span>
                                                             <div class="input-group">
-                                                                <div class="input-group-text"><i class="fas fa-coins"></i></div>
                                                                 <select name="TaxCode" class='form-control'>
                                                                     <option></option>
                                                                 </select>
                                                             </div>
                                                         </div>
 
-                                                    <div class="col-md-4">
+                                                    <!--div class="col-md-4">
                                                         <span>Tax Amount</span>
                                                             <div class="input-group">
-                                                                <div class="input-group-text"><i class="fas fa-coins"></i></div>
                                                                 <input type="text" name='TaxAmount' class='form-control'readonly/>
                                                             </div>
-                                                    </div>
+                                                    </div-->
                                                 </div>
+											</fieldset>
 
-                                                <div class="row">
-                                                    <div class="col-md-2">
+                                                <!--div class="row">
+                                                    <--div class="col-md-2">
                                                     <span>Amount</span>
                                                         <div class="input-group">
-                                                            <div class="input-group-text"><i class="fas fa-coins"></i></div>
                                                             <input type="text" name='Amount' id='Amount' class='form-control' readonly/>
                                                         </div>
-                                                    </div>
-
-
-                                                </div>
+                                                    </div->
+                                                </div-->
                                                 <div class="col-md-12" style="padding: 0px;">
                                                         <p style="width: 100%;text-align: right;">
-                                                            <button id='sendCharges' for-table='#item-charges' class="btn btn-primary" style="background-color: #0b3355">Add Row</button>
-                                                            <button id='newCharges' for-table='#item-charges' class="btn btn-primary" style="background-color: #0b3355">Add Row</button>
+                                                            <button id='sendCharges' for-table='#item-charges' class="btn btn-primary" style="background-color: #0b3355">Add Charge</button>
+                                                            <button id='newCharges' for-table='#item-charges' class="btn btn-primary" style="background-color: #0b3355">Add Charge</button>
                                                         </p>
                                                     </div>
-
-                                                <input type="checkbox" id="btnControl"/>
-                                                <label class="btn btn-sm btn-primary" for="btnControl" style="background-color: #0b3355; float: rigth;">Hide</label>
-
                                             </div>
 
                                         </div>
@@ -362,8 +436,8 @@
                                     </div>
                                     <table class="table table-bordred" id="dataTable" width="100%" cellspacing="0">
 											<tr>
-												<td colspan="3" style="width:42%"><b>Total Tax Amount:</b> <input type="text" name=""></td>
-												<td colspan="3" style="width:58%"><b>Total Income:</b>  <input type="text" name=""></td>
+												<td colspan="3" style="width:20%"><b>Total Tax Amount:</b> <input type="text" name="" class="form-control"></td>
+												<td colspan="3" style="width:20%"><b>Total Income:</b>  <input type="text" name="" class="form-control"></td>
 											</tr>
 										</table>
 
@@ -443,35 +517,35 @@
 									</div>
 									<div class="row" style="margin-bottom:20px; margin-top:20px;">
 										<div class="col-md-6">
-											<label class="col-md-12" style="font-weight: bold;">Place of Recept</label>
-											<input type="text" name="Place_Receipt" class="form-control" />
+											<label class="col-md-12" style="font-weight: bold;">Place of Receipt</label>
+											<input type="text" name="magaya__OriginReceipt" class="form-control no-border" />
 
 										</div>
 										<div class="col-md-6">
 											<label class="col-md-12" style="font-weight: bold;">Place of Delivery</label>
-											<input type="text" name="Place_Delivery" class="form-control" />
+											<input type="text" name="magaya__DestinationReceipt" class="form-control no-border" />
 										</div>
 									</div>
 									<div class="row" style="margin-bottom:20px; margin-top:20px;">
 										<div class="col-md-6">
 											<label class="col-md-12" style="font-weight: bold;">Pre Carriage By</label>
-											<input type="text" name="Pre_Carriage_By" class="form-control" />
+											<input type="text" name="magaya__OriginPrecarriageBy" class="form-control no-border" />
 										</div>
 										<div class="col-md-6">
 											<label class="col-md-12" style="font-weight: bold;">On Carriage By</label>
-											<input type="text" name="On_Carriage_By" class="form-control" />
+											<input type="text" name="magaya__DestinationPrecarriageBy" class="form-control" />
 										</div>
 									</div>
 									<div class="row" style="margin-bottom:20px; margin-top:20px;">
 										<div class="col-md-6" style="font-weight: bold;">
 											<label class="col-md-12">Shipper</label>
-											<select name="ShipperName" class="form-control">
+											<select name="magaya__Shipper" class="form-control no-border">
 												<option></option>
 											</select>
 										</div>
 										<div class="col-md-6">
 											<label class="col-md-12" style="font-weight: bold;">Consigne</label>
-											<select name="ConsigneeName" class="form-control">
+											<select name="magaya__ConsigneeName" class="form-control no-border">
 												<option></option>
 											</select>
 										</div>
@@ -539,88 +613,85 @@
                                 <!--tab items -->
                                 <!------------------------------------------------------------->
 								<div class="tab-pane fade" id="menu4" role="tabpanel" aria-labelledby="menu4-tab" style="min-height: 600px;">
-                                    <input type="checkbox" id="btnControl2" />
-                                    <label class="btn btn-sm btn-primary float-right" for="btnControl2" style="background-color: #0b3355; float: rigth;">Add Row</label>
+
+                                    <label class="btn btn-sm btn-primary float-right open-panel" data-panel="panel-item" for="btnControl2" style="background-color: #0b3355; float: rigth;">Add Item</label>
 
 
                                     <!---- wrapper for new charge form-->
-                                    <div class="panel-wrap2">
+                                    <div class="panel-item" id="panel-item">
                                         <div class="panel">
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <span>Measure System</span>
-                                                    <div class="input-group">
-                                                        <div class="input-group-text"><i class="fas fa-cash-register"></i></div>
-                                                        <select name="magaya__Measure_System" class="form-control">
-                                                            <option value="International">International</option>
-                                                            <option value="English">English</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
+											<button class="noselect"><span class='text'>Close</span><span id="close-all" data-close="panel-item" class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg></span></button>
 
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <span>Quantity</span>
-                                                    <div class="input-group">
-                                                        <div class="input-group-text"><i class="fas fa-cash-register"></i></div>
-                                                            <input type="numeric" name="Item-Pieces" class='form-control' />
-                                                        </div>
-                                                </div>
+											<fieldset class="fieldset"><legend class="legend">Measure System</legend>
 
-                                                <div class="col-md-2">
-                                                        <span>Package</span>
-                                                        <div class="input-group">
-                                                            <div class="input-group-text"><i class="fas fa-cash-register"></i></div>
-                                                            <select id='select-package' name="select-package" class="form-control"></select>
-                                                        </div>
-                                                    </div>
+												<div class="row">
+													<div class="col-md-8">
+														<span>Measure System</span>
+														<div class="input-group">
+															<select name="magaya__Measure_System" class="form-control">
+																<option value="International">International</option>
+																<option value="English">English</option>
+															</select>
+														</div>
+													</div>
+												</div>
+											</fieldset>
 
-                                                    <div class="col-md-2">
-                                                        <span>Length</span>
-                                                        <div class="input-group">
-                                                            <div class="input-group-text"><i class="fas fa-arrows-alt-h"></i></div>
-                                                            <input type="text" name="Item-Length" id="Item-Length" class='form-control' />
-                                                        </div>
-                                                    </div>
+											<fieldset class="fieldset"><legend class="legend">Quantity</legend>
 
-                                                    <div class="col-md-2">
+												<div class="row">
+													<div class="col-md-2">
+														<span>Quantity</span>
+														<div class="input-group">
+																<input type="numeric" name="Item-Pieces" class='form-control' />
+															</div>
+													</div>
 
-                                                    <span>Height</span>
-                                                    <div class="input-group">
-                                                        <div class="input-group-text"><i class="fas fa-arrows-alt-v"></i></div>
-                                                        <input type="text" name="Item-Height" class='form-control' />
-                                                    </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <span>Width</span>
-                                                        <div class="input-group">
-                                                            <div class="input-group-text"><i class="fas fa-exchange-alt"></i></div>
-                                                            <input type="text" name="Item-Width" class='form-control' />
-                                                        </div>
-                                                    </div>
+													<div class="col-md-2">
+															<span>Package</span>
+															<div class="input-group">
+																<select id='select-package' name="select-package" class="form-control"></select>
+															</div>
+														</div>
 
-                                                    <div class="col-md-2">
-                                                        <span>Weight</span>
-                                                        <div class="input-group">
-                                                            <div class="input-group-text"><i class="fas fa-balance-scale"></i></div>
-                                                            <input type="text" name="Item-Weight" class='form-control' />
-                                                        </div>
-                                                    </div>
-                                                </div>
+														<div class="col-md-2">
+															<span>Length</span>
+															<div class="input-group">
+																<input type="text" name="Item-Length" id="Item-Length" class='form-control' />
+															</div>
+														</div>
+
+														<div class="col-md-2">
+
+														<span>Height</span>
+														<div class="input-group">
+															<input type="text" name="Item-Height" class='form-control' />
+														</div>
+														</div>
+														<div class="col-md-2">
+															<span>Width</span>
+															<div class="input-group">
+																<input type="text" name="Item-Width" class='form-control' />
+															</div>
+														</div>
+
+														<div class="col-md-2">
+															<span>Weight</span>
+															<div class="input-group">
+																<input type="text" name="Item-Weight" class='form-control' />
+															</div>
+														</div>
+												</div>
+											</fieldset>
 
                                                 <div class="col-md-12 table-responsive" style="margin-top:20px;">
                                                     <div class="col-md-12">
                                                         <p style="width: 100%;text-align: right;">
-                                                            <button id='sendItem' for-table='#table-items' class="btn btn-primary" style="background-color: #0b3355">Add Row</button>
-                                                            <button id='newItem' for-table='#table-items-new' class="btn btn-primary" style="background-color: #0b3355">Add Row</button>
+                                                            <button id='sendItem' for-table='#table-items' class="btn btn-primary" style="background-color: #0b3355">Add Item</button>
+                                                            <button id='newItem' for-table='#table-items-new' class="btn btn-primary" style="background-color: #0b3355">Add Item</button>
                                                         </p>
                                                     </div>
                                                 </div>
-
-                                            <input type="checkbox" id="btnControl2"/>
-                                            <label class="btn btn-sm btn-primary" for="btnControl2" style="background-color: #0b3355;">Hide</label>
-
                                             </div>
                                     </div>
 
@@ -659,8 +730,10 @@
 
                                         <table class="table table-bordred" id="dataTable" width="100%" cellspacing="0">
 											<tr>
-												<td colspan="3" style="width:42%"><b>Total Tax Amount:</b> <input type="text" name=""></td>
-												<td colspan="3" style="width:58%"><b>Total Income:</b>  <input type="text" name=""></td>
+												<td colspan="2" style="width:33%"><b>Total Pieces:</b> <input type="text" name="Total_Pieces" class="form-control"></td>
+												<td colspan="2" style="width:33%"><b>Total Weight:</b>  <input type="text" name="Total_Weight" class="form-control"></td>
+												<td colspan="2" style="width:33%"><b>Total Volume:</b>  <input type="text" name="Total_Volume" class="form-control"></td>
+
 											</tr>
 										</table>
 								</div>
@@ -682,7 +755,7 @@
 										</div>
 										<div class="col-md-4">
 											<label class="col-md-12" style="font-weight: bold;">Account</label>
-                                            <select name="magaya__Account" class="form-control">
+                                            <select name="Account" class="form-control no-border">
                                                 <option></option>
                                             </select>
 										</div>
@@ -690,7 +763,7 @@
 											<label class="col-md-12" style="font-weight: bold;">Customer Rol</label>
 											<!-- Material inline 1 -->
 											<div class="form-check form-check-inline">
-											  <input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
+											  <input type="radio" class="form-check-input" name="inlineMaterialRadiosExample">
 											  <label class="form-check-label" for="materialInline1">Shipper</label>
 											</div>
 
@@ -713,19 +786,19 @@
 											<label class="col-md-12" style="font-weight: bold; text-align: center;">Contact Info</label>
 											<div class="row" style="margin-bottom:10px;"></div>
 											<label class="col-md-12" style="font-weight: bold;">Representative</label>
-                                            <select name="magaya__Representative" class="form-control">
+                                            <select name="magaya__Representative" class="form-control no-border">
                                                 <option></option>
                                             </select>
 											<div class="row" style="margin-bottom:10px;"></div>
 											<label class="col-md-12" style="font-weight: bold;">Phone</label>
-											<input type="text" name="Phone" class="form-control">
+											<input type="text" name="magaya__ContactPhone" class="form-control no-border">
 											<div class="row" style="margin-bottom:10px;"></div>
 											<label class="col-md-12" style="font-weight: bold;">Movil</label>
-											<input type="text" name="Mobile" class="form-control">
+											<input type="text" name="magaya__ContactMobile" class="form-control no-border">
 											<div class="row" style="margin-bottom:10px;"></div>
 											<label class="col-md-12" style="font-weight: bold;">Email</label>
 											<div class="row" style="margin-bottom:10px;"></div>
-                                            <input type="text" name="Email" class="form-control" style="margin-bottom: 20px;">
+                                            <input type="text" name="magaya__ContactEmail" class="form-control no-border" style="margin-bottom: 20px;">
 
 											<div class="form-check">
   												<label class="form-check-label">
@@ -805,8 +878,8 @@
 					<div class="modal-footer" >
 						<div class="col-md-3">
 
-                            <button type="button" id="Save" class="btn btn-primary" style="width:80px;margin-right: 20px; background-color: #0b3355">Save</button>
-                            <button type="button" id="New" class="btn btn-primary" style="width:80px;margin-right: 20px; background-color: #0b3355">Add</button>
+                            <!--button type="button" id="Save" class="btn btn-primary" style="width:80px;margin-right: 20px; background-color: #0b3355">Save</button-->
+                            <button type="button" id="New" class="btn btn-primary" style="width:80px;margin-right: 20px; background-color: #0b3355">Save</button>
                             <button type="button" class="btn btn-danger cerrar" data-dismiss="modal" style="width:80px;">Cancel</button>
 						</div>
 					</div>
@@ -824,11 +897,9 @@
         $(".btn-slide").click(function(e){
             e.preventDefault()
             e.stopImmediatePropagation()
-
             $("#panel").slide();
             $(this).toggleClass("active"); return false;
         });
     });
-
    </script>
     @stop
