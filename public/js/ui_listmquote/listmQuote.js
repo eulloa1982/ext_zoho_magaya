@@ -709,7 +709,7 @@ $(document).ready(function(){
                 e.stopImmediatePropagation()
                 //$('form').toggleClass('show');
                 let data_id = $(this).attr("data-id");
-                let module = $(this).parent().parent().parent().parent().attr("id")
+                let module = $(this).attr("data-module")
                 $(this).dataShow(module, data_id)
                 $("#panel").show("fast");
                 $(this).toggleClass("active"); return false;
