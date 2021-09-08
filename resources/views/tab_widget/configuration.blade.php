@@ -62,7 +62,7 @@ $(document).ready(function(){
             .catch(function(error) {
                     console.log("Error org variable url", error)
             })
-        ZOHO.CRM.API.getOrgVariable("magaya__magaya_network_id")
+        ZOHO.CRM.API.getOrgVariable("magaya__networkid")
             .then(function (response) {
                 console.log("Gettinf network id" , response.Success.Content)
                    network_id = response.Success.Content;
