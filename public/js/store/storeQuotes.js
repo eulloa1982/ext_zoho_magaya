@@ -9,21 +9,21 @@ const initialStateQuote = {
 function reducerQuote (state = initialStateQuote, actions)  {
 
     switch (actions.type) {
-        case 'ADD': {
+        case ADD: {
             //agregar validacion del account
             return Object.assign({}, state, {
                 quotes: state.quotes.concat(actions.payload)
             });
         }
 
-        case 'REST': {
+        case REST: {
             return {
                     ...state,
                     quotes: state.quotes.filter(quote => quote.id !== actions.payload.id),
                 }
             }
 
-        case 'FIND': {
+        case FIND: {
             let byId = actions.payload.id;
             var quoteToEdit = {}
             state.quotes.map(quote => {
@@ -37,7 +37,7 @@ function reducerQuote (state = initialStateQuote, actions)  {
             }
         }
 
-        case 'UPDATE_QUOTE': {
+        case UPDATE_QUOTE: {
             let byId = actions.payload.id
             let body = actions.payload
             const index = state.quotes.findIndex(quote => quote.id === byId)
@@ -49,17 +49,29 @@ function reducerQuote (state = initialStateQuote, actions)  {
             }
         }
 
-        case 'FIND_ALL':
+        case CLEAR_QUOTE_TO_EDIT: {
+            state.quoteToEdit = initialStateQuote.quoteToEdit
+            return {
+                ...state,
+                quoteToEdit: state.quoteToEdit
+            }
+        }
+
+        case FIND_ALL:
             return {
                 ...state
             }
 
-        /*case 'SET_ACCOUNT': {
-            currentAccount = actions.payload.account;
+        case FIND_BY_NAME: {
+            charSeeker = actions.payload.char;
+
             return {
-                currentAccount
+                ...state,
+                quotes2: state.quotes.filter(function (quote) {
+                    return quote.Name === actions.payload.char;
+                  })
             }
-        }*/
+        }
         default:
             //currentAccount = 0;
             return state;
@@ -75,41 +87,42 @@ function reducerQuote (state = initialStateQuote, actions)  {
 const storeQuote = Redux.createStore(reducerQuote);
 
 
-//////////////////////////////////////////////////////////
-////////SUSCRIPTORES
-///////////////////////////////////////////////////////////
-storeQuote.subscribe(() => {
-    let u = storeQuote.getState()
-    console.log("State quote now", u)
-    let i = 0;
-})
+
 
 ////////////////////////////////////////////////////
 //REDUX Actions
 /////////////////////////////////////////////////////
 
 function addQuote(payload) {
-    return { type: 'ADD', payload };
+    return { type: ADD, payload };
 }
 
 function deleteQuote(payload) {
-    return { type: 'REST', payload };
+    return { type: REST, payload };
 }
 
 function findQuote(payload) {
-    return { type: 'FIND', payload };
+    return { type: FIND, payload };
 }
 
 function findAll() {
-    return { type: 'FIND_ALL' }
+    return { type: FIND_ALL }
 }
 
 function updateQuote(payload) {
-    return { type: 'UPDATE_QUOTE', payload}
+    return { type: UPDATE_QUOTE, payload}
 }
 
 function setAccountQuote(payload) {
-    return { type: 'SET_ACCOUNT', payload }
+    return { type: SET_ACCOUNT, payload }
+}
+
+function clearQuoteToEdit() {
+    return { type: CLEAR_QUOTE_TO_EDIT };
+}
+
+function findByName(payload) {
+    return { type: FIND_BY_NAME, payload };
 }
 
 

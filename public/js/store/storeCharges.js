@@ -91,7 +91,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
             let amount_tax = (newArray['magaya__Amount']/100)*newArray['magaya__Tax_Rate']
             newArray['magaya__Tax_Amount'] = roundDec(amount_tax);
             let amount_total = amount + amount_tax;
-            newArray['magaya__Amount_Total'] = amount_total;
+            newArray['magaya__Amount_Total'] = roundDec(amount_total);
 
             return Object.assign({}, state, {
                 chargesOnNew: state.chargesOnNew.concat(newArray)
@@ -112,7 +112,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
             let amount_tax = (newArray[index]['magaya__Amount']/100)*newArray[index]['magaya__Tax_Rate']
             newArray[index]['magaya__Tax_Amount'] = amount_tax
             let amount_total = amount + amount_tax;
-            newArray[index]["magaya__Amount_Total"] = amount_total
+            newArray[index]["magaya__Amount_Total"] = roundDec(amount_total)
             return {
                 ...state,
                 chargesOnNew: newArray

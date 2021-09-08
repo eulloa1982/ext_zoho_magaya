@@ -2,7 +2,7 @@ const initialStateIntems = {
     items: [],
     itemsQuote: [],
     itemsOnNew: [],
-    singleItem: []
+    singleItem: [],
   };
 
 function reducerItem (state = initialStateIntems, actions)  {
@@ -16,19 +16,23 @@ function reducerItem (state = initialStateIntems, actions)  {
                 items: state.items.concat(actions.payload)
             });
 
+
         case ADD_ITEM_ON_NEW:
-            //calculate volume and weigth
-            //let system = actions.payload.magaya__Measure_System;
+            //calculate totales
+            newArray = state.itemsOnNew;
+
 
             return Object.assign({}, state, {
-                itemsOnNew: state.itemsOnNew.concat(actions.payload)
+                itemsOnNew: state.itemsOnNew.concat(actions.payload),
                 });
+
 
         case DELETE_ITEM:
             return {
                 ...state,
                 items: state.items.filter(item => item.id !== actions.payload.id),
             }
+
 
         case DELETE_ITEM_ON_NEW: {
             const index = actions.payload.id
@@ -46,6 +50,7 @@ function reducerItem (state = initialStateIntems, actions)  {
 
         }
 
+
         case GET_ITEM_QUOTE: {
             const byId = actions.payload.id;
             state.singleItem = initialStateIntems.singleItem;
@@ -55,15 +60,31 @@ function reducerItem (state = initialStateIntems, actions)  {
             }
         }
 
+
         case GET_ITEM_QUOTE_ON_NEW: {
             //drop all first
             const byId = actions.payload.id
             state.singleItem = initialStateIntems.singleItem
             state.itemsOnNew[byId]["id"] = byId
+            //calculate totales
+
             return {
                 ...state,
                 singleItem: [byId, state.itemsOnNew[byId]]
             }
+        }
+
+
+        case UPDATE_ITEM_ON_NEW: {
+            const byId = actions.payload.id
+            const field = actions.payload.field;
+            const value = actions.payload.value;
+            state.singleItem[field] = value
+            return {
+                ...state,
+                singleItem: state.singleItem
+            }
+
         }
 
         case CALCULATE_VOLUME: {
@@ -84,6 +105,7 @@ function reducerItem (state = initialStateIntems, actions)  {
                 factor = 1000
 
             newArray[index]["magaya__Weigth"] = roundDec(volume / factor)
+            //calculate totales
 
             return {
                 ...state,
@@ -194,4 +216,8 @@ function setVolumeOnNew(payload) {
 //when edit an item or add new one
 function emptyItems() {
     return { type: EMPTY_ITEMS }
+}
+
+function updateItemOnNew(payload) {
+    return { type: UPDATE_ITEM_ON_NEW, payload }
 }

@@ -35,7 +35,8 @@ storeSuccess.subscribe(() => {
     //$("#show-success").empty()
     //$("#quote-info").html(`Operation Success: ${message}`).css("display", "block").addClass("animate__backInLeft").fadeIn("slow").delay(2000).fadeOut("slow");
     //$("#quote-info").append(`<p class="animate__animated animate__bounceInLeft">Operation success: ${message_success.message}</p>`).css("display", "block").fadeIn("slow").delay(6000).fadeOut("slow");
-    $("#quote-info").append(`<p>Operation success: ${message_success.message}</p>`).css("display", "block").css("display", "block").show("slow").delay(3000).fadeOut("slow");
+    $("#quote-info").css("display", "block").show("slow");
+    $("#message-info").html(`<p>Operation success: ${message_success.message}</p>`);
 
 })
 

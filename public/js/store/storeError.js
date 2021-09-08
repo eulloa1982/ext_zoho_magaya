@@ -39,8 +39,11 @@ storeError.subscribe(() => {
      let errorData = _.last(error.errors)
      let {errorCode, showInfo, field, module} = errorData
 
-    if(showInfo)
-        $("#quote-alert").html(`<p class="alert alert-danger animate__animated animate__bounceInLeft">Error code: "${errorCode}", on field "${field}" on module "${module}"</p>`).css("display", "block").fadeIn("slow").delay(2000).fadeOut("slow");
+    if(showInfo) {
+        $("#quote-alert").css("display", "block").show("slow");
+        $("#message-alert").html(`Error code: "${errorCode}", on field "${field}" on module "${module}"`);
+
+    }
     else {
         $("#quote-alert").append(`<p>Error: "${errorCode}"</p>`).css("display", "block").fadeIn("slow").delay(4000).fadeOut("slow");
     }
