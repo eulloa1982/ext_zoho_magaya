@@ -227,7 +227,6 @@ $('#sortable3').bind("DOMSubtreeModified", function() {
 
         //$('#output').text($.sanitize($input));
         //var config = { APIData: data }
-        console.log("Data to send", data)
         //Object.assign(config, { Entity: "Accounts" });
         insertRecordCRM("Accounts", data, "workflow").then(r => {
             if (r[0]['code'] == "SUCCESS") {
@@ -673,17 +672,18 @@ function drawContactsCRM() {
             $.map(response.data, function(k, i) {
                 //contacts.push(k);
                 accounts.push(k)
-                accountName = sanitize(k.Account_Name)
+                k.Account_Name = sanitize(k.Account_Name)
+                k.magaya__MagayaGUID = sanitize(k.magaya__MagayaGUID)
                 $("#sortable3").append(`<li class="list-group-item" data-magayaGuid="${k.magaya__MagayaGUID}" data-id="${k.id}">
                                        <input class="form-check-input-contact-crm" type="checkbox" value="">
                                        <button class="btn btn-sm view-account-crm"><i class="fa fa-eye"></i></button>
 
                                        <i class="far fa-edit"></i>
-                                       ${accountName}  (${k.magaya__MagayaEmail})</li>`)
+                                       ${k.Account_Name}  (${k.magaya__MagayaEmail})</li>`)
 
-                                       $("<option value='"+k.id+"'>"+accountName+"</option>").appendTo("select[name=quotation-for-accounts]");
-                                       $("<option value='"+k.id+"'>"+accountName+"</option>").appendTo("select[name=ShipperName]");
-                                       $("<option value='"+k.id+"'>"+accountName+"</option>").appendTo("select[name=ConsigneeName]");
+                                       $("<option value='"+k.id+"'>"+k.Account_Name+"</option>").appendTo("select[name=quotation-for-accounts]");
+                                       $("<option value='"+k.id+"'>"+k.Account_Name+"</option>").appendTo("select[name=ShipperName]");
+                                       $("<option value='"+k.id+"'>"+k.Account_Name+"</option>").appendTo("select[name=ConsigneeName]");
 
 
             })
@@ -884,7 +884,7 @@ function checkCustomerOnMagaya(account = 0) {
         var customerIndex = 0;
         var guidChecking = accounts.findIndex(i => i["id"] == idAccount);
         if (guidChecking >= 0) {
-            magayaGuid = accounts[guidChecking]["magaya__MagayaGUID"]
+            magayaGuid = sanitize(accounts[guidChecking]["magaya__MagayaGUID"])
                 //get customer
             customerIndex = MagayaUsers.findIndex(i => i["@attributes"]["GUID"] === magayaGuid);
             if (customerIndex >= 0)
@@ -915,6 +915,6 @@ function sanitize(input) {
 	    return output;
         */
        if (!_.isEmpty(input)) {
-            return input.replace(/<(|\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g, '');
+            return input.replace(/<(|\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g, '').replace(/[^a-zA-Z0-9]/g, ' ');
        }
 	};

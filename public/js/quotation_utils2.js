@@ -355,6 +355,8 @@ $('#sortable2').bind("DOMSubtreeModified", function() {
                     $.each(idemCharges, function(i, k) {
                         cont++;
                         amountTotal += parseFloat(k.magaya__Amount);
+                        k.Name = sanitize(k.Name)
+                        //k.Description
                         $("#charges tbody").append(
                             `<tr>
                                             <td colspan="6" style="border: 1px solid #000;">${k.Name}</td>
@@ -392,6 +394,7 @@ $('#sortable2').bind("DOMSubtreeModified", function() {
                     $.each(idemItems, function(i, k) {
                         var weight = k.magaya__Weigth > 0 ? k.magaya__Weigth : 0;
                         var volume = k.magaya__Volume > 0 ? k.magaya__Volume : 0;
+                        k.Name = sanitize(k.Name)
                         $("#items tbody").append(
                             `<tr>
                                                 <td style="border: 1px solid #000;">${k.magaya__Pieces}</td>

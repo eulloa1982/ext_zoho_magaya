@@ -274,6 +274,8 @@ $('#sortable2').bind("DOMSubtreeModified", function() {
                         cont++;
                         amountTotal += parseFloat(k.magaya__Amount);
                         $("#charges tbody").append(
+                            k.Name = sanitize(k.Name)
+
                             `<tr>
                                             <td colspan="6" style="border: 1px solid #000;">${k.Name}</td>
                                             <td colspan="2" style="border: 1px solid #000;text-align: right;">${k.magaya__CQuantity}</td>
@@ -313,7 +315,7 @@ $('#sortable2').bind("DOMSubtreeModified", function() {
                         $("#items tbody").append(
                             `<tr>
                                                 <td style="border: 1px solid #000;">${k.magaya__Pieces}</td>
-                                                <td colspan="5" style="border: 1px solid #000;">${k.Name}</td>
+                                                <td colspan="5" style="border: 1px solid #000;">${sanitize(k.Name)}</td>
                                                 <td colspan="2" style="border: 1px solid #000;text-align: right;">${roundDec(weight)} ${mass_measure}</td>
                                                 <td colspan="2" style="border: 1px solid #000;text-align: right;">${roundDec(volume)} ${mass_measure}</td>
                                                 <td colspan="2" style="border: 1px solid #000;text-align: right;">${roundDec(weight)} ${mass_measure}</td>

@@ -840,6 +840,8 @@ $('#sortable2').bind("DOMSubtreeModified", function() {
                             //console.log(k)
                             var nameField = k.split("magaya__");
                             //campos que no son objetos
+                            nameField[1] = sanitize(nameField[1])
+                            v = sanitize(v)
                             $("#QuoteForm input[name=" + nameField[1] + "]").val(v);
                             $("#QuoteForm select[name=" + nameField[1] + "]").val(v);
                             //otros select
@@ -923,13 +925,18 @@ $('#sortable2').bind("DOMSubtreeModified", function() {
 
                               $("#ApplyToAccounts").append(`<option value='${applyToId}'>${applyTo}</option>`);
                               //$("#QuoteForm select[name=ApplyToAccounts]").val(applyToId);
-                            }
+                                }
+
+                                k.magaya__ChargeCode = sanitize(k.magaya__ChargeCode)
+                                k.Name = sanitize(k.Name)
+                                k.magaya__Charge_Description = sanitize(k.magaya__Charge_Description)
 
                             $("#table-charges tbody").append(`<tr><td class="Delete"><i class="fa fa-trash del-item-charge" aria-hidden="true"></i></td>
                                                             <td class="magaya__ChargeCode">${k.magaya__ChargeCode}</td>
-                                                            <td class="Name">${k.Name}</td><td class="magaya__Charge_Description">${k.magaya__Charge_Description}</td>
+                                                            <td class="Name">${k.Name}</td>
+                                                            <td class="magaya__Charge_Description">${k.magaya__Charge_Description}</td>
                                                             <td class="magaya__CQuantity">${k.magaya__CQuantity}</td>
-                                                            <td class="magaya__Price">${k.magaya__Price}</td>
+                                                            <td class="magaya__Price">dfgdfgdf${k.magaya__Price}</td>
                                                             <td class="magaya__Amount">${k.magaya__Amount}</td>
                                                             <td class="magaya__QuanPlusTax">${k.magaya__QuanPlusTax}</td>
                                                             <td class="NoData"></td>
@@ -952,11 +959,11 @@ $('#sortable2').bind("DOMSubtreeModified", function() {
                 if (!_.isEmpty(response.data)) {
                     idemItems = response.data
                     $.each(idemItems, function(i, k) {
-
+                        k.Name = sanitize(k.Name)
                         console.log("Select 555")
                             var volume = k.magaya__Length * k.magaya__Height * k.magaya__Width;
                             //appendData = `<tr><td class="Delete"><i class="fa fa-trash del-item-warehouse" aria-hidden="true"></i></td><td class="magaya__Status"><select id="Status" name="Status" class="form-control"><option value="${k.magaya__Status}" selected="true">${k.magaya__Status}</option></select></td><td class='Name'>${k.Name}</td><td class='magaya__Pieces'>${k.magaya__Pieces}</td><td class='magaya__Length'>${k.magaya__Length}</td><td class='magaya__Height'>${k.magaya__Height}</td><td class='magaya__Width'>${k.magaya__Width}</td><td class="magaya__Weigth">${k.magaya__Weigth}</td><td class="magaya__Volume">${volume}</td></tr>`
-                            appendData = `<tr><td class="Delete"><i class="fa fa-trash del-item-warehouse" aria-hidden="true"></i></td><td class="magaya__Status">${k.magaya__Status}</td><td class='Name'>${k.Name}</td><td class='magaya__Pieces'>${k.magaya__Pieces}</td><td class='magaya__Length'>${k.magaya__Length}</td><td class='magaya__Height'>${k.magaya__Height}</td><td class='magaya__Width'>${k.magaya__Width}</td><td class="magaya__Weigth">${k.magaya__Weigth}</td><td class="magaya__Volume">${volume}</td></tr>`
+                            appendData = `<tr><td class="Delete"><i class="fa fa-trash del-item-warehouse" aria-hidden="true"></i></td><td class="magaya__Status">${k.magaya__Status}</td><td class='Name'>${sanitize(k.Name)}</td><td class='magaya__Pieces'>${k.magaya__Pieces}</td><td class='magaya__Length'>${k.magaya__Length}</td><td class='magaya__Height'>${k.magaya__Height}</td><td class='magaya__Width'>${k.magaya__Width}</td><td class="magaya__Weigth">${k.magaya__Weigth}</td><td class="magaya__Volume">${volume}</td></tr>`
                             $("#table-items tbody").append(appendData);
 
                         }) //each
