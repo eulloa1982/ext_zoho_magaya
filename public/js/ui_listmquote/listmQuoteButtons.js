@@ -348,7 +348,7 @@ $(document).ready(function(){
 
         let PaidAs = $("select[name=PaidAs]").val()
 
-        let accountId = $("select[name=Account]")
+        let accountId = $("select[name=Account]").val()
 
         var ChargeCurrency = $("select[name=Currency]").val();
         let item = {
@@ -368,7 +368,6 @@ $(document).ready(function(){
                 'magaya__Unit': Unity,
                 'magaya__Paid_As': PaidAs
         }
-        console.log("")
         storeCharge.dispatch(addChargeOnNew({...item}))
 
 

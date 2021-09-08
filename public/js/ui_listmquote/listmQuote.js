@@ -325,7 +325,7 @@ $(document).ready(function(){
                 e.stopImmediatePropagation()
                 //$('form').toggleClass('show');
                 let data_id = $(this).attr("data-id");
-                let module = $(this).parent().parent().parent().parent().attr("id")
+                let module = $(this).attr("data-module")
                 $(this).dataShow(module, data_id)
                 $("#panel").show("fast");
                 $(this).toggleClass("active"); return false;
@@ -461,7 +461,7 @@ $(document).ready(function(){
                 e.stopImmediatePropagation()
                 //$('form').toggleClass('show');
                 let data_id = $(this).attr("data-id");
-                let module = $(this).parent().parent().parent().parent().attr("id")
+                let module = $(this).attr("data-module")
                 $(this).dataShow(module, data_id)
                 $("#panel").show("fast");
                 $(this).toggleClass("active"); return false;
@@ -780,11 +780,11 @@ $(document).ready(function(){
         //////// subscribers UI
         ////////////////////////////////////////////////////////////////////////
         ////// change account, find contacts of accounts//////////////////////////
-        $("select[name=magaya__Account]").change(function(e) {
+        $("select[name=Account]").change(function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
 
-            let account = $("select[name=magaya__Account]").val();
+            let account = $("select[name=Account]").val();
             store.dispatch(addQuoteAccount({accountId: account}))
             storeAccounts.dispatch(findContactOfAccount({id: account}))
         })
@@ -801,8 +801,8 @@ $(document).ready(function(){
         //////////susbscriber contacList, fill representative select
         storeAccounts.subscribe(() => {
             let contacts = storeAccounts.getState().contactList;
-            $("select[name=magaya__Representative]").empty();
-            $("<option></option>").appendTo("select[name=magaya__Representative]");
+           //$("select[name=magaya__Representative]").empty();
+            //$("<option></option>").appendTo("select[name=magaya__Representative]");
 
             $.map(contacts, function(k, v) {
                 $(`<option value="${k.id}">${k.Full_Name}</option>`).appendTo("select[name=magaya__Representative]")
@@ -812,14 +812,9 @@ $(document).ready(function(){
         ////////subscriber singleContact, fill fields contact data
         storeAccounts.subscribe(() => {
             let contact = storeAccounts.getState().singleContact
-
-            $.map(contact[0], function(k, v) {
-                if (!_.isObject(v) && !v.includes("$")) {
-                    $(`input[name=${v}]`).val(k)
-                    //$(`select[name=${v}]`).val(k)
-                }
-            })
-
+            $("input[name=magaya__ContactPhone]").val(contact[0]["Phone"])
+            $("input[name=magaya__ContactEmail]").val(contact[0]["Email"])
+            $("input[name=magaya__ContactMobile]").val(contact[0]["Mobile"])
         })
 
 

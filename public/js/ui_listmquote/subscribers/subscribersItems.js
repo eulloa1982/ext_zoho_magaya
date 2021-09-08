@@ -18,7 +18,7 @@ storeItem.subscribe(() => {
 
         $("#info-datad").empty()
         let append = `
-            <span class="material-icons cursor-hand btn-slide" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
+            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
             <span class="material-icons cursor-hand btn-slide" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
         `
         $.map(u[1], function(k, v) {
@@ -74,7 +74,7 @@ storeItem.subscribe(() => {
 
                 $("#table-items-new tbody").append(`<tr>
                 <td class='Delete'>
-                    <span class="material-icons oculto btn-slide" data-id="${i}">create</span>
+                    <span class="material-icons oculto btn-slide" data-module="table-items-new" data-id="${i}">create</span>
                     <span class="material-icons oculto del-item-warehouse-new" data-id=${i}>clear</span>
                 </td>
                 <td class="magaya__Pieces"><input type="text" class="form-control no-border" value="${k.magaya__Pieces}"/></td>
@@ -127,7 +127,7 @@ storeItem.subscribe(() => {
 
             let appendData = `<tr>
             <td class="Delete">
-                <span class="material-icons oculto btn-slide" data-id="${i}">create</span>
+                <span class="material-icons oculto btn-slide" data-module="table-items" data-id="${i}">create</span>
                 <span class="material-icons oculto del-item-warehouse" data-id=${k.id}>clear</span>
             </td>
             <td><input type="text" class="form-control no-border" name="magaya__Pieces" value="${k.magaya__Pieces}"/></td>

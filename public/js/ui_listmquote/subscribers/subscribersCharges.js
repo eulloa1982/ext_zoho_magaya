@@ -19,8 +19,8 @@ storeCharge.subscribe(() => {
 
         $("#info-datad").empty()
         let append = `
-            <span class="material-icons cursor-hand btn-slide" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
-            <span class="material-icons cursor-hand btn-slide" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
+            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
+            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
         `
 
         $.map(u[1], function(k, v) {
@@ -67,7 +67,7 @@ storeCharge.subscribe(() => {
                 }
                 $("#table-charges tbody").append(`<tr>
                     <td>
-                        <span class="material-icons oculto btn-slide" data-id="${i}">create</span>
+                        <span class="material-icons oculto btn-slide" data-module="table-charges" data-id="${i}">create</span>
                         <span class="material-icons oculto del-item-warehouse-new" data-id=${i}>clear</span>
                     </td>
                     <td class="magaya__Status">${k.magaya__Status}</td>
@@ -101,7 +101,7 @@ storeCharge.subscribe(() => {
 
                 $("#table-charges-new tbody").append(`<tr>
                 <td>
-                    <span class="material-icons oculto btn-slide" data-id="${i}">create</span>
+                    <span class="material-icons oculto btn-slide" data-module="table-charges-new" data-id="${i}">create</span>
                     <span class="material-icons oculto del-item-warehouse-new" data-id=${i}>clear</span>
                 </td>
                 <td class="magaya__Status">${k.magaya__Status}</td>
