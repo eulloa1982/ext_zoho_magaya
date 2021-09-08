@@ -8,7 +8,13 @@ $(document).ready(function(){
         format: 'Y-m-d H:m:s'
     });
 
-
+    //boton cerrar panel
+    $(".noselect #close-all").click(function() {
+        let panelId = $(this).attr("data-close")
+        $(`#${panelId}`).animate({width:'toggle'},150);
+        //$(`#${panelId}`).show("slide", { direction: "left" }, 1000);
+        //$("#slide").animate({width:'toggle'},350);
+    })
 
     //boton delete
     $("#deleteMquote").click(function(e) {
@@ -42,6 +48,87 @@ $(document).ready(function(){
     })
 
 
+
+     ///////////////////////////////////////////////////////////////////////////////////
+    /////////no - border form edit
+    ///////////////////////////////////////////////////////////////////////////////////
+    $(".no-border").click(function(e) {
+        $(this).addClass("editable");
+
+        let t = $("<span>Edit</span>")
+        let parent = $(this).parent().parent();
+        oldValue = $(this).val()
+    })
+
+    $(".no-border").blur(function(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation()
+
+        if ( quoteToEdit && !_.isEmpty(quoteToEdit)) {
+            let $celd = $(this)
+            $(this).removeClass("editable")
+
+            let value =$(this).val();
+            let field = $(this).attr('name');
+            let idItem = quoteToEdit.id
+            console.log("Quote a edit", quoteToEdit)
+            console.log(`value: ${value}, field: ${field}`)
+
+            //it have to be any class attached
+            if (field !== undefined && field !== 'undefined') {
+                console.log('sending to CRM')
+                //let idItem = $(this).parent().attr("data-id");
+                //pintamos el nuevo value parseado
+                //$(this).val(value);
+                //if (oldValue.toString() !== value.toString()) {
+
+                    let json_items ='{"id":"'+ idItem +'", "' + field + '": "' + value + '"}';
+
+                    var config={
+                        Entity:"magaya__SQuotes",
+                        APIData: JSON.parse(json_items)
+                    }
+
+                    console.log(config)
+                    ZOHO.CRM.API.updateRecord(config)
+                        .then(function(data){
+                            res = data.data;
+                            $.map(res, function(k, v) {
+                                if (k.code !== "SUCCESS") {
+                                    codeError = k.code;
+                                    field = k.details.api_name;
+                                    show = true;
+                                    module = 'Cargo Items'
+                                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                                } else {
+                                    ZOHO.CRM.API.getRecord({Entity: "magaya__SQuotes", RecordID:idItem})
+                                        .then(function (res) {
+                                            let record = res.data[0]
+                                            storeQuote.dispatch(updateQuote(record))
+
+                                        })
+                                    message = " : Item Updated!!";
+                                    storeSuccess.dispatch(addSuccess({message: message}))
+
+                                }
+                            })
+
+                        })
+                        .catch(function(error) {
+                            $(`input.editable[name=${field}]`).val(oldValue);
+                            console.log(error)
+                            codeError = 'Error on field';
+                            show = true;
+                            field = oldValue;
+                            module = 'Service Items'
+                            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                        })
+                //}
+            }
+        }
+    })
     ///////////////////////////////////////////////////////////////////////////////////
     /////////table quotes, main table
     ///////////////////////////////////////////////////////////////////////////////////
@@ -232,7 +319,8 @@ $(document).ready(function(){
         $('#table-items').bind("DOMSubtreeModified", function(e) {
             let oldValue = '';
 
-            $('.btn-slide').click(function(e) {
+
+           $('.btn-slide').click(function(e) {
                 e.preventDefault()
                 e.stopImmediatePropagation()
                 //$('form').toggleClass('show');
@@ -245,33 +333,25 @@ $(document).ready(function(){
               });
 
 
-            $('.close').click(function(e) {
-                e.preventDefault()
-                $("#panel").hide()
-
-            });
-
             //editable in situ
-            $(".no-border").click(function(e) {
+            $(".no-border-item").click(function(e) {
                 $(this).addClass("editable");
-
-                let t = $("<span>Edit</span>")
-                let parent = $(this).parent().parent();
                 oldValue = $(this).val()
             })
 
-            $(".no-border").blur(function(e) {
+            $(".no-border-item").on("change blur", function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation()
                 let $celd = $(this)
                 $(this).removeClass("editable")
 
-                let value = parseFloat($(this).val());
+                let value = $(this).val().replace(/[^a-zA-Z0-9]\./g, ' ');
                 let field = $(this).attr('name');
 
                 //it have to be any class attached
                 if (field !== undefined && field !== 'undefined') {
-                    let idItem = $(this).parent().attr("data-id");
+                    let idItem = $(this).attr("data-id");
+
                     //pintamos el nuevo value parseado
                     $(this).val(value);
                     if (oldValue.toString() !== value.toString()) {
@@ -287,6 +367,7 @@ $(document).ready(function(){
                         ZOHO.CRM.API.updateRecord(config)
                             .then(function(data){
                                 res = data.data;
+                                console.log("response", res)
                                 $.map(res, function(k, v) {
                                     if (k.code !== "SUCCESS") {
                                         codeError = k.code;
@@ -297,6 +378,7 @@ $(document).ready(function(){
 
                                     } else {
                                         message = " : Item Updated!!";
+                                        storeItem.dispatch(updateItemOnNew({id: idItem, field: field, value: value}))
                                         storeItem.dispatch(setVolume({id:idItem, field: field, value: value}))
                                         storeSuccess.dispatch(addSuccess({message: message}))
 
@@ -305,6 +387,7 @@ $(document).ready(function(){
 
                             })
                             .catch(function(error) {
+                                console.log("error", error)
                                 $(`input.editable[name=${field}]`).val(oldValue);
                                 codeError = 'Error on field';
                                 show = true;
@@ -346,7 +429,7 @@ $(document).ready(function(){
                                     storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
                                 } else {
-                                    message = " : Item Updated!!";
+                                    message = " : Item Deleted!!";
                                     //actualizar el volumen
                                     storeItem.dispatch(deleteItem({id: idItem}))
                                     storeSuccess.dispatch(addSuccess({message: message}))
@@ -357,14 +440,12 @@ $(document).ready(function(){
                             })
                             .catch(function(error){
                                 dataError = error.data;
-                                $.map(dataError, function(k, v) {
-                                    codeError = 'Error on field';
-                                    show = true;
-                                    field = oldValue;
-                                    module = 'Service Items'
-                                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+                                codeError = error.code
+                                show = true;
+                                field = '';
+                                module = 'Cargo Items'
+                                storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
-                                })
                             })
                     }
                 });
@@ -399,31 +480,23 @@ $(document).ready(function(){
             ///////// data in situ editable
             ///////////////////////////////////////////////////////////////////
 
-            $(".no-border").click(function(e) {
+            $("#table-charges .no-border-charge").click(function(e) {
                 $(this).addClass("editable");
 
-                let t = $("<span>Edit</span>")
-                let parent = $(this).parent().parent();
                 oldValue = $(this).val()
-                //parent.html(t)
-
-
             })
 
-            $(".no-border").blur(function(e) {
+            $(".no-border-charge").on("change blur", function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation()
-                let $celd = $(this)
+
                 $(this).removeClass("editable")
-                //let tr = $(this).parent().parent();
 
                 let value = $(this).val().replace(/[^a-zA-Z0-9]\./g, ' ');
                 let field = $(this).attr('name');
-                let idCharge = $(this).parent().attr("data-id")
+                let idCharge = $(this).attr("data-id")
                 //check class for each field
                 if (field !== undefined && field !== 'undefined') {
-                    //let celd = tr.find("td:first");
-                    //let child = celd.children().attr('data-id');
 
                     if (field === "magaya__CQuantity" || field === "magaya__Price") {
                         value = parseFloat(value);
@@ -439,8 +512,7 @@ $(document).ready(function(){
                             APIData: JSON.parse(json_items)
                         }
 
-                        console.log("Charge to send", config)
-
+                        console.log("Charges to send" , config)
                         ZOHO.CRM.API.updateRecord(config)
                             .then(function(data){
                                 res = data.data;
@@ -593,18 +665,13 @@ $(document).ready(function(){
             //////////////////////////////////////////////////////////////////
             ///////// data in situ editable
             ///////////////////////////////////////////////////////////////////
-            $(".no-border").click(function(e) {
+            $(".no-border-charge-new").click(function(e) {
                 $(this).addClass("editable");
 
-                let t = $("<span>Edit</span>")
-                let parent = $(this).parent().parent();
                 oldValue = $(this).val()
-                //parent.html(t)
-
-
             })
 
-            $(".no-border").blur(function(e) {
+            $(".no-border-charge-new").on("change blur", function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation()
                 let $celd = $(this)
@@ -613,10 +680,8 @@ $(document).ready(function(){
                 let value = $(this).val().replace(/[^a-zA-Z0-9]\./g, ' ');
                 let field = $(this).attr('name');
 
-                //let celd = tr.find("td:first");
-                //let child = celd.children().attr('data-id');
-                let child = $(this).parent().attr("data-id")
-                console.log(`${field} , ${value}, ${child}`)
+                let idItem = $(this).attr("data-id")
+                console.log(`${field} , ${value}, ${idItem}`)
 
                 if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__CantImp") {
                     value = parseFloat(value);
@@ -624,8 +689,7 @@ $(document).ready(function(){
 
                 //si los valores son iguales, no actualizar nada
                 if (oldValue.toString() !== value.toString()) {
-                    storeCharge.dispatch(setAmountOnNew({id:child, field: field, value: value}))
-
+                    storeCharge.dispatch(setAmountOnNew({id:idItem, field: field, value: value}))
                 }
 
             })
@@ -683,15 +747,13 @@ $(document).ready(function(){
             })
 
 
-            $(".no-border").click(function(e) {
+            $(".no-border-item-new").click(function(e) {
                 $(this).addClass("editable");
 
-                let t = $("<span>Edit</span>")
-                let parent = $(this).parent().parent();
                 oldValue = $(this).val()
             })
 
-            $(".no-border").blur(function(e) {
+            $(".no-border-item-new").on("change blur", function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation()
                 let $celd = $(this)
@@ -706,6 +768,7 @@ $(document).ready(function(){
                 //pintamos el nuevo value parseado
                 $(this).val(value);
                 if (oldValue.toString() !== value.toString()) {
+                    storeItem.dispatch(updateItemOnNew({id: idItem, field: field, value: value}))
                     storeItem.dispatch(setVolumeOnNew({id:idItem, field: field, value: value}))
                 }
 

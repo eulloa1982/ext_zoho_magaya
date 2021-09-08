@@ -95,3 +95,11 @@ function sanitize(input) {
         return input.replace(/<(|\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g, '');
    }
 };
+
+
+function limpiar_form() {
+    let elementos = document.querySelectorAll("input[type=text], input[id=magaya__Description], select[name=magaya__TransportationMode], select[name=magaya__Direction]")
+    elementos.forEach((elemento) => {
+        elemento.value = ''
+    })
+}

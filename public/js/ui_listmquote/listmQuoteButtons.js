@@ -8,10 +8,10 @@ $(document).ready(function(){
     //////subscriber Account, quote client
     store.subscribe(() => {
         account = store.getState();
+        console.log("Store state now", account)
 
         account = _.last(account['accountQuote'])
         accountId = account['accountId']
-        //console.log("Account quote id", accountId)
     })
 
     ////////subscriber singleContact, representative
@@ -24,9 +24,33 @@ $(document).ready(function(){
 
     ///////subscriptor single quote edit
     storeQuote.subscribe(() => {
-        let quote = storeQuote.getState();
-        quoteToEdit = quote.quoteToEdit;
-        console.log("Editing quote", quoteToEdit)
+        quoteToEdit = storeQuote.getState().quoteToEdit
+        if (!_.isEmpty(quoteToEdit.Account)) {
+            accountId = quoteToEdit.Account.id
+        }
+    })
+
+
+    $('.open-panel').click(function(e) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+        let panel = $(this).attr("data-panel");
+        //$('form').toggleClass('show');
+        $("#"+panel).show("fast");
+        $(this).toggleClass("active"); return false;
+
+      });
+
+    $("#search-by-name").click(function(e) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+
+        let val = $("input[type=search]").val()
+        storeQuote.dispatch(findByName({char: val}))
+
+        $("#panel-search").show("fast");
+        $(this).toggleClass("active"); return false;
+
     })
 
 
@@ -42,7 +66,7 @@ $(document).ready(function(){
         let length = ($(":input[name=Item-Length]").val()) > 0 ? $(":input[name=Item-Length]").val() : (packageType[rowIndex]['magaya__PackageLenght'] >= 0 ? packageType[rowIndex]['magaya__PackageLenght'] : 0);
         let height = ($(":input[name=Item-Height]").val()) > 0 ? $(":input[name=Item-Height]").val() : (packageType[rowIndex]['magaya__PackageHeight'] >= 0 ? packageType[rowIndex]['magaya__PackageHeight'] : 0);
         let width = ($(":input[name=Item-Width]").val()) > 0 ? $(":input[name=Item-Width]").val() : (packageType[rowIndex]['magaya__PackageWidth'] >= 0 ? packageType[rowIndex]['magaya__PackageWidth'] : 0);
-        let weight = ($(":input[name=Item-Weight]").val()) > 0 ? $(":input[name=Item-Weight]").val() : (packageType[rowIndex]['magaya__PackageWeigth'] >= 0 ? packageType[rowIndex]['magaya__PackageWeigth'] : 0);
+        //let weight = ($(":input[name=Item-Weight]").val()) > 0 ? $(":input[name=Item-Weight]").val() : (packageType[rowIndex]['magaya__PackageWeigth'] >= 0 ? packageType[rowIndex]['magaya__PackageWeigth'] : 0);
         let volume = parseFloat(length) * parseFloat(width) * parseFloat(height);
         let measure_system = $("select[name=magaya__Measure_System] option:selected").val()
 
@@ -50,7 +74,7 @@ $(document).ready(function(){
         length = parseFloat(length);
         height = parseFloat(height);
         width = parseFloat (width);
-        weight = parseFloat(weight);
+        //weight = parseFloat(weight);
         volume = parseFloat(volume);
 
         //formar el objeto
@@ -62,7 +86,7 @@ $(document).ready(function(){
             'magaya__Length': length,
             'magaya__Height': height,
             'magaya__Width': width,
-            'magaya__Weigth': weight,
+            'magaya__Weigth': 0,
             'magaya__Volume': volume,
             'magaya__Measure_System': measure_system
         }
@@ -142,11 +166,6 @@ $(document).ready(function(){
         let Amount = parseFloat(Quantity) * parseFloat(Price);
         Amount = roundDec(Amount);
 
-        let accountId = 0
-        if (!_.isEmpty(quoteToEdit.Account)) {
-            accountId = quoteToEdit.Account.id
-        }
-
         let item = {
                 'magaya__SQuote_Name': idmQuoteToEdit,
                 'Name': DescriptionCharges,
@@ -169,30 +188,30 @@ $(document).ready(function(){
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: item, Trigger: [] })
             .then(function(data) {
                 res = data.data;
-                //console.log(res)
-                $.map(res, function(k, v) {
-                    if (k.code !== "SUCCESS") {
-                        codeError = k.code;
-                        field = k.details.api_name;
-                        show = true;
-                        module = 'Service Items'
 
-                        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+                let idCharge = res[0]['details']['id'];
+                if (res[0]["code"] !== "SUCCESS") {
+                    codeError = res[0]["code"];
+                    field = res[0]['details']["api_name"];
+                    show = true;
+                    module = 'Service Items'
 
-                    } else {
-                        let idCharge = res[0].details.id;
-                        codeError = "";
-                        field = "";
-                        show = false;
-                        module = 'Service Items'
-                        let message = ": Added new Charge item"
-                        storeSuccess.dispatch(addSuccess({message: message}))
-                        //console.log({...item, id: idCharge})
-                        storeCharge.dispatch(addCharge({...item, id: idCharge}))
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
+                } else {
+                    ZOHO.CRM.API.getRecord({Entity:"magaya__ChargeQuote",RecordID:idCharge})
+                        .then(function(data){
+                            record = data.data;
 
-                    }
-                })
+                            $.map(record, function(k, v){
+                                storeCharge.dispatch(addCharge({...k}))
+                            })
+
+                            let message = ": Added new Charge item"
+                            storeSuccess.dispatch(addSuccess({message: message}))
+                        })
+
+                }
             })
             .then(function(){
                 Utils.unblockUI()
@@ -213,86 +232,6 @@ $(document).ready(function(){
 
 
 
-    //button save edited quote
-    $("#Save").click(function(e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-
-
-
-        let idQuote = quoteToEdit.id;
-
-        //receive data
-        data = {
-                id: idQuote,
-                "Name": quoteToEdit.Name,
-                "magaya__Shipper": $(":input[name=magaya__Shipper] option:selected").text().replace(/[^a-zA-Z0-9]/g, ' '),
-                "magaya__ExpirationDate": $(":input[name=magaya__ExpirationDate]").val(),
-                "magaya__Direction": $(":input[name=magaya__Direction]").val().replace(/[^0-9]\-\:\T/g, ' '),
-                "magaya__TransportationMode": $("select[name=magaya__TransportationMode] option:selected").val(),
-                "magaya__Description": $("#magaya__Description").val().replace(/[^a-zA-Z0-9]/g, ' '),
-                "magaya__Service": $("select[name=Service]").val().replace(/[^a-zA-Z0-9]/g, ' '),
-                "magaya__ConsigneeName": $("select[name=magaya__ConsigneeName] option:selected").text().replace(/[^a-zA-Z0-9]/g, ' '),
-                //"magaya__Stage": $("select[name=Stage] option:selected").val(),
-                //"magaya__Carrier": $("select[name=magaya__Carrier] option:selected").val().replace(/[^a-zA-Z0-9]/g, ' '),
-                //"magaya__Destination": $("input[name=magaya__Destination]").val().replace(/[^a-zA-Z0-9]/g, ' '),
-                //"magaya__Origin": $("input[name=magaya__Origin]").val().replace(/[^a-zA-Z0-9]/g, ' '),
-                "magaya__Status": $("select[name=magaya__Status] option:selected").val()
-        }
-        //cleanDataString(data)
-        console.log(data)
-        var config = {
-            Entity: "magaya__SQuotes",
-            id: idQuote,
-            APIData: { ...data}
-        }
-
-        ZOHO.CRM.API.updateRecord(config).then(function(response) {
-            res = response.data;
-            $.map(res, function(k, v) {
-                if (k.code !== "SUCCESS") {
-                    codeError = k.code;
-                    field = k.details.api_name;
-                    show = true;
-                    module = 'Cargo Items'
-                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                } else {
-                    message = " : Item Updated!!";
-                    storeSuccess.dispatch(addSuccess({message: message}))
-                    ZOHO.CRM.API.getRecord({Entity: "magaya__SQuotes", RecordID:idQuote})
-                        .then(function (res) {
-                            let record = res.data[0]
-                            storeQuote.dispatch(updateQuote(record))
-
-                        })
-                    $(".container").show().addClass("animate__animated animate__bounceOutLeft")
-
-                }
-            })
-        })
-        .catch(function(error) {
-            //$celd.removeClass("editable");
-            console.log(error)
-            codeError = 'Error on field';
-            show = true;
-            module = 'Service Items'
-            storeError.dispatch(addError({errorCode: codeError, showInfo: show, module: module}))
-
-        })
-    })
-
-
-    var elementos = document.getElementsByTagName('input');
-
-    $(".addMquote").onclick = (e)=> {
-        e.preventDefault();
-        for (let i = 0; i < elementos.length; i++) {
-            elementos[i].value='';
-        }
-    }
-
-
     //boton add mquote
     $(".addMquote").click(function(e) {
         e.preventDefault();
@@ -301,6 +240,10 @@ $(document).ready(function(){
         //drop the state temporal items and charges
         storeItem.dispatch(emptyItems())
         storeCharge.dispatch(emptyCharges())
+        storeQuote.dispatch(clearQuoteToEdit())
+
+        //limpiar campos
+        limpiar_form()
 
         //set tab quotatioFor active by default
         /*$("#nav-home-tab").addClass("active");
@@ -348,18 +291,16 @@ $(document).ready(function(){
         let length = ($(":input[name=Item-Length]").val()) > 0 ? $(":input[name=Item-Length]").val() : (packageType[rowIndex]['magaya__PackageLenght'] >= 0 ? packageType[rowIndex]['magaya__PackageLenght'] : 0);
         let height = ($(":input[name=Item-Height]").val()) > 0 ? $(":input[name=Item-Height]").val() : (packageType[rowIndex]['magaya__PackageHeight'] >= 0 ? packageType[rowIndex]['magaya__PackageHeight'] : 0);
         let width = ($(":input[name=Item-Width]").val()) > 0 ? $(":input[name=Item-Width]").val() : (packageType[rowIndex]['magaya__PackageWidth'] >= 0 ? packageType[rowIndex]['magaya__PackageWidth'] : 0);
-        let weight = ($(":input[name=Item-Weight]").val()) > 0 ? $(":input[name=Item-Weight]").val() : (packageType[rowIndex]['magaya__PackageWeigth'] >= 0 ? packageType[rowIndex]['magaya__PackageWeigth'] : 0);
         let volume = parseFloat(length) * parseFloat(width) * parseFloat(height);
         let measure_system = $("select[name=magaya__Measure_System] option:selected").val();
 
         let item = {
             'Name': packageName,
-            'id': 0,
             'magaya__Pieces': pieces,
             'magaya__Length': parseFloat(length),
             'magaya__Height': parseFloat(height),
             'magaya__Width': parseFloat(width),
-            'magaya__Weigth': weight,
+            'magaya__Weigth': 0,
             'magaya__Volume': parseFloat(volume),
             "magaya__Measure_System": measure_system
 
@@ -394,7 +335,7 @@ $(document).ready(function(){
 
         let TaxRate = $("select[name=TaxCode] option:selected").val();
         let Quantity = ($("input[name=Quantity]").val() > 0) ? $("input[name=Quantity]").val() : 0;
-        let Unity = $("input[name=Unity]").val() > 0 ? $("input[name=Unity]").val() : 0;
+        let Unity = $("input[name=Unity]").val() > 0 ? $("input[name=Unity]").val() : 'U';
         let Price = $("input[name=Price]").val() > 0 ? $("input[name=Price]").val() : 0;
         Price = roundDec(Price);
 
@@ -405,10 +346,13 @@ $(document).ready(function(){
         let Amount = parseFloat(Quantity) * parseFloat(Price);
         Amount = roundDec(Amount);
 
+        let PaidAs = $("select[name=PaidAs]").val()
+
+        let accountId = $("select[name=Account]")
+
         var ChargeCurrency = $("select[name=Currency]").val();
         let item = {
                 'Name': DescriptionCharges,
-                'id': 0,
                 'magaya__Status': Status,
                 'magaya__Tax_Rate': TaxRate,
                 'magaya__Tax_Amount': 0,
@@ -420,19 +364,22 @@ $(document).ready(function(){
                 'magaya__Amount': Amount,
                 'magaya__ChargeCurrency': $("select[name=Currency]").val(),
                 'magaya__CantImp': TaxAmount,
-                'magaya__ApplyToAccounts': accountId
+                'magaya__ApplyToAccounts': accountId,
+                'magaya__Unit': Unity,
+                'magaya__Paid_As': PaidAs
         }
+        console.log("")
         storeCharge.dispatch(addChargeOnNew({...item}))
-        //storeCharge.dispatch(setAmountOnNew({...item}))
 
 
-        $("#ChargeType").val('');
-        $("#DescriptionCharges").val('');
-        $("#Quantity").val('');
-        $("#Unity").val('');
-        $("#Price").val('');
-        $("#Amount").val('');
-
+        $("select[name=ChargeType]").val('');
+        $("input[name=DescriptionCharges]").val('');
+        $("input[name=Quantity]").val('');
+        $("input[name=Quantity]").val('');
+        $("input[name=Price]").val('');
+        $("input[name=magaya__Tax_Amount]").val(''); //posible no va aqui0
+        $("input[name=magaya__Amount_Total").val(''); //posible no va aqui
+        //$("input[name=TotalTaxAmount]").val('');
 
     })
 
@@ -462,9 +409,12 @@ $(document).ready(function(){
         }
 
         //receipt fields
+        if (accountId <= 0)
+            throw new UserException('Mandatory data not found: Client Quote is not defined');
+
 
         recordData = {
-            "Name": $(":input[name=Name]").val().replace(/[^a-zA-Z0-9]/g, ' '),
+            "Name": $(":input[id=NameQuote]").val().replace(/[^a-zA-Z0-9]/g, ' '),
             "Account": accountId,
             "magaya__Shipper": $(":input[name=magaya__Shipper] option:selected").text().replace(/[^a-zA-Z0-9]/g, ' '),
             "magaya__ExpirationDate": expirationDateFinal,
@@ -475,19 +425,21 @@ $(document).ready(function(){
             "magaya__ConsigneeName": $("select[name=magaya__ConsigneeName] option:selected").text(),
             //"magaya__Stage": $("select[name=Stage] option:selected").val(),
             "magaya__Carrier": $("select[name=magaya__Carrier] option:selected").val(),
-            //"magaya__Destination": $("input[name=magaya__Destination]").val().replace(/[^a-zA-Z0-9]/g, ' '),
-            //"magaya__Origin": $("input[name=magaya__Origin]").val().replace(/[^a-zA-Z0-9]/g, ' '),
-            "magaya__Status": $("select[name=magaya__Status] option:selected").val(),
+            "magaya__DestinationReceipt": (!_.isEmpty($("input[name=magaya__DestinationReceipt]").val())) ? $("input[name=magaya__DestinationReceipt]").val().replace(/[^a-zA-Z0-9]/g, ' ') : '',
+            "magaya__OriginReceipt": (!_.isEmpty(($("input[name=magaya__OriginReceipt]").val()))) ? $("input[name=magaya__OriginReceipt]").val().replace(/[^a-zA-Z0-9]/g, ' ') : '',
+            "magaya__DestinationPrecarriageBy": (!_.isEmpty($("input[name=magaya__DestinationPrecarriageBy]").val())) ? $("input[name=magaya__DestinationPrecarriageBy]").val().replace(/[^a-zA-Z0-9]/g, ' ') : '',
+            "magaya__OriginPrecarriageBy": (!_.isEmpty(($("input[name=magaya__OriginPrecarriageBy]").val()))) ? $("input[name=magaya__OriginPrecarriageBy]").val().replace(/[^a-zA-Z0-9]/g, ' ') : '',
+           "magaya__Status": $("select[name=magaya__Status] option:selected").val(),
             "magaya__Representative": contact,
-            "magaya__ContactCity": $("input[name=Mailing_City]").val().replace(/[^a-zA-Z]/g, ' '),
-            "magaya__ContactCountry": $("input[name=Mailing_Country]").val().replace(/[^a-zA-Z]/g, ' '),
-            "magaya__ContactState": $("input[name=Mailing_State]").val().replace(/[^a-zA-Z0-9]/g, ' '),
+            //"magaya__ContactCity": $("input[name=Mailing_City]").val().replace(/[^a-zA-Z]/g, ' '),
+            //"magaya__ContactCountry": $("input[name=Mailing_Country]").val().replace(/[^a-zA-Z]/g, ' '),
+            //"magaya__ContactState": $("input[name=Mailing_State]").val().replace(/[^a-zA-Z0-9]/g, ' '),
             //"magaya__ContactStreet": $("input[name=Mailing_Street]").val().replace(/[^a-zA-Z0-9]/g, ' '),
             //"magaya__ContactCity": $("input[name=Mailing_Zip]").val().replace(/[^a-zA-Z0-9]\#\./g, ' '),
-            "magaya__ContactEmail": $("input[name=Email]").val().replace(/[^a-zA-Z0-9]\.\@/g, ' '),
-            "magaya__ContactMobile": $("input[name=Mobile]").val().replace(/[^a-zA-Z0-9]/g, ' '),
-            "magaya__ContactHomePhone": $("input[name=Phone]").val().replace(/[^a-zA-Z0-9]/g, ' '),
-            "magaya__Measure_System": $("select[name=magaya__Measure_System] option:selected").val()
+            "magaya__ContactEmail": $("input[name=magaya__ContactEmail]").val().replace(/[^a-zA-Z0-9]\.\@/g, ' '),
+            "magaya__ContactMobile": $("input[name=magaya__ContactMobile]").val().replace(/[^a-zA-Z0-9]/g, ' '),
+            "magaya__ContactHomePhone": $("input[name=magaya__ContactPhone]").val().replace(/[^a-zA-Z0-9]/g, ' '),
+
         }
 
         console.log("Data mquote", recordData)
@@ -618,8 +570,6 @@ $(document).ready(function(){
 
                 })
             })
-
-        //items = $(this).tableToJson('table-items', 543534534);
     })
 
 })
