@@ -1,20 +1,26 @@
 .no-border {
     border:none;
-    background: #eeeddd;
+    background: white;
+    border: 1px solid #03A9F4;
 }
 
-.btn-slide:hover, .edit:hover, .delete:hover{
+.oculto:hover{
     cursor: pointer;
+}
+
+.cursor-hand{
+    cursor: pointer;
+
 }
 
 .no-border:focus {
     font-size   : 105%;
-    transform: translateX(-10%);
-    transition: .3s ease-out;
+    /*transform: translateX(-1%);
+    transition: .3s ease-out;*/
     font: 1.5em "handwriting", sans-serif;
     padding: 0 10px;
     margin : 0;
-    width: 70%;
+
 }
 
 input:active {
@@ -25,11 +31,11 @@ input:active {
     padding: 1px 1px 1px 1px;
 }
 
-.edit, .delete, .check {
+.oculto {
     opacity: 0.07;
     margin-left: 15px;
 }
-.edit:hover, .delete:hover, .check:hover {
+.oculto:hover {
     opacity: 0.9;
 }
 
@@ -38,31 +44,37 @@ input:active {
 }
 
 
-/* panel layout mechanics */
-.panel-wrap, .panel-wrap2, .data-show-panel {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 60em;
-  transform: translateX(100%);
-  transition: .3s ease-out;
-  z-index: 2000;
-  box-shadow: 10px 15px 15px 15px black;
-
+#quote-info, #quote-alert {
+    position: absolute;
+    top: 0;
+    bottom: 35em;
+    left: 20em;
+    right: 20em;
+    color: #333;
+    padding: 1em;
+    font-size: 1em;
+    border:rgb(55, 65, 56)
 }
+
+#quote-alert{
+    background: rgb(219, 117, 117);
+}
+#quote-info{
+    background: rgb(176, 219, 183);
+}
+
 .panel {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background: #eee;
+  background: white;
   color: #333;
   overflow: auto;
   padding: 1em;
 }
-.panel-datashow {
+/*.panel-datashow {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -72,7 +84,7 @@ input:active {
   color: #333;
   overflow: auto;
   padding: 1em;
-}
+}*/
 
 /* simulate panel state control --
 this can also be triggered by a
@@ -80,22 +92,18 @@ class name added to the body tag.
 Just using a checkbox sibling here
 for simplicity
 */
-[id="btnControl"]:checked ~ .panel-wrap {
+/*[id="btnControl"]:checked ~ .panel-wrap {
   transform: translateX(0%);
 }
-
 [id="btnControl2"]:checked ~ .panel-wrap2 {
   transform: translateX(0%);
 }
-
 [class="data-show"]:checked ~ .data-show-panel {
     transform: translate(0%);
 }
-
-/* demo display */
+/* demo display *
 *,*:before, *:after {box-sizing: border-box;}
-
-h3 {
+/*h3 {
   margin: 0;
 }
 p {
@@ -106,11 +114,10 @@ p {
   font-size: 1em;
   float: right;
 }
-
-/*** prueba adaptar estilo  */
+/*** prueba adaptar estilo  *
 #btnControl, #btnControl2 {
     display: none;
-}
+}*/
 
 .panel .row{
     border: 2px solid #0b3355;
@@ -119,7 +126,7 @@ p {
 }
 
 /**********panel editing*************/
-#panel {
+#panel, #panel-charge, #panel-item, #panel-search {
     background: #FAFAD2;
     display: none;
     position: fixed;
@@ -139,4 +146,27 @@ p {
 #table-charges input, #table-charges-new input, #table-items input, #table-items-new input {
     background-color: rgb(255, 255, 255);
     border: none;
+}
+
+
+/******** labels on panel **********/
+.fieldset {
+	border: 1px solid #38312b;
+	background: #eee;
+	padding: 8px 8px 8px 8px;
+    color: #333;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.fieldset .legend {
+	background: #CCA383;
+	padding: 6px;
+	font-weight: bold;
+}
+.label {
+	color: #333;
+	font-weight: bold;
+	display: block;
+	width: 60%;
+	float: left;
 }
