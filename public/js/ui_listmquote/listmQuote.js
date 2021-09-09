@@ -498,8 +498,8 @@ $(document).ready(function(){
                 //check class for each field
                 if (field !== undefined && field !== 'undefined') {
 
-                    if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__Tax_Rate") {
-                        value = convert_number (value);
+                    if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
+                        value = roundDec(value);
                     }
 
                     //si los valores son iguales, no actualizar nada
@@ -511,6 +511,8 @@ $(document).ready(function(){
                             Entity:"magaya__ChargeQuote",
                             APIData: JSON.parse(json_items)
                         }
+
+                        console.log("charges edit", config)
 
                         ZOHO.CRM.API.updateRecord(config)
                             .then(function(data){

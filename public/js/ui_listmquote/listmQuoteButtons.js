@@ -182,7 +182,7 @@ $(document).ready(function(){
                 'magaya__SQuote_Name': idmQuoteToEdit,
                 'Name': DescriptionCharges,
                 'magaya__Status': Status,
-                'magaya__Tax_Rate': TaxRate,
+                'magaya__TaxRate': TaxRate,
                 'magaya__Tax_Amount': amount_tax,
                 'magaya__Amount_Total': amount_total,
                 'magaya__ChargeCode': ChargeType,
@@ -364,7 +364,7 @@ $(document).ready(function(){
         let item = {
                 'Name': DescriptionCharges,
                 'magaya__Status': Status,
-                'magaya__Tax_Rate': TaxRate,
+                'magaya__TaxRate': TaxRate,
                 'magaya__Tax_Amount': amount_tax,
                 'magaya__Amount_Total': amount_total,
                 'magaya__ChargeCode': ChargeType,

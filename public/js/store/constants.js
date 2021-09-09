@@ -42,7 +42,7 @@ const CHARGES_FIELDS = {"Name": {"field": "Name"}, "magaya__Amount": {"field": "
                 "magaya__Tax_Amount": {"field": "Amount Tax"}, "magaya__Amount_Total":{"field": "Total Amount"},
                 "magaya__Paid_As": {"field": "Paid As", "values": ["Prepaid", "Collect"]},
                 "magaya__Unit": {"field": "Unit", "values": ["U", "Lb"]},
-                "magaya__Tax_Rate": {"field": "Tax Rate"},
+                "magaya__TaxRate": {"field": "Tax Rate"},
 
 }
 

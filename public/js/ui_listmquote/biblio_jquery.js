@@ -114,6 +114,15 @@ function roundDec(num) {
     if (typeof num === 'undefined' || num <= 0) return 0;
     let t = num.toString();
     let regex = /(\d*.\d{0,3})/;
-    return parseFloat(t.match(regex)[0]);
+
+    let number = parseFloat(t.match(regex)[0]);
+
+    if (typeof (number) === "number" && !isNaN(number)) {
+        console.log("returnin a number", number)
+        return number;
+    }
+
+
+    return 0;
 
 }

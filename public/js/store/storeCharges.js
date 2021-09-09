@@ -73,7 +73,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
             //calculate volume
             let amount = parseFloat(newArray[index]['magaya__Price']) * parseFloat(newArray[index]['magaya__CQuantity']);
             newArray[index]['magaya__Amount'] = roundDec(amount)
-            let amount_tax = (parseFloat(newArray[index]['magaya__Amount']) / 100) * parseFloat(newArray[index]['magaya__Tax_Rate'])
+            let amount_tax = (parseFloat(newArray[index]['magaya__Amount']) / 100) * parseFloat(newArray[index]['magaya__TaxRate'])
             newArray[index]['magaya__Tax_Amount'] = roundDec(amount_tax);
             let amount_total = parseFloat(amount + amount_tax);
             newArray[index]['magaya__Amount_Total'] = roundDec(amount_total);
@@ -106,7 +106,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
             let amount = parseFloat(newArray[index]['magaya__Price']) * parseFloat (newArray[index]['magaya__CQuantity']);
             newArray[index]['magaya__Amount'] = roundDec(amount)
             //calculate amount tax
-            let amount_tax = (newArray[index]['magaya__Amount'] / 100) * parseFloat (newArray[index]['magaya__Tax_Rate'])
+            let amount_tax = (newArray[index]['magaya__Amount'] / 100) * parseFloat (newArray[index]['magaya__TaxRate'])
             newArray[index]['magaya__Tax_Amount'] = roundDec(amount_tax)
             let amount_total = amount + amount_tax;
             newArray[index]["magaya__Amount_Total"] = roundDec(amount_total)

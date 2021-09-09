@@ -87,7 +87,7 @@ storeCharge.subscribe(() => {
                     <td><input type="text" class="form-control" name="magaya__Tax_Amount" value="${k.magaya__Tax_Amount}" /></td>
                     <td><input type="text" class="form-control" name="magaya__Amount_Total" value="${k.magaya__Amount_Total}" readonly/></td>
 
-                    <td style="display: none;"><input type="text" class="form-control" name="magaya__Tax_Rate0" value="${k.magaya__Tax_Rate}" readonly/></td>
+                    <td style="display: none;"><input type="text" class="form-control" name="magaya__Tax_Rate0" value="${k.magaya__TaxRate}" readonly/></td>
                     <td style="display: none;"><input type="text" class="form-control" name="magaya__Unit" value="${k.magaya__Unit}" /></td>
                     <td style="display: none;"><input type="text" class="form-control" name="magaya__Paid_As" value="${k.magaya__Paid_As}" /></td>
                     <td style="display: none;" class="magaya__ChargeCurrency">${k.magaya__ChargeCurrency}</td>
@@ -133,7 +133,7 @@ storeCharge.subscribe(() => {
                 <td class="magaya__Tax_Amount"><input type="text" class="form-control no-border" value="${k.magaya__Tax_Amount}" /></td>
 
                 <td class="magaya__Amount_Total"><input type="text" class="form-control" value="${k.magaya__Amount_Total}" readonly/></td>
-                <td class="magaya__Tax_Rate0" style="display: none;"><input type="text" class="form-control" value="${k.magaya__Tax_Rate}" readonly/></td>
+                <td class="magaya__Tax_Rate0" style="display: none;"><input type="text" class="form-control" value="${k.magaya__TaxRate}" readonly/></td>
                 <td class="magaya__Unit" style="display: none;"><input type="text" class="form-control no-border" value="${k.magaya__Unit}" /></td>
                 <td class="magaya__Paid_As" style="display: none;"><input type="text" class="form-control no-border" value="${k.magaya__Paid_As}" /></td>
                 <td class="magaya__ChargeCurrency">${k.magaya__ChargeCurrency}</td>
