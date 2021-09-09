@@ -24,13 +24,18 @@
                     json_items += ',"magaya__StatusA":"' + $("select[name=StatusA]").val() + '"';
                 } else if (class_name === 'Delete' || class_name === "NoData") {
                     //
-                } else if (class_name === 'magaya__Measure_System' || class_name === 'magaya__ChargeCode' || class_name === "magaya__Amount" || class_name === "magaya__ChargeCurrency" || class_name === "magaya__Status") {
+                } else {
+                    let nameValue = $(this).html()
+                    json_items += `, "${class_name}":"${nameValue}"`
+                }
+
+                /*else if (class_name === 'magaya__Measure_System' || class_name === 'magaya__ChargeCode' || class_name === "magaya__Amount" || class_name === "magaya__ChargeCurrency" || class_name === "magaya__Status") {
                     let nameValue = $(this).html()
                     json_items += `, "${class_name}":"${nameValue}"`
                 }
                 else {
                     json_items += ',"' + $this.attr('class') + '":"' + $this.children().val() + '"';
-                }
+                }*/
 
             })
 
@@ -40,6 +45,7 @@
         });
 
         jsonData = jsonData.substring(1)
+        console.log("Returning literal", jsonData)
         return (jsonData)
     }
 

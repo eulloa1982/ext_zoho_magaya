@@ -493,7 +493,6 @@ $(document).ready(function(){
                 return id
             })
             .then(function(idQuote) {
-                console.log("Insreting related data on " + idQuote)
 
                 jsonItems = $(this).tableToJson('table-items-new', idQuote);
                 jsonItems = JSON.parse(`[${jsonItems}]`)
