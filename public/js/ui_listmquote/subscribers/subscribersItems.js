@@ -77,13 +77,13 @@ storeItem.subscribe(() => {
                     <span class="material-icons oculto btn-slide" data-module="table-items-new" data-id="${i}">create</span>
                     <span class="material-icons oculto del-item-warehouse-new" data-id=${i}>clear</span>
                 </td>
-                <td class="magaya__Pieces"><input type="text" class="form-control no-border" value="${k.magaya__Pieces}"/></td>
-                <td class='Name'><input type="text" class="form-control" value="${sanitize(k.Name)}" /></td>
-                <td class="magaya__Length"><input type="text" class="form-control" value="${roundDec(k.magaya__Length)}"/>(${measure_system})</td>
-                <td class="magaya__Height"><input type="text" class="form-control" value="${roundDec(k.magaya__Height)}"/>(${measure_system})</td>
-                <td class="magaya__Width"><input type="text" class="form-control" value="${roundDec(k.magaya__Width)}" />(${measure_system})</td>
-                <td class="magaya__Weigth"><input type="text" class="form-control" value="${roundDec(k.magaya__Weigth)}" />(${measure_system_volume})</td>
-                <td class="magaya__Volume"><input type="text" class="form-control" value="${roundDec(k.magaya__Volume)}"/></td>
+                <td class="magaya__Pieces">${k.magaya__Pieces}</td>
+                <td class='Name'>${sanitize(k.Name)}</td>
+                <td class="magaya__Length">${roundDec(k.magaya__Length)}</td>
+                <td class="magaya__Height">${roundDec(k.magaya__Height)}</td>
+                <td class="magaya__Width">${roundDec(k.magaya__Width)}</td>
+                <td class="magaya__Weigth">${roundDec(k.magaya__Weigth)}</td>
+                <td class="magaya__Volume">${roundDec(k.magaya__Volume)}</td>
                 <td class='magaya__Status' style="display: none;">InQuote</td>
                 <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
                 </tr>`);
@@ -130,12 +130,12 @@ storeItem.subscribe(() => {
                 <span class="material-icons oculto btn-slide" data-module="table-items" data-id="${i}">create</span>
                 <span class="material-icons oculto del-item-warehouse" data-id=${k.id}>clear</span>
             </td>
-            <td><input type="text" class="form-control no-border" name="magaya__Pieces" value="${k.magaya__Pieces}"/></td>
-            <td class='Name'><input type="text" class="form-control no-border" name="Name" value="${sanitize(k.Name)}" /></td>
-            <td><input type="text" class="form-control no-border" name="magaya__Length" value="${k.magaya__Length}"/>(${measure_system})</div></td>
-            <td><input type="text" class="form-control no-border" name="magaya__Height" value="${k.magaya__Height}"/><div style="display:block;">(${measure_system})</div></td>
-            <td><input type="text" class="form-control no-border" name="magaya__Width" value="${k.magaya__Width}" /><div style="display:inline-block;">(${measure_system})</div></td>
-            <td><input type="text" class="form-control no-border" name="magaya__Weigth" value="${k.magaya__Weigth}" /><div style="display:inline;">(${measure_system_volume})</div></td>
+            <td class="magaya__Pieces"${k.magaya__Pieces}</td>
+            <td class='Name'>${sanitize(k.Name)}</td>
+            <td class="magaya__Length">${k.magaya__Length}</td>
+            <td class="magaya__Height">${k.magaya__Height}</td>
+            <td class="magaya__Width">${k.magaya__Width}</td>
+            <td class="magaya__Weigth">${k.magaya__Weigth}</td>
             <td class="magaya__Volume">${k.magaya__Volume}</td>
             <td class="magaya__Status" style="display: none;">InQuote</td>
             <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>

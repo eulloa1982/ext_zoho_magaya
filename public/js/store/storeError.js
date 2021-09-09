@@ -45,10 +45,10 @@ storeError.subscribe(() => {
 
     }
     else {
-        $("#quote-alert").append(`<p>Error: "${errorCode}"</p>`).css("display", "block").fadeIn("slow").delay(4000).fadeOut("slow");
+        $("#quote-alert").css("display", "block").show("slow");
+        $("#message-alert").html(`<p>Error: "${errorCode}"</p>`)
     }
 
-    //$("#quote-alert").empty()
 })
 
 
