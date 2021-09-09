@@ -531,7 +531,7 @@ $(document).ready(function(){
                                         var req_data ={
                                             "quote_id" : idQuote
                                         };
-                                        console.log("Disparando actualizacin amount", req_data)
+
                                         ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
                                             console.log(data)
                                         })
@@ -601,7 +601,7 @@ $(document).ready(function(){
                                     };
 
                                     ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
-
+                                        console.log("Deleting data", data)
                                     })
                                     message = " : Item Updated!!";
                                     storeCharge.dispatch(deleteCharge({id: idCharge}))
