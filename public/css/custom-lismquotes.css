@@ -47,17 +47,18 @@ input:active {
 #quote-info, #quote-alert {
     position: absolute;
     top: 0;
-    bottom: 35em;
+    bottom: 45em;
     left: 20em;
     right: 20em;
     color: #333;
     padding: 1em;
-    font-size: 1em;
-    border:rgb(55, 65, 56)
+    font-size: 14px;
+    border:rgb(55, 65, 56);
+    box-shadow: 10px 15px 15px 15px black;
 }
 
 #quote-alert{
-    background: rgb(219, 117, 117);
+    background: rgb(236, 178, 178);
 }
 #quote-info{
     background: rgb(176, 219, 183);

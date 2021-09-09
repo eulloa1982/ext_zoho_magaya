@@ -53,6 +53,12 @@ $(document).ready(function(){
 
     })
 
+    $('.close').click(function(){
+        let div_close = $(this).attr("data-close");
+        $(`#${div_close}`).animate({width:'toggle'},150);
+        //$("#" + div_close).hide()
+    })
+
 
     //boton send new item on edit form
     $("#sendItem").click(function(e) {

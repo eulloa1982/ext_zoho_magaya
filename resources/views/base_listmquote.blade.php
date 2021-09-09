@@ -40,13 +40,13 @@
 
 
     <div id="quote-alert" class="alert alert-danger alert-dismissible" style="position: absolute; display: none; z-index: 6000">
-        <button class="noselect"><span class='text'>Close</span><span id="close-all" data-close="quote-alert" class="icon">X</span></button>
+        <span class="material-icons close cursor-hand" data-close="quote-alert">close</span>
         <div id="message-alert"></div>
 
     </div>
 
     <div id="quote-info" class="alert alert-success alert-dismissible" style="position: absolute; display: none; z-index: 6000;">
-        <button class="noselect"><span class='text'>Close</span><span id="close-all" data-close="quote-info" class="icon">X</span></button>
+        <span class="material-icons close cursor-hand" data-close="quote-info">close</span>
         <div id="message-info"></div>
     </div>
 
@@ -104,24 +104,5 @@
     @yield('js')
 
 
-    <div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel4" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-slideout modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal sideout large</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div id="info-datad"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
   </body>
 </html>

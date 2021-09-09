@@ -9,12 +9,12 @@ $(document).ready(function(){
     });
 
     //boton cerrar panel
-    $(".noselect #close-all").click(function() {
+    /*$(".noselect #close-all").click(function() {
         let panelId = $(this).attr("data-close")
         $(`#${panelId}`).animate({width:'toggle'},150);
         //$(`#${panelId}`).show("slide", { direction: "left" }, 1000);
         //$("#slide").animate({width:'toggle'},350);
-    })
+    })*/
 
     //boton delete
     $("#deleteMquote").click(function(e) {
@@ -469,13 +469,7 @@ $(document).ready(function(){
               });
 
 
-            $('.close').click(function(e) {
-                e.preventDefault()
-                $("#panel").hide()
-                //$(".data-show-panel").addClass("animate__animated").addClass("animate__bounceOutRight" );
-                //$(".data-show-panel").removeClass("animate__animated").removeClass("animate__bounceInRight" );
 
-            });
             //////////////////////////////////////////////////////////////////
             ///////// data in situ editable
             ///////////////////////////////////////////////////////////////////
@@ -649,16 +643,6 @@ $(document).ready(function(){
               });
 
 
-            $('.close').click(function(e) {
-                e.preventDefault()
-                $("#panel").hide()
-                //$(".data-show-panel").addClass("animate__animated").addClass("animate__bounceOutRight" );
-                //$(".data-show-panel").removeClass("animate__animated").removeClass("animate__bounceInRight" );
-
-            });
-
-
-
             //del item while inserting record
             $(".del-item-charge-new").click(function(e){
                 let idArr = $(this).attr("data-id");
@@ -735,12 +719,6 @@ $(document).ready(function(){
 
               });
 
-
-            $('.close').click(function(e) {
-                e.preventDefault()
-                $("#panel").hide()
-
-            });
 
 
             //del item while inserting record
