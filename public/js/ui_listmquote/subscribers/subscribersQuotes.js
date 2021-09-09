@@ -69,7 +69,7 @@ storeQuote.subscribe(() => {
                     { name: "Name", title: "NUMBER", width: 10, formatter:'number'},
                     { name: "Account.name", title: "CUSTOMER", type: "text", width: 10 },
                     { name: "magaya__Status", type: "text", width: 10, title: "STAGE" },
-                    { name: "magaya__Amount", title: "AMOUNT", width: 10, type: "number" },
+                    { name: "magaya__QuoteTotalAmount", title: "AMOUNT", width: 10, type: "number" },
                     { name: "Modified_Time", type: "text", width: 10, title: "MODIFIED TIME" },
                     //{ name: "magaya__Description", type: "text", width: 30, title: "Description"},
                     //{ name: "magaya__ExpirationDate", type: "date", width: 60, title: "Expiration Date" },
