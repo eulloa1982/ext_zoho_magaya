@@ -498,8 +498,8 @@ $(document).ready(function(){
                 //check class for each field
                 if (field !== undefined && field !== 'undefined') {
 
-                    if (field === "magaya__CQuantity" || field === "magaya__Price") {
-                        value = parseFloat(value);
+                    if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__Tax_Rate") {
+                        value = convert_number (value);
                     }
 
                     //si los valores son iguales, no actualizar nada
@@ -512,11 +512,9 @@ $(document).ready(function(){
                             APIData: JSON.parse(json_items)
                         }
 
-                        console.log("Charges to send" , config)
                         ZOHO.CRM.API.updateRecord(config)
                             .then(function(data){
                                 res = data.data;
-                                console.log(res)
                                 $.map(res, function(k, v) {
                                     console.log("Error", k)
                                     if (k.code !== "SUCCESS") {
@@ -623,7 +621,7 @@ $(document).ready(function(){
                 e.stopImmediatePropagation()
                 //$('form').toggleClass('show');
                 let data_id = $(this).attr("data-id");
-                let module = $(this).parent().parent().parent().parent().attr("id")
+                let module = $(this).attr("data-module")
                 $(this).dataShow(module, data_id)
                 $("#panel").show("fast");
                 $(this).toggleClass("active"); return false;
@@ -683,12 +681,13 @@ $(document).ready(function(){
                 let idItem = $(this).attr("data-id")
                 console.log(`${field} , ${value}, ${idItem}`)
 
-                if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__CantImp") {
+                if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__Tax_Rate") {
                     value = parseFloat(value);
                 }
 
                 //si los valores son iguales, no actualizar nada
                 if (oldValue.toString() !== value.toString()) {
+                    //storeCharge.dispatch(updateCharge({id:idItem, field: field, value: value}))
                     storeCharge.dispatch(setAmountOnNew({id:idItem, field: field, value: value}))
                 }
 

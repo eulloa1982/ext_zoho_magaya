@@ -18,6 +18,7 @@ const GET_CHARGE_QUOTE_ON_NEW = 'GET_CHARGE_QUOTE_ON_NEW'
 const EMPTY_CHARGES = 'EMPTY_CHARGES'
 const SET_AMOUNT = 'SET_AMOUNT'
 const SET_AMOUNT_ON_NEW = 'SET_AMOUNT_ON_NEW'
+const UPDATE_CHARGE = 'UPDATE_CHARGE'
 
 
 const ADD_ACCOUNT = 'ADD_ACCOUNT'
@@ -38,8 +39,10 @@ const FIND_BY_NAME = "FIND_BY_NAME"
 //campos a mostrar en formularios de Charges
 const CHARGES_FIELDS = {"Name": {"field": "Name"}, "magaya__Amount": {"field": "Amount"},
                 "magaya__CQuantity": {"field": "Quantity"}, "magaya__Price": {"field": "Price"},
+                "magaya__Tax_Amount": {"field": "Amount Tax"}, "magaya__Amount_Total":{"field": "Total Amount"},
                 "magaya__Paid_As": {"field": "Paid As", "values": ["Prepaid", "Collect"]},
-                "magaya__Unit": {"field": "Unit", "values": ["U", "Lb"]}, "magaya__Tax_Rate": {"field": "Tax Rate"},
+                "magaya__Unit": {"field": "Unit", "values": ["U", "Lb"]},
+                "magaya__Tax_Rate": {"field": "Tax Rate"},
 
 }
 

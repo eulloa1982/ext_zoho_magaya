@@ -13,16 +13,8 @@ function reducerCharge (state = initialStateCharge, actions)  {
             if (_.isEmpty(actions.payload.Name) || _.isEmpty(actions.payload.magaya__ApplyToAccounts))
                 throw new UserException('Mandatory data not found: eigther Charge Name or Client are mandatory');
 
-                newArray = actions.payload
-                let amount = newArray['magaya__Price'] * newArray['magaya__CQuantity']
-                newArray['magaya__Amount'] = roundDec(amount)
-                let amount_tax = (newArray['magaya__Amount']/100)*newArray['magaya__Tax_Rate']
-                newArray['magaya__Tax_Amount'] = roundDec(amount_tax);
-                let amount_total = amount + amount_tax;
-                newArray['magaya__Amount_Total'] = amount_total;
-
                 return Object.assign({}, state, {
-                charges: state.charges.concat(newArray)
+                charges: state.charges.concat(actions.payload)
             });
         }
 
@@ -57,6 +49,19 @@ function reducerCharge (state = initialStateCharge, actions)  {
             }
         }
 
+        case UPDATE_CHARGE: {
+            const byId = actions.payload.id
+            const field = actions.payload.field;
+            const value = actions.payload.value;
+            state.chargesOnNew[byId][field] = value
+            state.singleCharge[field] = value
+            return {
+                ...state,
+                singleCharge: state.singleCharge
+            }
+
+        }
+
         case SET_AMOUNT: {
             const idCharge = actions.payload.id;
             const field = actions.payload.field;
@@ -66,12 +71,12 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray = [...state.charges];
             newArray[index][field] = value
             //calculate volume
-            let amount = newArray[index]['magaya__Price'] * newArray[index]['magaya__CQuantity'];
+            let amount = parseFloat(newArray[index]['magaya__Price']) * parseFloat(newArray[index]['magaya__CQuantity']);
             newArray[index]['magaya__Amount'] = roundDec(amount)
-            let amount_tax = (newArray[index]['magaya__Amount']/100)*newArray[index]['magaya__Tax_Rate']
+            let amount_tax = (parseFloat(newArray[index]['magaya__Amount']) / 100) * parseFloat(newArray[index]['magaya__Tax_Rate'])
             newArray[index]['magaya__Tax_Amount'] = roundDec(amount_tax);
-            let amount_total = amount + amount_tax;
-            newArray[index]['magaya__Amount_Total'] = amount_total;
+            let amount_total = parseFloat(amount + amount_tax);
+            newArray[index]['magaya__Amount_Total'] = roundDec(amount_total);
             return {
                 ...state,
                 chargesQuotes: newArray
@@ -85,16 +90,8 @@ function reducerCharge (state = initialStateCharge, actions)  {
             if (_.isEmpty(actions.payload.magaya__ChargeCode) || actions.payload.magaya__ChargeCode === "select")
                 throw new UserException('You need to select a Charge Type')
 
-            newArray = actions.payload
-            let amount = newArray['magaya__Price'] * newArray['magaya__CQuantity']
-            newArray['magaya__Amount'] = roundDec(amount)
-            let amount_tax = (newArray['magaya__Amount']/100)*newArray['magaya__Tax_Rate']
-            newArray['magaya__Tax_Amount'] = roundDec(amount_tax);
-            let amount_total = amount + amount_tax;
-            newArray['magaya__Amount_Total'] = roundDec(amount_total);
-
             return Object.assign({}, state, {
-                chargesOnNew: state.chargesOnNew.concat(newArray)
+                chargesOnNew: state.chargesOnNew.concat(actions.payload)
             });
         }
 
@@ -106,13 +103,14 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray = [...state.chargesOnNew];
             newArray[index][field] = value
             //calculate amount
-            let amount = newArray[index]['magaya__Price'] * newArray[index]['magaya__CQuantity'];
+            let amount = parseFloat(newArray[index]['magaya__Price']) * parseFloat (newArray[index]['magaya__CQuantity']);
             newArray[index]['magaya__Amount'] = roundDec(amount)
             //calculate amount tax
-            let amount_tax = (newArray[index]['magaya__Amount']/100)*newArray[index]['magaya__Tax_Rate']
-            newArray[index]['magaya__Tax_Amount'] = amount_tax
+            let amount_tax = (newArray[index]['magaya__Amount'] / 100) * parseFloat (newArray[index]['magaya__Tax_Rate'])
+            newArray[index]['magaya__Tax_Amount'] = roundDec(amount_tax)
             let amount_total = amount + amount_tax;
             newArray[index]["magaya__Amount_Total"] = roundDec(amount_total)
+
             return {
                 ...state,
                 chargesOnNew: newArray
@@ -206,4 +204,8 @@ function setAmountOnNew(payload) {
     return { type: SET_AMOUNT_ON_NEW, payload }
 }
 
+
+function updateCharge(payload) {
+    return { type: UPDATE_CHARGE, payload }
+}
 

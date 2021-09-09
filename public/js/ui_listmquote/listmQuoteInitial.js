@@ -168,11 +168,17 @@ $(document).ready(function(){
                     $.map(response.data, function (k, i) {
                         k.magaya__Tax_Rate = sanitize(k.magaya__Tax_Rate)
                         k.Name = sanitize(k.Name)
-                        $(`<option value="${k.magaya__Tax_Rate}">${k.Name}</option>`).appendTo("select[name=TaxCode]");
+                        $(`<option value="${k.magaya__Tax_Rate0}">${k.Name}</option>`).appendTo("select[name=TaxCode]");
 
                     })
                 }
             })
+
+        //organization data
+        ZOHO.CRM.CONFIG.getOrgInfo().then(function(data){
+            console.log(`Organization`, data.org)
+            //storeOrganization.dispatch(addOrganization())
+        });
 
     });
 

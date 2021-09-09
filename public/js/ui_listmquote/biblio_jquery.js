@@ -50,7 +50,7 @@
 
 (function($) {
     $.fn.dataShow = function(module, id) {
-        console.log("Lanzando en modulo " + module + ", con id, "  + id)
+        //console.log("Lanzando en modulo " + module + ", con id, "  + id)
         switch(module) {
             case "table-items": {
                 storeItem.dispatch(getItemQuote({id: id}))
@@ -58,7 +58,7 @@
             }
 
             case "table-items-new": {
-                console.log("Table charges new")
+                //console.log("Table charges new")
                 storeItem.dispatch(getItemQuoteOnNew({id: id}))
                 break;
             }
@@ -92,7 +92,7 @@ function sanitize(input) {
     return output;
     */
    if (!_.isEmpty(input)) {
-        return input.replace(/<(|\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g, '');
+        return input.replace(/<(|\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g, '').replace(/[^a-zA-Z0-9]\-\#/g, ' ');
    }
 };
 
@@ -102,4 +102,18 @@ function limpiar_form() {
     elementos.forEach((elemento) => {
         elemento.value = ''
     })
+}
+
+function convert_number(string) {
+    return roundDec(new Number(string))
+}
+
+
+//redondear decimales
+function roundDec(num) {
+    if (typeof num === 'undefined' || num <= 0) return 0;
+    let t = num.toString();
+    let regex = /(\d*.\d{0,3})/;
+    return parseFloat(t.match(regex)[0]);
+
 }

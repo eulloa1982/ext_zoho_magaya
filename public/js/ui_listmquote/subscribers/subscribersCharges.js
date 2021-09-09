@@ -59,12 +59,20 @@ storeCharge.subscribe(() => {
     if (!_.isEmpty(u)) {
         data_module_flag_charge = false;
         let accountId = 0;
+        let totalIncome = 0
         $("#table-charges tbody").empty();
         if (!_.isEmpty(u)) {
             $.each(u, function(i, k) {
                 if (!_.isEmpty(k.magaya__ApplyToAccounts)) {
                     accountId = k.magaya__ApplyToAccounts.id
                 }
+                k.magaya__Status = sanitize(k.magaya__Status);
+                k.Name = sanitize(k.Name);
+                k.magaya__ChargeCode = sanitize(k.magaya__ChargeCode);
+
+                totalIncome += parseFloat(k.magaya__Amount_Total);
+                console.log(i, `${parseFloat(k.magaya__Amount_Total) + 6}`)
+
                 $("#table-charges tbody").append(`<tr>
                     <td>
                         <span class="material-icons oculto btn-slide" data-module="table-charges" data-id="${i}">create</span>
@@ -73,18 +81,22 @@ storeCharge.subscribe(() => {
                     <td class="magaya__Status">${k.magaya__Status}</td>
                     <td class="magaya__ChargeCode">${k.magaya__ChargeCode}</td>
                     <td><input type="text" class="form-control" name="Name" value="${k.Name}"></td>
+                    <td><input type="text" class="form-control" name="magaya__CQuantity" value="${k.magaya__CQuantity}" /></td>
+                    <td><input type="text" class="form-control" name="magaya__Price" value="${k.magaya__Price}" /></td>
                     <td class="magaya__Amount">${k.magaya__Amount}</td>
-                    <td><input type="text" class="form-control" name="magaya__Tax_Rate" value="${k.magaya__Tax_Rate}" readonly/></td>
+                    <td><input type="text" class="form-control" name="magaya__Tax_Amount" value="${k.magaya__Tax_Amount}" /></td>
                     <td><input type="text" class="form-control" name="magaya__Amount_Total" value="${k.magaya__Amount_Total}" readonly/></td>
-                    <td style="display: none;"><input type="text" class="form-control" name="magaya__Tax_Amount" value="${k.magaya__Tax_Amount}" /></td>
-                    <td style="display: none;"><input type="text" class="form-control" name="magaya__CQuantity" value="${k.magaya__CQuantity}" /></td>
+
+                    <td style="display: none;"><input type="text" class="form-control" name="magaya__Tax_Rate0" value="${k.magaya__Tax_Rate}" readonly/></td>
                     <td style="display: none;"><input type="text" class="form-control" name="magaya__Unit" value="${k.magaya__Unit}" /></td>
                     <td style="display: none;"><input type="text" class="form-control" name="magaya__Paid_As" value="${k.magaya__Paid_As}" /></td>
-                    <td style="display: none;"><input type="text" class="form-control" name="magaya__Price" value="${k.magaya__Price}" /></td>
                     <td style="display: none;" class="magaya__ChargeCurrency">${k.magaya__ChargeCurrency}</td>
                     <td style="display: none;" class="magaya__ApplyToAccounts">${accountId}</td>
                 </tr>`);
             })
+            totalIncome = convert_number(totalIncome)
+            $("input[name=TotalIncomeCharges]").val(totalIncome)
+
         } //IF
     }
 })
@@ -92,13 +104,21 @@ storeCharge.subscribe(() => {
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().chargesOnNew;
 
+    console.log("Charges on new now", u)
     if (!_.isEmpty(u)) {
         data_module_flag_charge = true
 
         $("#table-charges-new tbody").empty();
         if (!_.isEmpty(u)) {
+            let totalIncome = 0;
+
             $.each(u, function(i, k) {
 
+                k.magaya__Status = sanitize(k.magaya__Status);
+                k.Name = sanitize(k.Name);
+                k.magaya__ChargeCode = sanitize(k.magaya__ChargeCode);
+
+                totalIncome += parseFloat(k.magaya__Amount_Total);
                 $("#table-charges-new tbody").append(`<tr>
                 <td>
                     <span class="material-icons oculto btn-slide" data-module="table-charges-new" data-id="${i}">create</span>
@@ -107,19 +127,23 @@ storeCharge.subscribe(() => {
                 <td class="magaya__Status">${k.magaya__Status}</td>
                 <td class="magaya__ChargeCode">${k.magaya__ChargeCode}</td>
                 <td class="Name"><input type="text" class="form-control no-border" value="${k.Name}" /></td>
+                <td class="magaya__CQuantity"><input type="text" class="form-control no-border" value="${k.magaya__CQuantity}" /></td>
+                <td class="magaya__Price"><input type="text" class="form-control no-border" value="${k.magaya__Price}" /></td>
                 <td class="magaya__Amount">${k.magaya__Amount}</td>
-                <td class="magaya__Tax_Rate"><input type="text" class="form-control" value="${k.magaya__Tax_Rate}" readonly/></td>
+                <td class="magaya__Tax_Amount"><input type="text" class="form-control no-border" value="${k.magaya__Tax_Amount}" /></td>
+
                 <td class="magaya__Amount_Total"><input type="text" class="form-control" value="${k.magaya__Amount_Total}" readonly/></td>
-                <td class="magaya__Tax_Amount" style="display: none;"><input type="text" class="form-control no-border" value="${k.magaya__Tax_Amount}" /></td>
-                <td class="magaya__CQuantity" style="display: none;"><input type="text" class="form-control no-border" value="${k.magaya__CQuantity}" /></td>
+                <td class="magaya__Tax_Rate0" style="display: none;"><input type="text" class="form-control" value="${k.magaya__Tax_Rate}" readonly/></td>
                 <td class="magaya__Unit" style="display: none;"><input type="text" class="form-control no-border" value="${k.magaya__Unit}" /></td>
                 <td class="magaya__Paid_As" style="display: none;"><input type="text" class="form-control no-border" value="${k.magaya__Paid_As}" /></td>
-                <td class="magaya__Price" style="display: none;"><input type="text" class="form-control no-border" value="${k.magaya__Price}" /></td>
-                <td class="NoData" style="display: none;"></td>
                 <td class="magaya__ChargeCurrency">${k.magaya__ChargeCurrency}</td>
                 <td class="magaya__ApplyToAccounts" style="display: none;"><input type="text" class="form-control no-border" value="${k.magaya__ApplyToAccounts}"/></td>
                 </tr>`);
             })
+
+            $("input[name=TotalIncomeCharges]").val(totalIncome)
         }
     }
 })
+
+

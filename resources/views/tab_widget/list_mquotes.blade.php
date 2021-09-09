@@ -408,8 +408,11 @@ button svg {
                                                     <th></th>
 													<th>Status</th>
 													<th>Charge Type</th>
-													<th>Amount</th>
-													<th>Tax Rate</th>
+                                                    <th>Description</th>
+													<th>Quantity</th>
+                                                    <th>Price</th>
+                                                    <th>Amount</th>
+                                                    <th>Tax Amount</th>
 													<th>Amount + Tax</th>
 													<th>Total Amount</th>
 												</tr>
@@ -425,8 +428,11 @@ button svg {
                                                     <th></th>
                                                     <th>Status</th>
 													<th>Charge Type</th>
-													<th>Amount</th>
-													<th>Tax Rate</th>
+                                                    <th>Description</th>
+													<th>Quantity</th>
+                                                    <th>Price</th>
+                                                    <th>Amount</th>
+                                                    <th>Tax Amount</th>
 													<th>Amount + Tax</th>
 													<th>Total Amount</th>
 												</tr>
@@ -434,12 +440,11 @@ button svg {
 										   <tbody></tbody>
 										</table>
                                     </div>
-                                    <table class="table table-bordred" id="dataTable" width="100%" cellspacing="0">
-											<tr>
-												<td colspan="3" style="width:20%"><b>Total Tax Amount:</b> <input type="text" name="" class="form-control"></td>
-												<td colspan="3" style="width:20%"><b>Total Income:</b>  <input type="text" name="" class="form-control"></td>
-											</tr>
-										</table>
+
+                                    <div class="col-md-2">
+                                        <span>Total Income Charges</span>
+                                        <input type="text" name="TotalIncomeCharges" class="form-control" readonly>
+                                    </div>
 
 								</div>
                                 <!------------------------------------------------------------->

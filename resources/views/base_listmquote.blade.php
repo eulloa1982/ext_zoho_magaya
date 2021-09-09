@@ -74,10 +74,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
     <script src="{{ url('js/ui_listmquote/biblio_jquery.js') }}"></script>
-    <script src="{{ url('js/quotation3.js') }}"></script>
+    <!--script src="{{ url('js/quotation3.js') }}"></script>
     <script src="{{ url('js/quotation_utils3.js') }}"></script>
     <script src="{{ url('js/magaya_api.js') }}"></script>
-    <script src="{{ url('js/utils.js') }}"></script>
+    <script src="{{ url('js/utils.js') }}"></script-->
 
     <script src="{{ url('js/errors_handlers/errors.js') }}"></script>
     <script src="{{ url('js/store/constants.js') }}"></script>
@@ -88,6 +88,8 @@
     <script src="{{ url('js/store/storeQuotes.js') }}"></script>
     <script src="{{ url('js/store/storeItems.js') }}"></script>
     <script src="{{ url('js/store/storeCharges.js') }}"></script>
+    <script src="{{ url('js/store/storeOrganization.js') }}"></script>
+
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersCharges.js') }}"></script>
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersItems.js') }}"></script>
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersQuotes.js') }}"></script>

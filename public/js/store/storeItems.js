@@ -76,7 +76,6 @@ function reducerItem (state = initialStateIntems, actions)  {
 
 
         case UPDATE_ITEM_ON_NEW: {
-            const byId = actions.payload.id
             const field = actions.payload.field;
             const value = actions.payload.value;
             state.singleItem[field] = value
