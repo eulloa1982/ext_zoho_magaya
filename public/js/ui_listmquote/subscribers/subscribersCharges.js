@@ -76,7 +76,7 @@ storeCharge.subscribe(() => {
                 $("#table-charges tbody").append(`<tr>
                     <td>
                         <span class="material-icons oculto btn-slide" data-module="table-charges" data-id="${i}">create</span>
-                        <span class="material-icons oculto del-item-warehouse-new" data-id=${i}>clear</span>
+                        <span class="material-icons oculto del-item-charge" data-id=${k.id}>clear</span>
                     </td>
                     <td class="magaya__Status">${k.magaya__Status}</td>
                     <td class="magaya__ChargeCode">${k.magaya__ChargeCode}</td>
@@ -122,7 +122,7 @@ storeCharge.subscribe(() => {
                 $("#table-charges-new tbody").append(`<tr>
                 <td>
                     <span class="material-icons oculto btn-slide" data-module="table-charges-new" data-id="${i}">create</span>
-                    <span class="material-icons oculto del-item-warehouse-new" data-id=${i}>clear</span>
+                    <span class="material-icons oculto del-item-charge-new" data-id=${i}>clear</span>
                 </td>
                 <td class="magaya__Status">${k.magaya__Status}</td>
                 <td class="magaya__ChargeCode">${k.magaya__ChargeCode}</td>

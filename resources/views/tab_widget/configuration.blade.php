@@ -107,7 +107,7 @@ $(document).ready(function(){
         }
 
         //set cookie magaya url
-        setCookie(nameCookie, magaya_url, 1);
+        //setCookie(nameCookie, magaya_url, 1);
 
 
         data = {

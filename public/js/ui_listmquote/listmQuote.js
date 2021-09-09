@@ -492,6 +492,7 @@ $(document).ready(function(){
 
                 $(this).removeClass("editable")
 
+                let idQuote = quoteToEdit.id
                 let value = $(this).val().replace(/[^a-zA-Z0-9]\./g, ' ');
                 let field = $(this).attr('name');
                 let idCharge = $(this).attr("data-id")
@@ -512,7 +513,6 @@ $(document).ready(function(){
                             APIData: JSON.parse(json_items)
                         }
 
-                        console.log("charges edit", config)
 
                         ZOHO.CRM.API.updateRecord(config)
                             .then(function(data){
@@ -527,6 +527,14 @@ $(document).ready(function(){
                                         storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
                                     } else {
+                                        var func_name = "magaya__setQuoteTotalAmount";
+                                        var req_data ={
+                                            "quote_id" : idQuote
+                                        };
+
+                                        ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
+                                            console.log(data)
+                                        })
                                         message = " : Item Updated!!";
                                         storeCharge.dispatch(setAmount({id:idCharge, field: field, value: value}))
                                         storeSuccess.dispatch(addSuccess({message: message}))
@@ -559,6 +567,7 @@ $(document).ready(function(){
             $(".del-item-charge").click (function (e) {
                 let idCharge = $(this).attr('data-id');
                 let tr = $(this).parent().parent();
+                let idQuote = quoteToEdit.id
 
                 Swal.fire({
                     title: "Confirm",
@@ -585,6 +594,15 @@ $(document).ready(function(){
                                     storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
                                 } else {
+                                    //execute update amount function
+                                    var func_name = "magaya__setQuoteTotalAmount";
+                                    var req_data ={
+                                        "quote_id" : idQuote
+                                    };
+
+                                    ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
+                                        console.log("Deleting data", data)
+                                    })
                                     message = " : Item Updated!!";
                                     storeCharge.dispatch(deleteCharge({id: idCharge}))
                                     storeSuccess.dispatch(addSuccess({message: message}))

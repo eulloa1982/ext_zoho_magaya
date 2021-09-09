@@ -217,6 +217,15 @@ $(document).ready(function(){
                                 storeCharge.dispatch(addCharge({...k}))
                             })
 
+                            var func_name = "magaya__setQuoteTotalAmount";
+                            var req_data ={
+                                "quote_id" : idmQuoteToEdit
+                            };
+                            console.log("Insertando charge updateando amount de ", idmQuoteToEdit)
+
+                            ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
+                                console.log("Inserting amount response", data)
+                            })
                             let message = ": Added new Charge item"
                             storeSuccess.dispatch(addSuccess({message: message}))
                         })
