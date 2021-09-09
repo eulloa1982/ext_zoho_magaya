@@ -531,8 +531,9 @@ $(document).ready(function(){
                                         var req_data ={
                                             "quote_id" : idQuote
                                         };
+                                        console.log("Disparando actualizacin amount", req_data)
                                         ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
-
+                                            console.log(data)
                                         })
                                         message = " : Item Updated!!";
                                         storeCharge.dispatch(setAmount({id:idCharge, field: field, value: value}))
