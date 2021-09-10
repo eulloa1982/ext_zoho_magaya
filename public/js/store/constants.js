@@ -48,7 +48,7 @@ const CHARGES_FIELDS = {"Name": {"field": "Name"}, "magaya__Amount": {"field": "
 
 const ITEMS_FIELDS = {
     "Name": {"field": "Name"}, "magaya__Length": {"field": "Length"}, "magaya__Width": {"field": "Width"},
-    "magaya__Weigth": {"field": "Weigth"}, "magaya__Status": {"field": "Status"}, "magaya__Height": {"field": "Height"},
-    "magaya__Pieces": {"field": "Pieces"}, "magaya__Measure_System": {"field": "Measure System", "values": ["International", "English"]},
-    "magaya__Volume": {"field": "Volume"}, "Modified_Time": {"field": "Modified Time"}
+    "magaya__Weigth": {"field": "Weigth"}, "magaya__Status": {"field": "Status", "values":["InQuote"]}, "magaya__Height": {"field": "Height"},
+    "magaya__Pieces": {"field": "Pieces"}, "magaya__Measure_System": {"field": "Measure System", "values": ["International"]},
+    "magaya__Volume": {"field": "Volume"}
 }

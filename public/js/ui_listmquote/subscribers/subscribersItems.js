@@ -77,14 +77,15 @@ storeItem.subscribe(() => {
                     <span class="material-icons oculto btn-slide" data-module="table-items-new" data-id="${i}">create</span>
                     <span class="material-icons oculto del-item-warehouse-new" data-id=${i}>clear</span>
                 </td>
-                <td class="magaya__Pieces">${k.magaya__Pieces}</td>
+                <td class='magaya__Status'>InQuote</td>
                 <td class='Name'>${sanitize(k.Name)}</td>
+                <td class="magaya__Pieces">${k.magaya__Pieces}</td>
                 <td class="magaya__Length">${roundDec(k.magaya__Length)}</td>
                 <td class="magaya__Height">${roundDec(k.magaya__Height)}</td>
                 <td class="magaya__Width">${roundDec(k.magaya__Width)}</td>
                 <td class="magaya__Weigth">${roundDec(k.magaya__Weigth)}</td>
                 <td class="magaya__Volume">${roundDec(k.magaya__Volume)}</td>
-                <td class='magaya__Status' style="display: none;">InQuote</td>
+
                 <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
                 </tr>`);
 
@@ -122,22 +123,23 @@ storeItem.subscribe(() => {
             }
 
             totalPieces += parseInt(k.magaya__Pieces)
-            totalVolume += parseFloat(k.magaya__Volume)
-            totalWeight += parseFloat(k.magaya__Weigth)
-
+            totalVolume += roundDec(k.magaya__Volume)
+            totalWeight += roundDec(k.magaya__Weigth)
+            k.Name = sanitize(k.Name);
             let appendData = `<tr>
             <td class="Delete">
                 <span class="material-icons oculto btn-slide" data-module="table-items" data-id="${i}">create</span>
                 <span class="material-icons oculto del-item-warehouse" data-id=${k.id}>clear</span>
             </td>
-            <td class="magaya__Pieces"${k.magaya__Pieces}</td>
-            <td class='Name'>${sanitize(k.Name)}</td>
+            <td class="magaya__Status">InQuote</td>
+            <td class='Name'>${k.Name}</td>
+            <td class="magaya__Pieces">${k.magaya__Pieces}</td>
             <td class="magaya__Length">${k.magaya__Length}</td>
             <td class="magaya__Height">${k.magaya__Height}</td>
             <td class="magaya__Width">${k.magaya__Width}</td>
             <td class="magaya__Weigth">${k.magaya__Weigth}</td>
             <td class="magaya__Volume">${k.magaya__Volume}</td>
-            <td class="magaya__Status" style="display: none;">InQuote</td>
+
             <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
             </tr>`
             $("#table-items tbody").append(appendData);

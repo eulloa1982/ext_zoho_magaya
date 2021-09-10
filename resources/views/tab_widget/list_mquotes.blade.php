@@ -558,7 +558,7 @@
 														<div class="input-group">
 															<select name="magaya__Measure_System" class="form-control">
 																<option value="International">International</option>
-																<option value="English">English</option>
+																<!--option value="English">English</option-->
 															</select>
 														</div>
 													</div>
@@ -625,8 +625,9 @@
 											<thead>
 												<tr>
 													<th></th>
+                                                    <th>Status</th>
+                                                    <th>Description</th>
 													<th>Pieces</th>
-													<th>Description</th>
 													<th>Length</th>
                                                     <th>Heigth</th>
 													<th>Width</th>
@@ -640,9 +641,10 @@
                                         <table id="table-items-new" class="table table-bordered table-striped" style="width:100%;">
 											<thead>
 												<tr>
-													<th>ID</th>
+													<th></th>
+                                                    <th>Status</th>
+                                                    <th>Description</th>
 													<th>Pieces</th>
-													<th>Description</th>
 													<th>Length</th>
                                                     <th>Heigth</th>
 													<th>Width</th>

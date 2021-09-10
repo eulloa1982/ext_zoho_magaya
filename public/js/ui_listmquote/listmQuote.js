@@ -203,7 +203,7 @@ $(document).ready(function(){
            //drop the state temporal items and charges
             storeItem.dispatch(emptyItems())
             storeCharge.dispatch(emptyCharges())
-
+            limpiar_form()
             /*$("#nav-home-tab").addClass("active");
             $("#menu5").addClass("active show");
             $("#nav-profile-tab").removeClass("active");
