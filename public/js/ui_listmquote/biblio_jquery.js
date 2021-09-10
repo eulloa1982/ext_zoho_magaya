@@ -98,7 +98,12 @@ function sanitize(input) {
     return output;
     */
    if (!_.isEmpty(input)) {
-        return input.replace(/<(|\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g, '').replace(/[^a-zA-Z0-9]\-\#/g, ' ');
+       /*if (input.match(/^[0-9a-zA-Z]\-\#{1,255}$/))
+        return input;
+
+    return false;*/
+        let a = HtmlSanitizer.SanitizeHtml(input);
+        return input.replace(/['"]+/g, '').replace(/[^a-zA-Z0-9]\-/g, ' ').replace(/<(|\/["]\/[&<>]\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g, '');
    }
 };
 

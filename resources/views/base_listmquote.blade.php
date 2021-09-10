@@ -54,6 +54,9 @@
 
     @yield('main')
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jitbit/HtmlSanitizer@master/HtmlSanitizer.js"></script>
+
+
 
     <script src="{{ url('js/moment.js') }}"></script>
     <script src="{{ url('js/magaya_api.js') }}"></script>
