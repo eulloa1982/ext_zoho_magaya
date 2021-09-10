@@ -164,25 +164,16 @@ $(document).ready(function(){
         let Unity = $("input[name=Unity]").val() > 0 ? $("input[name=Unity]").val() : 0;
         let Price = $("input[name=Price]").val() > 0 ? $("input[name=Price]").val() : 0;
 
-        Price = convert_number(Price)
-        TaxRate = convert_number(TaxRate)
-        Quantity = convert_number(Quantity);
+        Price = roundDec(Price)
+        TaxRate = roundDec(TaxRate)
+        Quantity = roundDec(Quantity);
         let amount = Price * Quantity;
-        amount = convert_number(amount)
-        let amount_tax = Price / 100 * TaxRate
-        amount_tax = convert_number (amount_tax);
+        amount = roundDec(amount)
+        let amount_tax = amount / 100 * TaxRate
+        amount_tax = roundDec (amount_tax);
         let amount_total = amount + amount_tax;
-        amount_total = convert_number (amount_total)
+        amount_total = roundDec (amount_total)
 
-
-       /* Price = roundDec(Price);
-
-        TaxRate = parseFloat(TaxRate);
-        let TaxAmount = ($("input[name=TaxAmount]").val() > 0) ? $("input[name=TaxAmount]").val() : 0;
-        TaxAmount = parseFloat(TaxAmount)
-
-        let Amount = parseFloat(Quantity) * parseFloat(Price);
-        Amount = roundDec(Amount);*/
 
         let item = {
                 'magaya__SQuote_Name': idmQuoteToEdit,
@@ -368,7 +359,7 @@ $(document).ready(function(){
         Quantity = roundDec(Quantity);
         let amount = Price * Quantity;
         amount = roundDec(amount)
-        let amount_tax = Price / 100 * TaxRate
+        let amount_tax = amount / 100 * TaxRate
         amount_tax = roundDec(amount_tax);
         let amount_total = amount + amount_tax;
         amount_total = roundDec(amount_total)
