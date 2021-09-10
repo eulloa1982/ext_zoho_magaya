@@ -47,11 +47,12 @@ input:active {
 #quote-info, #quote-alert {
     position: absolute;
     top: 0;
-    bottom: 45em;
-    left: 20em;
-    right: 20em;
+    bottom: 70%;
+    left: 30%;
+    right: 30%;
     color: #333;
-    padding: 1em;
+    padding: 10px 5px 5px 10px;
+    margin: 20px 20px 20px 20px;
     font-size: 14px;
     border:rgb(55, 65, 56);
     box-shadow: 10px 15px 15px 15px black;
@@ -73,7 +74,7 @@ input:active {
   background: white;
   color: #333;
   overflow: auto;
-  padding: 1em;
+  padding: 20px 10px 10px 10px;
 }
 /*.panel-datashow {
   position: absolute;
