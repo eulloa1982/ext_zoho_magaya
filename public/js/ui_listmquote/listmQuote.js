@@ -355,6 +355,11 @@ $(document).ready(function(){
                     //pintamos el nuevo value parseado
                     $(this).val(value);
                     if (oldValue.toString() !== value.toString()) {
+                        value = sanitize(value)
+                        console.log("Value item", value)
+                        if (field !== "Name") {
+                            value = roundDec(value)
+                        }
 
                         let json_items ='{"id":"'+ idItem +'", "' + field + '": "' + value + '"}';
 
@@ -493,6 +498,7 @@ $(document).ready(function(){
                 //check class for each field
                 if (field !== undefined && field !== 'undefined') {
 
+                    value = sanitize(value)
                     if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
                         value = roundDec(value);
                     }
@@ -683,7 +689,7 @@ $(document).ready(function(){
                 let field = $(this).attr('name');
 
                 let idItem = $(this).attr("data-id")
-                console.log(`${field} , ${value}, ${idItem}`)
+                value = sanitize(value);
 
                 if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__Tax_Rate") {
                     value = parseFloat(value);
@@ -757,11 +763,13 @@ $(document).ready(function(){
                 $(this).removeClass("editable")
                 let field = $(this).attr('name');
                 let value = $(this).val()
+
+                value = sanitize(value)
+
                 if (field !== "Name")
-                    value = parseFloat(value);
+                    value = roundDec(value);
 
                 let idItem = $(this).parent().attr("data-id")
-                console.log(`${idItem}  ${field}  ${value}`)
                 //pintamos el nuevo value parseado
                 $(this).val(value);
                 if (oldValue.toString() !== value.toString()) {
