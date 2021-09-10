@@ -41,13 +41,13 @@
 
     <div id="quote-alert" class="alert alert-danger alert-dismissible" style="position: absolute; display: none; z-index: 6000">
         <span class="material-icons close cursor-hand" data-close="quote-alert">close</span>
-        <div id="message-alert"></div>
+        <div id="message-alert" class="message-data"></div>
 
     </div>
 
     <div id="quote-info" class="alert alert-success alert-dismissible" style="position: absolute; display: none; z-index: 6000;">
         <span class="material-icons close cursor-hand" data-close="quote-info">close</span>
-        <div id="message-info"></div>
+        <div id="message-info" class="message-data"></div>
     </div>
 
 

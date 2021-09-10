@@ -47,11 +47,12 @@ input:active {
 #quote-info, #quote-alert {
     position: absolute;
     top: 0;
-    bottom: 45em;
-    left: 20em;
-    right: 20em;
+    bottom: 70%;
+    left: 30%;
+    right: 30%;
     color: #333;
-    padding: 1em;
+    padding: 10px 5px 5px 10px;
+    margin: 20px 20px 20px 20px;
     font-size: 14px;
     border:rgb(55, 65, 56);
     box-shadow: 10px 15px 15px 15px black;
@@ -73,58 +74,20 @@ input:active {
   background: white;
   color: #333;
   overflow: auto;
-  padding: 1em;
-}
-/*.panel-datashow {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #eee;
-  color: #333;
-  overflow: auto;
-  padding: 1em;
-}*/
 
-/* simulate panel state control --
-this can also be triggered by a
-class name added to the body tag.
-Just using a checkbox sibling here
-for simplicity
-*/
-/*[id="btnControl"]:checked ~ .panel-wrap {
-  transform: translateX(0%);
 }
-[id="btnControl2"]:checked ~ .panel-wrap2 {
-  transform: translateX(0%);
-}
-[class="data-show"]:checked ~ .data-show-panel {
-    transform: translate(0%);
-}
-/* demo display *
-*,*:before, *:after {box-sizing: border-box;}
-/*h3 {
-  margin: 0;
-}
-p {
-  line-height: 1.4;
-  margin: 2em 0 0 0;
-}
-[type="checkbox"] {
-  font-size: 1em;
-  float: right;
-}
-/*** prueba adaptar estilo  *
-#btnControl, #btnControl2 {
-    display: none;
-}*/
 
-.panel .row{
+.message-data {
+    position: absolute;
+    margin: 20px 20px 20px 20px;
+    font-size: 14px;
+}
+
+/*.panel .row{
     border: 2px solid #0b3355;
     margin: 5px 5px 5px 5px;
     padding: 5px 5px 5px 5px;
-}
+}*/
 
 /**********panel editing*************/
 #panel, #panel-charge, #panel-item, #panel-search {
