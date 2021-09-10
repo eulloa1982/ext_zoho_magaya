@@ -68,9 +68,9 @@ storeItem.subscribe(() => {
                 }
 
                 //get totales
-                totalPieces += parseInt(k.magaya__Pieces)
-                totalVolume += parseFloat(k.magaya__Volume)
-                totalWeight += parseFloat(k.magaya__Weigth)
+                totalPieces += roundDec(k.magaya__Pieces)
+                totalVolume += roundDec(k.magaya__Volume)
+                totalWeight += roundDec(k.magaya__Weigth)
 
                 $("#table-items-new tbody").append(`<tr>
                 <td class='Delete'>
@@ -92,8 +92,8 @@ storeItem.subscribe(() => {
             })
 
             $("input[name=Total_Pieces]").val(`${totalPieces}`)
-            $("input[name=Total_Weight]").val(`${totalWeight}`)
-            $("input[name=Total_Volume]").val(`${totalVolume}`)
+            $("input[name=Total_Weight]").val(`${roundDec(totalWeight)}`)
+            $("input[name=Total_Volume]").val(`${roundDec(totalVolume)}`)
 
         }
     }
@@ -112,8 +112,8 @@ storeItem.subscribe(() => {
 
         $("#table-items tbody").empty();
         $.each(u, function(i, k) {
-            let volume = parseFloat(k.magaya__Length) * parseFloat(k.magaya__Height) * parseFloat(k.magaya__Weigth);
-            let quote = k.magaya__SQuote_Name.id;
+            //let volume = parseFloat(k.magaya__Length) * parseFloat(k.magaya__Height) * parseFloat(k.magaya__Weigth);
+            //let quote = k.magaya__SQuote_Name.id;
 
             let measure_system = "in";
             let measure_system_volume = "lb";
@@ -122,7 +122,7 @@ storeItem.subscribe(() => {
                 measure_system_volume = "kg";
             }
 
-            totalPieces += parseInt(k.magaya__Pieces)
+            totalPieces += roundDec(k.magaya__Pieces)
             totalVolume += roundDec(k.magaya__Volume)
             totalWeight += roundDec(k.magaya__Weigth)
             k.Name = sanitize(k.Name);
@@ -146,8 +146,8 @@ storeItem.subscribe(() => {
 
         }) //each
 
-        $("input[name=Total_Pieces]").val(`${totalPieces}`)
-        $("input[name=Total_Weight]").val(`${totalWeight}`)
-        $("input[name=Total_Volume]").val(`${totalVolume}`)
+        $("input[name=Total_Pieces]").val(`${roundDec(totalPieces)}`)
+        $("input[name=Total_Weight]").val(`${roundDec(totalWeight)}`)
+        $("input[name=Total_Volume]").val(`${roundDec(totalVolume)}`)
     }
 })

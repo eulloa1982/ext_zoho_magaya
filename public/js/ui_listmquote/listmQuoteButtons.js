@@ -76,12 +76,18 @@ $(document).ready(function(){
         let volume = parseFloat(length) * parseFloat(width) * parseFloat(height);
         let measure_system = $("select[name=magaya__Measure_System] option:selected").val()
 
-        pieces = parseInt(pieces);
-        length = parseFloat(length);
-        height = parseFloat(height);
-        width = parseFloat (width);
+        pieces = roundDec(pieces);
+        length = roundDec(length);
+        height = roundDec(height);
+        width = roundDec(width);
         //weight = parseFloat(weight);
-        volume = parseFloat(volume);
+        volume = roundDec(volume);
+
+        let factor = 166;
+        if (measure_system === "International")
+            factor = 1000
+
+        weigth = roundDec(volume / factor)
 
         //formar el objeto
         let item = {
@@ -92,7 +98,7 @@ $(document).ready(function(){
             'magaya__Length': length,
             'magaya__Height': height,
             'magaya__Width': width,
-            'magaya__Weigth': 0,
+            'magaya__Weigth': weigth,
             'magaya__Volume': volume,
             'magaya__Measure_System': measure_system
         }
@@ -136,13 +142,13 @@ $(document).ready(function(){
         })
         .catch(function(error){
             dataError = error.data;
-            $.map(dataError, function(k, v) {
-                errorCode = k.code;
-                field = k.details.api_name;
+            //$.map(dataError, function(k, v) {
+                errorCode = dataError.code;
+                field = dataError.details.api_name;
                 show = true;
                 storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
-            })
+            //})
         })
     })
 
@@ -310,13 +316,19 @@ $(document).ready(function(){
         let volume = parseFloat(length) * parseFloat(width) * parseFloat(height);
         let measure_system = $("select[name=magaya__Measure_System] option:selected").val();
 
+        let factor = 166;
+            if (measure_system === "International")
+                factor = 1000
+
+        weigth = roundDec(volume / factor)
+
         let item = {
             'Name': packageName,
             'magaya__Pieces': pieces,
             'magaya__Length': parseFloat(length),
             'magaya__Height': parseFloat(height),
             'magaya__Width': parseFloat(width),
-            'magaya__Weigth': 0,
+            'magaya__Weigth': weigth,
             'magaya__Volume': parseFloat(volume),
             "magaya__Measure_System": measure_system
 
