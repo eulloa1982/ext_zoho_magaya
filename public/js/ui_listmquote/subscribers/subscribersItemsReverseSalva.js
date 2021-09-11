@@ -5,7 +5,68 @@ let data_module_flag_item = true
 storeItem.subscribe(() => {
     let u = storeItem.getState().singleItem;
 
-    if (!_.isEmpty(u)) {
+    let k = u[0]
+    let id = 0;
+    //find id charge
+    $.map(u[1], function(k, v) {
+        id = u[1].id
+    })
+
+    let data_module = data_module_flag_item ? "table-items-new" : "table-items"
+    let no_border = data_module_flag_item ? "no-border-item-new" : "no-border-item"
+    let button_type = data_module_flag_item ? "updateItemNew" : "updateItem"
+
+    let app = `
+            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
+            <span class="material-icons cursor-hand btn-slide" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
+        `
+    $("#info-datad").empty()
+    $.map(ITEMS_FIELDS, function (k, v) {
+        let type = 'text'
+        let value = ''
+
+        if (_.has(ITEMS_FIELDS, [v, 'type'])) {
+            type = "number";
+        }
+
+        let input = `<input type="${type}" name="${v}" class="form-control ${no_border}" data-id="${id}" />`
+        let values = _.has(ITEMS_FIELDS, [v, "values"]) ? _.get(ITEMS_FIELDS, [v, 'values']) : ''
+        if (!_.isEmpty(values)) {
+            input = `<select name="${v}" class="form-control ${no_border}" data-id="${id}">`
+            $.map(values, function(val) {
+                if (val === k)
+                    input += `<option value="${val}" selected>${val}</option>`
+                else
+                    input += `<option value="${val}" selected>${val}</option>`
+            })
+            input += `</select>`
+        }
+
+        values = _.has(ITEMS_FIELDS, [v, "values"]) ? _.get(ITEMS_FIELDS, [v, 'values']) : ''
+
+        app += `<div class="row" style="margin: 5px 5px 5px 5px">
+                <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px">${ITEMS_FIELDS[v]['field']}</div>
+                <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px">
+                    ${input}
+                </div>
+                </div>`
+    })
+
+    $.map(u[1], function(k, v) {
+        $("input[name=Name]").val("jdjdj")
+        if (!_.isObject(k) && !v.includes("$")) {
+            console.log(k, v)
+            app += $(`input[name=${v}]`).val(k)
+            app += $(`select[name=${v}]`).val(k)
+            console.log(app)
+        }
+    })
+
+    app += `<span id="${button_type}" data-id="${id}" class="btn btn-primary">Send</span>`
+
+    $("#info-datad").append(app)
+
+    /*if (!_.isEmpty(u)) {
         //construir los campos y la data
         let k = u[0]
         let id = 0;
@@ -13,22 +74,19 @@ storeItem.subscribe(() => {
         $.map(u[1], function(k, v) {
             id = u[1].id
         })
-        let data_module = data_module_flag_item ? "table-items-new" : "table-items"
-        let no_border = data_module_flag_item ? "no-border-item-new" : "no-border-item"
-        let button_type = data_module_flag_item ? "updateItemNew" : "updateItem"
 
-        $("#info-datad").empty()
-        let append = `
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
-            <span class="material-icons cursor-hand btn-slide" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
-        `
+
         $.map(u[1], function(k, v) {
             if ( _.has(ITEMS_FIELDS, v)) {
-                input = `<input type="text" data-id="${id}" class="form-control ${no_border}" name="${v}" value="${k}"/>`
+                let type = "text"
+                if (_.has(ITEMS_FIELDS, [v, 'type']))
+                    type = "number";
+
+                input = `<input type="${type}" data-id="${id}" class="form-control ${no_border}" name="${v}" value="${k}"/>`
                 let field = _.get(ITEMS_FIELDS, [v, 'field'])
                 let values = _.has(ITEMS_FIELDS, [v, "values"]) ? _.get(ITEMS_FIELDS, [v, 'values']) : ''
                 if (!_.isEmpty(values)) {
-                    input = `<select data-id="${id}" name="${v}" class="form-control no-border-item">`
+                    input = `<select data-id="${id}" name="${v}" class="form-control ${no_border}">`
                         $.map(values, function(val) {
                             if (val === k)
                                 input += `<option value="${val}" selected>${val}</option>`
@@ -43,11 +101,9 @@ storeItem.subscribe(() => {
                 </div>`
             }
         })
-
         append += `<span id="${button_type}" data-id="${id}" class="btn btn-primary">Send</span>`
-
         $("#info-datad").append(append)
-    }
+    }*/
 
 })
 
@@ -106,7 +162,7 @@ storeItem.subscribe(() => {
 //////subscriber items, render UI table
 storeItem.subscribe(() => {
     let u = storeItem.getState().items;
-
+    console.log("Items state now", u)
     if (!_.isEmpty(u)) {
         data_module_flag_item = false;
         let totalPieces = 0

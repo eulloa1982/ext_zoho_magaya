@@ -97,6 +97,8 @@
     <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteInitial.js') }}" async="async"></script>
     <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuote.js') }}" async="async"></script>
     <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteButtons.js') }}" async="async"></script>
+    <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteFormEdit.js') }}" async="async"></script>
+
     <script src="{{ url('js/ui_listmquote/validators/validators.js') }}"></script>
 
 

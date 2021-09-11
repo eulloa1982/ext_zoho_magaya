@@ -561,6 +561,8 @@
 								<div class="tab-pane fade" id="menu4" role="tabpanel" aria-labelledby="menu4-tab" style="min-height: 600px;">
 
                                     <label class="btn btn-sm btn-primary float-right open-panel" data-panel="panel-item" for="btnControl2" style="background-color: #0b3355; float: rigth;">Add Item</label>
+                                    <!--label class="btn btn-sm btn-primary float-right btn-slide" data-id="-1" data-module="table-items" for="btnControl2" style="background-color: #0b3355; float: rigth;">Add Item</label-->
+
 
 
                                     <!---- wrapper for new charge form-->
@@ -839,12 +841,6 @@
     <script>
         Utils.blockUI();
         $(document).ready(function(){
-        $(".btn-slide").click(function(e){
-            e.preventDefault()
-            e.stopImmediatePropagation()
-            $("#panel").slide();
-            $(this).toggleClass("active"); return false;
-        });
     });
    </script>
     @stop
