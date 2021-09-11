@@ -31,6 +31,7 @@ $(document).ready(function(){
     })
 
 
+
     $('.open-panel').click(function(e) {
         e.preventDefault()
         e.stopImmediatePropagation()
@@ -58,6 +59,169 @@ $(document).ready(function(){
         $(`#${div_close}`).animate({width:'toggle'},150);
         //$("#" + div_close).hide()
     })
+
+
+    //////////////////////////////////////////////////////////////////////////////////
+    ///////////////////  div edit records ///////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    $('.edit-record').bind("DOMSubtreeModified", function(e) {
+
+        $("#updateChargeNew").click(function(e) {
+            $("#panel").hide("slow");
+        })
+
+
+
+
+        $("#updateCharge").click(function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            let idCharge = $(this).attr('data-id')
+            //Utils.blockUI();
+            let a = $(".edit-record").serializeArray();
+            let charge = {}
+            $.each(a, function() {
+                if (charge[this.name]) {
+                    if (!charge[this.name].push) {
+                        charge[this.name] = sanitize([charge[this.name]]);
+                    }
+                    charge[this.name].push(sanitize(this.value) || '');
+                } else {
+                    charge[this.name] = sanitize(this.value) || '';
+                }
+            });
+
+            Object.assign(charge, { id: idCharge, magaya__SQuote_Name: idmQuoteToEdit});
+            let config = { APIData: charge }
+            Object.assign(config, { Entity: "magaya__ChargeQuote" });
+
+
+
+            ZOHO.CRM.API.updateRecord(config)
+                .then(function(data){
+                    res = data.data;
+                    $.map(res, function(k, v) {
+                        console.log("Error", k)
+                        if (k.code !== "SUCCESS") {
+                            codeError = k.code;
+                            field = k.details.api_name;
+                            show = true;
+                            module = 'Service Items'
+                            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                        } else {
+                            var func_name = "magaya__setQuoteTotalAmount";
+                            var req_data ={
+                                "quote_id" : idmQuoteToEdit
+                            };
+
+                            ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
+                                console.log("Update quote amount", data)
+                            })
+
+                            ZOHO.CRM.API.getRecord({Entity:"magaya__ChargeQuote",RecordID:idCharge})
+                                .then(function(data){
+                                    record = data.data;
+
+                                    $.map(record, function(k, v){
+                                        storeCharge.dispatch(updateCharge({...k}))
+                                    })
+
+
+                                })
+
+
+                            let message = ": Updated successfully!!"
+                            storeSuccess.dispatch(addSuccess({message: message}))
+                        }
+                    })
+                })
+                .catch(function(error) {
+                    codeError = 'Error on field';
+                    show = true;
+                    field = "oldValue";
+                    module = 'Service Items'
+                    console.log("Error Fatal", error)
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                })
+
+                $("#panel").animate({width:'toggle'},150);
+        })
+
+        $(".no-border-charge").focus(function(e) {
+            $(this).addClass("editable");
+
+            oldValue = $(this).val()
+        })
+
+        $(".no-border-charge").on("change blur", function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation()
+
+            $(this).removeClass("editable")
+
+            let idQuote = quoteToEdit.id
+            let value = $(this).val().replace(/[^a-zA-Z0-9]\./g, ' ');
+            let field = $(this).attr('name');
+            let idCharge = $(this).attr("data-id")
+            //check class for each field
+            if (field !== undefined && field !== 'undefined') {
+
+                value = sanitize(value)
+                if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
+                    value = roundDec(value);
+                }
+
+                //si los valores son iguales, no actualizar nada
+                if (oldValue.toString() !== value.toString()) {
+
+                    let json_items ='{"id":"'+ idCharge +'", "' + field + '": "' + value + '"}';
+                    message = " : Item Updated!!";
+                    storeCharge.dispatch(setAmount({field: field, value: value}))
+                    //storeSuccess.dispatch(addSuccess({message: message}))
+                }
+            }
+
+        })
+
+        //////////////////////////////////////////////////////////////////
+            ///////// data in situ editable
+            ///////////////////////////////////////////////////////////////////
+            $(".no-border-charge-new").focus(function(e) {
+                $(this).addClass("editable");
+
+                oldValue = $(this).val()
+            })
+
+            $(".no-border-charge-new").on("change blur", function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation()
+                let $celd = $(this)
+                $(this).removeClass("editable")
+
+                let value = $(this).val().replace(/[^a-zA-Z0-9]\./g, ' ');
+                let field = $(this).attr('name');
+
+                let idItem = $(this).attr("data-id")
+                value = sanitize(value);
+
+                if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
+                    value = parseFloat(value);
+                }
+
+                //si los valores son iguales, no actualizar nada
+                if (oldValue.toString() !== value.toString()) {
+                    //storeCharge.dispatch(updateCharge({id:idItem, field: field, value: value}))
+                    storeCharge.dispatch(setAmountOnNew({id:idItem, field: field, value: value}))
+                }
+
+            })
+
+
+    })
+
+
 
 
     //boton send new item on edit form
@@ -193,6 +357,7 @@ $(document).ready(function(){
                 'magaya__CQuantity': Quantity,
                 'magaya__Price': Price,
                 'magaya__Amount': amount,
+                'magaya__Final_Amount': amount_total,
                 'magaya__ChargeCurrency': $("select[name=Currency]").val(),
                 'magaya__ApplyToAccounts': accountId
         }
@@ -224,11 +389,18 @@ $(document).ready(function(){
                             var req_data ={
                                 "quote_id" : idmQuoteToEdit
                             };
-                            console.log("Insertando charge updateando amount de ", idmQuoteToEdit)
-
                             ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
-                                console.log("Inserting amount response", data)
+                                console.log("Update quote amount", data)
                             })
+
+                            /*var func_name = "magaya__calculateAmountCharge";
+                            var req_data ={
+                                "charge_id" : idCharge
+                            };
+                            ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
+                                console.log("Update total amount", data)
+                            })*/
+
                             let message = ": Added new Charge item"
                             storeSuccess.dispatch(addSuccess({message: message}))
                         })
@@ -390,6 +562,7 @@ $(document).ready(function(){
                 'magaya__CQuantity': Quantity,
                 'magaya__Price': Price,
                 'magaya__Amount': amount,
+                'magaya__Final_Amount': amount_total,
                 'magaya__ChargeCurrency': $("select[name=Currency]").val(),
                 'magaya__ApplyToAccounts': accountId,
                 'magaya__Unit': Unity,

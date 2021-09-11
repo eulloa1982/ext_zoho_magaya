@@ -43,14 +43,11 @@ $(document).ready(function(){
                     })
                 }
             })
-
-
-    })
-
+     })
 
 
      ///////////////////////////////////////////////////////////////////////////////////
-    /////////no - border form edit
+    /////////no - border form edit outer fields
     ///////////////////////////////////////////////////////////////////////////////////
     $(".no-border").click(function(e) {
         $(this).addClass("editable");
@@ -129,6 +126,12 @@ $(document).ready(function(){
             }
         }
     })
+
+
+
+
+
+
     ///////////////////////////////////////////////////////////////////////////////////
     /////////table quotes, main table
     ///////////////////////////////////////////////////////////////////////////////////
@@ -479,7 +482,7 @@ $(document).ready(function(){
             ///////// data in situ editable
             ///////////////////////////////////////////////////////////////////
 
-            $("#table-charges .no-border-charge").click(function(e) {
+            /*$(".no-border-charge").focus(function(e) {
                 $(this).addClass("editable");
 
                 oldValue = $(this).val()
@@ -556,7 +559,7 @@ $(document).ready(function(){
                     }
                 }
 
-            })
+            })*/
 
 
             /////////////////////////////////////////////////////////////////////////////
@@ -635,6 +638,7 @@ $(document).ready(function(){
 
          ////////////////////////table charge new, form new mquote////////////////////////////
          $('#table-charges-new').bind("DOMSubtreeModified", function() {
+            let oldValue = '';
 
             $('.btn-slide').click(function(e) {
                 e.preventDefault()
@@ -673,7 +677,7 @@ $(document).ready(function(){
             //////////////////////////////////////////////////////////////////
             ///////// data in situ editable
             ///////////////////////////////////////////////////////////////////
-            $(".no-border-charge-new").click(function(e) {
+            /*$(".no-border-charge-new").focus(function(e) {
                 $(this).addClass("editable");
 
                 oldValue = $(this).val()
@@ -691,7 +695,7 @@ $(document).ready(function(){
                 let idItem = $(this).attr("data-id")
                 value = sanitize(value);
 
-                if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__Tax_Rate") {
+                if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
                     value = parseFloat(value);
                 }
 
@@ -701,7 +705,7 @@ $(document).ready(function(){
                     storeCharge.dispatch(setAmountOnNew({id:idItem, field: field, value: value}))
                 }
 
-            })
+            })*/
 
 
          })
@@ -778,6 +782,18 @@ $(document).ready(function(){
                 }
 
             })
+
+        })
+
+
+        $("input[name=magaya__Amount_Total]").change(function(e) {
+            //get final amount
+            let final_amount = $("input[name=magaya__Final_Amount]").val()
+            final_amount = roundDec(final_amount)
+            if (isEmpty(final_amount) || final_amount == 0) {
+                let val = $(this).val()
+                $("input[name=magaya__Final_Amount]").val(val)
+            }
 
         })
 
