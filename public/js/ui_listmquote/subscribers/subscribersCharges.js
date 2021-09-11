@@ -3,10 +3,8 @@ let data_module_flag_charge = true
 //get one charge
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
-    console.log("Single charge", u)
     if (!_.isEmpty(u)) {
         let k = parseInt(u[0])
-        console.log("Id array", k)
         //construir los campos y la data
         let id = 0;
         //find id charge
@@ -109,7 +107,6 @@ storeCharge.subscribe(() => {
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().chargesOnNew;
 
-    console.log("Charges on new", u)
     if (!_.isEmpty(u)) {
         data_module_flag_charge = true
 
@@ -152,7 +149,3 @@ storeCharge.subscribe(() => {
     }
 })
 
-
-storeCharge.subscribe(() => {
-    var singleCharge = storeCharge.getState().singleCharge
-})

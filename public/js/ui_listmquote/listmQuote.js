@@ -337,7 +337,7 @@ $(document).ready(function(){
 
 
             //editable in situ
-            $(".no-border-item").click(function(e) {
+            /*$(".no-border-item").click(function(e) {
                 $(this).addClass("editable");
                 oldValue = $(this).val()
             })
@@ -406,7 +406,7 @@ $(document).ready(function(){
                             })
                     }
                 }
-            })
+            })*/
             //////////////////////////////////////////////end editable////////////////////
             //del item while editing record
             $(".del-item-warehouse").click (function () {
@@ -754,7 +754,7 @@ $(document).ready(function(){
             })
 
 
-            $(".no-border-item-new").click(function(e) {
+            /*$(".no-border-item-new").click(function(e) {
                 $(this).addClass("editable");
 
                 oldValue = $(this).val()
@@ -781,7 +781,7 @@ $(document).ready(function(){
                     storeItem.dispatch(setVolumeOnNew({id:idItem, field: field, value: value}))
                 }
 
-            })
+            })*/
 
         })
 

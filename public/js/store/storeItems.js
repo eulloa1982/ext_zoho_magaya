@@ -21,7 +21,6 @@ function reducerItem (state = initialStateIntems, actions)  {
             //calculate totales
             newArray = state.itemsOnNew;
 
-
             return Object.assign({}, state, {
                 itemsOnNew: state.itemsOnNew.concat(actions.payload),
                 });
@@ -54,9 +53,16 @@ function reducerItem (state = initialStateIntems, actions)  {
         case GET_ITEM_QUOTE: {
             const byId = actions.payload.id;
             state.singleItem = initialStateIntems.singleItem;
+
+            if (byId < 0) {
+                newArray = initialStateCharge.singleItem
+            } else {
+                newArray = {...state.items[byId]}
+            }
+
             return {
                 ...state,
-                singleItem: [byId, state.items[byId]]
+                singleItem: [byId, newArray]
             }
         }
 
@@ -74,6 +80,16 @@ function reducerItem (state = initialStateIntems, actions)  {
             }
         }
 
+        case UPDATE_ITEM: {
+            const id = actions.payload.id
+            const index = state.items.findIndex(item => item.id === id)
+            state.items[index] = actions.payload
+            newArray = actions.payload
+            return {
+                ...state,
+                singleItem: newArray
+            }
+        }
 
         case UPDATE_ITEM_ON_NEW: {
             const field = actions.payload.field;
@@ -87,28 +103,27 @@ function reducerItem (state = initialStateIntems, actions)  {
         }
 
         case CALCULATE_VOLUME: {
-            const idItem = actions.payload.id;
+            //const idItem = actions.payload.id;
             const field = actions.payload.field;
             const value = actions.payload.value;
-
-            const index = state.items.findIndex(item => item.id === idItem)
-            newArray = [...state.items];
-            newArray[index][field] = value
+            //const index = state.items.findIndex(item => item.id === idItem)
+            newArray = { ...state.singleItem};
+            newArray[1][field] = value
             //calculate volume
-            let volume = newArray[index]['magaya__Height'] * newArray[index]['magaya__Length'] * newArray[index]['magaya__Width'];
-            newArray[index]['magaya__Volume'] = roundDec(volume)
+            let volume = newArray[1]['magaya__Height'] * newArray[1]['magaya__Length'] * newArray[1]['magaya__Width'];
+            newArray[1]['magaya__Volume'] = roundDec(volume)
             //calculate weigth
-            let system = newArray[index]['magaya__Measure_System']
+            let system = newArray[1]['magaya__Measure_System']
             let factor = 166;
             if (system === "International")
                 factor = 1000
 
-            newArray[index]["magaya__Weigth"] = roundDec(volume / factor)
+            newArray[1]["magaya__Weigth"] = roundDec(volume / factor)
             //calculate totales
 
             return {
                 ...state,
-                itemsQuote: newArray
+                singleItem: newArray
             }
 
 
@@ -116,28 +131,33 @@ function reducerItem (state = initialStateIntems, actions)  {
 
 
         case CALCULATE_VOLUME_ON_NEW: {
-            const index = actions.payload.id;
+            //const index = actions.payload.id;
             const field = actions.payload.field;
             const value = actions.payload.value;
-            console.warn("Id en el store", index)
-            newArray = [...state.itemsOnNew];
-            newArray[index][field] = value
+            const index = state.singleItem[0]
+
+            state.singleItem = initialStateIntems.singleItem
+
+            newArray = state.itemsOnNew[index];
+            console.log("Copy array", newArray)
+            newArray[field] = value
             //calculate volume
-            let volume = newArray[index]['magaya__Height'] * newArray[index]['magaya__Length'] * newArray[index]['magaya__Width'];
-            newArray[index]['magaya__Volume'] = roundDec(volume)
+            let volume = newArray['magaya__Height'] * newArray['magaya__Length'] * newArray['magaya__Width'];
+            newArray['magaya__Volume'] = roundDec(volume)
             //calculate weigth
-            let system = newArray[index]['magaya__Measure_System']
+            let system = newArray['magaya__Measure_System']
             let factor = 166;
             if (system === "International")
                 factor = 1000
 
-            newArray[index]["magaya__Weigth"] = roundDec(volume / factor)
+            newArray["magaya__Weigth"] = roundDec(volume / factor)
 
             return {
                 ...state,
-                itemsOnNew: newArray
+                singleItem: [index, newArray]
             }
         }
+
 
         case EMPTY_ITEMS : {
             state.items = initialStateIntems.items
@@ -220,3 +240,8 @@ function emptyItems() {
 function updateItemOnNew(payload) {
     return { type: UPDATE_ITEM_ON_NEW, payload }
 }
+
+function updateItem(payload) {
+    return { type: UPDATE_ITEM, payload }
+}
+
