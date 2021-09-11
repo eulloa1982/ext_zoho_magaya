@@ -115,10 +115,6 @@ function limpiar_form() {
     })
 }
 
-function convert_number(string) {
-    return roundDec(new Number(string))
-}
-
 
 //redondear decimales
 function roundDec(num) {

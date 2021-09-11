@@ -3,7 +3,8 @@ const initialStateCharge = {
     chargesQuotes: [],
     //a list of charges on a new mquote form
     chargesOnNew: [],
-    singleCharge: []
+    singleCharge: [],
+    singleChargeCopy: []
   };
 
 function reducerCharge (state = initialStateCharge, actions)  {
@@ -34,9 +35,10 @@ function reducerCharge (state = initialStateCharge, actions)  {
             const byId = actions.payload.id;
             //always get just 1 item on the state
             state.singleCharge = initialStateCharge.singleCharge;
+            newArray = {...state.charges[byId]}
             return {
                 ...state,
-                singleCharge: [byId, state.charges[byId]]
+                singleCharge: [byId, newArray]
             }
         }
 
@@ -50,36 +52,34 @@ function reducerCharge (state = initialStateCharge, actions)  {
         }
 
         case UPDATE_CHARGE: {
-            const byId = actions.payload.id
-            const field = actions.payload.field;
-            const value = actions.payload.value;
-            state.chargesOnNew[byId][field] = value
-            state.singleCharge[field] = value
+            const id = actions.payload.id
+            const index = state.charges.findIndex(charge => charge.id === id)
+            state.charges[index] = actions.payload
+            newArray = actions.payload
             return {
                 ...state,
-                singleCharge: state.singleCharge
+                singleCharge: newArray
             }
 
         }
 
+        //set amount on charge editing
         case SET_AMOUNT: {
-            const idCharge = actions.payload.id;
             const field = actions.payload.field;
             const value = actions.payload.value;
 
-            const index = state.charges.findIndex(charge => charge.id === idCharge)
-            newArray = [...state.charges];
-            newArray[index][field] = value
+            newArray = {...state.singleCharge};
+            newArray[1][field] = value
             //calculate volume
-            let amount = parseFloat(newArray[index]['magaya__Price']) * parseFloat(newArray[index]['magaya__CQuantity']);
-            newArray[index]['magaya__Amount'] = roundDec(amount)
-            let amount_tax = (parseFloat(newArray[index]['magaya__Amount']) / 100) * parseFloat(newArray[index]['magaya__TaxRate'])
-            newArray[index]['magaya__Tax_Amount'] = roundDec(amount_tax);
-            let amount_total = parseFloat(amount + amount_tax);
-            newArray[index]['magaya__Amount_Total'] = roundDec(amount_total);
+            let amount = roundDec(newArray[1]['magaya__Price']) * roundDec(newArray[1]['magaya__CQuantity']);
+            newArray[1]['magaya__Amount'] = roundDec(amount)
+            let amount_tax = (roundDec(newArray[1]['magaya__Amount']) / 100) * roundDec(newArray[1]['magaya__TaxRate'])
+            newArray[1]['magaya__Tax_Amount'] = roundDec(amount_tax);
+            let amount_total = roundDec(amount + amount_tax);
+            newArray[1]['magaya__Amount_Total'] = roundDec(amount_total);
             return {
                 ...state,
-                chargesQuotes: newArray
+                singleCharge: newArray
             }
         }
 
@@ -95,25 +95,28 @@ function reducerCharge (state = initialStateCharge, actions)  {
             });
         }
 
+
         case SET_AMOUNT_ON_NEW: {
-            const index = actions.payload.id;
+            //const index = actions.payload.id;
             const field = actions.payload.field;
             const value = actions.payload.value;
+            const index = state.singleCharge[0];
+            state.singleCharge = initialStateCharge.singleCharge
+            newArray = state.chargesOnNew[index];
 
-            newArray = [...state.chargesOnNew];
-            newArray[index][field] = value
+            newArray[field] = value
             //calculate amount
-            let amount = parseFloat(newArray[index]['magaya__Price']) * parseFloat (newArray[index]['magaya__CQuantity']);
-            newArray[index]['magaya__Amount'] = roundDec(amount)
+            let amount = parseFloat(newArray['magaya__Price']) * parseFloat (newArray['magaya__CQuantity']);
+            newArray['magaya__Amount'] = roundDec(amount)
             //calculate amount tax
-            let amount_tax = (newArray[index]['magaya__Amount'] / 100) * parseFloat (newArray[index]['magaya__TaxRate'])
-            newArray[index]['magaya__Tax_Amount'] = roundDec(amount_tax)
+            let amount_tax = (newArray['magaya__Amount'] / 100) * parseFloat (newArray['magaya__TaxRate'])
+            newArray['magaya__Tax_Amount'] = roundDec(amount_tax)
             let amount_total = amount + amount_tax;
-            newArray[index]["magaya__Amount_Total"] = roundDec(amount_total)
+            newArray["magaya__Amount_Total"] = roundDec(amount_total)
 
             return {
                 ...state,
-                chargesOnNew: newArray
+                singleCharge: [index, newArray]
             }
         }
 
@@ -137,10 +140,11 @@ function reducerCharge (state = initialStateCharge, actions)  {
             const byId = actions.payload.id;
             //always get just 1 item on the state
             state.singleCharge = initialStateCharge.singleCharge;
-            state.chargesOnNew[byId]["id"] = byId
+            newArray = {...state.chargesOnNew[byId]}
+            //state.chargesOnNew[byId]["id"] = byId
             return {
                 ...state,
-                singleCharge: [byId, state.chargesOnNew[byId]]
+                singleCharge: [byId, newArray]
             }
         }
 

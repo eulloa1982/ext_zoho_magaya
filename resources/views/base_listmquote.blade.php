@@ -51,12 +51,9 @@
     </div>
 
 
-
     @yield('main')
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/jitbit/HtmlSanitizer@master/HtmlSanitizer.js"></script>
-
-
 
     <script src="{{ url('js/moment.js') }}"></script>
     <script src="{{ url('js/magaya_api.js') }}"></script>
@@ -100,6 +97,7 @@
     <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteInitial.js') }}" async="async"></script>
     <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuote.js') }}" async="async"></script>
     <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteButtons.js') }}" async="async"></script>
+    <script src="{{ url('js/ui_listmquote/validators/validators.js') }}"></script>
 
 
     <!--script src="{{ url('js/store/storeForms.js') }}"></script-->

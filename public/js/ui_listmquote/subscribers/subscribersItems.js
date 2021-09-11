@@ -23,11 +23,15 @@ storeItem.subscribe(() => {
         `
         $.map(u[1], function(k, v) {
             if ( _.has(ITEMS_FIELDS, v)) {
-                input = `<input type="text" data-id="${id}" class="form-control ${no_border}" name="${v}" value="${k}"/>`
+                let type = "text"
+                if (_.has(ITEMS_FIELDS, [v, 'type']))
+                    type = "number";
+
+                input = `<input type="${type}" data-id="${id}" class="form-control ${no_border}" name="${v}" value="${k}"/>`
                 let field = _.get(ITEMS_FIELDS, [v, 'field'])
                 let values = _.has(ITEMS_FIELDS, [v, "values"]) ? _.get(ITEMS_FIELDS, [v, 'values']) : ''
                 if (!_.isEmpty(values)) {
-                    input = `<select data-id="${id}" name="${v}" class="form-control no-border-item">`
+                    input = `<select data-id="${id}" name="${v}" class="form-control ${no_border}">`
                         $.map(values, function(val) {
                             if (val === k)
                                 input += `<option value="${val}" selected>${val}</option>`

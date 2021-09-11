@@ -37,18 +37,19 @@ const FIND_ALL = "FIND_ALL"
 const FIND_BY_NAME = "FIND_BY_NAME"
 
 //campos a mostrar en formularios de Charges
-const CHARGES_FIELDS = {"Name": {"field": "Name"}, "magaya__Amount": {"field": "Amount"},
-                "magaya__CQuantity": {"field": "Quantity"}, "magaya__Price": {"field": "Price"},
-                "magaya__Tax_Amount": {"field": "Amount Tax"}, "magaya__Amount_Total":{"field": "Total Amount"},
+const CHARGES_FIELDS = {"Name": {"field": "Name"}, "magaya__Amount": {"field": "Amount", "type": "number"},
+                "magaya__CQuantity": {"field": "Quantity", "type": "number"}, "magaya__Price": {"field": "Price", "type": "number"},
+                "magaya__Tax_Amount": {"field": "Tax Amount", "type": "number"}, "magaya__Amount_Total":{"field": "Total Amount", "type": "number"},
                 "magaya__Paid_As": {"field": "Paid As", "values": ["Prepaid", "Collect"]},
-                "magaya__Unit": {"field": "Unit", "values": ["U", "Lb"]},
-                "magaya__TaxRate": {"field": "Tax Rate"},
+                "magaya__Unit": {"field": "Unit", "values": ["U", "Lb"]},"magaya__Final_Amount": {"field": "Final Amount", "type": "number"},
+
+                //"magaya__TaxRate": {"field": "Tax Rate", "type": "number"},
 
 }
 
 const ITEMS_FIELDS = {
-    "Name": {"field": "Name"}, "magaya__Length": {"field": "Length"}, "magaya__Width": {"field": "Width"},
-    "magaya__Weigth": {"field": "Weigth"}, "magaya__Status": {"field": "Status", "values":["InQuote"]}, "magaya__Height": {"field": "Height"},
-    "magaya__Pieces": {"field": "Pieces"}, "magaya__Measure_System": {"field": "Measure System", "values": ["International"]},
-    "magaya__Volume": {"field": "Volume"}
+    "Name": {"field": "Name"}, "magaya__Length": {"field": "Length", "type": "number"}, "magaya__Width": {"field": "Width", "type": "number"},
+    "magaya__Weigth": {"field": "Weigth", "type": "number"}, "magaya__Status": {"field": "Status", "values":["InQuote"]}, "magaya__Height": {"field": "Height", "type": "number"},
+    "magaya__Pieces": {"field": "Pieces", "type": "number"}, "magaya__Measure_System": {"field": "Measure System", "values": ["International"]},
+    "magaya__Volume": {"field": "Volume", "type": "number"}
 }

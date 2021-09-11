@@ -1,5 +1,21 @@
 @extends('base_listmquote')
 @section('main')
+<style>
+    table{
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid blue;
+        max-width: 200px;
+        word-wrap: break-word;
+        /*width: 1% !important;*/
+    }
+
+</style>
+
+
 <div class="panel-search" id="panel-search">
     <div class="panel">
         <span class="material-icons close cursor-hand" data-close="panel-search">close</span>
@@ -111,8 +127,9 @@
 
 
                             <fieldset class="fieldset"><legend class="legend">Item</legend>
-
+                                <form class="edit-record">
                                 <div id="info-datad"></div>
+                                </form>
                             </fieldset>
 
                             </div>
@@ -261,7 +278,7 @@
                                                     <div class="col-md-4">
                                                     <span>Quantity</span>
                                                         <div class="input-group">
-                                                            <input type="text" name='Quantity' id='Quantity' class='form-control' />
+                                                            <input type="number" name='Quantity' id='Quantity' class='form-control' />
                                                         </div>
                                                     </div>
 
@@ -279,7 +296,7 @@
                                                     <div class="col-md-4">
                                                     <span>Price</span>
                                                         <div class="input-group">
-                                                            <input type="text" name='Price' id='Price' class='form-control' />
+                                                            <input type="number" name='Price' id='Price' class='form-control' />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -301,6 +318,8 @@
                                                             </div>
                                                     </div-->
                                                 </div>
+
+
 											</fieldset>
 
                                                 <!--div class="row">
@@ -324,40 +343,39 @@
 
 
 
-                                    <div class="table-responsive-sm">
-										<table id="table-charges" class="table table-bordered table-striped">
+                                    <div class="table-responsive">
+
+                                        <table id="table-charges" class="table table-bordered table-striped">
 											<thead>
-												<tr>
+                                                <tr>
                                                     <th></th>
 													<th>Status</th>
-													<th>Charge Type</th>
                                                     <th>Description</th>
 													<th>Quantity</th>
                                                     <th>Price</th>
                                                     <th>Amount</th>
                                                     <th>Tax Amount</th>
 													<th>Amount + Tax</th>
-													<th>Total Amount</th>
+                                                    <th>Final Amount</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
 										</table>
                                     </div>
 
-                                    <div class="table-responsive-sm">
+                                    <div class="table-responsive">
                                         <table id="table-charges-new" class="table table-bordered table-striped">
-											<thead>
-												<tr>
+                                        <thead>
+                                                <tr>
                                                     <th></th>
-                                                    <th>Status</th>
-													<th>Charge Type</th>
+													<th>Status</th>
                                                     <th>Description</th>
 													<th>Quantity</th>
                                                     <th>Price</th>
                                                     <th>Amount</th>
                                                     <th>Tax Amount</th>
 													<th>Amount + Tax</th>
-													<th>Total Amount</th>
+                                                    <th>Final Amount</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
@@ -568,7 +586,7 @@
 													<div class="col-md-2">
 														<span>Quantity</span>
 														<div class="input-group">
-																<input type="numeric" name="Item-Pieces" class='form-control' />
+																<input type="number" name="Item-Pieces" class='form-control' />
 															</div>
 													</div>
 
@@ -582,7 +600,7 @@
 														<div class="col-md-2">
 															<span>Length</span>
 															<div class="input-group">
-																<input type="text" name="Item-Length" id="Item-Length" class='form-control' />
+																<input type="number" name="Item-Length" id="Item-Length" class='form-control' />
 															</div>
 														</div>
 
@@ -590,20 +608,20 @@
 
 														<span>Height</span>
 														<div class="input-group">
-															<input type="text" name="Item-Height" class='form-control' />
+															<input type="number" name="Item-Height" class='form-control' />
 														</div>
 														</div>
 														<div class="col-md-2">
 															<span>Width</span>
 															<div class="input-group">
-																<input type="text" name="Item-Width" class='form-control' />
+																<input type="number" name="Item-Width" class='form-control' />
 															</div>
 														</div>
 
 														<div class="col-md-2">
 															<span>Weight</span>
 															<div class="input-group">
-																<input type="text" name="Item-Weight" class='form-control' />
+																<input type="number" name="Item-Weight" class='form-control' />
 															</div>
 														</div>
 												</div>

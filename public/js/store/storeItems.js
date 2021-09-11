@@ -162,11 +162,11 @@ function reducerItem (state = initialStateIntems, actions)  {
 const storeItem = Redux.createStore(reducerItem)
 
 
-storeItem.subscribe(() => {
+/*storeItem.subscribe(() => {
     let u = storeItem.getState()
-    console.log("State items now", u)
+    //console.log("State items now", u)
 })
-
+*/
 
 ////////////////////////////////////////////////////
 //REDUX Actions
