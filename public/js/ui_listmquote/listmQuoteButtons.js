@@ -451,6 +451,7 @@ $(document).ready(function(){
         recordData = {
             "Name": $(":input[id=NameQuote]").val().replace(/[^a-zA-Z0-9]/g, ' '),
             "Account": accountId,
+            "Deal": $(":input[name=Deal] option:selected").val() > 0 ? $(":input[name=Deal] option:selected").val() : '',
             "magaya__Shipper": $(":input[name=magaya__Shipper] option:selected").text().replace(/[^a-zA-Z0-9]/g, ' '),
             "magaya__ExpirationDate": expirationDateFinal,
             "magaya__Direction": $(":input[name=magaya__Direction]").val(),
@@ -482,6 +483,7 @@ $(document).ready(function(){
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__SQuotes", APIData: recordData, Trigger: [] })
             .then(function(response) {
                 data = response.data;
+                console.log(response)
                 let id = 0;
                 $.each(data, function(key, valor) {
                     id = valor['details']['id'];

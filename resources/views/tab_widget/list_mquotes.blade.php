@@ -92,11 +92,11 @@
 															<button class="btn btn-danger btn-xs btn-prin" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-remove"></span></button>
 														</p>
 													</td>
-													<td style="vertical-align: middle;">bcvbcvb</td>
-													<td style="vertical-align: middle;">cvbcvb</td>
-													<td style="vertical-align: middle;">bcvbcv</td>
-													<td style="vertical-align: middle;">bcvbcv</td>
-													<td style="vertical-align: middle;">cbcvbcv</td>
+													<td style="vertical-align: middle;"></td>
+													<td style="vertical-align: middle;"></td>
+													<td style="vertical-align: middle;"></td>
+													<td style="vertical-align: middle;"></td>
+													<td style="vertical-align: middle;"></td>
 												</tr>
 										</tbody>
 									</table>
@@ -696,7 +696,7 @@
 									<div class="row" style="margin-bottom:20px;margin-top:20px;">
 										<div class="col-md-4">
 											<label class="col-md-12" style="font-weight: bold;">Deal</label>
-                                            <select name="Deals" class="form-control">
+                                            <select name="Deal" class="form-control">
                                                 <option></option>
 										    </select>
 										</div>

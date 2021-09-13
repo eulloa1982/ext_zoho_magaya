@@ -37,6 +37,9 @@ const CLEAR_QUOTE_TO_EDIT = "CLEAR_QUOTE_TO_EDIT"
 const FIND_ALL = "FIND_ALL"
 const FIND_BY_NAME = "FIND_BY_NAME"
 
+const ADD_DEAL = "ADD_DEAL"
+const GET_DEAL = "GET_DEAL"
+
 //campos a mostrar en formularios de Charges
 const CHARGES_FIELDS = {"Name": {"field": "Name"}, "magaya__Amount": {"field": "Amount", "type": "number"},
                 "magaya__CQuantity": {"field": "Quantity", "type": "number"}, "magaya__Price": {"field": "Price", "type": "number"},

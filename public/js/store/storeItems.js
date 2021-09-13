@@ -55,7 +55,7 @@ function reducerItem (state = initialStateIntems, actions)  {
             state.singleItem = initialStateIntems.singleItem;
 
             if (byId < 0) {
-                newArray = initialStateCharge.singleItem
+                newArray = initialStateItem.singleItem
             } else {
                 newArray = {...state.items[byId]}
             }

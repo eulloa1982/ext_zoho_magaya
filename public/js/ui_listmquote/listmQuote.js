@@ -819,11 +819,20 @@ $(document).ready(function(){
             storeAccounts.dispatch(findContact({id: contact}))
         })
 
+        ////////// Deal data //////////////////
+        $("select[name=Deal]").change(function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            let deal = $("select[name=Deal]").val();
+            storeDeal.dispatch(getDeal({id: deal}))
+        })
+
         //////////susbscriber contacList, fill representative select
         storeAccounts.subscribe(() => {
             let contacts = storeAccounts.getState().contactList;
-           //$("select[name=magaya__Representative]").empty();
-            //$("<option></option>").appendTo("select[name=magaya__Representative]");
+            $("select[name=magaya__Representative]").empty();
+            $("<option></option>").appendTo("select[name=magaya__Representative]");
 
             $.map(contacts, function(k, v) {
                 $(`<option value="${k.id}">${k.Full_Name}</option>`).appendTo("select[name=magaya__Representative]")
