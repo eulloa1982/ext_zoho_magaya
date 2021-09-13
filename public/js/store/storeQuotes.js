@@ -1,6 +1,7 @@
 const initialStateQuote = {
     quotes: [],
     quoteToEdit: [],
+    singleQuote: []
     //currentAccount: 0
 
   };
@@ -72,6 +73,14 @@ function reducerQuote (state = initialStateQuote, actions)  {
                   })
             }
         }
+
+
+        case FIND_BY_ID: {
+            return {
+                ...state,
+                singleQuote: state.quotes.filter(quote => quote.id === actions.payload.id)
+            }
+        }
         default:
             //currentAccount = 0;
             return state;
@@ -125,4 +134,7 @@ function findByName(payload) {
     return { type: FIND_BY_NAME, payload };
 }
 
+function findById(payload) {
+    return { type: FIND_BY_ID, payload };
+}
 

@@ -4,7 +4,7 @@ const initialStateCharge = {
     //a list of charges on a new mquote form
     chargesOnNew: [],
     singleCharge: [],
-    singleChargeCopy: []
+    chargesOnXml: []
   };
 
 function reducerCharge (state = initialStateCharge, actions)  {
@@ -17,6 +17,13 @@ function reducerCharge (state = initialStateCharge, actions)  {
                 return Object.assign({}, state, {
                 charges: state.charges.concat(actions.payload)
             });
+        }
+
+        case ADD_CHARGES_XML: {
+            state.chargesOnXml = initialStateCharge.chargesOnXml;
+            return Object.assign({}, state, {
+                            chargesOnXml: state.chargesOnXml.concat(actions.payload)
+            })
         }
 
 
@@ -211,5 +218,9 @@ function setAmountOnNew(payload) {
 
 function updateCharge(payload) {
     return { type: UPDATE_CHARGE, payload }
+}
+
+function addChargesXML(payload) {
+    return { type: ADD_CHARGES_XML, payload }
 }
 

@@ -1,9 +1,11 @@
 var quoteToEdit = []
+var quoteXML = []
 //////////////////////////////////////////////////////////
 ////////SUSCRIPTORES
 ///////////////////////////////////////////////////////////
 storeQuote.subscribe(() => {
     let u = storeQuote.getState()
+    quoteXML = u.singleQuote
 
     //search quote by id
     if (!_.isEmpty(u.quotes2)) {
@@ -56,8 +58,8 @@ storeQuote.subscribe(() => {
                     { type: "control", width: 10, title:"Options", editButton: false, deleteButton: false,
                     itemTemplate: function(value, item) {
                         var $iconPencil = $(`<a><span class="material-icons oculto edit" data-id="${item.id}">create</span></a>`);
-                        var $iconTrash = $(`<a><span class="material-icons oculto delete" data-id=${item.id}>clear</span></a>`);
-                        var $other = $(`<a><input type="checkbox" class="add" id="data-show" data-id=${item.id}/></a>`);
+                        var $iconTrash = $(`<a><span class="material-icons oculto delete" data-id="${item.id}">clear</span></a>`);
+                        var $other = $(`<a><span class="material-icons oculto send" data-id="${item.id}">send</span></a>`);
                         //var $other = $(`<a class="add">Show</a>`);
                         return $("<div>").attr({class: "btn-toolbar"})
                             .append($other)

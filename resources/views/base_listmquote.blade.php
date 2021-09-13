@@ -76,8 +76,8 @@
     <script src="{{ url('js/ui_listmquote/biblio_jquery.js') }}"></script>
     <!--script src="{{ url('js/quotation3.js') }}"></script>
     <script src="{{ url('js/quotation_utils3.js') }}"></script>
-    <script src="{{ url('js/magaya_api.js') }}"></script>
-    <script src="{{ url('js/utils.js') }}"></script-->
+    <script src="{{ url('js/magaya_api.js') }}"></script-->
+    <script src="{{ url('js/ui_listmquote/utils.js') }}"></script>
 
     <script src="{{ url('js/errors_handlers/errors.js') }}"></script>
     <script src="{{ url('js/store/constants.js') }}"></script>
@@ -91,6 +91,7 @@
     <script src="{{ url('js/store/storeOrganization.js') }}"></script>
     <script src="{{ url('js/store/storeDeal.js') }}"></script>
 
+    <script src="{{ url('js/ui_listmquote/subscribers/subscribersAccounts.js') }}"></script>
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersCharges.js') }}"></script>
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersItems.js') }}"></script>
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersQuotes.js') }}"></script>

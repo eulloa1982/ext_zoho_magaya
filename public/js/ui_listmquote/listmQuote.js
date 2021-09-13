@@ -46,7 +46,8 @@ $(document).ready(function(){
      })
 
 
-     ///////////////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////////////
     /////////no - border form edit outer fields
     ///////////////////////////////////////////////////////////////////////////////////
     $(".no-border").click(function(e) {
@@ -139,7 +140,6 @@ $(document).ready(function(){
 
         e.preventDefault()
 
-        $(".magaya__ApplyToAccounts").hide();
         // Activate tooltip
         $('[data-toggle="tooltip"]').tooltip();
 
@@ -193,9 +193,6 @@ $(document).ready(function(){
                 }
             }) //then
         })//delete button
-
-
-
 
 
         ////// boton editar la cotizacion ///////
@@ -313,6 +310,13 @@ $(document).ready(function(){
         })
 
 
+        $(".send").click(function(e) {
+            e.preventDefault()
+            e.stopImmediatePropagation()
+
+            let idQuote = $(this).attr('data-id')
+            buildStringXML(idQuote);
+        })
 
         })
 
@@ -840,12 +844,12 @@ $(document).ready(function(){
         })
 
         ////////subscriber singleContact, fill fields contact data
-        storeAccounts.subscribe(() => {
+        /*storeAccounts.subscribe(() => {
             let contact = storeAccounts.getState().singleContact
             $("input[name=magaya__ContactPhone]").val(contact[0]["Phone"])
             $("input[name=magaya__ContactEmail]").val(contact[0]["Email"])
             $("input[name=magaya__ContactMobile]").val(contact[0]["Mobile"])
-        })
+        })*/
 
 
 

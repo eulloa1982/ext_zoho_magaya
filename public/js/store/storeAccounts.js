@@ -2,7 +2,8 @@ const initialStateAccount = {
     accounts: [],
     contacts: [],
     contactList: [],
-    singleContact:[]
+    singleContact:[],
+    singleAccount:[]
   };
 
 
@@ -27,13 +28,24 @@ function reducerAccounts (state = initialStateAccount, actions)  {
             state.accounts.map(account => {
                 if (account.id === byId) {
                     accountToEdit = account;
-                    //currentAccount = quote.Account
                 }
             })
             return {
                 ...state, accountToEdit
             }
         }
+
+
+        case GET_ACCOUNT: {
+            let byId = actions.payload.id;
+            state.singleAccount = initialStateAccount.singleAccount
+
+            return {
+                ...state,
+                singleAccount: state.accounts.filter(account => account.id === byId)
+            }
+        }
+
 
         case FIND_CONTACT: {
             let byId = actions.payload.id;
@@ -96,12 +108,6 @@ function reducerAccounts (state = initialStateAccount, actions)  {
 const storeAccounts = Redux.createStore(reducerAccounts);
 
 
-//////////////////////////////////////////////////////////
-////////SUSCRIPTORES
-///////////////////////////////////////////////////////////
-storeAccounts.subscribe(() => {
-    console.log("State contacts now", storeAccounts.getState())
-})
 
 ////////////////////////////////////////////////////
 //REDUX Actions
@@ -129,6 +135,10 @@ function findContactOfAccount(payload) {
 
 function updateAccount(payload) {
     return { type: UPDATE_ACCOUNT, payload}
+}
+
+function getAccount(payload) {
+    return { type: GET_ACCOUNT, payload }
 }
 
 
