@@ -149,14 +149,15 @@ class MagayaAPI extends \SoapClient implements MagayaAPIInterface
     public function SetTransaction(int $access_key, string $type, int $flags, string $data): array
     {
         //check xml to avoid send invalid one
-        $toXml = new ArrayToXml();
+        /*$toXml = new ArrayToXml();
         $toXml::$type = 'Client';
         $XML = $toXml::xml_from_array($data);
-        return[
-            'error' => false,
-            'data' => $XML
-        ];
-        /*
+        return [
+            "error" => false,
+            "data" => "Data flow"
+        ];*/
+        //print_r($XML);
+
         $dataXML = new \SimpleXMLElement($data);
         $message = new XmlMagayaValidator();
         $message_array = $message->checkXMLSetTransaction($dataXML);
@@ -168,7 +169,7 @@ class MagayaAPI extends \SoapClient implements MagayaAPIInterface
 
         return $result['error'] ? $result : [
             'error' => false
-        ];*/
+        ];
     }
 
 

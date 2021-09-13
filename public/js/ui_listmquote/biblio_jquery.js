@@ -8,7 +8,6 @@
  * ******************************************************
  * ****************************************************
  */
-
  (function($) {
     $.fn.tableToJson = function(table, id) {
         jsonData = '';
@@ -305,14 +304,147 @@ function roundDec(num) {
 
 
 //get items package table, return xml string items
-async function buildStringQuote2(idSQuote) {
+function buildStringQuote2(idSQuote) {
     stringQuote = methodCode = '';
     transpMethods = new Array();
 
     storeQuote.dispatch(findById({id: idSQuote}))
 
     quoteXML = quoteXML[0]
-    return quoteXML;
+    //$.map(quoteXML, function(k, v) {
+        //get account data for contact
+        stringQuote += `<IsCommerceQuotation>false</IsCommerceQuotation>`
+        stringQuote += `<CreatedOn>${quoteXML.Created_Time}</CreatedOn>`
+        stringQuote += `<Number>${quoteXML.Name}</Number>`
+        stringQuote += `<CreatedByName>${quoteXML.Owner.name}</CreatedByName>
+                        <Version>104</Version>`
+        stringQuote += `<ExpirationDate>${quoteXML.magaya__ExpirationDate}</ExpirationDate>`
+        stringQuote += `<IssuedByName>${quoteXML.Owner.name}</IssuedByName>
+                        <SalespersonName>${quoteXML.Owner.name}</SalespersonName>`
+        stringQuote += `<Service>${quoteXML.magaya__Service}</Service>`
+        stringQuote += `<Direction>${quoteXML.magaya__Direction}</Direction>
+                        <IsOpenQuote>true</IsOpenQuote>
+                        <Status>Open</Status>
+                        <DescriptionOfGoods>${quoteXML.magaya__Description}</DescriptionOfGoods>`
+
+        let contactName =''
+        let contact = ''
+        try {
+            accountId = quoteXML.Account.id
+            storeAccounts.dispatch(getAccount({id: accountId}))
+            stringQuote += `<ContactName>${singleAccount[0]['Account_Name']}</ContactName>
+            <Contact GUID="${singleAccount[0]['magaya__MagayaGUID']}">
+                <Type>Client</Type>
+                <Name>${singleAccount[0]['Account_Name']}</Name>
+                <Email>${singleAccount[0]['magaya__MagayaEmail']}</Email>
+            </Contact>`
+
+
+        } catch (err) {
+            message = `'There is an error whit mQuote Account' ${err}`
+            storeSuccess.dispatch(addSuccess({message: message}))
+        }
+        /*if (!_.isEmpty(k.Account)) {
+            console.log("Account Quote found it", k.Account.id)
+            accountId = k.Account.id;
+            //idChecking = accounts.findIndex(i => i["id"] == accountId);
+            storeAccounts.dispatch(findAccount({id: accountId}))
+
+            console.log("Single Account", singleAccount)
+
+            if (idChecking >= 0) {
+                //find data in accounts array
+                var accountData = accounts[idChecking]
+                stringQuote += `<ContactName>${accountData['Account_Name']}</ContactName>
+                                <Contact GUID="${accountData['magaya__MagayaGUID']}">
+                                    <Type>Client</Type>
+                                    <Name>${accountData['Account_Name']}</Name>
+                                    <Email>${accountData['magaya__MagayaEmail']}</Email>
+                                </Contact>`
+            }
+        } else {
+            console.log("No account Quote")
+            stringQuote += `<ContactName>${k.magaya__ContactName}</ContactName>`
+        }*/
+        console.log("XML String till here", stringQuote)
+        //get contact field
+
+        //get representative
+        //indexContact = contacts.findIndex(i => i.Email === k.magaya__ContactEmail);
+        /*if (indexContact >= 0) {
+            repContact = contacts[indexContact];
+            stringQuote += `<RepresentativeName>${repContact['Full_Name']}</RepresentativeName>
+                            <Representative GUID="${repContact['magaya__MagayaGUID']}">
+                                <Type>EntityContact</Type>
+                                <Name>${repContact['Full_Name']}</Name>
+                                <Email>${repContact['Email']}</Email>
+                                <Phone>${repContact['Phone']}</Phone>
+                                <MobilePhone>${repContact['Mobile']}</MobilePhone>
+                                <ContactFirstName>${repContact['First_Name']}</ContactFirstName>
+                                <ContactLastName>${repContact['Last_Name']}</ContactLastName>
+                                <BillingAddress>
+                                    <Street>${repContact['Mailing_Street']}</Street>
+                                    <City>${repContact['Mailing_City']}</City>
+                                    <State>${repContact['Mailing_State']}</State>
+                                    <ZipCode>${repContact['Mailing_Zip']}</ZipCode>
+                                    <Country>${repContact['Mailing_Country']}</Country>
+                                    <ContactName>${repContact['Full_Name']}</ContactName>
+                                    <ContactPhone>${repContact['Phone']}</ContactPhone>
+                                    <ContactEmail>${repContact['Email']}</ContactEmail>
+                                </BillingAddress>
+                            </Representative>`
+        }
+
+        if (!(_.isEmpty(k.magaya__ConsigneeName))) {
+
+            stringQuote += `<ConsigneeName>${k.magaya__ConsigneeName}</ConsigneeName>
+                            <Consignee><Type>Client</Type><Name>${k.magaya__ConsigneeName}</Name></Consignee>`
+        }
+        if (!(_.isEmpty(k.magaya__Shipper))) {
+            stringQuote += `<ShipperName>${k.magaya__Shipper}</ShipperName>
+                            <Shipper><Type>Client</Type><Name>${k.magaya__Shipper}</Name></Shipper>`
+        }
+        if (!(_.isEmpty(k.magaya__Carrier))) {
+            //get it from MagayaCarrier Array
+            carrierArrayId = MagayaCarriers.findIndex(i => i.Name === k.magaya__Carrier);
+            if (carrierArrayId >= 0) {
+                carrier = MagayaCarriers[carrierArrayId];
+                stringQuote += `<Carrier GUID="${carrier["@attributes"]["GUID"]}"><Type>${carrier.Type}</Type><Name>${carrier['Name']}</Name>
+                                <Phone>${carrier.MobilePhone}</Phone><Email>${carrier.Email}</Email>
+                                <CarrierInfo><CarrierTypeCode>${carrier.CarrierInfo.CarrierTypeCode}</CarrierTypeCode></CarrierInfo>
+                                </Carrier><Status>Open</Status>`;
+            }
+        }
+
+        if (!_.isEmpty(k.magaya__TransportationMode)) {
+            transpMethods = getTranspMethod(k.magaya__TransportationMode.id)
+                .then(r => {
+                    return (r);
+                }).then(resp => {
+                    $.map(resp, function(k, v) {
+                        stringQuote += `<ModeOfTransportation Code="${k.magaya__TransportationMethodCode}">
+                              <Description>${k.Name}</Description>
+                              <Method>${k.magaya__ParentMethod}</Method>
+                              </ModeOfTransportation>
+                             <ModeOfTransportCode>${k.magaya__TransportationMethodCode}</ModeOfTransportCode>
+                             `
+                    })
+
+                }).then(r => {
+                    resolve(stringQuote)
+                })
+
+        } else {
+            resolve(stringQuote)
+        }*/
+
+
+    //})
+
+        return(stringQuote)
+
+
+    //return quoteXML;
 
     /*let doc = document.implementation.createDocument("", "", null);
     let parent = doc.createElement("quote")
@@ -369,7 +501,7 @@ async function buildStringQuote2(idSQuote) {
     //doc.appendChild(contact)
 
 
-    console.log(doc)
+    console.log(doc)*/
 
     /*return new Promise(function(resolve, reject) {
         ZOHO.CRM.API.getRecord({ Entity: "magaya__SQuotes", RecordID: idSQuote })
@@ -511,10 +643,24 @@ async function buildXML(idQuote) {
     let entity = "magaya__SQuotes";
     let related_list_charges = "magaya__SQuote_Name0"
     config = await getMagayaVariables()
-    console.log("Config", config)
 
     stringQuote = buildStringQuote2(idQuote)
-    console.log("Sending Array", stringQuote)
+
+    stringXML = '<Quotation xmlns="http://www.magaya.com/XMLSchema/V1" xsi:schemaLocation="http://www.magaya.com/XMLSchema/V1 schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
+    stringXML += stringQuote;
+    //console.log("String XML", stringXML)
+    /*if (stringCharge !== undefined) {
+        //code
+        stringXML += '<Charges UseSequenceOrder="false">' + stringCharge + "</Charges>";
+    }
+
+    if (stringItem !== undefined) {
+        //code
+        stringXML += "<Items>" + stringItem + "</Items>";
+    }*/
+
+    stringXML += '</Quotation>'
+
     /*charges = await getRelatedRecordCRM(entity, related_list_charges, idQuote)
                     .then(response => {
                         console.log("Charges", response)
@@ -553,7 +699,7 @@ async function buildXML(idQuote) {
         //    $xml = $(xmlDoc),
         //    $title = $xml.find("ContactName");
         //ContactName = $title.text();
-    //console.log("XML String", stringXML);
+    console.log("XML String", stringXML);
 
     //send xml trougth magaya api
     flags = MagayaAPI.TRANSACTIONS_FLAGS.BasicFields
@@ -562,13 +708,15 @@ async function buildXML(idQuote) {
     data = {
         method: 'SetTransaction',
         data: [
-            data.network_id,
+            config.network_id,
             entity_type,
             flags,
-            stringQuote
-        ]
+            stringXML
+        ],
+        url: config.magaya_url
     };
 
+    console.log("Dara to send", data)
     MagayaAPI.sendRequest(data, function(result) {
         //console.log(result)
             if (result.error) {
@@ -587,9 +735,6 @@ async function buildXML(idQuote) {
                         text: 'Operation success',
                         icon: 'success',
                         allowOutsideClick: false
-                    }).then(function() {
-                        $("#sortable1").empty()
-                        drawQuotationMagaya();
                     })
                     //all OK, update QuoteInMagaya field
 
@@ -629,63 +774,60 @@ async function getMagayaVariables() {
         'magaya_pass': magaya_pass
     }
 
-    console.log("returning magaya varis", data)
+    console.log(data)
     return data;
 }
 
 
 function getMagayaNetworkId() {
     return new Promise(function(resolve, reject) {
-        ZOHO.CRM.API.getOrgVariable("magaya__network_id").then(function(data) {
-            console.log("Network id", data)
-            if (!_.isEmpty(data.Success)) {
-
-                var access_key = data.Success.Content;
-                //localStorage.setItem('access_key', access_key);
-                resolve(access_key);
-            }
-        });
+        ZOHO.CRM.API.getOrgVariable("magaya__networkid")
+        .then(function (response) {
+               network_id = response.Success.Content;
+               resolve(network_id)
+        })
+        .catch(function(error) {
+            reject()
+        })
     })
 }
 
 function getMagayaUrl() {
     return new Promise(function(resolve, reject) {
-        ZOHO.CRM.API.getOrgVariable("magaya__magaya_url").then(function(data) {
-            console.log("Url", data)
-            if (!_.isEmpty(data.Success)) {
-                var url = data.Success.Content;
-                //localStorage.setItem('url', url);
+        ZOHO.CRM.API.getOrgVariable("magaya__magaya_url")
+            .then(function (response) {
+                url = response.Success.Content;
                 resolve(url);
-            }
-        });
+            })
+            .catch(function(error) {
+                reject()
+            })
     })
 }
 
 function getMagayaUser() {
     return new Promise(function(resolve, reject) {
-        ZOHO.CRM.API.getOrgVariable("magaya__magaya_user").then(function(data) {
-            if (!_.isEmpty(data.Success)) {
-                var user = data.Success.Content;
-                //localStorage.setItem('user', user);
-                resolve(user);
-            }
-        });
+        ZOHO.CRM.API.getOrgVariable("magaya__magaya_user")
+            .then(function (response) {
+                    user = response.Success.Content;
+                    resolve(user)
+
+            })
+            .catch(function(error) {
+                reject()
+            })
     })
 }
 
 function getMagayaPass() {
     return new Promise(function(resolve, reject) {
-        ZOHO.CRM.API.getOrgVariable("magaya__magaya_pass").then(function(data) {
-            if (!_.isEmpty(data.Success)) {
-                var pass = data.Success.Content;
-                resolve(pass);
-            }
-        });
+        ZOHO.CRM.API.getOrgVariable("magaya__magaya_pass")
+            .then(function (response) {
+                    pass = response.Success.Content;
+                    resolve(pass)
+            })
+            .catch(function(error) {
+                reject()
+            })
     })
-}
-
-function getAccessKey2() {
-    let access_key = $("div").data( "credentials" ).accesskey;
-    console.log("Acces key from data", access_key)
-    return access_key;
 }

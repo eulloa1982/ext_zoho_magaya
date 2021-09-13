@@ -1,7 +1,7 @@
 var Utils = function(){
     return {
         getConfig : function(){
-            config = localStorage.getItem('config');
+            //config = localStorage.getItem('config');
             if(config != undefined){
                 return JSON.parse(config)
             }else{
@@ -13,7 +13,7 @@ var Utils = function(){
             }
         },
         setConfig: function(config){
-            localStorage.setItem('config', JSON.stringify(config))
+            //localStorage.setItem('config', JSON.stringify(config))
         },
         getAccessKey(){
             let access_key = getCookie('access_key');
