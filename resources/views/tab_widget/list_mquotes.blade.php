@@ -55,14 +55,14 @@
                                     <div class="col-md-2" style="padding: 5px 0px;">
 								 		<div class="btn-group">
 									 		<button type="button" class="btn btn-primary addMquote" style="margin-right: 20px; font-weight: bold;">Add</button>
-			  								<!--button type="button" class="btn btn-primary"><span class="material-icons">more_horiz</span></button>
+			  								<button type="button" class="btn btn-primary"><span class="material-icons">more_horiz</span></button>
 			 								<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
 			    							<span class="caret"></span>
 			  								</button>
 											<div class="dropdown-menu">
-												<a class="dropdown-item" href="#">Mass Update</a>
-												<a class="dropdown-item" href="#">Mass Delete</a>
-											</div-->
+												<!--a class="dropdown-item">Mass Update</a-->
+												<a class="dropdown-item" id="deleteMquote">Mass Delete</a>
+											</div>
 
 								 		</div>
 

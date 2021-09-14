@@ -59,10 +59,11 @@ storeQuote.subscribe(() => {
                     itemTemplate: function(value, item) {
                         var $iconPencil = $(`<a><span class="material-icons oculto edit" data-id="${item.id}">create</span></a>`);
                         var $iconTrash = $(`<a><span class="material-icons oculto delete" data-id="${item.id}">clear</span></a>`);
-                        var $other = $(`<a><span class="material-icons oculto send" data-id="${item.id}">send</span></a>`);
-                        //var $other = $(`<a class="add">Show</a>`);
+                        var $sendMagaya = $(`<a><span class="material-icons oculto send" data-id="${item.id}">send</span></a>`);
+                        var $checkbox = $(`<a><input type="checkbox" class="quoteCheckBox" data-id="${item.id}" /></a>`);
                         return $("<div>").attr({class: "btn-toolbar"})
-                            .append($other)
+                            .append($checkbox)
+                            .append($sendMagaya)
                             .append($iconPencil)
                             .append($iconTrash);
                     } },

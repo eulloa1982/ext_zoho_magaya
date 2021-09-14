@@ -8,45 +8,6 @@ $(document).ready(function(){
         format: 'Y-m-d H:m:s'
     });
 
-    //boton cerrar panel
-    /*$(".noselect #close-all").click(function() {
-        let panelId = $(this).attr("data-close")
-        $(`#${panelId}`).animate({width:'toggle'},150);
-        //$(`#${panelId}`).show("slide", { direction: "left" }, 1000);
-        //$("#slide").animate({width:'toggle'},350);
-    })*/
-
-    //boton delete
-    $("#deleteMquote").click(function(e) {
-        e.preventDefault();
-        Swal.fire({
-                title: "Confirm",
-                text: "You are about to delete record from CRM, you sure?",
-                icon: "question",
-                showCancelButton: true,
-                confirmButtonText: "Yes",
-                cancelButtonText: "Cancel",
-                cancelButtonColor: '#d33'
-
-            }).then((result) => {
-
-                if (result.isConfirmed) {
-                    $("input[class=quoteCheckBox]:checked").each(function() {
-                        let idQuote = $(this).attr('data-id')
-                        console.log("Dropping quote", idQ)
-                        ZOHO.CRM.API.deleteRecord({Entity:"magaya__SQuotes",RecordID: idQuote})
-                            .then(function(data){
-                                //storeCheckBox.dispatch(addCheckBox({checkbox: idQuote}))
-                                storeQuote.dispatch(deleteQuote({id: idQuote}))
-                            })
-
-                    })
-                }
-            })
-     })
-
-
-
     ///////////////////////////////////////////////////////////////////////////////////
     /////////no - border form edit outer fields
     ///////////////////////////////////////////////////////////////////////////////////
@@ -139,6 +100,41 @@ $(document).ready(function(){
     $('#table-quotes').bind("DOMSubtreeModified", function(e) {
 
         e.preventDefault()
+        //mass delete
+        $("#deleteMquote").click(function(e) {
+            e.preventDefault();
+            Swal.fire({
+                    title: "Confirm",
+                    text: "You are about to delete record from CRM, you sure?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "Cancel",
+                    cancelButtonColor: '#d33'
+
+                }).then((result) => {
+
+                    if (result.isConfirmed) {
+                        $("input[class=quoteCheckBox]:checked").each(function() {
+                            let idQuote = $(this).attr('data-id')
+
+                            ZOHO.CRM.API.deleteRecord({Entity:"magaya__SQuotes",RecordID: idQuote})
+                                .then(function(data){
+                                    //storeCheckBox.dispatch(addCheckBox({checkbox: idQuote}))
+                                    storeQuote.dispatch(deleteQuote({id: idQuote}))
+                                })
+
+                        })
+                    }
+                })
+         })
+
+
+
+
+
+
+
 
         // Activate tooltip
         $('[data-toggle="tooltip"]').tooltip();
