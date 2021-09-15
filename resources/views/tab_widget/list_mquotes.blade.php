@@ -827,7 +827,7 @@
 
                             <button type="button" id="Save" class="btn btn-primary" style="width:80px;margin-right: 20px; background-color: #0b3355">Save</button>
                             <button type="button" id="New" class="btn btn-primary" style="width:80px;margin-right: 20px; background-color: #0b3355">Save</button>
-                            <button type="button" class="btn btn-danger cerrar" data-dismiss="modal" style="width:80px;">Cancel</button>
+                            <button type="button" class="btn btn-danger cerrar" id="cerrar-modal" style="width:80px;">Cancel</button>
 						</div>
 					</div>
 			  </div>

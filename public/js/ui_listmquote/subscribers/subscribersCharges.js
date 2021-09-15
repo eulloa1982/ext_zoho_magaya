@@ -51,7 +51,7 @@ storeCharge.subscribe(() => {
                     </div>`
             }
         })
-        append += `<span id="${button_type}" data-id="${id}" class="btn btn-primary">Send</span>`
+        append += `<span id="${button_type}" data-id="${id}" class="btn btn-primary">Save</span>`
         $("#info-datad").append(append)
     }
         })
@@ -128,6 +128,9 @@ storeCharge.subscribe(() => {
                 k.magaya__ChargeCode = sanitize(k.magaya__ChargeCode);
 
                 totalIncome += roundDec(k.magaya__Final_Amount);
+                if (k.magaya__Final_Amount == 0)
+                    totalIncome += roundDec(k.magaya__Amount_Total);
+
                 $("#table-charges-new tbody").append(`<tr>
                 <td class="Delete">
                     <span class="material-icons oculto btn-slide" data-module="table-charges-new" data-id="${i}">create</span>

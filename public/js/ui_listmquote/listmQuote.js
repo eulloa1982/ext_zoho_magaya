@@ -263,6 +263,9 @@ $(document).ready(function(){
                 let tr = $(this).parent().parent();
                 let idItem = $(this).attr('data-id');
 
+                //add a change counter
+                store.dispatch(addActionEdited())
+
                 Swal.fire({
                     title: "Confirm",
                     text: "You are about to delete record from CRM, you sure?",
@@ -339,6 +342,8 @@ $(document).ready(function(){
                 let idCharge = $(this).attr('data-id');
                 let tr = $(this).parent().parent();
                 let idQuote = quoteToEdit.id
+                //add a change counter
+                store.dispatch(addActionEdited())
 
                 Swal.fire({
                     title: "Confirm",
@@ -525,13 +530,13 @@ $(document).ready(function(){
         })
 
         ////////// change representative, find contact data //////////////////
-        $("select[name=magaya__Representative]").change(function(e) {
+        /*$("select[name=magaya__Representative]").change(function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
 
             let contact = $("select[name=magaya__Representative]").val();
             storeAccounts.dispatch(findContact({id: contact}))
-        })
+        })*/
 
         ////////// Deal data //////////////////
         $("select[name=Deal]").change(function(e) {
