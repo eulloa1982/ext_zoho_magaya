@@ -287,10 +287,10 @@ $("#sendQuote").click(function(e) {
             "magaya__TransportationMode": $("select[name=TransportationMode] option:selected").val(),
             "magaya__Seller": currentUser,
             "magaya__MethodOfTransportation": $("input[name=TransportationMethod]").val(),
-            "magaya__Description": $(":input[name=Description]").val().replace(/[^a-zA-Z0-9]/g, ' '),
+            "magaya__Description": sanitize($(":input[name=Description]").val()),
             //"magaya__Deal": ,
             "magaya__Stage": stageCreated,
-            "magaya__ContactName": $("select[name=ContactName] option:selected").text(),
+            "magaya__ContactName": sanitize($("select[name=ContactName] option:selected").text()),
             "magaya__Service": $("select[name=Service]").val()
 
         };
@@ -428,12 +428,12 @@ $("#sendQuotation").click(function(e) {
         }
 
         //get and cleand data
-        let account = $("select[name=ContactName]").val().replace(/[^a-zA-Z0-9]/g, ' ');
-        let consignee = $(":input[name=ConsigneeName] option:selected").text().replace(/[^a-zA-Z0-9]/g, ' ');
-        let shipper = $(":input[name=ShipperName] option:selected").text().replace(/[^a-zA-Z0-9]/g, ' ');
-        let carrier = $("select[name=Carrier]").val().replace(/[^a-zA-Z0-9]/g, ' ');
-        let direction = $(":input[name=Direction]").val().replace(/[^a-zA-Z0-9]/g, ' ');
-        let description = $(":input[name=Description]").val().replace(/[^a-zA-Z0-9]/g, ' ');
+        let account = sanitize($("select[name=ContactName]").val());
+        let consignee = sanitize($(":input[name=ConsigneeName] option:selected").text());
+        let shipper = sanitize($(":input[name=ShipperName] option:selected").text());
+        let carrier = sanitize($("select[name=Carrier]").val());
+        let direction = sanitize($(":input[name=Direction]").val());
+        let description = sanitize($(":input[name=Description]").val());
 
 
         recordData = {
@@ -761,8 +761,6 @@ $('#sortable2').bind("DOMSubtreeModified", function() {
         let shipperNum = $("select[name=ShipperName]").val();
         let consigneeNum = $("select[name=ConsigneeName]").val();
 
-        console.log(clientNum + " , " + shipperNum + " , " + consigneeNum);
-
         addedToApplyAccounts(clientNum);
         addedToApplyAccounts(shipperNum);
         addedToApplyAccounts(consigneeNum);
@@ -857,8 +855,8 @@ $('#sortable2').bind("DOMSubtreeModified", function() {
                         checking = accounts.findIndex(i => i["Account_Name"] === data[0]['magaya__ConsigneeName']);
 
                         if (checking >= 0) {
-                            $(`<option value="${accounts[checking]['id']}" selected>${accounts[checking]["Account_Name"]}</option>`).appendTo("select[name=ConsigneeName]");
-                            $(`<option value="${accounts[checking]['id']}">${accounts[checking]["Account_Name"]}</option>`).appendTo("select[name=ApplyToAccounts]");
+                            $(`<option value="${accounts[checking]['id']}" selected>${sanitize(accounts[checking]["Account_Name"])}</option>`).appendTo("select[name=ConsigneeName]");
+                            $(`<option value="${accounts[checking]['id']}">${sanitize(accounts[checking]["Account_Name"])}</option>`).appendTo("select[name=ApplyToAccounts]");
                         } else {
                             $("select[name=ConsigneeName]").val("")
 
@@ -871,7 +869,7 @@ $('#sortable2').bind("DOMSubtreeModified", function() {
                     checking = accounts.findIndex(i => i["Account_Name"] === data[0]['magaya__Shipper']);
                     //agregar al ApplyToAccounts
                     if (checking >= 0) {
-                        $(`<option value="${accounts[checking]['id']}">${accounts[checking]["Account_Name"]}</option>`).appendTo("select[name=ApplyToAccounts]");
+                        $(`<option value="${accounts[checking]['id']}">${sanitize(accounts[checking]["Account_Name"])}</option>`).appendTo("select[name=ApplyToAccounts]");
                             //var
                             $("select[name=ShipperName] option").each(function() {
                                 if ($(this).text() === data[0]['magaya__Shipper']) {
