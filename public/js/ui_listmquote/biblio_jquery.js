@@ -24,7 +24,11 @@
                     json_items += ',"magaya__StatusA":"' + $("select[name=StatusA]").val() + '"';
                 } else if (class_name === 'Delete' || class_name === "NoData") {
                     //
-                } else {
+                } else if (class_name === "ApplyToAccounts") {
+                    let nameValue = $(this).children().val()
+                    json_items += `, "${class_name}":"${nameValue}"`
+                }
+                else {
                     let nameValue = $(this).html()
                     json_items += `, "${class_name}":"${nameValue}"`
                 }

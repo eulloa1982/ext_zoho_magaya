@@ -98,12 +98,16 @@ function reducerAccounts (state = initialStateAccount, actions)  {
         }
 
 
-        /*case 'SET_ACCOUNT': {
-            currentAccount = actions.payload.account;
+        case EMPTY_ACCOUNTS: {
+            state.contactList = initialStateAccount.contactList
+            state.singleContact = initialStateAccount.singleContact
+            state.singleAccount = initialStateAccount.singleAccount
+            state.quoteAccount = initialStateAccount.quoteAccount
             return {
-                currentAccount
+                ...state
             }
-        }*/
+        }
+
         default:
             return state;
     }
@@ -156,3 +160,7 @@ function addQuoteAccount(payload) {
     return { type: ADD_QUOTE_ACCOUNT, payload };
 }
 
+
+function emptyAccounts() {
+    return { type: EMPTY_ACCOUNTS };
+}

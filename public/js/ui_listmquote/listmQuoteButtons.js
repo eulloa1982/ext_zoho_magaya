@@ -270,7 +270,9 @@ $(document).ready(function(){
         storeItem.dispatch(emptyItems())
         storeCharge.dispatch(emptyCharges())
         storeQuote.dispatch(clearQuoteToEdit())
-
+        storeAccounts.dispatch(emptyAccounts())
+        //representative
+        $("select[name=magaya__Representative]").empty()
         //limpiar campos
         limpiar_form()
 
@@ -421,7 +423,6 @@ $(document).ready(function(){
     if (accountId <= 0)
         throw new UserException('Mandatory data not found: Client Quote is not defined');
 
-    console.log("Quote a edit", quoteToEdit)
     let idQuote = quoteToEdit['id']
 
     let recordData = {
@@ -530,7 +531,7 @@ $(document).ready(function(){
         let accountId = $(":input[name=Account] option:selected").val()
         let contact = $(":input[name=magaya__Representative] option:selected").val()
         //receipt fields
-        if (accountId <= 0)
+        if (accountId <= 0 || accountId === undefined || accountId === "undefined")
             throw new UserException('Mandatory data not found: Client Quote is not defined');
 
 
@@ -564,15 +565,17 @@ $(document).ready(function(){
 
         }
 
+        //jsonCharges = $(this).tableToJson('table-charges-new', 992929292929229);
+        //jsonData = JSON.parse(`[${jsonCharges}]`)
+       // Object.assign(jsonData, {"magaya__ApplyToAccounts": accountId})
+        //console.log("Chrges json", jsonData)
         //insertind data, get the id and insert items and charges
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__SQuotes", APIData: recordData, Trigger: [] })
             .then(function(response) {
                 data = response.data;
-                console.log(response)
                 let id = 0;
                 $.each(data, function(key, valor) {
                     id = valor['details']['id'];
-                    //console.log(key, valor)
                     if (valor.code !== "SUCCESS") {
                         codeError = valor.code;
                         field = valor.details.api_name;
@@ -613,9 +616,7 @@ $(document).ready(function(){
 
                 jsonCharges = $(this).tableToJson('table-charges-new', idQuote);
                 jsonData = JSON.parse(`[${jsonCharges}]`)
-                console.log("Items JSON", jsonItems)
 
-                console.log("Charges JSON", jsonData)
                 //check the data
                 if (!_.isEmpty(jsonItems)) {
                     ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: jsonItems, Trigger: [] })
@@ -652,6 +653,11 @@ $(document).ready(function(){
 
                 if (!_.isEmpty(jsonCharges)) {
                     jsonCharges[0]['Name'] = jsonCharges[0]['magaya__Charge_Description'];
+
+                    $.map(jsonData, function(k) {
+                        Object.assign(k, {"magaya__ApplyToAccounts": accountId})
+                    })
+
                     ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: jsonData, Trigger: [] })
                         .then(function(response) {
                             res = response.data;
@@ -686,6 +692,20 @@ $(document).ready(function(){
             })
             .then(function() {
                 Utils.unblockUI()
+                Swal.fire({
+                    title: "Success",
+                    text: "New mQuote inserted!!!",
+                    icon: "question",
+                    showCancelButton: false,
+                    confirmButtonText: "Yes",
+                    allowOutsideClick: false
+
+                }).then((result) => {
+
+                    if (result.isConfirmed) {
+                        location.reload()
+                    }
+                })
 
             })
             .catch(function(error) {
@@ -706,7 +726,6 @@ $(document).ready(function(){
     $("#cerrar-modal").click(function(e) {
         //verifico si hay acciones de edicion
         let actions = store.getState().actionsCounter
-        console.log("Actions on edit", actions)
         if (actions > 0) {
             Swal.fire({
                 title: "Confirm",
@@ -715,7 +734,8 @@ $(document).ready(function(){
                 showCancelButton: true,
                 confirmButtonText: "Yes",
                 cancelButtonText: "Cancel",
-                cancelButtonColor: '#d33'
+                cancelButtonColor: '#d33',
+                allowOutsideClick: false
             }).then((result) => {
 
                 if (result.isConfirmed) {
@@ -735,7 +755,6 @@ $(document).ready(function(){
 function cleanDataString(arrayData) {
 
     $.map (arrayData, function (k, v) {
-        console.log(k, v)
         if (!_.isEmpty(arrayData[v]))
             arrayData[v] = k.replace(/[^a-zA-Z0-9]\.\#/g, ' ')
     })

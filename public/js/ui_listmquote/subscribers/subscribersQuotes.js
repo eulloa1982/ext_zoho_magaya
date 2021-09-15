@@ -32,7 +32,7 @@ storeQuote.subscribe(() => {
 
     dataQuotes = u.quotes
         data = []
-    console.log("State quotes now", u)
+    //console.log("State quotes now", u)
         if (_.isEmpty(dataQuotes)) {
             dataQuotes = {id: 1, Name:"Quote Test"}
         }

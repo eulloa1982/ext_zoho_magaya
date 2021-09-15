@@ -184,15 +184,17 @@ $(document).ready(function(){
             if (!_.isEmpty(quoteToEdit["Account"])) {
                 id = quoteToEdit["Account"]["id"];
                 client = quoteToEdit["Account"]["name"];
-                $("<option value='" + id + "' selected>" + client + "</option>").appendTo("select[name=magaya__Account]");
+                $("<option value='" + id + "' selected>" + client + "</option>").appendTo("select[name=Account]");
             }
 
             //representative
             if (!_.isEmpty(quoteToEdit["magaya__Representative"])) {
+                $("select[name=magaya__Representative]").empty()
+                console.log("Representative quote", quoteToEdit["magaya__Representative"])
                 let idContact = quoteToEdit["magaya__Representative"]["id"];
                 let nameContact = quoteToEdit["magaya__Representative"]["name"];
                 storeAccounts.dispatch(findContact({id: idContact}));
-                $(`<option value="${idContact}">${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
+                $(`<option value="${idContact}" selected>${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
             }
 
             $("#mquoteModal").modal("show")
@@ -527,16 +529,20 @@ $(document).ready(function(){
             let account = $("select[name=Account]").val();
             storeAccounts.dispatch(addQuoteAccount({id: account}))
             storeAccounts.dispatch(findContactOfAccount({id: account}))
+
+            $("input[name=magaya__ContactPhone]").val("")
+            $("input[name=magaya__ContactMobile]").val("")
+            $("input[name=magaya__ContactEmail]").val("")
         })
 
         ////////// change representative, find contact data //////////////////
-        /*$("select[name=magaya__Representative]").change(function(e) {
+        $("select[name=magaya__Representative]").change(function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
 
             let contact = $("select[name=magaya__Representative]").val();
             storeAccounts.dispatch(findContact({id: contact}))
-        })*/
+        })
 
         ////////// Deal data //////////////////
         $("select[name=Deal]").change(function(e) {
@@ -547,24 +553,8 @@ $(document).ready(function(){
             storeDeal.dispatch(getDeal({id: deal}))
         })
 
-        //////////susbscriber contacList, fill representative select
-        storeAccounts.subscribe(() => {
-            let contacts = storeAccounts.getState().contactList;
-            $("select[name=magaya__Representative]").empty();
-            $("<option></option>").appendTo("select[name=magaya__Representative]");
 
-            $.map(contacts, function(k, v) {
-                $(`<option value="${k.id}">${k.Full_Name}</option>`).appendTo("select[name=magaya__Representative]")
-            })
-        })
 
-        ////////subscriber singleContact, fill fields contact data
-        /*storeAccounts.subscribe(() => {
-            let contact = storeAccounts.getState().singleContact
-            $("input[name=magaya__ContactPhone]").val(contact[0]["Phone"])
-            $("input[name=magaya__ContactEmail]").val(contact[0]["Email"])
-            $("input[name=magaya__ContactMobile]").val(contact[0]["Mobile"])
-        })*/
 
 
 

@@ -59,13 +59,15 @@ storeCharge.subscribe(() => {
 ///////subscriber charges, render UI table
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().charges;
-    $("#info-charge").html("");
+
 
     if (!_.isEmpty(u)) {
+        $("#info-charge").html("Loading, please wait...");
         data_module_flag_charge = false;
         let accountId = 0;
         let totalIncome = 0
         $("#table-charges tbody").empty();
+
         $.each(u, function(i, k) {
             if (!_.isEmpty(k.magaya__ApplyToAccounts)) {
                 accountId = k.magaya__ApplyToAccounts.id
@@ -107,7 +109,7 @@ storeCharge.subscribe(() => {
             $("#info-charge").html("");
 
     } else {
-        $("#info-charge").html("No charges data found");
+        $("#info-charge").html("No charges found");
     }
 })
 
@@ -150,11 +152,12 @@ storeCharge.subscribe(() => {
                 <td class="magaya__Unit" style="display: none;">${k.magaya__Unit}</td>
                 <td class="magaya__Paid_As" style="display: none;">${k.magaya__Paid_As}</td>
                 <td class="magaya__ChargeCurrency" style="display: none;">${k.magaya__ChargeCurrency}</td>
-                <td class="magaya__ApplyToAccounts" style="display: none;">${k.magaya__ApplyToAccounts}</td>
                 </tr>`);
             })
 
             $("input[name=TotalIncomeCharges]").val(totalIncome)
+            //<td class="magaya__ApplyToAccounts" style="display: none;">${k.magaya__ApplyToAccounts}</td>
+
         }
     }
 })
