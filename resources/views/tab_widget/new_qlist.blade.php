@@ -1256,6 +1256,7 @@ ZOHO.embeddedApp.on("PageLoad",function(data)
         .then(function(data){
             $("#select-package").empty();
             $.map (data.data, function (k, i){
+                k.Name = sanitize(k.Name)
                 $("<option value='"+i+"'>"+k.Name+"</option>").appendTo("#select-package");
                 packageType.push(k);
             })
@@ -1300,6 +1301,7 @@ ZOHO.embeddedApp.on("PageLoad",function(data)
     ZOHO.CRM.API.getAllRecords({Entity: "Deals", sort_order: "asc"})
         .then(function(response){
             $.map (response.data, function (k, i) {
+                k.Deal_Name = sanitize(k.Deal_Name)
                 deals.push(k);
                 $("<option value='"+k.id+"'>"+k.Deal_Name+"</option>").appendTo("select[name=quotation-for-deals]");
             })
@@ -1309,6 +1311,7 @@ ZOHO.embeddedApp.on("PageLoad",function(data)
     ZOHO.CRM.API.getAllRecords({Entity: "magaya__TransportationMethods", sort_order: "asc"})
         .then(function(response){
             $.map (response.data, function (k, i) {
+                k.Name = sanitize(k.Name)
                 $("<option value='"+k.id+"'>"+k.Name+"</option>").appendTo("#TransportationMode");
                 transpMethods.push (k);
             })
@@ -1323,6 +1326,8 @@ ZOHO.embeddedApp.on("PageLoad",function(data)
                 $.map(response.data, function (k, i) {
                     //get just Income charges (AccountDefinition Type)
                     //if (k.magaya__AccountDefinitionType === "Income") {
+                        k.magaya__ChargesCode = sanitize(k.magaya__ChargesCode)
+                        k.Name = sanitize(k.Name)
                         $(`<option value="${k.magaya__ChargesCode}">${k.Name}</option>`).appendTo("select[name=ChargeType]");
                     //}
 
@@ -1401,6 +1406,7 @@ ZOHO.embeddedApp.init();
                 $.map(deals, function(k, i){
                     if (k.id == dealId) {
                         dealFound = true;
+                        k.Account_Name.name = sanitize(k.Account_Name.name)
                         $("<option value='"+k.Account_Name.id+"'>"+k.Account_Name.name+"</option>").appendTo("select[name=ContactName]");
 
                         ZOHO.CRM.API.getRelatedRecords({ Entity: "Accounts", RecordID: k.Account_Name.id, RelatedList: "Contacts", page: 1, per_page: 200 })
@@ -1408,6 +1414,7 @@ ZOHO.embeddedApp.init();
                             if (!_.isEmpty(response.data)){
                                 var contact = response.data;
                                 $.each(contact, function (k, v) {
+                                    v["Full_Name"] = sanitize(v["Full_Name"])
                                     $(`<option value='${v['id']}'>${v['Full_Name']}</option>`).appendTo("select[name=RepresentativeName]");
                                 })
                             }

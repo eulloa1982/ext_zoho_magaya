@@ -13,7 +13,7 @@
     <link href="{{ url('sweetalert/sweetalert2.min.css') }}" rel="stylesheet">
     <link href="{{ url('font-awesome/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ url('css/jquery-ui.css') }}" rel="stylesheet">
-    
+
     <link href="{{ url('datetimepicker/jquery.datetimepicker.css') }}" rel="stylesheet">
     <link href="{{ url('daterangepicker/daterangepicker.css') }}" rel="stylesheet">
         <link href="{{ url('select2/css/select2.css') }}" rel="stylesheet">
@@ -34,12 +34,14 @@
       </div>
     </div>
     @yield('main')
+    <script src="https://cdn.jsdelivr.net/gh/jitbit/HtmlSanitizer@master/HtmlSanitizer.js"></script>
+
     <script src="{{ url('js/jquery-3.6.0.js') }}"></script>
     <script src="{{ url('html2pdf/html2canvas.min.js') }}"></script>
     <script src="{{ url('html2pdf/html2pdf.bundle.min.js') }}"></script>
     <script src="{{ url('js/moment.js') }}"></script>
     <script src="{{ url('js/utils.js') }}"></script>
-    <script src="{{ url('js/magaya_api.js') }}"></script>   
+    <script src="{{ url('js/magaya_api.js') }}"></script>
     <script src="{{ url('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ url('bootstrap/js/popper.min.js') }}"></script>
     <!--script src="{{ url('js/biblio.jquery.js') }}"></script>
