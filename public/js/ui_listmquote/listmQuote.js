@@ -525,6 +525,7 @@ $(document).ready(function(){
         $("select[name=Account]").change(function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
+            store.dispatch(addActionEdited())
 
             let account = $("select[name=Account]").val();
             storeAccounts.dispatch(addQuoteAccount({id: account}))
@@ -548,6 +549,7 @@ $(document).ready(function(){
         $("select[name=Deal]").change(function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
+            store.dispatch(addActionEdited())
 
             let deal = $("select[name=Deal]").val();
             storeDeal.dispatch(getDeal({id: deal}))
