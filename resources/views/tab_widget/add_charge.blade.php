@@ -10,14 +10,15 @@
     <!-- Bootstrap core CSS -->
     <link href="{{ url('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Plugins -->
-    <link href="{{ url('sweetalert/sweetalert2.min.css') }}" rel="stylesheet">
-    <link href="{{ url('font-awesome/css/all.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
     <link href="{{ url('css/jquery-ui.css') }}" rel="stylesheet">
 
     <link href="{{ url('datetimepicker/jquery.datetimepicker.css') }}" rel="stylesheet">
     <link href="{{ url('daterangepicker/daterangepicker.css') }}" rel="stylesheet">
-        <link href="{{ url('select2/css/select2.css') }}" rel="stylesheet">
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.css" />
+    <link href="{{ url('select2/css/select2.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url('css/custom-lismquotes.css') }}"/>
+
 
     <!-- Custom CSS -->
 
@@ -330,8 +331,16 @@ li {
 
 
   <body>
-    <div id="quote-alert" class="alert alert-danger" style="position: absolute; display: none; z-index: 200"></div>
-    <div id="quote-info" class="alert alert-info" style="position: absolute; display: none; z-index: 200;"></div>
+  <div id="quote-alert" class="alert alert-danger alert-dismissible" style="position: absolute; display: none; z-index: 6000">
+        <span class="material-icons close cursor-hand" data-close="quote-alert">close</span>
+        <div id="message-alert" class="message-data"></div>
+
+    </div>
+
+    <div id="quote-info" class="alert alert-success alert-dismissible" style="position: absolute; display: none; z-index: 6000;">
+        <span class="material-icons close cursor-hand" data-close="quote-info">close</span>
+        <div id="message-info" class="message-data"></div>
+    </div>
 
 
   <div class="nav-toggle">
@@ -472,11 +481,16 @@ li {
     <script src="{{ url('js/biblio.jquery3.js') }}"></script>
 
     <script src="{{ url('js/biblio.zoho2.js') }}"></script>
+    <script src="{{ url('js/errors_handlers/errors.js') }}"></script>
+    <script src="{{ url('js/store/constants.js') }}"></script>
 
     <script src="{{ url('js/store/store.js') }}"></script>
     <script src="{{ url('js/store/storeError.js') }}"></script>
     <script src="{{ url('js/store/storeSuccess.js') }}"></script>
     <script src="{{ url('js/store/storeCharges.js') }}"></script>
+    <script src="{{ url('js/store/storeQuotes.js') }}"></script>
+
+    <!--script src="{{ url('js/ui_listmquote/subscribers/subscribersCharges.js') }}"></script-->
 
 
 
@@ -488,6 +502,12 @@ li {
 
 $(document).ready(function(){
 
+    $('.close').click(function(){
+        let div_close = $(this).attr("data-close");
+        $(`#${div_close}`).animate({width:'toggle'},150);
+        //$("#" + div_close).hide()
+    })
+
     $(function(){
   $('.toggle-botton').on('click',function(){
     $('.nav-toggle').toggleClass('is-active')
@@ -497,50 +517,8 @@ $(document).ready(function(){
     $('.nav-toggle').toggleClass('is-active');
   })
 })
+    var idAccount = 0
 
-
-
-
-
-
-
-
-
-
-
-
-    accounts = []
-    var idAccount = 0;
-
-    //capturo el ID del account desde el store
-    storeClientQuote.subscribe(() => {
-        let {client, id} = storeClientQuote.getState();
-        //$("#info").html("Account: " + client)
-        idAccount = id
-
-    })
-
-    ///////subscriber charges, render UI table
-    storeCharge.subscribe(() => {
-        let u = storeCharge.getState().charges;
-        console.log("State charge now", u)
-        $("#table-charges tbody").empty();
-            if (!_.isEmpty(u)) {
-                $.each(u, function(i, k) {
-
-                    $("#table-charges tbody").append(`<tr><td class="Delete"><i class="fa fa-trash del-item-charge" aria-hidden="true" data-id="${k.id}"></i></td>
-                    <td class="magaya__ChargeCode">${k.magaya__ChargeCode}</td>
-                    <td><input type="text" class="form-control no-border" name="Name" value="${k.Name}" required></td>
-                    <td><input type="text" class="form-control no-border" name="magaya__CQuantity" value="${k.magaya__CQuantity}" /></td>
-                    <td><input type="text" class="form-control no-border" name="magaya__Price" value="${k.magaya__Price}" /></td>
-                    <td class="magaya__Amount">${k.magaya__Amount}</td>
-                    <td class="magaya__ChargeCurrency">${k.magaya__ChargeCurrency}</td>
-                    </tr>`);
-                })
-            } //IF
-        })
-
-    var idQuote = 0;
     //get zoho data
     ZOHO.embeddedApp.on("PageLoad",function(data)
     {
@@ -552,10 +530,10 @@ $(document).ready(function(){
             data = response.data;
             if (!_.isEmpty(data[0]["Account"])) {
                 //select account data
-                id = data[0]["Account"]["id"];
+                idAccount = data[0]["Account"]["id"];
                 client = data[0]["Account"]["name"];
                 //dispatch los datos del account hacia el store
-                storeClientQuote.dispatch({type: 'SET', value: {client, id}})
+                //storeClientQuote.dispatch({type: 'SET', value: {client, id}})
 
             }
         });
@@ -581,6 +559,8 @@ $(document).ready(function(){
                 $("#charges tbody").empty();
                 if (!_.isEmpty(response.data)) {
                     idemCharges = response.data
+                    console.log("Charges", idemCharges)
+
                     amountTotal = cont = 0;
                     $.each(idemCharges, function(i, k) {
                             cont++;
@@ -642,15 +622,17 @@ $(document).ready(function(){
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: item, Trigger: [] })
             .then(function(data) {
                 res = data.data;
-                console.log(res)
+                console.log("Charge inserted respomnse", res)
+                let idCharge = res[0]['details']['id'];
                 $.map(res, function(k, v) {
+
                     if (k.code !== "SUCCESS") {
                         codeError = k.code;
                         field = k.details.api_name;
                         show = true;
                         module = 'Service Items'
 
-                        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+                        //storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
                     } else {
                         let idCharge = res[0].details.id;
@@ -666,7 +648,27 @@ $(document).ready(function(){
                         $("#Price").val('');
                         $("#Amount").val('');
 
-                        content = `<tr><td class="Delete"><i class="fa fa-trash del-item-charge" aria-hidden="true" data-id="${idCharge}"></i></td>
+                        ZOHO.CRM.API.getRecord({Entity:"magaya__ChargeQuote",RecordID:idCharge})
+                        .then(function(data){
+                            record = data.data;
+
+                            $.map(record, function(k, v){
+                                storeCharge.dispatch(addCharge({...k}))
+                            })
+
+                            var func_name = "magaya__setQuoteTotalAmount";
+                            var req_data ={
+                                "quote_id" : idQuote
+                            };
+                            ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
+                                console.log("Update quote amount", data)
+                            })
+
+
+                            let message = ": Added new Charge item"
+                            storeSuccess.dispatch(addSuccess({message: message}))
+                        })
+                        /*content = `<tr><td class="Delete"><i class="fa fa-trash del-item-charge" aria-hidden="true" data-id="${idCharge}"></i></td>
                         <td class="magaya__ChargeCode">${ChargeType}</td>
                         <td><input type="text" class="form-control no-border" name="Name" value="${ChargeText}"/></td>
                         <td><input type="text" class="form-control no-border" name="magaya__Charge_Description" value="${DescriptionCharges}"/></td>
@@ -674,12 +676,12 @@ $(document).ready(function(){
                         <td><input type="text" class="form-control no-border" name="magaya__Price" value="${Price}"/></td>
                         <td class="magaya__Amount">${Amount}</td>
                         <td class="magaya__ApplyToAccounts">${idAccount}</td>
-                        </tr>`;
+                        </tr>`;*/
 
-                        $(content).appendTo("#table-charges tbody");
-                        let message = ": Added new Charge item"
-                        storeCharge.dispatch(addCharge({...item, id: idCharge}))
-                        storeSuccess.dispatch(addSuccess({message: message}))
+                        //$(content).appendTo("#table-charges tbody");
+                        //let message = ": Added new Charge item"
+                        //storeCharge.dispatch(addCharge({...item, id: idCharge}))
+                        //storeSuccess.dispatch(addSuccess({message: message}))
 
                     }
                 })
@@ -694,7 +696,7 @@ $(document).ready(function(){
                     field = k.details.api_name;
                     show = true;
                     module = 'Service Items'
-                    storeError.dispatch(addError({errorCode: errorCode, showInfo: show, field: field, module: module}))
+                    //storeError.dispatch(addError({errorCode: errorCode, showInfo: show, field: field, module: module}))
 
                 })
                 Utils.unblockUI()
@@ -774,8 +776,8 @@ $(document).ready(function(){
                 .then(function(data){
                     console.log(data)
                     message = " : Item Updated!!";
-                    storeCharge.dispatch(deleteCharge({id: idCharge}))
-                    storeSuccess.dispatch(addSuccess({message: message}))
+                    //storeCharge.dispatch(deleteCharge({id: idCharge}))
+                    //storeSuccess.dispatch(addSuccess({message: message}))
 
 
                 })
@@ -786,13 +788,47 @@ $(document).ready(function(){
                         show = true;
                         field = oldValue;
                         module = 'Service Items'
-                        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+                        //storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
                     })
                 })
         });
 
     })
+
+
+    accounts = []
+    var idAccount = 0;
+
+    //capturo el ID del account desde el store
+    storeClientQuote.subscribe(() => {
+        let {client, id} = storeClientQuote.getState();
+        //$("#info").html("Account: " + client)
+        idAccount = id
+
+    })
+
+    ///////subscriber charges, render UI table
+    storeCharge.subscribe(() => {
+        let u = storeCharge.getState().charges;
+        console.log("State charge now", u)
+        $("#table-charges tbody").empty();
+            if (!_.isEmpty(u)) {
+                $.each(u, function(i, k) {
+
+                    $("#table-charges tbody").append(`<tr><td class="Delete"><a><span class="material-icons oculto delete" data-id="${k.id}">clear</span></a></td>
+                    <td class="magaya__ChargeCode">${k.magaya__ChargeCode}</td>
+                    <td><input type="text" class="form-control no-border" name="Name" value="${k.Name}" required></td>
+                    <td><input type="text" class="form-control no-border" name="magaya__CQuantity" value="${k.magaya__CQuantity}" /></td>
+                    <td><input type="text" class="form-control no-border" name="magaya__Price" value="${k.magaya__Price}" /></td>
+                    <td class="magaya__Amount">${k.magaya__Amount}</td>
+                    <td class="magaya__ChargeCurrency">${k.magaya__ChargeCurrency}</td>
+                    </tr>`);
+                })
+            } //IF
+        })
+
+    var idQuote = 0;
 
 });
 

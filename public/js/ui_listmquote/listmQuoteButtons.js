@@ -423,7 +423,6 @@ $(document).ready(function(){
     if (accountId <= 0)
         throw new UserException('Mandatory data not found: Client Quote is not defined');
 
-    console.log("Quote a edit", quoteToEdit)
     let idQuote = quoteToEdit['id']
 
     let recordData = {
@@ -532,7 +531,7 @@ $(document).ready(function(){
         let accountId = $(":input[name=Account] option:selected").val()
         let contact = $(":input[name=magaya__Representative] option:selected").val()
         //receipt fields
-        if (accountId <= 0)
+        if (accountId <= 0 || accountId === undefined || accountId === "undefined")
             throw new UserException('Mandatory data not found: Client Quote is not defined');
 
 
@@ -566,6 +565,10 @@ $(document).ready(function(){
 
         }
 
+        //jsonCharges = $(this).tableToJson('table-charges-new', 992929292929229);
+        //jsonData = JSON.parse(`[${jsonCharges}]`)
+       // Object.assign(jsonData, {"magaya__ApplyToAccounts": accountId})
+        //console.log("Chrges json", jsonData)
         //insertind data, get the id and insert items and charges
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__SQuotes", APIData: recordData, Trigger: [] })
             .then(function(response) {
@@ -650,6 +653,11 @@ $(document).ready(function(){
 
                 if (!_.isEmpty(jsonCharges)) {
                     jsonCharges[0]['Name'] = jsonCharges[0]['magaya__Charge_Description'];
+
+                    $.map(jsonData, function(k) {
+                        Object.assign(k, {"magaya__ApplyToAccounts": accountId})
+                    })
+
                     ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: jsonData, Trigger: [] })
                         .then(function(response) {
                             res = response.data;
@@ -684,6 +692,20 @@ $(document).ready(function(){
             })
             .then(function() {
                 Utils.unblockUI()
+                Swal.fire({
+                    title: "Success",
+                    text: "New mQuote inserted!!!",
+                    icon: "question",
+                    showCancelButton: false,
+                    confirmButtonText: "Yes",
+                    allowOutsideClick: false
+
+                }).then((result) => {
+
+                    if (result.isConfirmed) {
+                        location.reload()
+                    }
+                })
 
             })
             .catch(function(error) {
@@ -712,7 +734,8 @@ $(document).ready(function(){
                 showCancelButton: true,
                 confirmButtonText: "Yes",
                 cancelButtonText: "Cancel",
-                cancelButtonColor: '#d33'
+                cancelButtonColor: '#d33',
+                allowOutsideClick: false
             }).then((result) => {
 
                 if (result.isConfirmed) {
@@ -732,7 +755,6 @@ $(document).ready(function(){
 function cleanDataString(arrayData) {
 
     $.map (arrayData, function (k, v) {
-        console.log(k, v)
         if (!_.isEmpty(arrayData[v]))
             arrayData[v] = k.replace(/[^a-zA-Z0-9]\.\#/g, ' ')
     })

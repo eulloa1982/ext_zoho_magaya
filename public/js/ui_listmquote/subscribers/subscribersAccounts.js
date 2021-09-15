@@ -6,16 +6,19 @@ storeAccounts.subscribe(() => {
     singleAccount = u.singleAccount
     let accountQuote = storeAccounts.getState().quoteAccount
     //fill data address in quote
-    $.map(accountQuote, function (k, v) {
-        if (!_.isObject(v) && !v.includes("$")) {
-            $(`input[name=${v}]`).val(k)
-            $(`select[name=${v}]`).val(k)
-        }
-    })
+    if (!_.isEmpty(accountQuote)) {
+        $.map(accountQuote, function (k, v) {
+            if (!_.isObject(v) && !v.includes("$")) {
+                $(`input[name=${v}]`).val(k)
+                $(`select[name=${v}]`).val(k)
+            }
+        })
+        $("select[name=Account]").val(accountQuote.id)
+    }
 
     //select rigth one on list
    // console.log("Id account in quote edit", accountQuote.id)
-    $("select[name=Account]").val(accountQuote.id)
+
 
 })
 
