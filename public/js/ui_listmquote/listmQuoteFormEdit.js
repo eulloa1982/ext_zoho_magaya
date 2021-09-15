@@ -12,6 +12,8 @@
             e.preventDefault();
             e.stopImmediatePropagation();
             let idCharge = $(this).attr('data-id')
+            //add a change counter
+            store.dispatch(addActionEdited())
             //Utils.blockUI();
             let a = $(".edit-record").serializeArray();
             let charge = {}
@@ -163,6 +165,8 @@
                 e.stopImmediatePropagation();
 
                 let idItem = $(this).attr('data-id')
+                //add a change counter
+                store.dispatch(addActionEdited())
                 //Utils.blockUI();
                 let a = $(".edit-record").serializeArray();
                 let item = {}

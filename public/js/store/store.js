@@ -1,7 +1,8 @@
 const initialState = {
     accountQuote: [],
     contactQuote:[],
-    page: 0
+    page: 0,
+    actionsCounter: 0
 }
 
 ////////////////////////////////////////////////////
@@ -31,6 +32,20 @@ const reducer = (state = initialState, actions) => {
                 ...state,
                 actual_page
             }
+
+        case "ACTION_EDITED_COUNTER": {
+            return {
+                ...state,
+                actionsCounter: state.actionsCounter += 1
+            }
+        }
+
+        case "CLEAN_ACTIONS_EDITED": {
+            return {
+                ...state,
+                actionsCounter: initialState.actionsCounter
+            }
+        }
 
 
         default:
@@ -87,4 +102,8 @@ function addQuoteContact(){
 
 function addPage() {
     return {type: "ADD_PAGE"}
+}
+
+function addActionEdited() {
+    return { type: "ACTION_EDITED_COUNTER"}
 }

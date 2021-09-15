@@ -3,7 +3,7 @@ var singleAccount = []
 storeAccounts.subscribe(() => {
     let u = storeAccounts.getState();
     singleAccount = u.singleAccount
-
+    console.log("State account now", u)
     let accountQuote = storeAccounts.getState().quoteAccount
     //fill data address in quote
     $.map(accountQuote, function (k, v) {
@@ -14,7 +14,7 @@ storeAccounts.subscribe(() => {
     })
 
     //select rigth one on list
-    console.log("Id account in quote edit", accountQuote.id)
+   // console.log("Id account in quote edit", accountQuote.id)
     $("select[name=Account]").val(accountQuote.id)
 
 })

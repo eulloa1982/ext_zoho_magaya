@@ -6,13 +6,16 @@ $(document).ready(function(){
     let quoteToEdit = 0
 
     //////subscriber Account, quote client
-    store.subscribe(() => {
-        account = storeAccounts.getState().quoteAccount;
-        console.log("Store state now", account)
+    /*store.subscribe(() => {
+        accounts = storeAccounts.getState().quoteAccount;
 
-        account = _.last(account)
-        //accountId = account['accountId']
-    })
+        if (!_.isEmpty(accounts)) {
+            console.log("State quoteAccount now", accounts)
+
+            account = _.last(accounts)
+            accountId = accounts['accountId']
+        }
+    })*/
 
     ////////subscriber singleContact, representative
     storeAccounts.subscribe(() => {
@@ -65,6 +68,8 @@ $(document).ready(function(){
     $("#sendItem").click(function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
+
+        store.dispatch(addActionEdited())
 
         rowIndex = $("#select-package").val();
 
@@ -152,7 +157,7 @@ $(document).ready(function(){
         e.preventDefault();
         e.stopImmediatePropagation();
         Utils.blockUI();
-
+        store.dispatch(addActionEdited())
 
         let ChargeType = $("select[name=ChargeType] option:selected").val();
         let Status = $("select[name=ChargeStatus] option:selected").val();
@@ -441,7 +446,6 @@ $(document).ready(function(){
         APIData: recordData
     }
 
-    console.log("Data mquote save", config)
     //insertind data, get the id and insert items and charges
     ZOHO.CRM.API.updateRecord(config)
         .then(function(response) {
@@ -468,92 +472,13 @@ $(document).ready(function(){
                             storeQuote.dispatch(updateQuote({id: idQuote, ...record}))
                         })
 
-                    message = `A new mQuote inserted!!`
+                    message = `mQuote updated!!`
                     storeSuccess.dispatch(addSuccess({message: message}))
                     $("#mquoteModal").modal("hide")
 
                 }
             })
 
-            return id
-        })
-        .then(function(idQuote) {
-
-            jsonItems = $(this).tableToJson('table-items-new', idQuote);
-            jsonItems = JSON.parse(`[${jsonItems}]`)
-
-            jsonCharges = $(this).tableToJson('table-charges-new', idQuote);
-            jsonData = JSON.parse(`[${jsonCharges}]`)
-            console.log("Items JSON", jsonItems)
-
-            console.log("Charges JSON", jsonData)
-            //check the data
-            if (!_.isEmpty(jsonItems)) {
-                ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: jsonItems, Trigger: [] })
-                    .then(function(response) {
-                        res = response.data;
-                        console.log("ITEM Operation", res)
-                        $.map(res, function(k, v) {
-                            if (k.code !== "SUCCESS") {
-                                codeError = k.code;
-                                field = k.details.api_name;
-                                show = true;
-                                module = 'Cargo Items'
-                                storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                            } else {
-                                message = " : Item Updated!!";
-                                storeSuccess.dispatch(addSuccess({message: message}))
-
-                            }
-                        })
-                    })
-                     .catch(function(error) {
-                        dataError = error.data;
-                        $.map(dataError, function(k, v) {
-                            errorCode = k.code;
-                            field = k.details.api_name;
-                            show = true;
-                            module = 'mQuote'
-                            storeError.dispatch(addError({errorCode: errorCode, showInfo: show, field: field, module: module}))
-
-                        })
-                    })
-            }
-
-            if (!_.isEmpty(jsonCharges)) {
-                jsonCharges[0]['Name'] = jsonCharges[0]['magaya__Charge_Description'];
-                ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: jsonData, Trigger: [] })
-                    .then(function(response) {
-                        res = response.data;
-                        console.log("CHARGES OPERATION", res)
-                        $.map(res, function(k, v) {
-                            if (k.code !== "SUCCESS") {
-                                codeError = k.code;
-                                field = k.details.api_name;
-                                show = true;
-                                module = 'Service Items'
-                                storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                            } else {
-                                message = " : Charges Inserted!!";
-                                storeSuccess.dispatch(addSuccess({message: message}))
-
-                            }
-                        })
-
-                    }).catch(function(error) {
-                        dataError = error.data;
-                        $.map(dataError, function(k, v) {
-                            errorCode = k.code;
-                            field = k.details.api_name;
-                            show = true;
-                            module = 'mQuote'
-                            storeError.dispatch(addError({errorCode: errorCode, showInfo: show, field: field, module: module}))
-
-                        })
-                    })
-            }
         })
         .then(function() {
             Utils.unblockUI()
@@ -602,6 +527,8 @@ $(document).ready(function(){
             expirationDateFinal = expirationDate[0] + "T" + expirationDate[1]
         }
 
+        let accountId = $(":input[name=Account] option:selected").val()
+        let contact = $(":input[name=magaya__Representative] option:selected").val()
         //receipt fields
         if (accountId <= 0)
             throw new UserException('Mandatory data not found: Client Quote is not defined');
@@ -637,7 +564,6 @@ $(document).ready(function(){
 
         }
 
-        console.log("Data mquote", recordData)
         //insertind data, get the id and insert items and charges
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__SQuotes", APIData: recordData, Trigger: [] })
             .then(function(response) {
@@ -660,7 +586,15 @@ $(document).ready(function(){
                         ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id})
                             .then(function(data){
                                 record = data.data;
+                                var func_name = "magaya__setQuoteTotalAmount";
+                                var req_data ={
+                                    "quote_id" : id
+                                };
+                                ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
+                                    console.log("Update quote amount", data)
+                                })
                                 storeQuote.dispatch(addQuote(record))
+
                             })
 
                         message = `A new mQuote inserted!!`
@@ -766,6 +700,34 @@ $(document).ready(function(){
                 })
             })
     })
+
+
+    //////////////////boton cerrar modal////////////////
+    $("#cerrar-modal").click(function(e) {
+        //verifico si hay acciones de edicion
+        let actions = store.getState().actionsCounter
+        console.log("Actions on edit", actions)
+        if (actions > 0) {
+            Swal.fire({
+                title: "Confirm",
+                text: "Some changes have been made, please select Confirm or Save your Changes",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "Cancel",
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    location.reload()
+                }
+            })
+
+        } else {
+            $("#mquoteModal").modal("hide")
+        }
+    })
+
 
 })
 
