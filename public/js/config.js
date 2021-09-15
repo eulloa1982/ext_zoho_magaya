@@ -81,6 +81,7 @@ function getContent(moduleNameCRM) {
         $("#sortable-crm").empty();
         if (!_.isEmpty(r)) {
             $.each(r, function(k, i) {
+                i.Name = sanitize(i.Name)
                 dataModule += ` <li class="list-group-item"><div class="sm"><i data-id="${i.id}" class="edit-data fa fa-eye"></i></div>${i.Name}</li>`
                     //dataModule += ` <li class="list-group-item"><div class="sm"></div>${i.Name}</li>`
             })

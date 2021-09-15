@@ -84,7 +84,7 @@ function getContent(moduleNameCRM) {
             $.each(r, function(k, i) {
                 dataModule += ` <label class="list-group-item"><div class="sm">
                 <input data-id="${i.id}" class="form-check-crm" type="checkbox" value="">
-                <i class="edit-data fa fa-eye"></i></div>${i.Name}</label>`
+                <i class="edit-data fa fa-eye"></i></div>${sanitize(i.Name)}</label>`
                     //dataModule += ` <li class="list-group-item"><div class="sm"></div>${i.Name}</li>`
             })
         } else {

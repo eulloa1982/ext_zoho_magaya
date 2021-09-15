@@ -265,6 +265,7 @@ $(document).ready(function(){
     $(".addMquote").click(function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
+        $("#Heading").html("Add mQuote");
 
         //drop the state temporal items and charges
         storeItem.dispatch(emptyItems())
