@@ -883,12 +883,12 @@ $('#sortable2').bind("DOMSubtreeModified", function() {
 
                     //metodo de transporte
                     if (!_.isEmpty(data[0]['magaya__TransportationMode'])) {
-                        $("<option value='" + data[0]['magaya__TransportationMode']['id'] + "' selected>" + data[0]['magaya__TransportationMode']['name'] + "</option>").appendTo("#TransportationMode");
+                        $("<option value='" + data[0]['magaya__TransportationMode']['id'] + "' selected>" + sanitize(data[0]['magaya__TransportationMode']['name']) + "</option>").appendTo("#TransportationMode");
                     }
 
                     if (!_.isEmpty(data[0]["Account"])) {
                         id = data[0]["Account"]["id"];
-                        client = data[0]["Account"]["name"];
+                        client = sanitize(data[0]["Account"]["name"]);
                         //$("<option value='" + idem[0]["Account"]["id"] + ">" + idem[0]["Account"]["name"] + "</option>").appendTo("#QuoteForm select[name=ContactName]");
                     }
                     $("#QuoteForm select[name=ContactName]").append(`<option value='${id}'>${client}</option>`);
@@ -908,7 +908,6 @@ $('#sortable2').bind("DOMSubtreeModified", function() {
             .then(function(response) {
                 $("#charges tbody").empty();
                 if (!_.isEmpty(response.data)) {
-                    console.log("Charges", response.data)
                     idemCharges = response.data
                     amountTotal = cont = 0;
                     $.each(idemCharges, function(i, k) {
@@ -918,7 +917,7 @@ $('#sortable2').bind("DOMSubtreeModified", function() {
                             var applyTo = '';
                             var applyToId = '';
                             if (!_.isEmpty(k.magaya__ApplyToAccounts)) {
-                                applyTo = k.magaya__ApplyToAccounts.name
+                                applyTo = sanitize(k.magaya__ApplyToAccounts.name)
                                 applyToId = k.magaya__ApplyToAccounts.id
 
                               $("#ApplyToAccounts").append(`<option value='${applyToId}'>${applyTo}</option>`);
@@ -958,11 +957,10 @@ $('#sortable2').bind("DOMSubtreeModified", function() {
                     idemItems = response.data
                     $.each(idemItems, function(i, k) {
                         k.Name = sanitize(k.Name)
-                        console.log("Select 555")
-                            var volume = k.magaya__Length * k.magaya__Height * k.magaya__Width;
-                            //appendData = `<tr><td class="Delete"><i class="fa fa-trash del-item-warehouse" aria-hidden="true"></i></td><td class="magaya__Status"><select id="Status" name="Status" class="form-control"><option value="${k.magaya__Status}" selected="true">${k.magaya__Status}</option></select></td><td class='Name'>${k.Name}</td><td class='magaya__Pieces'>${k.magaya__Pieces}</td><td class='magaya__Length'>${k.magaya__Length}</td><td class='magaya__Height'>${k.magaya__Height}</td><td class='magaya__Width'>${k.magaya__Width}</td><td class="magaya__Weigth">${k.magaya__Weigth}</td><td class="magaya__Volume">${volume}</td></tr>`
-                            appendData = `<tr><td class="Delete"><i class="fa fa-trash del-item-warehouse" aria-hidden="true"></i></td><td class="magaya__Status">${k.magaya__Status}</td><td class='Name'>${sanitize(k.Name)}</td><td class='magaya__Pieces'>${k.magaya__Pieces}</td><td class='magaya__Length'>${k.magaya__Length}</td><td class='magaya__Height'>${k.magaya__Height}</td><td class='magaya__Width'>${k.magaya__Width}</td><td class="magaya__Weigth">${k.magaya__Weigth}</td><td class="magaya__Volume">${volume}</td></tr>`
-                            $("#table-items tbody").append(appendData);
+                        var volume = k.magaya__Length * k.magaya__Height * k.magaya__Width;
+                        //appendData = `<tr><td class="Delete"><i class="fa fa-trash del-item-warehouse" aria-hidden="true"></i></td><td class="magaya__Status"><select id="Status" name="Status" class="form-control"><option value="${k.magaya__Status}" selected="true">${k.magaya__Status}</option></select></td><td class='Name'>${k.Name}</td><td class='magaya__Pieces'>${k.magaya__Pieces}</td><td class='magaya__Length'>${k.magaya__Length}</td><td class='magaya__Height'>${k.magaya__Height}</td><td class='magaya__Width'>${k.magaya__Width}</td><td class="magaya__Weigth">${k.magaya__Weigth}</td><td class="magaya__Volume">${volume}</td></tr>`
+                        appendData = `<tr><td class="Delete"><i class="fa fa-trash del-item-warehouse" aria-hidden="true"></i></td><td class="magaya__Status">${sanitize(k.magaya__Status)}</td><td class='Name'>${sanitize(k.Name)}</td><td class='magaya__Pieces'>${k.magaya__Pieces}</td><td class='magaya__Length'>${k.magaya__Length}</td><td class='magaya__Height'>${k.magaya__Height}</td><td class='magaya__Width'>${k.magaya__Width}</td><td class="magaya__Weigth">${k.magaya__Weigth}</td><td class="magaya__Volume">${volume}</td></tr>`
+                        $("#table-items tbody").append(appendData);
 
                         }) //each
 
@@ -1109,7 +1107,7 @@ $("select[name=ConsigneeName]").change(function(e) {
 
                     } else {
                         //$("#quote-alert").show("slow").html("Warning!!");
-                        $("#quote-alert").show("slow").append(`<p>Consignee ${accounts[indexAccount]["Account_Name"]} is not a Magaya Customer!!</p>`)
+                        $("#quote-alert").show("slow").append(`<p>Consignee ${sanitize(accounts[indexAccount]["Account_Name"])} is not a Magaya Customer!!</p>`)
                     }
                 });
 
@@ -1160,7 +1158,7 @@ $("select[name=ShipperName]").change(function(e) {
                         //addedToApplyAccounts(idAccount);
                     } else {
                         //$("#quote-alert").show("slow").html("Warning!!");
-                        $("#quote-alert").show("slow").append(`<p>Shipper ${accounts[indexAccount]["Account_Name"]} is not a Magaya Customer!!</p>`)
+                        $("#quote-alert").show("slow").append(`<p>Shipper ${sanitize(accounts[indexAccount]["Account_Name"])} is not a Magaya Customer!!</p>`)
                     }
                 });
 
@@ -1211,7 +1209,7 @@ $("select[name=ApplyToAccounts]").change(function(e) {
 
                 } else {
                     //$("#quote-alert").show("slow").html("Warning!!");
-                    $("#quote-alert").show("slow").append(`<p>Client ${accounts[indexAccount]["Account_Name"]} is not a Magaya Customer!!</p>`)
+                    $("#quote-alert").show("slow").append(`<p>Client ${sanitize(accounts[indexAccount]["Account_Name"])} is not a Magaya Customer!!</p>`)
                 }
             });
         }
@@ -1257,7 +1255,7 @@ $('select[name=ContactName]').bind("DOMSubtreeModified", function(e) {
                         $("#quote-alert").hide("slow").html("")
                     } else {
                         //$("#quote-alert").show("slow").html("Warning!!");
-                        $("#quote-alert").show("slow").append(`<p>Client ${accounts[indexAccount]["Account_Name"]} is not a Magaya Customer!!</p>`)
+                        $("#quote-alert").show("slow").append(`<p>Client ${sanitize(accounts[indexAccount]["Account_Name"])} is not a Magaya Customer!!</p>`)
 
                     }
                 });
@@ -1354,7 +1352,7 @@ function drawQuotationCRM() {
                             </div>
                         <div class="view-quote sm"><i class="fa fa-eye"></i></div>
                         <div class="btn-sm edit-quote"><i class="far fa-edit"></i></div>
-                        <span>${v.Name}</span><span>${v.magaya__ContactName}</span></li>`;
+                        <span>${sanitize(v.Name)}</span><span>${sanitize(v.magaya__ContactName)}</span></li>`;
                 $("#sortable2").append(dataAppend);
             })
         } else {

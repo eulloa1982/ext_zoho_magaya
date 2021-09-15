@@ -10,7 +10,7 @@ $("select[name=TransportationMode]").change(function(e) {
         //console.log("Parent Method", parentMethod);
         $.each(MagayaCarriers, function(k, v) {
             if (v.CarrierInfo.CarrierTypeCode === parentMethod) {
-                $(`<option value="${v.Name}">${v.Name}</option>`).appendTo("select[name=Carrier]");
+                $(`<option value="${sanitize(v.Name)}">${sanitize(v.Name)}</option>`).appendTo("select[name=Carrier]");
             }
         })
     }
@@ -104,13 +104,11 @@ $("#buton-package").click(function(e) {
     var width = ($(":input[name=Item-Width]").val()) > 0 ? $(":input[name=Item-Width]").val() : (packageType[rowIndex]['magaya__PackageWidth'] >= 0 ? packageType[rowIndex]['magaya__PackageWidth'] : 0);
     var weight = ($(":input[name=Item-Weight]").val()) > 0 ? $(":input[name=Item-Weight]").val() : (packageType[rowIndex]['magaya__PackageWeigth'] >= 0 ? packageType[rowIndex]['magaya__PackageWeigth'] : 0);
     var volume = parseFloat(length) * parseFloat(width) * parseFloat(height);
-    console.log(packageType[rowIndex])
-    console.log(length + ' ' + height + ' ' + width + ' ' + weight);
     //zoho module fields = td class
     dataAppend = `<tr>
                     <td class='Delete'><i class="fa fa-trash del-item-warehouse" aria-hidden="true"></i></td>
                     <td class='magaya__Status'>InQuote</td>
-                    <td class='Name'>${packageName}</td>
+                    <td class='Name'>${sanitize(packageName)}</td>
                     <td class='magaya__Pieces'>${pieces}</td>
                     <td class='magaya__Length'>${roundDec(length)}</td>
                     <td class='magaya__Height'>${roundDec(height)}</td>
@@ -170,7 +168,7 @@ $('#sortable2').bind("DOMSubtreeModified", function() {
                             }
                         }
                     })
-                    var name = idem[0]["magaya_ContactName"] != null ? idem[0]["magaya_ContactName"] : "               ";
+                    var name = idem[0]["magaya_ContactName"] != null ? sanitize(idem[0]["magaya_ContactName"]) : "               ";
                     var email = idem[0]["magaya_ContactEmail"] != null ? idem[0]["magaya_ContactEmail"] : "               ";
                     var phone = idem[0]["magaya__ContactPhone"] != null ? idem[0]["magaya__ContactPhone"] : "               ";
                     var number = idem[0]["Name"] != null ? idem[0]["Name"] : "";
@@ -179,7 +177,7 @@ $('#sortable2').bind("DOMSubtreeModified", function() {
                     var issued_name = idem[0]["magaya__IssuedBy"] != null ? idem[0]["magaya__IssuedBy"] : "";
                     var type_of_move = '';
                     if (!_.isEmpty(idem[0]["magaya__TransportationMode"])) {
-                        type_of_move = idem[0]["magaya__TransportationMode"]["name"];
+                        type_of_move = sanitize(idem[0]["magaya__TransportationMode"]["name"]);
                     }
 
                     $("#contact_info tbody").append(
