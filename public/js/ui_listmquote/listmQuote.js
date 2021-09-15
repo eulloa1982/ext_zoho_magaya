@@ -110,6 +110,8 @@ $(document).ready(function(){
             e.preventDefault();
             e.stopImmediatePropagation()
 
+            $("#Heading").html("Edit mQuote");
+
            //drop the state temporal items and charges
             storeItem.dispatch(emptyItems())
             storeCharge.dispatch(emptyCharges())
