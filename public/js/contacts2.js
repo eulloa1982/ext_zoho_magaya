@@ -212,7 +212,6 @@ $('#sortable3').bind("DOMSubtreeModified", function() {
 
         var data = {};
         var a = $("#account-form").serializeArray();
-        console.log("Filtrando carecteres y espacio")
 
         $.each(a, function() {
             if (data[this.name]) {
@@ -260,8 +259,8 @@ $('#sortable3').bind("DOMSubtreeModified", function() {
         e.preventDefault();
         e.stopImmediatePropagation();
 
-        var data = {};
-        var a = $("#account-form").serializeArray();
+        let data = {};
+        let a = $("#account-form").serializeArray();
         $.each(a, function() {
             if (data[this.name]) {
                 if (!data[this.name].push) {
@@ -671,9 +670,9 @@ function drawContactsCRM() {
         .then(function(response) {
             $.map(response.data, function(k, i) {
                 //contacts.push(k);
-                accounts.push(k)
                 k.Account_Name = sanitize(k.Account_Name)
                 k.magaya__MagayaGUID = sanitize(k.magaya__MagayaGUID)
+                accounts.push(k)
                 $("#sortable3").append(`<li class="list-group-item" data-magayaGuid="${k.magaya__MagayaGUID}" data-id="${k.id}">
                                        <input class="form-check-input-contact-crm" type="checkbox" value="">
                                        <button class="btn btn-sm view-account-crm"><i class="fa fa-eye"></i></button>
@@ -907,14 +906,8 @@ const generateRandomString = (num) => {
 
 
 function sanitize(input) {
-        /*
-		var output = input.replace(/<script[^>]*?>.*?<\/script>/gi, '').
-					 replace(/<[\/\!]*?[^<>]*?>/gi, '').
-					 replace(/<style[^>]*?>.*?<\/style>/gi, '').
-					 replace(/<![\s\S]*?--[ \t\n\r]*>/gi, '');
-	    return output;
-        */
-       if (!_.isEmpty(input)) {
-            return input.replace(/<(|\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g, '').replace(/[^a-zA-Z0-9]/g, ' ');
-       }
-	};
+    if (!_.isEmpty(input)) {
+         let a = HtmlSanitizer.SanitizeHtml(input);
+         return a.replace(/['"]+/g, '').replace(/[^a-zA-Z0-9]\-/g, ' ').replace(/<(|\/["]\/[&<>]\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g, '');
+    }
+ }

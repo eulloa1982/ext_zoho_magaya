@@ -835,3 +835,11 @@ function compareTimeDate(startDate, endDate) {
     else
         return false;
 }
+
+
+function sanitize(input) {
+   if (!_.isEmpty(input)) {
+        let a = HtmlSanitizer.SanitizeHtml(input);
+        return a.replace(/['"]+/g, '').replace(/[^a-zA-Z0-9]\-/g, ' ').replace(/<(|\/["]\/[&<>]\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g, '');
+   }
+}
