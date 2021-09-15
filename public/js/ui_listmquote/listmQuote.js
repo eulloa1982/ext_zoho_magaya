@@ -273,10 +273,11 @@ $(document).ready(function(){
                     cancelButtonColor: '#d33'
 
                 }).then((result) => {
-
+                    Utils.blockUI()
                     if (result.isConfirmed) {
                         ZOHO.CRM.API.deleteRecord({Entity:"magaya__ItemQuotes",RecordID: idItem})
                             .then(function(data){
+                                Utils.unblockUI()
                                 res = data.data;
                                 $.map(res, function(k, v) {
                                 if (k.code !== "SUCCESS") {
@@ -297,6 +298,7 @@ $(document).ready(function(){
                                 })
                             })
                             .catch(function(error){
+                                Utils.unblockUI()
                                 dataError = error.data;
                                 codeError = error.code
                                 show = true;

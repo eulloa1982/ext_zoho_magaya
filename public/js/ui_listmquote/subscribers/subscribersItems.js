@@ -67,18 +67,23 @@ storeItem.subscribe(() => {
             let totalPieces = 0
             let totalVolume = 0
             let totalWeight = 0
+            let total_weight_international = 0
+            let total_volume_international = 0
+            let total_weight_english = 0
+            let total_volume_english = 0
             $.each(u, function(i, k) {
-                let measure_system = "in";
-                let measure_system_volume = "lb";
-                if (k.magaya__Measure_System === "International") {
-                    measure_system = "m";
-                    measure_system_volume = "kg";
-                }
 
+                if (k.magaya__Measure_System === "International") {
+                    total_volume_international += roundDec(k.magaya__Volume)
+                    total_weight_international += roundDec(k.magaya__Weigth)
+                //it suposes it is English
+                } else {
+                    //pulgadas y libras
+                    total_volume_english += roundDec(k.magaya__Volume)
+                    total_weight_english += roundDec(k.magaya__Weigth)
+                }
                 //get totales
                 totalPieces += roundDec(k.magaya__Pieces)
-                totalVolume += roundDec(k.magaya__Volume)
-                totalWeight += roundDec(k.magaya__Weigth)
 
                 $("#table-items-new tbody").append(`<tr>
                 <td class='Delete'>
@@ -98,6 +103,11 @@ storeItem.subscribe(() => {
                 </tr>`);
 
             })
+            //get all to international system
+            console.log("Peso international", total_weight_international)
+            console.log("Peso English", total_weight_english)
+            totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
+            totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
             $("input[name=Total_Pieces]").val(`${totalPieces}`)
             $("input[name=Total_Weight]").val(`${roundDec(totalWeight)}`)
@@ -117,6 +127,10 @@ storeItem.subscribe(() => {
         let totalPieces = 0
         let totalVolume = 0
         let totalWeight = 0
+        let total_weight_international = 0
+        let total_volume_international = 0
+        let total_weight_english = 0
+        let total_volume_english = 0
 
         $("#table-items tbody").empty();
         $.each(u, function(i, k) {
@@ -128,6 +142,13 @@ storeItem.subscribe(() => {
             if (k.magaya__Measure_System === "International") {
                 measure_system = "m";
                 measure_system_volume = "kg";
+                total_volume_international += roundDec(k.magaya__Volume)
+                total_weight_international += roundDec(k.magaya__Weigth)
+            //it suposes it is English
+            } else {
+                //pulgadas y libras
+                total_volume_english += roundDec(k.magaya__Volume)
+                total_weight_english += roundDec(k.magaya__Weigth)
             }
 
             totalPieces += roundDec(k.magaya__Pieces)
@@ -153,6 +174,9 @@ storeItem.subscribe(() => {
             $("#table-items tbody").append(appendData);
 
         }) //each
+
+        totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
+        totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
         $("input[name=Total_Pieces]").val(`${roundDec(totalPieces)}`)
         $("input[name=Total_Weight]").val(`${roundDec(totalWeight)}`)
