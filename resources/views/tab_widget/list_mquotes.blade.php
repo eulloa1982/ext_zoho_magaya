@@ -41,7 +41,7 @@
 
                     <div class="row">
 							<div class="col-md-3" style="padding: 5px 0px;">
-								<p style="color: white; font-weight: bold; font-size: 24px;padding-left: 20px;margin:0px">Edit mQuote</p>
+								<p style="color: white; font-weight: bold; font-size: 24px;padding-left: 20px;margin:0px">List mQuote</p>
 							</div>
 							<div class="col-md-7" style="padding: 5px 0px;">
 								<form class="form-inline my-2 my-lg-0">
@@ -278,7 +278,7 @@
                                                     <div class="col-md-4">
                                                     <span>Quantity</span>
                                                         <div class="input-group">
-                                                            <input type="number" name='Quantity' id='Quantity' class='form-control' />
+                                                            <input type="text" class="number form-control" name='Quantity' id='Quantity' class='form-control' />
                                                         </div>
                                                     </div>
 
@@ -296,7 +296,7 @@
                                                     <div class="col-md-4">
                                                     <span>Price</span>
                                                         <div class="input-group">
-                                                            <input type="number" name='Price' id='Price' class='form-control' />
+                                                            <input type="text" class="number form-control" name='Price' id='Price' class='form-control' />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -344,7 +344,7 @@
 
 
                                     <div class="table-responsive">
-
+                                        <div id="info-charge"></div>
                                         <table id="table-charges" class="table table-bordered table-striped">
 											<thead>
                                                 <tr>
@@ -490,13 +490,13 @@
 											</select>
 										</div>
 										<div class="col-md-6">
-											<label class="col-md-12" style="font-weight: bold;">Consigne</label>
+											<label class="col-md-12" style="font-weight: bold;">Consignee</label>
 											<select name="magaya__ConsigneeName" class="form-control no-border">
 												<option></option>
 											</select>
 										</div>
 									</div>
-									<div class="row" style="margin-bottom:20px; margin-top:20px;">
+									<!--div class="row" style="margin-bottom:20px; margin-top:20px;">
 										<div class="col-md-6">
 													<label class="col-md-12" style="font-weight: bold;">Address</label>
 														<div class="form-group">
@@ -549,7 +549,7 @@
 															</div>
 														</div>
 										</div>
-									</div>
+									</div-->
 								</div>
                                 <!------------------------------------------------------------->
                                 <!-- end tab routing -->
@@ -588,7 +588,7 @@
 													<div class="col-md-2">
 														<span>Quantity</span>
 														<div class="input-group">
-																<input type="number" name="Item-Pieces" class='form-control' />
+																<input type="text" class="number form-control" name="Item-Pieces" class='form-control' />
 															</div>
 													</div>
 
@@ -602,7 +602,7 @@
 														<div class="col-md-2">
 															<span>Length</span>
 															<div class="input-group">
-																<input type="number" name="Item-Length" id="Item-Length" class='form-control' />
+																<input type="text" class="number form-control" name="Item-Length" id="Item-Length" class='form-control' />
 															</div>
 														</div>
 
@@ -610,7 +610,7 @@
 
 														<span>Height</span>
 														<div class="input-group">
-															<input type="number" name="Item-Height" class='form-control' />
+															<input type="text" class="number form-control" name="Item-Height" class='form-control' />
 														</div>
 														</div>
 														<div class="col-md-2">
@@ -623,7 +623,7 @@
 														<div class="col-md-2">
 															<span>Weight</span>
 															<div class="input-group">
-																<input type="number" name="Item-Weight" class='form-control' />
+																<input type="text" class="number form-control" name="Item-Weight" class='form-control' />
 															</div>
 														</div>
 												</div>
@@ -766,21 +766,21 @@
 													<div class="row" style="margin-bottom:20px;">
 														<div class="col-md-6" >
 															<label class="col-md-12" style="width: 100%; font-weight: bold;">City</label>
-															<input type="text" name="Mailing_City" class="form-control">
+															<input type="text" name="Billing_City" class="form-control">
 														</div>
 														<div class="col-md-6">
 															<label class="col-md-12" style="font-weight: bold;">State</label>
-															<input type="text" name="Mailing_State" class="form-control">
+															<input type="text" name="Billing_State" class="form-control">
 														</div>
 													</div>
 													<div class="row" style="margin-bottom:20px;">
 														<div class="col-md-6">
 															<label class="col-md-12" style="font-weight: bold;">Country</label>
-															<input type="text" name="Mailing_Country" class="form-control">
+															<input type="text" name="Billing_Country" class="form-control">
 														</div>
 														<div class="col-md-6">
 															<label class="col-md-12" style="font-weight: bold;">Zip Code</label>
-															<input type="text" name="Mailing_Zip" class="form-control">
+															<input type="text" name="Billing_Code" class="form-control">
 														</div>
 													</div>
 													<div class="form-check" style="margin-top: 52px;">
@@ -797,21 +797,21 @@
 														<div class="row" style="margin-bottom:20px;">
 															<div class="col-md-6" >
 																<label class="col-md-12" style="text-align:center;width: 100%; font-weight: bold;">City</label>
-																<input type="text" name="Other_City" class="form-control">
+																<input type="text" name="Shipping_City" class="form-control">
 															</div>
 															<div class="col-md-6">
 																<label class="col-md-12" style="font-weight: bold;">Stage</label>
-																<input type="text" name="Other_State" class="form-control">
+																<input type="text" name="Shipping_State" class="form-control">
 															</div>
 														</div>
 														<div class="row" style="margin-bottom:20px;">
 															<div class="col-md-6">
 																<label class="col-md-12" style="font-weight: bold;">Country</label>
-																<input type="text" name="Other_Country" class="form-control">
+																<input type="text" name="Shipping_Country" class="form-control">
 															</div>
 															<div class="col-md-6">
 																<label class="col-md-12" style="font-weight: bold;">Zip Code</label>
-																<input type="text" name="Other_Zip" class="form-control">
+																<input type="text" name="Shipping_Code" class="form-control">
 															</div>
 														</div>
 												</div>
@@ -825,7 +825,7 @@
 					<div class="modal-footer" >
 						<div class="col-md-3">
 
-                            <!--button type="button" id="Save" class="btn btn-primary" style="width:80px;margin-right: 20px; background-color: #0b3355">Save</button-->
+                            <button type="button" id="Save" class="btn btn-primary" style="width:80px;margin-right: 20px; background-color: #0b3355">Save</button>
                             <button type="button" id="New" class="btn btn-primary" style="width:80px;margin-right: 20px; background-color: #0b3355">Save</button>
                             <button type="button" class="btn btn-danger cerrar" data-dismiss="modal" style="width:80px;">Cancel</button>
 						</div>

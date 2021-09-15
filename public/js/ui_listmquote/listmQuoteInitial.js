@@ -112,12 +112,19 @@ $(document).ready(function(){
 
         ZOHO.CRM.API.getAllRecords({Entity: "Accounts", sort_order: "asc"})
             .then(function(response){
+                console.log("Response accounts", response)
                 $.map (response.data, function (k, i) {
                     var accountId = k.id;
                     k.Account_Name = sanitize(k.Account_Name)
-                    $("<option value='"+k.id+"'>"+k.Account_Name+"</option>").appendTo("select[name=Account]");
-                    $("<option value='"+k.id+"'>"+k.Account_Name+"</option>").appendTo("select[name=magaya__Shipper]");
-                    $("<option value='"+k.id+"'>"+k.Account_Name+"</option>").appendTo("select[name=magaya__ConsigneeName]");
+                    if (k.magaya__mEntityType === "Carrier") {
+                        $(`<option value='${k.id}'>${k.Account_Name}</option>`).appendTo("select[name=Carrier]");
+
+                    } else {
+                        $("<option value='"+k.id+"'>"+k.Account_Name+"</option>").appendTo("select[name=Account]");
+                        $("<option value='"+k.id+"'>"+k.Account_Name+"</option>").appendTo("select[name=magaya__Shipper]");
+                        $("<option value='"+k.id+"'>"+k.Account_Name+"</option>").appendTo("select[name=magaya__ConsigneeName]");
+
+                    }
                 })
                 storeAccounts.dispatch(addAccount(response.data))
             })

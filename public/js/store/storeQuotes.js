@@ -17,6 +17,7 @@ function reducerQuote (state = initialStateQuote, actions)  {
             });
         }
 
+
         case REST: {
             return {
                     ...state,
@@ -40,13 +41,13 @@ function reducerQuote (state = initialStateQuote, actions)  {
 
         case UPDATE_QUOTE: {
             let byId = actions.payload.id
-            let body = actions.payload
+            let body = actions.payload[0]
+
             const index = state.quotes.findIndex(quote => quote.id === byId)
-            const newArray = [...state.quotes];
-            newArray[index] = actions.payload
+            state.quotes[index] = body
             return {
                 ...state,
-                quotes: newArray
+                quotes: state.quotes
             }
         }
 

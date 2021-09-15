@@ -3,7 +3,8 @@ const initialStateAccount = {
     contacts: [],
     contactList: [],
     singleContact:[],
-    singleAccount:[]
+    singleAccount:[],
+    quoteAccount:[]
   };
 
 
@@ -87,6 +88,15 @@ function reducerAccounts (state = initialStateAccount, actions)  {
             }
         }
 
+        case ADD_QUOTE_ACCOUNT: {
+            let byId = actions.payload.id
+            const index = state.accounts.findIndex(account => account.id === byId)
+            return {
+                ...state,
+                quoteAccount: state.accounts[index]
+            }
+        }
+
 
         /*case 'SET_ACCOUNT': {
             currentAccount = actions.payload.account;
@@ -141,4 +151,8 @@ function getAccount(payload) {
     return { type: GET_ACCOUNT, payload }
 }
 
+
+function addQuoteAccount(payload) {
+    return { type: ADD_QUOTE_ACCOUNT, payload };
+}
 

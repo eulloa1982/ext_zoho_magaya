@@ -108,6 +108,7 @@ function sanitize(input) {
 };
 
 
+//clean form
 function limpiar_form() {
     let elementos = document.querySelectorAll("input[type=text], input[id=magaya__Description], select[name=magaya__TransportationMode], select[name=magaya__Direction]")
     elementos.forEach((elemento) => {
@@ -762,7 +763,6 @@ function getRelatedRecordCRM(entity, related_list, recordId) {
 
 
 async function getMagayaVariables() {
-    console.log("Getting Magaya Varis")
     network_id = await getMagayaNetworkId()
     magaya_url = await getMagayaUrl();
     magaya_user = await getMagayaUser();
@@ -774,7 +774,6 @@ async function getMagayaVariables() {
         'magaya_pass': magaya_pass
     }
 
-    console.log(data)
     return data;
 }
 
