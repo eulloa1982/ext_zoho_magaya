@@ -20,6 +20,7 @@ const EMPTY_CHARGES = 'EMPTY_CHARGES'
 const SET_AMOUNT = 'SET_AMOUNT'
 const SET_AMOUNT_ON_NEW = 'SET_AMOUNT_ON_NEW'
 const UPDATE_CHARGE = 'UPDATE_CHARGE'
+const ADD_CHARGES_XML = "ADD_CHARGES_XML"
 
 
 const ADD_ACCOUNT = 'ADD_ACCOUNT'
@@ -28,6 +29,8 @@ const FIND_ACCOUNT = 'FIND_ACCOUNT'
 const FIND_CONTACT = 'FIND_CONTACT'
 const FIND_CONTACT_OF_ACCOUNT = 'FIND_CONTACT_OF_ACCOUNT'
 const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT'
+const GET_ACCOUNT = 'GET_ACCOUNT'
+const ADD_QUOTE_ACCOUNT = "ADD_QUOTE_ACCOUNT"
 
 const ADD = "ADD"
 const REST = "REST"
@@ -36,9 +39,13 @@ const UPDATE_QUOTE = "UPDATE_QUOTE"
 const CLEAR_QUOTE_TO_EDIT = "CLEAR_QUOTE_TO_EDIT"
 const FIND_ALL = "FIND_ALL"
 const FIND_BY_NAME = "FIND_BY_NAME"
+const FIND_BY_ID = "FIND_BY_ID"
+
+const ADD_DEAL = "ADD_DEAL"
+const GET_DEAL = "GET_DEAL"
 
 //campos a mostrar en formularios de Charges
-const CHARGES_FIELDS = {"Name": {"field": "Name"}, "magaya__Amount": {"field": "Amount", "type": "number"},
+const CHARGES_FIELDS = {"Name": {"field": "Description"}, "magaya__Amount": {"field": "Amount", "type": "number"},
                 "magaya__CQuantity": {"field": "Quantity", "type": "number"}, "magaya__Price": {"field": "Price", "type": "number"},
                 "magaya__Tax_Amount": {"field": "Tax Amount", "type": "number"}, "magaya__Amount_Total":{"field": "Total Amount", "type": "number"},
                 "magaya__Paid_As": {"field": "Paid As", "values": ["Prepaid", "Collect"]},
@@ -49,7 +56,7 @@ const CHARGES_FIELDS = {"Name": {"field": "Name"}, "magaya__Amount": {"field": "
 }
 
 const ITEMS_FIELDS = {
-    "Name": {"field": "Name"}, "magaya__Length": {"field": "Length", "type": "number"}, "magaya__Width": {"field": "Width", "type": "number"},
+    "Name": {"field": "Description"}, "magaya__Length": {"field": "Length", "type": "number"}, "magaya__Width": {"field": "Width", "type": "number"},
     "magaya__Weigth": {"field": "Weigth", "type": "number"}, "magaya__Status": {"field": "Status", "values":["InQuote"]}, "magaya__Height": {"field": "Height", "type": "number"},
     "magaya__Pieces": {"field": "Pieces", "type": "number"}, "magaya__Measure_System": {"field": "Measure System", "values": ["International"]},
     "magaya__Volume": {"field": "Volume", "type": "number"}

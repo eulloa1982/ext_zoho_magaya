@@ -66,12 +66,12 @@ const storeClientQuote = Redux.createStore(reducerClientQuote)
 ////////////////////////////////////////////////////
 //REDUX Reducers
 /////////////////////////////////////////////////////
-store.subscribe(() => {
+/*store.subscribe(() => {
     let {account, contact} = store.getState();
     console.log(store.getState())
 
 })
-
+*/
 
 ///////////////////////////////////////////////////////
 ///////// actions

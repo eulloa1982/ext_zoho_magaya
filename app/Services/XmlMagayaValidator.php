@@ -45,8 +45,7 @@ class XmlMagayaValidator
         }*/
 
         //items
-        $items = $xml->Items;
-        //print_r ($items);
+        /*$items = $xml->Items;
 
         if ($xml->Items->Item == null){
             //foreach ($xml->Items->Item as $value) {
@@ -55,7 +54,7 @@ class XmlMagayaValidator
             //}
 
             return $message;
-        }
+        }*/
         //cargos
         /*$charges = $xml->Charges;
         if ($charges && @count ($charges->children()) < 0) {

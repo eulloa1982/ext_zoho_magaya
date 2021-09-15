@@ -9,9 +9,6 @@ function reducerItem (state = initialStateIntems, actions)  {
 
     switch (actions.type) {
         case ADD_ITEM:
-            //calculate volume and weigth
-            //let system = actions.payload.magaya__Measure_System;
-
             return Object.assign({}, state, {
                 items: state.items.concat(actions.payload)
             });
@@ -55,7 +52,7 @@ function reducerItem (state = initialStateIntems, actions)  {
             state.singleItem = initialStateIntems.singleItem;
 
             if (byId < 0) {
-                newArray = initialStateCharge.singleItem
+                newArray = initialStateItem.singleItem
             } else {
                 newArray = {...state.items[byId]}
             }
@@ -114,11 +111,11 @@ function reducerItem (state = initialStateIntems, actions)  {
             newArray[1]['magaya__Volume'] = roundDec(volume)
             //calculate weigth
             let system = newArray[1]['magaya__Measure_System']
-            let factor = 166;
-            if (system === "International")
-                factor = 1000
+            //let factor = 166;
+            //if (system === "International")
+            //    factor = 1000
 
-            newArray[1]["magaya__Weigth"] = roundDec(volume / factor)
+            //newArray[1]["magaya__Weigth"] = roundDec(volume / factor)
             //calculate totales
 
             return {
@@ -146,11 +143,11 @@ function reducerItem (state = initialStateIntems, actions)  {
             newArray['magaya__Volume'] = roundDec(volume)
             //calculate weigth
             let system = newArray['magaya__Measure_System']
-            let factor = 166;
-            if (system === "International")
-                factor = 1000
+            //let factor = 166;
+            //if (system === "International")
+            //    factor = 1000
 
-            newArray["magaya__Weigth"] = roundDec(volume / factor)
+            //newArray["magaya__Weigth"] = roundDec(volume / factor)
 
             return {
                 ...state,

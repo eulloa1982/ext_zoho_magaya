@@ -1,6 +1,7 @@
 const initialStateQuote = {
     quotes: [],
     quoteToEdit: [],
+    singleQuote: []
     //currentAccount: 0
 
   };
@@ -15,6 +16,7 @@ function reducerQuote (state = initialStateQuote, actions)  {
                 quotes: state.quotes.concat(actions.payload)
             });
         }
+
 
         case REST: {
             return {
@@ -39,13 +41,13 @@ function reducerQuote (state = initialStateQuote, actions)  {
 
         case UPDATE_QUOTE: {
             let byId = actions.payload.id
-            let body = actions.payload
+            let body = actions.payload[0]
+
             const index = state.quotes.findIndex(quote => quote.id === byId)
-            const newArray = [...state.quotes];
-            newArray[index] = actions.payload
+            state.quotes[index] = body
             return {
                 ...state,
-                quotes: newArray
+                quotes: state.quotes
             }
         }
 
@@ -70,6 +72,14 @@ function reducerQuote (state = initialStateQuote, actions)  {
                 quotes2: state.quotes.filter(function (quote) {
                     return quote.Name === actions.payload.char;
                   })
+            }
+        }
+
+
+        case FIND_BY_ID: {
+            return {
+                ...state,
+                singleQuote: state.quotes.filter(quote => quote.id === actions.payload.id)
             }
         }
         default:
@@ -125,4 +135,7 @@ function findByName(payload) {
     return { type: FIND_BY_NAME, payload };
 }
 
+function findById(payload) {
+    return { type: FIND_BY_ID, payload };
+}
 

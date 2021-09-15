@@ -1,5 +1,6 @@
 //si es quotesOnNew es true, sino es false y son charges en edit
 let data_module_flag_charge = true
+$("#info-charge").html("Loading, please wait...");
 //get one charge
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
@@ -29,7 +30,7 @@ storeCharge.subscribe(() => {
                 if (_.has(CHARGES_FIELDS, [v, 'type']))
                     type = "number";
 
-                input = `<input type="${type}" data-id="${id}" class="form-control ${no_border}" name="${v}" value="${k}"/>`
+                input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}"/>`
 
                 let field = _.get(CHARGES_FIELDS, [v, 'field'])
                 let values = _.has(CHARGES_FIELDS, [v, "values"]) ? _.get(CHARGES_FIELDS, [v, 'values']) : ''
@@ -58,22 +59,26 @@ storeCharge.subscribe(() => {
 ///////subscriber charges, render UI table
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().charges;
+    $("#info-charge").html("");
 
     if (!_.isEmpty(u)) {
         data_module_flag_charge = false;
         let accountId = 0;
         let totalIncome = 0
         $("#table-charges tbody").empty();
-        if (!_.isEmpty(u)) {
-            $.each(u, function(i, k) {
-                if (!_.isEmpty(k.magaya__ApplyToAccounts)) {
-                    accountId = k.magaya__ApplyToAccounts.id
-                }
+        $.each(u, function(i, k) {
+            if (!_.isEmpty(k.magaya__ApplyToAccounts)) {
+                accountId = k.magaya__ApplyToAccounts.id
+            }
                 k.magaya__Status = sanitize(k.magaya__Status);
                 k.Name = sanitize(k.Name);
                 k.magaya__ChargeCode = sanitize(k.magaya__ChargeCode);
 
-                totalIncome += roundDec(k.magaya__Final_Amount);
+                totalIncome += k.magaya__Final_Amount
+                if (k.magaya__Final_Amount == 0)
+                    totalIncome += roundDec(k.magaya__Amount_Total);
+
+
 
                 $("#table-charges tbody").append(`<tr>
                     <td class="Delete">
@@ -99,8 +104,10 @@ storeCharge.subscribe(() => {
             })
             totalIncome = roundDec(totalIncome)
             $("input[name=TotalIncomeCharges]").val(totalIncome)
+            $("#info-charge").html("");
 
-        } //IF
+    } else {
+        $("#info-charge").html("No charges data found");
     }
 })
 

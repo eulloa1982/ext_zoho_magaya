@@ -270,6 +270,104 @@
 })(jQuery);
 
 
+//send quote
+async function buildStringXML(idSQuote) {
+    xml = await buildXML(idSQuote);
+} //.send-quote
+
+
+/*
+ * async function to build the XML to send Magaya
+ * @idem dataArray of Squote from Quote List
+ */
+async function buildXML(idQuote) {
+    stringCharge = stringItem = stringQuote = stringXML = '';
+    transpMethods = new Array();
+
+    stringCharge = await $(this).buildStringCharge(idQuote).catch(() => {
+        stringCharge = '';
+    });
+    stringItem = await $(this).buildStringItems(idQuote).catch(() => {
+        stringItem = '';
+    });
+    stringQuote = await buildStringQuote(idQuote).catch(() => {
+        stringQuote = '';
+    });
+
+    stringXML = '<Quotation xmlns="http://www.magaya.com/XMLSchema/V1" xsi:schemaLocation="http://www.magaya.com/XMLSchema/V1 schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
+    stringXML += stringQuote;
+
+    if (stringCharge !== undefined) {
+        //code
+        stringXML += '<Charges UseSequenceOrder="false">' + stringCharge + "</Charges>";
+    }
+
+    if (stringItem !== undefined) {
+        //code
+        stringXML += "<Items>" + stringItem + "</Items>";
+    }
+
+    stringXML += '</Quotation>'
+        //finding user
+        //xmlDoc = $.parseXML(stringXML),
+        //    $xml = $(xmlDoc),
+        //    $title = $xml.find("ContactName");
+        //ContactName = $title.text();
+    console.log("XML String", stringXML);
+
+    //send xml trougth magaya api
+    flags = MagayaAPI.TRANSACTIONS_FLAGS.BasicFields
+    entity_type = MagayaAPI.TRANSACTION_TYPES.Quotation
+    config = Utils.getConfig()
+    data = {
+        method: 'SetTransaction',
+        data: [
+            Utils.getAccessKey(),
+            entity_type,
+            flags,
+            stringXML
+        ]
+    };
+
+    MagayaAPI.sendRequest(data, function(result) {
+        //console.log(result)
+            if (result.error) {
+                Swal.fire({
+                    title: result.error,
+                    text: result.data,
+                    icon: 'error'
+                }).then(function() {
+                    location.reload();
+                })
+                stringCharge = stringItem = stringQuote = stringXML = '';
+            } else {
+
+                Swal.fire({
+                        title: 'Success',
+                        text: 'Operation success',
+                        icon: 'success',
+                        allowOutsideClick: false
+                    }).then(function() {
+                        $("#sortable1").empty()
+                        drawQuotationMagaya();
+                    })
+                    //all OK, update QuoteInMagaya field
+
+                //$(this).updateRecordCRM(data);
+
+            } //else
+
+        }) //magaya api*/
+
+} //function buildXML
+
+
+
+
+
+
+
+
 
 //get items cargo table, return xml charge
 (function($) {
@@ -555,8 +653,7 @@ async function buildStringQuote(idSQuote) {
 }
 
 //update record in CRM
-/*@dataConfig  JSON config
- */
+/*@dataConfig  JSON config */
 (function($) {
     $.fn.updateRecordCRM = function(dataConfig) {
         ZOHO.CRM.API.updateRecord(dataConfig)
