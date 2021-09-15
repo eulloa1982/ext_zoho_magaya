@@ -270,7 +270,9 @@ $(document).ready(function(){
         storeItem.dispatch(emptyItems())
         storeCharge.dispatch(emptyCharges())
         storeQuote.dispatch(clearQuoteToEdit())
-
+        storeAccounts.dispatch(emptyAccounts())
+        //representative
+        $("select[name=magaya__Representative]").empty()
         //limpiar campos
         limpiar_form()
 
@@ -568,11 +570,9 @@ $(document).ready(function(){
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__SQuotes", APIData: recordData, Trigger: [] })
             .then(function(response) {
                 data = response.data;
-                console.log(response)
                 let id = 0;
                 $.each(data, function(key, valor) {
                     id = valor['details']['id'];
-                    //console.log(key, valor)
                     if (valor.code !== "SUCCESS") {
                         codeError = valor.code;
                         field = valor.details.api_name;
@@ -613,9 +613,7 @@ $(document).ready(function(){
 
                 jsonCharges = $(this).tableToJson('table-charges-new', idQuote);
                 jsonData = JSON.parse(`[${jsonCharges}]`)
-                console.log("Items JSON", jsonItems)
 
-                console.log("Charges JSON", jsonData)
                 //check the data
                 if (!_.isEmpty(jsonItems)) {
                     ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: jsonItems, Trigger: [] })
@@ -706,7 +704,6 @@ $(document).ready(function(){
     $("#cerrar-modal").click(function(e) {
         //verifico si hay acciones de edicion
         let actions = store.getState().actionsCounter
-        console.log("Actions on edit", actions)
         if (actions > 0) {
             Swal.fire({
                 title: "Confirm",
