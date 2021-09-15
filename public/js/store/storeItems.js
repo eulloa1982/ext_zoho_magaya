@@ -8,22 +8,32 @@ const initialStateIntems = {
 function reducerItem (state = initialStateIntems, actions)  {
 
     switch (actions.type) {
-        case ADD_ITEM:
+        case ADD_ITEM: {
             return Object.assign({}, state, {
                 items: state.items.concat(actions.payload)
             });
 
+        }
 
-        case ADD_ITEM_ON_NEW:
+
+        case ADD_ITEM_ON_NEW: {
             //calculate totales
             newArray = state.itemsOnNew;
 
             return Object.assign({}, state, {
                 itemsOnNew: state.itemsOnNew.concat(actions.payload),
                 });
+        }
 
 
         case DELETE_ITEM:
+            const index = actions.payload.id
+            if (index <= 0) {
+                return {
+                    ...state,
+                    items: initialStateIntems.items
+                }
+            }
             return {
                 ...state,
                 items: state.items.filter(item => item.id !== actions.payload.id),

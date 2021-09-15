@@ -578,7 +578,7 @@
 														<div class="input-group">
 															<select name="magaya__Measure_System" class="form-control">
 																<option value="International">International</option>
-																<!--option value="English">English</option-->
+																<option value="English">English</option>
 															</select>
 														</div>
 													</div>
@@ -677,9 +677,9 @@
 
                                         <table class="table table-bordred" id="dataTable" width="100%" cellspacing="0">
 											<tr>
-												<td colspan="2" style="width:33%"><b>Total Pieces:</b> <input type="text" name="Total_Pieces" class="form-control"></td>
-												<td colspan="2" style="width:33%"><b>Total Weight:</b>  <input type="text" name="Total_Weight" class="form-control"></td>
-												<td colspan="2" style="width:33%"><b>Total Volume:</b>  <input type="text" name="Total_Volume" class="form-control"></td>
+												<td colspan="2" style="width:33%"><b>Total Pieces (U):</b> <input type="text" name="Total_Pieces" class="form-control"></td>
+												<td colspan="2" style="width:33%"><b>Total Weight (kg):</b>  <input type="text" name="Total_Weight" class="form-control"></td>
+												<td colspan="2" style="width:33%"><b>Total Volume (M3):</b>  <input type="text" name="Total_Volume" class="form-control"></td>
 
 											</tr>
 										</table>
