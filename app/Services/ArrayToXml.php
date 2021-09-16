@@ -56,8 +56,6 @@ class ArrayToXml
                     //} else {
                      //   $xml->addChild($k, 0);
                     //    $child[0] = '';
-                    //}
-
 				}
 			}
 			/*is_array($v)
