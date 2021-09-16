@@ -37,6 +37,7 @@ class APIController extends Controller
     public function createUser(Request $request)
     {
         $data = $request->get('data');
+        print_r($data);
         $access_key = $data[0];
         $contactData = $request->get('contactData');
         $emailCustomer = $contactData['Email'];
