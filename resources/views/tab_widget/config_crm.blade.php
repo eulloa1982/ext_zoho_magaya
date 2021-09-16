@@ -71,6 +71,18 @@
 </style>
 
 <div class="container">
+    <div id="quote-alert" class="alert alert-danger alert-dismissible" style="position: absolute; display: none; z-index: 6000">
+        <span class="material-icons close cursor-hand" data-close="quote-alert">close</span>
+        <div id="message-alert" class="message-data"></div>
+
+    </div>
+
+    <div id="quote-info" class="alert alert-success alert-dismissible" style="position: absolute; display: none; z-index: 6000;">
+        <span class="material-icons close cursor-hand" data-close="quote-info">close</span>
+        <div id="message-info" class="message-data"></div>
+    </div>
+
+
     <div style="position: relative; margin:-10px -10px -10px -10px;">
         <div class="alert alert-success" id="message-success" style="position: absolute; left: 30px; top: 10px; z-index: 3; display: none">Select Quote From</div>
     </div>
@@ -135,7 +147,12 @@
 
 <script>
 $(document).ready(function(){
-    //obtener los charges
+    //Close all
+    $('.close').click(function(){
+        let div_close = $(this).attr("data-close");
+        $(`#${div_close}`).animate({width:'toggle'},150);
+        //$("#" + div_close).hide()
+    })
 
     ZOHO.embeddedApp.on("PageLoad",function(data)
     {

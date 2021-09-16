@@ -39,6 +39,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.1.1/redux.min.js"></script>
     <script src="{{ url('js/store/constants.js') }}"></script>
 
+    <script src="{{ url('js/store/storeError.js') }}"></script>
+    <script src="{{ url('js/store/storeSuccess.js') }}"></script>
     <script src="{{ url('js/store/storeChargesDef.js') }}"></script>
     <script src="{{ url('js/store/storeChargesCrm.js') }}"></script>
 

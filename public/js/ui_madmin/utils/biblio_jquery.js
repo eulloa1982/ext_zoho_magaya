@@ -137,15 +137,30 @@ async function insertChargeTypeCRM(chargeTypeJSON) {
     if (!_.isEmpty(chargeTypeJSON)) {
         let req_data = {}
         $.map(chargeTypeJSON, function(k, v) {
-            console.log(k, v)
             req_data = {
                 "magaya__ChargesCode":k.magaya__ChargesCode, "Name":k["Name"]
              };
 
              console.log("charge to send" , req_data)
-             let result = await insertCharge(req_data).then(r => {
-                storeChargesCrm.dispatch(addChargesType({...req_data}))
-                console.log(r)
+             let result = insertCharge(req_data).then(r => {
+                if (r.output === "1"){
+                    dataError = "error.data";
+                    codeError = "error.code"
+                    show = true;
+                    field = '';
+                    module = 'Charge Type Items'
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+
+                } else {
+                    message = " : Item Deleted!!";
+                    //actualizar el volumen
+                    storeChargesCrm.dispatch(addChargesType({...req_data}))
+                    storeSuccess.dispatch(addSuccess({message: message}))
+                }
+
+
+                console.log("Ïnserted ", r)
             })
         })
 

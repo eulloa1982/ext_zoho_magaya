@@ -3,6 +3,7 @@ storeChargesCrm.subscribe(() => {
     let u = storeChargesCrm.getState();
 
     if (!_.isEmpty(u.chargesType)) {
+        $("#sortable-crm").empty()
         let content = ``
         $.map(u.chargesType, function(k, v) {
             //console.log(k, v)
