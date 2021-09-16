@@ -94,7 +94,9 @@
             </ul>
         </div>
         <div class="col-md-6" id="magaya-content">
-            <div class="send-to-crm"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></div>
+            <div class="send-to-crm">
+                <span class="material-icons">arrow_back</span>
+            </div>
             <label><h5 class="list-group-item active">Magaya</h5></label>
             <!--div class="import-all-charges" style="display: inline" data-bs-toggle="tooltip" data-bs-placement="right" title="Export all charges"><i class="fa fa-database" aria-hidden="true"></i></div-->
             <ul id="sortable-magaya" class="list-group connectedSortable">
@@ -145,8 +147,7 @@ $(document).ready(function(){
     //Close all
     $('.close').click(function(){
         let div_close = $(this).attr("data-close");
-        $(`#${div_close}`).animate({width:'toggle'},150);
-        //$("#" + div_close).hide()
+        $(`#${div_close}`).hide();
     })
 
     ZOHO.embeddedApp.on("PageLoad",function(data)

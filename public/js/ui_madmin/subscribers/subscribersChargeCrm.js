@@ -9,7 +9,7 @@ storeChargesCrm.subscribe(() => {
             if (!_.isEmpty(k)) {
                 content += ` <label class="list-group-item"><div class="sm">
                 <input data-id="${k.id}" class="form-check-crm" type="checkbox" value="">
-                <i class="edit-data fa fa-eye"></i></div>${k.Name}</label>`
+                </div>${k.Name}</label>`
             }
 
         })
