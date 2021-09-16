@@ -37,7 +37,6 @@ class APIController extends Controller
     public function createUser(Request $request)
     {
         $data = $request->get('data');
-        print_r($data);
         $access_key = $data[0];
         $contactData = $request->get('contactData');
         $emailCustomer = $contactData['Email'];
@@ -56,7 +55,6 @@ class APIController extends Controller
         $XML = str_replace('<Client',"<Entity xmlns=\"http://www.magaya.com/XMLSchema/V1\"", $XML);
         $XML = str_replace('</Client>','<Type>Client</Type></Entity>', $XML);
 
-        print_r($XML);
         $result = $this->magayaApi->SetEntity($access_key, 524288, $XML);
         $customer_data = '';
 
