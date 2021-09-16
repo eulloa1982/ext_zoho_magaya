@@ -82,18 +82,13 @@
         <div id="message-info" class="message-data"></div>
     </div>
 
-
-    <div style="position: relative; margin:-10px -10px -10px -10px;">
-        <div class="alert alert-success" id="message-success" style="position: absolute; left: 30px; top: 10px; z-index: 3; display: none">Select Quote From</div>
-    </div>
-    <div style="position: relative; margin:-10px -10px -10px -10px;">
-        <div class="alert alert-danger" id="message-error" style="position: absolute; left: 30px; top: 10px; z-index: 3; display: none">Select Quote From</div>
-    </div>
     <div class="row" style="width:100%">
 
 
         <div class="col-md-6">
-            <div class="delete-from-crm"><i class="fa fa-trash" aria-hidden="true"></i></div>
+            <div class="delete-from-crm">
+            <span class="material-icons">clear</span>
+            </div>
             <label><h5 class="list-group-item active">CRM</h5></label>
             <ul id="sortable-crm" class="list-group connectedSortable">
             </ul>
@@ -167,11 +162,12 @@ $(document).ready(function(){
                 //sanitizer
                 $.map(charges_type, function(k, v) {
                     k.Name = sanitize(k.Name)
+                    storeChargesCrm.dispatch(addChargesType(k))
                     //k.magaya__Status = sanitize(k.magaya__Status)
                     //if (!_.isEmpty(k.Account)) {
                     //}
                 })
-                storeChargesCrm.dispatch(addChargesType(charges_type))
+
             })
     })
 

@@ -8,6 +8,7 @@
     <meta name="generator" content="Visual Studio Code">
     <title>Magaya</title>
     <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="{{ url('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Plugins -->
     <link href="{{ url('sweetalert/sweetalert2.min.css') }}" rel="stylesheet">

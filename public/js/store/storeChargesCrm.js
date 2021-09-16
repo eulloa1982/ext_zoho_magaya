@@ -17,6 +17,16 @@ const reducerChargesCrm = (state = initialStateChargesCrm, actions) => {
                 ...state,
                 chargesType: state.chargesType.concat(actions.payload)
             };
+
+        }
+
+        case DELETE_CHARGES_TYPE: {
+            const byId = actions.payload.id
+            console.log("deleting charge number", byId)
+            return {
+                ...state,
+                chargesType: state.chargesType.filter(charge => charge.id !== byId)
+            }
         }
 
         /*case 'ADD_CONTACT': {
@@ -68,4 +78,8 @@ function addChargesType(payload){
     return {type: ADD_CHARGES_TYPE, payload}
 }
 
+
+function deleteChargeType(payload) {
+    return { type: DELETE_CHARGES_TYPE, payload}
+}
 
