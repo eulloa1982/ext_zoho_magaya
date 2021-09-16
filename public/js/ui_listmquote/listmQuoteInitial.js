@@ -9,60 +9,6 @@ $(document).ready(function(){
 
 
 
-    ///////////////////////////////////////////////////////////////////////////
-    /////// tabla mquotes, estado inicial con todas las mquotes en el modulo
-    //////////////////////////////////////////////////////////////////////////
-
-    /*storeQuote.subscribe(() => {
-        dataQuotes = storeQuote.getState().quotes
-        data = []
-        if (_.isEmpty(dataQuotes)) {
-            dataQuotes = {id: 1, Name:"Quote Test"}
-        }
-            $.map(dataQuotes, function(v) {
-                data.push(v)
-            })
-            $("#table-quotes").jsGrid({
-                width: "100%",
-                //height: "400px",
-                /*inserting: true,
-                editing: true,*
-                sorting: true,
-                paging: true,
-                pageSize: 10,
-                data: data,
-                fields: [
-                    { type: "control", width: 10, title:"Options", editButton: false, deleteButton: false,
-                    itemTemplate: function(value, item)
-                        var $iconPencil = $(`<a><span class="material-icons oculto edit" data-id="${item.id}">create</span></a>`);
-                        var $iconTrash = $(`<a><span class="material-icons oculto delete" data-id=${item.id}>clear</span></a>`
-                        var $iconPencil = $(`<a><span class="material-icons oculto edit" data-id="${item.id}">create</span></a>`);
-                        var $iconTrash = $(`<a><span class="material-icons oculto delete" data-id=${item.id}>clear</span></a>`);
-                        var $iconPencil = $(`<a><i class="fa fa-edit fa-2x edit" data-id=${item.id}></i></a>`);
-                        var $iconTrash = $(`<a><i class="fa fa-times fa-2x delete" aria-hidden="true" data-id=${item.id}></i></a>`);
-                        var $iconPencil = $(`<a><i class="fa fa-edit fa-2x edit" data-id=${item.id}></i></a>`);
-                        var $iconTrash = $(`<a><i class="fa fa-times fa-2x delete" aria-hidden="true" data-id=${item.id}></i></a>`);
-                        var $other = $(`<a><input type="checkbox" class="add" id="data-show" data-id=${item.id}/></a>`);
-                        //var $other = $(`<a class="add">Show</a>`);
-                        return $("<div>").attr({class: "btn-toolbar"})
-                            .append($other)
-                            .append($iconPencil)
-                            .append($iconTrash);
-                    } },
-                    //{ type: "checkbox",width: 5 },
-                    { name: "Name", title: "NUMBER", width: 10, formatter:'number'},
-                    { name: "Account.name", title: "CUSTOMER", type: "text", width: 10 },
-                    { name: "magaya__Status", type: "text", width: 10, title: "STAGE" },
-                    { name: "magaya__Amount", title: "AMOUNT", width: 10, type: "number" },
-                    { name: "Modified_Time", type: "text", width: 10, title: "MODIFIED TIME" },
-                    //{ name: "magaya__Description", type: "text", width: 30, title: "Description"},
-                    //{ name: "magaya__ExpirationDate", type: "date", width: 60, title: "Expiration Date" },
-                    //{ name: "magaya__Direction", type: "text", width: 15, title: "Direction"},
-                ]
-            });
-    })*/
-
-
     ZOHO.embeddedApp.on("PageLoad",function(data)
     {
         //Las 100 primeras mQuotes

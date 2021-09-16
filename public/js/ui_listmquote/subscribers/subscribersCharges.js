@@ -75,6 +75,8 @@ storeCharge.subscribe(() => {
                 k.magaya__Status = sanitize(k.magaya__Status);
                 k.Name = sanitize(k.Name);
                 k.magaya__ChargeCode = sanitize(k.magaya__ChargeCode);
+                k.magaya__Paid_As = sanitize(k.magaya__Paid_As);
+                k.magaya__ChargeCurrency = sanitize(k.magaya__ChargeCurrency);
 
                 totalIncome += k.magaya__Final_Amount
                 if (k.magaya__Final_Amount == 0)
@@ -128,6 +130,8 @@ storeCharge.subscribe(() => {
                 k.magaya__Status = sanitize(k.magaya__Status);
                 k.Name = sanitize(k.Name);
                 k.magaya__ChargeCode = sanitize(k.magaya__ChargeCode);
+                k.magaya__Paid_As = sanitize(k.magaya__Paid_As);
+                k.magaya__ChargeCurrency = sanitize(k.magaya__ChargeCurrency);
 
                 totalIncome += roundDec(k.magaya__Final_Amount);
                 if (k.magaya__Final_Amount == 0)

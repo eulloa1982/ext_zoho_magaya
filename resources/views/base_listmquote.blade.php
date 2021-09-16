@@ -55,15 +55,14 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/jitbit/HtmlSanitizer@master/HtmlSanitizer.js"></script>
 
-    <script src="{{ url('js/moment.js') }}"></script>
-    <script src="{{ url('js/magaya_api.js') }}"></script>
+    <script src="{{ url('js/utils/moment.js') }}"></script>
     <script src="{{ url('sweetalert/sweetalert.js') }}"></script>
     <script src="{{ url('select2/js/select2.full.js') }}"></script>
     <script src="{{ url('datetimepicker/build/jquery.datetimepicker.full.min.js') }}"></script>
     <script src="{{ url('underscore-master/underscore-min.js') }}"></script>
     <!--SDK CDN-->
     <script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"></script>
-    <script src="{{ url('js/utils.js') }}"></script>
+    <!--script src="{{ url('js/utils.js') }}"></script-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.1.1/redux.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
     <!--script src="https://cdn.rawgit.com/lexich/redux-api/0.9.8/dist/redux-api.js"></script-->
@@ -76,8 +75,8 @@
     <script src="{{ url('js/ui_listmquote/biblio_jquery.js') }}"></script>
     <!--script src="{{ url('js/quotation3.js') }}"></script>
     <script src="{{ url('js/quotation_utils3.js') }}"></script-->
-    <script src="{{ url('js/ui_listmquote/magaya_api.js') }}"></script>
-    <script src="{{ url('js/ui_listmquote/utils.js') }}"></script>
+    <script src="{{ url('js/utils/magaya_api.js') }}"></script>
+    <script src="{{ url('js/utils/utils.js') }}"></script>
 
     <script src="{{ url('js/errors_handlers/errors.js') }}"></script>
     <script src="{{ url('js/store/constants.js') }}"></script>

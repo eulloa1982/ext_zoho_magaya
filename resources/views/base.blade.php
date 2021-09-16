@@ -35,13 +35,20 @@
     </div>
     @yield('main')
     <script src="https://cdn.jsdelivr.net/gh/jitbit/HtmlSanitizer@master/HtmlSanitizer.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.1.1/redux.min.js"></script>
+    <script src="{{ url('js/store/constants.js') }}"></script>
 
-    <script src="{{ url('js/jquery-3.6.0.js') }}"></script>
+    <script src="{{ url('js/store/storeError.js') }}"></script>
+    <script src="{{ url('js/store/storeSuccess.js') }}"></script>
+    <script src="{{ url('js/store/storeChargesDef.js') }}"></script>
+    <script src="{{ url('js/store/storeChargesCrm.js') }}"></script>
+
     <script src="{{ url('html2pdf/html2canvas.min.js') }}"></script>
     <script src="{{ url('html2pdf/html2pdf.bundle.min.js') }}"></script>
-    <script src="{{ url('js/moment.js') }}"></script>
-    <script src="{{ url('js/utils.js') }}"></script>
-    <script src="{{ url('js/magaya_api.js') }}"></script>
+    <script src="{{ url('js/utils/moment.js') }}"></script>
+    <script src="{{ url('js/utils/utils.js') }}"></script>
+    <script src="{{ url('js/utils/magaya_api.js') }}"></script>
     <script src="{{ url('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ url('bootstrap/js/popper.min.js') }}"></script>
     <!--script src="{{ url('js/biblio.jquery.js') }}"></script>
@@ -56,6 +63,9 @@
     <script src="{{ url('underscore-master/underscore-min.js') }}"></script>
     <!--SDK CDN-->
     <script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"></script>
+
+    <script src="{{ url('js/ui_madmin/madmin.js') }}"></script>
+
 
     @yield('js')
   </body>
