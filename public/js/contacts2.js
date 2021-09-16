@@ -803,6 +803,8 @@ function sleep(ms) {
 async function createCustomerCRMtoMagaya(dataAccount) {
     if (!_.isEmpty(dataAccount)) {
         let dataVar = await getMagayaVariables()
+        if (isEmpty(dataAccount["magaya__MagayaGUID"]))
+            dataAccount["magaya__MagayaGUID"] = null
         //get this var from CRM var
         //tomar de la variable de CRM el magaya url
         let magaya_url = dataVar["magaya_url"]
