@@ -1386,14 +1386,16 @@ function drawQuotationCRM() {
 /****************************************************************
  * ************ GET CARRIERS DESDE MAGAYA *************************
  * ****************************************************************/
- function getCarriersFromMagaya() {
+ async function getCarriersFromMagaya() {
+    let dataVar = await getMagayaVariables()
+
     flags = MagayaAPI.TRANSACTIONS_FLAGS.BasicFields
     type = MagayaAPI.ENTITY_TYPES.Any
 
     data = {
         method: 'GetEntitiesOfType',
         data: [
-            Utils.getAccessKey(),
+            dataVar["network_id"],
             flags,
             '',
             type
@@ -1503,14 +1505,16 @@ fetch('https://localhost/zoho_crm_magaya_ext/public/getPorts?data%5B%5D=96101&da
 /***********************************************************************
  ************ DIBUJA LAS QUOTES DE MAGAYA *********************************
  ************ ********************************************************/
-function drawQuotationMagaya() {
+async function drawQuotationMagaya() {
+    let dataVar = await getMagayaVariables()
+
     flags = MagayaAPI.TRANSACTIONS_FLAGS.BasicFields
     type = MagayaAPI.TRANSACTION_TYPES.Quotation
 
     data = {
         method: 'GetTransRangeByDate',
         data: [
-            Utils.getAccessKey(),
+           dataVar["network_id"],
             type,
             moment('1970-01-01').format('Y-MM-DD'),
             moment().format('Y-MM-DD'), //today
@@ -1818,4 +1822,75 @@ function addedToApplyAccounts(id) {
 
     }
 
+}
+
+//get magaya login var
+async function getMagayaVariables() {
+    console.log("Seek magaya vars")
+    network_id = await getMagayaNetworkId()
+    magaya_url = await getMagayaUrl();
+    magaya_user = await getMagayaUser();
+    magaya_pass = await getMagayaPass();
+    data = {
+        'network_id': network_id,
+        'magaya_url': magaya_url,
+        'magaya_user': magaya_user,
+        'magaya_pass': magaya_pass
+    }
+
+    return data;
+}
+
+
+async function getMagayaNetworkId() {
+    return new Promise(function(resolve, reject) {
+        ZOHO.CRM.API.getOrgVariable("magaya__networkid")
+        .then(function (response) {
+               network_id = response.Success.Content;
+               resolve(network_id)
+        })
+        .catch(function(error) {
+            reject()
+        })
+    })
+}
+
+async function getMagayaUrl() {
+    return new Promise(function(resolve, reject) {
+        ZOHO.CRM.API.getOrgVariable("magaya__magaya_url")
+            .then(function (response) {
+                url = response.Success.Content;
+                resolve(url);
+            })
+            .catch(function(error) {
+                reject()
+            })
+    })
+}
+
+async function getMagayaUser() {
+    return new Promise(function(resolve, reject) {
+        ZOHO.CRM.API.getOrgVariable("magaya__magaya_user")
+            .then(function (response) {
+                    user = response.Success.Content;
+                    resolve(user)
+
+            })
+            .catch(function(error) {
+                reject()
+            })
+    })
+}
+
+async function getMagayaPass() {
+    return new Promise(function(resolve, reject) {
+        ZOHO.CRM.API.getOrgVariable("magaya__magaya_pass")
+            .then(function (response) {
+                    pass = response.Success.Content;
+                    resolve(pass)
+            })
+            .catch(function(error) {
+                reject()
+            })
+    })
 }
