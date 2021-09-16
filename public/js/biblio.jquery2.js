@@ -749,7 +749,10 @@ function swalMessage(message) {
     })
 }
 
-async function getMagayaVariables() {
+
+//get magaya login var
+async function getMagayaVariables2() {
+    console.log("Seek magaya vars")
     network_id = await getMagayaNetworkId()
     magaya_url = await getMagayaUrl();
     magaya_user = await getMagayaUser();
@@ -765,58 +768,59 @@ async function getMagayaVariables() {
 }
 
 
-function getMagayaNetworkId() {
+async function getMagayaNetworkId() {
     return new Promise(function(resolve, reject) {
-        ZOHO.CRM.API.getOrgVariable("magaya__network_id").then(function(data) {
-            if (!_.isEmpty(data.Success)) {
-                var access_key = data.Success.Content;
-                //localStorage.setItem('access_key', access_key);
-                resolve(access_key);
-            }
-        });
+        ZOHO.CRM.API.getOrgVariable("magaya__networkid")
+        .then(function (response) {
+               network_id = response.Success.Content;
+               resolve(network_id)
+        })
+        .catch(function(error) {
+            reject()
+        })
     })
 }
 
-function getMagayaUrl() {
+async function getMagayaUrl() {
     return new Promise(function(resolve, reject) {
-        ZOHO.CRM.API.getOrgVariable("magaya__magaya_url").then(function(data) {
-            if (!_.isEmpty(data.Success)) {
-                var url = data.Success.Content;
-                //localStorage.setItem('url', url);
+        ZOHO.CRM.API.getOrgVariable("magaya__magaya_url")
+            .then(function (response) {
+                url = response.Success.Content;
                 resolve(url);
-            }
-        });
+            })
+            .catch(function(error) {
+                reject()
+            })
     })
 }
 
-function getMagayaUser() {
+async function getMagayaUser() {
     return new Promise(function(resolve, reject) {
-        ZOHO.CRM.API.getOrgVariable("magaya__magaya_user").then(function(data) {
-            if (!_.isEmpty(data.Success)) {
-                var user = data.Success.Content;
-                //localStorage.setItem('user', user);
-                resolve(user);
-            }
-        });
+        ZOHO.CRM.API.getOrgVariable("magaya__magaya_user")
+            .then(function (response) {
+                    user = response.Success.Content;
+                    resolve(user)
+
+            })
+            .catch(function(error) {
+                reject()
+            })
     })
 }
 
-function getMagayaPass() {
+async function getMagayaPass() {
     return new Promise(function(resolve, reject) {
-        ZOHO.CRM.API.getOrgVariable("magaya__magaya_pass").then(function(data) {
-            if (!_.isEmpty(data.Success)) {
-                var pass = data.Success.Content;
-                resolve(pass);
-            }
-        });
+        ZOHO.CRM.API.getOrgVariable("magaya__magaya_pass")
+            .then(function (response) {
+                    pass = response.Success.Content;
+                    resolve(pass)
+            })
+            .catch(function(error) {
+                reject()
+            })
     })
 }
 
-function getAccessKey2() {
-    let access_key = $("div").data( "credentials" ).accesskey;
-    console.log("Acces key from data", access_key)
-    return access_key;
-}
 
 /*****************************************
  * toma 2 fechas

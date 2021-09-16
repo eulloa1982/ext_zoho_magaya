@@ -1206,7 +1206,6 @@ ZOHO.embeddedApp.on("PageLoad",function(data)
 {
     //var photo_id = 0;
     let dataVar = getMagayaVar()
-    console.log("Getting data from cookies add newquote")
 
     ZOHO.CRM.CONFIG.getOrgInfo().then(function(data){
         organizationInfo = data.org;
@@ -1271,31 +1270,6 @@ ZOHO.embeddedApp.on("PageLoad",function(data)
 
     });
 
-    //get all records of the given module
-    /*ZOHO.CRM.API.getAllRecords({Entity: "Contacts", sort_order: "asc"})
-        .then(function(response){
-            if (!_.isEmpty (response.data)) {
-                $.map (response.data, function (k, i){
-                    //$("<option value='"+k.id+"'>"+k.Full_Name+"</option>").appendTo("#ApplyTo");
-                    //$("<option value='"+k.Full_Name+"'>"+k.Full_Name+"</option>").appendTo("#ConsigneeName");
-                    //contacts.push(k);
-                })
-            }
-        })
-
-    ZOHO.CRM.API.getAllRecords({Entity: "Accounts", sort_order: "asc"})
-        .then(function(response){
-            $.map (response.data, function (k, i) {
-                //accounts.push(k);
-                var accountId = k.id;
-                $("<option value='"+k.id+"'>"+k.Account_Name+"</option>").appendTo("select[name=quotation-for-accounts]");
-                $("<option value='"+k.id+"'>"+k.Account_Name+"</option>").appendTo("select[name=ShipperName]");
-                $("<option value='"+k.id+"'>"+k.Account_Name+"</option>").appendTo("select[name=ConsigneeName]");
-                //prueba, borrar
-                //$("<option value='"+k.id+"'>"+k.Account_Name+"</option>").appendTo("select[name=OtherConsignee]");
-
-            })
-        })*/
 
     //get all records of the given module
     ZOHO.CRM.API.getAllRecords({Entity: "Deals", sort_order: "asc"})
