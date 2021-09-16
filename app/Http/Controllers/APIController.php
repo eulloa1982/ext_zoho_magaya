@@ -56,6 +56,7 @@ class APIController extends Controller
         $XML = str_replace('<Client',"<Entity xmlns=\"http://www.magaya.com/XMLSchema/V1\"", $XML);
         $XML = str_replace('</Client>','<Type>Client</Type></Entity>', $XML);
 
+        print_r($XML);
         $result = $this->magayaApi->SetEntity($access_key, 524288, $XML);
         $customer_data = '';
 
