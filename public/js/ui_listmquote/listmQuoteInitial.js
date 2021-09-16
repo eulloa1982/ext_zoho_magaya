@@ -58,7 +58,6 @@ $(document).ready(function(){
 
         ZOHO.CRM.API.getAllRecords({Entity: "Accounts", sort_order: "asc"})
             .then(function(response){
-                console.log("Response accounts", response)
                 $.map (response.data, function (k, i) {
                     var accountId = k.id;
                     k.Account_Name = sanitize(k.Account_Name)
@@ -66,9 +65,9 @@ $(document).ready(function(){
                         $(`<option value='${k.id}'>${k.Account_Name}</option>`).appendTo("select[name=Carrier]");
 
                     } else {
-                        $("<option value='"+k.id+"'>"+k.Account_Name+"</option>").appendTo("select[name=Account]");
-                        $("<option value='"+k.id+"'>"+k.Account_Name+"</option>").appendTo("select[name=magaya__Shipper]");
-                        $("<option value='"+k.id+"'>"+k.Account_Name+"</option>").appendTo("select[name=magaya__ConsigneeName]");
+                        $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
+                        $(`<option value="${k.Account_Name}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Shipper]");
+                        $(`<option value="${k.Account_Name}">${k.Account_Name}</option>`).appendTo("select[name=magaya__ConsigneeName]");
 
                     }
                 })
