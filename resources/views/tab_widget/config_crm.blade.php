@@ -128,342 +128,39 @@
 
 @stop
  @section('js')
-<script src="{{ url('js/biblio.jquery2.js') }}"></script>
-<script src="{{ url('js/config3.js') }}"></script>
-<script src="{{ url('js/utils_cookies.js') }}"></script>
+ <script src="{{ url('js/ui_madmin/utils/biblio_jquery.js') }}"></script>
+
+ <script src="{{ url('js/ui_madmin/subscribers/subscribersChargeDef.js') }}"></script>
+ <script src="{{ url('js/ui_madmin/subscribers/subscribersChargeCrm.js') }}"></script>
 
 <script>
 $(document).ready(function(){
-    async function getMagayaVar(){
-        let dataVar = await getMagayaVariables();
-    }
-    $("#magaya-loguin").click(function() {
-        user = getCookie('user')
-        pass = getCookie('pass')
-        access_key = getCookie('access_key')
-        dataCharge = {
-            method: `StartSession`,
-            data: [
+    //obtener los charges
 
-                user,
-                pass,
-                access_key
-            ]
-        }
-
-        MagayaAPI.sendRequest(dataCharge, function(result) {
-            if (_.isEmpty(result.data)) {
-                Swal.fire({
-                    title: "Error",
-                    text: "Cant get data charges",
-                    icon: 'error'
-                })
-            } else {
-                /*$.map(result.data.ChargeDefinition, function(k, v) {
-                    var content = `<li class="list-group-item" data-id="${v}"> ${k.Code}  ${k.Description}</li>`
-                    $("#sortable-magaya").append(content);
-                    magayaCharges.push(k)
-                })*/
-            }
-        });
-    })
-
-
-
-
-    magayaCharges = [];
-    //get magaya charges
-    //getMagayaContent();
-
-    $("#sortable-crm").sortable({
-        connectWith: ".connectedSortable",
-            receive: function( event, ui ) {
-                data = ui.item;
-                $.map(data, function(k){
-                    idQuote = k.attributes['data-id']['nodeValue']
-                    dataSend = magayaCharges[idQuote];
-                });
-                //get active module
-                moduleName = localStorage.getItem('module');
-                dataSend = chargeMagayaToCRM(dataSend);
-                let result = insertChargeTypeCRM(dataSend)
-                getAllRecordCRM("magaya__Charges_Type").then(r => {
-                                $("#sortable-crm").empty();
-                                let dataModule = '';
-                                if (!_.isEmpty(r)) {
-                                    $.each(r, function(k, i) {
-                                        dataModule += ` <label class="list-group-item"><div class="sm">
-                                        <input data-id="${i.id}" class="form-check-crm" type="checkbox" value="">
-                                        <i class="edit-data fa fa-eye"></i></div>${i.Name}</label>`
-                                            //dataModule += ` <li class="list-group-item"><div class="sm"></div>${i.Name}</li>`
-                                    })
-                                } else {
-                                    dataModule += ` <li class="list-group-item" >No Data</li>`
-
-                                }
-
-                                $(dataModule).appendTo("#sortable-crm")
-
-                            });
-
-
-            },
-            remove: function (event, ui) {
-                $(this).sortable('cancel');
-            }
-        });
-
-        $("#sortable-magaya").sortable({
-            connectWith: ".connectedSortable",
-            remove: function ( event, ui) {
-                $("#sortable-crm").prepend(ui.item.clone());
-                $(this).sortable('cancel');
-            }
-    });
-
-    //get zoho content
     ZOHO.embeddedApp.on("PageLoad",function(data)
     {
-        moduleName = 'magaya__Charges_Type';
-        localStorage.setItem('module','magaya__Charges_Type'  )
-        //first thing to do
-
-
-        getContent(moduleName);
-        getMagayaContent("GetChargeDefinitions");
-    });
-
-    ZOHO.embeddedApp.init();
-    //getContent first
-
-
-    $(".module_search").click(function () {
-
-        var moduleName = $(this).attr("data-module");
-        //set module in localStorage
-        localStorage.setItem('module', moduleName);
-
-        getContent(moduleName);
-        if (moduleName === 'magaya__Charges_Type' ) {
-            buildMagayaContentFromArray(magayaCharges);
-            $("#magaya-content").show()
-        }
-        else {
-            buildMagayaContentFromArray();
-            $("#magaya-content").hide();
-        }
-
-
-    })
-
-    //bind dinamic form
-    $('#form').bind("DOMSubtreeModified", function(){
-        //button send new record
-        $(".send").click(function(e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            //get module from localStorage
-
-            var module = localStorage.getItem('module');
-            //serialize form
-            var data = {};
-            var a = $("#generic-form").serializeArray();
-            $.each(a, function() {
-                if (data[this.name]) {
-                    if (!data[this.name].push) {
-                        data[this.name] = [data[this.name]].replace(/[^a-zA-Z ]/g, "");
-                    }
-                    data[this.name].push(this.value.replace(/[^a-zA-Z ]/g, "") || '');
-                } else {
-                    data[this.name] = this.value.replace(/[^a-zA-Z ]/g, "") || '';
-                }
-            });
-            //console.log(data)
-
-            insertRecordCRM(module, data)
-                .then(r => {
-                    if (r[0]['code'] == "SUCCESS") {
-                        Swal.fire({
-                            title: 'Success',
-                            text: 'Operation success',
-                            icon: 'success',
-                            allowOutsideClick: false
-                        })
-                    }
-                })
-                .catch(function(response) {
-                    Swal.fire({
-                            title: 'Error',
-                            html: response.error,
-                            icon: 'error',
-                            allowOutsideClick: false
-                        })
-                })
-        });
-
-    });
-
-
-    //botton enviar al CRM
-    $(".send-to-crm").click(function(e) {
-        console.log("Sendinf")
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            var message = '';
-            var i = 0;
-            moduleName = localStorage.getItem('module');
-            $("input[class=form-check-magaya]:checked").each(function() {
-
-                id = $(this).attr("data-id");
-                dataSend = magayaCharges[id];
-                console.log("dATA SEND dd", dataSend);
-
-                moduleName = localStorage.getItem('module');
-                dataSend = chargeMagayaToCRM(dataSend);
-                //inserting
-                let result = insertChargeTypeCRM(dataSend)
-
-            })
-
-        })
-
-
-
-
-    //bind dinamic sortable
-    $('#sortable-magaya').bind("DOMSubtreeModified", function(){
-        $("#sortable-magaya li").click(function () {
-            $(this).addClass("selected-magaya")
-            $(".send-to-crm").show();
-        })
-
-
-    });
-
-    //bind sortable crm
-    $('#sortable-crm').bind("DOMSubtreeModified", function(){
-        $("#sortable-crm li").click(function () {
-            //$(this).toggleClass('selected-crm class2')
-           $(this).addClass("selected-crm")
-           $(".delete-from-crm").show();
-        })
-
-        $(".delete-from-crm").click(function(e){
-            e.preventDefault();
-            e.stopImmediatePropagation();
-
-            i = 0;
-            $("input[class=form-check-crm]:checked").each(function(k) {
-                i++
-            })
-
-            if (i > 0) {
-                moduleName = localStorage.getItem('module');
-                let message = '';
-                $("input[class=form-check-crm]:checked").each(function(k) {
-                    id = $(this).attr("data-id");
-                    deleteDataCRM(moduleName, id)
-                        .then(r => {
-                            data = r.data
-                            message = `Delete record ${id} ${data[0]['code']}<br />`
-                            $("#message-success").html(message).css("display", "inline").fadeIn("slow").delay(1000).fadeOut("slow");;
-
-                        }).then(function() {
-
-                            getContent(moduleName)
-
-                        })
-                })
-            }
-        })
-
-        //show data to edit
-        $(".edit-data").click(function(e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            //get id
-            id = $(this).attr("data-id");
-            //get moduleName
-            var moduleName = localStorage.getItem('module');
-            //get the record
-            ZOHO.CRM.API.getRecord({ Entity: moduleName, RecordID: id })
-                .then(function(data) {
-                    //fill the form
-                    response = data.data;
-
-                    if (!_.isEmpty(response)) {
-                        $.each(response, function(k, v) {
-                            //console.log("FIELD", v)
-                            $("#form :input[name=Name]").val(v.Name);
-
-                            $("#form :input[name=Id]").val(v.id);
-                            $.each(v, function(key, value) {
-                                //set generic fields
-                                if (!_.isObject(key) && !_.isArray(key) && key.indexOf("$") < 0) {
-                                    $("#form :input[name=" + key + "]").val(value);
-                                }
-                            })
-                        })
-                    }
-
-                }).then(function() {
-                    $(".edit").show();
-                    $(".send").hide();
-                    $("#new-record").modal("show")
-                })
-        })
-
-        //update data
-        $(".edit").click (function (e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            //serialize form
-            var data = {};
-            var a = $("#generic-form").serializeArray();
-            $.each(a, function() {
-                if (data[this.name]) {
-                    if (!data[this.name].push) {
-                        data[this.name] = [data[this.name]];
-                    }
-                    data[this.name].push(this.value || '');
-                } else {
-                    data[this.name] = this.value || '';
-                }
-            });
-
-            //get module name
-            moduleName = localStorage.getItem('module');
-            //update record
-            /*var config={
-                    Entity:moduleName,
-                    id:
-                    APIData:{
-                        "id": "1000000049031",
-                        "Company": "Zylker",
-                        "Last_Name": "Peterson"
-                    },
-            }
-            ZOHO.CRM.API.updateRecord(config)
+        getChargesDefinition()
+          //Las 100 primeras mQuotes
+          ZOHO.CRM.API.getAllRecords({Entity:"magaya__Charges_Type",sort_order:"desc",per_page:250,page:1})
             .then(function(data){
-                console.log(data)
-            })*/
-        })
-    });
-
-
-    //show modal new record
-    $(".show-form").click(function(e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-
-        $("#form").empty();
-        $(".send").show();
-        $(".edit").hide();
-        moduleName = localStorage.getItem('module');
-        getContent(moduleName)
-        $("#new-record").modal();
-
+                let charges_type = data.data;
+                return charges_type;
+            })
+            .then(function(charges_type) {
+                //sanitizer
+                $.map(charges_type, function(k, v) {
+                    k.Name = sanitize(k.Name)
+                    //k.magaya__Status = sanitize(k.magaya__Status)
+                    //if (!_.isEmpty(k.Account)) {
+                    //}
+                })
+                storeChargesCrm.dispatch(addChargesType(charges_type))
+            })
     })
+
+    ZOHO.embeddedApp.init()
+
+
 
 
 

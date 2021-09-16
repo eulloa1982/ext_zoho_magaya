@@ -156,13 +156,14 @@ $(document).ready(function(){
             quoteToEdit = [];
             //dispatch
             storeQuote.dispatch(findQuote({id: idmQuoteToEdit}))
-            storeQuote.subscribe(() => {
+            /*storeQuote.subscribe(() => {
                 let quote = storeQuote.getState();
                 quoteToEdit = quote.quoteToEdit;
+                //quoteToEdit = sanitize_array(quoteToEdit)
                 //console.log("Quote to edit", quoteToEdit)
                 //let accountQuote = quoteToEdit.Account.id
                 //storeAccounts.dispatch(addQuoteAccount({id: accountQuote}))
-            })
+            })*/
 
             //relleno los campos
             //campos q no son objetos
