@@ -800,11 +800,12 @@ function sleep(ms) {
 
 
 //create new customer from CRM Account
-function createCustomerCRMtoMagaya(dataAccount) {
+async function createCustomerCRMtoMagaya(dataAccount) {
     if (!_.isEmpty(dataAccount)) {
+        let dataVar = await getMagayaVariables()
         //get this var from CRM var
         //tomar de la variable de CRM el magaya url
-        var magaya_url = localStorage.getItem('url');
+        let magaya_url = dataVar["magaya_url"]
         var endpoint = `https://zohomagaya.herokuapp.com/createCustomer?url=${magaya_url}&data%5B%5D=96101&data%5B%5D=524288&contactData%5BName%5D=${dataAccount['Account_Name']}&contactData%5BAttribute_GUID%5D=${dataAccount['magaya__MagayaGUID']}&contactData%5BEmail%5D=${dataAccount['magaya__MagayaEmail']}&contactData%5BPhone%5D=${dataAccount['Phone']}&contactData%5BAccountNumber%5D=${dataAccount['Account_Number']}&contactData%5BNotes%5D=${dataAccount['Description']}&contactData%5BFax%5D=${dataAccount['Fax']}&contactData%5BWebsite%5D=${dataAccount['Website']}&contactData%5BBillingAddress%5D%5BStreet%5D=${dataAccount['Billing_Street']}&contactData%5BBillingAddress%5D%5BCity%5D=${dataAccount['Billing_City']}&contactData%5BBillingAddress%5D%5BState%5D=${dataAccount['Billing_State']}&contactData%5BBillingAddress%5D%5BZipCode%5D=${dataAccount['Billing_Code']}&contactData%5BBillingAddress%5D%5BCountry%5D=${dataAccount['Billing_Country']}&contactData%5BAddress%5D%5BStreet%5D=${dataAccount['Shipping_Street']}&contactData%5BAddress%5D%5BCity%5D=${dataAccount['Shipping_City']}&contactData%5BAddress%5D%5BState%5D=${dataAccount['Shipping_State']}&contactData%5BAddress%5D%5BZipCode%5D=${dataAccount['Shipping_Code']}&contactData%5BAddress%5D%5BCountry%5D=${dataAccount['Shipping_Country']}`;
             //var endpoint = `https://zohomagaya.herokuapp.com/createCustomer?data%5B%5D=96101&data%5B%5D=524288&contactData%5BName%5D=${dataAccount['Account_Name']}&contactData%5BAttribute_ID%5D=${dataAccount['magaya__MagayaGUID']}&contactData%5BEmail%5D=${dataAccount['magaya__MagayaEmail']}&contactData%5BPhone%5D=${dataAccount['Phone']}&contactData%5BAccountNumber%5D=${dataAccount['Account_Number']}&contactData%5BNotes%5D=${dataAccount['Description']}&contactData%5BFax%5D=${dataAccount['Fax']}&contactData%5BWebsite%5D=${dataAccount['Website']}&url=${magaya_url}`;
         fetch(endpoint, {
