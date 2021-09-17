@@ -99,7 +99,8 @@
             </div>
             <label><h5 class="list-group-item active">Magaya</h5></label>
             <!--div class="import-all-charges" style="display: inline" data-bs-toggle="tooltip" data-bs-placement="right" title="Export all charges"><i class="fa fa-database" aria-hidden="true"></i></div-->
-            <ul id="sortable-magaya" class="list-group connectedSortable">
+            <ul id="sortable-magaya-charges" class="list-group connectedSortable"></ul>
+            <ul id="sortable-magaya-ports" class="list-group connectedSortable">
             </ul>
         </div>
     </div>
@@ -140,6 +141,8 @@
  <script src="{{ url('js/ui_madmin/utils/biblio_jquery.js') }}"></script>
 
  <script src="{{ url('js/ui_madmin/subscribers/subscribersChargeDef.js') }}"></script>
+ <script src="{{ url('js/ui_madmin/subscribers/subscribersPortsDef.js') }}"></script>
+
  <script src="{{ url('js/ui_madmin/subscribers/subscribersItemsCrm.js') }}"></script>
  <script src="{{ url('js/ui_madmin/subscribers/subscribersCurrentModule.js') }}"></script>
 
@@ -162,7 +165,7 @@ $(document).ready(function(){
             let value = $(this).attr("data-module")
             storeCurrentModule.dispatch(addCurrentModule(value))
 
-            storeChargesDef.dispatch(getCurrentItemDef({module: value}))
+            //storeChargesDef.dispatch(getCurrentItemDef({module: value}))
             ZOHO.CRM.API.getAllRecords({Entity:currentModule,sort_order:"desc",per_page:250,page:1})
                 .then(function(data){
                     let charges_type = data.data;
@@ -179,11 +182,28 @@ $(document).ready(function(){
                         //}
                     })
 
+                    switch(currentModule) {
+                        case "magaya__Ports": {
+                            console.log("Magaya Ports")
+                            storePortsDef.dispatch(makeActivePort())
+                            storeChargesDef.dispatch(makeInactiveChargeDef())
+                            break
+                        }
+
+                        case "magaya__Charges_Type": {
+                            storePortsDef.dispatch(makeInactivePort())
+                            storeChargesDef.dispatch(makeActiveChargeDef())
+                            break;
+                        }
+
+                        default:
+                            break;
+                    }
+
                 })
         })
         getChargesDefinition()
         getWorkingPorts()
-          //Las 100 primeras mQuotes
 
     })
 

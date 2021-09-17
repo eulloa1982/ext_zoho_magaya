@@ -32,7 +32,7 @@ async function getWorkingPorts() {
 
     MagayaAPI.sendRequest(dataPorts, function(result) {
         if (!_.isEmpty(result.data)) {
-            storeChargesDef.dispatch(addPortsDef(result.data.Port))
+            storePortsDef.dispatch(addPorts(result.data.Port))
             //storeChargesDef.dispatch(addChargesDef(result.data.ChargeDefinition))
         };
     })

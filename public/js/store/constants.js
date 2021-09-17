@@ -40,10 +40,14 @@ const ADD_ITEMS_CRM = "ADD_ITEMS_CRM"
 const GET_CHARGE_DEF = "GET_CHARGE_DEF"
 const DELETE_ITEM_CRM = "DELETE_ITEM_CRM"
 const EMPTY_ITEMS_CRM = "EMPTY_ITEMS_CRM"
-const ADD_PORTS_DEF = "ADD_PORTS_DEF"
-const GET_CURRENT_ITEM_DEF = "GET_CURRENT_ITEM_DEF"
+const GET_CHARGES_DEF = "GET_CHARGES_DEF"
+const MAKE_ACTIVE_CHARGEDEF = "MAKE_ACTIVE_CHARGEDEF"
+const MAKE_INACTIVE_CHARGEDEF = "MAKE_INACTIVE_CHARGEDEF"
 
 const ADD_PORTS = "ADD_PORTS"
+const GET_PORTS = "GET_PORTS"
+const MAKE_ACTIVE_PORT = "MAKE_ACTIVE_PORT"
+const MAKE_INACTIVE_PORT = "MAKE_INACTIVE_PORT"
 
 const ADD = "ADD"
 const REST = "REST"
@@ -73,13 +77,4 @@ const ITEMS_FIELDS = {
     "magaya__Weigth": {"field": "Weigth", "type": "number"}, "magaya__Status": {"field": "Status", "values":["InQuote"]}, "magaya__Height": {"field": "Height", "type": "number"},
     "magaya__Pieces": {"field": "Pieces", "type": "number"}, "magaya__Measure_System": {"field": "Measure System", "values": ["International"]},
     "magaya__Volume": {"field": "Volume", "type": "number"}
-}
-
-
-const ITEMS_MADMIN_PORTS = {
-    "Name": {},
-}
-
-const ITEMS_MADMIN_CHARGES = {
-    "Name": {}
 }
