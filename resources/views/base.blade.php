@@ -43,7 +43,8 @@
     <script src="{{ url('js/store/storeError.js') }}"></script>
     <script src="{{ url('js/store/storeSuccess.js') }}"></script>
     <script src="{{ url('js/store/storeChargesDef.js') }}"></script>
-    <script src="{{ url('js/store/storeChargesCrm.js') }}"></script>
+    <script src="{{ url('js/store/storeItemsCrm.js') }}"></script>
+    <script src="{{ url('js/store/storeCurrentModule.js') }}"></script>
 
     <script src="{{ url('html2pdf/html2canvas.min.js') }}"></script>
     <script src="{{ url('html2pdf/html2pdf.bundle.min.js') }}"></script>

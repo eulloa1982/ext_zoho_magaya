@@ -1,11 +1,11 @@
 //get one charge
-storeChargesCrm.subscribe(() => {
-    let u = storeChargesCrm.getState();
-    console.log("State charges type crm now", u)
-    if (!_.isEmpty(u.chargesType)) {
+storeCrm.subscribe(() => {
+    let u = storeCrm.getState();
+    console.log(" Items on Crm", u)
+    if (!_.isEmpty(u.itemsCrm)) {
         $("#sortable-crm").empty()
         let content = ``
-        $.map(u.chargesType, function(k, v) {
+        $.map(u.itemsCrm, function(k, v) {
             if (!_.isEmpty(k)) {
                 content += ` <label class="list-group-item"><div class="sm">
                 <input data-id="${k.id}" class="form-check-crm" type="checkbox" value="">

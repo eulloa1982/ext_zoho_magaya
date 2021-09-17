@@ -1,8 +1,9 @@
 const initialStateChargesDef = {
-    //charges def in magaya
     chargesDef:[],
+    portsDef:[],
     //charges def in crm
-    singleChargeDef: []
+    singleChargeDef: [],
+    currentItems:[]
 }
 
 ////////////////////////////////////////////////////
@@ -19,6 +20,13 @@ const reducerChargesDef = (state = initialStateChargesDef, actions) => {
             };
         }
 
+        case ADD_PORTS_DEF: {
+            return {
+                ...state,
+                portsDef: state.portsDef.concat(actions.payload)
+            }
+        }
+
         case GET_CHARGE_DEF: {
             const byId = actions.payload.id
             const newArray = state.chargesDef[byId]
@@ -28,6 +36,37 @@ const reducerChargesDef = (state = initialStateChargesDef, actions) => {
             };
         }
 
+        case GET_CURRENT_ITEM_DEF: {
+            const module = actions.payload.module
+            console.log("Module is ", module)
+            switch (module) {
+                case "magaya__Ports": {
+                    return {
+                        ...state,
+                        currentItems: state.portsDef
+                    }
+                }
+
+                case "magaya__Charges_Type": {
+                    return {
+                        ...state,
+                        currentItems: state.chargesDef
+                    }
+                }
+
+                default: {
+                    return {
+                        ...state,
+                        currentItems: state.chargesDef
+                    }
+                }
+
+                }
+
+            }
+
+        }
+    }
         /*case 'ADD_CONTACT': {
             return Object.assign({}, state, {
                 contactQuote: state.contactQuote.concat(actions.payload)
@@ -57,10 +96,6 @@ const reducerChargesDef = (state = initialStateChargesDef, actions) => {
         }*/
 
 
-        default:
-            return state;
-    }
-}
 
 
 ////////////////////////////////////////////////////
@@ -77,8 +112,16 @@ function addChargesDef(payload){
     return {type: ADD_CHARGES_DEF, payload}
 }
 
+function addPortsDef(payload) {
+    return { type: ADD_PORTS_DEF, payload };
+}
+
 function getChargeDef(payload){
     return {type: GET_CHARGE_DEF, payload}
+}
+
+function getCurrentItemDef(payload) {
+    return { type: GET_CURRENT_ITEM_DEF, payload };
 }
 
 

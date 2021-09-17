@@ -22,7 +22,7 @@
             </li>--}}
             @if(request()->segment(2) == 'config-crm') <li class="nav-item active">
                 <span data-module="magaya__Charges_Type" class="module_search btn btn-success btn-sm">Charges Type</span>
-                <!--span data-module="magaya__TransportationMethods" data-toggle="modal" class="module_search btn btn-success btn-sm">Working Ports</span-->
+                <span data-module="magaya__Ports" class="module_search btn btn-success btn-sm">Working Ports</span>
                 <!--span class="show-form btn btn-success btn-sm">New Record</span>
                 <span class="module_search btn btn-success btn-sm">magaya__Package_Types</span-->
             @endif
