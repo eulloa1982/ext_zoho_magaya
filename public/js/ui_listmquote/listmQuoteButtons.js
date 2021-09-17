@@ -272,6 +272,7 @@ $(document).ready(function(){
         storeCharge.dispatch(emptyCharges())
         storeQuote.dispatch(clearQuoteToEdit())
         storeAccounts.dispatch(emptyAccounts())
+        storeAccounts.dispatch(getAllAccounts())
         //representative
         $("select[name=magaya__Representative]").empty()
         //limpiar campos
@@ -539,7 +540,7 @@ $(document).ready(function(){
         recordData = {
             "Name": $(":input[id=NameQuote]").val().replace(/[^a-zA-Z0-9]/g, ' '),
             "Account": accountId,
-            "Deal": $(":input[name=Deal] option:selected").val() > 0 ? $(":input[name=Deal] option:selected").val() : '',
+            "magaya__Deal": $(":input[name=Deal] option:selected").val() > 0 ? $(":input[name=Deal] option:selected").val() : '',
             "magaya__Shipper": $(":input[name=magaya__Shipper] option:selected").text().replace(/[^a-zA-Z0-9]/g, ' '),
             "magaya__ExpirationDate": expirationDateFinal,
             "magaya__Direction": $(":input[name=magaya__Direction]").val(),
@@ -566,6 +567,8 @@ $(document).ready(function(){
 
         }
 
+        console.log("data to insert", recordData)
+
         //jsonCharges = $(this).tableToJson('table-charges-new', 992929292929229);
         //jsonData = JSON.parse(`[${jsonCharges}]`)
        // Object.assign(jsonData, {"magaya__ApplyToAccounts": accountId})
@@ -573,6 +576,7 @@ $(document).ready(function(){
         //insertind data, get the id and insert items and charges
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__SQuotes", APIData: recordData, Trigger: [] })
             .then(function(response) {
+                console.log("ïnserting mquote response", response)
                 data = response.data;
                 let id = 0;
                 $.each(data, function(key, valor) {

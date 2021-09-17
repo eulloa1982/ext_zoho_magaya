@@ -249,5 +249,19 @@ class MagayaAPI extends \SoapClient implements MagayaAPIInterface
         ];
     }
 
+    /*
+    GetWorkingPorts
+    */
+    public function GetWorkingPorts(string $data): array {
+        //return ["data" => false];
+        $result = parent::{__FUNCTION__}();
+
+        return [
+            'error' => false,
+            'data' => simplexml_load_string($result["ports_list_xml"])
+        ];
+        //return ["data" => false];
+    }
+
 
 }

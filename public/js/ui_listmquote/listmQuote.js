@@ -115,6 +115,7 @@ $(document).ready(function(){
            //drop the state temporal items and charges
             storeItem.dispatch(emptyItems())
             storeCharge.dispatch(emptyCharges())
+            storeAccounts.dispatch(emptyAllAccounts())
             storeQuote.dispatch(clearQuoteToEdit())
 
             limpiar_form()
@@ -151,19 +152,12 @@ $(document).ready(function(){
             $("#table-items").show();
             $("#table-items-new").hide();
 
+            $("select[name=Deal]").val("")
             idmQuoteToEdit = $(this).attr('data-id')
 
             quoteToEdit = [];
             //dispatch
             storeQuote.dispatch(findQuote({id: idmQuoteToEdit}))
-            /*storeQuote.subscribe(() => {
-                let quote = storeQuote.getState();
-                quoteToEdit = quote.quoteToEdit;
-                //quoteToEdit = sanitize_array(quoteToEdit)
-                //console.log("Quote to edit", quoteToEdit)
-                //let accountQuote = quoteToEdit.Account.id
-                //storeAccounts.dispatch(addQuoteAccount({id: accountQuote}))
-            })*/
 
             //relleno los campos
             //campos q no son objetos
@@ -185,19 +179,29 @@ $(document).ready(function(){
 
             //account, cliente de la cotizacion
             if (!_.isEmpty(quoteToEdit["Account"])) {
-                id = quoteToEdit["Account"]["id"];
-                client = quoteToEdit["Account"]["name"];
+                let id = quoteToEdit["Account"]["id"];
+                let client = sanitize(quoteToEdit["Account"]["name"]);
                 $("<option value='" + id + "' selected>" + client + "</option>").appendTo("select[name=Account]");
+                //$("select[name=Account]").val(id)
             }
 
             //representative
             if (!_.isEmpty(quoteToEdit["magaya__Representative"])) {
                 $("select[name=magaya__Representative]").empty()
-                console.log("Representative quote", quoteToEdit["magaya__Representative"])
                 let idContact = quoteToEdit["magaya__Representative"]["id"];
-                let nameContact = quoteToEdit["magaya__Representative"]["name"];
+                let nameContact = sanitize(quoteToEdit["magaya__Representative"]["name"]);
                 storeAccounts.dispatch(findContact({id: idContact}));
                 $(`<option value="${idContact}" selected>${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
+            }
+
+            //deal en la cotizacion
+            if (!_.isEmpty(quoteToEdit['magaya__Deal'])) {
+                //$("select[name=Deal]").empty()
+                let idDeal = quoteToEdit["magaya__Deal"]["id"];
+                let nameDeal = sanitize(quoteToEdit["magaya__Deal"]["name"]);
+                storeDeal.dispatch(getDeal({id: idDeal}))
+                //$(`<option value="${idDeal}" selected>${nameDeal}</option>`).appendTo("select[name=Deal]");
+                $("select[name=Deal]").val(idDeal)
             }
 
             $("#mquoteModal").modal("show")

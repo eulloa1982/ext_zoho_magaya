@@ -1,26 +1,24 @@
-const initialStateChargesDef = {
-    chargesDef:[],
-    portsDef:[],
-    //charges def in crm
-    singleChargeDef: [],
-    currentItems:[]
+const initialStatePorts = {
+    ports:[],
+    currentPorts:[]
 }
 
 ////////////////////////////////////////////////////
 //REDUX Reducers
 /////////////////////////////////////////////////////
-const reducerChargesDef = (state = initialStateChargesDef, actions) => {
+const reducerPorts = (state = initialStatePorts, actions) => {
 
     switch (actions.type) {
 
-        case ADD_CHARGES_DEF: {
+        case ADD_PORTS: {
             return {
                 ...state,
-                chargesDef: state.chargesDef.concat(actions.payload)
+                ports: state.ports.concat(actions.payload),
+                currentPorts: state.ports
             };
         }
 
-        case ADD_PORTS_DEF: {
+        /*case ADD_PORTS_DEF: {
             return {
                 ...state,
                 portsDef: state.portsDef.concat(actions.payload)
@@ -52,21 +50,20 @@ const reducerChargesDef = (state = initialStateChargesDef, actions) => {
                         ...state,
                         currentItems: state.chargesDef
                     }
-                }
+                }*/
 
                 default: {
+                    state.currentPorts = state.ports
                     return {
                         ...state,
-                        currentItems: state.chargesDef
+                        currentPorts: state.currentPorts
                     }
-                }
-
                 }
 
             }
 
         }
-    }
+
         /*case 'ADD_CONTACT': {
             return Object.assign({}, state, {
                 contactQuote: state.contactQuote.concat(actions.payload)
@@ -101,27 +98,16 @@ const reducerChargesDef = (state = initialStateChargesDef, actions) => {
 ////////////////////////////////////////////////////
 //REDUX Store
 /////////////////////////////////////////////////////
-const storeChargesDef = Redux.createStore(reducerChargesDef)
+const storePorts= Redux.createStore(reducerPorts)
 
 
 
 ///////////////////////////////////////////////////////
 ///////// actions
 ////////////////////////////////////////////////////////
-function addChargesDef(payload){
-    return {type: ADD_CHARGES_DEF, payload}
+function addPorts(payload){
+    return {type: ADD_PORTS, payload}
 }
 
-function addPortsDef(payload) {
-    return { type: ADD_PORTS_DEF, payload };
-}
-
-function getChargeDef(payload){
-    return {type: GET_CHARGE_DEF, payload}
-}
-
-function getCurrentItemDef(payload) {
-    return { type: GET_CURRENT_ITEM_DEF, payload };
-}
 
 

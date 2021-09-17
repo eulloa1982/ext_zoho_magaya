@@ -1,7 +1,9 @@
+//magaya loguin variables
 //get charges definition
+let data = []
 async function getChargesDefinition() {
    //get login magaya variables
-    let data = await getMagayaVariables()
+    data = await getMagayaVariables()
 
     flags = MagayaAPI.TRANSACTIONS_FLAGS.BasicFields
     entity_type = MagayaAPI.ENTITY_TYPES.Customer
@@ -15,6 +17,23 @@ async function getChargesDefinition() {
     MagayaAPI.sendRequest(dataCharge, function(result) {
         if (!_.isEmpty(result.data)) {
             storeChargesDef.dispatch(addChargesDef(result.data.ChargeDefinition))
+        };
+    })
+
+}
+
+async function getWorkingPorts() {
+    dataPorts = {
+        method: "GetWorkingPorts",
+        data: [
+            "network_id"
+        ]
+    }
+
+    MagayaAPI.sendRequest(dataPorts, function(result) {
+        if (!_.isEmpty(result.data)) {
+            storeChargesDef.dispatch(addPortsDef(result.data.Port))
+            //storeChargesDef.dispatch(addChargesDef(result.data.ChargeDefinition))
         };
     })
 
@@ -183,4 +202,27 @@ function insertRecordCRM(module, data, trigger = '') {
                 resolve(response.data)
             })
     })
+}
+
+
+function getMagayaContent(content = 1) {
+    switch (content) {
+        case "getChargesDefinition": {
+            getChargesDefinition()
+            break;
+        }
+
+        case "GetWorkingPorts": {
+            GetWorkingPorts()
+            break;
+        }
+
+        default: {
+            getChargesDefinition()
+            break;
+        }
+
+
+    }
+
 }

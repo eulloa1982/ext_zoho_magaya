@@ -32,11 +32,18 @@ const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT'
 const GET_ACCOUNT = 'GET_ACCOUNT'
 const ADD_QUOTE_ACCOUNT = "ADD_QUOTE_ACCOUNT"
 const EMPTY_ACCOUNTS = "EMPTY_ACCOUNTS"
+const ALL_ACCOUNTS = "ALL_ACCOUNTS"
+const EMPTY_ALL_ACCOUNTS = "EMPTY_ALL_ACCOUNTS"
 
 const ADD_CHARGES_DEF = "ADD_CHARGES_DEF"
-const ADD_CHARGES_TYPE = "ADD_CHARGES_TYPE"
+const ADD_ITEMS_CRM = "ADD_ITEMS_CRM"
 const GET_CHARGE_DEF = "GET_CHARGE_DEF"
-const DELETE_CHARGES_TYPE = "DELETE_CHARGES_TYPE"
+const DELETE_ITEM_CRM = "DELETE_ITEM_CRM"
+const EMPTY_ITEMS_CRM = "EMPTY_ITEMS_CRM"
+const ADD_PORTS_DEF = "ADD_PORTS_DEF"
+const GET_CURRENT_ITEM_DEF = "GET_CURRENT_ITEM_DEF"
+
+const ADD_PORTS = "ADD_PORTS"
 
 const ADD = "ADD"
 const REST = "REST"
@@ -66,4 +73,13 @@ const ITEMS_FIELDS = {
     "magaya__Weigth": {"field": "Weigth", "type": "number"}, "magaya__Status": {"field": "Status", "values":["InQuote"]}, "magaya__Height": {"field": "Height", "type": "number"},
     "magaya__Pieces": {"field": "Pieces", "type": "number"}, "magaya__Measure_System": {"field": "Measure System", "values": ["International"]},
     "magaya__Volume": {"field": "Volume", "type": "number"}
+}
+
+
+const ITEMS_MADMIN_PORTS = {
+    "Name": {},
+}
+
+const ITEMS_MADMIN_CHARGES = {
+    "Name": {}
 }

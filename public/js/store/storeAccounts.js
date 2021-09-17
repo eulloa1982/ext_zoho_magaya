@@ -4,7 +4,8 @@ const initialStateAccount = {
     contactList: [],
     singleContact:[],
     singleAccount:[],
-    quoteAccount:[]
+    quoteAccount:[],
+    allAccounts: []
   };
 
 
@@ -103,8 +104,23 @@ function reducerAccounts (state = initialStateAccount, actions)  {
             state.singleContact = initialStateAccount.singleContact
             state.singleAccount = initialStateAccount.singleAccount
             state.quoteAccount = initialStateAccount.quoteAccount
+            state.allAccounts = initialStateAccount.allAccounts
             return {
                 ...state
+            }
+        }
+
+        case ALL_ACCOUNTS: {
+            return {
+                ...state,
+                allAccounts: state.accounts
+            }
+        }
+
+        case EMPTY_ALL_ACCOUNTS: {
+            return {
+                ...state,
+                allAccounts: initialStateAccount.allAccounts
             }
         }
 
@@ -163,4 +179,13 @@ function addQuoteAccount(payload) {
 
 function emptyAccounts() {
     return { type: EMPTY_ACCOUNTS };
+}
+
+
+function getAllAccounts() {
+    return { type: ALL_ACCOUNTS };
+}
+
+function emptyAllAccounts() {
+    return { type: EMPTY_ALL_ACCOUNTS };
 }

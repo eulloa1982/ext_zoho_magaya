@@ -140,7 +140,9 @@
  <script src="{{ url('js/ui_madmin/utils/biblio_jquery.js') }}"></script>
 
  <script src="{{ url('js/ui_madmin/subscribers/subscribersChargeDef.js') }}"></script>
- <script src="{{ url('js/ui_madmin/subscribers/subscribersChargeCrm.js') }}"></script>
+ <script src="{{ url('js/ui_madmin/subscribers/subscribersItemsCrm.js') }}"></script>
+ <script src="{{ url('js/ui_madmin/subscribers/subscribersCurrentModule.js') }}"></script>
+
 
 <script>
 $(document).ready(function(){
@@ -150,26 +152,39 @@ $(document).ready(function(){
         $(`#${div_close}`).hide();
     })
 
+
+
+
     ZOHO.embeddedApp.on("PageLoad",function(data)
     {
-        getChargesDefinition()
-          //Las 100 primeras mQuotes
-          ZOHO.CRM.API.getAllRecords({Entity:"magaya__Charges_Type",sort_order:"desc",per_page:250,page:1})
-            .then(function(data){
-                let charges_type = data.data;
-                return charges_type;
-            })
-            .then(function(charges_type) {
-                //sanitizer
-                $.map(charges_type, function(k, v) {
-                    k.Name = sanitize(k.Name)
-                    storeChargesCrm.dispatch(addChargesType(k))
-                    //k.magaya__Status = sanitize(k.magaya__Status)
-                    //if (!_.isEmpty(k.Account)) {
-                    //}
-                })
+        $(".module_search").click(function(e) {
 
-            })
+            let value = $(this).attr("data-module")
+            storeCurrentModule.dispatch(addCurrentModule(value))
+
+            storeChargesDef.dispatch(getCurrentItemDef({module: value}))
+            ZOHO.CRM.API.getAllRecords({Entity:currentModule,sort_order:"desc",per_page:250,page:1})
+                .then(function(data){
+                    let charges_type = data.data;
+                    return charges_type;
+                })
+                .then(function(charges_type) {
+                    //sanitizer
+                    $.map(charges_type, function(k, v) {
+                        k.Name = sanitize(k.Name)
+                        storeCrm.dispatch(addItemCrm(k))
+
+                        //k.magaya__Status = sanitize(k.magaya__Status)
+                        //if (!_.isEmpty(k.Account)) {
+                        //}
+                    })
+
+                })
+        })
+        getChargesDefinition()
+        getWorkingPorts()
+          //Las 100 primeras mQuotes
+
     })
 
     ZOHO.embeddedApp.init()

@@ -22,6 +22,7 @@ class APIController extends Controller
     public function execMethod(Request $request)
     {
         $method = $request->get('method');
+
         $data = $request->get('data');
 
         //$this->validateData($method, $data);
@@ -95,7 +96,7 @@ class APIController extends Controller
     *endpoint getPorts
     * work in progress
     */
-    public function GetWorkingPorts(Request $request) :array
+    /*public function GetWorkingPorts(Request $request) :array
     {
 
         $result = $this->magayaApi->GetWorkingPorts();
@@ -103,7 +104,7 @@ class APIController extends Controller
         return [
             'data' => simplexml_load_string($result['ports_list_xml'])
         ];
-    }
+    }*/
 
 
     /*
