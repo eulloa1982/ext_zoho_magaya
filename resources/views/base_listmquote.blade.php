@@ -89,7 +89,6 @@
     <script src="{{ url('js/store/storeCharges.js') }}"></script>
     <script src="{{ url('js/store/storeOrganization.js') }}"></script>
     <script src="{{ url('js/store/storeDeal.js') }}"></script>
-    <script src="{{ url('js/store/storePorts.js') }}"></script>
 
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersAccounts.js') }}"></script>
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersCharges.js') }}"></script>

@@ -5,21 +5,21 @@ storeChargesDef.subscribe(() => {
     let content = ''
     console.log("Magaya items status", u)
     $("#sortable-magaya").empty();
-    if (!_.isEmpty(u.currentItems)) {
-        $.map(u.currentItems, function(k, v) {
+    if (!_.isEmpty(u.chargesDef) && u.active) {
+        $.map(u.chargesDef, function(k, v) {
             //if (k.AccountDefinition.Type === "Income") {
-                content += `<label class="list-group-item" data-id="${v}"><div class="sm">
+                content = `<label class="list-group-item" data-id="${v}"><div class="sm">
                 <input data-id="${v}" class="form-check-magaya" type="checkbox" value="">
                 </div>${k.Code}  ${k.Description}</label>`
             //}
-
+            $("#sortable-magaya").append(content);
         })
-        $("#sortable-magaya").append(content);
+
     }
 
-    if (!_.isEmpty(u.singleChargeDef)) {
+    /*if (!_.isEmpty(u.singleChargeDef)) {
         chargeDef = u.singleChargeDef
-    }
+    }*/
 
 })
 
