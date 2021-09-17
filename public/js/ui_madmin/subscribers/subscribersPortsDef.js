@@ -4,8 +4,9 @@ storePortsDef.subscribe(() => {
     let active = storePortsDef.getState().active;
 
     console.log("Ports status now", portsA)
+    console.log("Ports active now", active)
 
-    $("#sortable-magaya").empty();
+    $("#sortable-magaya-ports").empty();
     if (!_.isEmpty(portsA) && active) {
         let content = ''
         $.map(portsA, function(k, v) {
@@ -14,7 +15,7 @@ storePortsDef.subscribe(() => {
                 <input data-id="${v}" class="form-check-magaya" type="checkbox" value="">
                 </div>${k.Name}  ${k.Country}</label>`
             //}
-            $("#sortable-magaya").append(content);
+            $("#sortable-magaya-ports").append(content);
         })
 
     }

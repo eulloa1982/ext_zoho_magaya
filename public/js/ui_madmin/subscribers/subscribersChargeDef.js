@@ -4,7 +4,7 @@ storeChargesDef.subscribe(() => {
     let u = storeChargesDef.getState();
     let content = ''
     console.log("Magaya items status", u)
-    $("#sortable-magaya").empty();
+    $("#sortable-magaya-charges").empty();
     if (!_.isEmpty(u.chargesDef) && u.active) {
         $.map(u.chargesDef, function(k, v) {
             //if (k.AccountDefinition.Type === "Income") {
@@ -12,7 +12,7 @@ storeChargesDef.subscribe(() => {
                 <input data-id="${v}" class="form-check-magaya" type="checkbox" value="">
                 </div>${k.Code}  ${k.Description}</label>`
             //}
-            $("#sortable-magaya").append(content);
+            $("#sortable-magaya-charges").append(content);
         })
 
     }

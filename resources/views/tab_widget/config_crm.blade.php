@@ -99,7 +99,8 @@
             </div>
             <label><h5 class="list-group-item active">Magaya</h5></label>
             <!--div class="import-all-charges" style="display: inline" data-bs-toggle="tooltip" data-bs-placement="right" title="Export all charges"><i class="fa fa-database" aria-hidden="true"></i></div-->
-            <ul id="sortable-magaya" class="list-group connectedSortable">
+            <ul id="sortable-magaya-charges" class="list-group connectedSortable"></ul>
+            <ul id="sortable-magaya-ports" class="list-group connectedSortable">
             </ul>
         </div>
     </div>
