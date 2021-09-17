@@ -561,9 +561,10 @@ $(document).ready(function(){
             //"magaya__ContactState": $("input[name=Mailing_State]").val().replace(/[^a-zA-Z0-9]/g, ' '),
             //"magaya__ContactStreet": $("input[name=Mailing_Street]").val().replace(/[^a-zA-Z0-9]/g, ' '),
             //"magaya__ContactCity": $("input[name=Mailing_Zip]").val().replace(/[^a-zA-Z0-9]\#\./g, ' '),
-            "magaya__ContactEmail": $("input[name=magaya__ContactEmail]").val().replace(/[^a-zA-Z0-9]\.\@/g, ' '),
-            "magaya__ContactMobile": $("input[name=magaya__ContactMobile]").val().replace(/[^a-zA-Z0-9]/g, ' '),
-            "magaya__ContactHomePhone": $("input[name=magaya__ContactPhone]").val().replace(/[^a-zA-Z0-9]/g, ' '),
+            "magaya__ContactEmail": sanitize($("input[name=magaya__ContactEmail]").val()),
+            "magaya__ContactMobile": sanitize($("input[name=magaya__ContactMobile]").val()),
+            "magaya__ContactHomePhone": sanitize($("input[name=magaya__ContactPhone]").val()),
+            "magaya__ContactName": sanitize($("select[name=magaya__Representative] option:selected").text())
 
         }
 
