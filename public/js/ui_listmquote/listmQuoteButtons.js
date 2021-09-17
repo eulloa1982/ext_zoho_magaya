@@ -449,11 +449,10 @@ $(document).ready(function(){
         APIData: recordData
     }
 
-    //insertind data, get the id and insert items and charges
+    //updating data
     ZOHO.CRM.API.updateRecord(config)
         .then(function(response) {
             data = response.data;
-            console.log("Update data", response)
             let id = 0;
             $.each(data, function(key, valor) {
                 id = valor['details']['id'];

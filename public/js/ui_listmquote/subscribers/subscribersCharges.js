@@ -4,14 +4,18 @@ $("#info-charge").html("Loading, please wait...");
 //get one charge
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
+    console.log("Single charge", u)
     if (!_.isEmpty(u)) {
         let k = parseInt(u[0])
         //construir los campos y la data
         let id = 0;
         //find id charge
+        let applyToName = ''
         $.map(u[1], function(k, v) {
             id = u[1].id
+            applyToName = u[1].magaya__ApplyToAccounts.name
         })
+
 
         let data_module = data_module_flag_charge ? "table-charges-new" : "table-charges"
         let button_type = data_module_flag_charge ? "updateChargeNew" : "updateCharge"
@@ -21,6 +25,7 @@ storeCharge.subscribe(() => {
         let append = `
             <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
             <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
+            <h4 style="color: red; font-weigth: bold">Apply To: ${applyToName}</h4>
         `
 
         $.map(u[1], function(k, v) {
@@ -30,7 +35,9 @@ storeCharge.subscribe(() => {
                 if (_.has(CHARGES_FIELDS, [v, 'type']))
                     type = "number";
 
-                input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}"/>`
+                let editable = _.get(CHARGES_FIELDS, [v, 'editable'])
+
+                input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" ${editable}/>`
 
                 let field = _.get(CHARGES_FIELDS, [v, 'field'])
                 let values = _.has(CHARGES_FIELDS, [v, "values"]) ? _.get(CHARGES_FIELDS, [v, 'values']) : ''
