@@ -2,6 +2,7 @@ var singleAccount = []
 //get one charge
 storeAccounts.subscribe(() => {
     let u = storeAccounts.getState();
+    console.log("Account state nowi", u)
     singleAccount = u.singleAccount
     let accountQuote = u.quoteAccount
     //fill data address in quote
@@ -12,8 +13,8 @@ storeAccounts.subscribe(() => {
                 $(`select[name=${v}]`).val(k)
             }
         })
-       // $("select[name=Account]").val(accountQuote.id)
-       $(`<option value='${accountQuote.id}' selected>${accountQuote.Account_Name}</option>`).appendTo("select[name=Account]");
+        $("select[name=Account]").val(accountQuote.id)
+      // $(`<option value='${accountQuote.id}' selected>${accountQuote.Account_Name}</option>`).appendTo("select[name=Account]");
 
     }
 
@@ -39,15 +40,16 @@ storeAccounts.subscribe(() => {
 
 
    //get all accounts
-   let accounts = u.allAccounts
-   if (!_.isEmpty(accounts)) {
+   //let accounts = u.allAccounts
+   /*if (!_.isEmpty(u.allAccounts)) {
        $("select[name=Account]").empty()
        $(`<option></option>`).appendTo("select[name=Account]")
 
-       $.map(accounts, function(k, v) {
-           $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]")
+       $.map(u.allAccounts, function(k, v) {
+            if (!_.isEmpty(k.magaya__mEntityType) && k.magaya__mEntityType.trim() === "Customer")
+                $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]")
        })
-   }
+   }*/
 
 })
 

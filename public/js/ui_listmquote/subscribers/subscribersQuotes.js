@@ -6,7 +6,6 @@ var quoteXML = []
 storeQuote.subscribe(() => {
     let u = storeQuote.getState()
     quoteXML = u.singleQuote
-    console.log("State quotes noww", u)
     //search quote by id
     if (!_.isEmpty(u.quotes2)) {
         let append = ''
@@ -40,7 +39,6 @@ storeQuote.subscribe(() => {
 
             $.map(dataQuotes, function(v) {
                 let mt =  v["Modified_Time"]
-                console.log("Time", mt)
                 //primera porcion
                 mt = mt.split("T")
                 v["Modified_Time"] = `${mt[0]}`

@@ -1,7 +1,6 @@
 //get one charge
 storeCrm.subscribe(() => {
     let u = storeCrm.getState();
-    console.log(" Items on Crm", u)
     if (!_.isEmpty(u.itemsCrm)) {
         $("#sortable-crm").empty()
         let content = ``
@@ -10,6 +9,7 @@ storeCrm.subscribe(() => {
                 content += ` <label class="list-group-item"><div class="sm">
                 <input data-id="${k.id}" class="form-check-crm" type="checkbox" value="">
                 </div>${k.Name}</label>`
+
             }
 
         })

@@ -36,7 +36,7 @@ $(document).ready(function(){
                 Utils.unblockUI()
             })
         //Packages Types
-        ZOHO.CRM.API.getAllRecords({Entity:"magaya__Package_Types",sort_order:"asc",per_page:20,page:1})
+        ZOHO.CRM.API.getAllRecords({Entity:"magaya__Package_Types",sort_order:"asc",per_page:120,page:1})
             .then(function(data){
                 $("#select-package").empty();
                 $.map (data.data, function (k, i){
@@ -62,7 +62,7 @@ $(document).ready(function(){
                     var accountId = k.id;
                     k.Account_Name = sanitize(k.Account_Name)
                     if (k.magaya__mEntityType === "Carrier") {
-                        $(`<option value='${k.id}'>${k.Account_Name}</option>`).appendTo("select[name=Carrier]");
+                        $(`<option value='${k.Account_Name}'>${k.Account_Name}</option>`).appendTo("select[name=Carrier]");
 
                     } else {
                         $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
@@ -78,6 +78,14 @@ $(document).ready(function(){
             .then(function(response){
                 storeAccounts.dispatch(addContact(response.data))
             })
+
+        /*ZOHO.CRM.API.searchRecords({Entity: "magaya__Ports", })
+            .then(function(response){
+                console.log("Ports", response.data)
+                storePorts.dispatch(addPorts(response.data))
+                //$(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
+
+            })*/
 
         //get all records of the given module
         ZOHO.CRM.API.getAllRecords({Entity: "Deals", sort_order: "asc"})

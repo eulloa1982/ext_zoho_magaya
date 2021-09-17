@@ -89,12 +89,14 @@
     <script src="{{ url('js/store/storeCharges.js') }}"></script>
     <script src="{{ url('js/store/storeOrganization.js') }}"></script>
     <script src="{{ url('js/store/storeDeal.js') }}"></script>
+    <script src="{{ url('js/store/storePorts.js') }}"></script>
 
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersAccounts.js') }}"></script>
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersCharges.js') }}"></script>
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersItems.js') }}"></script>
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersQuotes.js') }}"></script>
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersDeal.js') }}"></script>
+    <script src="{{ url('js/ui_listmquote/subscribers/subscribersPorts.js') }}"></script>
 
     <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteInitial.js') }}" async="async"></script>
     <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuote.js') }}" async="async"></script>

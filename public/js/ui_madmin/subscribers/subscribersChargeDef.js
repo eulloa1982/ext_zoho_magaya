@@ -3,7 +3,7 @@ var chargeDef = []
 storeChargesDef.subscribe(() => {
     let u = storeChargesDef.getState();
     let content = ''
-    console.log("Magaya items status", u.currentItems)
+    console.log("Magaya items status", u)
     $("#sortable-magaya").empty();
     if (!_.isEmpty(u.currentItems)) {
         $.map(u.currentItems, function(k, v) {

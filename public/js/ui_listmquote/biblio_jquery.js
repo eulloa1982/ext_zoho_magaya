@@ -130,7 +130,7 @@ function limpiar_form() {
     $("select[name=magaya__ConsigneeName]").val("")
     $("select[name=magaya__Shipper]").val("")
     $("select[name=Deal]").val("")
-    $("select[name=Account]").removeAttr("selected")
+    //$("select[name=Account]").removeAttr("selected")
     // expected output: 10*/
     let elementos = document.querySelectorAll("input[type=text], input[id=magaya__Description], select[name=magaya__TransportationMode], select[name=magaya__Direction]")
     elementos.forEach((elemento) => {

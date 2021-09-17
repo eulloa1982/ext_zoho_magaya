@@ -43,6 +43,8 @@ const EMPTY_ITEMS_CRM = "EMPTY_ITEMS_CRM"
 const ADD_PORTS_DEF = "ADD_PORTS_DEF"
 const GET_CURRENT_ITEM_DEF = "GET_CURRENT_ITEM_DEF"
 
+const ADD_PORTS = "ADD_PORTS"
+
 const ADD = "ADD"
 const REST = "REST"
 const FIND = "FIND"
@@ -71,4 +73,13 @@ const ITEMS_FIELDS = {
     "magaya__Weigth": {"field": "Weigth", "type": "number"}, "magaya__Status": {"field": "Status", "values":["InQuote"]}, "magaya__Height": {"field": "Height", "type": "number"},
     "magaya__Pieces": {"field": "Pieces", "type": "number"}, "magaya__Measure_System": {"field": "Measure System", "values": ["International"]},
     "magaya__Volume": {"field": "Volume", "type": "number"}
+}
+
+
+const ITEMS_MADMIN_PORTS = {
+    "Name": {},
+}
+
+const ITEMS_MADMIN_CHARGES = {
+    "Name": {}
 }
