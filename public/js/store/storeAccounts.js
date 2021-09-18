@@ -3,7 +3,8 @@ const initialStateAccount = {
     contacts: [],
     contactList: [],
     singleContact:[],
-    singleAccount:[],
+    accountShipper:[],
+    accountConsignee:[],
     quoteAccount:[],
     allAccounts: []
   };
@@ -38,13 +39,23 @@ function reducerAccounts (state = initialStateAccount, actions)  {
         }
 
 
-        case GET_ACCOUNT: {
+        case SET_ACCOUNT_SHIPPER: {
             let byId = actions.payload.id;
-            state.singleAccount = initialStateAccount.singleAccount
+            state.accountShipper = initialStateAccount.accountShipper
 
             return {
                 ...state,
-                singleAccount: state.accounts.filter(account => account.id === byId)
+                accountShipper: state.accounts.filter(account => account.id === byId)
+            }
+        }
+
+        case SET_ACCOUNT_CONSIGNEE: {
+            let byId = actions.payload.id;
+            state.accountConsignee = initialStateAccount.accountConsignee
+
+            return {
+                ...state,
+                accountConsignee: state.accounts.filter(account => account.id === byId)
             }
         }
 
@@ -102,7 +113,7 @@ function reducerAccounts (state = initialStateAccount, actions)  {
         case EMPTY_ACCOUNTS: {
             state.contactList = initialStateAccount.contactList
             state.singleContact = initialStateAccount.singleContact
-            state.singleAccount = initialStateAccount.singleAccount
+            //state.singleAccount = initialStateAccount.singleAccount
             state.quoteAccount = initialStateAccount.quoteAccount
             state.allAccounts = initialStateAccount.allAccounts
             return {
@@ -188,4 +199,12 @@ function getAllAccounts() {
 
 function emptyAllAccounts() {
     return { type: EMPTY_ALL_ACCOUNTS };
+}
+
+function setAccountShipper(payload) {
+    return {type: SET_ACCOUNT_SHIPPER, payload}
+}
+
+function setAccountConsignee(payload) {
+    return {type: SET_ACCOUNT_CONSIGNEE, payload}
 }

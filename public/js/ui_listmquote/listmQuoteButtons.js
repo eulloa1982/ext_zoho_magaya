@@ -228,13 +228,6 @@ $(document).ready(function(){
                                 console.log("Update quote amount", data)
                             })
 
-                            /*var func_name = "magaya__calculateAmountCharge";
-                            var req_data ={
-                                "charge_id" : idCharge
-                            };
-                            ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
-                                console.log("Update total amount", data)
-                            })*/
 
                             let message = ": Added new Charge item"
                             storeSuccess.dispatch(addSuccess({message: message}))
@@ -540,20 +533,21 @@ $(document).ready(function(){
             "Name": sanitize($(":input[id=NameQuote]").val()),
             "Account": accountId,
             "magaya__Deal": $(":input[name=Deal] option:selected").val() > 0 ? $(":input[name=Deal] option:selected").val() : '',
-            "magaya__Shipper": $(":input[name=magaya__Shipper] option:selected").text().replace(/[^a-zA-Z0-9]/g, ' '),
+            "magaya__Shipper": sanitize($(":input[name=magaya__Shipper] option:selected").text()),
+            "magaya__ShipperAddress": `${sanitize($("input[name=Shipper_Street]").val())} / ${sanitize($("input[name=Shipper_City]").val())} / ${sanitize($("input[name=Shipper_State]").val())} / ${sanitize($("input[name=Shipper_Country]").val())}`,
             "magaya__ExpirationDate": expirationDateFinal,
             "magaya__Direction": $(":input[name=magaya__Direction]").val(),
             "magaya__TransportationMode": $("select[name=magaya__TransportationMode] option:selected").val(),
             "magaya__Description": sanitize($("#magaya__Description").val()),
             "magaya__Service": $("select[name=Service]").val(),
-            "magaya__ConsigneeName": $("select[name=magaya__ConsigneeName] option:selected").text(),
-            //"magaya__Stage": $("select[name=Stage] option:selected").val(),
+            "magaya__ConsigneeName": sanitize($("select[name=magaya__ConsigneeName] option:selected").text()),
+            "magaya__ConsigneeAddress": `${sanitize($("input[name=Consignee_Street]").val())} / ${sanitize($("input[name=Consignee_City]").val())} / ${sanitize($("input[name=Consignee_State]").val())} / ${sanitize($("input[name=Consignee_Country]").val())}`,
             "magaya__Carrier": $("select[name=magaya__Carrier] option:selected").val(),
             "magaya__DestinationReceipt": sanitize($("input[name=magaya__DestinationReceipt]").val()),
             "magaya__OriginReceipt": sanitize($("input[name=magaya__OriginReceipt]").val()),
             "magaya__DestinationPrecarriageBy": sanitize($("input[name=magaya__DestinationPrecarriageBy]").val()),
             "magaya__OriginPrecarriageBy": sanitize($("input[name=magaya__OriginPrecarriageBy]").val()),
-           "magaya__Status": $("select[name=magaya__Status] option:selected").val(),
+            "magaya__Status": $("select[name=magaya__Status] option:selected").val(),
             "magaya__Representative": contact,
             //"magaya__ContactCity": $("input[name=Mailing_City]").val().replace(/[^a-zA-Z]/g, ' '),
             //"magaya__ContactCountry": $("input[name=Mailing_Country]").val().replace(/[^a-zA-Z]/g, ' '),
