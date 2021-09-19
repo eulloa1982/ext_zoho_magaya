@@ -79,6 +79,7 @@ $(document).ready(function(){
                 storeAccounts.dispatch(addContact(response.data))
             })
 
+
         ZOHO.CRM.API.getAllRecords({Entity: "magaya__Ports"})
             .then(function(response){
                 storePorts.dispatch(addPorts(response.data))

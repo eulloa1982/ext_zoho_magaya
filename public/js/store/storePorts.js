@@ -1,5 +1,6 @@
 const initialStatePorts = {
     ports:[],
+    portsByType: [],
     currentPorts:[]
 }
 
@@ -11,11 +12,21 @@ const reducerPorts = (state = initialStatePorts, actions) => {
     switch (actions.type) {
 
         case ADD_PORTS: {
+            state.ports = initialStatePorts.ports
             return {
                 ...state,
                 ports: state.ports.concat(actions.payload),
-                currentPorts: state.ports
+                //currentPorts: state.ports
             };
+        }
+
+        case SEARCH_PORTS_BY_TYPE: {
+            const search = actions.payload.type
+            const newArray = [...state.ports]
+            return {
+                ...state,
+                portsByType: newArray.filter(port => port[`${search}`] == true)
+            }
         }
 
         /*case ADD_PORTS_DEF: {
@@ -109,5 +120,7 @@ function addPorts(payload){
     return {type: ADD_PORTS, payload}
 }
 
-
+function searchByType(payload) {
+    return {type: SEARCH_PORTS_BY_TYPE, payload}
+}
 

@@ -113,9 +113,10 @@
 <div id="mquoteModal" class="modal fade" id="edit" tabindex="-10" role="dialog" aria-labelledby="edit" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 			<div class="modal-dialog">
 				<div class="modal-content">
+
 					<div class="modal-header" style="background: #0b3355;color: white;">
 						<h4 class="modal-title custom_align" style="font-weight: bold;" id="Heading">Edit mQuote</h4>
-						<!--button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button-->
+						<button type="button" class="close cerrar-modal" aria-hidden="true"><span class="material-icons">highlight_off</span></button>
 
 					</div>
 					<div class="modal-body">
@@ -449,13 +450,13 @@
 									</div>
 									<div class="row" style="margin-bottom:20px; margin-top:20px;">
 										<div class="col-md-6">
-											<label class="col-md-12" style="font-weight: bold;";>Port of Loading</label>
+											<label class="col-md-12" style="font-weight: bold;";>Port of Loading <span class="existingPorts"></span></label>
 											<select name="magaya__PortofLoading" class="form-control">
 												<option></option>
 											</select>
 										</div>
 										<div class="col-md-6">
-											<label class="col-md-12" style="font-weight: bold;">Port of Unloading</label>
+											<label class="col-md-12" style="font-weight: bold;">Port of Unloading <span class="existingPorts"></span></label>
 											<select name="magaya__PortofUnloading" class="form-control">
 												<option></option>
 											</select>
@@ -824,7 +825,7 @@
 
                             <button type="button" id="Save" class="btn btn-primary" style="width:80px;margin-right: 20px; background-color: #0b3355">Save</button>
                             <button type="button" id="New" class="btn btn-primary" style="width:80px;margin-right: 20px; background-color: #0b3355">Save</button>
-                            <button type="button" class="btn btn-danger cerrar" id="cerrar-modal" style="width:80px;">Cancel</button>
+                            <button type="button" class="btn btn-danger cerrar-modal" style="width:80px;">Cancel</button>
 						</div>
 					</div>
 			  </div>
