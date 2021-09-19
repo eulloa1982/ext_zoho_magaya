@@ -2,7 +2,6 @@ var singleAccount = []
 //get one charge
 storeAccounts.subscribe(() => {
     let u = storeAccounts.getState();
-    console.log("State accounts now", u)
     singleAccount = u.singleAccount
     let accountQuote = u.quoteAccount
     //fill data address in quote
@@ -14,7 +13,6 @@ storeAccounts.subscribe(() => {
             }
         })
         $("select[name=Account]").val(accountQuote.id)
-      // $(`<option value='${accountQuote.id}' selected>${accountQuote.Account_Name}</option>`).appendTo("select[name=Account]");
 
     }
 

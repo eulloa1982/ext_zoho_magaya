@@ -434,6 +434,9 @@ $(document).ready(function(){
         "magaya__DestinationPrecarriageBy": (!_.isEmpty($("input[name=magaya__DestinationPrecarriageBy]").val())) ? $("input[name=magaya__DestinationPrecarriageBy]").val().replace(/[^a-zA-Z0-9]/g, ' ') : '',
         "magaya__OriginPrecarriageBy": (!_.isEmpty(($("input[name=magaya__OriginPrecarriageBy]").val()))) ? $("input[name=magaya__OriginPrecarriageBy]").val().replace(/[^a-zA-Z0-9]/g, ' ') : '',
         "magaya__Status": $("select[name=magaya__Status] option:selected").val(),
+        "magaya__PortofLoading": $("select[name=magaya__PortofLoading]").val(),
+        "magaya__PortofUnloading": $("select[name=magaya__PortofUnloading]").val(),
+
     }
 
 
@@ -549,6 +552,8 @@ $(document).ready(function(){
             "magaya__OriginPrecarriageBy": sanitize($("input[name=magaya__OriginPrecarriageBy]").val()),
             "magaya__Status": $("select[name=magaya__Status] option:selected").val(),
             "magaya__Representative": contact,
+            "magaya__PortofLoading": $("select[name=Port_Loading]").val(),
+            "magaya__PortofUnloading": $("select[name=Port_Unloading]").val(),
             //"magaya__ContactCity": $("input[name=Mailing_City]").val().replace(/[^a-zA-Z]/g, ' '),
             //"magaya__ContactCountry": $("input[name=Mailing_Country]").val().replace(/[^a-zA-Z]/g, ' '),
             //"magaya__ContactState": $("input[name=Mailing_State]").val().replace(/[^a-zA-Z0-9]/g, ' '),

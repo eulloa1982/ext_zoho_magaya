@@ -79,13 +79,11 @@ $(document).ready(function(){
                 storeAccounts.dispatch(addContact(response.data))
             })
 
-        /*ZOHO.CRM.API.searchRecords({Entity: "magaya__Ports", })
+        ZOHO.CRM.API.getAllRecords({Entity: "magaya__Ports"})
             .then(function(response){
-                console.log("Ports", response.data)
                 storePorts.dispatch(addPorts(response.data))
-                //$(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
 
-            })*/
+            })
 
         //get all records of the given module
         ZOHO.CRM.API.getAllRecords({Entity: "Deals", sort_order: "asc"})

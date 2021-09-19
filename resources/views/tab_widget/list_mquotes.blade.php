@@ -450,13 +450,13 @@
 									<div class="row" style="margin-bottom:20px; margin-top:20px;">
 										<div class="col-md-6">
 											<label class="col-md-12" style="font-weight: bold;";>Port of Loading</label>
-											<select name="Port_Loading" class="form-control">
+											<select name="magaya__PortofLoading" class="form-control">
 												<option></option>
 											</select>
 										</div>
 										<div class="col-md-6">
 											<label class="col-md-12" style="font-weight: bold;">Port of Unloading</label>
-											<select name="Port_Unloading" class="form-control">
+											<select name="magaya__PortofUnloading" class="form-control">
 												<option></option>
 											</select>
 										</div>
