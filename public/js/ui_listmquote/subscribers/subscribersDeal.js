@@ -2,7 +2,7 @@
 storeDeal.subscribe(() => {
     let u = storeDeal.getState()
 
-
+    console.log("Deal state now", u)
     if (!_.isEmpty(u.dealQuote)) {
         $("select[name=Account]").empty()
         let dealQuote = u.dealQuote;
@@ -11,7 +11,7 @@ storeDeal.subscribe(() => {
             accountId = k['Account_Name']['id']
             storeAccounts.dispatch(addQuoteAccount({id: accountId}))
             $("select[name=Account]").append(`<option value="${accountId}" selected>${sanitize(k['Account_Name']["name"])}</option>`)
-
+            $("#magaya__Description").val(sanitize(k["magaya__DescriptionofGoods"]))
 
         })
 

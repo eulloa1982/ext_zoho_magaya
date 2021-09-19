@@ -189,7 +189,7 @@
 
 										</div>
 										<div class="col-md-4">
-											<label class="col-md-12" style="font-weight: bold;">Description</label>
+											<label class="col-md-12" style="font-weight: bold;">Description of Goods</label>
 											<div class="form-group">
                                                 <textarea rows="2" name='magaya__Description' id='magaya__Description' class='form-control no-border'></textarea>
 											</div>
