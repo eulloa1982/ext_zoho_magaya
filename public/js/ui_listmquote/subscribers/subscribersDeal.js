@@ -12,7 +12,8 @@ storeDeal.subscribe(() => {
             storeAccounts.dispatch(addQuoteAccount({id: accountId}))
             $("select[name=Account]").append(`<option value="${accountId}" selected>${sanitize(k['Account_Name']["name"])}</option>`)
             $("#magaya__Description").val(sanitize(k["magaya__DescriptionofGoods"]))
-
+            $("input[name=magaya__Origin]").val(sanitize(k["Origin"]))
+            $("input[name=magaya__Destination]").val(sanitize(k['Destination']))
         })
 
 

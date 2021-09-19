@@ -197,15 +197,25 @@
 									</div>
 									<div class="row" style="margin-bottom:25px;">
 										<div class="col-md-4">
-												<label class="col-md-12" style="font-weight: bold;">Stage</label>
-                                                <select name="magaya__Status" class="form-control no-border">
-                                                    <option value="Draft">Draft</option>
-                                                    <option value="Done">Done</option>
-                                                    <option value="Sent">Sent</option>
-                                                    <option value="Acepted">Acepted</option>
-                                                    <option value="Refused">Refused</option>
-                                                </select>
-                                            </div>
+											<label class="col-md-12" style="font-weight: bold;">Stage</label>
+                                            <select name="magaya__Status" class="form-control no-border">
+                                                <option value="Draft">Draft</option>
+                                                <option value="Done">Done</option>
+                                                <option value="Sent">Sent</option>
+                                                <option value="Acepted">Acepted</option>
+                                                <option value="Refused">Refused</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="col-md-12" style="font-weight: bold;">Origin</label>
+                                            <input type="text" name="magaya__Origin" class="form-control"/>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="col-md-12" style="font-weight: bold;">Destination</label>
+                                            <input type="text" name="magaya__Destination" class="form-control" />
+                                        </div>
 
 									</div>
 								</div>

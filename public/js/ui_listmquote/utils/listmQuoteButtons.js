@@ -436,7 +436,8 @@ $(document).ready(function(){
         "magaya__Status": $("select[name=magaya__Status] option:selected").val(),
         "magaya__PortofLoading": $("select[name=magaya__PortofLoading]").val(),
         "magaya__PortofUnloading": $("select[name=magaya__PortofUnloading]").val(),
-
+        "magaya__Destination": sanitize($("input[name=magaya__Destination]").val()),
+        "magaya__Origin": sanitize($("input[name=magaya__Origin]").val())
     }
 
 
@@ -554,6 +555,8 @@ $(document).ready(function(){
             "magaya__Representative": contact,
             "magaya__PortofLoading": $("select[name=Port_Loading]").val(),
             "magaya__PortofUnloading": $("select[name=Port_Unloading]").val(),
+            "magaya__Destination": sanitize($("input[name=magaya__Destination]").val()),
+            "magaya__Origin": sanitize($("input[name=magaya__Origin]").val()),
             //"magaya__ContactCity": $("input[name=Mailing_City]").val().replace(/[^a-zA-Z]/g, ' '),
             //"magaya__ContactCountry": $("input[name=Mailing_Country]").val().replace(/[^a-zA-Z]/g, ' '),
             //"magaya__ContactState": $("input[name=Mailing_State]").val().replace(/[^a-zA-Z0-9]/g, ' '),
