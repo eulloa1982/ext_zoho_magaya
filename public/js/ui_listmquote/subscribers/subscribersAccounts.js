@@ -37,16 +37,18 @@ storeAccounts.subscribe(() => {
    }
 
 
-    let accountShipper = storeAccounts.getState().accountShipper;
+    let accountShipper = u.accountShipper;
     if (!_.isEmpty(accountShipper)) {
+        $("select[name=magaya__Shipper]").val(accountShipper[0].id)
         $("input[name=Shipper_City]").val(accountShipper[0].Shipping_City)
         $("input[name=Shipper_State").val(accountShipper[0].Shipping_State)
         $("input[name=Shipper_Country]").val(accountShipper[0].Shipping_Country)
         $("input[name=Shipper_Street]").val(accountShipper[0].Shipping_Street)
     }
 
-    let accountConsignee = storeAccounts.getState().accountConsignee;
+    let accountConsignee = u.accountConsignee;
     if (!_.isEmpty(accountConsignee)) {
+        $("select[name=magaya__ConsigneeName]").val(accountConsignee[0].id)
         $("input[name=Consignee_City]").val(accountConsignee[0].Shipping_City)
         $("input[name=Consignee_State").val(accountConsignee[0].Shipping_State)
         $("input[name=Consignee_Country]").val(accountConsignee[0].Shipping_Country)

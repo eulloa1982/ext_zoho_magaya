@@ -705,19 +705,19 @@
 											<label class="col-md-12" style="font-weight: bold;">Customer Rol</label>
 											<!-- Material inline 1 -->
 											<div class="form-check form-check-inline">
-											  <input type="radio" class="form-check-input" name="inlineMaterialRadiosExample">
+											  <input type="checkbox" class="form-check-input" id="rol_shipper" name="inlineMaterialRadiosExample">
 											  <label class="form-check-label" for="materialInline1">Shipper</label>
 											</div>
 
 											<!-- Material inline 2 -->
 											<div class="form-check form-check-inline">
-											  <input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
+											  <input type="checkbox" class="form-check-input" id="rol_consignee" name="inlineMaterialRadiosExample">
 											  <label class="form-check-label" for="materialInline2">Consignee</label>
 											</div>
 
 											<!-- Material inline 3 -->
 											<div class="form-check form-check-inline">
-											  <input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
+											  <input type="checkbox" class="form-check-input" id="rol_other" name="inlineMaterialRadiosExample">
 											  <label class="form-check-label" for="materialInline3">Other</label>
 											</div>
 										</div>
