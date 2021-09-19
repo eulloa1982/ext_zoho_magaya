@@ -1,12 +1,12 @@
-const initialStateOrganization = {
+const initialStateO = {
     organization: [],
   };
 
 
-function reducerOrganization (state = initialStateOrganization, actions)  {
+function reducerOrganization (state = initialStateO, actions)  {
 
     switch (actions.type) {
-        case ADD: {
+        case ADD_ORG: {
             //agregar validacion del account
             return Object.assign({}, state, {
                 organization: state.organization.concat(actions.payload)
@@ -36,6 +36,6 @@ const storeOrganization = Redux.createStore(reducerOrganization);
 /////////////////////////////////////////////////////
 
 function addOrganization(payload) {
-    return { type: ADD, payload };
+    return { type: ADD_ORG, payload };
 }
 

@@ -2,7 +2,6 @@ var singleAccount = []
 //get one charge
 storeAccounts.subscribe(() => {
     let u = storeAccounts.getState();
-    console.log("Account state nowi", u)
     singleAccount = u.singleAccount
     let accountQuote = u.quoteAccount
     //fill data address in quote
@@ -14,7 +13,6 @@ storeAccounts.subscribe(() => {
             }
         })
         $("select[name=Account]").val(accountQuote.id)
-      // $(`<option value='${accountQuote.id}' selected>${accountQuote.Account_Name}</option>`).appendTo("select[name=Account]");
 
     }
 
@@ -39,6 +37,21 @@ storeAccounts.subscribe(() => {
    }
 
 
+    let accountShipper = storeAccounts.getState().accountShipper;
+    if (!_.isEmpty(accountShipper)) {
+        $("input[name=Shipper_City]").val(accountShipper[0].Shipping_City)
+        $("input[name=Shipper_State").val(accountShipper[0].Shipping_State)
+        $("input[name=Shipper_Country]").val(accountShipper[0].Shipping_Country)
+        $("input[name=Shipper_Street]").val(accountShipper[0].Shipping_Street)
+    }
+
+    let accountConsignee = storeAccounts.getState().accountConsignee;
+    if (!_.isEmpty(accountConsignee)) {
+        $("input[name=Consignee_City]").val(accountConsignee[0].Shipping_City)
+        $("input[name=Consignee_State").val(accountConsignee[0].Shipping_State)
+        $("input[name=Consignee_Country]").val(accountConsignee[0].Shipping_Country)
+        $("input[name=Consignee_Street]").val(accountConsignee[0].Shipping_Street)
+    }
    //get all accounts
    //let accounts = u.allAccounts
    /*if (!_.isEmpty(u.allAccounts)) {

@@ -50,7 +50,7 @@ $(document).ready(function(){
         ZOHO.CRM.CONFIG.getCurrentUser().then(function(data){
             $.map (data.users, function (k, i) {
                 currentUser = k.full_name;
-                $(":input[name=magaya__IssuedByName]").val(k.full_name);
+                //$(":input[name=magaya__IssuedByName]").val(k.full_name);
                 $(":input[name=magaya__SellerName]").val(k.full_name);
             })
 
@@ -66,8 +66,8 @@ $(document).ready(function(){
 
                     } else {
                         $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
-                        $(`<option value="${k.Account_Name}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Shipper]");
-                        $(`<option value="${k.Account_Name}">${k.Account_Name}</option>`).appendTo("select[name=magaya__ConsigneeName]");
+                        $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Shipper]");
+                        $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__ConsigneeName]");
 
                     }
                 })
@@ -79,13 +79,11 @@ $(document).ready(function(){
                 storeAccounts.dispatch(addContact(response.data))
             })
 
-        /*ZOHO.CRM.API.searchRecords({Entity: "magaya__Ports", })
+        ZOHO.CRM.API.getAllRecords({Entity: "magaya__Ports"})
             .then(function(response){
-                console.log("Ports", response.data)
                 storePorts.dispatch(addPorts(response.data))
-                //$(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
 
-            })*/
+            })
 
         //get all records of the given module
         ZOHO.CRM.API.getAllRecords({Entity: "Deals", sort_order: "asc"})
@@ -140,8 +138,8 @@ $(document).ready(function(){
 
         //organization data
         ZOHO.CRM.CONFIG.getOrgInfo().then(function(data){
-            console.log(`Organization`, data.org)
-            //storeOrganization.dispatch(addOrganization())
+            let orgData = data.org[0]
+            localStorage.setItem('organization', JSON.stringify(orgData))
         });
 
     });

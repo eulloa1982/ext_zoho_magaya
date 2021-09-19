@@ -562,10 +562,23 @@ $(document).ready(function(){
             storeDeal.dispatch(getDeal({id: deal}))
         })
 
+        $("select[name=magaya__Shipper]").change(function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            let account = $("select[name=magaya__Shipper]").val();
+            storeAccounts.dispatch(setAccountShipper({id: account}))
+        })
 
 
+        $("select[name=magaya__ConsigneeName]").change(function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
 
+            let account = $("select[name=magaya__ConsigneeName]").val();
+            storeAccounts.dispatch(setAccountConsignee({id: account}))
 
+        })
 
 
 

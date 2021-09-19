@@ -130,12 +130,21 @@ function limpiar_form() {
     $("select[name=magaya__ConsigneeName]").val("")
     $("select[name=magaya__Shipper]").val("")
     $("select[name=Deal]").val("")
+    $("#magaya__Description").val("")
+    $("select[name=magaya__PortofUnloading]").val("")
+    $("select[name=magaya__PortofLoading]").val("")
     //$("select[name=Account]").removeAttr("selected")
     // expected output: 10*/
     let elementos = document.querySelectorAll("input[type=text], input[id=magaya__Description], select[name=magaya__TransportationMode], select[name=magaya__Direction]")
     elementos.forEach((elemento) => {
         elemento.value = ''
     })
+
+    //get org data
+    let organization = JSON.parse(localStorage.getItem('organization'))
+
+    $("input[name=magaya__IssuedByName]").val(organization.company_name)
+    //console.log("Organization", JSON.parse(organization))
 }
 
 
