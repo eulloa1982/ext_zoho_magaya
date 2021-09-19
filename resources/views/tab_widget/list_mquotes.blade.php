@@ -32,7 +32,6 @@
 </div>
 
 
-<div class="container">
     <div class="row">
 		<div class="col-md-12">
 			<div class="container-fluid" style="margin-top: 20px; padding: 0px;">
