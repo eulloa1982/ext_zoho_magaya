@@ -581,7 +581,45 @@ $(document).ready(function(){
         })
 
 
+        $("select[name=magaya__TransportationMode]").change(function(e) {
+            e.preventDefault()
+            e.stopImmediatePropagation()
+            store.dispatch(addActionEdited())
 
+            let idT = $(this).val()
+
+            let method = transpMethods.filter(k => k.id === idT)
+
+            if (!_.isEmpty(method)) {
+                let parentMethod = method[0]['magaya__ParentMethod']
+                let query = ''
+                switch (parentMethod) {
+                    case "Ground":
+                        query = `magaya__Roadway`
+                        break;
+                    case "Air":
+                        query = `magaya__Airway`
+                        break;
+                    case "Rail":
+                        query = `magaya__Railway`
+                        break;
+                    case "Road":
+                        query = `magaya__Roadway`
+                        break;
+                    case "Ocean":
+                        query = `magaya__Waterway`
+                        break;
+                    default:
+                        query = `magaya__Other`
+                        break;
+
+                }
+
+                storePorts.dispatch(searchByType({type: query}))
+
+            }
+
+        })
 
 
 

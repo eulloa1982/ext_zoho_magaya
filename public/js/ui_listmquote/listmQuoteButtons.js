@@ -727,7 +727,7 @@ $(document).ready(function(){
 
 
     //////////////////boton cerrar modal////////////////
-    $("#cerrar-modal").click(function(e) {
+    $(".cerrar-modal").click(function(e) {
         //verifico si hay acciones de edicion
         let actions = store.getState().actionsCounter
         if (actions > 0) {

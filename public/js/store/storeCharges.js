@@ -15,14 +15,14 @@ function reducerCharge (state = initialStateCharge, actions)  {
                 throw new UserException('Mandatory data not found: eigther Charge Name or Client are mandatory');
 
                 return Object.assign({}, state, {
-                charges: state.charges.concat(actions.payload)
-            });
+                    charges: state.charges.concat(actions.payload)
+                });
         }
 
         case ADD_CHARGES_XML: {
             state.chargesOnXml = initialStateCharge.chargesOnXml;
             return Object.assign({}, state, {
-                            chargesOnXml: state.chargesOnXml.concat(actions.payload)
+                chargesOnXml: state.chargesOnXml.concat(actions.payload)
             })
         }
 
@@ -169,9 +169,9 @@ function reducerCharge (state = initialStateCharge, actions)  {
 const storeCharge = Redux.createStore(reducerCharge)
 
 
-storeCharge.subscribe(() => {
+/*storeCharge.subscribe(() => {
     let u = storeCharge.getState()
-})
+})*/
 
 
 ////////////////////////////////////////////////////
