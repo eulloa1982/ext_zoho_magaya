@@ -72,7 +72,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-    <script src="{{ url('js/ui_listmquote/biblio_jquery.js') }}"></script>
+    <script src="{{ url('js/ui_listmquote/utils/biblio_jquery.js') }}"></script>
     <!--script src="{{ url('js/quotation3.js') }}"></script>
     <script src="{{ url('js/quotation_utils3.js') }}"></script-->
     <script src="{{ url('js/utils/magaya_api.js') }}"></script>
@@ -100,9 +100,10 @@
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersPorts.js') }}"></script>
 
     <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteInitial.js') }}" async="async"></script>
-    <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuote.js') }}" async="async"></script>
-    <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteButtons.js') }}" async="async"></script>
-    <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteFormEdit.js') }}" async="async"></script>
+    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuote.js') }}" async="async"></script>
+    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuoteButtons.js') }}" async="async"></script>
+    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuoteFormEdit.js') }}" async="async"></script>
+    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/triggers.js') }}" async="async"></script>
 
     <script src="{{ url('js/ui_listmquote/validators/validators.js') }}"></script>
 

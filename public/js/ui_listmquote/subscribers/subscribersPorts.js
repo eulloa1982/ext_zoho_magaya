@@ -1,6 +1,6 @@
 storePorts.subscribe(() => {
     let u = storePorts.getState();
-    console.log("Ports state nowi", u)
+    //console.log("Ports state nowi", u)
     //fill data address in quote
     $("select[name=magaya__PortofLoading]").empty()
     $("select[name=magaya__PortofUnloading]").empty()
