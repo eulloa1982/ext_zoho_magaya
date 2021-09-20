@@ -43,7 +43,7 @@ storeItem.subscribe(() => {
                     input += `</select>`
                 }
                 append += `<div class="row" style="margin: 5px 5px 5px 5px">
-                <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px">${field}</div>
+                <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">${field}</div>
                 <div data-id="${id}" class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px">${input}</div>
                 </div>`
             }
@@ -92,27 +92,28 @@ storeItem.subscribe(() => {
                 </td>
                 <td class='magaya__Status'>InQuote</td>
                 <td class='Name'>${sanitize(k.Name)}</td>
-                <td class="magaya__Pieces">${k.magaya__Pieces}</td>
-                <td class="magaya__Length">${roundDec(k.magaya__Length)}</td>
-                <td class="magaya__Height">${roundDec(k.magaya__Height)}</td>
-                <td class="magaya__Width">${roundDec(k.magaya__Width)}</td>
-                <td class="magaya__Weigth">${roundDec(k.magaya__Weigth)}</td>
-                <td class="magaya__Volume">${roundDec(k.magaya__Volume)}</td>
+                <td align="right" class="magaya__Pieces">${k.magaya__Pieces}</td>
+                <td align="right" class="magaya__Length">${roundDec(k.magaya__Length)}</td>
+                <td align="right" class="magaya__Height">${roundDec(k.magaya__Height)}</td>
+                <td align="right" class="magaya__Width">${roundDec(k.magaya__Width)}</td>
+                <td align="right" class="magaya__Weigth">${roundDec(k.magaya__Weigth)}</td>
+                <td align="right" class="magaya__Volume">${roundDec(k.magaya__Volume)}</td>
 
                 <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
                 </tr>`);
 
             })
+
+
+
             //get all to international system
-            console.log("Peso international", total_weight_international)
-            console.log("Peso English", total_weight_english)
             totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
             totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
-            $("input[name=Total_Pieces]").val(`${totalPieces}`)
-            $("input[name=Total_Weight]").val(`${roundDec(totalWeight)}`)
-            $("input[name=Total_Volume]").val(`${roundDec(totalVolume)}`)
-
+            $("#table-items-new tbody").append(`<tr><td align="right" colspan="3" class="Delete">Totals</td>
+                                        <td align="right" class="Delete"><strong>${totalPieces}</strong></td><td></td><td></td><td></td>
+                                        <td align="right" class="Delete"><strong>${roundDec(totalWeight)} kg</strong></td>
+                                        <td align="right" class="Delete"><strong>${roundDec(totalVolume)} m3</strong></td></tr>`)
         }
     }
 })
@@ -134,9 +135,6 @@ storeItem.subscribe(() => {
 
         $("#table-items tbody").empty();
         $.each(u, function(i, k) {
-            //let volume = parseFloat(k.magaya__Length) * parseFloat(k.magaya__Height) * parseFloat(k.magaya__Weigth);
-            //let quote = k.magaya__SQuote_Name.id;
-
             let measure_system = "in";
             let measure_system_volume = "lb";
             if (k.magaya__Measure_System === "International") {
@@ -162,12 +160,12 @@ storeItem.subscribe(() => {
             </td>
             <td class="magaya__Status">InQuote</td>
             <td class='Name'>${k.Name}</td>
-            <td class="magaya__Pieces">${k.magaya__Pieces}</td>
-            <td class="magaya__Length">${k.magaya__Length}</td>
-            <td class="magaya__Height">${k.magaya__Height}</td>
-            <td class="magaya__Width">${k.magaya__Width}</td>
-            <td class="magaya__Weigth">${k.magaya__Weigth}</td>
-            <td class="magaya__Volume">${k.magaya__Volume}</td>
+            <td align="right" class="magaya__Pieces">${k.magaya__Pieces}</td>
+            <td align="right" class="magaya__Length">${k.magaya__Length}</td>
+            <td align="right" class="magaya__Height">${k.magaya__Height}</td>
+            <td align="right" class="magaya__Width">${k.magaya__Width}</td>
+            <td align="right" class="magaya__Weigth">${k.magaya__Weigth}</td>
+            <td align="right" class="magaya__Volume">${k.magaya__Volume}</td>
 
             <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
             </tr>`
@@ -178,8 +176,9 @@ storeItem.subscribe(() => {
         totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
-        $("input[name=Total_Pieces]").val(`${roundDec(totalPieces)}`)
-        $("input[name=Total_Weight]").val(`${roundDec(totalWeight)}`)
-        $("input[name=Total_Volume]").val(`${roundDec(totalVolume)}`)
+        $("#table-items tbody").append(`<tr><td align="right" colspan="3" class="Delete">Totals</td>
+                                                <td align="right" class="Delete"><strong>${totalPieces}</strong></td><td></td><td></td><td></td>
+                                                <td align="right" class="Delete"><strong>${roundDec(totalWeight)} kg</strong></td>
+                                                <td align="right" class="Delete"><strong>${roundDec(totalVolume)} m3</strong></td></tr>`)
     }
 })

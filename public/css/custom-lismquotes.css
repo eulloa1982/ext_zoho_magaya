@@ -74,7 +74,6 @@ input:active {
   background: white;
   color: #333;
   overflow: auto;
-
 }
 
 .message-data {
@@ -99,9 +98,9 @@ input:active {
     top: 0;
     bottom: 0;
     right: 0;
-    width: 60em;
-    /*transform: translateX(100%);*/
-    transition: .3s ease-out;
+    width: 50em;
+    /*transform: translateX(100%);
+    transition: .3s ease-out;*/
     z-index: 2000;
     box-shadow: 10px 15px 15px 15px black;
 }
@@ -136,3 +135,7 @@ input:active {
 	width: 60%;
 	float: left;
 }
+
+table td .numeric {
+    text-align: right;
+  }

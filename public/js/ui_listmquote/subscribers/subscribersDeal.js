@@ -2,7 +2,6 @@
 storeDeal.subscribe(() => {
     let u = storeDeal.getState()
 
-    console.log("Deal state now", u)
     if (!_.isEmpty(u.dealQuote)) {
         $("select[name=Account]").empty()
         let dealQuote = u.dealQuote;

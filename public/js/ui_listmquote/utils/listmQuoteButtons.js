@@ -736,7 +736,7 @@ $(document).ready(function(){
         if (actions > 0) {
             Swal.fire({
                 title: "Confirm",
-                text: "Some changes have been made, please select Confirm or Save your Changes",
+                text: "Some changes have been made, please select Yes to exit or Cancel to continue editting mQuote",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes",
