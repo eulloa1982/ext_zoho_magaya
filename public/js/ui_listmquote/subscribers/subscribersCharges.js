@@ -51,7 +51,7 @@ storeCharge.subscribe(() => {
                             if (val === k)
                                 input += `<option value="${val}" selected>${val}</option>`
                             else
-                                input += `<option value="${val}" selected>${val}</option>`
+                                input += `<option value="${val}">${val}</option>`
                         })
                     input += `</select>`
                 }

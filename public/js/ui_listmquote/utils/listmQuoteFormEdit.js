@@ -77,7 +77,6 @@
                     show = true;
                     field = "oldValue";
                     module = 'Service Items'
-                    console.log("Error Fatal", error)
                     storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
                 })
