@@ -74,7 +74,7 @@ $app->configure('app');
 
 $app->middleware([
         App\Http\Middleware\CorsMiddleware::class,
-        App\Http\Middleware\IpMiddleware::class
+        //App\Http\Middleware\IpMiddleware::class
 ]);
 
 // $app->routeMiddleware([

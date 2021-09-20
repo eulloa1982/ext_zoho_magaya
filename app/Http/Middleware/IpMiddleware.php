@@ -14,7 +14,7 @@ class IpMiddleware
         // here instead of checking a single ip address we can do collection of ips
         //address in constant file and check with in_array function
             //return redirect('home');
-            print_r($request->ip());
+            //print_r($request->ip());
         }
 
         return $next($request);
