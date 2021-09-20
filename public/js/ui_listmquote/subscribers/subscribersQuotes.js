@@ -23,15 +23,7 @@ storeQuote.subscribe(() => {
             <td></td>
             <td></td>
             </tr>`
-        /*$.map(u.quotes2, function(v) {
-            let accountName = ''
-            if (!_.isEmpty(v.Account)){
-                accountName = v.Account.name
-            }
-            append += `<tr>`
-            append += `<td><a><span class="material-icons oculto edit" data-id="${v.id}">create</span></a><a><span class="material-icons oculto delete" data-id=${v.id}>clear</span></a></td><td>${sanitize(v.Name)}</td><td>${sanitize(accountName)}</td><td></td><td></td>`
-            append += `</tr>`
-        })*/
+
 
         $("#quote-search tbody").append(append)
     }
