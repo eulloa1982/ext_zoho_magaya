@@ -189,7 +189,7 @@
 
 										</div>
 										<div class="col-md-4">
-											<label class="col-md-12" style="font-weight: bold;">Description</label>
+											<label class="col-md-12" style="font-weight: bold;">Description of Goods</label>
 											<div class="form-group">
                                                 <textarea rows="2" name='magaya__Description' id='magaya__Description' class='form-control no-border'></textarea>
 											</div>
@@ -197,15 +197,25 @@
 									</div>
 									<div class="row" style="margin-bottom:25px;">
 										<div class="col-md-4">
-												<label class="col-md-12" style="font-weight: bold;">Stage</label>
-                                                <select name="magaya__Status" class="form-control no-border">
-                                                    <option value="Draft">Draft</option>
-                                                    <option value="Done">Done</option>
-                                                    <option value="Sent">Sent</option>
-                                                    <option value="Acepted">Acepted</option>
-                                                    <option value="Refused">Refused</option>
-                                                </select>
-                                            </div>
+											<label class="col-md-12" style="font-weight: bold;">Stage</label>
+                                            <select name="magaya__Status" class="form-control no-border">
+                                                <option value="Draft">Draft</option>
+                                                <option value="Done">Done</option>
+                                                <option value="Sent">Sent</option>
+                                                <option value="Acepted">Acepted</option>
+                                                <option value="Refused">Refused</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="col-md-12" style="font-weight: bold;">Origin</label>
+                                            <input type="text" name="magaya__Origin" class="form-control"/>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="col-md-12" style="font-weight: bold;">Destination</label>
+                                            <input type="text" name="magaya__Destination" class="form-control" />
+                                        </div>
 
 									</div>
 								</div>
@@ -348,15 +358,15 @@
                                         <table id="table-charges" class="table table-bordered table-striped">
 											<thead>
                                                 <tr>
-                                                    <th></th>
-													<th>Status</th>
-                                                    <th>Description</th>
-													<th>Quantity</th>
-                                                    <th>Price</th>
-                                                    <th>Amount</th>
-                                                    <th>Tax Amount</th>
-													<th>Amount + Tax</th>
-                                                    <th>Final Amount</th>
+                                                    <th style="width:10%"></th>
+													<th style="width:10%">Status</th>
+                                                    <th style="width:26%">Description</th>
+													<th style="width:9%">Quantity</th>
+                                                    <th style="width:9%">Price</th>
+                                                    <th style="width:9%">Amount</th>
+                                                    <th style="width:9%">Tax Amount</th>
+													<th style="width:9%">Amount + Tax</th>
+                                                    <th style="width:9%">Final Amount</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
@@ -367,27 +377,22 @@
                                         <table id="table-charges-new" class="table table-bordered table-striped">
                                         <thead>
                                                 <tr>
-                                                    <th></th>
-													<th>Status</th>
-                                                    <th>Description</th>
-													<th>Quantity</th>
-                                                    <th>Price</th>
-                                                    <th>Amount</th>
-                                                    <th>Tax Amount</th>
-													<th>Amount + Tax</th>
-                                                    <th>Final Amount</th>
+                                                <th style="width:10%"></th>
+													<th style="width:10%">Status</th>
+                                                    <th style="width:26%">Description</th>
+													<th style="width:9%">Quantity</th>
+                                                    <th style="width:9%">Price</th>
+                                                    <th style="width:9%">Amount</th>
+                                                    <th style="width:9%">Tax Amount</th>
+													<th style="width:9%">Amount + Tax</th>
+                                                    <th style="width:9%">Final Amount</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
 										</table>
                                     </div>
 
-                                    <div class="col-md-2">
-                                        <span>Total Income Charges</span>
-                                        <input type="text" name="TotalIncomeCharges" class="form-control" readonly>
-                                    </div>
-
-								</div>
+            					</div>
                                 <!------------------------------------------------------------->
                                 <!-- end tab charges -->
                                 <!------------------------------------------------------------->
@@ -639,15 +644,15 @@
 										<table id="table-items" class="table table-bordered table-striped" style="width:100%;">
 											<thead>
 												<tr>
-													<th></th>
-                                                    <th>Status</th>
-                                                    <th>Description</th>
-													<th>Pieces</th>
-													<th>Length</th>
-                                                    <th>Heigth</th>
-													<th>Width</th>
-													<th>Weigth</th>
-													<th>Volume</th>
+                                                    <th style="width:10%"></th>
+                                                    <th style="width:10%">Status</th>
+                                                    <th style="width:26%">Description</th>
+													<th style="width:9%">Pieces</th>
+													<th style="width:9%">Length</th>
+                                                    <th style="width:9%">Heigth</th>
+													<th style="width:9%">Width</th>
+													<th style="width:9%">Weigth</th>
+													<th style="width:9%">Volume</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
@@ -656,28 +661,21 @@
                                         <table id="table-items-new" class="table table-bordered table-striped" style="width:100%;">
 											<thead>
 												<tr>
-													<th></th>
-                                                    <th>Status</th>
-                                                    <th>Description</th>
-													<th>Pieces</th>
-													<th>Length</th>
-                                                    <th>Heigth</th>
-													<th>Width</th>
-													<th>Weigth</th>
-													<th>Volume</th>
+                                                <th style="width:10%"></th>
+                                                    <th style="width:10%">Status</th>
+                                                    <th style="width:26%">Description</th>
+													<th style="width:9%">Pieces</th>
+													<th style="width:9%">Length</th>
+                                                    <th style="width:9%">Heigth</th>
+													<th style="width:9%">Width</th>
+													<th style="width:9%">Weigth</th>
+													<th style="width:9%">Volume</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
 										</table>
 
-                                        <table class="table table-bordred" id="dataTable" width="100%" cellspacing="0">
-											<tr>
-												<td colspan="2" style="width:33%"><b>Total Pieces (U):</b> <input type="text" name="Total_Pieces" class="form-control"></td>
-												<td colspan="2" style="width:33%"><b>Total Weight (kg):</b>  <input type="text" name="Total_Weight" class="form-control"></td>
-												<td colspan="2" style="width:33%"><b>Total Volume (M3):</b>  <input type="text" name="Total_Volume" class="form-control"></td>
 
-											</tr>
-										</table>
 								</div>
                                 <!------------------------------------------------------------->
                                 <!-- end tab items -->

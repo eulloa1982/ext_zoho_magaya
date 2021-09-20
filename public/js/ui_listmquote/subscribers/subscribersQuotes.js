@@ -5,6 +5,7 @@ var quoteXML = []
 ///////////////////////////////////////////////////////////
 storeQuote.subscribe(() => {
     let u = storeQuote.getState()
+    console.log("Quotes state now", u)
     quoteXML = u.singleQuote
     //search quote by id
     if (!_.isEmpty(u.quotes2)) {
@@ -72,7 +73,7 @@ storeQuote.subscribe(() => {
                     } },
 
                     //{ type: "checkbox",width: 5 },
-                    { name: "Name", title: "NUMBER", width: 10, formatter:'number'},
+                    { name: "magaya__Number", title: "NUMBER", width: 10, formatter:'number'},
                     { name: "Account.name", title: "CUSTOMER", type: "text", width: 10 },
                     { name: "magaya__Status", type: "text", width: 10, title: "STAGE" },
                     { name: "magaya__QuoteTotalAmount", title: "AMOUNT", width: 5, type: "number" },

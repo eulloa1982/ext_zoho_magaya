@@ -204,6 +204,50 @@ $(document).ready(function(){
                 $("select[name=Deal]").val(idDeal)
             }
 
+            //Shipper y Consignee
+            //hay que buscar el texto , hasta que tengamos un lookup para eliminar esto
+            let shipper = quoteToEdit.magaya__Shipper
+            $("select[name=magaya__Shipper] option").each(function(k) {
+                if ($(this).text() === shipper)
+                    $("select[name=magaya__Shipper]").val($(this).val())
+            })
+
+            //procesar el nombre, ya q no podemos recuperar id
+            let shipperAddress = quoteToEdit.magaya__ShipperAddress
+            if (!_.isEmpty(shipperAddress)) {
+                shipperAddress = shipperAddress.split(" / ")
+                if (!_.isEmpty(shipperAddress[0]) && shipperAddress[0] !== "undefined" && shipperAddress[0] !== undefined)
+                    $("input[name=Shipper_Street").val(shipperAddress[0])
+                if (!_.isEmpty(shipperAddress[1]) && shipperAddress[1] !== "undefined" && shipperAddress[1] !== undefined)
+                    $("input[name=Shipper_City").val(shipperAddress[1])
+                if (!_.isEmpty(shipperAddress[2]) && shipperAddress[2] !== "undefined" && shipperAddress[2] !== undefined)
+                    $("input[name=Shipper_State").val(shipperAddress[2])
+                if (!_.isEmpty(shipperAddress[3]) && shipperAddress[3] !== "undefined" && shipperAddress[3] !== undefined)
+                    $("input[name=Shipper_Country").val(shipperAddress[3])
+            }
+
+            let consignee = quoteToEdit.magaya__ConsigneeName
+            $("select[name=magaya__ConsigneeName] option").each(function(k) {
+                if ($(this).text() === consignee)
+                    $("select[name=magaya__ConsigneeName]").val($(this).val())
+            })
+
+            //procesar el nombre, ya q no podemos recuperar id
+            let consigneeAddress = quoteToEdit.magaya__ConsigneeAddress
+            if (!_.isEmpty(consigneeAddress)) {
+                consigneeAddress = consigneeAddress.split(" / ")
+                if (!_.isEmpty(consigneeAddress[0]) && consigneeAddress[0] !== "undefined" && consigneeAddress[0] !== undefined)
+                    $("input[name=Consignee_Street").val(consigneeAddress[0])
+                if (!_.isEmpty(consigneeAddress[1]) && consigneeAddress[1] !== "undefined" && consigneeAddress[1] !== undefined)
+                    $("input[name=Consignee_City").val(consigneeAddress[1])
+                if (!_.isEmpty(consigneeAddress[2]) && consigneeAddress[2] !== "undefined" && consigneeAddress[2] !== undefined)
+                    $("input[name=Consignee_State").val(consigneeAddress[2])
+                if (!_.isEmpty(consigneeAddress[3]) && consigneeAddress[3] !== "undefined" && consigneeAddress[3] !== undefined)
+                    $("input[name=Consignee_Country").val(consigneeAddress[3])
+            }
+
+
+
             $("#mquoteModal").modal("show")
 
             //cargo items
