@@ -69,9 +69,7 @@ function reducerQuote (state = initialStateQuote, actions)  {
 
             return {
                 ...state,
-                quotes2: state.quotes.filter(function (quote) {
-                    return quote.Name === actions.payload.char;
-                  })
+                quotes2: state.quotes.filter(quote => quote.magaya__Number === actions.payload.char)
             }
         }
 

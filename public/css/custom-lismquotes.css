@@ -43,6 +43,11 @@ input:active {
     max-width: 5px;
 }
 
+.header {
+    background-color: #375580;
+    height: 18%;
+    color: white;
+}
 
 #quote-info, #quote-alert {
     position: absolute;
@@ -51,19 +56,14 @@ input:active {
     left: 30%;
     right: 30%;
     color: #333;
-    padding: 10px 5px 5px 10px;
+    padding: 0px 0px 0px 0px;
     margin: 20px 20px 20px 20px;
     font-size: 14px;
     border:rgb(55, 65, 56);
     box-shadow: 10px 15px 15px 15px black;
+    background-color: #eee;
 }
 
-#quote-alert{
-    background: rgb(236, 178, 178);
-}
-#quote-info{
-    background: rgb(176, 219, 183);
-}
 
 .panel {
   position: absolute;
@@ -80,15 +80,8 @@ input:active {
     position: absolute;
     margin: 20px 20px 20px 20px;
     font-size: 16px;
-    font-weight: bold;
-    font-family: 'Courier New', Courier, monospace;
 }
 
-/*.panel .row{
-    border: 2px solid #0b3355;
-    margin: 5px 5px 5px 5px;
-    padding: 5px 5px 5px 5px;
-}*/
 
 /**********panel editing*************/
 #panel, #panel-charge, #panel-item, #panel-search {
@@ -99,8 +92,6 @@ input:active {
     bottom: 0;
     right: 0;
     width: 50em;
-    /*transform: translateX(100%);
-    transition: .3s ease-out;*/
     z-index: 2000;
     box-shadow: 10px 15px 15px 15px black;
 }
