@@ -6,12 +6,7 @@ storeAccounts.subscribe(() => {
     let accountQuote = u.quoteAccount
     //fill data address in quote
     if (!_.isEmpty(accountQuote)) {
-        $.map(accountQuote, function (k, v) {
-            if (!_.isObject(v) && !v.includes("$")) {
-                $(`input[name=${v}]`).val(k)
-                $(`select[name=${v}]`).val(k)
-            }
-        })
+
         $("select[name=Account]").val(accountQuote.id)
 
     }
@@ -27,44 +22,39 @@ storeAccounts.subscribe(() => {
    })
 
    let contact = u.singleContact
-
    if (!_.isEmpty(contact)) {
        let idContact = contact[0]["id"];
+
        $("select[name=magaya__Representative]").val(idContact)
-       $("input[name=magaya__ContactPhone]").val(contact[0]["Phone"])
-       $("input[name=magaya__ContactEmail]").val(contact[0]["Email"])
-       $("input[name=magaya__ContactMobile]").val(contact[0]["Mobile"])
+       $.map(contact[0], function (k, v) {
+            console.log(k, v)
+            if (!_.isObject(v) && !v.includes("$")) {
+                $(`input[name=${v}]`).val(k)
+                $(`select[name=${v}]`).val(k)
+            }
+        })
+
    }
 
 
     let accountShipper = u.accountShipper;
     if (!_.isEmpty(accountShipper)) {
         $("select[name=magaya__Shipper]").val(accountShipper[0].id)
-        $("input[name=Shipper_City]").val(accountShipper[0].Shipping_City)
+        /*$("input[name=Shipper_City]").val(accountShipper[0].Shipping_City)
         $("input[name=Shipper_State").val(accountShipper[0].Shipping_State)
         $("input[name=Shipper_Country]").val(accountShipper[0].Shipping_Country)
-        $("input[name=Shipper_Street]").val(accountShipper[0].Shipping_Street)
+        $("input[name=Shipper_Street]").val(accountShipper[0].Shipping_Street)*/
     }
 
     let accountConsignee = u.accountConsignee;
     if (!_.isEmpty(accountConsignee)) {
         $("select[name=magaya__ConsigneeName]").val(accountConsignee[0].id)
-        $("input[name=Consignee_City]").val(accountConsignee[0].Shipping_City)
+        /*$("input[name=Consignee_City]").val(accountConsignee[0].Shipping_City)
         $("input[name=Consignee_State").val(accountConsignee[0].Shipping_State)
         $("input[name=Consignee_Country]").val(accountConsignee[0].Shipping_Country)
-        $("input[name=Consignee_Street]").val(accountConsignee[0].Shipping_Street)
+        $("input[name=Consignee_Street]").val(accountConsignee[0].Shipping_Street)*/
     }
-   //get all accounts
-   //let accounts = u.allAccounts
-   /*if (!_.isEmpty(u.allAccounts)) {
-       $("select[name=Account]").empty()
-       $(`<option></option>`).appendTo("select[name=Account]")
 
-       $.map(u.allAccounts, function(k, v) {
-            if (!_.isEmpty(k.magaya__mEntityType) && k.magaya__mEntityType.trim() === "Customer")
-                $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]")
-       })
-   }*/
 
 })
 

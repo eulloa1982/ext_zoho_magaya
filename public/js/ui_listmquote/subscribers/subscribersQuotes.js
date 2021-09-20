@@ -5,7 +5,7 @@ var quoteXML = []
 ///////////////////////////////////////////////////////////
 storeQuote.subscribe(() => {
     let u = storeQuote.getState()
-    console.log("State quote now", u)
+    //console.log("State quote now", u)
     quoteXML = u.singleQuote
     //search quote by id
     if (!_.isEmpty(u.quotes2)) {
@@ -31,9 +31,6 @@ storeQuote.subscribe(() => {
     //editing a quote
     quoteToEdit = u.quoteToEdit;
    // console.log("Editing quote now", quoteToEdit)
-
-
-
     dataQuotes = u.quotes
         data = []
     //console.log("State quotes now", u)

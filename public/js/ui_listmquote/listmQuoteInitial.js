@@ -1,14 +1,11 @@
 $(document).ready(function(){
     packageType = [];
     transpMethods = [];
-    deals = [];
-    mquotes = [];
     idmQuoteToEdit = 0;
     let page = 1;
-    var dataQuotes = []
 
 
-
+    //try {
     ZOHO.embeddedApp.on("PageLoad",function(data)
     {
         //Las 100 primeras mQuotes
@@ -127,7 +124,6 @@ $(document).ready(function(){
         ZOHO.CRM.API.getAllRecords({Entity: "magaya__Taxes", sort_order: "asc"})
             .then(function (response) {
                 if (!_.isEmpty (response.data)) {
-                    console.log("Taxes", response.data)
                     $.map(response.data, function (k, i) {
                         k.magaya__Tax_Rate = sanitize(k.magaya__Tax_Rate)
                         k.Name = sanitize(k.Name)
@@ -148,8 +144,16 @@ $(document).ready(function(){
 
     ZOHO.embeddedApp.init()
 
+/*}
+catch {
+    console.log("Error")
+}*/
+if (_.isEmpty(packageType)) {
+    console.log("You probably have not zoho content")
+}
+
 })
 
 
 //check if magaya is available
-ping('98.211.167.16', '3691')
+//ping('98.211.167.16', '3691')
