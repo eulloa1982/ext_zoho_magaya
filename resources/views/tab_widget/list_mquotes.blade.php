@@ -426,7 +426,7 @@
 									<div class="row" style="margin-bottom:20px; margin-top:20px;">
 										<div class="col-md-6">
 											<label class="col-md-12" style="font-weight: bold;">Main Carrier</label>
-											<select name='Carrier' id='Carrier' class='form-control'>
+											<select name='magaya__Carrier' id='Carrier' class='form-control'>
                                                 <option value="select"></option>
                                             </select>
 										</div>
