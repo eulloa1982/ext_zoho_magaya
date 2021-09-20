@@ -127,7 +127,6 @@ $(document).ready(function(){
         ZOHO.CRM.API.getAllRecords({Entity: "magaya__Taxes", sort_order: "asc"})
             .then(function (response) {
                 if (!_.isEmpty (response.data)) {
-                    console.log("Taxes", response.data)
                     $.map(response.data, function (k, i) {
                         k.magaya__Tax_Rate = sanitize(k.magaya__Tax_Rate)
                         k.Name = sanitize(k.Name)
