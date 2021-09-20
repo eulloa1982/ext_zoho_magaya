@@ -99,11 +99,11 @@
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersDeal.js') }}"></script>
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersPorts.js') }}"></script>
 
-    <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteInitial.js') }}" async="async"></script>
-    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuote.js') }}" async="async"></script>
-    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuoteButtons.js') }}" async="async"></script>
-    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuoteFormEdit.js') }}" async="async"></script>
-    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/triggers.js') }}" async="async"></script>
+    <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteInitial.js') }}"></script>
+    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuote.js') }}"></script>
+    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuoteButtons.js') }}"></script>
+    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuoteFormEdit.js') }}"></script>
+    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/triggers.js') }}"></script>
 
     <script src="{{ url('js/ui_listmquote/validators/validators.js') }}"></script>
 
