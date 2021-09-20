@@ -501,7 +501,7 @@
 											</select>
 										</div>
 									</div>
-									<div class="row" style="margin-bottom:20px; margin-top:20px;">
+									<!--div class="row" style="margin-bottom:20px; margin-top:20px;">
 										<div class="col-md-6">
 													<label class="col-md-12" style="font-weight: bold;">Address</label>
 
@@ -549,7 +549,7 @@
 															</div>
 														</div>
 										</div>
-									</div>
+									</div-->
 								</div>
                                 <!------------------------------------------------------------->
                                 <!-- end tab routing -->
@@ -694,7 +694,7 @@
 										    </select>
 										</div>
 										<div class="col-md-4">
-											<label class="col-md-12" style="font-weight: bold;">Account</label>
+											<label class="col-md-12" style="font-weight: bold;">Customer</label>
                                             <select name="Account" class="form-control no-border">
                                                 <option></option>
                                             </select>
@@ -723,7 +723,6 @@
 									<hr>
 									<div class="row" style="margin-bottom:20px;">
 										<div class="col-md-4">
-											<label class="col-md-12" style="font-weight: bold; text-align: center;">Contact Info</label>
 											<div class="row" style="margin-bottom:10px;"></div>
 											<label class="col-md-12" style="font-weight: bold;">Representative</label>
                                             <select name="magaya__Representative" class="form-control no-border">
@@ -731,85 +730,49 @@
                                             </select>
 											<div class="row" style="margin-bottom:10px;"></div>
 											<label class="col-md-12" style="font-weight: bold;">Phone</label>
-											<input type="text" name="magaya__ContactPhone" class="form-control no-border">
+											<input type="text" name="Phone" class="form-control no-border">
 											<div class="row" style="margin-bottom:10px;"></div>
-											<label class="col-md-12" style="font-weight: bold;">Movil</label>
-											<input type="text" name="magaya__ContactMobile" class="form-control no-border">
+											<label class="col-md-12" style="font-weight: bold;">Mobile</label>
+											<input type="text" name="Mobile" class="form-control no-border">
 											<div class="row" style="margin-bottom:10px;"></div>
 											<label class="col-md-12" style="font-weight: bold;">Email</label>
 											<div class="row" style="margin-bottom:10px;"></div>
-                                            <input type="text" name="magaya__ContactEmail" class="form-control no-border" style="margin-bottom: 20px;">
+                                            <input type="text" name="Email" class="form-control no-border" style="margin-bottom: 20px;">
 
-											<!--div class="form-check">
-  												<label class="form-check-label">
-    												<input type="checkbox" class="form-check-input" value="" disabled>Update contact
- 												</label>
-											</div-->
+
 										</div>
 										<div class="col-md-8">
-											<label class="col-md-12" style="font-weight: bold; text-align: center;">Account Info
-											</label>
 											<div class="row" style="margin-bottom:10px;"></div>
 											<div class="row" style="margin-bottom:20px;">
 												<div class="col-md-6">
 													<label class="col-md-12" style="font-weight: bold;">Billing Address Street</label>
 													<div class="form-group">
-                                                        <input type="text" name="Billing_Street" class="form-control" style="height: 60px; word-break: break-word;"/>
+                                                        <input type="text" name="Mailing_Street" class="form-control" style="height: 60px; word-break: break-word;"/>
 														<!--textarea rows="2" class="form-control"></textarea-->
 													</div>
 													<div class="row" style="margin-bottom:20px;">
 														<div class="col-md-6" >
 															<label class="col-md-12" style="width: 100%; font-weight: bold;">City</label>
-															<input type="text" name="Billing_City" class="form-control">
+															<input type="text" name="Mailing_City" class="form-control">
 														</div>
 														<div class="col-md-6">
 															<label class="col-md-12" style="font-weight: bold;">State</label>
-															<input type="text" name="Billing_State" class="form-control">
+															<input type="text" name="Mailing_State" class="form-control">
 														</div>
 													</div>
 													<div class="row" style="margin-bottom:20px;">
 														<div class="col-md-6">
 															<label class="col-md-12" style="font-weight: bold;">Country</label>
-															<input type="text" name="Billing_Country" class="form-control">
+															<input type="text" name="Mailing_Country" class="form-control">
 														</div>
 														<div class="col-md-6">
 															<label class="col-md-12" style="font-weight: bold;">Zip Code</label>
-															<input type="text" name="Billing_Code" class="form-control">
+															<input type="text" name="Mailing_Zip" class="form-control">
 														</div>
 													</div>
-													<!--div class="form-check" style="margin-top: 52px;">
-		  												<label class="form-check-label">
-		    												<input type="checkbox" class="form-check-input" value="" disabled>Update Account
-		 												</label>
-													</div-->
+
 												</div>
-												<div class="col-md-6">
-													<label class="col-md-12" style="font-weight: bold;">Shipping Address Street</label>
-														<div class="form-group">
-                                                            <input type="text" name="Shipping_Street" class="form-control" style="height: 60px; word-break: break-word;"/>
-															<!--textarea rows="2" class="form-control"></textarea-->
-														</div>
-														<div class="row" style="margin-bottom:20px;">
-															<div class="col-md-6" >
-																<label class="col-md-12" style="text-align:center;width: 100%; font-weight: bold;">City</label>
-																<input type="text" name="Shipping_City" class="form-control">
-															</div>
-															<div class="col-md-6">
-																<label class="col-md-12" style="font-weight: bold;">Stage</label>
-																<input type="text" name="Shipping_State" class="form-control">
-															</div>
-														</div>
-														<div class="row" style="margin-bottom:20px;">
-															<div class="col-md-6">
-																<label class="col-md-12" style="font-weight: bold;">Country</label>
-																<input type="text" name="Shipping_Country" class="form-control">
-															</div>
-															<div class="col-md-6">
-																<label class="col-md-12" style="font-weight: bold;">Zip Code</label>
-																<input type="text" name="Shipping_Code" class="form-control">
-															</div>
-														</div>
-												</div>
+
 											</div>
 										</div>
 									</div>

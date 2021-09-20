@@ -5,7 +5,6 @@ $(document).ready(function(){
     let page = 1;
 
 
-
     //try {
     ZOHO.embeddedApp.on("PageLoad",function(data)
     {
