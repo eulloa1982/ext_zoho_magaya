@@ -133,6 +133,16 @@ function limpiar_form() {
     $("#magaya__Description").val("")
     $("select[name=magaya__PortofUnloading]").val("")
     $("select[name=magaya__PortofLoading]").val("")
+    $("input[name=Shipper_Street").val("")
+    $("input[name=Shipper_City").val("")
+    $("input[name=Shipper_State").val("")
+    $("input[name=Shipper_Country").val("")
+    $("input[name=Consignee_Street").val("")
+    $("input[name=Consignee_City").val("")
+    $("input[name=Consignee_State").val("")
+    $("input[name=Consignee_Country").val("")
+    $("select[name=magaya__ConsigneeName]").val("")
+    $("select[name=magaya__Shipper]").val("")
     //$("select[name=Account]").removeAttr("selected")
     // expected output: 10*/
     let elementos = document.querySelectorAll("input[type=text], input[id=magaya__Description], select[name=magaya__TransportationMode], select[name=magaya__Direction]")
@@ -861,3 +871,31 @@ function getMagayaPass() {
             })
     })
 }
+
+
+function ping(host, port, pong) {
+
+    var started = new Date().getTime();
+
+    var http = new XMLHttpRequest();
+
+    http.open("GET", "http://" + host + ":" + port, /*async*/true);
+    http.onreadystatechange = function() {
+      if (http.readyState == 4) {
+        var ended = new Date().getTime();
+
+        var milliseconds = ended - started;
+
+        if (pong != null) {
+          pong(milliseconds);
+        }
+      }
+    };
+    try {
+      http.send(null);
+    } catch(exception) {
+        console.log("Execption")
+      // this is expected
+    }
+
+  }

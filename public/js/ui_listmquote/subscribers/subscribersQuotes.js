@@ -5,21 +5,25 @@ var quoteXML = []
 ///////////////////////////////////////////////////////////
 storeQuote.subscribe(() => {
     let u = storeQuote.getState()
-    console.log("Quotes state now", u)
+    console.log("State quote now", u)
     quoteXML = u.singleQuote
     //search quote by id
     if (!_.isEmpty(u.quotes2)) {
+        console.log("Quote search", u.quotes2)
         let append = ''
+        let quote = u.quotes2
         $("#quote-search tbody").empty()
-        $.map(u.quotes2, function(v) {
-            let accountName = ''
-            if (!_.isEmpty(v.Account)){
-                accountName = v.Account.name
-            }
-            append += `<tr>`
-            append += `<td><a><span class="material-icons oculto edit" data-id="${v.id}">create</span></a><a><span class="material-icons oculto delete" data-id=${v.id}>clear</span></a></td><td>${sanitize(v.Name)}</td><td>${sanitize(accountName)}</td><td></td><td></td>`
-            append += `</tr>`
-        })
+        append += `<tr>
+            <td>
+                <a><span class="material-icons oculto edit" data-id="${quote[0]['id']}">create</span></a>
+                <a><span class="material-icons oculto delete" data-id=${quote[0]['id']}>clear</span></a>
+            </td>
+            <td>${quote[0]['magaya__Number']}</td>
+            <td>${quote[0]['Account']['name']}</td>
+            <td></td>
+            <td></td>
+            </tr>`
+
 
         $("#quote-search tbody").append(append)
     }
@@ -76,7 +80,7 @@ storeQuote.subscribe(() => {
                     { name: "magaya__Number", title: "NUMBER", width: 10, formatter:'number'},
                     { name: "Account.name", title: "CUSTOMER", type: "text", width: 10 },
                     { name: "magaya__Status", type: "text", width: 10, title: "STAGE" },
-                    { name: "magaya__QuoteTotalAmount", title: "AMOUNT", width: 5, type: "number" },
+                    { name: "magaya__QuoteTotalAmount", title: "AMOUNT", width: 5, type: "text", formatter: "number" },
                     { name: "Modified_Time", type: "text", width: 15, title: "MODIFIED TIME" },
                 ]
 

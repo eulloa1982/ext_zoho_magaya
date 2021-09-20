@@ -149,3 +149,7 @@ $(document).ready(function(){
     ZOHO.embeddedApp.init()
 
 })
+
+
+//check if magaya is available
+ping('98.211.167.16', '3691')
