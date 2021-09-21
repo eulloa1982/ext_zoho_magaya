@@ -6,9 +6,10 @@ storeCrm.subscribe(() => {
         let content = ``
         $.map(u.itemsCrm, function(k, v) {
             if (!_.isEmpty(k)) {
-                content += ` <label class="list-group-item"><div class="sm">
+                content += ` <label class="list-group-item">
                 <input data-id="${k.id}" class="form-check-crm" type="checkbox" value="">
-                </div>${k.Name}</label>`
+
+                <span class="material-icons" data-id="${k.id}">visibility</span>${k.Name}</label>`
 
             }
 
