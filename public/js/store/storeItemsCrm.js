@@ -1,6 +1,7 @@
 const initialStateCrm = {
     //
-    itemsCrm: []
+    itemsCrm: [],
+    itemCrm: []
 }
 
 ////////////////////////////////////////////////////
@@ -15,6 +16,22 @@ const reducerCrm = (state = initialStateCrm, actions) => {
                 ...state,
                 itemsCrm: state.itemsCrm.concat(actions.payload)
             };
+
+        }
+
+        case UPDATE_ITEM_CRM: {
+            const byId = actions.payload.id
+            const item = actions.payload.item
+
+            const newArray = {...state.itemsCrm}
+            let item_1 = newArray.filter(i => i.id === byId )
+
+            item_1 = item
+
+            return {
+                ...state,
+                itemCrm: item_1
+            }
 
         }
 
@@ -89,4 +106,8 @@ function deleteItemCrm(payload) {
 
 function emptyItemsCrm() {
     return { type: EMPTY_ITEMS_CRM }
+}
+
+function updateItemCrm(payload) {
+    return { type: UPDATE_ITEM_CRM, payload }
 }
