@@ -1,18 +1,22 @@
 @extends('base_listmquote')
 @section('main')
 <style>
-    table{
-        table-layout: fixed;
+    /*table{
+        /*table-layout: fixed;**
         width: 100%;
     }
 
     th, td {
         border: 1px solid blue;
-        max-width: 200px;
+        /*max-width: 200px;
         word-wrap: break-word;
-        /*width: 1% !important;*/
-    }
+        /*width: 1% !important;**
+    }*/
 
+    .number
+{
+    text-align: right;
+}
 </style>
 
 
@@ -75,12 +79,12 @@
 									<table class="table table-bordred table-striped" id="table-quotes" width="100%" cellspacing="0">
 										<thead>
 											<tr style="text-transform:uppercase;font-weight: bold;">
-												<td width="8%">Edit</td>
-												<td width="18%">Number</td>
-												<td width="18%">Customer</td>
-												<td width="18%">Stage</td>
-												<td width="18%">Amoumt</td>
-												<td width="18%">Modify Time</td>
+												<th>Edit</th>
+												<th>Number</th>
+												<th>Customer</th>
+												<th>Stage</th>
+												<th>Amoumt</th>
+												<th>Modify Time</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -502,7 +506,7 @@
 											</select>
 										</div>
 									</div>
-									<!--div class="row" style="margin-bottom:20px; margin-top:20px;">
+									<div class="row" style="margin-bottom:20px; margin-top:20px;">
 										<div class="col-md-6">
 													<label class="col-md-12" style="font-weight: bold;">Address</label>
 
@@ -550,7 +554,7 @@
 															</div>
 														</div>
 										</div>
-									</div-->
+									</div>
 								</div>
                                 <!------------------------------------------------------------->
                                 <!-- end tab routing -->

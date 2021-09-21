@@ -57,7 +57,7 @@ storeQuote.subscribe(() => {
 
         data: data,
         fields: [
-            { type: "control", width: 10, title:"Options", editButton: false, deleteButton: false, title: "Action",
+            { type: "control",  title:"Options", width: 'auto', editButton: false, deleteButton: false, title: "Action",
             itemTemplate: function(value, item) {
                 var $iconPencil = $(`<a><span class="material-icons oculto edit" data-id="${item.id}">create</span></a>`);
                 var $iconTrash = $(`<a><span class="material-icons oculto delete" data-id="${item.id}">clear</span></a>`);
@@ -72,12 +72,12 @@ storeQuote.subscribe(() => {
             },
 
             //{ type: "checkbox",width: 5 },
-            { name: "magaya__Number", title: "NUMBER", width: 10, formatter:'number'},
-            { name: "Account.name", title: "CUSTOMER", type: "text", width: 10 },
-            { name: "magaya__Status", type: "text", width: 10, title: "STAGE" },
-            { name: "magaya__QuoteTotalAmount", title: "AMOUNT", width: 5, type: "text", formatter: "number" },
-            { name: "Modified_Time", type: "text", width: 15, title: "MODIFIED TIME" },
+            { name: "magaya__Number", title: "NUMBER", width: 220, formatter:'number'},
+            { name: "Account.name", title: "CUSTOMER", type: "text", width: 300},
+            { name: "magaya__Status", type: "text", width: 120, title: "STAGE" },
+            { name: "magaya__QuoteTotalAmount", title: "AMOUNT", width: 145, type: "number", formatter: "number", classes: 'number'},
+            { name: "Modified_Time", type: "text", width: 300, title: "MODIFIED TIME"},
         ]
 
-    });
-})
+        });
+    })

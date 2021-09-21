@@ -2,6 +2,7 @@ var singleAccount = []
 //get one charge
 storeAccounts.subscribe(() => {
     let u = storeAccounts.getState();
+    //console.log("State account now", u)
     singleAccount = u.singleAccount
     let accountQuote = u.quoteAccount
     //fill data address in quote
@@ -39,19 +40,19 @@ storeAccounts.subscribe(() => {
     let accountShipper = u.accountShipper;
     if (!_.isEmpty(accountShipper)) {
         $("select[name=magaya__Shipper]").val(accountShipper[0].id)
-        /*$("input[name=Shipper_City]").val(accountShipper[0].Shipping_City)
+        $("input[name=Shipper_City]").val(accountShipper[0].Shipping_City)
         $("input[name=Shipper_State").val(accountShipper[0].Shipping_State)
         $("input[name=Shipper_Country]").val(accountShipper[0].Shipping_Country)
-        $("input[name=Shipper_Street]").val(accountShipper[0].Shipping_Street)*/
+        $("input[name=Shipper_Street]").val(accountShipper[0].Shipping_Street)
     }
 
     let accountConsignee = u.accountConsignee;
     if (!_.isEmpty(accountConsignee)) {
         $("select[name=magaya__ConsigneeName]").val(accountConsignee[0].id)
-        /*$("input[name=Consignee_City]").val(accountConsignee[0].Shipping_City)
+        $("input[name=Consignee_City]").val(accountConsignee[0].Shipping_City)
         $("input[name=Consignee_State").val(accountConsignee[0].Shipping_State)
         $("input[name=Consignee_Country]").val(accountConsignee[0].Shipping_Country)
-        $("input[name=Consignee_Street]").val(accountConsignee[0].Shipping_Street)*/
+        $("input[name=Consignee_Street]").val(accountConsignee[0].Shipping_Street)
     }
 
 

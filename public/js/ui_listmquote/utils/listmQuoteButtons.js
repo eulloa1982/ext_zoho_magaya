@@ -529,14 +529,14 @@ $(document).ready(function(){
             "Account": accountId,
             "magaya__Deal": $(":input[name=Deal] option:selected").val() > 0 ? $(":input[name=Deal] option:selected").val() : '',
             "magaya__Shipper": sanitize($(":input[name=magaya__Shipper] option:selected").text()),
-            //"magaya__ShipperAddress": `${sanitize($("input[name=Shipper_Street]").val())} / ${sanitize($("input[name=Shipper_City]").val())} / ${sanitize($("input[name=Shipper_State]").val())} / ${sanitize($("input[name=Shipper_Country]").val())}`,
+            "magaya__ShipperAddress": `${sanitize($("input[name=Shipper_Street]").val())} / ${sanitize($("input[name=Shipper_City]").val())} / ${sanitize($("input[name=Shipper_State]").val())} / ${sanitize($("input[name=Shipper_Country]").val())}`,
             "magaya__ExpirationDate": expirationDateFinal,
             "magaya__Direction": $(":input[name=magaya__Direction]").val(),
             "magaya__TransportationMode": $("select[name=magaya__TransportationMode] option:selected").val(),
             "magaya__Description": sanitize($("#magaya__Description").val()),
             "magaya__Service": $("select[name=Service]").val(),
             "magaya__ConsigneeName": sanitize($("select[name=magaya__ConsigneeName] option:selected").text()),
-            //"magaya__ConsigneeAddress": `${sanitize($("input[name=Consignee_Street]").val())} / ${sanitize($("input[name=Consignee_City]").val())} / ${sanitize($("input[name=Consignee_State]").val())} / ${sanitize($("input[name=Consignee_Country]").val())}`,
+            "magaya__ConsigneeAddress": `${sanitize($("input[name=Consignee_Street]").val())} / ${sanitize($("input[name=Consignee_City]").val())} / ${sanitize($("input[name=Consignee_State]").val())} / ${sanitize($("input[name=Consignee_Country]").val())}`,
             "magaya__Carrier": $("select[name=magaya__Carrier] option:selected").val(),
             "magaya__DestinationReceipt": sanitize($("input[name=magaya__DestinationReceipt]").val()),
             "magaya__OriginReceipt": sanitize($("input[name=magaya__OriginReceipt]").val()),
@@ -559,8 +559,6 @@ $(document).ready(function(){
             "magaya__ContactName": sanitize($("select[name=magaya__Representative] option:selected").text())
 
         }
-
-        console.log("data to insert", recordData)
 
         //jsonCharges = $(this).tableToJson('table-charges-new', 992929292929229);
         //jsonData = JSON.parse(`[${jsonCharges}]`)
