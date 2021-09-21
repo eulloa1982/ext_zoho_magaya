@@ -183,6 +183,16 @@ async function insertChargeTypeCRM(chargeTypeJSON) {
 }
 
 
+//get record by id
+function getRecordById(moduleName, recordId) {
+    return new Promise(function(resolve, reject) {
+        ZOHO.CRM.API.getRecord({Entity: moduleName, RecordID: recordId})
+            .then(function(data) {
+                resolve(data)
+            })
+    })
+}
+
 //delete Data
 function deleteDataCRM(moduleName, recordId) {
     return new Promise(function(resolve, reject) {

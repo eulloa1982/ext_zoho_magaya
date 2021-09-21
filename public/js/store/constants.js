@@ -83,3 +83,14 @@ const ITEMS_FIELDS = {
     "magaya__Pieces": {"field": "Pieces", "type": "number"}, "magaya__Measure_System": {"field": "Measure System", "values": ["International"]},
     "magaya__Volume": {"field": "Volume", "type": "number"}
 }
+
+const ITEMS_CRM = {
+    "Name": {"field": "Name"}, "magaya__AccountDefinitionType":{"field": "Account Definition"},
+    "magaya__ChargesCode": {"field": "Charge Code"}, "magaya__Type": {"field": "Charge Type"},
+    "magaya__AccountDefinitionDescription": {"field": "Account Description"},
+
+    "magaya__This_Port_is_used_by_my_Company":{"field": "Is port", "values":["true", "false"]}, "magaya__Port_Code": {"field": "Port Code"},
+    "magaya__Country": {"field": "Port Country"}, "magaya__Roadway": {"field": "RoadWay", "values":["true", "false"]},
+    "magaya__Airway": {"field": "AirWay", "values":["true", "false"]}, "magaya__Other": {"field": "Other", "values":["true", "false"]},
+    "magaya__Waterway": {"field": "WaterWay", "values":["true", "false"]}, "magaya__Railway": {"field": "RailWay", "values":["true", "false"]}
+}
