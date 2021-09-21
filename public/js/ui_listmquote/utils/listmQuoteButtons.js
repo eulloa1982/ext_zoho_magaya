@@ -3,19 +3,8 @@ $(document).ready(function(){
 
     let accountId = 0
     let contact = 0
-    let quoteToEdit = 0
+    //var quoteToEdit = 0
 
-    //////subscriber Account, quote client
-    /*store.subscribe(() => {
-        accounts = storeAccounts.getState().quoteAccount;
-
-        if (!_.isEmpty(accounts)) {
-            console.log("State quoteAccount now", accounts)
-
-            account = _.last(accounts)
-            accountId = accounts['accountId']
-        }
-    })*/
 
     ////////subscriber singleContact, representative
     storeAccounts.subscribe(() => {
@@ -81,11 +70,11 @@ $(document).ready(function(){
         let volume = parseFloat(length) * parseFloat(width) * parseFloat(height);
         let measure_system = $("select[name=magaya__Measure_System] option:selected").val()
         let weigth = ($(":input[name=Item-Weight]").val()) > 0 ? $(":input[name=Item-Weight]").val() : (packageType[rowIndex]['magaya__PackageWeight'] >= 0 ? packageType[rowIndex]['magaya__PackageWeight'] : 0);
-        pieces = roundDec(pieces);
+        pieces = parseInt(pieces);
         length = roundDec(length);
         height = roundDec(height);
         width = roundDec(width);
-        //weight = parseFloat(weight);
+        weight = roundDec(weight);
         volume = roundDec(volume);
 
         //formar el objeto
@@ -140,11 +129,13 @@ $(document).ready(function(){
             })
         })
         .catch(function(error){
-            dataError = error.data;
+            console.log(error)
+            dataError = error.data[0];
             //$.map(dataError, function(k, v) {
-                errorCode = dataError.code;
+                codeError = `${dataError.code} on field ${dataError.details.api_name}. Error Type: ${dataError.message}`;
                 field = dataError.details.api_name;
-                show = true;
+                show = false;
+                module = 'Items'
                 storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
             //})
@@ -538,14 +529,14 @@ $(document).ready(function(){
             "Account": accountId,
             "magaya__Deal": $(":input[name=Deal] option:selected").val() > 0 ? $(":input[name=Deal] option:selected").val() : '',
             "magaya__Shipper": sanitize($(":input[name=magaya__Shipper] option:selected").text()),
-            "magaya__ShipperAddress": `${sanitize($("input[name=Shipper_Street]").val())} / ${sanitize($("input[name=Shipper_City]").val())} / ${sanitize($("input[name=Shipper_State]").val())} / ${sanitize($("input[name=Shipper_Country]").val())}`,
+            //"magaya__ShipperAddress": `${sanitize($("input[name=Shipper_Street]").val())} / ${sanitize($("input[name=Shipper_City]").val())} / ${sanitize($("input[name=Shipper_State]").val())} / ${sanitize($("input[name=Shipper_Country]").val())}`,
             "magaya__ExpirationDate": expirationDateFinal,
             "magaya__Direction": $(":input[name=magaya__Direction]").val(),
             "magaya__TransportationMode": $("select[name=magaya__TransportationMode] option:selected").val(),
             "magaya__Description": sanitize($("#magaya__Description").val()),
             "magaya__Service": $("select[name=Service]").val(),
             "magaya__ConsigneeName": sanitize($("select[name=magaya__ConsigneeName] option:selected").text()),
-            "magaya__ConsigneeAddress": `${sanitize($("input[name=Consignee_Street]").val())} / ${sanitize($("input[name=Consignee_City]").val())} / ${sanitize($("input[name=Consignee_State]").val())} / ${sanitize($("input[name=Consignee_Country]").val())}`,
+            //"magaya__ConsigneeAddress": `${sanitize($("input[name=Consignee_Street]").val())} / ${sanitize($("input[name=Consignee_City]").val())} / ${sanitize($("input[name=Consignee_State]").val())} / ${sanitize($("input[name=Consignee_Country]").val())}`,
             "magaya__Carrier": $("select[name=magaya__Carrier] option:selected").val(),
             "magaya__DestinationReceipt": sanitize($("input[name=magaya__DestinationReceipt]").val()),
             "magaya__OriginReceipt": sanitize($("input[name=magaya__OriginReceipt]").val()),
@@ -553,8 +544,8 @@ $(document).ready(function(){
             "magaya__OriginPrecarriageBy": sanitize($("input[name=magaya__OriginPrecarriageBy]").val()),
             "magaya__Status": $("select[name=magaya__Status] option:selected").val(),
             "magaya__Representative": contact,
-            "magaya__PortofLoading": $("select[name=Port_Loading]").val(),
-            "magaya__PortofUnloading": $("select[name=Port_Unloading]").val(),
+            "magaya__PortofLoading": $("select[name=magaya__PortofLoading]").val(),
+            "magaya__PortofUnloading": $("select[name=magaya__PortofUnloading]").val(),
             "magaya__Destination": sanitize($("input[name=magaya__Destination]").val()),
             "magaya__Origin": sanitize($("input[name=magaya__Origin]").val()),
             "magaya__BillingCity": sanitize($("input[name=Mailing_City]").val()),

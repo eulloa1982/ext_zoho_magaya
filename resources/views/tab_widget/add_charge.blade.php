@@ -356,108 +356,129 @@ li {
 
 <div class="overlay">
 
-  <nav class="main-nav">
-  <div class="row" style="padding:10px 10px 10px 40px;" >
-            <div class="col-md-4">
-                <li><a>Charge Type</a></li>
-                <div class="input-group">
-                    <div class="input-group-text"><i class="fas fa-user-check"></i></div>
-                        <select name='ChargeType' id='ChargeType' class='form-control'>
-                            <option value="select"></option>
+    <nav class="main-nav">
+        <fieldset class="fieldset"><legend class="legend">New Charge</legend>
+            <div class="row">
+                <div class="col-md-2">
+                    <span>Status</span>
+                    <div class="input-group">
+                        <select name='ChargeStatus' class='form-control'>
+                            <option value="Open">Open</option>
+                            <option value="Paid">Paid</option>
+                            <option value="Posted">Posted</option>
                         </select>
+                    </div>
                 </div>
-            </div>
+                <div class="col-md-4">
+                    <span>Charge Type</span>
+                    <div class="input-group">
+                        <select name='ChargeType' id='ChargeType' class='form-control'>
+                            <option value="0"></option>
+                        </select>
+                    </div>
+                </div>
 
-            <div class="col-md-4">
-                <li>Description</li>
-                <div class="input-group">
-                    <div class="input-group-text"><i class="fas fa-user-check"></i></div>
+                <div class="col-md-6">
+                    <span>Description</span>
+                    <div class="input-group">
                         <input type="text" name='DescriptionCharges' id='DescriptionCharges' class='form-control' />
+                    </div>
                 </div>
             </div>
 
-            <div class="col-md-2">
-               <li>Currency</li>
-                <div class="input-group">
-                    <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
-                    <select name='Currency' id='Currency' class='form-control'>
-                        <option value='USD'>USD</option>
-                    </select>
+            <div class="row">
+                <div class="col-md-4">
+                    <span>Currency</span>
+                    <div class="input-group">
+                        <select name='Currency' id='Currency' class='form-control'>
+                            <option value='USD'>USD</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <span>Paid As</span>
+                    <div class="input-group">
+                        <select name='PaidAs' class='form-control'>
+                            <option value='Prepaid'>Prepaid</option>
+                            <option value='Collect'>Collect</option>
+                        </select>
+                    </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <span>Quantity</span>
+                    <div class="input-group">
+                        <input type="text" class="number form-control" name='Quantity' id='Quantity' class='form-control' />
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <span>Unity</span>
+                    <div class="input-group">
+                        <select name='Unity' class='form-control'>
+                            <option value='U'>U</option>
+                            <option value='Lb'>Lb</option>
+                            <option value='Kg'>Kg</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <span>Price</span>
+                    <div class="input-group">
+                        <input type="text" class="number form-control" name='Price' id='Price' class='form-control' />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <span>Tax Code</span>
+                    <div class="input-group">
+                        <select name="TaxCode" class='form-control'>
+                            <option value='0'></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+    </fieldset>
+
+        <div class="col-md-12" style="padding: 0px;">
+            <p style="width: 100%;text-align: right;">
+                <button id='sendCharges' for-table='#item-charges' class="btn btn-primary" style="background-color: #0b3355">Add Charge</button>
+            </p>
         </div>
-
-        <div class="row" style="padding:10px 10px 10px 40px;">
-        <div class="col-md-2">
-                <li>Quantity</li>
-                <div class="input-group">
-                    <div class="input-group-text"><i class="fas fa-cash-register"></i></div>
-                    <input type="text" name='Quantity' id='Quantity' class='form-control' />
-                </div>
-            </div>
-
-            <div class="col-md-2">
-                <li>Unity</li>
-                <div class="input-group">
-                    <div class="input-group-text"><i class="fas fa-chart-pie"></i></div>
-                        <input type="text" name='Unity' id='Unity' class='form-control' />
-                </div>
-            </div>
-
-            <div class="col-md-2">
-                <li>Price</li>
-                <div class="input-group">
-                    <div class="input-group-text"><i class="fas fa-hand-holding-usd"></i></div>
-                        <input type="text" name='Price' id='Price' class='form-control' />
-                </div>
-            </div>
-
-
-
-            <div class="col-md-2">
-                <li>Amount</li>
-                <div class="input-group">
-                    <div class="input-group-text"><i class="fas fa-coins"></i></div>
-                    <input type="text" name='Amount' id='Amount' class='form-control' readonly/>
-                </div>
-            </div>
-        </div>
-        <div class="row" style="padding:10px 10px 10px 40px;">
-            <span class="btn btn-primary" id="sendCharges"><i class="far fa-save fa-2x"></i></i></label>
-        </div>
-
-        <!--ul>
-      <li></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Blog</a></li>
-      <li><a href="#">Work</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul-->
-  </nav>
+    </nav>
 </div>
 
 <div class="tall">
-<div class="card">
-            <div class="card-body">
-                <div class="table-responsive-scroll">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive-scroll">
                 <table id="table-charges" class="table">
                     <thead>
-                    <tr>
-                        <th>Delete</th>
-                        <th>Code</th>
-                        <th>Description</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Amount</th>
-                        <th>Currency</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+                        <tr>
+                            <th style="width:10%"></th>
+                            <th style="width:10%">Status</th>
+                            <th style="width:26%">Description</th>
+                            <th style="width:9%">Quantity</th>
+                            <th style="width:9%">Price</th>
+                            <th style="width:9%">Amount</th>
+                            <th style="width:9%">Tax Amount</th>
+                            <th style="width:9%">Amount + Tax</th>
+                            <th style="width:9%">Final Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
 
             </div>
 
         </div>
+    </div>
 </div>
 
 
@@ -468,6 +489,8 @@ li {
 </body>
 </html>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jitbit/HtmlSanitizer@master/HtmlSanitizer.js"></script>
+
     <script src="{{ url('js/utils.js') }}"></script>
     <script src="{{ url('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ url('bootstrap/js/popper.min.js') }}"></script>
@@ -477,18 +500,20 @@ li {
     <!--SDK CDN-->
     <script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.1.1/redux.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
 
-    <script src="{{ url('js/biblio.jquery3.js') }}"></script>
-
-    <script src="{{ url('js/biblio.zoho2.js') }}"></script>
+    <script src="{{ url('js/ui_listmquote/utils/biblio_jquery.js') }}"></script>
     <script src="{{ url('js/errors_handlers/errors.js') }}"></script>
     <script src="{{ url('js/store/constants.js') }}"></script>
+
 
     <script src="{{ url('js/store/store.js') }}"></script>
     <script src="{{ url('js/store/storeError.js') }}"></script>
     <script src="{{ url('js/store/storeSuccess.js') }}"></script>
     <script src="{{ url('js/store/storeCharges.js') }}"></script>
     <script src="{{ url('js/store/storeQuotes.js') }}"></script>
+    <script src="{{ url('js/store/storeAccounts.js') }}"></script>
+    <script src="{{ url('js/ui_listmquote/subscribers/subscribersQuotes.js') }}"></script>
 
     <!--script src="{{ url('js/ui_listmquote/subscribers/subscribersCharges.js') }}"></script-->
 
@@ -497,8 +522,6 @@ li {
     <!--script src="{{ url('js/contacts2.js') }}"></script-->
 
 <script>
-
-
 
 $(document).ready(function(){
 
@@ -517,25 +540,28 @@ $(document).ready(function(){
     $('.nav-toggle').toggleClass('is-active');
   })
 })
-    var idAccount = 0
 
+
+
+    let accountId = 0
+    let contact = 0
+
+    let idQuote = 0
     //get zoho data
     ZOHO.embeddedApp.on("PageLoad",function(data)
     {
         idQuote = data.EntityId;
 
         //select the account from client quote
-        ZOHO.CRM.API.getRecord({ Entity: "magaya__SQuotes", RecordID: idQuote })
+        ZOHO.CRM.API.getRecord({ Entity: "magaya__SQuotes", RecordID:  idQuote })
         .then (function (response) {
             data = response.data;
-            if (!_.isEmpty(data[0]["Account"])) {
-                //select account data
-                idAccount = data[0]["Account"]["id"];
-                client = data[0]["Account"]["name"];
-                //dispatch los datos del account hacia el store
-                //storeClientQuote.dispatch({type: 'SET', value: {client, id}})
-
-            }
+            storeQuote.dispatch(addQuote(data))
+        })
+        .then(function(d) {
+            storeQuote.dispatch(findQuote({id: idQuote}))
+            accountId = quoteToEdit.Account.id
+            console.log("Quote to edit", quoteToEdit)
         });
 
 
@@ -543,24 +569,20 @@ $(document).ready(function(){
         //charges types
         ZOHO.CRM.API.getAllRecords({Entity: "magaya__Charges_Type", sort_order: "asc"})
         .then(function (response) {
-            //console.log("Charges Type", response)
             if (!_.isEmpty (response.data)) {
                 $.map(response.data, function (k, i) {
-                    //console.log(k.magaya__ChargesCode)
-                        $(`<option value="${k.magaya__ChargesCode}">${k.Name}</option>`).appendTo("select[name=ChargeType]");
+                    $(`<option value="${sanitize(k.magaya__ChargesCode)}">${sanitize(k.Name)}</option>`).appendTo("select[name=ChargeType]");
                 })
             }
         })
 
 
         //get related records charges
-       ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idQuote, RelatedList: "magaya__SQuote_Name0", page: 1, per_page: 200 })
+       ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID:  idQuote, RelatedList: "magaya__SQuote_Name0", page: 1, per_page: 200 })
             .then(function(response) {
                 $("#charges tbody").empty();
                 if (!_.isEmpty(response.data)) {
                     idemCharges = response.data
-                    console.log("Charges", idemCharges)
-
                     amountTotal = cont = 0;
                     $.each(idemCharges, function(i, k) {
                             cont++;
@@ -585,70 +607,67 @@ $(document).ready(function(){
 
     ZOHO.embeddedApp.init()
 
-    //enviar el nuevo service item
+    //boton sendCharges on edit form
     $("#sendCharges").click(function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        //recibir los campos
-        //recibir los campos del form
-        let ChargeType = $("#ChargeType").val();
-        let DescriptionCharges = $("#DescriptionCharges").val().replace(/[^a-zA-Z0-9]/g, ' ');
-        let ChargeText = DescriptionCharges;
-        let Quantity = ($("#Quantity").val() > 0) ? $("#Quantity").val() : 0;
-        let Unity = $("#Unity").val() > 0 ? $("#Unity").val() : 0;
-        let Price = $("#Price").val() > 0 ? $("#Price").val() : 0;
-        Price = roundDec(Price);
-        //var Amount = Math.round(Price * 100) / 100;
-        var Amount = parseFloat(Quantity) * parseFloat(Price);
-        Amount = roundDec(Amount);
+        Utils.blockUI();
+        store.dispatch(addActionEdited())
 
-        //formar el objeto
-        DescriptionCharges = DescriptionCharges.replace(/[^a-zA-Z0-9]/g, ' ');
-        Quantity = parseFloat(Quantity);
-        Price = parseFloat(Price);
-        Amount = parseFloat(Amount)
+        let ChargeType = $("select[name=ChargeType] option:selected").val();
+        let Status = $("select[name=ChargeStatus] option:selected").val();
+        let DescriptionCharges = $("input[name=DescriptionCharges]").val().replace(/[^a-zA-Z0-9]/g, ' ');
+        let ChargeText = DescriptionCharges;
+
+        let TaxRate = $("select[name=TaxCode] option:selected").val();
+        let Quantity = ($("input[name=Quantity]").val() > 0) ? $("input[name=Quantity]").val() : 0;
+        let Unity = $("input[name=Unity]").val() > 0 ? $("input[name=Unity]").val() : 0;
+        let Price = $("input[name=Price]").val() > 0 ? $("input[name=Price]").val() : 0;
+
+        Price = roundDec(Price)
+        TaxRate = roundDec(TaxRate)
+        Quantity = roundDec(Quantity);
+        let amount = Price * Quantity;
+        amount = roundDec(amount)
+        let amount_tax = amount / 100 * TaxRate
+        amount_tax = roundDec (amount_tax);
+        let amount_total = amount + amount_tax;
+        amount_total = roundDec (amount_total)
+
 
         let item = {
-            'magaya__SQuote_Name': idQuote,
-            'Name': DescriptionCharges,
-            'magaya__ChargeCode': ChargeType,
-            'magaya__Charge_Description': DescriptionCharges,
-            'magaya__CQuantity': Quantity,
-            'magaya__Price': Price,
-            'magaya__Amount': Amount,
-            'magaya__ApplyToAccounts': idAccount
+                'magaya__SQuote_Name': idQuote,
+                'Name': DescriptionCharges,
+                'magaya__Status': Status,
+                'magaya__TaxRate': TaxRate,
+                'magaya__Tax_Amount': amount_tax,
+                'magaya__Amount_Total': amount_total,
+                'magaya__ChargeCode': ChargeType,
+                'magaya__Charge_Description': DescriptionCharges,
+                'magaya__CQuantity': Quantity,
+                'magaya__Price': Price,
+                'magaya__Amount': amount,
+                'magaya__Final_Amount': amount_total,
+                'magaya__ChargeCurrency': $("select[name=Currency]").val(),
+                'magaya__ApplyToAccounts': accountId
         }
+
 
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: item, Trigger: [] })
             .then(function(data) {
                 res = data.data;
-                console.log("Charge inserted respomnse", res)
+
                 let idCharge = res[0]['details']['id'];
-                $.map(res, function(k, v) {
+                if (res[0]["code"] !== "SUCCESS") {
+                    codeError = res[0]["code"];
+                    field = res[0]['details']["api_name"];
+                    show = true;
+                    module = 'Service Items'
 
-                    if (k.code !== "SUCCESS") {
-                        codeError = k.code;
-                        field = k.details.api_name;
-                        show = true;
-                        module = 'Service Items'
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
-                        //storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                    } else {
-                        let idCharge = res[0].details.id;
-                        codeError = "";
-                        field = "";
-                        show = false;
-                        module = 'Service Items'
-
-                        $("#ChargeType").val('');
-                        $("#DescriptionCharges").val('');
-                        $("#Quantity").val('');
-                        $("#Unity").val('');
-                        $("#Price").val('');
-                        $("#Amount").val('');
-
-                        ZOHO.CRM.API.getRecord({Entity:"magaya__ChargeQuote",RecordID:idCharge})
+                } else {
+                    ZOHO.CRM.API.getRecord({Entity:"magaya__ChargeQuote",RecordID:idCharge})
                         .then(function(data){
                             record = data.data;
 
@@ -668,23 +687,8 @@ $(document).ready(function(){
                             let message = ": Added new Charge item"
                             storeSuccess.dispatch(addSuccess({message: message}))
                         })
-                        /*content = `<tr><td class="Delete"><i class="fa fa-trash del-item-charge" aria-hidden="true" data-id="${idCharge}"></i></td>
-                        <td class="magaya__ChargeCode">${ChargeType}</td>
-                        <td><input type="text" class="form-control no-border" name="Name" value="${ChargeText}"/></td>
-                        <td><input type="text" class="form-control no-border" name="magaya__Charge_Description" value="${DescriptionCharges}"/></td>
-                        <td><input type="text" class="form-control no-border" name="magaya__CQuantity" value="${Quantity}"/></td>
-                        <td><input type="text" class="form-control no-border" name="magaya__Price" value="${Price}"/></td>
-                        <td class="magaya__Amount">${Amount}</td>
-                        <td class="magaya__ApplyToAccounts">${idAccount}</td>
-                        </tr>`;*/
 
-                        //$(content).appendTo("#table-charges tbody");
-                        //let message = ": Added new Charge item"
-                        //storeCharge.dispatch(addCharge({...item, id: idCharge}))
-                        //storeSuccess.dispatch(addSuccess({message: message}))
-
-                    }
-                })
+                }
             })
             .then(function(){
                 Utils.unblockUI()
@@ -696,12 +700,11 @@ $(document).ready(function(){
                     field = k.details.api_name;
                     show = true;
                     module = 'Service Items'
-                    //storeError.dispatch(addError({errorCode: errorCode, showInfo: show, field: field, module: module}))
+                    storeError.dispatch(addError({errorCode: errorCode, showInfo: show, field: field, module: module}))
 
                 })
                 Utils.unblockUI()
             })
-
     })
 
 
@@ -714,56 +717,7 @@ $(document).ready(function(){
 
     $('#table-charges').bind("DOMSubtreeModified", function() {
 
-        //////////////////////////////////////////////////////////////////
-        ///////// data in situ editable
-        ///////////////////////////////////////////////////////////////////
-        $(".Edit").click(function(e) {
-            e.preventDefault()
-            e.stopImmediatePropagation();
 
-            let tr = $(this).parent()
-            //tr.
-
-        })
-
-        $(".no-border").click(function(e) {
-            //$(this).addClass("editable")
-
-        })
-
-        $(".no-border").blur(function(e) {
-            //e.preventDefault();
-            /*let td = $(this).parent();
-            let tr = td.parent();
-
-            let value = $(this).val();
-            let parent = $(this).parent();
-            let field = parent.attr('class');
-            let celd = tr.find("td:first");
-            let child = celd.children().attr('data-id');
-
-            let json_items = `{'id': ${child}`;
-            json_items += `, '${field}': '${value}'`;
-            json_items += "}";
-
-            var config=JSON.stringify({
-                Entity:"magaya__ChargeQuote",
-                APIData:JSON.parse(json_items),
-                Trigger:[]
-                })
-
-            console.log("Data to sendas", config)
-            $(this).updateRecordCRM(config);*/
-
-            //$(this).removeClass("editable")
-        })
-
-        $(".editable").focus(function(e) {
-            e.preventDefault();
-
-            let padre = $(this).parent()
-            console.log("Clase padre", padre.attr('class'))
-        })
 
         /////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -811,38 +765,33 @@ $(document).ready(function(){
     ///////subscriber charges, render UI table
     storeCharge.subscribe(() => {
         let u = storeCharge.getState().charges;
-        console.log("State charge now", u)
+
         $("#table-charges tbody").empty();
             if (!_.isEmpty(u)) {
                 $.each(u, function(i, k) {
 
-                    $("#table-charges tbody").append(`<tr><td class="Delete"><a><span class="material-icons oculto delete" data-id="${k.id}">clear</span></a></td>
-                    <td class="magaya__ChargeCode">${k.magaya__ChargeCode}</td>
-                    <td><input type="text" class="form-control no-border" name="Name" value="${k.Name}" required></td>
-                    <td><input type="text" class="form-control no-border" name="magaya__CQuantity" value="${k.magaya__CQuantity}" /></td>
-                    <td><input type="text" class="form-control no-border" name="magaya__Price" value="${k.magaya__Price}" /></td>
-                    <td class="magaya__Amount">${k.magaya__Amount}</td>
-                    <td class="magaya__ChargeCurrency">${k.magaya__ChargeCurrency}</td>
+                    $("#table-charges tbody").append(`<tr>
+                    <td class="Delete">
+                        <a><span class="material-icons oculto delete" data-id="${k.id}">clear</span></a>
+                    </td>
+                    <td class="magaya__Status">${k.magaya__Status}</td>
+                    <td class="Name" id="first">${k.Name}</td>
+                    <td><input type="text" class="magaya__CQuantity number form-control" value="${k.magaya__CQuantity}" /></td>
+                    <td><input type="text" class="magaya__Price number form-control" value="${roundDec(k.magaya__Price)}" /></td>
+                    <td><input type="text" class="magaya__Amount number form-control" value="${roundDec(k.magaya__Amount)}" /></td>
+                    <td><input type="text" class="magaya__Tax_Amount number form-control" value="${roundDec(k.magaya__Tax_Amount)}" /></td>
+                    <td>${roundDec(k.magaya__Amount_Total)}</td>
+                    <td><input type="text" class="magaya__Final_Amount number form-control" value="${roundDec(k.magaya__Final_Amount)}" /></td>
+
+
+
                     </tr>`);
                 })
             } //IF
         })
 
-    var idQuote = 0;
+    //var  idmQuoteToEdit = 0;
 
 });
-
-
-
-
-
-//redondear decimales
-function roundDec(num) {
-    if (typeof num === 'undefined' || num <= 0) return 0;
-    let t = num.toString();
-    let regex = /(\d*.\d{0,4})/;
-    return t.match(regex)[0];
-
-}
 
 </script>

@@ -115,7 +115,8 @@
 
 					<div class="modal-header" style="background: #0b3355;color: white;">
 						<h4 class="modal-title custom_align" style="font-weight: bold;" id="Heading">Edit mQuote</h4>
-						<button type="button" class="close cerrar-modal" aria-hidden="true"><span class="material-icons">highlight_off</span></button>
+
+						<button type="button" class="close cerrar-modal" aria-hidden="true"><span class="material-icons btn btn-primary">highlight_off</span></button>
 
 					</div>
 					<div class="modal-body">
@@ -126,7 +127,7 @@
                                 <span class="material-icons close cursor-hand" data-close="panel">close</span>
 
 
-                            <fieldset class="fieldset"><legend class="legend">Item</legend>
+                            <fieldset class="fieldset"><legend class="legend">Item<span class="float-right" id="arrows"></span></legend>
                                 <form class="edit-record">
                                 <div id="info-datad"></div>
                                 </form>
@@ -426,7 +427,7 @@
 									<div class="row" style="margin-bottom:20px; margin-top:20px;">
 										<div class="col-md-6">
 											<label class="col-md-12" style="font-weight: bold;">Main Carrier</label>
-											<select name='Carrier' id='Carrier' class='form-control'>
+											<select name='magaya__Carrier' id='Carrier' class='form-control'>
                                                 <option value="select"></option>
                                             </select>
 										</div>

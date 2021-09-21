@@ -77,7 +77,6 @@
                     show = true;
                     field = "oldValue";
                     module = 'Service Items'
-                    console.log("Error Fatal", error)
                     storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
                 })
@@ -250,7 +249,7 @@
                     $(this).val(value);
                     if (oldValue.toString() !== value.toString()) {
                         value = sanitize(value)
-                        if (field !== "Name") {
+                        if (field !== "Name" && field !== "magaya__Pieces") {
                             value = roundDec(value)
                         }
 

@@ -22,11 +22,12 @@ storeCharge.subscribe(() => {
         let no_border = data_module_flag_charge ? "no-border-charge-new" : "no-border-charge"
 
         $("#info-datad").empty()
-        let append = `
+        $("#arrows").empty()
+        let arrows = `
             <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
             <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
-            <h4 style="color: red; font-weigth: bold">Apply To: ${applyToName}</h4>
         `
+
         let arr = {}
         $.map(u[1], function(k, v) {
             //get place order
@@ -51,7 +52,7 @@ storeCharge.subscribe(() => {
                             if (val === k)
                                 input += `<option value="${val}" selected>${val}</option>`
                             else
-                                input += `<option value="${val}" selected>${val}</option>`
+                                input += `<option value="${val}">${val}</option>`
                         })
                     input += `</select>`
                 }
@@ -64,13 +65,21 @@ storeCharge.subscribe(() => {
                 arr[order] = appendArr
             }
         })
+
+        let append = `<span id="${button_type}" data-id="${id}" class="btn btn-primary float-right">Save</span><br /><br />`
+
+
         //imprimir campos en orden
         for(i = 1; i < 14; i++) {
             append += arr[i];
         }
 
-        append += `<span id="${button_type}" data-id="${id}" class="btn btn-primary">Save</span>`
+        append += `<div class="row" style="margin: 5px 5px 5px 5px">
+        <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Apply To</div>
+        <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control" value="${applyToName}" readonly></div>
+        </div>`
 
+        $("#arrows").append(arrows)
         $("#info-datad").append(append)
     }
         })
@@ -123,11 +132,11 @@ storeCharge.subscribe(() => {
                     <td class="magaya__Status">${k.magaya__Status}</td>
                     <td class="Name" id="first">${k.Name}</td>
                     <td align="right" class="magaya__CQuantity">${k.magaya__CQuantity}</td>
-                    <td align="right" class="magaya__Price">${k.magaya__Price}</td>
-                    <td align="right" class="magaya__Amount">${k.magaya__Amount}</td>
-                    <td align="right" class="magaya__Tax_Amount">${k.magaya__Tax_Amount}</td>
-                    <td align="right" class="magaya__Amount_Total">${k.magaya__Amount_Total}</td>
-                    <td align="right" class="magaya__Final_Amount">${k.magaya__Final_Amount}</td>
+                    <td align="right" class="magaya__Price">${roundDec(k.magaya__Price)}</td>
+                    <td align="right" class="magaya__Amount">${roundDec(k.magaya__Amount)}</td>
+                    <td align="right" class="magaya__Tax_Amount">${roundDec(k.magaya__Tax_Amount)}</td>
+                    <td align="right" class="magaya__Amount_Total">${roundDec(k.magaya__Amount_Total)}</td>
+                    <td align="right" class="magaya__Final_Amount">${roundDec(k.magaya__Final_Amount)}</td>
 
                     <td class="magaya__ChargeCode" style="display: none;">${k.magaya__ChargeCode}</td>
                     <td style="display: none;" class="magaya__Tax_Rate0">${k.magaya__TaxRate}</td>
@@ -193,11 +202,11 @@ storeCharge.subscribe(() => {
                 <td class="magaya__Status">${k.magaya__Status}</td>
                 <td class="Name" id="first">${k.Name}</td>
                 <td align="right" class="magaya__CQuantity">${k.magaya__CQuantity}</td>
-                <td align="right" class="magaya__Price">${k.magaya__Price}</td>
-                <td align="right" class="magaya__Amount">${k.magaya__Amount}</td>
-                <td align="right" class="magaya__Tax_Amount">${k.magaya__Tax_Amount}</td>
-                <td align="right" class="magaya__Amount_Total">${k.magaya__Amount_Total}</td>
-                <td align="right" class="magaya__Final_Amount">${k.magaya__Final_Amount}</td>
+                <td align="right" class="magaya__Price">${roundDec(k.magaya__Price)}</td>
+                <td align="right" class="magaya__Amount">${roundDec(k.magaya__Amount)}</td>
+                <td align="right" class="magaya__Tax_Amount">${roundDec(k.magaya__Tax_Amount)}</td>
+                <td align="right" class="magaya__Amount_Total">${roundDec(k.magaya__Amount_Total)}</td>
+                <td align="right" class="magaya__Final_Amount">${roundDec(k.magaya__Final_Amount)}</td>
 
                 <td class="magaya__ChargeCode" style="display: none;">${k.magaya__ChargeCode}</td>
                 <td class="magaya__Tax_Rate0" style="display: none;">${k.magaya__TaxRate}</td>

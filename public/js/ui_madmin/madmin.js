@@ -1,4 +1,9 @@
 $(document).ready(function(){
+    let currentModule = ''
+    storeCurrentModule.subscribe(() => {
+        let u = storeCurrentModule.getState();
+        currentModule = u.currentModule
+    })
 
     //botton enviar al CRM
     $(".send-to-crm").click(function(e) {
@@ -21,6 +26,7 @@ $(document).ready(function(){
     })
 
 
+    //delete item in CRM
     $(".delete-from-crm").click(function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
@@ -39,15 +45,15 @@ $(document).ready(function(){
                 message = ''
                 $("input[class=form-check-crm]:checked").each(function(k) {
 
-                    let idChargeTypeDelete = $(this).attr("data-id");
-                    console.log("Getting id for delete ", idChargeTypeDelete)
-                    deleteDataCRM(moduleName, idChargeTypeDelete).then(r => {
+                    let idItem = $(this).attr("data-id");
+                    console.log("Getting id for delete in " + currentModule, idItem)
+                    deleteDataCRM(currentModule, idItem).then(r => {
                         let d = r.data[0]
                         console.log("Delete result", r)
                         if (d.code === "SUCCESS") {
                             message = " : Item Deleted!!";
                             //actualizar el volumen
-                            storeChargesCrm.dispatch(deleteChargeType({id: idChargeTypeDelete}))
+                            storeCrm.dispatch(deleteItemCrm({id: idItem}))
                             storeSuccess.dispatch(addSuccess({message: message}))
                         } else {
                             dataError = "error.data";

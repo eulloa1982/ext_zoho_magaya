@@ -59,7 +59,7 @@ $(document).ready(function(){
                     var accountId = k.id;
                     k.Account_Name = sanitize(k.Account_Name)
                     if (k.magaya__mEntityType === "Carrier") {
-                        $(`<option value='${k.Account_Name}'>${k.Account_Name}</option>`).appendTo("select[name=Carrier]");
+                        $(`<option value='${k.Account_Name}'>${k.Account_Name}</option>`).appendTo("select[name=magaya__Carrier]");
 
                     } else {
                         $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");

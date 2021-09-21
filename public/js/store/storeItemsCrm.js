@@ -20,6 +20,7 @@ const reducerCrm = (state = initialStateCrm, actions) => {
 
         case DELETE_ITEM_CRM: {
             const byId = actions.payload.id
+            const module = actions.payload.module
             return {
                 ...state,
                 itemsCrm: state.itemsCrm.filter(item => item.id !== byId)

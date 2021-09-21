@@ -1,5 +1,5 @@
 //get one charge
-let currentModule = ''
+var currentModule = ''
 storeCurrentModule.subscribe(() => {
     let u = storeCurrentModule.getState();
     currentModule = u.currentModule
