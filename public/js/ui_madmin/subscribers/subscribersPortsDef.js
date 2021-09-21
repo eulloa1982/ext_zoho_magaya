@@ -3,8 +3,8 @@ storePortsDef.subscribe(() => {
     let portsA = storePortsDef.getState().ports;
     let active = storePortsDef.getState().active;
 
-    console.log("Ports status now", portsA)
-    console.log("Ports active now", active)
+    //console.log("Ports status now", portsA)
+    //console.log("Ports active now", active)
 
     $("#sortable-magaya-ports").empty();
     if (!_.isEmpty(portsA) && active) {

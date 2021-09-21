@@ -176,15 +176,10 @@ $(document).ready(function(){
                     $.map(charges_type, function(k, v) {
                         k.Name = sanitize(k.Name)
                         storeCrm.dispatch(addItemCrm(k))
-
-                        //k.magaya__Status = sanitize(k.magaya__Status)
-                        //if (!_.isEmpty(k.Account)) {
-                        //}
                     })
 
                     switch(currentModule) {
                         case "magaya__Ports": {
-                            console.log("Magaya Ports")
                             storePortsDef.dispatch(makeActivePort())
                             storeChargesDef.dispatch(makeInactiveChargeDef())
                             break
@@ -202,8 +197,8 @@ $(document).ready(function(){
 
                 })
         })
-        getChargesDefinition()
-        getWorkingPorts()
+        //getChargesDefinition()
+        //getWorkingPorts()
 
     })
 
