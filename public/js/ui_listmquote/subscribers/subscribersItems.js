@@ -4,7 +4,6 @@ let data_module_flag_item = true
 //get an item, draw the data view
 storeItem.subscribe(() => {
     let u = storeItem.getState().singleItem;
-
     if (!_.isEmpty(u)) {
         //construir los campos y la data
         let k = u[0]
@@ -25,22 +24,26 @@ storeItem.subscribe(() => {
             <span class="material-icons cursor-hand btn-slide" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
         `
 
+
         let append = `<span id="${button_type}" data-id="${id}" class="btn btn-primary float-right">Send</span><br /><br />`
 
         $.map(u[1], function(k, v) {
             if ( _.has(ITEMS_FIELDS, v)) {
                 let type = "text"
-                if (_.has(ITEMS_FIELDS, [v, 'type']) && v !== "magaya__Pieces") {
+                if (_.has(ITEMS_FIELDS, [v, 'type'])) {
                     type = "number";
-                    k = roundDec(k)
+                    if (v !== "magaya__Pieces")
+                        k = roundDec(k)
                 }
-
+                /*if (type === "number") {
+                    k = roundDec(k)
+                }*/
                 input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}"/>`
                 let field = _.get(ITEMS_FIELDS, [v, 'field'])
                 let values = _.has(ITEMS_FIELDS, [v, "values"]) ? _.get(ITEMS_FIELDS, [v, 'values']) : ''
 
                 if (!_.isEmpty(values)) {
-                    input = `<select data-id="${id}" name="${v}" class="form-control no-border-item">`
+                    input = `<select data-id="${id}" name="${v}" class="form-control">`
                         $.map(values, function(val) {
                             if (val === k)
                                 input += `<option value="${val}" selected>${val}</option>`

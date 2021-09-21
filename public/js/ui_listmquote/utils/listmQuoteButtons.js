@@ -74,7 +74,7 @@ $(document).ready(function(){
         length = roundDec(length);
         height = roundDec(height);
         width = roundDec(width);
-        weight = roundDec(weight);
+        weigth = roundDec(weigth);
         volume = roundDec(volume);
 
         //formar el objeto

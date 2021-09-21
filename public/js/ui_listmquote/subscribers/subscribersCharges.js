@@ -4,7 +4,7 @@ $("#info-charge").html("Loading, please wait...");
 //get one charge
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
-    console.log("Single charge", u)
+    //console.log("Single charge", u)
     if (!_.isEmpty(u)) {
         let k = parseInt(u[0])
         //construir los campos y la data
@@ -41,6 +41,9 @@ storeCharge.subscribe(() => {
 
                 let editable = _.get(CHARGES_FIELDS, [v, 'editable'])
 
+                if (type === "number") {
+                    k = roundDec(k)
+                }
                 input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" ${editable}/>`
 
                 let field = _.get(CHARGES_FIELDS, [v, 'field'])
