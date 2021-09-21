@@ -27,7 +27,6 @@ storeAccounts.subscribe(() => {
 
        $("select[name=magaya__Representative]").val(idContact)
        $.map(contact[0], function (k, v) {
-            console.log(k, v)
             if (!_.isObject(v) && !v.includes("$")) {
                 $(`input[name=${v}]`).val(k)
                 $(`select[name=${v}]`).val(k)

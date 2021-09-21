@@ -249,7 +249,7 @@
                     $(this).val(value);
                     if (oldValue.toString() !== value.toString()) {
                         value = sanitize(value)
-                        if (field !== "Name") {
+                        if (field !== "Name" && field !== "magaya__Pieces") {
                             value = roundDec(value)
                         }
 

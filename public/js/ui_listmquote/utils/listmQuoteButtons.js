@@ -3,19 +3,8 @@ $(document).ready(function(){
 
     let accountId = 0
     let contact = 0
-    let quoteToEdit = 0
+    //var quoteToEdit = 0
 
-    //////subscriber Account, quote client
-    /*store.subscribe(() => {
-        accounts = storeAccounts.getState().quoteAccount;
-
-        if (!_.isEmpty(accounts)) {
-            console.log("State quoteAccount now", accounts)
-
-            account = _.last(accounts)
-            accountId = accounts['accountId']
-        }
-    })*/
 
     ////////subscriber singleContact, representative
     storeAccounts.subscribe(() => {
@@ -81,11 +70,11 @@ $(document).ready(function(){
         let volume = parseFloat(length) * parseFloat(width) * parseFloat(height);
         let measure_system = $("select[name=magaya__Measure_System] option:selected").val()
         let weigth = ($(":input[name=Item-Weight]").val()) > 0 ? $(":input[name=Item-Weight]").val() : (packageType[rowIndex]['magaya__PackageWeight'] >= 0 ? packageType[rowIndex]['magaya__PackageWeight'] : 0);
-        pieces = roundDec(pieces);
+        pieces = parseInt(pieces);
         length = roundDec(length);
         height = roundDec(height);
         width = roundDec(width);
-        //weight = parseFloat(weight);
+        weight = roundDec(weight);
         volume = roundDec(volume);
 
         //formar el objeto
@@ -140,11 +129,13 @@ $(document).ready(function(){
             })
         })
         .catch(function(error){
-            dataError = error.data;
+            console.log(error)
+            dataError = error.data[0];
             //$.map(dataError, function(k, v) {
-                errorCode = dataError.code;
+                codeError = `${dataError.code} on field ${dataError.details.api_name}. Error Type: ${dataError.message}`;
                 field = dataError.details.api_name;
-                show = true;
+                show = false;
+                module = 'Items'
                 storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
             //})

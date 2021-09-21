@@ -18,15 +18,22 @@ storeItem.subscribe(() => {
         let button_type = data_module_flag_item ? "updateItemNew" : "updateItem"
 
         $("#info-datad").empty()
-        let append = `
+        $("#arrows").empty()
+
+        let arrows = `
             <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
             <span class="material-icons cursor-hand btn-slide" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
         `
+
+        let append = `<span id="${button_type}" data-id="${id}" class="btn btn-primary float-right">Send</span><br /><br />`
+
         $.map(u[1], function(k, v) {
             if ( _.has(ITEMS_FIELDS, v)) {
                 let type = "text"
-                if (_.has(ITEMS_FIELDS, [v, 'type']))
+                if (_.has(ITEMS_FIELDS, [v, 'type']) && v !== "magaya__Pieces") {
                     type = "number";
+                    k = roundDec(k)
+                }
 
                 input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}"/>`
                 let field = _.get(ITEMS_FIELDS, [v, 'field'])
@@ -38,7 +45,7 @@ storeItem.subscribe(() => {
                             if (val === k)
                                 input += `<option value="${val}" selected>${val}</option>`
                             else
-                                input += `<option value="${val}" selected>${val}</option>`
+                                input += `<option value="${val}">${val}</option>`
                         })
                     input += `</select>`
                 }
@@ -49,8 +56,9 @@ storeItem.subscribe(() => {
             }
         })
 
-        append += `<span id="${button_type}" data-id="${id}" class="btn btn-primary">Send</span>`
 
+
+        $("#arrows").append(arrows)
         $("#info-datad").append(append)
     }
 
@@ -83,7 +91,7 @@ storeItem.subscribe(() => {
                     total_weight_english += roundDec(k.magaya__Weigth)
                 }
                 //get totales
-                totalPieces += roundDec(k.magaya__Pieces)
+                totalPieces += parseInt(k.magaya__Pieces)
 
                 $("#table-items-new tbody").append(`<tr>
                 <td class='Delete'>
@@ -149,7 +157,7 @@ storeItem.subscribe(() => {
                 total_weight_english += roundDec(k.magaya__Weigth)
             }
 
-            totalPieces += roundDec(k.magaya__Pieces)
+            totalPieces += parseInt(k.magaya__Pieces)
             totalVolume += roundDec(k.magaya__Volume)
             totalWeight += roundDec(k.magaya__Weigth)
             k.Name = sanitize(k.Name);
@@ -161,11 +169,11 @@ storeItem.subscribe(() => {
             <td class="magaya__Status">InQuote</td>
             <td class='Name'>${k.Name}</td>
             <td align="right" class="magaya__Pieces">${k.magaya__Pieces}</td>
-            <td align="right" class="magaya__Length">${k.magaya__Length}</td>
-            <td align="right" class="magaya__Height">${k.magaya__Height}</td>
-            <td align="right" class="magaya__Width">${k.magaya__Width}</td>
-            <td align="right" class="magaya__Weigth">${k.magaya__Weigth}</td>
-            <td align="right" class="magaya__Volume">${k.magaya__Volume}</td>
+            <td align="right" class="magaya__Length">${roundDec(k.magaya__Length)}</td>
+            <td align="right" class="magaya__Height">${roundDec(k.magaya__Height)}</td>
+            <td align="right" class="magaya__Width">${roundDec(k.magaya__Width)}</td>
+            <td align="right" class="magaya__Weigth">${roundDec(k.magaya__Weigth)}</td>
+            <td align="right" class="magaya__Volume">${roundDec(k.magaya__Volume)}</td>
 
             <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
             </tr>`

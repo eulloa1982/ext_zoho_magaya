@@ -167,7 +167,8 @@ function roundDec(num) {
     let number = parseFloat(t.match(regex)[0]);
 
     if (typeof (number) === "number" && !isNaN(number)) {
-        return number;
+
+        return number.toFixed(2);
     }
 
 
