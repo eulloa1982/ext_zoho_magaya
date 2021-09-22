@@ -78,8 +78,10 @@
     <script src="{{ url('js/utils/magaya_api.js') }}"></script>
     <script src="{{ url('js/utils/utils.js') }}"></script>
 
+    <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteInitial.js') }}"></script>
     <script src="{{ url('js/errors_handlers/errors.js') }}"></script>
     <script src="{{ url('js/store/constants.js') }}"></script>
+
     <script src="{{ url('js/store/storeError.js') }}"></script>
     <script src="{{ url('js/store/storeSuccess.js') }}"></script>
     <script src="{{ url('js/store/store.js') }}"></script>
@@ -90,6 +92,7 @@
     <script src="{{ url('js/store/storeOrganization.js') }}"></script>
     <script src="{{ url('js/store/storeDeal.js') }}"></script>
     <script src="{{ url('js/store/storePorts.js') }}"></script>
+    <script src="{{ url('js/store/storeChargesType.js') }}"></script>
 
 
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersAccounts.js') }}"></script>
@@ -99,7 +102,6 @@
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersDeal.js') }}"></script>
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersPorts.js') }}"></script>
 
-    <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteInitial.js') }}"></script>
     <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuote.js') }}"></script>
     <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuoteButtons.js') }}"></script>
     <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuoteFormEdit.js') }}"></script>

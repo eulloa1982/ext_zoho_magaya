@@ -1,10 +1,19 @@
 //si es quotesOnNew es true, sino es false y son charges en edit
 let data_module_flag_charge = true
+let charges_types = []
 $("#info-charge").html("Loading, please wait...");
 //get one charge
+storeChargesType.subscribe(() => {
+    charges_types = storeChargesType.getState().chargesType
+})
+
+
+
+
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
-    //console.log("Single charge", u)
+    let charge_is_new = storeCharge.getState().isChargeNew
+    console.log("State charge 0ne", storeCharge.getState())
     if (!_.isEmpty(u)) {
         let k = parseInt(u[0])
         //construir los campos y la data
@@ -13,7 +22,8 @@ storeCharge.subscribe(() => {
         let applyToName = ''
         $.map(u[1], function(k, v) {
             id = u[1].id
-            applyToName = u[1].magaya__ApplyToAccounts.name
+            if (!_.isEmpty(u[1].magaya__ApplyToAccounts))
+                applyToName = u[1].magaya__ApplyToAccounts.name
         })
 
 
@@ -48,16 +58,30 @@ storeCharge.subscribe(() => {
 
                 let field = _.get(CHARGES_FIELDS, [v, 'field'])
                 let values = _.has(CHARGES_FIELDS, [v, "values"]) ? _.get(CHARGES_FIELDS, [v, 'values']) : ''
-                //si tiene una lista de valores, es un select y lo imprimimos
-                if (!_.isEmpty(values)) {
-                    input = `<select data-id="${id}" name="${v}" class="form-control ${no_border}">`
-                        $.map(values, function(val) {
-                            if (val === k)
-                                input += `<option value="${val}" selected>${val}</option>`
-                            else
-                                input += `<option value="${val}">${val}</option>`
-                        })
-                    input += `</select>`
+
+                if (field === "Charge Type") {
+                    input = `<select data-id="${id}" name="magaya__ChargeCode" class="form-control">`
+                    $.map (charges_types, function(k, i) {
+                        k.magaya__Tax_Rate = sanitize(k.magaya__Tax_Rate)
+                        k.Name = sanitize(k.Name)
+                        input += `<option value="${k.magaya__Tax_Rate0}">${k.Name}</option>`;
+
+                    })
+                    input += "</select>"
+                } else {
+
+                    //si tiene una lista de valores, es un select y lo imprimimos
+                   if (!_.isEmpty(values)) {
+
+                        input = `<select data-id="${id}" name="${v}" class="form-control ${no_border}">`
+                            $.map(values, function(val) {
+                                if (val === k)
+                                    input += `<option value="${val}" selected>${val}</option>`
+                                else
+                                    input += `<option value="${val}">${val}</option>`
+                            })
+                        input += `</select>`
+                    }
                 }
                 appendArr = `<div class="row" style="margin: 5px 5px 5px 5px">
                     <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">${field}</div>
@@ -69,8 +93,15 @@ storeCharge.subscribe(() => {
             }
         })
 
+        //determino el boton
+        //edit o nuevo charge
         let append = `<span id="${button_type}" data-id="${id}" class="btn btn-primary float-right">Save</span><br /><br />`
-
+        if (id === "undefined" || id === undefined || id <= 0) {
+            if (!charge_is_new)
+                append = `<span id="updateChargeNew" class="btn btn-primary float-right">Save</span><br /><br />`
+            else
+                append = `<span id="newCharges" class="btn btn-primary float-right">Save</span><br /><br />`
+        }
 
         //imprimir campos en orden
         for(i = 1; i < 14; i++) {

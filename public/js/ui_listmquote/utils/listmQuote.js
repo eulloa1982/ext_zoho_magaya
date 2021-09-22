@@ -151,6 +151,8 @@ $(document).ready(function(){
 
             $("#table-items").show();
             $("#table-items-new").hide();
+            $("#panel-charge-to-send").show();
+            $("#panel-charge-to-new").hide()
 
             $("select[name=Deal]").val("")
             idmQuoteToEdit = $(this).attr('data-id')

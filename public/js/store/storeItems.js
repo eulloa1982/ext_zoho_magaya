@@ -1,8 +1,22 @@
 const initialStateIntems = {
+    isItemNew: false,
     items: [],
     itemsQuote: [],
     itemsOnNew: [],
     singleItem: [],
+    isChargeNew: true,
+    itemEmpty:{
+        Name: 0,
+        magaya__Length: 0,
+        magaya__Weigth: 0,
+        magaya__Height: 0,
+        magaya__Status: "",
+        magaya__Pieces: 0,
+        magaya__Width: 0,
+        magaya__Measure_System: "",
+        magaya__Volume: 0
+
+    }
   };
 
 function reducerItem (state = initialStateIntems, actions)  {
@@ -15,6 +29,15 @@ function reducerItem (state = initialStateIntems, actions)  {
 
         }
 
+
+        case ADD_ITEM_EMPTY_NEW: {
+
+            return {
+                ...state,
+                singleItem: [0, initialStateIntems.itemEmpty],
+                isItemNew: true
+            }
+        }
 
         case ADD_ITEM_ON_NEW: {
             //calculate totales
@@ -252,3 +275,6 @@ function updateItem(payload) {
     return { type: UPDATE_ITEM, payload }
 }
 
+function addItemEmptyNew() {
+    return { type: ADD_ITEM_EMPTY_NEW }
+}

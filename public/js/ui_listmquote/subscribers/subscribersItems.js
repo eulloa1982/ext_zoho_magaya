@@ -3,6 +3,7 @@ let data_module_flag_item = true
 
 //get an item, draw the data view
 storeItem.subscribe(() => {
+    console.log("Store item now", storeItem.getState())
     let u = storeItem.getState().singleItem;
     if (!_.isEmpty(u)) {
         //construir los campos y la data
@@ -25,7 +26,7 @@ storeItem.subscribe(() => {
         `
 
 
-        let append = `<span id="${button_type}" data-id="${id}" class="btn btn-primary float-right">Send</span><br /><br />`
+        let append = `<span id="${button_type}" data-id="${id}" class="btn btn-primary float-right close-panel">Send</span><br /><br />`
 
         $.map(u[1], function(k, v) {
             if ( _.has(ITEMS_FIELDS, v)) {

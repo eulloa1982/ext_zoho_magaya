@@ -24,12 +24,43 @@ $(document).ready(function(){
 
 
 
-    $('.open-panel').click(function(e) {
+    /*$('.open-panel').click(function(e) {
         e.preventDefault()
         e.stopImmediatePropagation()
         let panel = $(this).attr("data-panel");
         //$('form').toggleClass('show');
         $("#"+panel).show("fast");
+        $(this).toggleClass("active"); return false;
+
+      });*/
+
+
+    $('.open-panel').click(function(e) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+        let panel = $(this).attr("id");
+
+        switch (panel) {
+            case "panel-charge-to-send" : {
+                storeCharge.dispatch(addChargeEmpty());
+                break;
+            }
+
+            case "panel-charge-to-new" : {
+                storeCharge.dispatch(addChargeEmptyNew());
+                break;
+            }
+
+            case "panel-item-to-new" : {
+                storeItem.dispatch(addItemEmptyNew())
+            }
+
+            default:
+                break;
+        }
+        //$('form').toggleClass('show');
+
+        $("#panel").show("fast");
         $(this).toggleClass("active"); return false;
 
       });
@@ -54,7 +85,7 @@ $(document).ready(function(){
 
 
     //boton send new item on edit form
-    $("#sendItem").click(function(e) {
+    /*$("#sendItem").click(function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
 
@@ -140,108 +171,7 @@ $(document).ready(function(){
 
             //})
         })
-    })
-
-
-    //boton sendCharges on edit form
-    $("#sendCharges").click(function(e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        Utils.blockUI();
-        store.dispatch(addActionEdited())
-
-        let ChargeType = $("select[name=ChargeType] option:selected").val();
-        let Status = $("select[name=ChargeStatus] option:selected").val();
-        let DescriptionCharges = $("input[name=DescriptionCharges]").val().replace(/[^a-zA-Z0-9]/g, ' ');
-        let ChargeText = DescriptionCharges;
-
-        let TaxRate = $("select[name=TaxCode] option:selected").val();
-        let Quantity = ($("input[name=Quantity]").val() > 0) ? $("input[name=Quantity]").val() : 0;
-        let Unity = $("input[name=Unity]").val() > 0 ? $("input[name=Unity]").val() : 0;
-        let Price = $("input[name=Price]").val() > 0 ? $("input[name=Price]").val() : 0;
-
-        Price = roundDec(Price)
-        TaxRate = roundDec(TaxRate)
-        Quantity = roundDec(Quantity);
-        let amount = Price * Quantity;
-        amount = roundDec(amount)
-        let amount_tax = amount / 100 * TaxRate
-        amount_tax = roundDec (amount_tax);
-        let amount_total = amount + amount_tax;
-        amount_total = roundDec (amount_total)
-
-
-        let item = {
-                'magaya__SQuote_Name': idmQuoteToEdit,
-                'Name': DescriptionCharges,
-                'magaya__Status': Status,
-                'magaya__TaxRate': TaxRate,
-                'magaya__Tax_Amount': amount_tax,
-                'magaya__Amount_Total': amount_total,
-                'magaya__ChargeCode': ChargeType,
-                'magaya__Charge_Description': DescriptionCharges,
-                'magaya__CQuantity': Quantity,
-                'magaya__Price': Price,
-                'magaya__Amount': amount,
-                'magaya__Final_Amount': amount_total,
-                'magaya__ChargeCurrency': $("select[name=Currency]").val(),
-                'magaya__ApplyToAccounts': accountId
-        }
-
-
-        ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: item, Trigger: [] })
-            .then(function(data) {
-                res = data.data;
-
-                let idCharge = res[0]['details']['id'];
-                if (res[0]["code"] !== "SUCCESS") {
-                    codeError = res[0]["code"];
-                    field = res[0]['details']["api_name"];
-                    show = true;
-                    module = 'Service Items'
-
-                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                } else {
-                    ZOHO.CRM.API.getRecord({Entity:"magaya__ChargeQuote",RecordID:idCharge})
-                        .then(function(data){
-                            record = data.data;
-
-                            $.map(record, function(k, v){
-                                storeCharge.dispatch(addCharge({...k}))
-                            })
-
-                            var func_name = "magaya__setQuoteTotalAmount";
-                            var req_data ={
-                                "quote_id" : idmQuoteToEdit
-                            };
-                            ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
-                                console.log("Update quote amount", data)
-                            })
-
-
-                            let message = ": Added new Charge item"
-                            storeSuccess.dispatch(addSuccess({message: message}))
-                        })
-
-                }
-            })
-            .then(function(){
-                Utils.unblockUI()
-            })
-            .catch(function(error){
-                dataError = error.data;
-                $.map(dataError, function(k, v) {
-                    errorCode = k.code;
-                    field = k.details.api_name;
-                    show = true;
-                    module = 'Service Items'
-                    storeError.dispatch(addError({errorCode: errorCode, showInfo: show, field: field, module: module}))
-
-                })
-                Utils.unblockUI()
-            })
-    })
+    })*/
 
 
 
@@ -289,13 +219,15 @@ $(document).ready(function(){
         $("#newCharges").show();
         $("#sendItem").hide();
         $("#newItem").show();
+        $("#panel-charge-to-send").hide();
+        $("#panel-charge-to-new").show()
 
         $("#mquoteModal").modal("show")
     })
 
 
     //boton new item from new mquote form
-    $("#newItem").click(function(e) {
+    /*$("#newItem").click(function(e) {
         //button add package
         e.preventDefault();
         e.stopImmediatePropagation();
@@ -397,7 +329,7 @@ $(document).ready(function(){
         $("input[name=magaya__Amount_Total").val(''); //posible no va aqui
         //$("input[name=TotalTaxAmount]").val('');
 
-    })
+    })*/
 
 
  //boton send new mquote

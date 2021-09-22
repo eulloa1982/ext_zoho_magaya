@@ -1,10 +1,30 @@
 const initialStateCharge = {
+    isChargeNew: false,
     charges: [],
     chargesQuotes: [],
     //a list of charges on a new mquote form
     chargesOnNew: [],
     singleCharge: [],
-    chargesOnXml: []
+    chargesOnXml: [],
+    chargeEmpty:{
+        magaya__Amount: 0,
+        magaya__Amount_Total: 0,
+        magaya__CQuantity: 0,
+        magaya__ChargeCode: "",
+        magaya__ChargeCurrency: "",
+        magaya__Charge_Description: "",
+        magaya__Charge_Type: "",
+        magaya__Paid_As: "",
+        magaya__Price: 0,
+        magaya__Status: "",
+        magaya__TaxRate: 0,
+        magaya__Tax_Amount: 0,
+        magaya__Unit: "",
+        Name: "",
+        magaya__Final_Amount: 0
+
+
+    }
   };
 
 function reducerCharge (state = initialStateCharge, actions)  {
@@ -17,6 +37,30 @@ function reducerCharge (state = initialStateCharge, actions)  {
                 return Object.assign({}, state, {
                     charges: state.charges.concat(actions.payload)
                 });
+        }
+
+        case ADD_CHARGE_EMPTY: {
+            const length = _.size(state.charges)
+            //const applyTo = actions.payload.applyTo
+            //const quoteName = actions.payload.quoteName
+            //initialStateCharge.chargeEmpty["magaya__ApplyToAccount"] = applyTo
+            //initialStateCharge.chargeEmpty["magaya__SQuote_Name"] = quoteName
+            return {
+                ...state,
+                singleCharge: [length, initialStateCharge.chargeEmpty],
+                isChargeNew: false
+            }
+        }
+
+        case ADD_CHARGE_EMPTY_NEW: {
+            const length = _.size(state.chargesOnNew)
+            console.log("Leng chargesOnNew", length)
+            return {
+                ...state,
+                singleCharge: [length, initialStateCharge.chargeEmpty],
+                //chargesOnNew: [length, initialStateCharge.chargeEmpty],
+                isChargeNew: true
+            }
         }
 
         case ADD_CHARGES_XML: {
@@ -110,7 +154,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
             const index = state.singleCharge[0];
             state.singleCharge = initialStateCharge.singleCharge
             newArray = state.chargesOnNew[index];
-
+            console.log("Setting amount with id", index)
             newArray[field] = value
             //calculate amount
             let amount = parseFloat(newArray['magaya__Price']) * parseFloat (newArray['magaya__CQuantity']);
@@ -151,7 +195,8 @@ function reducerCharge (state = initialStateCharge, actions)  {
             //state.chargesOnNew[byId]["id"] = byId
             return {
                 ...state,
-                singleCharge: [byId, newArray]
+                singleCharge: [byId, newArray],
+                isChargeNew: false
             }
         }
 
@@ -222,5 +267,13 @@ function updateCharge(payload) {
 
 function addChargesXML(payload) {
     return { type: ADD_CHARGES_XML, payload }
+}
+
+function addChargeEmpty() {
+    return { type: ADD_CHARGE_EMPTY };
+}
+
+function addChargeEmptyNew() {
+    return { type: ADD_CHARGE_EMPTY_NEW };
 }
 

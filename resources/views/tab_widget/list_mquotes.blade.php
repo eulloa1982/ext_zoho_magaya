@@ -132,8 +132,10 @@
 
 
                             <fieldset class="fieldset"><legend class="legend">Item<span class="float-right" id="arrows"></span></legend>
-                                <form class="edit-record">
-                                <div id="info-datad"></div>
+                                <form class="edit-record" id="edit-record">
+                                <div id="info-datad">
+
+                                </div>
                                 </form>
                             </fieldset>
 
@@ -233,7 +235,8 @@
                                 <!------------------------------------------------------------->
 								<div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="menu2-tab" style="min-height: 600px;">
 
-                                    <label class="btn btn-sm btn-primary float-right open-panel" data-panel="panel-charge" for="btnControl" style="background-color: #0b3355; float: rigth;">Add Charge</label>
+                                    <label class="btn btn-sm btn-primary float-right open-panel" id="panel-charge-to-send" data-panel="panel-charge" for="btnControl" style="background-color: #0b3355; float: rigth;">Add Charge</label>
+                                    <label class="btn btn-sm btn-primary float-right open-panel" id="panel-charge-to-new" data-panel="panel-charge-new" for="btnControl" style="background-color: #0b3355; float: rigth;">Add Charge</label>
                                     <!---- wrapper for new charge form-->
                                     <div class="panel-charge" id="panel-charge">
                                         <div class="panel">
@@ -565,7 +568,7 @@
                                 <!------------------------------------------------------------->
 								<div class="tab-pane fade" id="menu4" role="tabpanel" aria-labelledby="menu4-tab" style="min-height: 600px;">
 
-                                    <label class="btn btn-sm btn-primary float-right open-panel" data-panel="panel-item" for="btnControl2" style="background-color: #0b3355; float: rigth;">Add Item</label>
+                                    <label class="btn btn-sm btn-primary float-right open-panel" data-panel="panel-item" id="panel-item-to-new" for="btnControl2" style="background-color: #0b3355; float: rigth;">Add Item</label>
                                     <!--label class="btn btn-sm btn-primary float-right btn-slide" data-id="-1" data-module="table-items" for="btnControl2" style="background-color: #0b3355; float: rigth;">Add Item</label-->
 
 
