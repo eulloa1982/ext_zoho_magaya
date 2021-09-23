@@ -159,7 +159,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
         }
 
 
-        case "UPDATE_CHARGE_ON_NEW" : {
+        case UPDATE_CHARGE_ON_NEW : {
             const field = actions.payload.field;
             const value = actions.payload.value;
 
@@ -288,5 +288,5 @@ function addChargeEmpty() {
 }
 
 function updateChargeOnNew(payload) {
-    return {type: "UPDATE_CHARGE_ON_NEW", payload}
+    return {type: UPDATE_CHARGE_ON_NEW, payload}
 }
