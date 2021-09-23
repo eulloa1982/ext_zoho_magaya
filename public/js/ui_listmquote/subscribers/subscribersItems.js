@@ -27,7 +27,7 @@ storeItem.subscribe(() => {
 
 
         let append = `<span id="${button_type}" data-id="${id}" class="btn btn-primary float-right close-panel">Send</span><br /><br />`
-
+        $("#panel-legend").html(`Editing Item`)
         $.map(u[1], function(k, v) {
             if ( _.has(ITEMS_FIELDS, v)) {
                 let type = "text"
@@ -53,9 +53,9 @@ storeItem.subscribe(() => {
                         })
                     input += `</select>`
                 }
-                append += `<div class="row" style="margin: 5px 5px 5px 5px">
-                <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">${field}</div>
-                <div data-id="${id}" class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px">${input}</div>
+                append += `<div class="row">
+                <div class="col-md-4">${field}</div>
+                <div data-id="${id}" class="col-md-6">${input}</div>
                 </div>`
             }
         })
