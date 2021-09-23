@@ -47,6 +47,7 @@ const MAKE_ACTIVE_CHARGEDEF = "MAKE_ACTIVE_CHARGEDEF"
 const MAKE_INACTIVE_CHARGEDEF = "MAKE_INACTIVE_CHARGEDEF"
 const ADD_CHARGE_EMPTY = "ADD_CHARGE_EMPTY"
 const ADD_CHARGE_EMPTY_NEW = "ADD_CHARGE_EMPTY_NEW"
+const UPDATE_CHARGE_ON_NEW = "UPDATE_CHARGE_ON_NEW"
 
 const ADD_CHARGE_TYPE = "ADD_CHARGE_TYPE"
 
@@ -72,13 +73,15 @@ const ADD_DEAL = "ADD_DEAL"
 const GET_DEAL = "GET_DEAL"
 
 //campos a mostrar en formularios de Charges
-const CHARGES_FIELDS = {"Name": {"field": "Description", "editable":"", "place": 2}, "magaya__Amount": {"field": "Amount", "type": "number", "editable":"readonly", "place": 12},
-                "magaya__ChargeCode": {"field": "Charge Type", "editable":"readonly", "place": 1},"magaya__ChargeCurrency": {"field": "Charge Currency", "editable":"readonly", "values": ["USD"], "place": 5},
-                "magaya__CQuantity": {"field": "Quantity", "type": "number", "editable":"", "place": 7}, "magaya__Price": {"field": "Price", "type": "number", "editable":"", "place": 9},
-                "magaya__Tax_Amount": {"field": "Tax Amount", "type": "number", "editable":"readonly", "place": 11}, "magaya__Amount_Total":{"field": "Total Amount", "type": "number", "editable":"", "place": 10},
-                "magaya__Paid_As": {"field": "Paid As", "values": ["Paid", "Collect"], "editable":"", "place": 4},"magaya__TaxRate": {"field": "Tax Rate", "type": "number", "editable":"readonly", "place": 6},
-                "magaya__Unit": {"field": "Unit", "values": ["U", "Lb"], "editable":"", "place": 8},"magaya__Final_Amount": {"field": "Final Amount", "type": "number", "editable":"", "place": 13},
-                "magaya__Status": {"field": "Status", "values": ["Open", "Posted", "Paid"], "editable":"", "place": 3}
+const CHARGES_FIELDS = {"Name": {"field": "Description", "editable":"", "place": 2}, "magaya__Amount": {"field": "Amount", "type": "number", "editable":"readonly", "place": 6},
+                "magaya__ChargeCode": {"field": "Type", "editable":"readonly", "place": 1},"magaya__ChargeCurrency": {"field": "Currency", "editable":"readonly", "values": ["USD"], "place": 11},
+                "magaya__CQuantity": {"field": "Quantity", "type": "number", "editable":"", "place": 3}, "magaya__Price": {"field": "Price", "type": "number", "editable":"", "place": 5},
+                //"magaya__Tax_Amount": {"field": "Tax Amount", "type": "number", "editable":"readonly", "place": 10},
+                "magaya__TaxCode": {"field": "Tax Code", "editable": "readonly", "place": 7},
+                "magaya__Amount_Total":{"field": "Amount", "type": "number", "editable":"", "place": 9},
+                "magaya__Paid_As": {"field": "Paid As", "values": ["Paid", "Collect"], "editable":"", "place": 12},"magaya__TaxRate": {"field": "Tax Rate", "type": "number", "editable":"readonly", "place": 8},
+                "magaya__Unit": {"field": "Unit", "values": ["U", "Lb"], "editable":"", "place": 4},"magaya__Final_Amount": {"field": "Final Amount", "type": "number", "editable":"", "place": 10},
+                "magaya__Status": {"field": "Status", "values": ["Open", "Posted", "Paid"], "editable":"", "place": 13}
                 //"magaya__TaxRate": {"field": "Tax Rate", "type": "number"},
 
 }

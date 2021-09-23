@@ -159,17 +159,17 @@ function reducerCharge (state = initialStateCharge, actions)  {
         }
 
 
-        case "UPDATE_CHARGE_ON_NEW" : {
+        case UPDATE_CHARGE_ON_NEW : {
             const field = actions.payload.field;
             const value = actions.payload.value;
 
             newArray = state.emptyCharge
             newArray[field] = value
 
-            let amount = parseFloat(newArray['magaya__Price']) * parseFloat (newArray['magaya__CQuantity']);
+            let amount = roundDec(newArray['magaya__Price']) * roundDec (newArray['magaya__CQuantity']);
             newArray['magaya__Amount'] = roundDec(amount)
             //calculate amount tax
-            let amount_tax = (newArray['magaya__Amount'] / 100) * parseFloat (newArray['magaya__TaxRate'])
+            let amount_tax = (newArray['magaya__Amount'] / 100) * roundDec (newArray['magaya__TaxRate'])
             newArray['magaya__Tax_Amount'] = roundDec(amount_tax)
             let amount_total = amount + amount_tax;
             newArray["magaya__Amount_Total"] = roundDec(amount_total)
@@ -288,5 +288,5 @@ function addChargeEmpty() {
 }
 
 function updateChargeOnNew(payload) {
-    return {type: "UPDATE_CHARGE_ON_NEW", payload}
+    return {type: UPDATE_CHARGE_ON_NEW, payload}
 }

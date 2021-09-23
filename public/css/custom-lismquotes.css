@@ -69,11 +69,14 @@ input:active {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
-  right: 0;
+  width: 100%;
+
   background: white;
   color: #333;
   overflow: auto;
+  margin: 5px 0px 5px 5px;
+  padding: 5px 0px 5px 5px;
+
 }
 
 .message-data {
@@ -85,15 +88,17 @@ input:active {
 
 /**********panel editing*************/
 #panel, #panel-charge, #panel-item, #panel-search {
-    background: #FAFAD2;
+    background: #dbdbd2;
     display: none;
     position: fixed;
     top: 0;
     bottom: 0;
     right: 0;
-    width: 50em;
+    width: 35em;
     z-index: 2000;
     box-shadow: 10px 15px 15px 15px black;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .active {
     background-position: right 12px;
@@ -109,11 +114,16 @@ input:active {
 .fieldset {
 	border: 1px solid #38312b;
 	background: #eee;
-	padding: 8px 8px 8px 8px;
+	padding: 18px 0px 20px 18px;
     color: #333;
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin: 10px 0px 10px 0px;
 }
+
+.fieldset .row {
+    padding: 5px 5px 5px 5px;
+    font-weight: bold;
+}
+
 .fieldset .legend {
 	background: #CCA383;
 	padding: 6px;
@@ -130,3 +140,9 @@ input:active {
 table td .numeric {
     text-align: right;
   }
+
+ .panel select, .panel input{
+    text-align-last:right;
+    padding-right: 29px;
+    direction: rtl;
+}

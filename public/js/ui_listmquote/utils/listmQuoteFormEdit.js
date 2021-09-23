@@ -2,6 +2,14 @@
     ///////////////////  div edit records ///////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     $('.edit-record').bind("DOMSubtreeModified", function(e) {
+        $('.close').click(function(e){
+            e.preventDefault()
+            e.stopImmediatePropagation()
+
+            let div_close = $(this).attr("data-close");
+            $(`#${div_close}`).animate({width:'toggle'},150);
+            //$("#" + div_close).hide()
+        })
 
         $("#updateChargeNew").click(function(e) {
             $("#panel").hide("slow");

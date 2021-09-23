@@ -161,18 +161,9 @@ function limpiar_form() {
 //redondear decimales
 function roundDec(num) {
     if (typeof num === 'undefined' || num <= 0) return 0;
-    let t = num.toString();
-    let regex = /(\d*.\d{0,3})/;
 
-    let number = parseFloat(t.match(regex)[0]);
+    return Number(parseFloat(num).toFixed(2));
 
-    if (typeof (number) === "number" && !isNaN(number)) {
-
-        return Number(number.toFixed(2));
-    }
-
-
-    return 0;
 
 }
 
