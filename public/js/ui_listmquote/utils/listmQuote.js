@@ -8,6 +8,37 @@ $(document).ready(function(){
         format: 'Y-m-d H:m:s'
     });
 
+    $(".new-charge").focus(function(e) {
+        $(this).addClass("editable");
+
+        oldValue = $(this).val()
+    })
+
+    $(".new-charge").on("change blur", function(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation()
+        let $celd = $(this)
+        $(this).removeClass("editable")
+
+        let value = $(this).val();
+        let field = $(this).attr('name');
+
+        let idItem = $(this).attr("data-id")
+        value = sanitize(value);
+
+        if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
+            value = parseFloat(value);
+        }
+        console.log(`${idItem}, ${field} ${value}`)
+        //si los valores son iguales, no actualizar nada
+        if (oldValue.toString() !== value.toString()) {
+            //storeCharge.dispatch(updateCharge({id:idItem, field: field, value: value}))
+            //storeCharge.dispatch(setAmountOnNew({id:idItem, field: field, value: value}))
+            storeCharge.dispatch(updateChargeOnNew({field: field, value: value}))
+        }
+
+    })
+
     ///////////////////////////////////////////////////////////////////////////////////
     /////////table quotes, main table
     ///////////////////////////////////////////////////////////////////////////////////

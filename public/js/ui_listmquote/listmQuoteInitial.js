@@ -1,6 +1,7 @@
 $(document).ready(function(){
     packageType = [];
     transpMethods = [];
+
     idmQuoteToEdit = 0;
     let page = 1;
 
@@ -110,24 +111,29 @@ $(document).ready(function(){
         //Charges Type
         ZOHO.CRM.API.getAllRecords({Entity: "magaya__Charges_Type", sort_order: "asc"})
             .then(function (response) {
+
                 if (!_.isEmpty (response.data)) {
+                    storeChargesType.dispatch(addChargeType (response.data))
                     $.map(response.data, function (k, i) {
+
                         k.magaya__ChargesCode = sanitize(k.magaya__ChargesCode)
                         k.Name = sanitize(k.Name)
-                        $(`<option value="${k.magaya__ChargesCode}">${k.Name}</option>`).appendTo("select[name=ChargeType]");
+                        $(`<option value="${k.magaya__ChargesCode}">${k.Name}</option>`).appendTo("select[name=magaya__ChargeCode]");
 
                     })
                 }
+
             })
 
         //Charges Type
         ZOHO.CRM.API.getAllRecords({Entity: "magaya__Taxes", sort_order: "asc"})
             .then(function (response) {
+                storeChargesType.dispatch(addChargeType(response.data))
                 if (!_.isEmpty (response.data)) {
                     $.map(response.data, function (k, i) {
                         k.magaya__Tax_Rate = sanitize(k.magaya__Tax_Rate)
                         k.Name = sanitize(k.Name)
-                        $(`<option value="${k.magaya__Tax_Rate0}">${k.Name}</option>`).appendTo("select[name=TaxCode]");
+                        $(`<option value="${k.magaya__Tax_Rate0}">${k.Name}</option>`).appendTo("select[name=magaya__TaxCode]");
 
                     })
                 }

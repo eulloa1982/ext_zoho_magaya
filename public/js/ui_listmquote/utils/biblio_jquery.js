@@ -168,7 +168,7 @@ function roundDec(num) {
 
     if (typeof (number) === "number" && !isNaN(number)) {
 
-        return number.toFixed(2);
+        return Number(number.toFixed(2));
     }
 
 
@@ -759,7 +759,6 @@ async function buildXML(idQuote) {
         url: config.magaya_url
     };
 
-    console.log("Dara to send", data)
     MagayaAPI.sendRequest(data, function(result) {
         //console.log(result)
             if (result.error) {
@@ -900,3 +899,20 @@ function ping(host, port, pong) {
     }
 
   }
+
+
+  function getFormData($form){
+    var unindexed_array = $form.serializeArray();
+    var indexed_array = {};
+
+    $.map(unindexed_array, function(n, i){
+        if (isNaN(n['value'])) {
+            indexed_array[n['name']] = sanitize(n['value']);
+        } else {
+            indexed_array[n['name']] = roundDec(n['value']);
+        }
+
+    });
+
+    return indexed_array;
+}

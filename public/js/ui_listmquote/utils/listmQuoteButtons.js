@@ -30,7 +30,10 @@ $(document).ready(function(){
         let panel = $(this).attr("data-panel");
         //$('form').toggleClass('show');
         $("#"+panel).show("fast");
-        $(this).toggleClass("active"); return false;
+        $(this).toggleClass("active");
+
+        storeCharge.dispatch(addChargeEmpty())
+        return false;
 
       });
 
@@ -74,7 +77,7 @@ $(document).ready(function(){
         length = roundDec(length);
         height = roundDec(height);
         width = roundDec(width);
-        weight = roundDec(weight);
+        weigth = roundDec(weigth);
         volume = roundDec(volume);
 
         //formar el objeto
@@ -150,44 +153,11 @@ $(document).ready(function(){
         Utils.blockUI();
         store.dispatch(addActionEdited())
 
-        let ChargeType = $("select[name=ChargeType] option:selected").val();
-        let Status = $("select[name=ChargeStatus] option:selected").val();
-        let DescriptionCharges = $("input[name=DescriptionCharges]").val().replace(/[^a-zA-Z0-9]/g, ' ');
-        let ChargeText = DescriptionCharges;
-
-        let TaxRate = $("select[name=TaxCode] option:selected").val();
-        let Quantity = ($("input[name=Quantity]").val() > 0) ? $("input[name=Quantity]").val() : 0;
-        let Unity = $("input[name=Unity]").val() > 0 ? $("input[name=Unity]").val() : 0;
-        let Price = $("input[name=Price]").val() > 0 ? $("input[name=Price]").val() : 0;
-
-        Price = roundDec(Price)
-        TaxRate = roundDec(TaxRate)
-        Quantity = roundDec(Quantity);
-        let amount = Price * Quantity;
-        amount = roundDec(amount)
-        let amount_tax = amount / 100 * TaxRate
-        amount_tax = roundDec (amount_tax);
-        let amount_total = amount + amount_tax;
-        amount_total = roundDec (amount_total)
-
-
-        let item = {
-                'magaya__SQuote_Name': idmQuoteToEdit,
-                'Name': DescriptionCharges,
-                'magaya__Status': Status,
-                'magaya__TaxRate': TaxRate,
-                'magaya__Tax_Amount': amount_tax,
-                'magaya__Amount_Total': amount_total,
-                'magaya__ChargeCode': ChargeType,
-                'magaya__Charge_Description': DescriptionCharges,
-                'magaya__CQuantity': Quantity,
-                'magaya__Price': Price,
-                'magaya__Amount': amount,
-                'magaya__Final_Amount': amount_total,
-                'magaya__ChargeCurrency': $("select[name=Currency]").val(),
-                'magaya__ApplyToAccounts': accountId
-        }
-
+        let $form = $("#new-charge");
+        let item = getFormData($form);
+        Object.assign(item, {"magaya__SQuote_Name": idmQuoteToEdit})
+        Object.assign(item, {'magaya__ApplyToAccounts': accountId})
+        Object.assign(item, {"Name": item["magaya__Charge_Description"]})
 
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: item, Trigger: [] })
             .then(function(data) {
@@ -243,6 +213,19 @@ $(document).ready(function(){
             })
     })
 
+
+        //add charges on new mquote form
+        $("#newCharges").click(function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            let $form = $("#new-charge");
+            let item = getFormData($form);
+            let accountId = $("select[name=Account]").val()
+            Object.assign(item, {'magaya__ApplyToAccounts': accountId})
+            Object.assign(item, {"Name": item["magaya__Charge_Description"]})
+            storeCharge.dispatch(addChargeOnNew({...item}))
+        })
 
 
     //boton add mquote
@@ -340,64 +323,7 @@ $(document).ready(function(){
 
 
 
-    //add charges on new mquote form
-    $("#newCharges").click(function(e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
 
-
-        let ChargeType = sanitize($("select[name=ChargeType] option:selected").val());
-        let Status = sanitize($("select[name=ChargeStatus] option:selected").val());
-        let DescriptionCharges = sanitize($("input[name=DescriptionCharges]").val());
-        let ChargeText = DescriptionCharges;
-
-        let TaxRate = $("select[name=TaxCode] option:selected").val();
-        let Quantity = ($("input[name=Quantity]").val() > 0) ? $("input[name=Quantity]").val() : 0;
-        let Unity = $("input[name=Unity]").val() !== '' ? $("input[name=Unity]").val() : 'U';
-        let Price = $("input[name=Price]").val() > 0 ? $("input[name=Price]").val() : 0;
-
-        Price = roundDec(Price)
-        TaxRate = roundDec(TaxRate)
-        Quantity = roundDec(Quantity);
-        let amount = Price * Quantity;
-        amount = roundDec(amount)
-        let amount_tax = amount / 100 * TaxRate
-        amount_tax = roundDec(amount_tax);
-        let amount_total = amount + amount_tax;
-        amount_total = roundDec(amount_total)
-
-        let PaidAs = $("select[name=PaidAs]").val()
-        let accountId = $("select[name=Account]").val()
-
-        let item = {
-                'Name': DescriptionCharges,
-                'magaya__Status': Status,
-                'magaya__TaxRate': TaxRate,
-                'magaya__Tax_Amount': amount_tax,
-                'magaya__Amount_Total': amount_total,
-                'magaya__ChargeCode': ChargeType,
-                'magaya__Charge_Description': DescriptionCharges,
-                'magaya__CQuantity': Quantity,
-                'magaya__Price': Price,
-                'magaya__Amount': amount,
-                'magaya__Final_Amount': amount_total,
-                'magaya__ChargeCurrency': $("select[name=Currency]").val(),
-                'magaya__ApplyToAccounts': accountId,
-                'magaya__Unit': Unity,
-                'magaya__Paid_As': PaidAs
-        }
-        storeCharge.dispatch(addChargeOnNew({...item}))
-
-
-        $("select[name=ChargeType]").val('');
-        $("input[name=DescriptionCharges]").val('');
-        $("input[name=Quantity]").val('');
-        $("input[name=Price]").val('');
-        $("input[name=magaya__Tax_Amount]").val(''); //posible no va aqui0
-        $("input[name=magaya__Amount_Total").val(''); //posible no va aqui
-        //$("input[name=TotalTaxAmount]").val('');
-
-    })
 
 
  //boton send new mquote
