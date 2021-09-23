@@ -66,7 +66,11 @@ storeCharge.subscribe(() => {
             }
         })
 
-        let append = `<span id="${button_type}" data-id="${id}" class="btn btn-primary float-right">Save</span><br /><br />`
+        let append = ``
+        arrows += `<span id="${button_type}" data-id="${id}" class="material-icons btn btn-primary">task_alt</span>`
+
+
+        //<span  class="btn btn-primary float-right">Save</span><br /><br />`
 
 
         //imprimir campos en orden

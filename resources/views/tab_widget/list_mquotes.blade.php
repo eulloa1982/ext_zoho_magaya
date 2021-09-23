@@ -239,12 +239,18 @@
                                         <div class="panel">
                                             <span class="material-icons close cursor-hand" data-close="panel-charge">close</span>
 
-											<fieldset class="fieldset"><legend class="legend">New Charge</legend>
-                                                <form id="new-charge">
+											<fieldset class="fieldset"><legend class="legend">New Charge
+                                                    <span id="sendCharges" class="material-icons btn btn-primary float-right">task_alt</span>
+                                                    <span id="newCharges" class="material-icons btn btn-primary float-right">task_alt</span>
+                                                    <!--button id='sendCharges' for-table='#item-charges' class="btn btn-primary" style="background-color: #0b3355">Add Charge</button>
+                                                    <button id='newCharges' for-table='#item-charges' class="btn btn-primary" style="background-color: #0b3355">Add Charge</button-->
+                                           </legend>
+                                            <form id="new-charge">
                                                 <div class="row" style="margin: 5px 5px 5px 5px">
                                                     <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Charge Type</div>
                                                     <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><select name="magaya__ChargeCode" class="form-control new-charge"></select></div>
                                                 </div>
+
                                                 <div class="row" style="margin: 5px 5px 5px 5px">
                                                     <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Description</div>
                                                     <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control text new-charge" name="magaya__Charge_Description"></div>
@@ -316,25 +322,10 @@
                                                 </div>
 
                                                 </form>
-											</fieldset>
 
-                                                <!--div class="row">
-                                                    <--div class="col-md-2">
-                                                    <span>Amount</span>
-                                                        <div class="input-group">
-                                                            <input type="text" name='Amount' id='Amount' class='form-control' readonly/>
-                                                        </div>
-                                                    </div->
-                                                </div-->
-                                                <div class="col-md-12" style="padding: 0px;">
-                                                        <p style="width: 100%;text-align: right;">
-                                                            <button id='sendCharges' for-table='#item-charges' class="btn btn-primary" style="background-color: #0b3355">Add Charge</button>
-                                                            <button id='newCharges' for-table='#item-charges' class="btn btn-primary" style="background-color: #0b3355">Add Charge</button>
-                                                        </p>
                                                     </div>
                                             </div>
 
-                                        </div>
 
 
 
