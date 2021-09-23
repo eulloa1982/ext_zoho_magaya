@@ -49,7 +49,10 @@ $(document).ready(function(){
 
     })
 
-    $('.close').click(function(){
+    $('.close').click(function(e){
+        e.preventDefault()
+        e.stopImmediatePropagation()
+
         let div_close = $(this).attr("data-close");
         $(`#${div_close}`).animate({width:'toggle'},150);
         //$("#" + div_close).hide()
@@ -152,12 +155,14 @@ $(document).ready(function(){
         e.stopImmediatePropagation();
         Utils.blockUI();
         store.dispatch(addActionEdited())
-
+        //get tax code
+        let tax_code = sanitize($("select[name=magaya__TaxCode] option:selected").text());
         let $form = $("#new-charge");
         let item = getFormData($form);
         Object.assign(item, {"magaya__SQuote_Name": idmQuoteToEdit})
         Object.assign(item, {'magaya__ApplyToAccounts': accountId})
         Object.assign(item, {"Name": item["magaya__Charge_Description"]})
+        Object.assign(item, {"magaya__TaxCode": tax_code})
 
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: item, Trigger: [] })
             .then(function(data) {

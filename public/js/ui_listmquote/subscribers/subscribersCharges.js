@@ -56,9 +56,9 @@ storeCharge.subscribe(() => {
                         })
                     input += `</select>`
                 }
-                appendArr = `<div class="row" style="margin: 5px 5px 5px 5px">
-                    <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">${field}</div>
-                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px">${input}</div>
+                appendArr = `<div class="row">
+                    <div class="col-md-4">${field}</div>
+                    <div class="col-md-6">${input}</div>
                     </div>`
 
                 //Object.assign(arr, append)
@@ -67,10 +67,8 @@ storeCharge.subscribe(() => {
         })
 
         let append = ``
-        arrows += `<span id="${button_type}" data-id="${id}" class="material-icons btn btn-primary">task_alt</span>`
-
-
-        //<span  class="btn btn-primary float-right">Save</span><br /><br />`
+        arrows += `<span id="${button_type}" data-id="${id}" class="material-icons btn btn-primary">task_alt</span>
+                    <span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px" data-close="panel">close</span>`
 
 
         //imprimir campos en orden
@@ -78,9 +76,9 @@ storeCharge.subscribe(() => {
             append += arr[i];
         }
 
-        append += `<div class="row" style="margin: 5px 5px 5px 5px">
-        <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Apply To</div>
-        <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control" value="${applyToName}" readonly></div>
+        append += `<div class="row">
+        <div class="col-md-4">Apply To</div>
+        <div class="col-md-6"><input type="text" class="form-control" value="${applyToName}" readonly></div>
         </div>`
 
         $("#arrows").append(arrows)
