@@ -128,7 +128,7 @@
                         <!-- panel editing----------->
                         <div id="panel">
                             <div class="panel">
-                            <fieldset class="fieldset"><legend id="panel-legend" class="legend">Item<span class="float-right" id="arrows"></span></legend>
+                            <fieldset class="fieldset"><legend class="legend"><span id="panel-legend"></span><span class="float-right" id="arrows"></span></legend>
                                 <form class="edit-record">
                                 <div id="info-datad"></div>
                                 </form>
