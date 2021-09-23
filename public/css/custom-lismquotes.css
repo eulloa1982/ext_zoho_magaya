@@ -143,6 +143,6 @@ table td .numeric {
 
  .panel select, .panel input{
     text-align-last:right;
-    padding-right: 29px;
+    padding: 0px 0px 0px 20px;
     direction: rtl;
 }
