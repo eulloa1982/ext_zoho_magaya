@@ -27,7 +27,7 @@ storeCharge.subscribe(() => {
             <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
             <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
         `
-
+        $("#panel-legend").html(`Editing Charge`)
         let arr = {}
         $.map(u[1], function(k, v) {
             //get place order
