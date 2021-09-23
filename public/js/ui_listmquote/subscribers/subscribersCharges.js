@@ -4,7 +4,7 @@ $("#info-charge").html("Loading, please wait...");
 //get one charge
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
-    console.log("Single charge", u)
+    console.log("State charges now", storeCharge.getState())
     if (!_.isEmpty(u)) {
         let k = parseInt(u[0])
         //construir los campos y la data
@@ -82,7 +82,18 @@ storeCharge.subscribe(() => {
         $("#arrows").append(arrows)
         $("#info-datad").append(append)
     }
+
+
+    //empty charge
+    let y = storeCharge.getState().emptyCharge;
+    let showEmpty = storeCharge.getState().showEmptyCharge;
+
+    if (!_.isEmpty(y) && showEmpty) {
+        $.map(y, function (k, v) {
+            $(`input[name=${v}`).val(k)
         })
+    }
+})
 
 ///////subscriber charges, render UI table
 storeCharge.subscribe(() => {
@@ -112,17 +123,17 @@ storeCharge.subscribe(() => {
             k.magaya__ChargeCurrency = sanitize(k.magaya__ChargeCurrency);
 
             //totalIncome += k.magaya__Final_Amount;
-            amount_ += k.magaya__Amount;
-            tax_amount_total += k.magaya__Tax_Amount
-            amount_total += k.magaya__Amount_Total
-            final_amount += k.magaya__Final_Amount
+            amount_ += roundDec(k.magaya__Amount);
+            tax_amount_total += roundDec(k.magaya__Tax_Amount)
+            amount_total += roundDec(k.magaya__Amount_Total)
+            final_amount += roundDec(k.magaya__Final_Amount)
 
-            if (k.magaya__Final_Amount == 0) {
+            if (roundDec(k.magaya__Final_Amount) == 0) {
                 //totalIncome += roundDec(k.magaya__Amount_Total);
-                final_amount += roundDec(k.magaya__Amount_Total);
+                //final_amount += roundDec(k.magaya__Amount_Total);
             }
 
-
+            console.log("Final", final_amount)
 
             $("#table-charges tbody").append(`<tr>
                     <td class="Delete">
@@ -184,14 +195,14 @@ storeCharge.subscribe(() => {
                 k.magaya__Paid_As = sanitize(k.magaya__Paid_As);
                 k.magaya__ChargeCurrency = sanitize(k.magaya__ChargeCurrency);
 
-                amount_ += k.magaya__Amount;
-                tax_amount_total += k.magaya__Tax_Amount
-                amount_total += k.magaya__Amount_Total
-                final_amount += k.magaya__Final_Amount
+                amount_ += roundDec(k.magaya__Amount);
+                tax_amount_total += roundDec(k.magaya__Tax_Amount)
+                amount_total += roundDec(k.magaya__Amount_Total)
+                final_amount += roundDec(k.magaya__Final_Amount)
 
                 if (k.magaya__Final_Amount == 0) {
                     //totalIncome += roundDec(k.magaya__Amount_Total);
-                    final_amount += roundDec(k.magaya__Amount_Total);
+                    //final_amount += roundDec(k.magaya__Amount_Total);
                 }
 
                 $("#table-charges-new tbody").append(`<tr>

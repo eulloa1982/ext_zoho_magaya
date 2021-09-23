@@ -4,7 +4,25 @@ const initialStateCharge = {
     //a list of charges on a new mquote form
     chargesOnNew: [],
     singleCharge: [],
-    chargesOnXml: []
+    chargesOnXml: [],
+    emptyCharge: {
+        Name: "",
+        magaya__Amount: 0,
+        magaya__Amount_Total: 0,
+        magaya__CQuantity: 0,
+        magaya__ChargeCode: 0,
+        magaya__ChargeCurrency: "",
+        magaya__Charge_Description: "",
+        magaya__Final_Amount: 0,
+        magaya__Paid_As: "",
+        magaya__Price: 0,
+        magaya__Status: "",
+        magaya__TaxRate: 0,
+        magaya__Tax_Amount: 0,
+        magaya__Unit: "",
+        magaya__ApplyToAccounts: 0
+    },
+    showEmptyCharge: false
   };
 
 function reducerCharge (state = initialStateCharge, actions)  {
@@ -26,6 +44,18 @@ function reducerCharge (state = initialStateCharge, actions)  {
             })
         }
 
+        case ADD_CHARGE_EMPTY: {
+            const length = _.size(state.charges)
+            const index = length + 1
+            let newArray = initialStateCharge.emptyCharge;
+            Object.assign(newArray, {"id": index})
+            return {
+                ...state,
+                singleCharge: [index, newArray],
+                showEmptyCharge: true
+            }
+        }
+
 
 
         case DELETE_CHARGE: {
@@ -45,7 +75,8 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray = {...state.charges[byId]}
             return {
                 ...state,
-                singleCharge: [byId, newArray]
+                singleCharge: [byId, newArray],
+                showEmptyCharge: false
             }
         }
 
@@ -108,7 +139,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
             const field = actions.payload.field;
             const value = actions.payload.value;
             const index = state.singleCharge[0];
-            state.singleCharge = initialStateCharge.singleCharge
+            //state.singleCharge = initialStateCharge.singleCharge
             newArray = state.chargesOnNew[index];
 
             newArray[field] = value
@@ -124,6 +155,31 @@ function reducerCharge (state = initialStateCharge, actions)  {
             return {
                 ...state,
                 singleCharge: [index, newArray]
+            }
+        }
+
+
+        case "UPDATE_CHARGE_ON_NEW" : {
+            const field = actions.payload.field;
+            const value = actions.payload.value;
+
+            newArray = state.emptyCharge
+            newArray[field] = value
+
+            let amount = parseFloat(newArray['magaya__Price']) * parseFloat (newArray['magaya__CQuantity']);
+            newArray['magaya__Amount'] = roundDec(amount)
+            //calculate amount tax
+            let amount_tax = (newArray['magaya__Amount'] / 100) * parseFloat (newArray['magaya__TaxRate'])
+            newArray['magaya__Tax_Amount'] = roundDec(amount_tax)
+            let amount_total = amount + amount_tax;
+            newArray["magaya__Amount_Total"] = roundDec(amount_total)
+
+            newArray['Name'] = newArray["magaya__Charge_Description"]
+            newArray["magaya__TaxRate"] = newArray["magaya__TaxCode"]
+            return {
+                ...state,
+                emptyCharge: newArray
+
             }
         }
 
@@ -145,13 +201,16 @@ function reducerCharge (state = initialStateCharge, actions)  {
 
         case GET_CHARGE_QUOTE_ON_NEW: {
             const byId = actions.payload.id;
+
+            console.log("Getting new charge with id", byId)
             //always get just 1 item on the state
             state.singleCharge = initialStateCharge.singleCharge;
             newArray = {...state.chargesOnNew[byId]}
             //state.chargesOnNew[byId]["id"] = byId
             return {
                 ...state,
-                singleCharge: [byId, newArray]
+                singleCharge: [byId, newArray],
+                showEmptyCharge: false
             }
         }
 
@@ -224,3 +283,10 @@ function addChargesXML(payload) {
     return { type: ADD_CHARGES_XML, payload }
 }
 
+function addChargeEmpty() {
+    return {type: ADD_CHARGE_EMPTY}
+}
+
+function updateChargeOnNew(payload) {
+    return {type: "UPDATE_CHARGE_ON_NEW", payload}
+}

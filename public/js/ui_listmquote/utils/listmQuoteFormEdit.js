@@ -145,7 +145,7 @@
                 if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
                     value = parseFloat(value);
                 }
-
+                console.log(`${idItem}, ${field} ${value}`)
                 //si los valores son iguales, no actualizar nada
                 if (oldValue.toString() !== value.toString()) {
                     //storeCharge.dispatch(updateCharge({id:idItem, field: field, value: value}))

@@ -240,68 +240,74 @@
                                             <span class="material-icons close cursor-hand" data-close="panel-charge">close</span>
 
 											<fieldset class="fieldset"><legend class="legend">New Charge</legend>
+                                                <form id="new-charge">
                                                 <div class="row" style="margin: 5px 5px 5px 5px">
                                                     <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Charge Type</div>
-                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><select name="magaya__ChargeCode" class="form-control no-border-charge-new"><option value="0">No charge</option></select></div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><select name="magaya__ChargeCode" class="form-control new-charge"></select></div>
                                                 </div>
                                                 <div class="row" style="margin: 5px 5px 5px 5px">
                                                     <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Description</div>
-                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control no-border-charge-new text" name="magaya__Charge_Description"></div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control text new-charge" name="magaya__Charge_Description"></div>
                                                 </div>
 
                                                 <div class="row" style="margin: 5px 5px 5px 5px">
                                                     <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Status</div>
-                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><select name="magaya__Charge_Status" class="form-control no-border-charge-new"><option value="Open" selected="">Open</option><option value="Posted">Posted</option><option value="Paid">Paid</option></select></div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><select name="magaya__Status" class="form-control new-charge"><option></option><option value="Open">Open</option><option value="Posted">Posted</option><option value="Paid">Paid</option></select></div>
                                                 </div>
 
                                                 <div class="row" style="margin: 5px 5px 5px 5px">
                                                     <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Paid As</div>
-                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><select name="magaya__Paid_As" class="form-control no-border-charge-new"><option value="Paid">Paid</option><option value="Collect">Collect</option></select></div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><select name="magaya__Paid_As" class="form-control new-charge"><option></option><option value="Paid">Paid</option><option value="Collect">Collect</option></select></div>
                                                 </div>
 
                                                 <div class="row" style="margin: 5px 5px 5px 5px">
                                                     <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Charge Currency</div>
-                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><select name="magaya__ChargeCurrency" class="form-control no-border-charge-new"><option value="USD" selected="">USD</option></select></div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><select name="magaya__ChargeCurrency" class="form-control new-charge"><option></option><option value="USD">USD</option></select></div>
+                                                </div>
+
+                                                <div class="row" style="margin: 5px 5px 5px 5px">
+                                                    <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Tax Code</div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><select class="form-control new-charge" name="magaya__TaxCode"><option value=0></option></select></div>
                                                 </div>
 
                                                 <div class="row" style="margin: 5px 5px 5px 5px">
                                                     <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Tax Rate</div>
-                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control no-border-charge-new number" name="magaya__TaxRate" value="0" readonly="" autocomplete="false"></div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control number new-charge" name="magaya__TaxRate" readonly></div>
                                                 </div>
 
                                                 <div class="row" style="margin: 5px 5px 5px 5px">
                                                     <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Quantity</div>
-                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control no-border-charge-new number" name="magaya__CQuantity" value="0" autocomplete="false"></div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control number new-charge" name="magaya__CQuantity"></div>
                                                 </div>
 
                                                 <div class="row" style="margin: 5px 5px 5px 5px">
                                                     <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Unit</div>
-                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><select name="magaya__Unit" class="form-control no-border-charge-new"><option value="U">U</option><option value="Lb">Lb</option></select></div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><select name="magaya__Unit" class="form-control new-charge"><option></option><option value="U">U</option><option value="Lb">Lb</option></select></div>
                                                 </div>
 
                                                 <div class="row" style="margin: 5px 5px 5px 5px">
                                                     <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Price</div>
-                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control no-border-charge-new number" name="magaya__Price" value="0" autocomplete="false"></div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control number new-charge" name="magaya__Price"></div>
                                                 </div>
 
                                                 <div class="row" style="margin: 5px 5px 5px 5px">
                                                     <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Total Amount</div>
-                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control no-border-charge-new number" name="magaya__Amount_Total" value="0" autocomplete="false"></div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control number" name="magaya__Amount_Total" readonly></div>
                                                 </div>
 
                                                 <div class="row" style="margin: 5px 5px 5px 5px">
                                                     <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Tax Amount</div>
-                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control no-border-charge-new number" name="magaya__Tax_Amount" value="0" readonly="" autocomplete="false"></div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control number" name="magaya__Tax_Amount" readonly></div>
                                                 </div>
 
                                                 <div class="row" style="margin: 5px 5px 5px 5px">
                                                     <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Amount</div>
-                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control no-border-charge-new number" name="magaya__Amount" value="0" readonly="" autocomplete="false"></div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control number" name="magaya__Amount" readonly></div>
                                                 </div>
 
                                                 <div class="row" style="margin: 5px 5px 5px 5px">
                                                     <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Final Amount</div>
-                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control no-border-charge-new number" name="magaya__Final_Amount" value="0" autocomplete="false"></div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control number new-charge" name="magaya__Final_Amount"></div>
                                                 </div>
 
                                                 <div class="row" style="margin: 5px 5px 5px 5px">
@@ -309,7 +315,7 @@
                                                     <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control" readonly=""></div>
                                                 </div>
 
-
+                                                </form>
 											</fieldset>
 
                                                 <!--div class="row">

@@ -1,13 +1,13 @@
-$("input[name=magaya__Amount_Total]").change(function(e) {
+/*$("input[name=magaya__Amount_Total]").change(function(e) {
     //get final amount
     let final_amount = $("input[name=magaya__Final_Amount]").val()
     final_amount = roundDec(final_amount)
-    if (isEmpty(final_amount) || final_amount == 0) {
+    if (_.isEmpty(final_amount) || final_amount == 0) {
         let val = $(this).val()
         $("input[name=magaya__Final_Amount]").val(val)
     }
 
-})
+})*/
 
 /////////////////////////////////////////////////////////////////////////
 //////// subscribers UI
