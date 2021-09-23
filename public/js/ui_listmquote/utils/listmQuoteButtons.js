@@ -345,16 +345,16 @@ $(document).ready(function(){
         e.preventDefault();
         e.stopImmediatePropagation();
 
+        alert ($("input[name=Name]").val())
+        let ChargeType = sanitize($("select[name=magaya__ChargeCode] option:selected").val());
+        let Status = sanitize($("select[name=magaya__Charge_Status] option:selected").val());
+        let DescriptionCharges = sanitize($("input[name=magaya__Charge_Description]").val());
+        //let ChargeText = DescriptionCharges;
 
-        let ChargeType = sanitize($("select[name=ChargeType] option:selected").val());
-        let Status = sanitize($("select[name=ChargeStatus] option:selected").val());
-        let DescriptionCharges = sanitize($("input[name=DescriptionCharges]").val());
-        let ChargeText = DescriptionCharges;
-
-        let TaxRate = $("select[name=TaxCode] option:selected").val();
-        let Quantity = ($("input[name=Quantity]").val() > 0) ? $("input[name=Quantity]").val() : 0;
-        let Unity = $("input[name=Unity]").val() !== '' ? $("input[name=Unity]").val() : 'U';
-        let Price = $("input[name=Price]").val() > 0 ? $("input[name=Price]").val() : 0;
+        let TaxRate = $("select[name=magaya__TaxRate] option:selected").val();
+        let Quantity = ($("input[name=magaya__CQuantity]").val() > 0) ? $("input[name=magaya__CQuantity]").val() : 0;
+        let Unity = $("input[name=magaya__Unity]").val() !== '' ? $("input[name=magaya__Unity]").val() : 'U';
+        let Price = $("input[name=magaya__Price]").val() > 0 ? $("input[name=magaya__Price]").val() : 0;
 
         Price = roundDec(Price)
         TaxRate = roundDec(TaxRate)
@@ -366,7 +366,7 @@ $(document).ready(function(){
         let amount_total = amount + amount_tax;
         amount_total = roundDec(amount_total)
 
-        let PaidAs = $("select[name=PaidAs]").val()
+        let PaidAs = $("select[name=magaya__Paid_As]").val()
         let accountId = $("select[name=Account]").val()
 
         let item = {
@@ -381,11 +381,13 @@ $(document).ready(function(){
                 'magaya__Price': Price,
                 'magaya__Amount': amount,
                 'magaya__Final_Amount': amount_total,
-                'magaya__ChargeCurrency': $("select[name=Currency]").val(),
+                'magaya__ChargeCurrency': $("select[name=magaya__ChargeCurrency]").val(),
                 'magaya__ApplyToAccounts': accountId,
                 'magaya__Unit': Unity,
                 'magaya__Paid_As': PaidAs
         }
+
+        console.log("new charge", item)
         storeCharge.dispatch(addChargeOnNew({...item}))
 
 

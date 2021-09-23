@@ -132,10 +132,8 @@
 
 
                             <fieldset class="fieldset"><legend class="legend">Item<span class="float-right" id="arrows"></span></legend>
-                                <form class="edit-record" id="edit-record">
-                                <div id="info-datad">
-
-                                </div>
+                                <form class="edit-record">
+                                <div id="info-datad"></div>
                                 </form>
                             </fieldset>
 
@@ -235,106 +233,80 @@
                                 <!------------------------------------------------------------->
 								<div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="menu2-tab" style="min-height: 600px;">
 
-                                    <label class="btn btn-sm btn-primary float-right open-panel" id="panel-charge-to-send" data-panel="panel-charge" for="btnControl" style="background-color: #0b3355; float: rigth;">Add Charge</label>
-                                    <label class="btn btn-sm btn-primary float-right open-panel" id="panel-charge-to-new" data-panel="panel-charge-new" for="btnControl" style="background-color: #0b3355; float: rigth;">Add Charge</label>
+                                    <label class="btn btn-sm btn-primary float-right open-panel" data-panel="panel-charge" for="btnControl" style="background-color: #0b3355; float: rigth;">Add Charge</label>
                                     <!---- wrapper for new charge form-->
                                     <div class="panel-charge" id="panel-charge">
                                         <div class="panel">
                                             <span class="material-icons close cursor-hand" data-close="panel-charge">close</span>
 
 											<fieldset class="fieldset"><legend class="legend">New Charge</legend>
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <span>Status</span>
-                                                        <div class="input-group">
-                                                            <select name='ChargeStatus' class='form-control'>
-                                                                <option value="Open">Open</option>
-                                                                <option value="Paid">Paid</option>
-                                                                <option value="Posted">Posted</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <span>Charge Type</span>
-                                                        <div class="input-group">
-                                                            <select name='ChargeType' id='ChargeType' class='form-control'>
-                                                                <option value="select"></option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <span>Description</span>
-                                                        <div class="input-group">
-                                                            <input type="text" name='DescriptionCharges' id='DescriptionCharges' class='form-control' />
-                                                        </div>
-                                                    </div>
+                                                <div class="row" style="margin: 5px 5px 5px 5px">
+                                                    <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Charge Type</div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><select name="magaya__ChargeCode" class="form-control no-border-charge-new"><option value="0">No charge</option></select></div>
+                                                </div>
+                                                <div class="row" style="margin: 5px 5px 5px 5px">
+                                                    <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Description</div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control no-border-charge-new text" name="magaya__Charge_Description"></div>
                                                 </div>
 
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                    <span>Currency</span>
-                                                        <div class="input-group">
-                                                            <select name='Currency' id='Currency' class='form-control'>
-                                                                <option value='USD'>USD</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-4">
-                                                    <span>Paid As</span>
-                                                        <div class="input-group">
-                                                            <select name='PaidAs' class='form-control'>
-                                                                <option value='Prepaid'>Prepaid</option>
-                                                                <option value='Collect'>Collect</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
+                                                <div class="row" style="margin: 5px 5px 5px 5px">
+                                                    <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Status</div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><select name="magaya__Charge_Status" class="form-control no-border-charge-new"><option value="Open" selected="">Open</option><option value="Posted">Posted</option><option value="Paid">Paid</option></select></div>
                                                 </div>
 
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                    <span>Quantity</span>
-                                                        <div class="input-group">
-                                                            <input type="text" class="number form-control" name='Quantity' id='Quantity' class='form-control' />
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-2">
-                                                    <span>Unity</span>
-                                                        <div class="input-group">
-                                                            <select name='Unity' class='form-control'>
-                                                                <option value='U'>U</option>
-                                                                <option value='Lb'>Lb</option>
-                                                                <option value='Kg'>Kg</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-4">
-                                                    <span>Price</span>
-                                                        <div class="input-group">
-                                                            <input type="text" class="number form-control" name='Price' id='Price' class='form-control' />
-                                                        </div>
-                                                    </div>
+                                                <div class="row" style="margin: 5px 5px 5px 5px">
+                                                    <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Paid As</div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><select name="magaya__Paid_As" class="form-control no-border-charge-new"><option value="Paid">Paid</option><option value="Collect">Collect</option></select></div>
                                                 </div>
 
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <span>Tax Code</span>
-                                                            <div class="input-group">
-                                                                <select name="TaxCode" class='form-control'>
-                                                                    <option value='0'></option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
+                                                <div class="row" style="margin: 5px 5px 5px 5px">
+                                                    <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Charge Currency</div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><select name="magaya__ChargeCurrency" class="form-control no-border-charge-new"><option value="USD" selected="">USD</option></select></div>
+                                                </div>
 
-                                                    <!--div class="col-md-4">
-                                                        <span>Tax Amount</span>
-                                                            <div class="input-group">
-                                                                <input type="text" name='TaxAmount' class='form-control'readonly/>
-                                                            </div>
-                                                    </div-->
+                                                <div class="row" style="margin: 5px 5px 5px 5px">
+                                                    <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Tax Rate</div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control no-border-charge-new number" name="magaya__TaxRate" value="0" readonly="" autocomplete="false"></div>
+                                                </div>
+
+                                                <div class="row" style="margin: 5px 5px 5px 5px">
+                                                    <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Quantity</div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control no-border-charge-new number" name="magaya__CQuantity" value="0" autocomplete="false"></div>
+                                                </div>
+
+                                                <div class="row" style="margin: 5px 5px 5px 5px">
+                                                    <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Unit</div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><select name="magaya__Unit" class="form-control no-border-charge-new"><option value="U">U</option><option value="Lb">Lb</option></select></div>
+                                                </div>
+
+                                                <div class="row" style="margin: 5px 5px 5px 5px">
+                                                    <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Price</div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control no-border-charge-new number" name="magaya__Price" value="0" autocomplete="false"></div>
+                                                </div>
+
+                                                <div class="row" style="margin: 5px 5px 5px 5px">
+                                                    <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Total Amount</div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control no-border-charge-new number" name="magaya__Amount_Total" value="0" autocomplete="false"></div>
+                                                </div>
+
+                                                <div class="row" style="margin: 5px 5px 5px 5px">
+                                                    <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Tax Amount</div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control no-border-charge-new number" name="magaya__Tax_Amount" value="0" readonly="" autocomplete="false"></div>
+                                                </div>
+
+                                                <div class="row" style="margin: 5px 5px 5px 5px">
+                                                    <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Amount</div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control no-border-charge-new number" name="magaya__Amount" value="0" readonly="" autocomplete="false"></div>
+                                                </div>
+
+                                                <div class="row" style="margin: 5px 5px 5px 5px">
+                                                    <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Final Amount</div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control no-border-charge-new number" name="magaya__Final_Amount" value="0" autocomplete="false"></div>
+                                                </div>
+
+                                                <div class="row" style="margin: 5px 5px 5px 5px">
+                                                    <div class="col-md-4" style="font-weight: bold; padding: 5px 5px 5px 5px">Apply To</div>
+                                                    <div class="col-md-6" style="font-weight: bold; padding: 5px 5px 5px 5px"><input type="text" class="form-control" readonly=""></div>
                                                 </div>
 
 
@@ -568,7 +540,7 @@
                                 <!------------------------------------------------------------->
 								<div class="tab-pane fade" id="menu4" role="tabpanel" aria-labelledby="menu4-tab" style="min-height: 600px;">
 
-                                    <label class="btn btn-sm btn-primary float-right open-panel" data-panel="panel-item" id="panel-item-to-new" for="btnControl2" style="background-color: #0b3355; float: rigth;">Add Item</label>
+                                    <label class="btn btn-sm btn-primary float-right open-panel" data-panel="panel-item" for="btnControl2" style="background-color: #0b3355; float: rigth;">Add Item</label>
                                     <!--label class="btn btn-sm btn-primary float-right btn-slide" data-id="-1" data-module="table-items" for="btnControl2" style="background-color: #0b3355; float: rigth;">Add Item</label-->
 
 
