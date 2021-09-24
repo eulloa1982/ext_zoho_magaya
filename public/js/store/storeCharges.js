@@ -128,6 +128,10 @@ function reducerCharge (state = initialStateCharge, actions)  {
             if (_.isEmpty(actions.payload.magaya__ChargeCode) || actions.payload.magaya__ChargeCode === "select")
                 throw new UserException('You need to select a Charge Type')
 
+            $.map(state.emptyCharge, function(k, v) {
+                state.emptyCharge[v] = 0
+            })
+
             return Object.assign({}, state, {
                 chargesOnNew: state.chargesOnNew.concat(actions.payload)
             });

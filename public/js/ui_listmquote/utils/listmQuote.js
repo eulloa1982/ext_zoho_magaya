@@ -38,6 +38,7 @@ $(document).ready(function(){
 
     })
 
+    //campos del formulario new item
     $(".new-item").focus(function(e) {
         $(this).addClass("editable");
 
@@ -55,8 +56,7 @@ $(document).ready(function(){
 
         //let idItem = $(this).attr("data-id")
         value = sanitize(value);
-
-        if (field === "Name") {
+        if (field === "Description") {
             value = sanitize(value)
         } else {
             value = parseFloat(value);

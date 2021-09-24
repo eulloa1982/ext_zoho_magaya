@@ -15,7 +15,8 @@ const initialStateIntems = {
         magaya__Pieces: 0,
         magaya__Width: 0,
         magaya__Measure_System: "",
-        magaya__Volume: 0
+        magaya__Volume: 0,
+        magaya__Package_Description: ""
 
     },
     showEmptyItem: false,
@@ -58,6 +59,9 @@ function reducerItem (state = initialStateIntems, actions)  {
         case ADD_ITEM_ON_NEW: {
             //calculate totales
             newArray = state.itemsOnNew;
+            $.map(state.itemNew, function(k, v) {
+                state.itemNew[v] = 0
+            })
 
             return Object.assign({}, state, {
                 itemsOnNew: state.itemsOnNew.concat(actions.payload),
@@ -144,8 +148,11 @@ function reducerItem (state = initialStateIntems, actions)  {
             const field = actions.payload.field;
             const value = actions.payload.value;
 
+
             let newArray = initialStateIntems.itemEmpty
             newArray[field] = value
+
+            console.log(newArray)
             newArray["magaya__Length"] = (newArray["magaya__Length"] == 0 ? packageType[newArray["Name"]]["magaya__PackageLength"] : newArray["magaya__Length"]);
             newArray["magaya__Height"] = (newArray["magaya__Height"] == 0 ? packageType[newArray["Name"]]["magaya__PackageHeight"] : newArray["magaya__Height"]);
             newArray["magaya__Width"] = (newArray["magaya__Width"] == 0 ? packageType[newArray["Name"]]["magaya__PackageWidth"] : newArray["magaya__Width"]);

@@ -548,9 +548,16 @@
                                                 </legend>
                                                 <form id="new-item">
                                                     <div class="row">
-                                                        <div class="col-md-4">Description</div>
+                                                        <div class="col-md-4">Type</div>
                                                         <div class="col-md-6">
                                                             <select class="form-control new-item text" name="Name"><option value='-1'></option></select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-4">Description</div>
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="form-control new-item text" name="magaya__Package_Description"/>
                                                         </div>
                                                     </div>
 
@@ -621,35 +628,35 @@
                                     </div>
 
 
-										<table id="table-items" class="table table-bordered table-striped" style="width:100%;">
+										<table id="table-items" class="table table-striped" style="width:100%;">
 											<thead>
 												<tr>
-                                                    <th style="width:10%"></th>
-                                                    <th style="width:10%">Status</th>
+                                                    <th style="width:9%"></th>
+                                                    <th style="width:9%">Status</th>
                                                     <th style="width:26%">Description</th>
-													<th style="width:9%">Pieces</th>
-													<th colspan="2" style="width:9%">Length</th>
-                                                    <th colspan="2" style="width:9%">Heigth</th>
-													<th colspan="2" style="width:9%">Width</th>
-													<th colspan="2" style="width:9%">Weigth</th>
-													<th colspan="2" style="width:9%">Volume</th>
+													<th style="width:7%">Pieces</th>
+													<th colspan="2" style="width:10%">Length</th>
+                                                    <th colspan="2" style="width:10%">Heigth</th>
+													<th colspan="2" style="width:10%">Width</th>
+													<th colspan="2" style="width:10%">Weigth</th>
+													<th colspan="2" style="width:10%">Volume</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
 										</table>
 
-                                        <table id="table-items-new" class="table table-bordered table-striped" style="width:100%;">
+                                        <table id="table-items-new" class="table table-striped" style="width:100%;">
 											<thead>
 												<tr>
-                                                <th style="width:10%"></th>
-                                                    <th style="width:10%">Status</th>
+                                                    <th style="width:9%"></th>
+                                                    <th style="width:9%">Status</th>
                                                     <th style="width:26%">Description</th>
-													<th style="width:9%">Pieces</th>
-													<th colspan="2" style="width:9%">Length</th>
-                                                    <th colspan="2" style="width:9%">Heigth</th>
-													<th colspan="2" style="width:9%">Width</th>
-													<th colspan="2" style="width:9%">Weigth</th>
-													<th colspan="2" style="width:9%">Volume</th>
+													<th style="width:7%">Pieces</th>
+													<th colspan="2" style="width:10%">Length</th>
+                                                    <th colspan="2" style="width:10%">Heigth</th>
+													<th colspan="2" style="width:10%">Width</th>
+													<th colspan="2" style="width:10%">Weigth</th>
+													<th colspan="2" style="width:10%">Volume</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>

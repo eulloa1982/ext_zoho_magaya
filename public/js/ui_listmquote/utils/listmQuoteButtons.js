@@ -101,25 +101,11 @@ $(document).ready(function(){
                 } else {
                     let res = data.data;
                     let idItem = res[0].details.id;
-
-                    //$(":input[name=Item-Pieces]").val('');
-                    //$(":input[name=Item-Length]").val('');
-                    //$(":input[name=Item-Height]").val('');
-                    //$(":input[name=Item-Width]").val('');
-                    //$(":input[name=Item-Weight]").val('');
-
                     let message = ': Item Added on module Cargo'
 
                     //add partial copy to store
                     storeItem.dispatch(addItem({...item, id: idItem}))
                     storeSuccess.dispatch(addSuccess({message: message}))
-
-                    //pieces = parseInt(pieces);
-                    //length = 0
-                    //height = 0
-                    //width = 0
-                    ///weight = 0
-                    //volume = 0
                 }
             })
         })
@@ -137,6 +123,21 @@ $(document).ready(function(){
         })
     })
 
+
+    //boton new item from new mquote form
+    $("#newItem").click(function(e) {
+        //button add package
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        //store.dispatch(addActionEdited())
+
+        let $form = $("#new-item");
+        let item = getFormData($form);
+        console.log("New item to table", item)
+        Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
+
+        storeItem.dispatch(addItemOnNew({...item}))
+    });
 
     //boton sendCharges on edit form
     $("#sendCharges").click(function(e) {
@@ -270,25 +271,6 @@ $(document).ready(function(){
 
         $("#mquoteModal").modal("show")
     })
-
-
-    //boton new item from new mquote form
-    $("#newItem").click(function(e) {
-        //button add package
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        //store.dispatch(addActionEdited())
-
-        let $form = $("#new-item");
-        let item = getFormData($form);
-        Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
-
-        storeItem.dispatch(addItemOnNew({...item}))
-    });
-
-
-
-
 
 
 

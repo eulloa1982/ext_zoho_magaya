@@ -192,8 +192,15 @@ table.table .avatar {
 }
 /* Modal styles*/
 .modal .modal-dialog {
-	max-width: 80%;
+	max-width: 90%;
     min-height: 600px;
 }
 
+table{
+    table-layout: fixed;
+}
+
+td {
+    word-wrap:break-word;
+}
 
