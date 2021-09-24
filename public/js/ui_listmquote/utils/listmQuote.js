@@ -265,6 +265,15 @@ $(document).ready(function(){
                 $("select[name=Deal]").val(idDeal)
             }
 
+            //is hazardous
+            let is_hazardous = quoteToEdit["magaya__Is_Hazardous"]
+            if (is_hazardous === true) {
+                $("input[name=magaya__Is_Hazardous]").prop("checked", true)
+            } else {
+                $("input[name=magaya__Is_Hazardous]").prop("checked", false)
+
+            }
+
             //Shipper y Consignee
             //hay que buscar el texto , hasta que tengamos un lookup para eliminar esto
             let shipper = quoteToEdit.magaya__Shipper

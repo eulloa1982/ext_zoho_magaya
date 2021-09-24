@@ -220,6 +220,12 @@
                                         </div>
 
 									</div>
+
+                                    <div class="row">
+                                        <label class="col-md-12" style="font-weight: bold;"><input type="checkbox" name="magaya__Is_Hazardous" /> Is Hazardous </label>
+
+
+                                    </div>
 								</div>
                                 <!------------------------------------------------------------->
                                 <!-- end tab general -->
