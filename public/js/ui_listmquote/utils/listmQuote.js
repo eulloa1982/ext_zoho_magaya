@@ -61,11 +61,8 @@ $(document).ready(function(){
         } else {
             value = parseFloat(value);
         }
-        console.log(`${field} ${value}`)
         //si los valores son iguales, no actualizar nada
         if (sanitize(oldValue) !== sanitize(value)) {
-            //storeCharge.dispatch(updateCharge({id:idItem, field: field, value: value}))
-            //storeCharge.dispatch(setAmountOnNew({id:idItem, field: field, value: value}))
             storeItem.dispatch(updateItemOnNew({field: field, value: value}))
         }
 
@@ -238,6 +235,7 @@ $(document).ready(function(){
             //transportation mode
             if (!_.isEmpty(quoteToEdit['magaya__TransportationMode'])) {
                 $("<option value='" + quoteToEdit['magaya__TransportationMode']['id'] + "' selected>" +quoteToEdit['magaya__TransportationMode']['name'] + "</option>").appendTo("select[name=magaya__TransportationMode]");
+                $("input[name=ModeOfTransportation]").val(quoteToEdit['magaya__TransportationMode']['name'])
             }
 
             //account, cliente de la cotizacion

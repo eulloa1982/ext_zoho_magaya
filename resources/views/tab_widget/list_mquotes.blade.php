@@ -176,8 +176,8 @@
 									</div>
 									<div class="row" style="margin-bottom:10px; margin-top: 30px;">
 										<div class="col-md-4">
-											<label class="col-md-12" style="font-weight: bold;">Trasnportation Mode</label>
-                                            <select name='magaya__TransportationMode' class='form-control no-border' />
+											<label class="col-md-12" style="font-weight: bold;">Mode of Transportation</label>
+                                            <select name='magaya__TransportationMode' class='form-control no-border'>
                                                 <option></option>
                                             </select>
 
@@ -384,13 +384,7 @@
 										</div>
 										<div class="col-md-6">
 											<label class="col-md-12" style="font-weight: bold;">Mode of Transportation</label>
-											<select id="Sel2" class="form-control">
-												<option>2 - UNO</option>
-												<option>2 - DOS</option>
-												<option>2 - TRES</option>
-												<option>2 - CUATRO</option>
-												<option>2 - CINCO</option>
-											</select>
+											<input name="ModeOfTransportation" class="form-control" readonly/>
 										</div>
 									</div>
 
@@ -402,7 +396,7 @@
                                             </select>
 										</div>
 
-										<div class="col-md-6">
+										<!--div class="col-md-6">
 											<label class="col-md-12" style="font-weight: bold;">Route</label>
 											<select id="Sel2" class="form-control">
 												<option>2 - UNO</option>
@@ -411,7 +405,7 @@
 												<option>2 - CUATRO</option>
 												<option>2 - CINCO</option>
 											</select>
-										</div>
+										</div-->
 									</div>
 									<hr>
 
