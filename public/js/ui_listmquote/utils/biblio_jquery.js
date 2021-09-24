@@ -108,19 +108,18 @@ function sanitize(input) {
    }
 };
 
-function sanitize_array(array) {
+/*function sanitize_array(array) {
     $.map(array, function(k, v) {
         v = HtmlSanitizer.SanitizeHtml(v);
         v.replace(/['"]+/g, '').replace(/[^a-zA-Z0-9]\-/g, ' ').replace(/<(|\/["]\/[&<>]\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g, '');
     })
 
-    console.log("Array sanitizado", array)
     return array;
    /* array.reduce(function(previosValue, currentValue) {
         currentValue = HtmlSanitizer.SanitizeHtml(currentValue);
         return currentValue.replace(/['"]+/g, '').replace(/[^a-zA-Z0-9]\-/g, ' ').replace(/<(|\/["]\/[&<>]\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g, '');
-    })*/
-}
+    })*
+}*/
 
 
 //clean form

@@ -3,7 +3,6 @@ let data_module_flag_item = true
 
 //get an item, draw the data view
 storeItem.subscribe(() => {
-    console.log("Store item now", storeItem.getState())
     let u = storeItem.getState().singleItem;
     if (!_.isEmpty(u)) {
         //construir los campos y la data
@@ -26,9 +25,12 @@ storeItem.subscribe(() => {
         `
 
 
-        let append = `<span id="${button_type}" data-id="${id}" class="btn btn-primary float-right close-panel">Send</span><br /><br />`
+        let append = ``
         $("#panel-legend").html(`Editing Item`)
+        let arr = {}
         $.map(u[1], function(k, v) {
+            let order = _.get(ITEMS_FIELDS, [v, 'place'])
+
             if ( _.has(ITEMS_FIELDS, v)) {
                 let type = "text"
                 if (_.has(ITEMS_FIELDS, [v, 'type'])) {
@@ -53,23 +55,44 @@ storeItem.subscribe(() => {
                         })
                     input += `</select>`
                 }
-                append += `<div class="row">
+                appendArr = `<div class="row">
                 <div class="col-md-4">${field}</div>
                 <div data-id="${id}" class="col-md-6">${input}</div>
                 </div>`
+
+                arr[order] = appendArr
             }
         })
 
-
+        arrows += `<span id="${button_type}" data-id="${id}" class="material-icons btn btn-primary">task_alt</span>
+                    <span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px" data-close="panel">close</span>`
 
         $("#arrows").append(arrows)
+
+        //imprimir campos en orden
+        for(i = 1; i <= 10; i++) {
+            append += arr[i];
+        }
+
         $("#info-datad").append(append)
+    }
+
+    //empty charge
+    let y = storeItem.getState().itemNew;
+    let showEmpty = storeItem.getState().showEmptyItem;
+
+    if (!_.isEmpty(y) && showEmpty) {
+        $.map(y, function (k, v) {
+            //console.log(k, v)
+            $(`input[name=${v}`).val(k)
+        })
     }
 
 })
 
 //new items on table-items-new
 storeItem.subscribe(() => {
+    console.log("State item now", storeItem.getState())
     let u = storeItem.getState().itemsOnNew;
 
     if (!_.isEmpty(u)) {
@@ -84,8 +107,15 @@ storeItem.subscribe(() => {
             let total_weight_english = 0
             let total_volume_english = 0
             $.each(u, function(i, k) {
+                let measure_length = "in";
+                let measure_weigth = "lb";
+                let measure_volume = "ft3"
 
                 if (k.magaya__Measure_System === "International") {
+                    measure_length = "m";
+                    measure_volume = "m3";
+                    measure_weigth = "kg"
+
                     total_volume_international += roundDec(k.magaya__Volume)
                     total_weight_international += roundDec(k.magaya__Weigth)
                 //it suposes it is English
@@ -103,15 +133,21 @@ storeItem.subscribe(() => {
                     <span class="material-icons oculto del-item-warehouse-new" data-id=${i}>clear</span>
                 </td>
                 <td class='magaya__Status'>InQuote</td>
-                <td class='Name'>${sanitize(k.Name)}</td>
+                <td class='magaya__Package_Description'>${sanitize(k.magaya__Package_Description)}</td>
                 <td align="right" class="magaya__Pieces">${k.magaya__Pieces}</td>
                 <td align="right" class="magaya__Length">${roundDec(k.magaya__Length)}</td>
+                <td class="NoData" align="left"><strong>${measure_length}</td>
                 <td align="right" class="magaya__Height">${roundDec(k.magaya__Height)}</td>
+                <td class="NoData" align="left"><strong>${measure_length}</td>
                 <td align="right" class="magaya__Width">${roundDec(k.magaya__Width)}</td>
+                <td class="NoData" align="left"><strong>${measure_length}</td>
                 <td align="right" class="magaya__Weigth">${roundDec(k.magaya__Weigth)}</td>
+                <td class="NoData" align="left"><strong>${measure_weigth}</td>
                 <td align="right" class="magaya__Volume">${roundDec(k.magaya__Volume)}</td>
+                <td class="NoData" align="left"><strong>${measure_volume}</td>
 
                 <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
+                <td class='Name' style="display: none;">${sanitize(k.Name)}</td>
                 </tr>`);
 
             })
@@ -123,9 +159,10 @@ storeItem.subscribe(() => {
             totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
             $("#table-items-new tbody").append(`<tr><td align="right" colspan="3" class="Delete">Totals</td>
-                                        <td align="right" class="Delete"><strong>${totalPieces}</strong></td><td></td><td></td><td></td>
-                                        <td align="right" class="Delete"><strong>${roundDec(totalWeight)} kg</strong></td>
-                                        <td align="right" class="Delete"><strong>${roundDec(totalVolume)} m3</strong></td></tr>`)
+            <td align="right" class="Delete"><strong>${totalPieces}</strong></td>
+            <td colspan="6"></td>
+            <td align="right" class="Delete"><strong>${roundDec(totalWeight)}</td><td><strong> kg</strong></td>
+            <td align="right" class="Delete"><strong>${roundDec(totalVolume)}</td><td><strong> m3</strong></td></tr>`)
         }
     }
 })
@@ -147,11 +184,15 @@ storeItem.subscribe(() => {
 
         $("#table-items tbody").empty();
         $.each(u, function(i, k) {
-            let measure_system = "in";
-            let measure_system_volume = "lb";
+            let measure_length = "in";
+            let measure_volume = "ft3";
+            let measure_weigth = "lb";
+
             if (k.magaya__Measure_System === "International") {
-                measure_system = "m";
-                measure_system_volume = "kg";
+                measure_length = "m";
+                measure_volume = "m3";
+                let measure_weigth = "kg";
+
                 total_volume_international += roundDec(k.magaya__Volume)
                 total_weight_international += roundDec(k.magaya__Weigth)
             //it suposes it is English
@@ -171,14 +212,20 @@ storeItem.subscribe(() => {
                 <span class="material-icons oculto del-item-warehouse" data-id=${k.id}>clear</span>
             </td>
             <td class="magaya__Status">InQuote</td>
-            <td class='Name'>${k.Name}</td>
+            <td class='magaya__Package_Description'>${sanitize(k.magaya__Package_Description)}</td>
             <td align="right" class="magaya__Pieces">${k.magaya__Pieces}</td>
             <td align="right" class="magaya__Length">${roundDec(k.magaya__Length)}</td>
+            <td align="left" class="NoData"><strong>${measure_length}</td>
             <td align="right" class="magaya__Height">${roundDec(k.magaya__Height)}</td>
+            <td align="left" class="NoData"><strong>${measure_length}</td>
             <td align="right" class="magaya__Width">${roundDec(k.magaya__Width)}</td>
+            <td align="left" class="NoData"><strong>${measure_length}</td>
             <td align="right" class="magaya__Weigth">${roundDec(k.magaya__Weigth)}</td>
+            <td align="left" class="NoData"><strong>${measure_weigth}</td>
             <td align="right" class="magaya__Volume">${roundDec(k.magaya__Volume)}</td>
+            <td align="left" class="NoData"><strong>${measure_volume}</td>
 
+            <td class='Name' style="display: none;">${k.Name}</td>
             <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
             </tr>`
             $("#table-items tbody").append(appendData);
@@ -189,8 +236,9 @@ storeItem.subscribe(() => {
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
         $("#table-items tbody").append(`<tr><td align="right" colspan="3" class="Delete">Totals</td>
-                                                <td align="right" class="Delete"><strong>${totalPieces}</strong></td><td></td><td></td><td></td>
-                                                <td align="right" class="Delete"><strong>${roundDec(totalWeight)} kg</strong></td>
-                                                <td align="right" class="Delete"><strong>${roundDec(totalVolume)} m3</strong></td></tr>`)
+                                                <td align="right" class="Delete"><strong>${totalPieces}</strong></td>
+                                                <td colspan="6"></td>
+                                                <td align="right" class="Delete"><strong>${roundDec(totalWeight)}</td><td><strong> kg</strong></td>
+                                                <td align="right" class="Delete"><strong>${roundDec(totalVolume)}</td><td><strong> m3</strong></td></tr>`)
     }
 })

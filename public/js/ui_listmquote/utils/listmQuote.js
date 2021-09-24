@@ -29,12 +29,41 @@ $(document).ready(function(){
         if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
             value = parseFloat(value);
         }
-        console.log(`${idItem}, ${field} ${value}`)
         //si los valores son iguales, no actualizar nada
         if (oldValue.toString() !== value.toString()) {
             //storeCharge.dispatch(updateCharge({id:idItem, field: field, value: value}))
             //storeCharge.dispatch(setAmountOnNew({id:idItem, field: field, value: value}))
             storeCharge.dispatch(updateChargeOnNew({field: field, value: value}))
+        }
+
+    })
+
+    //campos del formulario new item
+    $(".new-item").focus(function(e) {
+        $(this).addClass("editable");
+
+        oldValue = $(this).val()
+    })
+
+    $(".new-item").on("change blur", function(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation()
+        let $celd = $(this)
+        $(this).removeClass("editable")
+
+        let value = $(this).val();
+        let field = $(this).attr('name');
+
+        //let idItem = $(this).attr("data-id")
+        value = sanitize(value);
+        if (field === "Description") {
+            value = sanitize(value)
+        } else {
+            value = parseFloat(value);
+        }
+        //si los valores son iguales, no actualizar nada
+        if (sanitize(oldValue) !== sanitize(value)) {
+            storeItem.dispatch(updateItemOnNew({field: field, value: value}))
         }
 
     })
@@ -206,6 +235,7 @@ $(document).ready(function(){
             //transportation mode
             if (!_.isEmpty(quoteToEdit['magaya__TransportationMode'])) {
                 $("<option value='" + quoteToEdit['magaya__TransportationMode']['id'] + "' selected>" +quoteToEdit['magaya__TransportationMode']['name'] + "</option>").appendTo("select[name=magaya__TransportationMode]");
+                $("input[name=ModeOfTransportation]").val(quoteToEdit['magaya__TransportationMode']['name'])
             }
 
             //account, cliente de la cotizacion
@@ -233,6 +263,15 @@ $(document).ready(function(){
                 storeDeal.dispatch(getDeal({id: idDeal}))
                 //$(`<option value="${idDeal}" selected>${nameDeal}</option>`).appendTo("select[name=Deal]");
                 $("select[name=Deal]").val(idDeal)
+            }
+
+            //is hazardous
+            let is_hazardous = quoteToEdit["magaya__Is_Hazardous"]
+            if (is_hazardous === true) {
+                $("input[name=magaya__Is_Hazardous]").prop("checked", true)
+            } else {
+                $("input[name=magaya__Is_Hazardous]").prop("checked", false)
+
             }
 
             //Shipper y Consignee

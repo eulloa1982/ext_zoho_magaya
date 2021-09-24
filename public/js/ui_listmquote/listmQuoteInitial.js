@@ -39,7 +39,8 @@ $(document).ready(function(){
                 $("#select-package").empty();
                 $.map (data.data, function (k, i){
                     k.Name = sanitize(k.Name)
-                    $("<option value='"+i+"'>"+k.Name+"</option>").appendTo("#select-package");
+                    //$("<option value='"+i+"'>"+k.Name+"</option>").appendTo("#new-item select[name=Name]");
+                    $("#new-item select[name=Name]").append("<option value='"+i+"'>"+k.Name+"</option>");
                     packageType.push(k);
                 })
             })

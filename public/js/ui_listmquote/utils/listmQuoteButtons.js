@@ -30,9 +30,24 @@ $(document).ready(function(){
         let panel = $(this).attr("data-panel");
         //$('form').toggleClass('show');
         $("#"+panel).show("fast");
+        console.log("Opening", panel)
         $(this).toggleClass("active");
 
-        storeCharge.dispatch(addChargeEmpty())
+        switch (panel) {
+            case ("panel-charge") : {
+                storeCharge.dispatch(addChargeEmpty())
+                break;
+            }
+
+            case ("panel-item"): {
+                storeItem.dispatch(addItemEmpty())
+                break;
+            }
+
+            default:
+                break
+        }
+
         return false;
 
       });
@@ -64,38 +79,12 @@ $(document).ready(function(){
         e.preventDefault();
         e.stopImmediatePropagation();
 
-        store.dispatch(addActionEdited())
-
+        //store.dispatch(addActionEdited())
         rowIndex = $("#select-package").val();
-
-        let packageName = $('select[name="select-package"] option:selected').text();
-        let pieces = ($(":input[name=Item-Pieces]").val()) > 0 ? $(":input[name=Item-Pieces]").val() : '1';
-        let length = ($(":input[name=Item-Length]").val()) > 0 ? $(":input[name=Item-Length]").val() : (packageType[rowIndex]['magaya__PackageLenght'] >= 0 ? packageType[rowIndex]['magaya__PackageLenght'] : 0);
-        let height = ($(":input[name=Item-Height]").val()) > 0 ? $(":input[name=Item-Height]").val() : (packageType[rowIndex]['magaya__PackageHeight'] >= 0 ? packageType[rowIndex]['magaya__PackageHeight'] : 0);
-        let width = ($(":input[name=Item-Width]").val()) > 0 ? $(":input[name=Item-Width]").val() : (packageType[rowIndex]['magaya__PackageWidth'] >= 0 ? packageType[rowIndex]['magaya__PackageWidth'] : 0);
-        let volume = parseFloat(length) * parseFloat(width) * parseFloat(height);
-        let measure_system = $("select[name=magaya__Measure_System] option:selected").val()
-        let weigth = ($(":input[name=Item-Weight]").val()) > 0 ? $(":input[name=Item-Weight]").val() : (packageType[rowIndex]['magaya__PackageWeight'] >= 0 ? packageType[rowIndex]['magaya__PackageWeight'] : 0);
-        pieces = parseInt(pieces);
-        length = roundDec(length);
-        height = roundDec(height);
-        width = roundDec(width);
-        weigth = roundDec(weigth);
-        volume = roundDec(volume);
-
-        //formar el objeto
-        let item = {
-            'magaya__SQuote_Name': idmQuoteToEdit,
-            'Name': packageName,
-            'magaya__Status': 'InQuote',
-            'magaya__Pieces': pieces,
-            'magaya__Length': length,
-            'magaya__Height': height,
-            'magaya__Width': width,
-            'magaya__Weigth': weigth,
-            'magaya__Volume': volume,
-            'magaya__Measure_System': measure_system
-        }
+        let $form = $("#new-item");
+        let item = getFormData($form);
+        Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
+        Object.assign(item, {'magaya__SQuote_Name': idmQuoteToEdit})
 
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: item, Trigger: [] })
         .then(function(data) {
@@ -112,25 +101,11 @@ $(document).ready(function(){
                 } else {
                     let res = data.data;
                     let idItem = res[0].details.id;
-
-                    $(":input[name=Item-Pieces]").val('');
-                    $(":input[name=Item-Length]").val('');
-                    $(":input[name=Item-Height]").val('');
-                    $(":input[name=Item-Width]").val('');
-                    $(":input[name=Item-Weight]").val('');
-
                     let message = ': Item Added on module Cargo'
 
                     //add partial copy to store
                     storeItem.dispatch(addItem({...item, id: idItem}))
                     storeSuccess.dispatch(addSuccess({message: message}))
-
-                    pieces = parseInt(pieces);
-                    length = 0
-                    height = 0
-                    width = 0
-                    weight = 0
-                    volume = 0
                 }
             })
         })
@@ -148,6 +123,21 @@ $(document).ready(function(){
         })
     })
 
+
+    //boton new item from new mquote form
+    $("#newItem").click(function(e) {
+        //button add package
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        //store.dispatch(addActionEdited())
+
+        let $form = $("#new-item");
+        let item = getFormData($form);
+        console.log("New item to table", item)
+        Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
+
+        storeItem.dispatch(addItemOnNew({...item}))
+    });
 
     //boton sendCharges on edit form
     $("#sendCharges").click(function(e) {
@@ -223,6 +213,7 @@ $(document).ready(function(){
         $("#newCharges").click(function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
+            store.dispatch(addActionEdited())
 
             let $form = $("#new-charge");
             let item = getFormData($form);
@@ -282,54 +273,6 @@ $(document).ready(function(){
     })
 
 
-    //boton new item from new mquote form
-    $("#newItem").click(function(e) {
-        //button add package
-        e.preventDefault();
-        e.stopImmediatePropagation();
-
-        //agregarCampos();
-        rowIndex = $("#select-package").val();
-
-        let packageName = $('select[name="select-package"] option:selected').text();
-        let pieces = ($(":input[name=Item-Pieces]").val()) > 0 ? $(":input[name=Item-Pieces]").val() : '1';
-        let length = ($(":input[name=Item-Length]").val()) > 0 ? $(":input[name=Item-Length]").val() : (packageType[rowIndex]['magaya__PackageLenght'] >= 0 ? packageType[rowIndex]['magaya__PackageLenght'] : 0);
-        let height = ($(":input[name=Item-Height]").val()) > 0 ? $(":input[name=Item-Height]").val() : (packageType[rowIndex]['magaya__PackageHeight'] >= 0 ? packageType[rowIndex]['magaya__PackageHeight'] : 0);
-        let width = ($(":input[name=Item-Width]").val()) > 0 ? $(":input[name=Item-Width]").val() : (packageType[rowIndex]['magaya__PackageWidth'] >= 0 ? packageType[rowIndex]['magaya__PackageWidth'] : 0);
-        let volume = parseFloat(length) * parseFloat(width) * parseFloat(height);
-        let measure_system = $("select[name=magaya__Measure_System] option:selected").val();
-        let weigth = ($(":input[name=Item-Weight]").val()) > 0 ? $(":input[name=Item-Weight]").val() : (packageType[rowIndex]['magaya__PackageWeight'] >= 0 ? packageType[rowIndex]['magaya__PackageWeight'] : 0);
-
-        let item = {
-            'Name': packageName,
-            'magaya__Pieces': pieces,
-            'magaya__Length': parseFloat(length),
-            'magaya__Height': parseFloat(height),
-            'magaya__Width': parseFloat(width),
-            'magaya__Weigth': weigth,
-            'magaya__Volume': parseFloat(volume),
-            "magaya__Measure_System": measure_system
-
-        }
-
-        storeItem.dispatch(addItemOnNew({...item}))
-
-        //reset fields
-        $(":input[name=Item-Pieces]").val('')
-        $(":input[name=Item-Length]").val('');
-        $(":input[name=Item-Height]").val('');
-        $(":input[name=Item-Width]").val('');
-        $(":input[name=Item-Weight]").val('')
-
-        //items = $(this).tableToJson('table-items', 543534534);
-
-    });
-
-
-
-
-
-
 
  //boton send new mquote
  $("#Save").click(function(e) {
@@ -341,6 +284,11 @@ $(document).ready(function(){
         throw new UserException('Mandatory data not found: Client Quote is not defined');
 
     let idQuote = quoteToEdit['id']
+
+    let is_hazardous = false;
+    let hz = $("input[name=magaya__Is_Hazardous]")
+    if ( $( hz ).prop( "checked" ) )
+        is_hazardous = true
 
     let recordData = {
         "id": idQuote,
@@ -359,7 +307,9 @@ $(document).ready(function(){
         "magaya__PortofLoading": $("select[name=magaya__PortofLoading]").val(),
         "magaya__PortofUnloading": $("select[name=magaya__PortofUnloading]").val(),
         "magaya__Destination": sanitize($("input[name=magaya__Destination]").val()),
-        "magaya__Origin": sanitize($("input[name=magaya__Origin]").val())
+        "magaya__Origin": sanitize($("input[name=magaya__Origin]").val()),
+        "magaya__Is_Hazardous": is_hazardous
+
     }
 
 
@@ -454,6 +404,10 @@ $(document).ready(function(){
         if (accountId <= 0 || accountId === undefined || accountId === "undefined")
             throw new UserException('Mandatory data not found: Client Quote is not defined');
 
+        let is_hazardous = false;
+        let hz = $("input[name=magaya__Is_Hazardous]")
+        if ( $( hz ).prop( "checked" ) )
+            is_hazardous = true
 
         recordData = {
             "Name": sanitize($(":input[id=NameQuote]").val()),
@@ -487,7 +441,8 @@ $(document).ready(function(){
             "magaya__ContactEmail": sanitize($("input[name=Email]").val()),
             "magaya__ContactMobile": sanitize($("input[name=Mobile]").val()),
             "magaya__ContactHomePhone": sanitize($("input[name=Phone]").val()),
-            "magaya__ContactName": sanitize($("select[name=magaya__Representative] option:selected").text())
+            "magaya__ContactName": sanitize($("select[name=magaya__Representative] option:selected").text()),
+            "magaya__Is_Hazardous": is_hazardous
 
         }
 

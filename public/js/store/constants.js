@@ -57,6 +57,7 @@ const MAKE_ACTIVE_PORT = "MAKE_ACTIVE_PORT"
 const MAKE_INACTIVE_PORT = "MAKE_INACTIVE_PORT"
 const SEARCH_PORTS_BY_TYPE = "SEARCH_PORTS_BY_TYPE"
 const UPDATE_ITEM_CRM = "UPDATE_ITEM_CRM"
+const ADD_ITEM_EMPTY = "ADD_ITEM_EMPTY"
 
 const ADD = "ADD"
 const REST = "REST"
@@ -88,10 +89,11 @@ const CHARGES_FIELDS = {"Name": {"field": "Description", "editable":"", "place":
 
 
 const ITEMS_FIELDS = {
-    "Name": {"field": "Description"}, "magaya__Length": {"field": "Length", "type": "number"}, "magaya__Width": {"field": "Width", "type": "number"},
-    "magaya__Weigth": {"field": "Weigth", "type": "number"}, "magaya__Status": {"field": "Status", "values":["InQuote"]}, "magaya__Height": {"field": "Height", "type": "number"},
-    "magaya__Pieces": {"field": "Pieces", "type": "number"}, "magaya__Measure_System": {"field": "Measure System", "values": ["International", "English"]},
-    "magaya__Volume": {"field": "Volume", "type": "number"}
+    "Name": {"field": "Description", "place": 1}, "magaya__Package_Description": {"field": "Description", "place": 2},
+    "magaya__Length": {"field": "Length", "type": "number", "place": 4}, "magaya__Width": {"field": "Width", "type": "number", "place": 6},
+    "magaya__Weigth": {"field": "Weigth", "type": "number", "place": 7}, "magaya__Status": {"field": "Status", "values":["InQuote"], "place": 10}, "magaya__Height": {"field": "Height", "type": "number", "place": 5},
+    "magaya__Pieces": {"field": "Pieces", "type": "number", "place": 3}, "magaya__Measure_System": {"field": "Measure System", "values": ["International", "English"], "place": 9},
+    "magaya__Volume": {"field": "Volume", "type": "number", "place": 8}
 }
 
 const ITEMS_CRM = {
