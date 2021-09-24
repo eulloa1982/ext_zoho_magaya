@@ -541,73 +541,84 @@
                                         <div class="panel">
                                             <span class="material-icons close cursor-hand" data-close="panel-item">close</span>
 
-											<fieldset class="fieldset"><legend class="legend">New Item</legend>
+											<fieldset class="fieldset">
+                                                <legend class="legend">New Item
+                                                    <span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px" data-close="panel-item">close</span>
+                                                    <span id="sendItem" class="material-icons btn btn-primary float-right">task_alt</span>
+                                                    <span id="newItem" class="material-icons btn btn-primary float-right">task_alt</span>
 
-												<div class="row">
-													<div class="col-md-8">
-														<span>Measure System</span>
-														<div class="input-group">
-															<select name="magaya__Measure_System" class="form-control">
-																<option value="International">International</option>
-																<option value="English">English</option>
-															</select>
-														</div>
-													</div>
-												</div>
+                                                </legend>
+                                                <form id="new-item">
+                                                    <div class="row">
+                                                        <div class="col-md-4">Description</div>
+                                                        <div class="col-md-6">
+                                                            <select class="form-control new-item text" name="Name"><option value='-1'></option></select>
+                                                        </div>
+                                                    </div>
 
-												<div class="row">
-													<div class="col-md-2">
-														<span>Quantity</span>
-														<div class="input-group">
-																<input type="text" class="number form-control" name="Item-Pieces" class='form-control' />
-															</div>
-													</div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">Pieces</div>
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="form-control number new-item" name="magaya__Pieces">
+                                                        </div>
+                                                    </div>
 
-													<div class="col-md-2">
-															<span>Package</span>
-															<div class="input-group">
-																<select id='select-package' name="select-package" class="form-control"></select>
-															</div>
-														</div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">Length</div>
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="form-control number new-item" name="magaya__Length">
+                                                        </div>
+                                                    </div>
 
-														<div class="col-md-2">
-															<span>Length</span>
-															<div class="input-group">
-																<input type="text" class="number form-control" name="Item-Length" id="Item-Length" class='form-control' />
-															</div>
-														</div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">Height</div>
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="form-control number new-item" name="magaya__Height">
+                                                        </div>
+                                                    </div>
 
-														<div class="col-md-2">
+                                                    <div class="row">
+                                                        <div class="col-md-4">Width</div>
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="form-control number new-item" name="magaya__Width">
+                                                        </div>
+                                                    </div>
 
-														<span>Height</span>
-														<div class="input-group">
-															<input type="text" class="number form-control" name="Item-Height" class='form-control' />
-														</div>
-														</div>
-														<div class="col-md-2">
-															<span>Width</span>
-															<div class="input-group">
-																<input type="number" name="Item-Width" class='form-control' />
-															</div>
-														</div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">Weigth</div>
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="form-control number new-item" name="magaya__Weigth">
+                                                        </div>
+                                                    </div>
 
-														<div class="col-md-2">
-															<span>Weight</span>
-															<div class="input-group">
-																<input type="text" class="number form-control" name="Item-Weight" class='form-control' />
-															</div>
-														</div>
-												</div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">Volume</div>
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="form-control number new-item" name="magaya__Volume">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-4">Measure System</div>
+                                                        <div class="col-md-6">
+                                                            <select name="magaya__Measure_System" class="form-control new-item"><option></option><option value="International">International</option><option value="English">English</option></select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-4">Status</div>
+                                                        <div class="col-md-6">
+                                                            <select name="magaya__Status" class="form-control new-item"><option value="InQuote">InQuote</option></select>
+                                                        </div>
+                                                    </div>
+                                                </form>
+												<!--
+                                                    <div id="info-datad"></div>
+
+
+                                                 -->
 											</fieldset>
 
-                                                <div class="col-md-12 table-responsive" style="margin-top:20px;">
-                                                    <div class="col-md-12">
-                                                        <p style="width: 100%;text-align: right;">
-                                                            <button id='sendItem' for-table='#table-items' class="btn btn-primary" style="background-color: #0b3355">Add Item</button>
-                                                            <button id='newItem' for-table='#table-items-new' class="btn btn-primary" style="background-color: #0b3355">Add Item</button>
-                                                        </p>
-                                                    </div>
-                                                </div>
                                             </div>
                                     </div>
 

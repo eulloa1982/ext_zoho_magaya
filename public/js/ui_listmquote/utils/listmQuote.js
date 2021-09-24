@@ -29,12 +29,44 @@ $(document).ready(function(){
         if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
             value = parseFloat(value);
         }
-        console.log(`${idItem}, ${field} ${value}`)
         //si los valores son iguales, no actualizar nada
         if (oldValue.toString() !== value.toString()) {
             //storeCharge.dispatch(updateCharge({id:idItem, field: field, value: value}))
             //storeCharge.dispatch(setAmountOnNew({id:idItem, field: field, value: value}))
             storeCharge.dispatch(updateChargeOnNew({field: field, value: value}))
+        }
+
+    })
+
+    $(".new-item").focus(function(e) {
+        $(this).addClass("editable");
+
+        oldValue = $(this).val()
+    })
+
+    $(".new-item").on("change blur", function(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation()
+        let $celd = $(this)
+        $(this).removeClass("editable")
+
+        let value = $(this).val();
+        let field = $(this).attr('name');
+
+        //let idItem = $(this).attr("data-id")
+        value = sanitize(value);
+
+        if (field === "Name") {
+            value = sanitize(value)
+        } else {
+            value = parseFloat(value);
+        }
+        console.log(`${field} ${value}`)
+        //si los valores son iguales, no actualizar nada
+        if (oldValue.toString() !== value.toString()) {
+            //storeCharge.dispatch(updateCharge({id:idItem, field: field, value: value}))
+            //storeCharge.dispatch(setAmountOnNew({id:idItem, field: field, value: value}))
+            storeItem.dispatch(updateItemOnNew({field: field, value: value}))
         }
 
     })

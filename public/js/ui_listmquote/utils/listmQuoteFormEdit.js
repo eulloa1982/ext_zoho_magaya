@@ -131,6 +131,8 @@
 
         //////////////////////////////////////////////////////////////////
             ///////// data in situ editable
+            ///// VALORAR QUITAR
+            ///// VERIFICAR, DEBE SOBRAR
             ///////////////////////////////////////////////////////////////////
             $(".no-border-charge-new").focus(function(e) {
                 $(this).addClass("editable");

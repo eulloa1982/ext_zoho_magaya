@@ -4,7 +4,7 @@ $("#info-charge").html("Loading, please wait...");
 //get one charge
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
-    console.log("State charges now", storeCharge.getState())
+    //console.log("State charges now", storeCharge.getState())
     if (!_.isEmpty(u)) {
         let k = parseInt(u[0])
         //construir los campos y la data
@@ -134,8 +134,6 @@ storeCharge.subscribe(() => {
                 //totalIncome += roundDec(k.magaya__Amount_Total);
                 //final_amount += roundDec(k.magaya__Amount_Total);
             }
-
-            console.log("Final", final_amount)
 
             $("#table-charges tbody").append(`<tr>
                     <td class="Delete">

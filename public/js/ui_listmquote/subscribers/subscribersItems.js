@@ -3,7 +3,6 @@ let data_module_flag_item = true
 
 //get an item, draw the data view
 storeItem.subscribe(() => {
-    console.log("Store item now", storeItem.getState())
     let u = storeItem.getState().singleItem;
     if (!_.isEmpty(u)) {
         //construir los campos y la data
@@ -26,9 +25,12 @@ storeItem.subscribe(() => {
         `
 
 
-        let append = `<span id="${button_type}" data-id="${id}" class="btn btn-primary float-right close-panel">Send</span><br /><br />`
+        let append = ``
         $("#panel-legend").html(`Editing Item`)
+        let arr = {}
         $.map(u[1], function(k, v) {
+            let order = _.get(ITEMS_FIELDS, [v, 'place'])
+
             if ( _.has(ITEMS_FIELDS, v)) {
                 let type = "text"
                 if (_.has(ITEMS_FIELDS, [v, 'type'])) {
@@ -53,23 +55,43 @@ storeItem.subscribe(() => {
                         })
                     input += `</select>`
                 }
-                append += `<div class="row">
+                appendArr = `<div class="row">
                 <div class="col-md-4">${field}</div>
                 <div data-id="${id}" class="col-md-6">${input}</div>
                 </div>`
+
+                arr[order] = appendArr
             }
         })
 
-
+        arrows += `<span id="${button_type}" data-id="${id}" class="material-icons btn btn-primary">task_alt</span>
+                    <span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px" data-close="panel">close</span>`
 
         $("#arrows").append(arrows)
+
+        //imprimir campos en orden
+        for(i = 1; i <= 9; i++) {
+            append += arr[i];
+        }
+
         $("#info-datad").append(append)
+    }
+
+    //empty charge
+    let y = storeItem.getState().itemEmpty;
+    let showEmpty = storeItem.getState().showEmptyItem;
+
+    if (!_.isEmpty(y) && showEmpty) {
+        $.map(y, function (k, v) {
+            $(`input[name=${v}`).val(k)
+        })
     }
 
 })
 
 //new items on table-items-new
 storeItem.subscribe(() => {
+    console.log("State item now", storeItem.getState())
     let u = storeItem.getState().itemsOnNew;
 
     if (!_.isEmpty(u)) {

@@ -5,8 +5,9 @@ const initialStateIntems = {
     itemsOnNew: [],
     singleItem: [],
     isChargeNew: true,
+    //empty item to inserting actions
     itemEmpty:{
-        Name: 0,
+        Name: "",
         magaya__Length: 0,
         magaya__Weigth: 0,
         magaya__Height: 0,
@@ -16,7 +17,8 @@ const initialStateIntems = {
         magaya__Measure_System: "",
         magaya__Volume: 0
 
-    }
+    },
+    showEmptyItem: false
   };
 
 function reducerItem (state = initialStateIntems, actions)  {
@@ -36,6 +38,18 @@ function reducerItem (state = initialStateIntems, actions)  {
                 ...state,
                 singleItem: [0, initialStateIntems.itemEmpty],
                 isItemNew: true
+            }
+        }
+
+        case ADD_ITEM_EMPTY: {
+            const length = _.size(state.items)
+            const index = length + 1
+            let newArray = initialStateIntems.itemEmpty;
+            Object.assign(newArray, {"id": index})
+            return {
+                ...state,
+                singleItem: [index, newArray],
+                showEmptyItem: true
             }
         }
 
@@ -92,7 +106,8 @@ function reducerItem (state = initialStateIntems, actions)  {
 
             return {
                 ...state,
-                singleItem: [byId, newArray]
+                singleItem: [byId, newArray],
+                showEmptyItem: false
             }
         }
 
@@ -106,7 +121,8 @@ function reducerItem (state = initialStateIntems, actions)  {
 
             return {
                 ...state,
-                singleItem: [byId, state.itemsOnNew[byId]]
+                singleItem: [byId, state.itemsOnNew[byId]],
+                showEmptyItem: false
             }
         }
 
@@ -121,13 +137,23 @@ function reducerItem (state = initialStateIntems, actions)  {
             }
         }
 
+        //item empty on new on inserting
         case UPDATE_ITEM_ON_NEW: {
             const field = actions.payload.field;
             const value = actions.payload.value;
-            state.singleItem[field] = value
+
+            let newArray = initialStateIntems.itemEmpty
+            newArray[field] = value
+            newArray["magaya__Length"] = (newArray["magaya__Length"] == 0 ? packageType[newArray["Name"]]["magaya__PackageLength"] : newArray["magaya__Length"]);
+            newArray["magaya__Height"] = (newArray["magaya__Height"] == 0 ? packageType[newArray["Name"]]["magaya__PackageHeight"] : newArray["magaya__Height"]);
+            newArray["magaya__Width"] = (newArray["magaya__Width"] == 0 ? packageType[newArray["Name"]]["magaya__PackageWidth"] : newArray["magaya__Width"]);
+
+            //calculate volume
+            let volume = roundDec(newArray["magaya__Height"]) * roundDec(newArray["magaya__Length"]) * roundDec(newArray["magaya__Width"])
+            newArray["magaya__Volume"] = roundDec(volume)
             return {
                 ...state,
-                singleItem: state.singleItem
+                itemEmpty: newArray
             }
 
         }
@@ -231,6 +257,11 @@ function addItemOnNew(payload) {
     return { type: ADD_ITEM_ON_NEW, payload }
 }
 
+//add item, on new and on charge
+function addItemEmpty() {
+    return {type: ADD_ITEM_EMPTY}
+}
+
 //drop an item on editing mquote
 function deleteItem(payload) {
     return { type: DELETE_ITEM, payload };
@@ -278,3 +309,4 @@ function updateItem(payload) {
 function addItemEmptyNew() {
     return { type: ADD_ITEM_EMPTY_NEW }
 }
+
