@@ -63,7 +63,7 @@ $(document).ready(function(){
         }
         console.log(`${field} ${value}`)
         //si los valores son iguales, no actualizar nada
-        if (oldValue.toString() !== value.toString()) {
+        if (sanitize(oldValue) !== sanitize(value)) {
             //storeCharge.dispatch(updateCharge({id:idItem, field: field, value: value}))
             //storeCharge.dispatch(setAmountOnNew({id:idItem, field: field, value: value}))
             storeItem.dispatch(updateItemOnNew({field: field, value: value}))

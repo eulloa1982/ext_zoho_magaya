@@ -9,6 +9,15 @@
 
 })*/
 
+$("#new-item select[name=Name]").change(function(e) {
+    //$("#new-item")[0].reset()
+    /*let elementos = document.querySelectorAll("input[type=text], input[id=magaya__Description], select[name=magaya__TransportationMode], select[name=magaya__Direction]")
+    elementos.forEach((elemento) => {
+        elemento.value = ''
+    })*/
+
+})
+
 /////////////////////////////////////////////////////////////////////////
 //////// subscribers UI
 ////////////////////////////////////////////////////////////////////////

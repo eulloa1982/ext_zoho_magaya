@@ -539,8 +539,6 @@
                                     <!---- wrapper for new charge form-->
                                     <div class="panel-item" id="panel-item">
                                         <div class="panel">
-                                            <span class="material-icons close cursor-hand" data-close="panel-item">close</span>
-
 											<fieldset class="fieldset">
                                                 <legend class="legend">New Item
                                                     <span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px" data-close="panel-item">close</span>
@@ -630,11 +628,11 @@
                                                     <th style="width:10%">Status</th>
                                                     <th style="width:26%">Description</th>
 													<th style="width:9%">Pieces</th>
-													<th style="width:9%">Length</th>
-                                                    <th style="width:9%">Heigth</th>
-													<th style="width:9%">Width</th>
-													<th style="width:9%">Weigth</th>
-													<th style="width:9%">Volume</th>
+													<th colspan="2" style="width:9%">Length</th>
+                                                    <th colspan="2" style="width:9%">Heigth</th>
+													<th colspan="2" style="width:9%">Width</th>
+													<th colspan="2" style="width:9%">Weigth</th>
+													<th colspan="2" style="width:9%">Volume</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
@@ -647,11 +645,11 @@
                                                     <th style="width:10%">Status</th>
                                                     <th style="width:26%">Description</th>
 													<th style="width:9%">Pieces</th>
-													<th style="width:9%">Length</th>
-                                                    <th style="width:9%">Heigth</th>
-													<th style="width:9%">Width</th>
-													<th style="width:9%">Weigth</th>
-													<th style="width:9%">Volume</th>
+													<th colspan="2" style="width:9%">Length</th>
+                                                    <th colspan="2" style="width:9%">Heigth</th>
+													<th colspan="2" style="width:9%">Width</th>
+													<th colspan="2" style="width:9%">Weigth</th>
+													<th colspan="2" style="width:9%">Volume</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>

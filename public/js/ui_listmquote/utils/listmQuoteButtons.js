@@ -81,7 +81,62 @@ $(document).ready(function(){
 
         //store.dispatch(addActionEdited())
         rowIndex = $("#select-package").val();
+        let $form = $("#new-item");
+        let item = getFormData($form);
+        Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
+        Object.assign(item, {'magaya__SQuote_Name': idmQuoteToEdit})
 
+        ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: item, Trigger: [] })
+        .then(function(data) {
+            res = data.data;
+            $.map(res, function(k, v) {
+                if (k.code !== "SUCCESS") {
+                    codeError = k.code;
+                    field = k.details.api_name;
+                    show = true;
+                    module = 'Cargo Items'
+
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                } else {
+                    let res = data.data;
+                    let idItem = res[0].details.id;
+
+                    //$(":input[name=Item-Pieces]").val('');
+                    //$(":input[name=Item-Length]").val('');
+                    //$(":input[name=Item-Height]").val('');
+                    //$(":input[name=Item-Width]").val('');
+                    //$(":input[name=Item-Weight]").val('');
+
+                    let message = ': Item Added on module Cargo'
+
+                    //add partial copy to store
+                    storeItem.dispatch(addItem({...item, id: idItem}))
+                    storeSuccess.dispatch(addSuccess({message: message}))
+
+                    //pieces = parseInt(pieces);
+                    //length = 0
+                    //height = 0
+                    //width = 0
+                    ///weight = 0
+                    //volume = 0
+                }
+            })
+        })
+        .catch(function(error){
+            console.log(error)
+            dataError = error.data[0];
+            //$.map(dataError, function(k, v) {
+                codeError = `${dataError.code} on field ${dataError.details.api_name}. Error Type: ${dataError.message}`;
+                field = dataError.details.api_name;
+                show = false;
+                module = 'Items'
+                storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+            //})
+        })
+
+        //storeItem.dispatch(addItemOnNew({...item}))
         /*rowIndex = $("#select-package").val();
 
         let packageName = $('select[name="select-package"] option:selected').text();

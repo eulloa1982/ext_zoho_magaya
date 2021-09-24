@@ -18,7 +18,8 @@ const initialStateIntems = {
         magaya__Volume: 0
 
     },
-    showEmptyItem: false
+    showEmptyItem: false,
+    itemNew: []
   };
 
 function reducerItem (state = initialStateIntems, actions)  {
@@ -33,11 +34,12 @@ function reducerItem (state = initialStateIntems, actions)  {
 
 
         case ADD_ITEM_EMPTY_NEW: {
+            state.singleItem = initialStateIntems.itemEmpty
 
             return {
                 ...state,
-                singleItem: [0, initialStateIntems.itemEmpty],
-                isItemNew: true
+                singleItem: [0, state.singleItem],
+                showEmptyItem: true
             }
         }
 
@@ -153,10 +155,11 @@ function reducerItem (state = initialStateIntems, actions)  {
             newArray["magaya__Volume"] = roundDec(volume)
             return {
                 ...state,
-                itemEmpty: newArray
+                itemNew: newArray
             }
 
         }
+
 
         case CALCULATE_VOLUME: {
             //const idItem = actions.payload.id;
@@ -219,6 +222,7 @@ function reducerItem (state = initialStateIntems, actions)  {
             state.items = initialStateIntems.items
             state.itemsQuote = initialStateIntems.itemsQuote
             state.itemsOnNew = initialStateIntems.itemsOnNew
+
             return {
                 ...state
             }
