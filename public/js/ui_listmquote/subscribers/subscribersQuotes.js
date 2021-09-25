@@ -32,7 +32,7 @@ storeQuote.subscribe(() => {
     quoteToEdit = u.quoteToEdit;
     dataQuotes = u.quotes
     data = []
-    if (_.isEmpty(dataQuotes)) {
+    if (_.size(dataQuotes) == 0) {
         dataQuotes = {id: 1, Name:"Quote Test"}
     } else {
 
