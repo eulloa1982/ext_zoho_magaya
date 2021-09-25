@@ -132,22 +132,28 @@ function limpiar_form() {
     $("#magaya__Description").val("")
     $("select[name=magaya__PortofUnloading]").val("")
     $("select[name=magaya__PortofLoading]").val("")
-    $("input[name=Shipper_Street").val("")
-    $("input[name=Shipper_City").val("")
-    $("input[name=Shipper_State").val("")
-    $("input[name=Shipper_Country").val("")
-    $("input[name=Consignee_Street").val("")
-    $("input[name=Consignee_City").val("")
-    $("input[name=Consignee_State").val("")
-    $("input[name=Consignee_Country").val("")
+    $("input[name=Shipper_Street]").val("")
+    $("input[name=Shipper_City]").val("")
+    $("input[name=Shipper_State]").val("")
+    $("input[name=Shipper_Country]").val("")
+    $("input[name=Consignee_Street]").val("")
+    $("input[name=Consignee_City]").val("")
+    $("input[name=Consignee_State]").val("")
+    $("input[name=Consignee_Country]").val("")
     $("select[name=magaya__ConsigneeName]").val("")
     $("select[name=magaya__Shipper]").val("")
+    $("input[name=magaya__Magaya_Status]").val("Open")
+
+    //hora actual
+
     //$("select[name=Account]").removeAttr("selected")
     // expected output: 10*/
     let elementos = document.querySelectorAll("input[type=text], input[id=magaya__Description], select[name=magaya__TransportationMode], select[name=magaya__Direction]")
     elementos.forEach((elemento) => {
         elemento.value = ''
     })
+    var now = moment().format("YYYY-MM-DD");
+    $("input[name=magaya__AddedTime]").val(now)
 
     //get org data
     let organization = JSON.parse(localStorage.getItem('organization'))

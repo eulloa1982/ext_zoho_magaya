@@ -274,6 +274,10 @@ $(document).ready(function(){
 
             }
 
+            //Stage of mQuote
+            let stage = quoteToEdit["magaya__Status"]
+            $("select[name=magaya__mQuoteStatus]").val(stage)
+
             //Shipper y Consignee
             //hay que buscar el texto , hasta que tengamos un lookup para eliminar esto
             let shipper = quoteToEdit.magaya__Shipper
