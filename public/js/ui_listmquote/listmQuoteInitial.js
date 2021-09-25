@@ -50,7 +50,7 @@ $(document).ready(function(){
             $.map (data.users, function (k, i) {
                 currentUser = k.full_name;
                 //$(":input[name=magaya__IssuedByName]").val(k.full_name);
-                $(":input[name=magaya__SellerName]").val(k.full_name);
+                $(":input[name=magaya__IssuedByName]").val(k.full_name);
             })
 
         });
@@ -67,6 +67,21 @@ $(document).ready(function(){
                         $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
                         $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Shipper]");
                         $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__ConsigneeName]");
+
+                    }
+                })
+                storeAccounts.dispatch(addAccount(response.data))
+            })
+
+        ZOHO.CRM.API.getAllRecords({Entity: "magaya__Employees", sort_order: "asc"})
+            .then(function(response){
+                $.map (response.data, function (k, i) {
+                    console.log(k)
+                    $(`<option value='${k.Name}'>${k.Name}</option>`).appendTo("select[name=magaya__Employee]");
+
+                    if (k.magaya__Is_Salesperson) {
+
+                        $(`<option value="${k.Name}">${k.Name}</option>`).appendTo("select[name=magaya__Seller]");
 
                     }
                 })

@@ -427,7 +427,7 @@ $(document).ready(function(){
             "magaya__OriginReceipt": sanitize($("input[name=magaya__OriginReceipt]").val()),
             "magaya__DestinationPrecarriageBy": sanitize($("input[name=magaya__DestinationPrecarriageBy]").val()),
             "magaya__OriginPrecarriageBy": sanitize($("input[name=magaya__OriginPrecarriageBy]").val()),
-            "magaya__mQuoteStatus": $("select[name=magaya__Status] option:selected").val(),
+            "magaya__Status": $("select[name=magaya__mQuoteStatus] option:selected").val(),
             "magaya__Representative": contact,
             "magaya__PortofLoading": $("select[name=magaya__PortofLoading]").val(),
             "magaya__PortofUnloading": $("select[name=magaya__PortofUnloading]").val(),
@@ -444,7 +444,10 @@ $(document).ready(function(){
             "magaya__ContactName": sanitize($("select[name=magaya__Representative] option:selected").text()),
             "magaya__Is_Hazardous": is_hazardous,
             "magaya__Magaya_Status": "Open",
-            "magaya__AddedTime": $("input[name=magaya__AddedTime]").val()
+            "magaya__AddedTime": $("input[name=magaya__AddedTime]").val(),
+            "magaya__Employee": $("select[name=magaya__Employee]").val(),
+            "magaya__Seller": $("select[name=magaya__Seller]").val(),
+            "magaya__Terms": sanitize($(":input[name=magaya__Terms]").val())
         }
 
         //jsonCharges = $(this).tableToJson('table-charges-new', 992929292929229);

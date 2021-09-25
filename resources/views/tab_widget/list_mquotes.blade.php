@@ -186,7 +186,7 @@
 										</div>
 										<div class="col-md-3">
 											<label class="col-md-12" style="font-weight: bold;">Sales Person</label>
-                                            <input name="magaya__SellerName" class="form-control" readonly/>
+                                            <select name="magaya__Seller" class="form-control"></select>
 										</div>
 									</div>
 
