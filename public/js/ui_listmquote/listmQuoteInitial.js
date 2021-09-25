@@ -15,7 +15,8 @@ $(document).ready(function(){
                 let quotes = data.data;
 
                 if (_.isEmpty(quotes)) {
-                    quotes = { "id": 1, "Name": "Quote Test", "magaya__Status": "Draft", "magaya__Description": "Do a new mquote, i'll gone" }
+                    let now = moment().format("YYYY-MM-DD T HH:mm:ss");
+                    quotes = { "id": 1, "Name": "Quote Test", "magaya__Status": "Draft", "magaya__Description": "Do a new mquote, i'll gone", "Modified_Time": now }
                 }
                 //return all data quotes to initial statel
                 return quotes

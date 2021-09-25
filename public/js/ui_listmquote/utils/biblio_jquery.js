@@ -152,7 +152,7 @@ function limpiar_form() {
     elementos.forEach((elemento) => {
         elemento.value = ''
     })
-    var now = moment().format("YYYY-MM-DD");
+    let now = moment().format("YYYY-MM-DD");
     $("input[name=magaya__AddedTime]").val(now)
 
     //get org data
