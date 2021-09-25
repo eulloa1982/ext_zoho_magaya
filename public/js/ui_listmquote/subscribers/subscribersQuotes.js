@@ -32,6 +32,8 @@ storeQuote.subscribe(() => {
     quoteToEdit = u.quoteToEdit;
     dataQuotes = u.quotes
     data = []
+
+    console.log("dataQuotes", dataQuotes)
     if (_.size(dataQuotes) == 0) {
         dataQuotes = {id: 1, Name:"Quote Test"}
     } else {
