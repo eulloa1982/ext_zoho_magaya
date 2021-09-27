@@ -172,22 +172,24 @@ storeCharge.subscribe(() => {
             $("#info-charge").html("");
 
     } else {
+        $("#table-charges tbody").empty()
         $("#info-charge").html("No charges found");
     }
 })
 
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().chargesOnNew;
+    let amount_ = 0
+    let tax_amount_total = 0
+    let amount_total = 0
+    let final_amount = 0
 
     if (!_.isEmpty(u)) {
         data_module_flag_charge = true
 
         $("#table-charges-new tbody").empty();
         if (!_.isEmpty(u)) {
-            let amount_ = 0
-            let tax_amount_total = 0
-            let amount_total = 0
-            let final_amount = 0
+
 
             $.each(u, function(i, k) {
 
@@ -237,6 +239,9 @@ storeCharge.subscribe(() => {
             //<td class="magaya__ApplyToAccounts" style="display: none;">${k.magaya__ApplyToAccounts}</td>
 
         }
+
+    } else {
+        $("#table-charges-new tbody").empty()
     }
 })
 
