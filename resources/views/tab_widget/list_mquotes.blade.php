@@ -586,13 +586,18 @@
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-4">Amount</div>
+                                                    <div class="col-md-4">Amount + Tax</div>
                                                     <div class="col-md-6"><input type="text" class="form-control number" name="magaya__Amount_Total" readonly></div>
                                                 </div>
 
                                                 <div class="row">
+                                                    <div class="col-md-4">Adjustment</div>
+                                                    <div class="col-md-6"><input type="text" class="form-control number new-charge" name="Adjustment"></div>
+                                                </div>
+
+                                                <div class="row">
                                                     <div class="col-md-4">Final Amount</div>
-                                                    <div class="col-md-6"><input type="text" class="form-control number new-charge" name="magaya__Final_Amount"></div>
+                                                    <div class="col-md-6"><input type="text" class="form-control number new-charge" name="magaya__Final_Amount" readonly></div>
                                                 </div>
 
                                                 <div class="row">

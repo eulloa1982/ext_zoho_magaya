@@ -20,7 +20,8 @@ const initialStateCharge = {
         magaya__TaxRate: 0,
         magaya__Tax_Amount: 0,
         magaya__Unit: "",
-        magaya__ApplyToAccounts: 0
+        magaya__ApplyToAccounts: 0,
+        Adjustment: 0
     },
     showEmptyCharge: false
   };
@@ -47,7 +48,13 @@ function reducerCharge (state = initialStateCharge, actions)  {
         case ADD_CHARGE_EMPTY: {
             const length = _.size(state.charges)
             const index = length + 1
-            let newArray = initialStateCharge.emptyCharge;
+
+            $.map(state.emptyCharge, function(k, v) {
+                state.emptyCharge[v] = ""
+            })
+
+            let newArray = state.emptyCharge;
+            console.log(newArray)
             Object.assign(newArray, {"id": index})
             return {
                 ...state,
@@ -73,6 +80,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
             //always get just 1 item on the state
             state.singleCharge = initialStateCharge.singleCharge;
             newArray = {...state.charges[byId]}
+
             return {
                 ...state,
                 singleCharge: [byId, newArray],
@@ -115,6 +123,9 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray[1]['magaya__Tax_Amount'] = roundDec(amount_tax);
             let amount_total = roundDec(amount + amount_tax);
             newArray[1]['magaya__Amount_Total'] = roundDec(amount_total);
+
+            let final_amount = roundDec(amount_total) + roundDec(newArray[1]['Adjustment'])
+             newArray[1]['magaya__Final_Amount'] = roundDec(final_amount)
             return {
                 ...state,
                 singleCharge: newArray
@@ -138,7 +149,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
         }
 
 
-        case SET_AMOUNT_ON_NEW: {
+        /*case SET_AMOUNT_ON_NEW: {
             //const index = actions.payload.id;
             const field = actions.payload.field;
             const value = actions.payload.value;
@@ -160,14 +171,14 @@ function reducerCharge (state = initialStateCharge, actions)  {
                 ...state,
                 singleCharge: [index, newArray]
             }
-        }
+        }*/
 
 
         case UPDATE_CHARGE_ON_NEW : {
             const field = actions.payload.field;
             const value = actions.payload.value;
 
-            newArray = state.emptyCharge
+            newArray = {...state.emptyCharge}
             newArray[field] = value
 
             let amount = roundDec(newArray['magaya__Price']) * roundDec (newArray['magaya__CQuantity']);
@@ -180,6 +191,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
 
             newArray['Name'] = newArray["magaya__Charge_Description"]
             newArray["magaya__TaxRate"] = newArray["magaya__TaxCode"]
+            newArray["magaya__Final_Amount"] = roundDec(newArray["Adjustment"]) + roundDec(amount_total)
             return {
                 ...state,
                 emptyCharge: newArray

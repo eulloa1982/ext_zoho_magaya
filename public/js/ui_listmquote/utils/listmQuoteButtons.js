@@ -133,10 +133,11 @@ $(document).ready(function(){
 
         let $form = $("#new-item");
         let item = getFormData($form);
-        console.log("New item to table", item)
         Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
+        Object.assign(item, {"magaya__Package_Description": $('input[name=magaya__Package_Description]').val()})
 
         storeItem.dispatch(addItemOnNew({...item}))
+        $(`#panel-item`).animate({width:'toggle'},150);
     });
 
     //boton sendCharges on edit form
@@ -221,6 +222,7 @@ $(document).ready(function(){
             Object.assign(item, {'magaya__ApplyToAccounts': accountId})
             Object.assign(item, {"Name": item["magaya__Charge_Description"]})
             storeCharge.dispatch(addChargeOnNew({...item}))
+            $(`#panel-charge`).animate({width:'toggle'},150);
         })
 
 
@@ -308,7 +310,8 @@ $(document).ready(function(){
         "magaya__PortofUnloading": $("select[name=magaya__PortofUnloading]").val(),
         "magaya__Destination": sanitize($("input[name=magaya__Destination]").val()),
         "magaya__Origin": sanitize($("input[name=magaya__Origin]").val()),
-        "magaya__Is_Hazardous": is_hazardous
+        "magaya__Is_Hazardous": is_hazardous,
+
 
     }
 

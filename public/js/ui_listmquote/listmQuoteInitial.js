@@ -15,7 +15,8 @@ $(document).ready(function(){
                 let quotes = data.data;
 
                 if (_.isEmpty(quotes)) {
-                    quotes = { "id": 1, "Name": "Quote Test", "magaya__Status": "Draft", "magaya__Description": "Do a new mquote, i'll gone" }
+                    let now = moment().format("YYYY-MM-DD T HH:mm:ss");
+                    quotes = { "id": 1, "Name": "Quote Test", "magaya__Status": "Draft", "magaya__Description": "Do a new mquote, i'll gone", "Modified_Time": now }
                 }
                 //return all data quotes to initial statel
                 return quotes
@@ -49,7 +50,6 @@ $(document).ready(function(){
         ZOHO.CRM.CONFIG.getCurrentUser().then(function(data){
             $.map (data.users, function (k, i) {
                 currentUser = k.full_name;
-                //$(":input[name=magaya__IssuedByName]").val(k.full_name);
                 $(":input[name=magaya__IssuedByName]").val(k.full_name);
             })
 
@@ -58,7 +58,6 @@ $(document).ready(function(){
         ZOHO.CRM.API.getAllRecords({Entity: "Accounts", sort_order: "asc"})
             .then(function(response){
                 $.map (response.data, function (k, i) {
-                    var accountId = k.id;
                     k.Account_Name = sanitize(k.Account_Name)
                     if (k.magaya__mEntityType === "Carrier") {
                         $(`<option value='${k.Account_Name}'>${k.Account_Name}</option>`).appendTo("select[name=magaya__Carrier]");
@@ -76,7 +75,7 @@ $(document).ready(function(){
         ZOHO.CRM.API.getAllRecords({Entity: "magaya__Employees", sort_order: "asc"})
             .then(function(response){
                 $.map (response.data, function (k, i) {
-                    console.log(k)
+                    //console.log(k)
                     $(`<option value='${k.Name}'>${k.Name}</option>`).appendTo("select[name=magaya__Employee]");
 
                     if (k.magaya__Is_Salesperson) {
@@ -85,7 +84,6 @@ $(document).ready(function(){
 
                     }
                 })
-                storeAccounts.dispatch(addAccount(response.data))
             })
 
         ZOHO.CRM.API.getAllRecords({Entity: "Contacts", sort_order: "asc"})
