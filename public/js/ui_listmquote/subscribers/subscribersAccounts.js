@@ -4,6 +4,7 @@ storeAccounts.subscribe(() => {
     let u = storeAccounts.getState();
     //console.log("State account now", u)
     singleAccount = u.singleAccount
+
     let accountQuote = u.quoteAccount
     //fill data address in quote
     if (!_.isEmpty(accountQuote)) {

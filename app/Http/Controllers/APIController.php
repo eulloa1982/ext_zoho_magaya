@@ -90,22 +90,6 @@ class APIController extends Controller
         }
     }
 
-    /*
-    *get working ports en Magaya
-    *
-    *endpoint getPorts
-    * work in progress
-    */
-    /*public function GetWorkingPorts(Request $request) :array
-    {
-
-        $result = $this->magayaApi->GetWorkingPorts();
-        print_r($result);
-        return [
-            'data' => simplexml_load_string($result['ports_list_xml'])
-        ];
-    }*/
-
 
     /*
     *generate a ramdom email

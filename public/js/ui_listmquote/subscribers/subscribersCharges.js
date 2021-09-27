@@ -41,6 +41,7 @@ storeCharge.subscribe(() => {
 
                 let editable = _.get(CHARGES_FIELDS, [v, 'editable'])
 
+                if (k === null || k === "null") k = 0
                 input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" ${editable}/>`
 
                 let field = _.get(CHARGES_FIELDS, [v, 'field'])
@@ -87,6 +88,7 @@ storeCharge.subscribe(() => {
 
 
     //empty charge
+    console.log("State charges now", storeCharge.getState())
     let y = storeCharge.getState().emptyCharge;
     let showEmpty = storeCharge.getState().showEmptyCharge;
 

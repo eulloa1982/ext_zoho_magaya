@@ -47,7 +47,11 @@ function reducerItem (state = initialStateIntems, actions)  {
         case ADD_ITEM_EMPTY: {
             const length = _.size(state.items)
             const index = length + 1
-            let newArray = initialStateIntems.itemEmpty;
+
+            $.map(state.itemEmpty, function(k, v) {
+                state.itemEmpty[v] = 0
+            })
+            let newArray = state.itemEmpty;
             Object.assign(newArray, {"id": index})
             return {
                 ...state,

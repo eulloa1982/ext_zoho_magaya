@@ -1,7 +1,7 @@
 var Utils = function(){
     return {
         getConfig : function(){
-            //config = localStorage.getItem('config');
+            config = localStorage.getItem('config');
             if(config != undefined){
                 return JSON.parse(config)
             }else{

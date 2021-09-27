@@ -26,7 +26,7 @@ $(document).ready(function(){
         let idItem = $(this).attr("data-id")
         value = sanitize(value);
 
-        if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
+        if (field === "Adjustment" || field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
             value = parseFloat(value);
         }
         //si los valores son iguales, no actualizar nada
@@ -56,7 +56,7 @@ $(document).ready(function(){
 
         //let idItem = $(this).attr("data-id")
         value = sanitize(value);
-        if (field === "Description") {
+        if (field === "magaya__Package_Description") {
             value = sanitize(value)
         } else {
             value = parseFloat(value);

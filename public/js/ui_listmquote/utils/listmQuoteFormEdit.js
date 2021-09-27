@@ -113,7 +113,7 @@
             if (field !== undefined && field !== 'undefined') {
 
                 value = sanitize(value)
-                if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
+                if (field === "Adjustment" || field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
                     value = roundDec(value);
                 }
 
@@ -134,7 +134,7 @@
             ///// VALORAR QUITAR
             ///// VERIFICAR, DEBE SOBRAR
             ///////////////////////////////////////////////////////////////////
-            $(".no-border-charge-new").focus(function(e) {
+            /*$(".no-border-charge-new").focus(function(e) {
                 $(this).addClass("editable");
 
                 oldValue = $(this).val()
@@ -162,7 +162,7 @@
                     storeCharge.dispatch(setAmountOnNew({id:idItem, field: field, value: value}))
                 }
 
-            })
+            })*/
 
             ////////////////////ITEMS//////////////////////////////
             $("#updateItemNew").click(function(e) {
