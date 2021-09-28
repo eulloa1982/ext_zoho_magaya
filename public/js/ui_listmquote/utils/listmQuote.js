@@ -74,6 +74,25 @@ $(document).ready(function(){
     $('#table-quotes').bind("DOMSubtreeModified", function(e) {
 
         e.preventDefault()
+        e.stopImmediatePropagation()
+
+        ///////////////PDF button/////////////////
+        $(".toPdf").click(function(e) {
+            e.preventDefault()
+            e.stopImmediatePropagation()
+
+            let dataId = $(this).attr("data-id");
+            let orgData = localStorage.getItem('organization')
+            orgData = JSON.parse(orgData)
+            //armar la cabecera
+            let cabecera = {"Email": orgData['primary_email'], "Street": orgData["street"], "State": orgData["state"], "City": orgData["city"], "Country": orgData["country"]}
+            sendQuotePdf(cabecera)
+
+
+        })
+
+
+
         //mass delete
         $("#deleteMquote").click(function(e) {
             e.preventDefault();

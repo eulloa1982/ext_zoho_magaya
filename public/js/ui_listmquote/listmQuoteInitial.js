@@ -153,6 +153,7 @@ $(document).ready(function(){
                 }
             })
 
+
         //organization data
         ZOHO.CRM.CONFIG.getOrgInfo().then(function(data){
             let orgData = data.org[0]
