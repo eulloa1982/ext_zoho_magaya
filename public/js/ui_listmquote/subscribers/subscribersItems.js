@@ -92,7 +92,7 @@ storeItem.subscribe(() => {
 
 //new items on table-items-new
 storeItem.subscribe(() => {
-    console.log("State item now", storeItem.getState())
+    //console.log("State item now", storeItem.getState())
     let u = storeItem.getState().itemsOnNew;
 
     if (!_.isEmpty(u)) {

@@ -160,7 +160,7 @@
 
                                         <div class="col-md-3">
 											<label class="col-md-12" style="font-weight: bold;">Number</label>
-											<input type="text" name="Name" id="NameQuote" class="form-control no-border" placeholder="Quote Number" />
+											<input type="text" name="NameQuote" id="NameQuote" class="form-control no-border" placeholder="Quote Number" />
 										</div>
 										<div class="col-md-3">
 											<label class="col-md-12" style="font-weight: bold;">Issued By</label>
@@ -592,7 +592,7 @@
 
                                                 <div class="row">
                                                     <div class="col-md-4">Adjustment</div>
-                                                    <div class="col-md-6"><input type="text" class="form-control number new-charge" name="Adjustment"></div>
+                                                    <div class="col-md-6"><input type="text" class="form-control number new-charge" name="magaya__Adjustment"></div>
                                                 </div>
 
                                                 <div class="row">

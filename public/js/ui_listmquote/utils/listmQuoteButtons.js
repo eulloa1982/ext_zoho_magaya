@@ -413,7 +413,7 @@ $(document).ready(function(){
             is_hazardous = true
 
         recordData = {
-            "Name": sanitize($(":input[id=NameQuote]").val()),
+            "Name": sanitize($(":input[name=NameQuote]").val()),
             "Account": accountId,
             "magaya__Deal": $(":input[name=Deal] option:selected").val() > 0 ? $(":input[name=Deal] option:selected").val() : '',
             "magaya__Shipper": sanitize($(":input[name=magaya__Shipper] option:selected").text()),
