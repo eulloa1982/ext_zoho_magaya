@@ -321,8 +321,30 @@ function roundDec(num) {
 
 
 
-async function checkAccountMagayaGUID(account) {
-    
+async function sendQuotePdf(data) {
+    console.log(data)
+    let dataVar = await getMagayaVariables()
+    let magaya_url = dataVar["magaya_url"]
+    var endpoint = `http://localhost/zoho_magaya/blog/public/createPdf?url=http://98.211.167.16:3691&data[]=96101&data[]=524288
+                        &cabecera[Email]=${data["Email"]}
+                        &cabecera[State]=${data["State"]}`;
+    fetch(endpoint, {
+        method: 'POST',
+        headers: new Headers({
+            //'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            "Accept": "application/octet-stream",
+        }),
+    })
+    .then((res) => res.blob())
+  .then((blob) => URL.createObjectURL(blob))
+  .then((href) => {
+    Object.assign(document.createElement('a'), {
+      href,
+      download: 'filename.pdf',
+    }).click();
+})
+
 }
 
 
@@ -330,10 +352,6 @@ async function checkAccountMagayaGUID(account) {
 async function buildStringQuote2(idSQuote) {
     //check if account, contact, shipper, consignee and carrier
     //are magaya customers (has magaya__GUID)
-    
-
-
-
     stringQuote = methodCode = '';
     transpMethods = new Array();
     storeQuote.dispatch(findById({id: idSQuote}))

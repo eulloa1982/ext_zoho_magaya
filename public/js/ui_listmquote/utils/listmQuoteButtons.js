@@ -374,9 +374,6 @@ $(document).ready(function(){
 
 
 
-
-
-
     //boton send new mquote
     $("#New").click(function(e) {
         e.preventDefault()
@@ -636,6 +633,9 @@ $(document).ready(function(){
             $("#mquoteModal").modal("hide")
         }
     })
+
+
+
 
 
 })
