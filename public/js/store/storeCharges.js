@@ -124,7 +124,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
             let amount_total = roundDec(amount + amount_tax);
             newArray[1]['magaya__Amount_Total'] = roundDec(amount_total);
 
-            let final_amount = roundDec(amount_total) + roundDec(newArray[1]['Adjustment'])
+            let final_amount = roundDec(amount_total) + roundDec(newArray[1]['magaya__Adjustment'])
              newArray[1]['magaya__Final_Amount'] = roundDec(final_amount)
             return {
                 ...state,
@@ -191,7 +191,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
 
             newArray['Name'] = newArray["magaya__Charge_Description"]
             newArray["magaya__TaxRate"] = newArray["magaya__TaxCode"]
-            newArray["magaya__Final_Amount"] = roundDec(newArray["Adjustment"]) + roundDec(amount_total)
+            newArray["magaya__Final_Amount"] = roundDec(newArray["magaya__Adjustment"]) + roundDec(amount_total)
             return {
                 ...state,
                 emptyCharge: newArray

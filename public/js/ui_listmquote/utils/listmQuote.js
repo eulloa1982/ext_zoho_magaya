@@ -230,6 +230,7 @@ $(document).ready(function(){
                     $(`select[name=${v}]`).val(k)
                 }
             })
+            $("input[name=NameQuote]").val(quoteToEdit.Name)
 
             //campos q son objetos
             //transportation mode

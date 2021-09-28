@@ -92,7 +92,7 @@ storeItem.subscribe(() => {
 
 //new items on table-items-new
 storeItem.subscribe(() => {
-    console.log("State item now", storeItem.getState())
+    //console.log("State item now", storeItem.getState())
     let u = storeItem.getState().itemsOnNew;
 
     if (!_.isEmpty(u)) {
@@ -164,6 +164,9 @@ storeItem.subscribe(() => {
             <td align="right" class="Delete"><strong>${roundDec(totalWeight)}</td><td><strong> kg</strong></td>
             <td align="right" class="Delete"><strong>${roundDec(totalVolume)}</td><td><strong> m3</strong></td></tr>`)
         }
+
+    } else {
+        $("#table-items-new tbody").empty()
     }
 })
 
@@ -240,5 +243,7 @@ storeItem.subscribe(() => {
                                                 <td colspan="6"></td>
                                                 <td align="right" class="Delete"><strong>${roundDec(totalWeight)}</td><td><strong> kg</strong></td>
                                                 <td align="right" class="Delete"><strong>${roundDec(totalVolume)}</td><td><strong> m3</strong></td></tr>`)
+    } else {
+        $("#table-items tbody").empty()
     }
 })
