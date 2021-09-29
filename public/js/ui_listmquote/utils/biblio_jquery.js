@@ -325,18 +325,26 @@ async function sendQuotePdf(data) {
     console.log(data)
     let dataVar = await getMagayaVariables()
     let magaya_url = dataVar["magaya_url"]
-    var endpoint = `localhost/zoho_magaya/blog/public/createPdf?url=http://98.211.167.16:3691&data[]=96101&data[]=524288&cabecera[]=${data}`;
+    var endpoint = `http://localhost/zoho_magaya/blog/public/createPdf?url=http://98.211.167.16:3691&data[]=96101&data[]=524288
+                        &cabecera[Email]=${data["Email"]}
+                        &cabecera[State]=${data["State"]}`;
     fetch(endpoint, {
         method: 'POST',
         headers: new Headers({
             //'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
+            "Accept": "application/octet-stream",
         }),
     })
-    .then((response) => response.text())
-    .then((data) => {
-        console.log("From endpoint", data)
-    })
+    .then((res) => res.blob())
+  .then((blob) => URL.createObjectURL(blob))
+  .then((href) => {
+    Object.assign(document.createElement('a'), {
+      href,
+      download: 'filename.pdf',
+    }).click();
+})
+
 }
 
 

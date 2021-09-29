@@ -109,18 +109,20 @@ class APIController extends Controller
     public function createPdf(Request $request)
     {
         $data = $request->get('cabecera');
+        print_r ($data);
 
         $table = "<table><tr><td>Name</td><td>Dir</td></tr>";
         foreach($data as $key => $value) {
-            $table .= "<tr>";
-            $table .= "<td>{$value}</td>";
-            $table .= "<td></td></tr>";
+                $table .= "<tr>";
+                $table .= "<td>{$value}</td>";
+                $table .= "<td>reter</td></tr>";
         }
 
         $table .= "</table>";
         //$data = "<table><tr><td>Mando</td></tr><tr><td>2</td></tr></table>";
         $pdf = PDF::loadHTML($table);
         return $pdf->download('invoice.pdf');
+        //return view ('tab_widget.quote_pdf');
     }
 
     /*private function validateData(string $method, $request)
