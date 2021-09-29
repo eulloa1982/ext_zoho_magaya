@@ -27,16 +27,31 @@ function reducerAccounts (state = initialStateAccount, actions)  {
 
         case FIND_ACCOUNT: {
             let byId = actions.payload.id;
-            var accountToEdit = {}
+            let accountA = {}
             state.accounts.map(account => {
                 if (account.id === byId) {
-                    accountToEdit = account;
+                    accountA = account;
                 }
             })
             return {
-                ...state, accountToEdit
+                ...state, singleAccount: accountA
             }
         }
+
+        /*case "FIND_ACCOUNT_BYNAME": {
+            let name = actions.payload.name;
+            let accountA = {}
+            let copy = [...state.accounts]
+            copy.filter(account => {
+                if (account.Account_Name === name) {
+                    accountA = account
+                    console.log("Account founded", account)
+                }
+            })
+            return {
+                state, singleAccount: accountA
+            }
+        }*/
 
 
         case SET_ACCOUNT_SHIPPER: {
@@ -166,6 +181,10 @@ function findAccount(payload) {
     return { type: FIND_ACCOUNT, payload };
 }
 
+function findAccountByName(payload) {
+    return {type: "FIND_ACCOUNT_BYNAME", payload}
+}
+
 function findContact(payload) {
     return { type: FIND_CONTACT, payload };
 }
@@ -179,7 +198,7 @@ function updateAccount(payload) {
 }
 
 function getAccount(payload) {
-    return { type: GET_ACCOUNT, payload }
+    return { type: FIND_ACCOUNT, payload }
 }
 
 
