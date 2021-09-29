@@ -55,7 +55,6 @@ const reducerCrm = (state = initialStateCrm, actions) => {
                 contactQuote: state.contactQuote.concat(actions.payload)
             });
         }
-
         case 'ADD_PAGE':
             state.page = state.page + 1
             let actual_page = state.page
@@ -63,14 +62,12 @@ const reducerCrm = (state = initialStateCrm, actions) => {
                 ...state,
                 actual_page
             }
-
         case "ACTION_EDITED_COUNTER": {
             return {
                 ...state,
                 actionsCounter: state.actionsCounter += 1
             }
         }
-
         case "CLEAN_ACTIONS_EDITED": {
             return {
                 ...state,
@@ -111,4 +108,3 @@ function emptyItemsCrm() {
 function updateItemCrm(payload) {
     return { type: UPDATE_ITEM_CRM, payload }
 }
-

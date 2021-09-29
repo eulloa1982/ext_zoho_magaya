@@ -35,4 +35,3 @@ const storeChargesType = Redux.createStore(reducerChargesType)
 function addChargeType(payload) {
     return { type: ADD_CHARGE_TYPE, payload };
 }
-
