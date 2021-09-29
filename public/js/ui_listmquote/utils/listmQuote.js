@@ -72,8 +72,29 @@ $(document).ready(function(){
     /////////table quotes, main table
     ///////////////////////////////////////////////////////////////////////////////////
     $('#table-quotes').bind("DOMSubtreeModified", function(e) {
-
         e.preventDefault()
+
+        $(".toPdf").click(function(e) {
+            e.stopImmediatePropagation()
+            fetch("https://yogthos.p.rapidapi.com/", {
+	"method": "POST",
+	"headers": {
+		"content-type": "application/x-www-form-urlencoded",
+		"x-rapidapi-host": "yogthos.p.rapidapi.com",
+		"x-rapidapi-key": "SIGN-UP-FOR-KEY"
+	},
+	"body": {
+		"json-input": "[{}, [\"paragraph\", \"some text\"]]"
+	}
+})
+.then(response => {
+	console.log(response);
+})
+.catch(err => {
+	console.error(err);
+});
+
+        })
         //mass delete
         $("#deleteMquote").click(function(e) {
             e.preventDefault();
