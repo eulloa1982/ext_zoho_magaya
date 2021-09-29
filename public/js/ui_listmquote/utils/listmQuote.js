@@ -26,7 +26,7 @@ $(document).ready(function(){
         let idItem = $(this).attr("data-id")
         value = sanitize(value);
 
-        if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
+        if (field === "Adjustment" || field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
             value = parseFloat(value);
         }
         //si los valores son iguales, no actualizar nada
@@ -56,7 +56,7 @@ $(document).ready(function(){
 
         //let idItem = $(this).attr("data-id")
         value = sanitize(value);
-        if (field === "Description") {
+        if (field === "magaya__Package_Description") {
             value = sanitize(value)
         } else {
             value = parseFloat(value);
@@ -230,6 +230,7 @@ $(document).ready(function(){
                     $(`select[name=${v}]`).val(k)
                 }
             })
+            $("input[name=NameQuote]").val(quoteToEdit.Name)
 
             //campos q son objetos
             //transportation mode
@@ -273,6 +274,10 @@ $(document).ready(function(){
                 $("input[name=magaya__Is_Hazardous]").prop("checked", false)
 
             }
+
+            //Stage of mQuote
+            let stage = quoteToEdit["magaya__Status"]
+            $("select[name=magaya__mQuoteStatus]").val(stage)
 
             //Shipper y Consignee
             //hay que buscar el texto , hasta que tengamos un lookup para eliminar esto

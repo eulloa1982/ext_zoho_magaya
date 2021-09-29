@@ -29,15 +29,6 @@
                     let nameValue = $(this).html()
                     json_items += `, "${class_name}":"${nameValue}"`
                 }
-
-                /*else if (class_name === 'magaya__Measure_System' || class_name === 'magaya__ChargeCode' || class_name === "magaya__Amount" || class_name === "magaya__ChargeCurrency" || class_name === "magaya__Status") {
-                    let nameValue = $(this).html()
-                    json_items += `, "${class_name}":"${nameValue}"`
-                }
-                else {
-                    json_items += ',"' + $this.attr('class') + '":"' + $this.children().val() + '"';
-                }*/
-
             })
 
             jsonData += ',{' + json_items + '}';
@@ -101,25 +92,11 @@ function sanitize(input) {
    if (!_.isEmpty(input)) {
        /*if (input.match(/^[0-9a-zA-Z]\-\#{1,255}$/))
         return input;
-
     return false;*/
         let a = HtmlSanitizer.SanitizeHtml(input);
         return input.replace(/['"]+/g, '').replace(/[^a-zA-Z0-9]\-/g, ' ').replace(/<(|\/["]\/[&<>]\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g, '');
    }
 };
-
-/*function sanitize_array(array) {
-    $.map(array, function(k, v) {
-        v = HtmlSanitizer.SanitizeHtml(v);
-        v.replace(/['"]+/g, '').replace(/[^a-zA-Z0-9]\-/g, ' ').replace(/<(|\/["]\/[&<>]\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g, '');
-    })
-
-    return array;
-   /* array.reduce(function(previosValue, currentValue) {
-        currentValue = HtmlSanitizer.SanitizeHtml(currentValue);
-        return currentValue.replace(/['"]+/g, '').replace(/[^a-zA-Z0-9]\-/g, ' ').replace(/<(|\/["]\/[&<>]\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g, '');
-    })*
-}*/
 
 
 //clean form
@@ -132,22 +109,28 @@ function limpiar_form() {
     $("#magaya__Description").val("")
     $("select[name=magaya__PortofUnloading]").val("")
     $("select[name=magaya__PortofLoading]").val("")
-    $("input[name=Shipper_Street").val("")
-    $("input[name=Shipper_City").val("")
-    $("input[name=Shipper_State").val("")
-    $("input[name=Shipper_Country").val("")
-    $("input[name=Consignee_Street").val("")
-    $("input[name=Consignee_City").val("")
-    $("input[name=Consignee_State").val("")
-    $("input[name=Consignee_Country").val("")
+    $("input[name=Shipper_Street]").val("")
+    $("input[name=Shipper_City]").val("")
+    $("input[name=Shipper_State]").val("")
+    $("input[name=Shipper_Country]").val("")
+    $("input[name=Consignee_Street]").val("")
+    $("input[name=Consignee_City]").val("")
+    $("input[name=Consignee_State]").val("")
+    $("input[name=Consignee_Country]").val("")
     $("select[name=magaya__ConsigneeName]").val("")
     $("select[name=magaya__Shipper]").val("")
+    $("input[name=magaya__Magaya_Status]").val("Open")
+
+    //hora actual
+
     //$("select[name=Account]").removeAttr("selected")
     // expected output: 10*/
     let elementos = document.querySelectorAll("input[type=text], input[id=magaya__Description], select[name=magaya__TransportationMode], select[name=magaya__Direction]")
     elementos.forEach((elemento) => {
         elemento.value = ''
     })
+    let now = moment().format("YYYY-MM-DD");
+    $("input[name=magaya__AddedTime]").val(now)
 
     //get org data
     let organization = JSON.parse(localStorage.getItem('organization'))
@@ -293,7 +276,6 @@ function roundDec(num) {
                     "Width(m)";
                     "Height(m)";
                     "Weight(Kg)";
-
                     Sistema Ingles
                     "Length(in)";
                     "Width(in)";
@@ -336,189 +318,57 @@ function roundDec(num) {
 })(jQuery);
 
 
+
+async function checkAccountMagayaGUID(account) {
+
+}
+
+
 //get items package table, return xml string items
-function buildStringQuote2(idSQuote) {
+async function buildStringQuote2(idSQuote) {
+    //check if account, contact, shipper, consignee and carrier
+    //are magaya customers (has magaya__GUID)
+
+
+
+
     stringQuote = methodCode = '';
     transpMethods = new Array();
-
     storeQuote.dispatch(findById({id: idSQuote}))
 
     quoteXML = quoteXML[0]
-    //$.map(quoteXML, function(k, v) {
-        //get account data for contact
-        stringQuote += `<IsCommerceQuotation>false</IsCommerceQuotation>`
-        stringQuote += `<CreatedOn>${quoteXML.Created_Time}</CreatedOn>`
-        stringQuote += `<Number>${quoteXML.Name}</Number>`
-        stringQuote += `<CreatedByName>${quoteXML.Owner.name}</CreatedByName>
-                        <Version>104</Version>`
-        stringQuote += `<ExpirationDate>${quoteXML.magaya__ExpirationDate}</ExpirationDate>`
-        stringQuote += `<IssuedByName>${quoteXML.Owner.name}</IssuedByName>
-                        <SalespersonName>${quoteXML.Owner.name}</SalespersonName>`
-        stringQuote += `<Service>${quoteXML.magaya__Service}</Service>`
-        stringQuote += `<Direction>${quoteXML.magaya__Direction}</Direction>
-                        <IsOpenQuote>true</IsOpenQuote>
-                        <Status>Open</Status>
-                        <DescriptionOfGoods>${quoteXML.magaya__Description}</DescriptionOfGoods>`
+    console.log("JSON QUOTE", quoteXML)
 
-        let contactName =''
-        let contact = ''
-        try {
-            accountId = quoteXML.Account.id
-            storeAccounts.dispatch(getAccount({id: accountId}))
-            stringQuote += `<ContactName>${singleAccount[0]['Account_Name']}</ContactName>
-            <Contact GUID="${singleAccount[0]['magaya__MagayaGUID']}">
-                <Type>Client</Type>
-                <Name>${singleAccount[0]['Account_Name']}</Name>
-                <Email>${singleAccount[0]['magaya__MagayaEmail']}</Email>
-            </Contact>`
+    stringQuote += `<IsCommerceQuotation>false</IsCommerceQuotation>`
+    stringQuote += `<CreatedOn>${quoteXML.Created_Time}</CreatedOn>`
+    stringQuote += `<Number>${quoteXML.magaya__Number}</Number>`
+    stringQuote += `<CreatedByName>${quoteXML.Owner.name}</CreatedByName>
+                    <Version>104</Version>`
+    stringQuote += `<ExpirationDate>${quoteXML.magaya__ExpirationDate}</ExpirationDate>`
+    stringQuote += `<IssuedByName>${quoteXML.magaya__IssuedBy}</IssuedByName>
+                    <SalespersonName>${quoteXML.magaya__Seller}</SalespersonName>`
+                    //<Salesperson GUID=dsfsdfsdfsdf></Salesperson><Type>Salesperson</Type><Name></Name>
 
+    stringQuote += `<Service>${quoteXML.magaya__Service}</Service>`
+    stringQuote += `<Direction>${quoteXML.magaya__Direction}</Direction>
+                    <IsOpenQuote>true</IsOpenQuote>
+                    <Status>Open</Status>
+                    <DescriptionOfGoods>${quoteXML.magaya__Description}</DescriptionOfGoods>
+                    <IsHazardous>${quoteXML.magaya__Is_Hazardous}</IsHazardous>`
 
-        } catch (err) {
-            message = `'There is an error whit mQuote Account' ${err}`
-            storeSuccess.dispatch(addSuccess({message: message}))
-        }
-        /*if (!_.isEmpty(k.Account)) {
-            console.log("Account Quote found it", k.Account.id)
-            accountId = k.Account.id;
-            //idChecking = accounts.findIndex(i => i["id"] == accountId);
-            storeAccounts.dispatch(findAccount({id: accountId}))
+    let contactName =''
+    let contact = ''
 
-            console.log("Single Account", singleAccount)
-
-            if (idChecking >= 0) {
-                //find data in accounts array
-                var accountData = accounts[idChecking]
-                stringQuote += `<ContactName>${accountData['Account_Name']}</ContactName>
-                                <Contact GUID="${accountData['magaya__MagayaGUID']}">
-                                    <Type>Client</Type>
-                                    <Name>${accountData['Account_Name']}</Name>
-                                    <Email>${accountData['magaya__MagayaEmail']}</Email>
-                                </Contact>`
-            }
-        } else {
-            console.log("No account Quote")
-            stringQuote += `<ContactName>${k.magaya__ContactName}</ContactName>`
-        }*/
-        console.log("XML String till here", stringQuote)
-        //get contact field
-
-        //get representative
-        //indexContact = contacts.findIndex(i => i.Email === k.magaya__ContactEmail);
-        /*if (indexContact >= 0) {
-            repContact = contacts[indexContact];
-            stringQuote += `<RepresentativeName>${repContact['Full_Name']}</RepresentativeName>
-                            <Representative GUID="${repContact['magaya__MagayaGUID']}">
-                                <Type>EntityContact</Type>
-                                <Name>${repContact['Full_Name']}</Name>
-                                <Email>${repContact['Email']}</Email>
-                                <Phone>${repContact['Phone']}</Phone>
-                                <MobilePhone>${repContact['Mobile']}</MobilePhone>
-                                <ContactFirstName>${repContact['First_Name']}</ContactFirstName>
-                                <ContactLastName>${repContact['Last_Name']}</ContactLastName>
-                                <BillingAddress>
-                                    <Street>${repContact['Mailing_Street']}</Street>
-                                    <City>${repContact['Mailing_City']}</City>
-                                    <State>${repContact['Mailing_State']}</State>
-                                    <ZipCode>${repContact['Mailing_Zip']}</ZipCode>
-                                    <Country>${repContact['Mailing_Country']}</Country>
-                                    <ContactName>${repContact['Full_Name']}</ContactName>
-                                    <ContactPhone>${repContact['Phone']}</ContactPhone>
-                                    <ContactEmail>${repContact['Email']}</ContactEmail>
-                                </BillingAddress>
-                            </Representative>`
-        }
-
-        if (!(_.isEmpty(k.magaya__ConsigneeName))) {
-
-            stringQuote += `<ConsigneeName>${k.magaya__ConsigneeName}</ConsigneeName>
-                            <Consignee><Type>Client</Type><Name>${k.magaya__ConsigneeName}</Name></Consignee>`
-        }
-        if (!(_.isEmpty(k.magaya__Shipper))) {
-            stringQuote += `<ShipperName>${k.magaya__Shipper}</ShipperName>
-                            <Shipper><Type>Client</Type><Name>${k.magaya__Shipper}</Name></Shipper>`
-        }
-        if (!(_.isEmpty(k.magaya__Carrier))) {
-            //get it from MagayaCarrier Array
-            carrierArrayId = MagayaCarriers.findIndex(i => i.Name === k.magaya__Carrier);
-            if (carrierArrayId >= 0) {
-                carrier = MagayaCarriers[carrierArrayId];
-                stringQuote += `<Carrier GUID="${carrier["@attributes"]["GUID"]}"><Type>${carrier.Type}</Type><Name>${carrier['Name']}</Name>
-                                <Phone>${carrier.MobilePhone}</Phone><Email>${carrier.Email}</Email>
-                                <CarrierInfo><CarrierTypeCode>${carrier.CarrierInfo.CarrierTypeCode}</CarrierTypeCode></CarrierInfo>
-                                </Carrier><Status>Open</Status>`;
-            }
-        }
-
-        if (!_.isEmpty(k.magaya__TransportationMode)) {
-            transpMethods = getTranspMethod(k.magaya__TransportationMode.id)
-                .then(r => {
-                    return (r);
-                }).then(resp => {
-                    $.map(resp, function(k, v) {
-                        stringQuote += `<ModeOfTransportation Code="${k.magaya__TransportationMethodCode}">
-                              <Description>${k.Name}</Description>
-                              <Method>${k.magaya__ParentMethod}</Method>
-                              </ModeOfTransportation>
-                             <ModeOfTransportCode>${k.magaya__TransportationMethodCode}</ModeOfTransportCode>
-                             `
-                    })
-
-                }).then(r => {
-                    resolve(stringQuote)
-                })
-
-        } else {
-            resolve(stringQuote)
-        }*/
-
-
-    //})
-
-        return(stringQuote)
-
-
-    //return quoteXML;
-
-    /*let doc = document.implementation.createDocument("", "", null);
-    let parent = doc.createElement("quote")
-
-    let createdOn = parent.createElement("CreatedOn");
-    createdOn.innerHTML = quoteXML.Created_Time
-
-    let number = parent.createElement("Number")
-    number.innerHTML = quoteXML.Name
-
-    let createdBy = parent.createElement("CreatedByName")
-    createdBy.innerHTML = quoteXML.Owner.Name
-
-    let issuedBy = parent.createElement("IssuedByName")
-    issuedBy.innerHTML = quoteXML.Owner.name
-
-    let salesPerson = doc.createElement("SalespersonName")
-    salesPerson.innerHTML = quoteXML.Owner.name
-
-    let service = doc.createElement("Service")
-    service.innerHTML = quoteXML.magaya__Service
-
-    let direction = doc.createElement("Direction")
-    direction.innerHTML = quoteXML.magaya__Direction
-
-    let description = doc.createElement("DescriptionOfGoods")
-    description.innerHTML = quoteXML.magaya__Direction
-
-    let expirationDate = doc.createElement("ExpirationDate")
-    expirationDate.innerHTML = quoteXML.magaya__ExpirationDate
-
-    let contactName = doc.createElement("ContactName")
-    let contact = doc.createElement("Contact")
+    //customer of the quote
     try {
         accountId = quoteXML.Account.id
-        storeAccounts.dispatch(getAccount({id: accountId}))
-
-        contactName.innerHTML = singleAccount[0].Account_Name
-        contact.setAttribute("GUID", singleAccount[0].magaya__GUID)
-        //contactType = contact.appendChild("Type")
-       // contactType.innerHTML = "Client"
+        storeAccounts.dispatch(findAccount({id: accountId}))
+        stringQuote += `<ContactName>${singleAccount['Account_Name']}</ContactName>
+                    <Contact GUID="${singleAccount['magaya__MagayaGUID']}">
+                        <Type>Client</Type>
+                        <Name>${singleAccount['Account_Name']}</Name>
+                        <Email>${singleAccount['magaya__MagayaEmail']}</Email>
+                    </Contact>`
 
 
     } catch (err) {
@@ -526,134 +376,43 @@ function buildStringQuote2(idSQuote) {
         storeSuccess.dispatch(addSuccess({message: message}))
     }
 
+    //representative
+    stringQuote += `<RepresentativeName>${quoteXML.magaya__ContactName}</RepresentativeName>
+                    <Representative GUID="${quoteXML.magaya__MagayaGUID}">
+                        <Type>EntityContact</Type>
+                        <Name>${quoteXML.magaya__ContactName}</Name>
+                        <Email>${quoteXML.magaya__ContactEmail}</Email>
+                        <Phone>${quoteXML.magaya__ContactPhone}</Phone>
+                        <MobilePhone>${quoteXML.magaya__ContactMobile}</MobilePhone>
+                    </Representative>`
 
-    //peopleElem.appendChild(personElem1);
-    //peopleElem.appendChild(personElem2);
-    doc.appendChild(createdOn);
-    //doc.appendChild(contactName);
-    //doc.appendChild(contact)
+    //carrier
+    stringQuote += `<Carrier><Type>Carrier</Type><Name>${quoteXML.magaya__Carrier}</Name></Carrier>`
 
+    if (!(_.isEmpty(quoteXML.magaya__ConsigneeName))) {
 
-    console.log(doc)*/
+        stringQuote += `<ConsigneeName>${quoteXML.magaya__ConsigneeName}</ConsigneeName>
+                        <Consignee><Type>Client</Type><Name>${quoteXML.magaya__ConsigneeName}</Name></Consignee>`
+    }
 
-    /*return new Promise(function(resolve, reject) {
-        ZOHO.CRM.API.getRecord({ Entity: "magaya__SQuotes", RecordID: idSQuote })
-            .then(function(response) {
+    if (!(_.isEmpty(quoteXML.magaya__Shipper))) {
+        stringQuote += `<ShipperName>${quoteXML.magaya__Shipper}</ShipperName>
+                        <Shipper><Type>Client</Type><Name>${quoteXML.magaya__Shipper}</Name></Shipper>`
+    }
 
-                $.map(response.data, function(k, i) {
-                    //get account data for contact
-                    stringQuote += `<IsCommerceQuotation>false</IsCommerceQuotation>`
-                    stringQuote += `<CreatedOn>${k.Created_Time}</CreatedOn>`
-                    stringQuote += `<Number>${k.Name}</Number>`
-                    stringQuote += `<CreatedByName>${k.Owner.name}</CreatedByName>
-                                    <Version>104</Version>`
-                    stringQuote += `<ExpirationDate>${k.magaya__ExpirationDate}</ExpirationDate>`
-                    stringQuote += `<IssuedByName>${k.Owner.name}</IssuedByName>
-                                    <SalespersonName>${k.Owner.name}</SalespersonName>`
-                    stringQuote += `<Service>${k.magaya__Service}</Service>`
-                    stringQuote += `<Direction>${k.magaya__Direction}</Direction>
-                                    <IsOpenQuote>true</IsOpenQuote>
-                                    <DescriptionOfGoods>${k.magaya__Description}</DescriptionOfGoods>`
-                    var accountId;
+    //transport method
+    if (!_.isEmpty(quoteXML.magaya__TransportationMode)) {
+        transporMethod = await getTranspMethod(quoteXML.magaya__TransportationMode.id)
+        stringQuote += `<ModeOfTransportation Code="${transporMethod[0].magaya__TransportationMethodCode}">
+                        <Description>${transporMethod[0].Name}</Description>
+                        <Method>${transporMethod[0].magaya__ParentMethod}</Method>
+                        </ModeOfTransportation>
+                        <ModeOfTransportCode>${transporMethod[0].magaya__TransportationMethodCode}</ModeOfTransportCode>`
+    }
 
-                    if (!_.isEmpty(k.Account)) {
-                        console.log("Account Quote found it", k.Account.id)
-                        accountId = k.Account.id;
-                        //idChecking = accounts.findIndex(i => i["id"] == accountId);
-                        storeAccounts.dispatch(findAccount({id: accountId}))
+    //return(stringQuote)
 
-                        console.log("Single Account", singleAccount)
-
-                        if (idChecking >= 0) {
-                            //find data in accounts array
-                            var accountData = accounts[idChecking]
-                            stringQuote += `<ContactName>${accountData['Account_Name']}</ContactName>
-                                            <Contact GUID="${accountData['magaya__MagayaGUID']}">
-                                                <Type>Client</Type>
-                                                <Name>${accountData['Account_Name']}</Name>
-                                                <Email>${accountData['magaya__MagayaEmail']}</Email>
-                                            </Contact>`
-                        }
-                    } else {
-                        console.log("No account Quote")
-                        stringQuote += `<ContactName>${k.magaya__ContactName}</ContactName>`
-                    }
-                    console.log("XML String till here", stringQuote)
-                    //get contact field
-
-                    //get representative
-                    indexContact = contacts.findIndex(i => i.Email === k.magaya__ContactEmail);
-                    if (indexContact >= 0) {
-                        repContact = contacts[indexContact];
-                        stringQuote += `<RepresentativeName>${repContact['Full_Name']}</RepresentativeName>
-                                        <Representative GUID="${repContact['magaya__MagayaGUID']}">
-                                            <Type>EntityContact</Type>
-                                            <Name>${repContact['Full_Name']}</Name>
-                                            <Email>${repContact['Email']}</Email>
-                                            <Phone>${repContact['Phone']}</Phone>
-                                            <MobilePhone>${repContact['Mobile']}</MobilePhone>
-                                            <ContactFirstName>${repContact['First_Name']}</ContactFirstName>
-                                            <ContactLastName>${repContact['Last_Name']}</ContactLastName>
-                                            <BillingAddress>
-                                                <Street>${repContact['Mailing_Street']}</Street>
-                                                <City>${repContact['Mailing_City']}</City>
-                                                <State>${repContact['Mailing_State']}</State>
-                                                <ZipCode>${repContact['Mailing_Zip']}</ZipCode>
-                                                <Country>${repContact['Mailing_Country']}</Country>
-                                                <ContactName>${repContact['Full_Name']}</ContactName>
-                                                <ContactPhone>${repContact['Phone']}</ContactPhone>
-                                                <ContactEmail>${repContact['Email']}</ContactEmail>
-                                            </BillingAddress>
-                                        </Representative>`
-                    }
-
-                    if (!(_.isEmpty(k.magaya__ConsigneeName))) {
-
-                        stringQuote += `<ConsigneeName>${k.magaya__ConsigneeName}</ConsigneeName>
-                                        <Consignee><Type>Client</Type><Name>${k.magaya__ConsigneeName}</Name></Consignee>`
-                    }
-                    if (!(_.isEmpty(k.magaya__Shipper))) {
-                        stringQuote += `<ShipperName>${k.magaya__Shipper}</ShipperName>
-                                        <Shipper><Type>Client</Type><Name>${k.magaya__Shipper}</Name></Shipper>`
-                    }
-                    if (!(_.isEmpty(k.magaya__Carrier))) {
-                        //get it from MagayaCarrier Array
-                        carrierArrayId = MagayaCarriers.findIndex(i => i.Name === k.magaya__Carrier);
-                        if (carrierArrayId >= 0) {
-                            carrier = MagayaCarriers[carrierArrayId];
-                            stringQuote += `<Carrier GUID="${carrier["@attributes"]["GUID"]}"><Type>${carrier.Type}</Type><Name>${carrier['Name']}</Name>
-                                            <Phone>${carrier.MobilePhone}</Phone><Email>${carrier.Email}</Email>
-                                            <CarrierInfo><CarrierTypeCode>${carrier.CarrierInfo.CarrierTypeCode}</CarrierTypeCode></CarrierInfo>
-                                            </Carrier><Status>Open</Status>`;
-                        }
-                    }
-
-                    if (!_.isEmpty(k.magaya__TransportationMode)) {
-                        transpMethods = getTranspMethod(k.magaya__TransportationMode.id)
-                            .then(r => {
-                                return (r);
-                            }).then(resp => {
-                                $.map(resp, function(k, v) {
-                                    stringQuote += `<ModeOfTransportation Code="${k.magaya__TransportationMethodCode}">
-                                          <Description>${k.Name}</Description>
-                                          <Method>${k.magaya__ParentMethod}</Method>
-                                          </ModeOfTransportation>
-                                         <ModeOfTransportCode>${k.magaya__TransportationMethodCode}</ModeOfTransportCode>
-                                         `
-                                })
-
-                            }).then(r => {
-                                resolve(stringQuote)
-                            })
-
-                    } else {
-                        resolve(stringQuote)
-                    }
-
-
-                })
-            })
-    });*/
+    return stringQuote;
 }
 
 
@@ -661,7 +420,14 @@ function buildStringQuote2(idSQuote) {
 
 //send quote
 async function buildStringXML(idSQuote) {
-    xml = await buildXML(idSQuote);
+    xml = await buildStringQuote2(idSQuote);
+    stringXML = '<Quotation xmlns="http://www.magaya.com/XMLSchema/V1" xsi:schemaLocation="http://www.magaya.com/XMLSchema/V1 schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
+    stringXML += stringQuote;
+    stringXML += '</Quotation>'
+
+    console.log(stringXML)
+    sendmQuote(stringXML)
+
 } //.send-quote
 
 
@@ -679,6 +445,8 @@ async function buildXML(idQuote) {
 
     stringQuote = buildStringQuote2(idQuote)
 
+    console.log("XML resolved", stringQuote)
+
     stringXML = '<Quotation xmlns="http://www.magaya.com/XMLSchema/V1" xsi:schemaLocation="http://www.magaya.com/XMLSchema/V1 schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
     stringXML += stringQuote;
     //console.log("String XML", stringXML)
@@ -686,7 +454,6 @@ async function buildXML(idQuote) {
         //code
         stringXML += '<Charges UseSequenceOrder="false">' + stringCharge + "</Charges>";
     }
-
     if (stringItem !== undefined) {
         //code
         stringXML += "<Items>" + stringItem + "</Items>";
@@ -720,7 +487,6 @@ async function buildXML(idQuote) {
         //code
         stringXML += '<Charges UseSequenceOrder="false">' + stringCharge + "</Charges>";
     }
-
     if (stringItem !== undefined) {
         //code
         stringXML += "<Items>" + stringItem + "</Items>";
@@ -732,7 +498,7 @@ async function buildXML(idQuote) {
         //    $xml = $(xmlDoc),
         //    $title = $xml.find("ContactName");
         //ContactName = $title.text();
-    console.log("XML String", stringXML);
+    //console.log("XML String", stringXML);
 
     //send xml trougth magaya api
     flags = MagayaAPI.TRANSACTIONS_FLAGS.BasicFields
@@ -745,6 +511,49 @@ async function buildXML(idQuote) {
             entity_type,
             flags,
             stringXML
+        ],
+        url: config.magaya_url
+    };
+
+    /*MagayaAPI.sendRequest(data, function(result) {
+        //console.log(result)
+            if (result.error) {
+                Swal.fire({
+                    title: result.error,
+                    text: result.data,
+                    icon: 'error'
+                }).then(function() {
+                    location.reload();
+                })
+                stringCharge = stringItem = stringQuote = stringXML = '';
+            } else {
+                Swal.fire({
+                        title: 'Success',
+                        text: 'Operation success',
+                        icon: 'success',
+                        allowOutsideClick: false
+                    })
+                    //all OK, update QuoteInMagaya field
+                //$(this).updateRecordCRM(data);
+            } //else
+        }) //magaya api*/
+
+} //function buildXML
+
+
+async function sendmQuote(mquote) {
+    config = await getMagayaVariables()
+
+    flags = MagayaAPI.TRANSACTIONS_FLAGS.BasicFields
+    entity_type = MagayaAPI.TRANSACTION_TYPES.Quotation
+
+    data = {
+        method: 'SetTransaction',
+        data: [
+            config.network_id,
+            entity_type,
+            flags,
+            mquote
         ],
         url: config.magaya_url
     };
@@ -775,9 +584,7 @@ async function buildXML(idQuote) {
             } //else
 
         }) //magaya api*/
-
-} //function buildXML
-
+}
 
 
 //get related records
@@ -862,6 +669,20 @@ function getMagayaPass() {
     })
 }
 
+
+//get transp method for string xml quotation
+function getTranspMethod(transpId) {
+    //code
+    return new Promise(function(resolve, reject) {
+        ZOHO.CRM.API.getRecord({ Entity: "magaya__TransportationMethods", RecordID: transpId })
+                .then(function(data) {
+                    resolve(data.data);
+                })
+                .catch(function(error) {
+                    reject()
+                })
+        })
+}
 
 function ping(host, port, pong) {
 
