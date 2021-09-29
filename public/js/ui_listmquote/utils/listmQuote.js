@@ -76,25 +76,19 @@ $(document).ready(function(){
 
         $(".toPdf").click(function(e) {
             e.stopImmediatePropagation()
-            fetch("https://yogthos.p.rapidapi.com/", {
-	"method": "POST",
-	"headers": {
-		"content-type": "application/x-www-form-urlencoded",
-		"x-rapidapi-host": "yogthos.p.rapidapi.com",
-		"x-rapidapi-key": "SIGN-UP-FOR-KEY"
-	},
-	"body": {
-		"json-input": "[{}, [\"paragraph\", \"some text\"]]"
-	}
-})
-.then(response => {
-	console.log(response);
-})
-.catch(err => {
-	console.error(err);
-});
+
+            storeItem.dispatch(emptyItems())
+            storeCharge.dispatch(emptyCharges())
+            storeAccounts.dispatch(emptyAllAccounts())
+            storeQuote.dispatch(clearQuoteToEdit())
+
+            let idmQuote = $(this).attr('data-id')
+
+            let pdf = make_pdf(idmQuote);
 
         })
+
+
         //mass delete
         $("#deleteMquote").click(function(e) {
             e.preventDefault();
@@ -123,12 +117,6 @@ $(document).ready(function(){
                     }
                 })
          })
-
-
-
-
-
-
 
 
         // Activate tooltip

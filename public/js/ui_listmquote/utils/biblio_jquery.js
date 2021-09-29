@@ -727,3 +727,146 @@ function ping(host, port, pong) {
 
     return indexed_array;
 }
+
+
+async function make_pdf(id) {
+    let pdf = await buildPdf(id);
+}
+
+async function buildPdf(mquote_id) {
+    quoteToEdit = [];
+    //dispatch
+    storeQuote.dispatch(findQuote({id: mquote_id}))
+
+    //general data
+    let orgData = localStorage.getItem('organization')
+    orgData = JSON.parse(orgData)
+    let charges = []
+    let items = []
+    items = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
+    charges = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id)
+
+    data = `<div class="container">
+                <div class="row session-first">
+                    <div class="col-md-6">${orgData["company_name"]}</div>
+                        <div class="col-md-6 text-right">
+                            <span class="material-icons">alternate_email</span> ${orgData["primary_email"]}<br />
+                            <span class="material-icons">home</span> ${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}<br />
+                            <span class="material-icons">settings_phone</span> ${orgData["phone"]} <br />
+                            <span class="material-icons">language</span> ${orgData["website"]} <br />
+                        </div>
+                    </div>
+                </div>
+
+            <div class="container">
+                <div class="row headerMquote">
+                    <div class="col-sm">
+                        mQuote
+                    </div>
+                </div>
+
+                <div class="row session-second">
+                    <div class="col-sm">
+                        <span>Quote</span><br/> ${quoteToEdit["magaya__Number"]}<br />
+                        <span>Creation Date</span><br/> ${quoteToEdit["Created_Time"]}<br />
+                        <span>Valid Until</span><br/> ${quoteToEdit["magaya__ExpirationDate"]}<br />
+                    </div>
+                    <div class="col-sm">
+                        <span>Subject</span> <br />
+                        <span>Seller</span><br/> ${quoteToEdit["magaya__Seller"]}<br />
+                        <span>Contact</span><br/> ${quoteToEdit["magaya__ContactName"]}<br />
+                    </div>
+                    <div class="col-sm">
+                        <span>Account</span><br/> ${quoteToEdit["Account"]["name"]}<br />
+                        <span>Phone</span><br/> ${quoteToEdit["magaya__ContactMobile"]}<br />
+                        <span>Email</span><br/> ${quoteToEdit["magaya__ContactEmail"]}<br />
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row session-third headerMquote">
+                    <div class="col-sm">
+                        Shipment Details
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <span>Value</span><br/> ${quoteToEdit["magaya__QuoteTotalAmount"]}<br />
+                        <span>Shipper</span><br/> ${quoteToEdit["magaya__Shipper"]}<br />
+                    </div>
+                    <div class="col-sm">
+                        <span>Origin</span><br/> ${quoteToEdit["magaya__Origin"]}<br />
+                        <span>Consignee</span><br/> ${quoteToEdit["magaya__ConsigneeName"]}<br />
+                    </div>
+                    <div class="col-sm">
+                        <span>Destination</span><br/> ${quoteToEdit["magaya__Destination"]}<br />
+                        <span>Main Carrier</span><br/> ${quoteToEdit["magaya__Carrier"]}<br />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container">
+            <div class="row session-fourth headerMquote">
+                <div class="col-sm">
+                    Service Details
+                </div>
+            </div>
+            <div class="row headerMquote">
+                <div class="col-sm-6">
+                    Service
+                </div>
+                <div class="col-sm">
+                    Price
+                </div>
+                <div class="col-sm">
+                    Quantity
+                </div>
+                <div class="col-sm">
+                    Amount
+                </div>
+            </div>
+            `
+
+        $.map(charges, function(k, v) {
+            data += `<div class="row headerMquote">
+                        <div class="col-sm-6">
+                            ${k["magaya__Charge_Description"]}
+                        </div>
+                        <div class="col-sm">
+                            ${k["magaya__Price"]}
+                        </div>
+                        <div class="col-sm">
+                            ${k["magaya__CQuantity"]}
+                        </div>
+                        <div class="col-sm">
+                            ${k["magaya__Final_Amount"]}
+                        </div>
+                    </div>
+                        `
+        })
+
+    data += `
+        </div>
+    </div>`
+
+            $("#htmlToPdf").html(data)
+            $("#pdfModal").modal("show")
+}
+
+
+/*async function getRelatedCharges(idQuote) {
+    ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idQuote, RelatedList: "magaya__SQuote_Name1", page: 1, per_page: 200 })
+        .then(function(response) {
+            if (!_.isEmpty(response.data)) {
+                idemItems = response.data
+                $.each(idemItems, function(i, k) {
+                //dispatch items to store
+                    storeItem.dispatch(addItem({...k}))
+
+                    }) //each
+
+            }
+        })
+}*/
