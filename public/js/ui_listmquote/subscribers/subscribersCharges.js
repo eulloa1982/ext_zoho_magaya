@@ -41,6 +41,7 @@ storeCharge.subscribe(() => {
 
                 let editable = _.get(CHARGES_FIELDS, [v, 'editable'])
 
+                if (k === null || k === "null") k = 0
                 input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" ${editable}/>`
 
                 let field = _.get(CHARGES_FIELDS, [v, 'field'])
@@ -87,6 +88,7 @@ storeCharge.subscribe(() => {
 
 
     //empty charge
+    console.log("State charges now", storeCharge.getState())
     let y = storeCharge.getState().emptyCharge;
     let showEmpty = storeCharge.getState().showEmptyCharge;
 
@@ -148,7 +150,6 @@ storeCharge.subscribe(() => {
                     <td align="right" class="magaya__Tax_Amount">${roundDec(k.magaya__Tax_Amount)}</td>
                     <td align="right" class="magaya__Amount_Total">${roundDec(k.magaya__Amount_Total)}</td>
                     <td align="right" class="magaya__Final_Amount">${roundDec(k.magaya__Final_Amount)}</td>
-
                     <td class="magaya__ChargeCode" style="display: none;">${k.magaya__ChargeCode}</td>
                     <td style="display: none;" class="magaya__Tax_Rate0">${k.magaya__TaxRate}</td>
                     <td style="display: none;" clss="magaya__Unit">${k.magaya__Unit}</td>
@@ -170,22 +171,24 @@ storeCharge.subscribe(() => {
             $("#info-charge").html("");
 
     } else {
+        $("#table-charges tbody").empty()
         $("#info-charge").html("No charges found");
     }
 })
 
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().chargesOnNew;
+    let amount_ = 0
+    let tax_amount_total = 0
+    let amount_total = 0
+    let final_amount = 0
 
     if (!_.isEmpty(u)) {
         data_module_flag_charge = true
 
         $("#table-charges-new tbody").empty();
         if (!_.isEmpty(u)) {
-            let amount_ = 0
-            let tax_amount_total = 0
-            let amount_total = 0
-            let final_amount = 0
+
 
             $.each(u, function(i, k) {
 
@@ -218,7 +221,6 @@ storeCharge.subscribe(() => {
                 <td align="right" class="magaya__Tax_Amount">${roundDec(k.magaya__Tax_Amount)}</td>
                 <td align="right" class="magaya__Amount_Total">${roundDec(k.magaya__Amount_Total)}</td>
                 <td align="right" class="magaya__Final_Amount">${roundDec(k.magaya__Final_Amount)}</td>
-
                 <td class="magaya__ChargeCode" style="display: none;">${k.magaya__ChargeCode}</td>
                 <td class="magaya__Tax_Rate0" style="display: none;">${k.magaya__TaxRate}</td>
                 <td class="magaya__Unit" style="display: none;">${k.magaya__Unit}</td>
@@ -235,6 +237,8 @@ storeCharge.subscribe(() => {
             //<td class="magaya__ApplyToAccounts" style="display: none;">${k.magaya__ApplyToAccounts}</td>
 
         }
+
+    } else {
+        $("#table-charges-new tbody").empty()
     }
 })
-

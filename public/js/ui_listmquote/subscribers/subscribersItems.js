@@ -92,7 +92,7 @@ storeItem.subscribe(() => {
 
 //new items on table-items-new
 storeItem.subscribe(() => {
-    console.log("State item now", storeItem.getState())
+    //console.log("State item now", storeItem.getState())
     let u = storeItem.getState().itemsOnNew;
 
     if (!_.isEmpty(u)) {
@@ -145,7 +145,6 @@ storeItem.subscribe(() => {
                 <td class="NoData" align="left"><strong>${measure_weigth}</td>
                 <td align="right" class="magaya__Volume">${roundDec(k.magaya__Volume)}</td>
                 <td class="NoData" align="left"><strong>${measure_volume}</td>
-
                 <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
                 <td class='Name' style="display: none;">${sanitize(k.Name)}</td>
                 </tr>`);
@@ -164,6 +163,9 @@ storeItem.subscribe(() => {
             <td align="right" class="Delete"><strong>${roundDec(totalWeight)}</td><td><strong> kg</strong></td>
             <td align="right" class="Delete"><strong>${roundDec(totalVolume)}</td><td><strong> m3</strong></td></tr>`)
         }
+
+    } else {
+        $("#table-items-new tbody").empty()
     }
 })
 
@@ -224,7 +226,6 @@ storeItem.subscribe(() => {
             <td align="left" class="NoData"><strong>${measure_weigth}</td>
             <td align="right" class="magaya__Volume">${roundDec(k.magaya__Volume)}</td>
             <td align="left" class="NoData"><strong>${measure_volume}</td>
-
             <td class='Name' style="display: none;">${k.Name}</td>
             <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
             </tr>`
@@ -240,5 +241,7 @@ storeItem.subscribe(() => {
                                                 <td colspan="6"></td>
                                                 <td align="right" class="Delete"><strong>${roundDec(totalWeight)}</td><td><strong> kg</strong></td>
                                                 <td align="right" class="Delete"><strong>${roundDec(totalVolume)}</td><td><strong> m3</strong></td></tr>`)
+    } else {
+        $("#table-items tbody").empty()
     }
 })
