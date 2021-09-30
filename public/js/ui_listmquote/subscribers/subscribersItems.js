@@ -141,9 +141,9 @@ storeItem.subscribe(() => {
                 <td class="NoData" align="left"><strong>${measure_length}</td>
                 <td align="right" class="magaya__Width">${roundDec(k.magaya__Width)}</td>
                 <td class="NoData" align="left"><strong>${measure_length}</td>
-                <td align="right" class="magaya__Weigth">${roundDec(k.magaya__Weigth) * k.magaya__Pieces}</td>
+                <td align="right" class="magaya__Weigth">${roundDec(k.magaya__Weigth * k.magaya__Pieces)}</td>
                 <td class="NoData" align="left"><strong>${measure_weigth}</td>
-                <td align="right" class="magaya__Volume">${roundDec(k.magaya__Volume) * k.magaya__Pieces}</td>
+                <td align="right" class="magaya__Volume">${roundDec(k.magaya__Volume * k.magaya__Pieces)}</td>
                 <td class="NoData" align="left"><strong>${measure_volume}</td>
                 <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
                 <td class='Name' style="display: none;">${sanitize(k.Name)}</td>
@@ -222,9 +222,9 @@ storeItem.subscribe(() => {
             <td align="left" class="NoData"><strong>${measure_length}</td>
             <td align="right" class="magaya__Width">${roundDec(k.magaya__Width)}</td>
             <td align="left" class="NoData"><strong>${measure_length}</td>
-            <td align="right" class="magaya__Weigth">${roundDec(k.magaya__Weigth) * k.magaya__Pieces}</td>
+            <td align="right" class="magaya__Weigth">${roundDec(k.magaya__Weigth * k.magaya__Pieces)}</td>
             <td align="left" class="NoData"><strong>${measure_weigth}</td>
-            <td align="right" class="magaya__Volume">${roundDec(k.magaya__Volume) * k.magaya__Pieces}</td>
+            <td align="right" class="magaya__Volume">${roundDec(k.magaya__Volume * k.magaya__Pieces)}</td>
             <td align="left" class="NoData"><strong>${measure_volume}</td>
             <td class='Name' style="display: none;">${k.Name}</td>
             <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>

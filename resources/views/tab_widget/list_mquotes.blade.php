@@ -139,7 +139,7 @@
 					<div class="modal-header" style="background: #0b3355;color: white;">
 						<h4 class="modal-title custom_align" style="font-weight: bold;" id="Heading">Edit mQuote</h4>
 
-						<button type="button" class="close cerrar-modal" aria-hidden="true"><span class="material-icons btn btn-primary">highlight_off</span></button>
+						<button type="button" class="close" aria-hidden="true"><span class="material-icons btn btn-primary cerrar-modal">highlight_off</span></button>
 
 					</div>
 					<div class="modal-body">
