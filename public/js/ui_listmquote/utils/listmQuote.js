@@ -330,7 +330,8 @@ $(document).ready(function(){
                     $("input[name=Consignee_Country").val(consigneeAddress[3])
             }
 
-
+            let nameQuote = quoteToEdit.magaya__Number
+            $(":input[name=NameQuote]").val(nameQuote)
 
             $("#mquoteModal").modal("show")
 
