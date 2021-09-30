@@ -189,7 +189,7 @@
 
                                         <div class="col-md-3">
 											<label class="col-md-12" style="font-weight: bold;">Employee</label>
-                                            <select type="text" name='magaya__Employee' class='form-control'></select>
+                                            <input type="text" name='magaya__Employee' class='form-control'/>
 										</div>
                                     </div>
 
@@ -286,9 +286,18 @@
                                         </div>
 
                                         <div class="col-md-3">
-                                        <label class="col-md-12" style="font-weight: bold;">Magaya Status</label>
-
+                                            <label class="col-md-12" style="font-weight: bold;">Magaya Status</label>
                                             <input name="magaya__Magaya_Status" class="form-control" readonly/>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label class="col-md-12" style="font-weight: bold;">Sent to Magaya</label>
+                                            <input type="checkbox" name="Magaya_updated"/>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label class="col-md-12" style="font-weight: bold;">Imported from Magaya</label>
+                                            <input type="checkbox" name="magaya__QuoteInMagaya"/>
                                         </div>
 
                                     </div>

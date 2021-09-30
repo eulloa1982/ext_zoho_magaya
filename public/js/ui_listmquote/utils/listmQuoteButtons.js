@@ -311,6 +311,7 @@ $(document).ready(function(){
         "magaya__Destination": sanitize($("input[name=magaya__Destination]").val()),
         "magaya__Origin": sanitize($("input[name=magaya__Origin]").val()),
         "magaya__Is_Hazardous": is_hazardous,
+        "magaya__Terms": sanitize($(":input[name=magaya__Terms]").val())
 
 
     }
@@ -448,7 +449,7 @@ $(document).ready(function(){
             "magaya__Is_Hazardous": is_hazardous,
             "magaya__Magaya_Status": "Open",
             "magaya__AddedTime": $("input[name=magaya__AddedTime]").val(),
-            "magaya__Employee": $("select[name=magaya__Employee]").val(),
+            "magaya__Employee": sanitize($("input[name=magaya__Employee]").val()),
             "magaya__Seller": $("select[name=magaya__Seller]").val(),
             "magaya__Terms": sanitize($(":input[name=magaya__Terms]").val()),
             "magaya__IssuedBy": $(":input[name=magaya__IssuedByName]").val()

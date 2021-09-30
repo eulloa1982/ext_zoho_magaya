@@ -230,11 +230,13 @@ $(document).ready(function(){
 
             //relleno los campos
             //campos q no son objetos
+            console.log(quoteToEdit)
+            $("input[name=magaya__Employee]").val(quoteToEdit.Owner.name)
             $("#magaya__Description").val(quoteToEdit.magaya__Description)
             let idAccount = !_.isEmpty(quoteToEdit.Account) ? quoteToEdit.Account.id : 0
             storeAccounts.dispatch(addQuoteAccount({id: idAccount}))
             $.map(quoteToEdit, function(k, v) {
-                if (!_.isObject(v) && !v.includes("$")) {
+                if (!_.isObject(v) && !v.includes("$") && !_.isEmpty(k)) {
                     $(`input[name=${v}]`).val(k)
                     $(`select[name=${v}]`).val(k)
                 }
@@ -282,6 +284,22 @@ $(document).ready(function(){
             } else {
                 $("input[name=magaya__Is_Hazardous]").prop("checked", false)
 
+            }
+
+            //is sent to magaya
+            let sent_to_magaya = quoteToEdit["Magaya_updated"]
+            if (sent_to_magaya === true) {
+                $("input[name=Magaya_updated]").prop("checked", true)
+            } else {
+                $("input[name=Magaya_updated]").prop("checked", false)
+            }
+
+            //is sent to magaya
+            let imported_from_magaya = quoteToEdit["magaya__QuoteInMagaya"]
+            if (!_.isEmpty(imported_from_magaya) && _.size(imported_from_magaya) > 8) {
+                $("input[name=magaya__QuoteInMagaya]").prop("checked", true)
+            } else {
+                $("input[name=magaya__QuoteInMagaya]").prop("checked", false)
             }
 
             //Stage of mQuote

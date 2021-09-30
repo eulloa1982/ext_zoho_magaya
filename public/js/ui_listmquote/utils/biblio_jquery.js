@@ -120,6 +120,8 @@ function limpiar_form() {
     $("select[name=magaya__ConsigneeName]").val("")
     $("select[name=magaya__Shipper]").val("")
     $("input[name=magaya__Magaya_Status]").val("Open")
+    $("input[name=magaya__Is_Hazardous]").prop("checked", false)
+    $("input[name=Magaya_updated]").prop("checked", false)
 
     //hora actual
 
@@ -184,6 +186,37 @@ function roundDec(num) {
 
 
 
+/**build the field if value is not empty
+ * @field XML node
+ * @value XML node value
+ *
+ * returns <field>value</field> if value is not null
+ */
+function buildField(field, value) {
+
+    let node_value = ``
+    if (!_.isEmpty(value) && value !== undefined && value !== null && value !== "undefined" && value !== "null") {
+        if (!_.isObject(value)) {
+            return `<${field}>${value}</${field}>`;
+        }
+    }
+
+    return node_value;
+
+}
+
+let mapa = {
+    "CreatedOn": "Created_Time",
+    "Number": "magaya__Number",
+    "ExpirationDate": "magaya__ExpirationDate",
+    "IssuedByName": "magaya__IssuedBy",
+    "SalespersonName": "magaya__Seller",
+    "Service": "magaya__Service",
+    "Direction": "magaya__Direction",
+    "DescriptionOfGoods": "magaya__Description",
+    "IsHazardous": "magaya__Is_Hazardous",
+    //"Carrier": {"Type": "Carrier", "Name": "magaya__Carrier"}
+}
 //get items package table, return xml string items
 /*
 @idSQuote quote to get from
@@ -198,21 +231,18 @@ async function buildStringQuote2(idSQuote) {
     quoteXML = quoteXML[0]
 
     stringQuote += `<IsCommerceQuotation>false</IsCommerceQuotation>`
-    stringQuote += `<CreatedOn>${quoteXML.Created_Time}</CreatedOn>`
-    stringQuote += `<Number>${quoteXML.magaya__Number}</Number>`
+
+    $.map(mapa, function(k, v) {
+        console.log(v, quoteXML[`${k}`])
+        stringQuote += buildField(v, quoteXML[`${k}`])
+    })
+
     stringQuote += `<CreatedByName>${quoteXML.Owner.name}</CreatedByName>
                     <Version>104</Version>`
-    stringQuote += `<ExpirationDate>${quoteXML.magaya__ExpirationDate}</ExpirationDate>`
-    stringQuote += `<IssuedByName>${quoteXML.magaya__IssuedBy}</IssuedByName>
-                    <SalespersonName>${quoteXML.magaya__Seller}</SalespersonName>`
-                    //<Salesperson GUID=dsfsdfsdfsdf></Salesperson><Type>Salesperson</Type><Name></Name>
 
-    stringQuote += `<Service>${quoteXML.magaya__Service}</Service>`
-    stringQuote += `<Direction>${quoteXML.magaya__Direction}</Direction>
-                    <IsOpenQuote>true</IsOpenQuote>
-                    <Status>Open</Status>
-                    <DescriptionOfGoods>${quoteXML.magaya__Description}</DescriptionOfGoods>
-                    <IsHazardous>${quoteXML.magaya__Is_Hazardous}</IsHazardous>`
+    //<Salesperson GUID=dsfsdfsdfsdf></Salesperson><Type>Salesperson</Type><Name></Name>
+
+    stringQuote += `<IsOpenQuote>true</IsOpenQuote><Status>Open</Status>`
 
     let contactName =''
     let contact = ''
@@ -221,9 +251,13 @@ async function buildStringQuote2(idSQuote) {
     try {
         accountId = quoteXML.Account.id
         storeAccounts.dispatch(findAccount({id: accountId}))
-        stringQuote += `<ContactName>${singleAccount['Account_Name']}</ContactName>
-                    <Contact GUID="${singleAccount['magaya__MagayaGUID']}">
-                        <Type>Client</Type>
+        stringQuote += `<ContactName>${singleAccount['Account_Name']}</ContactName>`
+
+        if (!_.isEmpty(singleAccount['magaya__MagayaGUID']))
+            stringQuote += `<Contact GUID="${singleAccount['magaya__MagayaGUID']}">`
+        else stringQuote += `<Contact>`;
+
+        stringQuote += `<Type>Client</Type>
                         <Name>${singleAccount['Account_Name']}</Name>
                         <Email>${singleAccount['magaya__MagayaEmail']}</Email>
                     </Contact>`
