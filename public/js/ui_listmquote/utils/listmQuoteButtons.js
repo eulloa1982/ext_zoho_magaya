@@ -450,7 +450,8 @@ $(document).ready(function(){
             "magaya__AddedTime": $("input[name=magaya__AddedTime]").val(),
             "magaya__Employee": $("select[name=magaya__Employee]").val(),
             "magaya__Seller": $("select[name=magaya__Seller]").val(),
-            "magaya__Terms": sanitize($(":input[name=magaya__Terms]").val())
+            "magaya__Terms": sanitize($(":input[name=magaya__Terms]").val()),
+            "magaya__IssuedBy": $(":input[name=magaya__IssuedByName]").val()
         }
 
         //jsonCharges = $(this).tableToJson('table-charges-new', 992929292929229);
@@ -605,7 +606,6 @@ $(document).ready(function(){
                     show = true;
                     module = 'mQuote'
                     storeError.dispatch(addError({errorCode: errorCode, showInfo: show, field: field, module: module}))
-
                 })
             })
     })
@@ -618,7 +618,7 @@ $(document).ready(function(){
         if (actions > 0) {
             Swal.fire({
                 title: "Confirm",
-                text: "Some changes have been made, please select Yes to exit or Cancel to continue editting mQuote",
+                text: "You'll lose your changes, press Yes to exit or Cancel to continue",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes",

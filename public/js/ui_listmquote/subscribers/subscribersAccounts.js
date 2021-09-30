@@ -2,7 +2,7 @@ var singleAccount = []
 //get one charge
 storeAccounts.subscribe(() => {
     let u = storeAccounts.getState();
-    //console.log("State account now", u)
+    console.log("State account now", u)
     singleAccount = u.singleAccount
 
     let accountQuote = u.quoteAccount

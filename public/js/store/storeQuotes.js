@@ -51,6 +51,19 @@ function reducerQuote (state = initialStateQuote, actions)  {
             }
         }
 
+        case UPDATE_QUOTE_BY_FIELD: {
+            let byId = actions.payload.id
+            let field = actions.payload.field
+            let value = actions.payload.value
+
+            const index = state.quotes.findIndex(quote => quote.id === byId)
+            state.quotes[index][field] = value
+            return {
+                ...state,
+                quotes: state.quotes
+            }
+        }
+
         case CLEAR_QUOTE_TO_EDIT: {
             state.quoteToEdit = initialStateQuote.quoteToEdit
             return {
@@ -119,6 +132,10 @@ function findAll() {
 
 function updateQuote(payload) {
     return { type: UPDATE_QUOTE, payload}
+}
+
+function updateQuoteByField(payload) {
+    return {type: UPDATE_QUOTE_BY_FIELD, payload}
 }
 
 function setAccountQuote(payload) {

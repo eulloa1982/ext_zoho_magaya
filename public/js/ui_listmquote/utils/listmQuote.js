@@ -372,7 +372,7 @@ $(document).ready(function(){
             buildStringXML(idQuote);
         })
 
-        })
+    })
 
         //////////////////////////////////////////////////////////////////////////
         //table items
