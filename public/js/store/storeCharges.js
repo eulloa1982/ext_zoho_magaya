@@ -216,7 +216,6 @@ function reducerCharge (state = initialStateCharge, actions)  {
         case GET_CHARGE_QUOTE_ON_NEW: {
             const byId = actions.payload.id;
 
-            console.log("Getting new charge with id", byId)
             //always get just 1 item on the state
             state.singleCharge = initialStateCharge.singleCharge;
             newArray = {...state.chargesOnNew[byId]}

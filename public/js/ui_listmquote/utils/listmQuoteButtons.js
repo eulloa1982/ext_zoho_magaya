@@ -316,8 +316,8 @@ $(document).ready(function(){
         "magaya__Terms": sanitize($(":input[name=magaya__Terms]").val()),
         "magaya__Representative": contact,
         "magaya__ContactMobile": sanitize($("input[name=Mobile]").val()),
-            "magaya__ContactHomePhone": sanitize($("input[name=Phone]").val()),
-            "magaya__ContactName": sanitize($("select[name=magaya__Representative] option:selected").text()),
+        "magaya__ContactHomePhone": sanitize($("input[name=Phone]").val()),
+        "magaya__ContactName": sanitize($("select[name=magaya__Representative] option:selected").text()),
 
 
     }
@@ -420,7 +420,7 @@ $(document).ready(function(){
             is_hazardous = true
 
         recordData = {
-            "Name": "QT-00",
+            "Name": $(":input[name=NameQuote]").val() !== "" ? $(":input[name=NameQuote]").val() : "qt",
             "Account": accountId,
             "magaya__Deal": $(":input[name=Deal] option:selected").val() > 0 ? $(":input[name=Deal] option:selected").val() : '',
             "magaya__Shipper": sanitize($(":input[name=magaya__Shipper] option:selected").text()),

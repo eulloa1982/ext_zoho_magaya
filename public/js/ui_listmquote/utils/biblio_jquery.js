@@ -136,15 +136,18 @@ function limpiar_form() {
 
     //get org data
     let organization = JSON.parse(localStorage.getItem('organization'))
+    let current_user = localStorage.getItem("current_user")
 
     $("input[name=magaya__IssuedByName]").val(organization.company_name)
+    $("input[name=magaya__Employee]").val(current_user)
     //console.log("Organization", JSON.parse(organization))
 }
 
 
 //redondear decimales
 function roundDec(num) {
-    if (typeof num === 'undefined' || num <= 0) return 0;
+    console.log(num)
+    if (typeof num === 'undefined' || num === 'null' || num === null) return 0;
 
     return Number(parseFloat(num).toFixed(2));
 

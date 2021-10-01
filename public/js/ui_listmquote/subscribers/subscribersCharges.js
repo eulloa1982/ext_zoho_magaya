@@ -35,12 +35,18 @@ storeCharge.subscribe(() => {
             if ( _.has(CHARGES_FIELDS, v)) {
                 //get type of field
                 let type = "text"
-                if (_.has(CHARGES_FIELDS, [v, 'type']))
+                if (_.has(CHARGES_FIELDS, [v, 'type'])) {
                     type = "number";
+                    if (Number.isInteger(k))
+                        k = `${k}.00`
+                }
 
                 let editable = _.get(CHARGES_FIELDS, [v, 'editable'])
 
                 if (k === null || k === "null") k = 0
+
+                //check values .00
+
                 input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" ${editable}/>`
 
                 let field = _.get(CHARGES_FIELDS, [v, 'field'])
@@ -87,7 +93,7 @@ storeCharge.subscribe(() => {
 
 
     //empty charge
-    console.log("State charges now", storeCharge.getState())
+    //console.log("State charges now", storeCharge.getState())
     let y = storeCharge.getState().emptyCharge;
     let showEmpty = storeCharge.getState().showEmptyCharge;
 
@@ -144,11 +150,11 @@ storeCharge.subscribe(() => {
                     <td class="magaya__Status">${k.magaya__Status}</td>
                     <td class="Name" id="first">${k.Name}</td>
                     <td align="right" class="magaya__CQuantity">${k.magaya__CQuantity}</td>
-                    <td align="right" class="magaya__Price">${roundDec(k.magaya__Price)}</td>
-                    <td align="right" class="magaya__Amount">${roundDec(k.magaya__Amount)}</td>
-                    <td align="right" class="magaya__Tax_Amount">${roundDec(k.magaya__Tax_Amount)}</td>
-                    <td align="right" class="magaya__Amount_Total">${roundDec(k.magaya__Amount_Total)}</td>
-                    <td align="right" class="magaya__Final_Amount">${roundDec(k.magaya__Final_Amount)}</td>
+                    <td align="right" class="magaya__Price">${roundDec(k.magaya__Price).toLocaleString('en-US')}</td>
+                    <td align="right" class="magaya__Amount">${roundDec(k.magaya__Amount).toLocaleString('en-US')}</td>
+                    <td align="right" class="magaya__Tax_Amount">${roundDec(k.magaya__Tax_Amount).toLocaleString('en-US')}</td>
+                    <td align="right" class="magaya__Amount_Total">${roundDec(k.magaya__Amount_Total).toLocaleString('en-US')}</td>
+                    <td align="right" class="magaya__Final_Amount">${roundDec(k.magaya__Final_Amount).toLocaleString('en-US')}</td>
                     <td class="magaya__ChargeCode" style="display: none;">${k.magaya__ChargeCode}</td>
                     <td style="display: none;" class="magaya__Tax_Rate0">${k.magaya__TaxRate}</td>
                     <td style="display: none;" clss="magaya__Unit">${k.magaya__Unit}</td>
@@ -160,12 +166,12 @@ storeCharge.subscribe(() => {
             //totalIncome = roundDec(totalIncome)
             //incorporando data de totales
             $("#table-charges tbody").append(`<tr><td align="right" colspan="5">Totals USD</td>
-                                        <td align="right"><strong>${roundDec(amount_)}</strong></td>
-                                        <td align="right"><strong>${roundDec(tax_amount_total)}</strong></td>
-                                        <td align="right"><strong>${roundDec(amount_total)}</strong></td>
-                                        <td align="right"><strong>${roundDec(final_amount)}</strong></td></tr>`);
+                                        <td align="right"><strong>${amount_.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
+                                        <td align="right"><strong>${tax_amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
+                                        <td align="right"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
+                                        <td align="right"><strong>${final_amount.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td></tr>`);
 
-
+                                        //console.log(totn_number.toLocaleString('fr-FR'));
             //$("input[name=TotalIncomeCharges]").val(totalIncome)
             $("#info-charge").html("");
 
@@ -229,10 +235,10 @@ storeCharge.subscribe(() => {
             })
 
             $("#table-charges-new tbody").append(`<tr><td colspan="5"class="Delete">Totals</td>
-                                        <td align="right" class="Delete"><strong>${roundDec(amount_)}</strong></td>
-                                        <td align="right" class="Delete"><strong>${roundDec(tax_amount_total)}</strong></td>
-                                        <td align="right" class="Delete"><strong>${roundDec(amount_total)}</strong></td>
-                                        <td align="right" class="Delete"><strong>${roundDec(final_amount)}</strong></td></tr>`);
+                                        <td align="right" class="Delete"><strong>${amount_.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
+                                        <td align="right" class="Delete"><strong>${tax_amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
+                                        <td align="right" class="Delete"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
+                                        <td align="right" class="Delete"><strong>${final_amount.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td></tr>`);
             //<td class="magaya__ApplyToAccounts" style="display: none;">${k.magaya__ApplyToAccounts}</td>
 
         }
