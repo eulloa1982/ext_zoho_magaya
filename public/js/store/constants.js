@@ -83,7 +83,6 @@ const CHARGES_FIELDS = {"magaya__ChargeCode": {"field": "Type", "editable":"read
                 "magaya__Adjustment": {"field": "Adjustment", "editable":"", "place": 11}, "magaya__Final_Amount": {"field": "Final Amount", "type": "number", "editable":"readonly", "place": 12},
                 "magaya__ChargeCurrency": {"field": "Currency", "editable":"readonly", "values": ["USD"], "place": 13}, "magaya__Paid_As": {"field": "Paid As", "values": ["Paid", "Collect"], "editable":"", "place": 14},
                 "magaya__Status": {"field": "Status", "values": ["Open", "Posted", "Paid"], "editable":"", "place": 15},
-
 }
 
 

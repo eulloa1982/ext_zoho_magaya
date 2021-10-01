@@ -1466,6 +1466,8 @@ function drawQuotationCRM() {
                 } else {
                     records = [result.data['Carrier']]
                 }
+
+                console.log("Carriers", records)
                 var i = 0;
                 records.forEach(function(item) {
                         MagayaCarriers.push(item);

@@ -48,6 +48,7 @@ function reducerAccounts (state = initialStateAccount, actions)  {
                     console.log("Account founded", account)
                 }
             })
+
             return {
                 state, singleAccount: accountA
             }
