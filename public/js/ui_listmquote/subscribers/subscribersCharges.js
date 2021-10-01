@@ -165,7 +165,7 @@ storeCharge.subscribe(() => {
             })
             //totalIncome = roundDec(totalIncome)
             //incorporando data de totales
-            $("#table-charges tbody").append(`<tr><td align="right" colspan="5">Totals USD</td>
+            $("#table-charges").append(`<tr><td align="right" colspan="5"><strong>Totals USD</strong></td>
                                         <td align="right"><strong>${amount_.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         <td align="right"><strong>${tax_amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         <td align="right"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
@@ -234,12 +234,22 @@ storeCharge.subscribe(() => {
                 </tr>`);
             })
 
-            $("#table-charges-new tbody").append(`<tr><td colspan="5"class="Delete">Totals</td>
+
+            $("#table-charges-new").append(`<tr><td colspan="5"class="Delete"><strong>Totals USD</strong></td>
                                         <td align="right" class="Delete"><strong>${amount_.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         <td align="right" class="Delete"><strong>${tax_amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         <td align="right" class="Delete"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         <td align="right" class="Delete"><strong>${final_amount.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td></tr>`);
-            //<td class="magaya__ApplyToAccounts" style="display: none;">${k.magaya__ApplyToAccounts}</td>
+
+
+            /*let totals = `<div class="row"><div class="col">Totals</div>
+                                        <div class="col"><strong>${amount_.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></div></div>
+                                        <div class="col"><strong>${tax_amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></div>
+                                        <div class="col"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></div>
+                                        <div class="col"><strong>${final_amount.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></div>
+                                        </div>
+                                        `*/
+                                        //<td class="magaya__ApplyToAccounts" style="display: none;">${k.magaya__ApplyToAccounts}</td>
 
         }
 

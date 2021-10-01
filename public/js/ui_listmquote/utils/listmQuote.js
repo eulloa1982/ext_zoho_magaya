@@ -179,7 +179,7 @@ $(document).ready(function(){
             e.preventDefault();
             e.stopImmediatePropagation()
 
-            $("#Heading").html("Edit mQuote");
+            $("#Title").html("Edit mQuote");
 
            //drop the state temporal items and charges
             storeItem.dispatch(emptyItems())
@@ -350,6 +350,11 @@ $(document).ready(function(){
 
             let nameQuote = quoteToEdit.magaya__Number
             $(":input[name=NameQuote]").val(nameQuote)
+
+            //magaya terms
+            let terms = quoteToEdit.magaya__Terms
+            $("#magaya__Terms").val(terms)
+
 
             $("#mquoteModal").modal("show")
 

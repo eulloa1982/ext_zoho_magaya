@@ -137,7 +137,7 @@
 				<div class="modal-content">
 
 					<div class="modal-header" style="background: #0b3355;color: white;">
-						<h4 class="modal-title custom_align" style="font-weight: bold;" id="Heading">Edit mQuote</h4>
+						<h4 class="modal-title custom_align" style="font-weight: bold;" id="Title">Edit mQuote</h4>
 
 						<button type="button" class="close" aria-hidden="true"><span class="material-icons btn btn-primary cerrar-modal">highlight_off</span></button>
 
@@ -163,6 +163,7 @@
 								<div class="nav nav-tabs" id="nav-tab" role="tablist">
 									<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#menu5" role="tab" aria-controls="nav-home" aria-selected="true">Customer</a>
 									<a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#menu1" role="tab" aria-controls="nav-profile" aria-selected="false">General</a>
+                                    <a class="nav-link" id="nav-terms-tab" data-toggle="tab" href="#menu6" role="tab" aria-controls="nav-contact" aria-selected="false">Terms</a>
 									<a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#menu3" role="tab" aria-controls="nav-contact" aria-selected="false">Routing</a>
 									<a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#menu2" role="tab" aria-controls="nav-contact" aria-selected="false">Charges</a>
 									<a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#menu4" role="tab" aria-controls="nav-contact" aria-selected="false">Items</a>
@@ -208,13 +209,6 @@
                                             <select name="magaya__Seller" class="form-control"></select>
 										</div>
 									</div>
-
-                                    <div class="row" style="margin-bottom:20px">
-                                        <div class="col-md-12">
-                                            <label class="col-md-12" style="font-weight: bold;">Payment Terms</label>
-                                            <input type="text" style="width: 75%" name="magaya__Terms" cols="50" class="form-control"/>
-                                        </div>
-                                    </div>
 
                                     <div class="row" style="margin-bottom:10px; margin-top: 30px;">
 										<div class="col-md-3">
@@ -306,6 +300,18 @@
                                 <!-- end tab general -->
                                 <!------------------------------------------------------------->
 
+
+                                <!------------------------------------------------------------->
+                                <!-- tab routing -->
+                                <!------------------------------------------------------------->
+                                <div class="tab-pane fade" id="menu6" role="tabpanel" aria-labelledby="menu5-tab" style="min-height: 600px;">
+                                    <div class="row" style="margin-bottom:20px; margin-top:20px;">
+                                        <div class="col-md-12">
+                                            <label class="col-md-12" style="font-weight: bold;">Payment Terms</label>
+                                            <textarea name="magaya__Terms" id="magaya__Terms" cols="50" rows="5" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
 
 
                                 <!------------------------------------------------------------->

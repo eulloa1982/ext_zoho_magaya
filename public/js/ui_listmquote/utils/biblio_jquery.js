@@ -122,6 +122,7 @@ function limpiar_form() {
     $("input[name=magaya__Magaya_Status]").val("Open")
     $("input[name=magaya__Is_Hazardous]").prop("checked", false)
     $("input[name=Magaya_updated]").prop("checked", false)
+    $("#magaya__Terms").val("")
 
     //hora actual
 
