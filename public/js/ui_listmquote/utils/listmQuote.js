@@ -72,25 +72,21 @@ $(document).ready(function(){
     /////////table quotes, main table
     ///////////////////////////////////////////////////////////////////////////////////
     $('#table-quotes').bind("DOMSubtreeModified", function(e) {
-
         e.preventDefault()
-        e.stopImmediatePropagation()
 
-        ///////////////PDF button/////////////////
         $(".toPdf").click(function(e) {
-            e.preventDefault()
             e.stopImmediatePropagation()
 
-            let dataId = $(this).attr("data-id");
-            let orgData = localStorage.getItem('organization')
-            orgData = JSON.parse(orgData)
-            //armar la cabecera
-            let cabecera = {"Email": orgData['primary_email'], "Street": orgData["street"], "State": orgData["state"], "City": orgData["city"], "Country": orgData["country"]}
-            sendQuotePdf(cabecera)
+            storeItem.dispatch(emptyItems())
+            storeCharge.dispatch(emptyCharges())
+            storeAccounts.dispatch(emptyAllAccounts())
+            storeQuote.dispatch(clearQuoteToEdit())
 
+            let idmQuote = $(this).attr('data-id')
+
+            let pdf = make_pdf(idmQuote);
 
         })
-
 
 
         //mass delete
@@ -121,12 +117,6 @@ $(document).ready(function(){
                     }
                 })
          })
-
-
-
-
-
-
 
 
         // Activate tooltip
@@ -189,7 +179,7 @@ $(document).ready(function(){
             e.preventDefault();
             e.stopImmediatePropagation()
 
-            $("#Heading").html("Edit mQuote");
+            $("#Title").html("Edit mQuote");
 
            //drop the state temporal items and charges
             storeItem.dispatch(emptyItems())
@@ -240,11 +230,13 @@ $(document).ready(function(){
 
             //relleno los campos
             //campos q no son objetos
+            console.log(quoteToEdit)
+            $("input[name=magaya__Employee]").val(quoteToEdit.Owner.name)
             $("#magaya__Description").val(quoteToEdit.magaya__Description)
             let idAccount = !_.isEmpty(quoteToEdit.Account) ? quoteToEdit.Account.id : 0
             storeAccounts.dispatch(addQuoteAccount({id: idAccount}))
             $.map(quoteToEdit, function(k, v) {
-                if (!_.isObject(v) && !v.includes("$")) {
+                if (!_.isObject(v) && !v.includes("$") && !_.isEmpty(k)) {
                     $(`input[name=${v}]`).val(k)
                     $(`select[name=${v}]`).val(k)
                 }
@@ -294,6 +286,22 @@ $(document).ready(function(){
 
             }
 
+            //is sent to magaya
+            let sent_to_magaya = quoteToEdit["Magaya_updated"]
+            if (sent_to_magaya === true) {
+                $("input[name=Magaya_updated]").prop("checked", true)
+            } else {
+                $("input[name=Magaya_updated]").prop("checked", false)
+            }
+
+            //is sent to magaya
+            let imported_from_magaya = quoteToEdit["magaya__QuoteInMagaya"]
+            if (!_.isEmpty(imported_from_magaya) && _.size(imported_from_magaya) > 8) {
+                $("input[name=magaya__QuoteInMagaya]").prop("checked", true)
+            } else {
+                $("input[name=magaya__QuoteInMagaya]").prop("checked", false)
+            }
+
             //Stage of mQuote
             let stage = quoteToEdit["magaya__Status"]
             $("select[name=magaya__mQuoteStatus]").val(stage)
@@ -340,6 +348,12 @@ $(document).ready(function(){
                     $("input[name=Consignee_Country").val(consigneeAddress[3])
             }
 
+            let nameQuote = quoteToEdit.magaya__Number
+            $(":input[name=NameQuote]").val(nameQuote)
+
+            //magaya terms
+            let terms = quoteToEdit.magaya__Terms
+            $("#magaya__Terms").val(terms)
 
 
             $("#mquoteModal").modal("show")
@@ -382,7 +396,7 @@ $(document).ready(function(){
             buildStringXML(idQuote);
         })
 
-        })
+    })
 
         //////////////////////////////////////////////////////////////////////////
         //table items

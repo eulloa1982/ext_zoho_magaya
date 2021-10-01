@@ -6,7 +6,6 @@
         let val = $(this).val()
         $("input[name=magaya__Final_Amount]").val(val)
     }
-
 })*/
 
 $("select[name=magaya__TransportationMode]").change(function(e) {

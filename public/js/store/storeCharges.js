@@ -156,7 +156,6 @@ function reducerCharge (state = initialStateCharge, actions)  {
             const index = state.singleCharge[0];
             //state.singleCharge = initialStateCharge.singleCharge
             newArray = state.chargesOnNew[index];
-
             newArray[field] = value
             //calculate amount
             let amount = parseFloat(newArray['magaya__Price']) * parseFloat (newArray['magaya__CQuantity']);
@@ -166,7 +165,6 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray['magaya__Tax_Amount'] = roundDec(amount_tax)
             let amount_total = amount + amount_tax;
             newArray["magaya__Amount_Total"] = roundDec(amount_total)
-
             return {
                 ...state,
                 singleCharge: [index, newArray]
@@ -218,7 +216,6 @@ function reducerCharge (state = initialStateCharge, actions)  {
         case GET_CHARGE_QUOTE_ON_NEW: {
             const byId = actions.payload.id;
 
-            console.log("Getting new charge with id", byId)
             //always get just 1 item on the state
             state.singleCharge = initialStateCharge.singleCharge;
             newArray = {...state.chargesOnNew[byId]}

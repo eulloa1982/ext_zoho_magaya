@@ -75,13 +75,8 @@ $(document).ready(function(){
         ZOHO.CRM.API.getAllRecords({Entity: "magaya__Employees", sort_order: "asc"})
             .then(function(response){
                 $.map (response.data, function (k, i) {
-                    //console.log(k)
-                    $(`<option value='${k.Name}'>${k.Name}</option>`).appendTo("select[name=magaya__Employee]");
-
                     if (k.magaya__Is_Salesperson) {
-
                         $(`<option value="${k.Name}">${k.Name}</option>`).appendTo("select[name=magaya__Seller]");
-
                     }
                 })
             })
@@ -160,6 +155,14 @@ $(document).ready(function(){
             localStorage.setItem('organization', JSON.stringify(orgData))
         });
 
+        //current user
+        //get current user
+        ZOHO.CRM.CONFIG.getCurrentUser().then(function(data){
+            console.log("Current user", data.users[0].full_name)
+            localStorage.setItem('current_user', data.users[0].full_name)
+        })
+
+
     });
 
 
@@ -174,7 +177,3 @@ if (_.isEmpty(packageType)) {
 }
 
 })
-
-
-//check if magaya is available
-//ping('98.211.167.16', '3691')

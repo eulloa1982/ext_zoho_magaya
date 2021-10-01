@@ -324,4 +324,3 @@ function updateItem(payload) {
 function addItemEmptyNew() {
     return { type: ADD_ITEM_EMPTY_NEW }
 }
-

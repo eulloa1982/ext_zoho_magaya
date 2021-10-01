@@ -92,7 +92,6 @@ function sanitize(input) {
    if (!_.isEmpty(input)) {
        /*if (input.match(/^[0-9a-zA-Z]\-\#{1,255}$/))
         return input;
-
     return false;*/
         let a = HtmlSanitizer.SanitizeHtml(input);
         return input.replace(/['"]+/g, '').replace(/[^a-zA-Z0-9]\-/g, ' ').replace(/<(|\/["]\/[&<>]\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g, '');
@@ -121,6 +120,9 @@ function limpiar_form() {
     $("select[name=magaya__ConsigneeName]").val("")
     $("select[name=magaya__Shipper]").val("")
     $("input[name=magaya__Magaya_Status]").val("Open")
+    $("input[name=magaya__Is_Hazardous]").prop("checked", false)
+    $("input[name=Magaya_updated]").prop("checked", false)
+    $("#magaya__Terms").val("")
 
     //hora actual
 
@@ -135,15 +137,18 @@ function limpiar_form() {
 
     //get org data
     let organization = JSON.parse(localStorage.getItem('organization'))
+    let current_user = localStorage.getItem("current_user")
 
     $("input[name=magaya__IssuedByName]").val(organization.company_name)
+    $("input[name=magaya__Employee]").val(current_user)
     //console.log("Organization", JSON.parse(organization))
 }
 
 
 //redondear decimales
 function roundDec(num) {
-    if (typeof num === 'undefined' || num <= 0) return 0;
+    console.log(num)
+    if (typeof num === 'undefined' || num === 'null' || num === null) return 0;
 
     return Number(parseFloat(num).toFixed(2));
 
@@ -155,111 +160,15 @@ function roundDec(num) {
 //get items cargo table, return xml charge
 (function($) {
     $.fn.buildStringCharge = function(idSQuote) {
-        stringCharges = '';
+//async function buildStringCharge(idSQuote) {
+    stringCharges = '';
         return new Promise(function(resolve, reject) {
             ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idSQuote, RelatedList: "magaya__SQuote_Name0", page: 1, per_page: 200 })
                 .then(function(response) {
-
-                    $.map(response.data, function(k, i) {
-                        console.log(k)
-                        priceInCurrency = k.magaya__CQuantity * k.magaya__Price;
-                        amountInCurrency = Math.round(priceInCurrency * 100) / 100;
-                        //console.log (k.magaya__ApplyTo['name'])
-                        //magaya__ApplyTo es una lista relacionada, pero puede estar vacia
-                        var applyTo;
-                        var applyToGuid;
-                        var applyToId;
-                        //applyTo = !_.isEmpty(k.magaya__ApplyTo) ? k.magaya__ApplyToAccounts['name'] : '';
-                        //applyToGuid = k.magaya__ApplyToAccounts['']
-                        stringCharges += `<Charge>
-                            <Type>Standard</Type>`;
-
-                        //get apply to data
-                        if (!_.isEmpty(k.magaya__ApplyToAccounts)) {
-                            applyToId = k.magaya__ApplyToAccounts.id;
-                            applyToGuid = accounts.findIndex(i => i["id"] == applyToId);
-                            if (applyToGuid >= 0) {
-                                applyTo = accounts[applyToGuid];
-                                stringCharges += `<Entity GUID="${applyTo['magaya__MagayaGUID']}">
-                                                  <Type>Client</Type>
-                                                  <Name>${applyTo["Account_Name"]}</Name>
-                                                  <IsPrepaid>true</IsPrepaid>
-                                                  </Entity>`
-                            } else {
-                                Swal.fire({
-                                    title: 'Error',
-                                    text: 'Error selecting a valid Apply To charges, please check the Quote',
-                                    icon: 'error',
-                                    allowOutsideClick: false
-                                }).then(function() {
-                                    return
-                                })
-                            }
-                        }
-
-                        stringCharges += `
-                            <Quantity>${k.magaya__CQuantity}</Quantity>
-                            <Price Currency="USD">${k.magaya__Price}</Price>
-                            <HomeCurrency Code="USD">
-                                <Name>United States Dollar</Name>
-                                <ExchangeRate>1.00</ExchangeRate>
-                                <DecimalPlaces>2</DecimalPlaces>
-                                <IsHomeCurrency>true</IsHomeCurrency>
-                            </HomeCurrency>
-                            <Amount Currency="USD">0.00</Amount>
-                            <IsPrepaid>true</IsPrepaid>
-                            <IsThirdPartyCharge>false</IsThirdPartyCharge>
-                            <ChargeDefinition>
-                                <Type>Other</Type>
-                                <Description>Description</Description>
-                                <Code>${k.magaya__ChargeCode}</Code>
-                                <AccountDefinition>
-                                    <Type>Income</Type>
-                                    <Name>Servicios</Name>
-                                    <Currency Code="USD">
-                                        <Name>United States Dollar</Name>
-                                        <ExchangeRate>1.00</ExchangeRate>
-                                        <DecimalPlaces>2</DecimalPlaces>
-                                        <IsHomeCurrency>true</IsHomeCurrency>
-                                    </Currency>
-                                </AccountDefinition>
-                                <Amount Currency="USD">0.00</Amount>
-                                <Currency Code="USD">
-                                    <Name>United States Dollar</Name>
-                                    <ExchangeRate>1.00</ExchangeRate>
-                                    <DecimalPlaces>2</DecimalPlaces>
-                                    <IsHomeCurrency>true</IsHomeCurrency>
-                                </Currency>
-                                <Enforce3rdPartyBilling>false</Enforce3rdPartyBilling>
-                            </ChargeDefinition>
-                            <Status>Open</Status>
-                            <Description>${k.magaya__Charge_Description}</Description>
-                            <PriceInCurrency Currency="USD">${k.magaya__Price}</PriceInCurrency>
-                            <AmountInCurrency Currency="USD">0.00</AmountInCurrency>
-                            <ExchangeRate>1.00</ExchangeRate>
-                            <Currency Code="USD">
-                                <Name>United States Dollar</Name>
-                                <ExchangeRate>1.00</ExchangeRate>
-                                <DecimalPlaces>2</DecimalPlaces>
-                                <IsHomeCurrency>true</IsHomeCurrency>
-                            </Currency>
-                            <ShowInDocuments>true</ShowInDocuments>
-                            <IsCredit>false</IsCredit>
-                            <IsFromSegment>false</IsFromSegment>
-                        </Charge>`;
-
-
-                    })
-                    if (stringCharges !== '') {
-                        resolve(stringCharges)
-                    } else reject();
+                    resolve(response.data)
                 })
-
-
-
         });
     }
-
 })(jQuery);
 
 //get items package table, return xml string items
@@ -267,53 +176,13 @@ function roundDec(num) {
     $.fn.buildStringItems = function(idSQuote) {
         stringItems = '';
         return new Promise(function(resolve, reject) {
-            ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idQuote, RelatedList: "magaya__SQuote_Name1", page: 1, per_page: 200 })
+            ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idSQuote, RelatedList: "magaya__SQuote_Name1", page: 1, per_page: 200 })
                 .then(function(response) {
-                    //discriminar por sistema de medida
-                    /*
-                    k.magaya__Measure_System
-                    Sistema International
-                    "Length(m)";
-                    "Width(m)";
-                    "Height(m)";
-                    "Weight(Kg)";
-
-                    Sistema Ingles
-                    "Length(in)";
-                    "Width(in)";
-                    "Height(in)";
-                    "Weight(lb)";
-                    */
-                    $.map(response.data, function(k, i) {
-                        stringItems += `<Item><Version>105</Version>`
-                        stringItems += `<Status>${k.magaya__Status}</Status>`
-                        stringItems += `<Pieces>${k.magaya__Pieces}</Pieces>`
-                        stringItems += `<PackageName>${k.Name}</PackageName>`
-                        stringItems += `<Length Unit="in">${k.magaya__Length}</Length>`
-                        stringItems += `<Height Unit="in">${k.magaya__Height}</Height>`
-                        stringItems += `<Width Unit="in">${k.magaya__Width}</Width>`
-                        stringItems += `<Weight Unit="kg">${k.magaya__Weigth}</Weight>
-                                        <Volume Unit="ft3">${k.magaya__Volume}</Volume>`
-                        stringItems += `<Package>`
-                        stringItems += `<Type>Container</Type>
-                                        <Name>${k.Name}</Name>
-                                        </Package>
-                                        <ContainerInfo>
-                                        <GeneratorSetup>false</GeneratorSetup>
-                                        <IsNonOperatingReefer>false</IsNonOperatingReefer>
-                                        </ContainerInfo>
-                                        </Item>`
-
-                    })
-
-                    if (stringItems !== '') {
-
-                        resolve(stringItems)
-                    } else reject();
+                    resolve(response.data)
                 })
-
-
-
+                .catch(err => {
+                    //dispatch an error
+                })
         });
     }
 
@@ -321,60 +190,65 @@ function roundDec(num) {
 
 
 
-async function sendQuotePdf(data) {
-    console.log(data)
-    let dataVar = await getMagayaVariables()
-    let magaya_url = dataVar["magaya_url"]
-    var endpoint = `http://localhost/zoho_magaya/blog/public/createPdf?url=http://98.211.167.16:3691&data[]=96101&data[]=524288
-                        &cabecera[Email]=${data["Email"]}
-                        &cabecera[State]=${data["State"]}`;
-    fetch(endpoint, {
-        method: 'POST',
-        headers: new Headers({
-            //'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            "Accept": "application/octet-stream",
-        }),
-    })
-    .then((res) => res.blob())
-  .then((blob) => URL.createObjectURL(blob))
-  .then((href) => {
-    Object.assign(document.createElement('a'), {
-      href,
-      download: 'filename.pdf',
-    }).click();
-})
+/**build the field if value is not empty
+ * @field XML node
+ * @value XML node value
+ *
+ * returns <field>value</field> if value is not null
+ */
+function buildField(field, value) {
 
+    let node_value = ``
+    if (!_.isEmpty(value) && value !== undefined && value !== null && value !== "undefined" && value !== "null") {
+        if (!_.isObject(value)) {
+            return `<${field}>${value}</${field}>`;
+        }
+    }
+
+    return node_value;
+
+}
+
+let mapa = {
+    "CreatedOn": "Created_Time",
+    "Number": "magaya__Number",
+    "ExpirationDate": "magaya__ExpirationDate",
+    "IssuedByName": "magaya__IssuedBy",
+    "SalespersonName": "magaya__Seller",
+    "Service": "magaya__Service",
+    "Direction": "magaya__Direction",
+    "DescriptionOfGoods": "magaya__Description",
+    "IsHazardous": "magaya__Is_Hazardous",
+    //"Carrier": {"Type": "Carrier", "Name": "magaya__Carrier"}
 }
 
 
 //get items package table, return xml string items
+/*
+@idSQuote quote to get from
+*/
 async function buildStringQuote2(idSQuote) {
     //check if account, contact, shipper, consignee and carrier
     //are magaya customers (has magaya__GUID)
     stringQuote = methodCode = '';
     transpMethods = new Array();
-    storeQuote.dispatch(findById({id: idSQuote}))
+    //storeQuote.dispatch(findById({id: idSQuote}))
 
     quoteXML = quoteXML[0]
-    console.log("JSON QUOTE", quoteXML)
 
     stringQuote += `<IsCommerceQuotation>false</IsCommerceQuotation>`
-    stringQuote += `<CreatedOn>${quoteXML.Created_Time}</CreatedOn>`
-    stringQuote += `<Number>${quoteXML.magaya__Number}</Number>`
+
+    $.map(mapa, function(k, v) {
+        console.log(v, quoteXML[`${k}`])
+        stringQuote += buildField(v, quoteXML[`${k}`])
+    })
+
     stringQuote += `<CreatedByName>${quoteXML.Owner.name}</CreatedByName>
                     <Version>104</Version>`
-    stringQuote += `<ExpirationDate>${quoteXML.magaya__ExpirationDate}</ExpirationDate>`
-    stringQuote += `<IssuedByName>${quoteXML.magaya__IssuedBy}</IssuedByName>
-                    <SalespersonName>${quoteXML.magaya__Seller}</SalespersonName>`
-                    //<Salesperson GUID=dsfsdfsdfsdf></Salesperson><Type>Salesperson</Type><Name></Name>
 
-    stringQuote += `<Service>${quoteXML.magaya__Service}</Service>`
-    stringQuote += `<Direction>${quoteXML.magaya__Direction}</Direction>
-                    <IsOpenQuote>true</IsOpenQuote>
-                    <Status>Open</Status>
-                    <DescriptionOfGoods>${quoteXML.magaya__Description}</DescriptionOfGoods>
-                    <IsHazardous>${quoteXML.magaya__Is_Hazardous}</IsHazardous>`
+    //<Salesperson GUID=dsfsdfsdfsdf></Salesperson><Type>Salesperson</Type><Name></Name>
+
+    stringQuote += `<IsOpenQuote>true</IsOpenQuote><Status>Open</Status>`
 
     let contactName =''
     let contact = ''
@@ -383,9 +257,13 @@ async function buildStringQuote2(idSQuote) {
     try {
         accountId = quoteXML.Account.id
         storeAccounts.dispatch(findAccount({id: accountId}))
-        stringQuote += `<ContactName>${singleAccount['Account_Name']}</ContactName>
-                    <Contact GUID="${singleAccount['magaya__MagayaGUID']}">
-                        <Type>Client</Type>
+        stringQuote += `<ContactName>${singleAccount['Account_Name']}</ContactName>`
+
+        if (!_.isEmpty(singleAccount['magaya__MagayaGUID']))
+            stringQuote += `<Contact GUID="${singleAccount['magaya__MagayaGUID']}">`
+        else stringQuote += `<Contact>`;
+
+        stringQuote += `<Type>Client</Type>
                         <Name>${singleAccount['Account_Name']}</Name>
                         <Email>${singleAccount['magaya__MagayaEmail']}</Email>
                     </Contact>`
@@ -397,17 +275,19 @@ async function buildStringQuote2(idSQuote) {
     }
 
     //representative
-    stringQuote += `<RepresentativeName>${quoteXML.magaya__ContactName}</RepresentativeName>
+    /*stringQuote += `<RepresentativeName>${quoteXML.magaya__ContactName}</RepresentativeName>
                     <Representative GUID="${quoteXML.magaya__MagayaGUID}">
                         <Type>EntityContact</Type>
                         <Name>${quoteXML.magaya__ContactName}</Name>
                         <Email>${quoteXML.magaya__ContactEmail}</Email>
                         <Phone>${quoteXML.magaya__ContactPhone}</Phone>
                         <MobilePhone>${quoteXML.magaya__ContactMobile}</MobilePhone>
-                    </Representative>`
+                    </Representative>`*/
 
     //carrier
-    stringQuote += `<Carrier><Type>Carrier</Type><Name>${quoteXML.magaya__Carrier}</Name></Carrier>`
+    if (!_.isEmpty(quoteXML.magaya__Carrier)) {
+        stringQuote += `<Carrier><Type>Carrier</Type><Name>${quoteXML.magaya__Carrier}</Name></Carrier>`
+    }
 
     if (!(_.isEmpty(quoteXML.magaya__ConsigneeName))) {
 
@@ -436,25 +316,213 @@ async function buildStringQuote2(idSQuote) {
 }
 
 
-
-
 //send quote
 async function buildStringXML(idSQuote) {
-    xml = await buildStringQuote2(idSQuote);
-    stringXML = '<Quotation xmlns="http://www.magaya.com/XMLSchema/V1" xsi:schemaLocation="http://www.magaya.com/XMLSchema/V1 schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
-    stringXML += stringQuote;
-    stringXML += '</Quotation>'
+    //check magaya updated
+    storeQuote.dispatch(findById({id: idSQuote}))
+    let quote = quoteXML[0]
 
-    console.log(stringXML)
-    sendmQuote(stringXML)
+    if (quote.Magaya_updated) {
+        codeError = 'It seems like this mQuote is already in Magaya. Please contact with your administrator';
+        show = false;
+        field = ``;
+        module = 'mQuote'
+        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
+
+    } else {
+
+        xml = await buildStringQuote2(idSQuote);
+        stringXML = '<Quotation xmlns="http://www.magaya.com/XMLSchema/V1" xsi:schemaLocation="http://www.magaya.com/XMLSchema/V1 schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
+        stringXML += stringQuote;
+
+        //charges
+        let account_id = 0;
+        let data_account = {}
+        let charges = ``
+        let stringCharge = ``
+        stringCharge = await $(this).buildStringCharge(idSQuote)
+                    .then(resp => {
+                        //if its here, charges exists, so get the account data
+                        account_id = resp[0].magaya__ApplyToAccounts.id
+                        console.log(account_id)
+                        charges = resp;
+                    })
+                    .catch(() => {
+                        //distpath an error
+                        charges = '';
+                    });
+
+        //do not send charges without an apply to
+        if (account_id > 0) {
+            let data = await getRecordCRM("Accounts", account_id)
+                    .then(resp => {
+                        console.log("Resp", resp)
+                        data_account = resp[0]
+                    })
+
+            if (charges !== undefined && !_.isEmpty(charges)) {
+                let stringCharges = buildXmlCharge(charges, data_account)
+                stringXML += '<Charges UseSequenceOrder="false">' + stringCharges + "</Charges>";
+            }
+        }
+
+        //items
+        let items = {}
+        stringItem = await $(this).buildStringItems(idSQuote)
+                    .then(resp => {
+                        console.log("Items", resp)
+                        items = resp
+                    })
+                    .catch(() => {
+                        //distpath an error
+                        charges = '';
+                    });
+
+        if (items !== undefined && !_.isEmpty(items)) {
+            let stringItems = buildXmlItem(items)
+            stringXML += '<Items>' + stringItems + "</Items>";
+        }
+
+        stringXML += '</Quotation>'
+
+        console.log(stringXML);
+
+        //Utils.blockUI();
+        let result = await sendmQuote(stringXML, idSQuote)
+    }
 } //.send-quote
 
+
+
+/*
+@items object
+*/
+function buildXmlItem(items) {
+    let stringItems = ``;
+    if (!_.isEmpty(items)) {
+
+        $.map(items, function(k, i) {
+            let measure_length = "in";
+            let measure_volume = "ft3";
+            let measure_weigth = "lb";
+
+            if (k.magaya__Measure_System === "International") {
+                measure_length = "m";
+                measure_volume = "m3";
+                measure_weigth = "kg";
+            }
+            stringItems += `<Item><Version>105</Version>`
+            stringItems += `<Status>${k.magaya__Status}</Status>`
+            stringItems += `<Pieces>${k.magaya__Pieces}</Pieces>`
+            stringItems += `<PackageName>${k.Name}</PackageName>`
+            stringItems += `<Length Unit="${measure_length}">${k.magaya__Length}</Length>`
+            stringItems += `<Height Unit="${measure_length}">${k.magaya__Height}</Height>`
+            stringItems += `<Width Unit="${measure_length}">${k.magaya__Width}</Width>`
+            stringItems += `<Weight Unit="${measure_weigth}">${k.magaya__Weigth}</Weight>
+                            <Volume Unit="${measure_volume}">${k.magaya__Volume}</Volume>`
+            stringItems += `<Package>`
+            stringItems += `<Type>Container</Type>
+                            <Name>${k.Name}</Name>
+                            </Package>
+                            <ContainerInfo>
+                                <GeneratorSetup>false</GeneratorSetup>
+                                <IsNonOperatingReefer>false</IsNonOperatingReefer>
+                            </ContainerInfo>
+                            </Item>`
+
+        })
+
+    }
+
+    return stringItems;
+
+}
+
+
+
+/*
+@charges object
+@data_account object (apply to)
+*/
+function buildXmlCharge(charges, data_account) {
+
+    let chargesString = ``
+
+    if (!_.isEmpty(charges)) {
+        $.map(charges, function (k, v) {
+            chargesString += `<Charge>
+                <Type>Standard</Type>`
+
+                if (data_account.magaya__MagayaGUID !== null && data_account.magaya__MagayaGUID !== undefined && data_account.magaya__MagayaGUID !== "null" && data_account.magaya__MagayaGUID !== "undefined")
+                    chargesString += `<Entity GUID="${data_account.magaya__MagayaGUID}">`
+                else
+                    chargesString += `<Entity>`
+
+                    chargesString += `<Type>Client</Type>
+                    <Name>${data_account.Account_Name}</Name>
+                    <IsPrepaid>true</IsPrepaid>
+                </Entity>`;
+                chargesString += `
+                            <Quantity>${k.magaya__CQuantity}</Quantity>
+                            <Price Currency="USD">${k.magaya__Price}</Price>
+                            <HomeCurrency Code="USD">
+                                <Name>United States Dollar</Name>
+                                <ExchangeRate>1.00</ExchangeRate>
+                                <DecimalPlaces>2</DecimalPlaces>
+                                <IsHomeCurrency>true</IsHomeCurrency>
+                            </HomeCurrency>
+                            <Amount Currency="USD">${k.magaya__Amount}</Amount>
+                            <IsPrepaid>true</IsPrepaid>
+                            <IsThirdPartyCharge>false</IsThirdPartyCharge>
+                            <ChargeDefinition>
+                                <Type>Other</Type>
+                                <Description>Description</Description>
+                                <Code>${k.magaya__ChargeCode}</Code>
+                                <AccountDefinition>
+                                    <Type>Income</Type>
+                                    <Name>Servicios</Name>
+                                    <Currency Code="USD">
+                                        <Name>United States Dollar</Name>
+                                        <ExchangeRate>1.00</ExchangeRate>
+                                        <DecimalPlaces>2</DecimalPlaces>
+                                        <IsHomeCurrency>true</IsHomeCurrency>
+                                    </Currency>
+                                </AccountDefinition>
+                                <Amount Currency="USD">0.00</Amount>
+                                <Currency Code="USD">
+                                    <Name>United States Dollar</Name>
+                                    <ExchangeRate>1.00</ExchangeRate>
+                                    <DecimalPlaces>2</DecimalPlaces>
+                                    <IsHomeCurrency>true</IsHomeCurrency>
+                                </Currency>
+                                <Enforce3rdPartyBilling>false</Enforce3rdPartyBilling>
+                            </ChargeDefinition>
+                            <Status>Open</Status>
+                            <Description>${k.magaya__Charge_Description}</Description>
+                            <PriceInCurrency Currency="USD">${k.magaya__Price}</PriceInCurrency>
+                            <AmountInCurrency Currency="USD">${k.magaya__Amount_Total}</AmountInCurrency>
+                            <ExchangeRate>1.00</ExchangeRate>
+                            <Currency Code="USD">
+                                <Name>United States Dollar</Name>
+                                <ExchangeRate>1.00</ExchangeRate>
+                                <DecimalPlaces>2</DecimalPlaces>
+                                <IsHomeCurrency>true</IsHomeCurrency>
+                            </Currency>
+                            <ShowInDocuments>true</ShowInDocuments>
+                            <IsCredit>false</IsCredit>
+                            <IsFromSegment>false</IsFromSegment>
+                        </Charge>`;
+            })
+    }
+
+    return chargesString
+}
 
 /*
  * async function to build the XML to send Magaya
  * @idem dataArray of Squote from Quote List
- */
+ *
 async function buildXML(idQuote) {
 
     stringCharge = stringItem = stringQuote = stringXML = '';
@@ -474,11 +542,10 @@ async function buildXML(idQuote) {
         //code
         stringXML += '<Charges UseSequenceOrder="false">' + stringCharge + "</Charges>";
     }
-
     if (stringItem !== undefined) {
         //code
         stringXML += "<Items>" + stringItem + "</Items>";
-    }*/
+    }*
 
     stringXML += '</Quotation>'
 
@@ -508,11 +575,10 @@ async function buildXML(idQuote) {
         //code
         stringXML += '<Charges UseSequenceOrder="false">' + stringCharge + "</Charges>";
     }
-
     if (stringItem !== undefined) {
         //code
         stringXML += "<Items>" + stringItem + "</Items>";
-    }*/
+    }*
 
     //stringXML += '</Quotation>'
         //finding user
@@ -549,7 +615,6 @@ async function buildXML(idQuote) {
                 })
                 stringCharge = stringItem = stringQuote = stringXML = '';
             } else {
-
                 Swal.fire({
                         title: 'Success',
                         text: 'Operation success',
@@ -557,17 +622,14 @@ async function buildXML(idQuote) {
                         allowOutsideClick: false
                     })
                     //all OK, update QuoteInMagaya field
-
                 //$(this).updateRecordCRM(data);
-
             } //else
+        }) //magaya api*
 
-        }) //magaya api*/
-
-} //function buildXML
+} //function buildXML*/
 
 
-async function sendmQuote(mquote) {
+async function sendmQuote(mquote, idQuote) {
     config = await getMagayaVariables()
 
     flags = MagayaAPI.TRANSACTIONS_FLAGS.BasicFields
@@ -587,12 +649,11 @@ async function sendmQuote(mquote) {
     MagayaAPI.sendRequest(data, function(result) {
         //console.log(result)
             if (result.error) {
+
                 Swal.fire({
                     title: result.error,
                     text: result.data,
                     icon: 'error'
-                }).then(function() {
-                    location.reload();
                 })
                 stringCharge = stringItem = stringQuote = stringXML = '';
             } else {
@@ -602,10 +663,25 @@ async function sendmQuote(mquote) {
                         text: 'Operation success',
                         icon: 'success',
                         allowOutsideClick: false
-                    })
-                    //all OK, update QuoteInMagaya field
+                    }).then(function() {
+                        //all OK, update QuoteInMagaya field
+                        var config={
+                            Entity:"magaya__SQuotes",
+                            APIData:{
+                                "id": idQuote,
+                                "Magaya_updated": true
+                            },
+                            Trigger:[""]
+                        }
+                        ZOHO.CRM.API.updateRecord(config)
+                            .then(function(data){
+                                console.log("Update data", data)
+                            })
 
-                //$(this).updateRecordCRM(data);
+                        storeQuote.dispatch(updateQuoteByField({id: idQuote, field: "Magaya_updated", value: true}))
+                    })
+
+
 
             } //else
 
@@ -616,11 +692,15 @@ async function sendmQuote(mquote) {
 //get related records
 function getRelatedRecordCRM(entity, related_list, recordId) {
     return new Promise(function(resolve, reject) {
+        let data_charge = {}
         ZOHO.CRM.API.getRelatedRecords({ Entity: entity, RecordID: recordId, RelatedList: related_list })
             .then(function(data) {
                 if (!_.isEmpty(data.data)) {
                     resolve(data.data)
+                } else {
+                    resolve()
                 }
+
             })
     })
 }
@@ -710,6 +790,22 @@ function getTranspMethod(transpId) {
         })
 }
 
+
+//get transp method for string xml quotation
+async function getRecordCRM(entity, idRecord) {
+    //code
+    return new Promise(function(resolve, reject) {
+       ZOHO.CRM.API.getRecord({ Entity: entity, RecordID: idRecord })
+            .then(function(data) {
+                resolve(data.data);
+            })
+            .catch(function(error) {
+                reject()
+            })
+    })
+}
+
+
 function ping(host, port, pong) {
 
     var started = new Date().getTime();
@@ -753,3 +849,359 @@ function ping(host, port, pong) {
 
     return indexed_array;
 }
+
+
+/*** *mQuote pdf
+ *@id quote id
+ */
+async function make_pdf(id) {
+    try {
+        let pdf = await buildPdf(id);
+    }
+    catch(error) {
+        let message = error
+        codeError = error;
+        field = ``;
+        show = false;
+        module = ''
+        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+    }
+}
+
+async function buildPdf(mquote_id) {
+    quoteToEdit = [];
+    Utils.blockUI()
+    //dispatch
+    storeQuote.dispatch(findQuote({id: mquote_id}))
+
+    //general data
+    let orgData = localStorage.getItem('organization')
+    orgData = JSON.parse(orgData)
+    let charges = []
+    let items = []
+    items = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
+    charges = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id)
+    Utils.unblockUI();
+
+
+    let data = `<div class="HtmltoPdf">`
+    data += buildPdfHeader(orgData, quoteToEdit)
+
+    data += `
+            <div class="container mt-3">
+                <div class="row session-fourth headerMquote headerPrincipal">
+                    <div class="col-sm">
+                        Charges
+                    </div>
+                </div>`
+    data += `
+        <div class="row headerMquote">
+            <div class="col-sm-5">
+                Charge Description
+            </div>
+            <div class="col-sm">
+                Price
+            </div>
+            <div class="col-sm">
+                Quantity
+            </div>
+            <div class="col-sm">
+                Tax Amount
+            </div>
+            <div class="col-sm">
+                Final Amount
+            </div>
+        </div>
+        `
+    data += buildPdfCharges(charges)
+    data += `</div>`
+
+    data += `<div class="container mt-3">
+                <div class="row session-fourth headerMquote headerPrincipal">
+                    <div class="col-sm">
+                        Items
+                    </div>
+                </div>`
+                data += `
+                <div class="row headerMquote">
+                    <div class="col-sm-3">
+                        Package Type
+                    </div>
+                    <div class="col-sm">
+                        Quantity
+                    </div>
+                    <div class="col-sm-3">
+                        Dimensions
+                    </div>
+                    <div class="col-sm">
+                        Weight
+                    </div>
+                    <div class="col-sm">
+                        Volume
+                    </div>
+                </div>
+                `
+    data += buildPdfItems(items)
+    data += `</div>`
+
+    data += `<div class="container mt-3">
+            <div class="row session-fourth headerMquote headerPrincipal">
+                <div class="col-sm">
+                    Payment Terms
+                </div>
+            </div>`
+    data += `<div class="row">
+        <div class="col headerMquote p-2">${quoteToEdit["magaya_Terms"]}</div>`
+    data += `</div></div>`
+
+    $("#htmlToPdf").html(data)
+    getPdf("htmlToPdf")
+    //$("#pdfModal").modal("show")
+}
+
+
+function getPdf(domElement) {
+    var element = document.getElementById(domElement);
+    var opt = {
+        margin: [30, 10, 30, 10], //top, left, buttom, right
+        //filename: this.auth_user,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+            scale: 1,
+            bottom: 10
+        },
+        pagebreak: { mode: ['css'] },
+        jsPDF: {
+            unit: 'mm',
+            orientation: 'portrait'
+        }
+    };
+    html2pdf().set(opt).from(element).then(function() {
+        $("#inner").css({ "font-size": "11px", "background-color": "#F5F5F5" });
+        $("#message-pdf").html("Successfully created PDF")
+            .css("display", "inline").fadeIn("slow").delay(2000).fadeOut("slow");
+
+    }).save();
+}
+
+/****build the header
+ * @orgData organization data
+ * @quote data
+ */
+function buildPdfHeader(orgData, quoteToEdit) {
+    let data = ``;
+    if (!_.isEmpty(orgData) && !_.isEmpty(quoteToEdit)) {
+        data = `<div class="container">
+                    <div class="row session-first">
+                        <div class="col-md-6 text-right">
+                            ${orgData["company_name"]}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">${orgData["website"]}</div>
+                        <div class="col">${orgData["phone"]}</div>
+                        <div class="col">${orgData["primary_email"]}</div>
+                        <div class="col">${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
+                    </div>
+                </div>
+
+
+            <div class="container mt-3 mb-3">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 headerMquote p-2 headerTable">Customer</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["Account"]["name"]}</div>
+                            <div class="w-100"></div>
+                            <div class="col-4 headerMquote p-2 headerTable">Representative</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["magaya__Representative"]["name"]}</div>
+                            <div class="w-100"></div>
+                            <div class="col-4 headerMquote p-2 headerTable">Phone</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["magaya__ContactMobile"]}</div>
+                            <div class="w-100"></div>
+                            <div class="col-4 headerMquote p-2 headerTable">Email</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["magaya__ContactEmail"]}</div>
+                            <div class="w-100"></div>
+                            <div class="col-4 headerMquote p-2 headerTable">Address</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["magaya__ContactStreet"]}, ${quoteToEdit["magaya__ContactCity"]}, ${quoteToEdit["magaya__ContactState"]}, ${quoteToEdit["magaya__ContactCountry"]}</div>
+                            <div class="w-100"></div>
+                        </div>
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 headerMquote p-2 headerTable">Quote Number</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["magaya__Number"]}</div>
+                            <div class="w-100"></div>
+                            <div class="col-4 headerMquote p-2 headerTable">Creation Date</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["Created_Time"]} </div>
+                            <div class="w-100"></div>
+                            <div class="col-4 headerMquote p-2 headerTable">Expiration Date</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["magaya__ExpirationDate"]}</div>
+                            <div class="w-100"></div>
+                            <div class="col-4 headerMquote p-2 headerTable">Contact To</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["magaya__Employee"]}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row headerMquote headerPrincipal mt-3">
+                    <div class="col-sm p-2">
+                        Quotation Info
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 headerMquote p-2">
+                        <span>Description of Goods</span>: ${quoteToEdit["magaya__Description"]}
+                    </div>
+
+                    <div class="col-sm headerMquote p-2">
+                        <span>Origin</span>: ${quoteToEdit["magaya__Origin"]}
+                    </div>
+                    <div class="col-sm headerMquote p-2">
+                        <span>Destination</span>: ${quoteToEdit["magaya__Destination"]}
+                    </div>
+                </div>
+            </div>`
+    }
+
+    return data;
+}
+
+/****build charges styles for PDF
+ * @charges charges object
+ */
+function buildPdfCharges(charges) {
+    let data = ``
+    if (!_.isEmpty(charges)) {
+
+        let amount_total = 0;
+        let amount_tax = 0;
+        $.map(charges, function(k, v) {
+            amount_total += roundDec(k["magaya__Final_Amount"]);
+            amount_tax += roundDec(k["magaya__Tax_Amount"])
+            data += `<div class="row headerMquote">
+                        <div class="col-sm-5">
+                            ${k["Name"]}
+                        </div>
+                        <div class="col-sm">
+                            ${k["magaya__Price"]}
+                        </div>
+                        <div class="col-sm">
+                            ${k["magaya__CQuantity"]}
+                        </div>
+                        <div class="col-sm">
+                            ${k["magaya__Tax_Amount"]}
+                        </div>
+                        <div class="col-sm">
+                            ${k["magaya__Final_Amount"]}
+                        </div>
+                    </div>
+                        `
+        })
+
+        data += `<div class="row headerMquote"><div class="col-sm-5"></div><div class="col-sm"></div><div class="col-sm"></div><div class="col-sm">${roundDec(amount_tax)}</div><div class="col-sm">${roundDec(amount_total)}</div></div>`
+        data += `</div>`
+    }
+
+    return data
+}
+
+/****build items styles for PDF
+ * @items items object
+ */
+ function buildPdfItems(items) {
+    let data = ``
+    if (!_.isEmpty(items)) {
+
+        let totalPieces = 0
+        let totalVolume = 0
+        let totalWeight = 0
+        let total_weight_international = 0
+        let total_volume_international = 0
+        let total_weight_english = 0
+        let total_volume_english = 0
+
+        $.map(items, function(k, v) {
+            totalPieces += parseInt(k.magaya__Pieces)
+
+            let measure_length = "in";
+            let measure_weigth = "lb";
+            let measure_volume = "ft3"
+
+            if (k.magaya__Measure_System === "International") {
+                measure_length = "m";
+                measure_volume = "m3";
+                measure_weigth = "kg"
+                total_volume_international += roundDec(k.magaya__Volume * k.magaya__Pieces)
+                total_weight_international += roundDec(k.magaya__Weigth * k.magaya__Pieces)
+
+            }else {
+                //pulgadas y libras
+                total_volume_english += roundDec(k.magaya__Volume * k.magaya__Pieces)
+                total_weight_english += roundDec(k.magaya__Weigth * k.magaya__Pieces)
+            }
+
+            data += `<div class="row headerMquote">
+                        <div class="col-sm-3">
+                            ${k["Name"]}
+                        </div>
+                        <div class="col-sm">
+                            ${k["magaya__Pieces"]}
+                        </div>
+                        <div class="col-sm-3">
+                            ${k["magaya__Length"]}*${k["magaya__Height"]}*${k["magaya__Width"]} (${measure_length})
+                        </div>
+                        <div class="col-sm">
+                            ${k["magaya__Weigth"]}
+                        </div>
+                        <div class="col-sm">
+                            ${k["magaya__Volume"]}
+                        </div>
+                    </div>
+                        `
+        })
+        //get all to international system
+        totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
+        totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
+
+        data += `<div class="row headerMquote">
+        <div class="col-sm-3">
+            Totals
+        </div>
+        <div class="col-sm">
+            ${totalPieces}
+        </div>
+        <div class="col-sm-3">
+        </div>
+        <div class="col-sm">
+            ${roundDec(totalWeight)}
+        </div>
+        <div class="col-sm">
+            ${roundDec(totalVolume)}
+        </div>
+    </div>`
+
+        data += `</div>`
+    }
+
+    return data
+}
+
+
+
+/*async function getRelatedCharges(idQuote) {
+    ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idQuote, RelatedList: "magaya__SQuote_Name1", page: 1, per_page: 200 })
+        .then(function(response) {
+            if (!_.isEmpty(response.data)) {
+                idemItems = response.data
+                $.each(idemItems, function(i, k) {
+                //dispatch items to store
+                    storeItem.dispatch(addItem({...k}))
+
+                    }) //each
+
+            }
+        })
+}*/
