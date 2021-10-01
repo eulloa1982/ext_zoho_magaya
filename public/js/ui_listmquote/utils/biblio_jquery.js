@@ -891,6 +891,25 @@ async function buildPdf(mquote_id) {
                         Charges
                     </div>
                 </div>`
+    data += `
+        <div class="row headerMquote">
+            <div class="col-sm-5">
+                Charge Description
+            </div>
+            <div class="col-sm">
+                Price
+            </div>
+            <div class="col-sm">
+                Quantity
+            </div>
+            <div class="col-sm">
+                Tax Amount
+            </div>
+            <div class="col-sm">
+                Final Amount
+            </div>
+        </div>
+        `
     data += buildPdfCharges(charges)
     data += `</div>`
 
@@ -900,6 +919,25 @@ async function buildPdf(mquote_id) {
                         Items
                     </div>
                 </div>`
+                data += `
+                <div class="row headerMquote">
+                    <div class="col-sm-3">
+                        Package Type
+                    </div>
+                    <div class="col-sm">
+                        Quantity
+                    </div>
+                    <div class="col-sm-3">
+                        Dimensions
+                    </div>
+                    <div class="col-sm">
+                        Weight
+                    </div>
+                    <div class="col-sm">
+                        Volume
+                    </div>
+                </div>
+                `
     data += buildPdfItems(items)
     data += `</div>`
 
@@ -952,32 +990,20 @@ function buildPdfHeader(orgData, quoteToEdit) {
     if (!_.isEmpty(orgData) && !_.isEmpty(quoteToEdit)) {
         data = `<div class="container">
                     <div class="row session-first">
-                    <div class="col"></div>
-                    <div class="col"></div>
-                    <div class="col-md-6 text-right">
-                        ${orgData["company_name"]}
+                        <div class="col-md-6 text-right">
+                            ${orgData["company_name"]}
+                        </div>
                     </div>
-                </div>
-                </div>
-
-            <div class="container mb-3">
-                <div class="row">
-                    <div class="col-6">
                     <div class="row">
-                        <div class="col-4 headerMquote p-2 headerTable">Quote</div>
-                        <div class="col headerMquote p-2">${quoteToEdit["magaya__Number"]}</div>
-                        <div class="w-100"></div>
-                        <div class="col-4 headerMquote p-2 headerTable">Creation Date</div>
-                        <div class="col headerMquote p-2">${quoteToEdit["Created_Time"]}</div>
-                        <div class="w-100"></div>
-                        <div class="col-4 headerMquote p-2 headerTable">Valid Until</div>
-                        <div class="col headerMquote p-2">${quoteToEdit["magaya__ExpirationDate"]}</div>
-                    </div>
+                        <div class="col">${orgData["website"]}</div>
+                        <div class="col">${orgData["phone"]}</div>
+                        <div class="col">${orgData["primary_email"]}</div>
+                        <div class="col">${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
                     </div>
                 </div>
-            </div>
 
-            <div class="container">
+
+            <div class="container mt-3 mb-3">
                 <div class="row">
                     <div class="col">
                         <div class="row">
@@ -1001,21 +1027,17 @@ function buildPdfHeader(orgData, quoteToEdit) {
                     <div class="col-1"></div>
                     <div class="col">
                         <div class="row">
+                            <div class="col-4 headerMquote p-2 headerTable">Quote Number</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["magaya__Number"]}</div>
+                            <div class="w-100"></div>
+                            <div class="col-4 headerMquote p-2 headerTable">Creation Date</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["Created_Time"]} </div>
+                            <div class="w-100"></div>
+                            <div class="col-4 headerMquote p-2 headerTable">Expiration Date</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["magaya__ExpirationDate"]}</div>
+                            <div class="w-100"></div>
                             <div class="col-4 headerMquote p-2 headerTable">Contact To</div>
-                            <div class="col headerMquote p-2">${quoteToEdit["magaya__Seller"]}</div>
-                            <div class="w-100"></div>
-                            <div class="col-4 headerMquote p-2 headerTable">Phone</div>
-                            <div class="col headerMquote p-2"> ${orgData["phone"]}</div>
-                            <div class="w-100"></div>
-                            <div class="col-4 headerMquote p-2 headerTable">Email</div>
-                            <div class="col headerMquote p-2">${orgData["primary_email"]}</div>
-                            <div class="w-100"></div>
-                            <div class="col-4 headerMquote p-2 headerTable">Site</div>
-                            <div class="col headerMquote p-2">${orgData["website"]}</div>
-                            <div class="w-100"></div>
-                            <div class="col-4 headerMquote p-2 headerTable">Address</div>
-                            <div class="col headerMquote p-2">${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
-                            <div class="w-100"></div>
+                            <div class="col headerMquote p-2">${quoteToEdit["magaya__Employee"]}</div>
                         </div>
                     </div>
                 </div>
@@ -1049,27 +1071,14 @@ function buildPdfHeader(orgData, quoteToEdit) {
 function buildPdfCharges(charges) {
     let data = ``
     if (!_.isEmpty(charges)) {
-        data += `
-        <div class="row headerMquote">
-            <div class="col-sm-6">
-                Charge Type
-            </div>
-            <div class="col-sm">
-                Price
-            </div>
-            <div class="col-sm">
-                Quantity
-            </div>
-            <div class="col-sm">
-                Amount
-            </div>
-        </div>
-        `
+
         let amount_total = 0;
+        let amount_tax = 0;
         $.map(charges, function(k, v) {
             amount_total += roundDec(k["magaya__Final_Amount"]);
+            amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<div class="row headerMquote">
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                             ${k["Name"]}
                         </div>
                         <div class="col-sm">
@@ -1079,13 +1088,16 @@ function buildPdfCharges(charges) {
                             ${k["magaya__CQuantity"]}
                         </div>
                         <div class="col-sm">
+                            ${k["magaya__Tax_Amount"]}
+                        </div>
+                        <div class="col-sm">
                             ${k["magaya__Final_Amount"]}
                         </div>
                     </div>
                         `
         })
 
-        data += `<div class="row headerMquote"><div class="col-sm-6"></div><div class="col-sm"></div><div class="col-sm">Total</div><div class="col-sm">${roundDec(amount_total)}</div></div>`
+        data += `<div class="row headerMquote"><div class="col-sm-5"></div><div class="col-sm"></div><div class="col-sm"></div><div class="col-sm">${roundDec(amount_tax)}</div><div class="col-sm">${roundDec(amount_total)}</div></div>`
         data += `</div>`
     }
 
@@ -1098,25 +1110,7 @@ function buildPdfCharges(charges) {
  function buildPdfItems(items) {
     let data = ``
     if (!_.isEmpty(items)) {
-        data += `
-        <div class="row headerMquote">
-            <div class="col-sm-4">
-                Package Type
-            </div>
-            <div class="col-sm-1">
-                Quantity
-            </div>
-            <div class="col-sm-3">
-                Dimensions
-            </div>
-            <div class="col-sm">
-                Weight
-            </div>
-            <div class="col-sm">
-                Volume
-            </div>
-        </div>
-        `
+
         let totalPieces = 0
         let totalVolume = 0
         let totalWeight = 0
@@ -1146,10 +1140,10 @@ function buildPdfCharges(charges) {
             }
 
             data += `<div class="row headerMquote">
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             ${k["Name"]}
                         </div>
-                        <div class="col-sm-1">
+                        <div class="col-sm">
                             ${k["magaya__Pieces"]}
                         </div>
                         <div class="col-sm-3">
@@ -1169,10 +1163,10 @@ function buildPdfCharges(charges) {
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
         data += `<div class="row headerMquote">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             Totals
         </div>
-        <div class="col-sm-1">
+        <div class="col-sm">
             ${totalPieces}
         </div>
         <div class="col-sm-3">

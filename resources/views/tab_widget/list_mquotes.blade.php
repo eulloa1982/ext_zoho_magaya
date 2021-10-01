@@ -614,6 +614,11 @@
                                                 </div>
 
                                                 <div class="row">
+                                                    <div class="col-md-4">Tax Amount</div>
+                                                    <div class="col-md-6"><input type="text" class="form-control number new-charge" name="magaya__Tax_Amount" readonly></div>
+                                                </div>
+
+                                                <div class="row">
                                                     <div class="col-md-4">Amount + Tax</div>
                                                     <div class="col-md-6"><input type="text" class="form-control number" name="magaya__Amount_Total" readonly></div>
                                                 </div>

@@ -32,7 +32,6 @@ storeCharge.subscribe(() => {
         $.map(u[1], function(k, v) {
             //get place order
             let order = _.get(CHARGES_FIELDS, [v, 'place'])
-
             if ( _.has(CHARGES_FIELDS, v)) {
                 //get type of field
                 let type = "text"
@@ -73,7 +72,7 @@ storeCharge.subscribe(() => {
 
 
         //imprimir campos en orden
-        for(i = 1; i < 14; i++) {
+        for(i = 1; i < 16; i++) {
             append += arr[i];
         }
 

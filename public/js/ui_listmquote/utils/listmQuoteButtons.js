@@ -285,6 +285,8 @@ $(document).ready(function(){
     if (accountId <= 0)
         throw new UserException('Mandatory data not found: Client Quote is not defined');
 
+    let contact = $(":input[name=magaya__Representative] option:selected").val()
+
     let idQuote = quoteToEdit['id']
 
     let is_hazardous = false;
@@ -311,7 +313,11 @@ $(document).ready(function(){
         "magaya__Destination": sanitize($("input[name=magaya__Destination]").val()),
         "magaya__Origin": sanitize($("input[name=magaya__Origin]").val()),
         "magaya__Is_Hazardous": is_hazardous,
-        "magaya__Terms": sanitize($(":input[name=magaya__Terms]").val())
+        "magaya__Terms": sanitize($(":input[name=magaya__Terms]").val()),
+        "magaya__Representative": contact,
+        "magaya__ContactMobile": sanitize($("input[name=Mobile]").val()),
+            "magaya__ContactHomePhone": sanitize($("input[name=Phone]").val()),
+            "magaya__ContactName": sanitize($("select[name=magaya__Representative] option:selected").text()),
 
 
     }
