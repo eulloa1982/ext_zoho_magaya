@@ -217,6 +217,8 @@ let mapa = {
     "IsHazardous": "magaya__Is_Hazardous",
     //"Carrier": {"Type": "Carrier", "Name": "magaya__Carrier"}
 }
+
+
 //get items package table, return xml string items
 /*
 @idSQuote quote to get from
@@ -686,11 +688,15 @@ async function sendmQuote(mquote, idQuote) {
 //get related records
 function getRelatedRecordCRM(entity, related_list, recordId) {
     return new Promise(function(resolve, reject) {
+        let data_charge = {}
         ZOHO.CRM.API.getRelatedRecords({ Entity: entity, RecordID: recordId, RelatedList: related_list })
             .then(function(data) {
                 if (!_.isEmpty(data.data)) {
                     resolve(data.data)
+                } else {
+                    resolve()
                 }
+
             })
     })
 }
@@ -841,12 +847,27 @@ function ping(host, port, pong) {
 }
 
 
+/*** *mQuote pdf
+ *@id quote id
+ */
 async function make_pdf(id) {
-    let pdf = await buildPdf(id);
+    try {
+        let pdf = await buildPdf(id);
+    }
+    catch(error) {
+        let message = error
+        codeError = error;
+        field = ``;
+        show = false;
+        module = ''
+        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+    }
 }
 
 async function buildPdf(mquote_id) {
     quoteToEdit = [];
+    Utils.blockUI()
     //dispatch
     storeQuote.dispatch(findQuote({id: mquote_id}))
 
@@ -857,94 +878,199 @@ async function buildPdf(mquote_id) {
     let items = []
     items = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
     charges = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id)
+    Utils.unblockUI();
 
-    data = `<div class="container">
-                <div class="row session-first">
-                    <div class="col-md-6">${orgData["company_name"]}</div>
-                        <div class="col-md-6 text-right">
-                            <span class="material-icons">alternate_email</span> ${orgData["primary_email"]}<br />
-                            <span class="material-icons">home</span> ${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}<br />
-                            <span class="material-icons">settings_phone</span> ${orgData["phone"]} <br />
-                            <span class="material-icons">language</span> ${orgData["website"]} <br />
+
+    let data = `<div class="HtmltoPdf">`
+    data += buildPdfHeader(orgData, quoteToEdit)
+
+    data += `
+            <div class="container mt-3">
+                <div class="row session-fourth headerMquote headerPrincipal">
+                    <div class="col-sm">
+                        Charges
+                    </div>
+                </div>`
+    data += buildPdfCharges(charges)
+    data += `</div>`
+
+    data += `<div class="container mt-3">
+                <div class="row session-fourth headerMquote headerPrincipal">
+                    <div class="col-sm">
+                        Items
+                    </div>
+                </div>`
+    data += buildPdfItems(items)
+    data += `</div>`
+
+    data += `<div class="container mt-3">
+            <div class="row session-fourth headerMquote headerPrincipal">
+                <div class="col-sm">
+                    Payment Terms
+                </div>
+            </div>`
+    data += `<div class="row">
+        <div class="col headerMquote p-2">${quoteToEdit["magaya_Terms"]}</div>`
+    data += `</div></div>`
+
+    $("#htmlToPdf").html(data)
+    getPdf("htmlToPdf")
+    //$("#pdfModal").modal("show")
+}
+
+
+function getPdf(domElement) {
+    var element = document.getElementById(domElement);
+    var opt = {
+        margin: [30, 10, 30, 10], //top, left, buttom, right
+        //filename: this.auth_user,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+            scale: 1,
+            bottom: 10
+        },
+        pagebreak: { mode: ['css'] },
+        jsPDF: {
+            unit: 'mm',
+            orientation: 'portrait'
+        }
+    };
+    html2pdf().set(opt).from(element).then(function() {
+        $("#inner").css({ "font-size": "11px", "background-color": "#F5F5F5" });
+        $("#message-pdf").html("Successfully created PDF")
+            .css("display", "inline").fadeIn("slow").delay(2000).fadeOut("slow");
+
+    }).save();
+}
+
+/****build the header
+ * @orgData organization data
+ * @quote data
+ */
+function buildPdfHeader(orgData, quoteToEdit) {
+    let data = ``;
+    if (!_.isEmpty(orgData) && !_.isEmpty(quoteToEdit)) {
+        data = `<div class="container">
+                    <div class="row session-first">
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col-md-6 text-right">
+                        ${orgData["company_name"]}
+                    </div>
+                </div>
+                </div>
+
+            <div class="container mb-3">
+                <div class="row">
+                    <div class="col-6">
+                    <div class="row">
+                        <div class="col-4 headerMquote p-2 headerTable">Quote</div>
+                        <div class="col headerMquote p-2">${quoteToEdit["magaya__Number"]}</div>
+                        <div class="w-100"></div>
+                        <div class="col-4 headerMquote p-2 headerTable">Creation Date</div>
+                        <div class="col headerMquote p-2">${quoteToEdit["Created_Time"]}</div>
+                        <div class="w-100"></div>
+                        <div class="col-4 headerMquote p-2 headerTable">Valid Until</div>
+                        <div class="col headerMquote p-2">${quoteToEdit["magaya__ExpirationDate"]}</div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 headerMquote p-2 headerTable">Customer</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["Account"]["name"]}</div>
+                            <div class="w-100"></div>
+                            <div class="col-4 headerMquote p-2 headerTable">Representative</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["magaya__Representative"]["name"]}</div>
+                            <div class="w-100"></div>
+                            <div class="col-4 headerMquote p-2 headerTable">Phone</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["magaya__ContactMobile"]}</div>
+                            <div class="w-100"></div>
+                            <div class="col-4 headerMquote p-2 headerTable">Email</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["magaya__ContactEmail"]}</div>
+                            <div class="w-100"></div>
+                            <div class="col-4 headerMquote p-2 headerTable">Address</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["magaya__ContactStreet"]}, ${quoteToEdit["magaya__ContactCity"]}, ${quoteToEdit["magaya__ContactState"]}, ${quoteToEdit["magaya__ContactCountry"]}</div>
+                            <div class="w-100"></div>
+                        </div>
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 headerMquote p-2 headerTable">Contact To</div>
+                            <div class="col headerMquote p-2">${quoteToEdit["magaya__Seller"]}</div>
+                            <div class="w-100"></div>
+                            <div class="col-4 headerMquote p-2 headerTable">Phone</div>
+                            <div class="col headerMquote p-2"> ${orgData["phone"]}</div>
+                            <div class="w-100"></div>
+                            <div class="col-4 headerMquote p-2 headerTable">Email</div>
+                            <div class="col headerMquote p-2">${orgData["primary_email"]}</div>
+                            <div class="w-100"></div>
+                            <div class="col-4 headerMquote p-2 headerTable">Site</div>
+                            <div class="col headerMquote p-2">${orgData["website"]}</div>
+                            <div class="w-100"></div>
+                            <div class="col-4 headerMquote p-2 headerTable">Address</div>
+                            <div class="col headerMquote p-2">${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
+                            <div class="w-100"></div>
                         </div>
                     </div>
                 </div>
 
-            <div class="container">
-                <div class="row headerMquote">
-                    <div class="col-sm">
-                        mQuote
-                    </div>
-                </div>
-
-                <div class="row session-second">
-                    <div class="col-sm">
-                        <span>Quote</span><br/> ${quoteToEdit["magaya__Number"]}<br />
-                        <span>Creation Date</span><br/> ${quoteToEdit["Created_Time"]}<br />
-                        <span>Valid Until</span><br/> ${quoteToEdit["magaya__ExpirationDate"]}<br />
-                    </div>
-                    <div class="col-sm">
-                        <span>Subject</span> <br />
-                        <span>Seller</span><br/> ${quoteToEdit["magaya__Seller"]}<br />
-                        <span>Contact</span><br/> ${quoteToEdit["magaya__ContactName"]}<br />
-                    </div>
-                    <div class="col-sm">
-                        <span>Account</span><br/> ${quoteToEdit["Account"]["name"]}<br />
-                        <span>Phone</span><br/> ${quoteToEdit["magaya__ContactMobile"]}<br />
-                        <span>Email</span><br/> ${quoteToEdit["magaya__ContactEmail"]}<br />
-                    </div>
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="row session-third headerMquote">
-                    <div class="col-sm">
-                        Shipment Details
+                <div class="row headerMquote headerPrincipal mt-3">
+                    <div class="col-sm p-2">
+                        Quotation Info
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm">
-                        <span>Value</span><br/> ${quoteToEdit["magaya__QuoteTotalAmount"]}<br />
-                        <span>Shipper</span><br/> ${quoteToEdit["magaya__Shipper"]}<br />
+                    <div class="col-sm-12 headerMquote p-2">
+                        <span>Description of Goods</span>: ${quoteToEdit["magaya__Description"]}
                     </div>
-                    <div class="col-sm">
-                        <span>Origin</span><br/> ${quoteToEdit["magaya__Origin"]}<br />
-                        <span>Consignee</span><br/> ${quoteToEdit["magaya__ConsigneeName"]}<br />
+
+                    <div class="col-sm headerMquote p-2">
+                        <span>Origin</span>: ${quoteToEdit["magaya__Origin"]}
                     </div>
-                    <div class="col-sm">
-                        <span>Destination</span><br/> ${quoteToEdit["magaya__Destination"]}<br />
-                        <span>Main Carrier</span><br/> ${quoteToEdit["magaya__Carrier"]}<br />
+                    <div class="col-sm headerMquote p-2">
+                        <span>Destination</span>: ${quoteToEdit["magaya__Destination"]}
                     </div>
                 </div>
-            </div>
+            </div>`
+    }
 
+    return data;
+}
 
-            <div class="container">
-            <div class="row session-fourth headerMquote">
-                <div class="col-sm">
-                    Service Details
-                </div>
+/****build charges styles for PDF
+ * @charges charges object
+ */
+function buildPdfCharges(charges) {
+    let data = ``
+    if (!_.isEmpty(charges)) {
+        data += `
+        <div class="row headerMquote">
+            <div class="col-sm-6">
+                Charge Type
             </div>
-            <div class="row headerMquote">
-                <div class="col-sm-6">
-                    Service
-                </div>
-                <div class="col-sm">
-                    Price
-                </div>
-                <div class="col-sm">
-                    Quantity
-                </div>
-                <div class="col-sm">
-                    Amount
-                </div>
+            <div class="col-sm">
+                Price
             </div>
-            `
-
+            <div class="col-sm">
+                Quantity
+            </div>
+            <div class="col-sm">
+                Amount
+            </div>
+        </div>
+        `
+        let amount_total = 0;
         $.map(charges, function(k, v) {
+            amount_total += roundDec(k["magaya__Final_Amount"]);
             data += `<div class="row headerMquote">
                         <div class="col-sm-6">
-                            ${k["magaya__Charge_Description"]}
+                            ${k["Name"]}
                         </div>
                         <div class="col-sm">
                             ${k["magaya__Price"]}
@@ -959,13 +1085,112 @@ async function buildPdf(mquote_id) {
                         `
         })
 
-    data += `
+        data += `<div class="row headerMquote"><div class="col-sm-6"></div><div class="col-sm"></div><div class="col-sm">Total</div><div class="col-sm">${roundDec(amount_total)}</div></div>`
+        data += `</div>`
+    }
+
+    return data
+}
+
+/****build items styles for PDF
+ * @items items object
+ */
+ function buildPdfItems(items) {
+    let data = ``
+    if (!_.isEmpty(items)) {
+        data += `
+        <div class="row headerMquote">
+            <div class="col-sm-4">
+                Package Type
+            </div>
+            <div class="col-sm-1">
+                Quantity
+            </div>
+            <div class="col-sm-3">
+                Dimensions
+            </div>
+            <div class="col-sm">
+                Weight
+            </div>
+            <div class="col-sm">
+                Volume
+            </div>
+        </div>
+        `
+        let totalPieces = 0
+        let totalVolume = 0
+        let totalWeight = 0
+        let total_weight_international = 0
+        let total_volume_international = 0
+        let total_weight_english = 0
+        let total_volume_english = 0
+
+        $.map(items, function(k, v) {
+            totalPieces += parseInt(k.magaya__Pieces)
+
+            let measure_length = "in";
+            let measure_weigth = "lb";
+            let measure_volume = "ft3"
+
+            if (k.magaya__Measure_System === "International") {
+                measure_length = "m";
+                measure_volume = "m3";
+                measure_weigth = "kg"
+                total_volume_international += roundDec(k.magaya__Volume * k.magaya__Pieces)
+                total_weight_international += roundDec(k.magaya__Weigth * k.magaya__Pieces)
+
+            }else {
+                //pulgadas y libras
+                total_volume_english += roundDec(k.magaya__Volume * k.magaya__Pieces)
+                total_weight_english += roundDec(k.magaya__Weigth * k.magaya__Pieces)
+            }
+
+            data += `<div class="row headerMquote">
+                        <div class="col-sm-4">
+                            ${k["Name"]}
+                        </div>
+                        <div class="col-sm-1">
+                            ${k["magaya__Pieces"]}
+                        </div>
+                        <div class="col-sm-3">
+                            ${k["magaya__Length"]}*${k["magaya__Height"]}*${k["magaya__Width"]} (${measure_length})
+                        </div>
+                        <div class="col-sm">
+                            ${k["magaya__Weigth"]}
+                        </div>
+                        <div class="col-sm">
+                            ${k["magaya__Volume"]}
+                        </div>
+                    </div>
+                        `
+        })
+        //get all to international system
+        totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
+        totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
+
+        data += `<div class="row headerMquote">
+        <div class="col-sm-4">
+            Totals
+        </div>
+        <div class="col-sm-1">
+            ${totalPieces}
+        </div>
+        <div class="col-sm-3">
+        </div>
+        <div class="col-sm">
+            ${roundDec(totalWeight)}
+        </div>
+        <div class="col-sm">
+            ${roundDec(totalVolume)}
         </div>
     </div>`
 
-            $("#htmlToPdf").html(data)
-            $("#pdfModal").modal("show")
+        data += `</div>`
+    }
+
+    return data
 }
+
 
 
 /*async function getRelatedCharges(idQuote) {

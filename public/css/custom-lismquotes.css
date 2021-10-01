@@ -157,7 +157,6 @@ table td .numeric {
 #htmlToPdf {
     font-family: Arial, Helvetica, sans-serif;
     letter-spacing: 2px;
-    font-size: 16px;
     color: #000;
     word-wrap: break-word;
 }
@@ -168,8 +167,18 @@ table td .numeric {
 
 .headerMquote {
     padding: 5px 0px 5px 0px;
-    border: 2px solid #38312b;
-    font-size: 16px;
+    border: 2px solid #a8a19b;
+    font-size: 12px;
+}
+
+.headerPrincipal {
+    background-color: #c5cbce;
+}
+
+.headerTable {
+    background-color: rgb(220, 237, 245);
+    font-weight: bolder;
+    font-size: 11px;
 }
 
 .session-first {
@@ -179,3 +188,10 @@ table td .numeric {
 .session-second {
     word-wrap: break-word;
 }
+
+.HtmltoPdf .col {
+    font-size: 12px;
+}
+/*.toPdf {
+    font-size: 12px;
+}*/
