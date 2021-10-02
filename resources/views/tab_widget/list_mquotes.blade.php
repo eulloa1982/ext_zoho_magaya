@@ -869,7 +869,7 @@ a {
                                 <div class="tab-pane fade" id="menu6" role="tabpanel" aria-labelledby="menu5-tab" style="min-height: 600px;">
                                     <div class="row" style="margin-bottom:20px; margin-top:20px;">
                                         <div class="col-md-12">
-                                            <label class="col-md-12" style="font-weight: bold;">Terms</label>
+                                            <label class="col-md-12" style="font-weight: bold;">Terms and Conditions</label>
                                             <textarea name="magaya__Terms" id="magaya__Terms" cols="50" rows="5" class="form-control"></textarea>
                                         </div>
                                     </div>
