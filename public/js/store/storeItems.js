@@ -110,9 +110,16 @@ function reducerItem (state = initialStateIntems, actions)  {
             state.singleItem = initialStateIntems.singleItem;
 
             if (byId < 0) {
+                byId = 0
                 newArray = initialStateItem.singleItem
             } else {
-                newArray = {...state.items[byId]}
+                if (!_.isEmpty(state.items[byId])) {
+                    newArray = {...state.items[byId]}
+                }
+                else {
+                    byId = 0
+                    newArray = initialStateItem.singleItem
+                }
             }
 
             return {
@@ -127,8 +134,19 @@ function reducerItem (state = initialStateIntems, actions)  {
             //drop all first
             const byId = actions.payload.id
             state.singleItem = initialStateIntems.singleItem
-            state.itemsOnNew[byId]["id"] = byId
-            //calculate totales
+
+            if (byId < 0) {
+                byId = 0
+                state.itemsOnNew[byId]["id"] = 0
+            } else {
+                if (!_.isEmpty(state.itemsOnNew[byId])) {
+                    state.itemsOnNew[byId]["id"] = byId
+                }
+                else {
+                    byId = 0
+                    state.itemsOnNew[byId]["id"] = 0
+                }
+            }
 
             return {
                 ...state,

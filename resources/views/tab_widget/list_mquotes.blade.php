@@ -827,14 +827,13 @@ a {
 											<thead>
 												<tr>
                                                 <th style="width:9%"></th>
-                                                    <th style="width:9%">Status</th>
-                                                    <th style="width:20%">Description</th>
-													<th style="width:7%">Pieces</th>
-													<th colspan="2" style="width:11%">Length</th>
-                                                    <th colspan="2" style="width:11%">Heigth</th>
-													<th colspan="2" style="width:11%">Width</th>
-													<th colspan="2" style="width:12%">Weigth</th>
-													<th colspan="2" style="width:12%">Volume</th>
+                                                    <th style="width:23%">Description</th>
+													<th style="width:8%">Pieces</th>
+													<th colspan="2" style="width:12%">Length</th>
+                                                    <th colspan="2" style="width:12%">Heigth</th>
+													<th colspan="2" style="width:12%">Width</th>
+													<th colspan="2" style="width:13%">Weigth</th>
+													<th colspan="2" style="width:13%">Volume</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
@@ -844,15 +843,13 @@ a {
                                         <table id="table-items-new" class="table table-striped" style="width:100%;">
 											<thead>
 												<tr>
-                                                    <th style="width:9%"></th>
-                                                    <th style="width:9%">Status</th>
-                                                    <th style="width:20%">Description</th>
-													<th style="width:7%">Pieces</th>
-													<th colspan="2" style="width:11%">Length</th>
-                                                    <th colspan="2" style="width:11%">Heigth</th>
-													<th colspan="2" style="width:11%">Width</th>
-													<th colspan="2" style="width:12%">Weigth</th>
-													<th colspan="2" style="width:12%">Volume</th>
+                                                    <th style="width:23%">Description</th>
+													<th style="width:8%">Pieces</th>
+													<th colspan="2" style="width:12%">Length</th>
+                                                    <th colspan="2" style="width:12%">Heigth</th>
+													<th colspan="2" style="width:12%">Width</th>
+													<th colspan="2" style="width:13%">Weigth</th>
+													<th colspan="2" style="width:13%">Volume</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
