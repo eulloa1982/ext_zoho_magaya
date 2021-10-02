@@ -952,7 +952,7 @@ async function buildPdf(mquote_id) {
                 </div>
             </div>`
     data += `<div class="row">
-        <div class="col headerMquote p-2">${quoteToEdit["magaya_Terms"]}</div>`
+        <div class="col headerMquote p-2">${quoteToEdit["magaya__Terms"]}</div>`
     data += `</div></div>`
 
     $("#htmlToPdf").html(data)
