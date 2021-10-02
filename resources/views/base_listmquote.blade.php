@@ -60,8 +60,8 @@
     <script src="{{ url('select2/js/select2.full.js') }}"></script>
     <script src="{{ url('datetimepicker/build/jquery.datetimepicker.full.min.js') }}"></script>
     <script src="{{ url('underscore-master/underscore-min.js') }}"></script>
-    <script src="{{ url('decimal/decimal.js') }}"></script>
-    <!--SDK CDN-->
+    <!--script src="{{ url('decimal/decimal.js') }}"></script>
+    <SDK CDN-->
     <script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"></script>
     <!--script src="{{ url('js/utils.js') }}"></script-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.1.1/redux.min.js"></script>
