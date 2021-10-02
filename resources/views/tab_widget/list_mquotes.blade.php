@@ -176,10 +176,10 @@ a {
 								<div class="nav nav-tabs" id="nav-tab" role="tablist">
 									<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#menu5" role="tab" aria-controls="nav-home" aria-selected="true">Customer</a>
 									<a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#menu1" role="tab" aria-controls="nav-profile" aria-selected="false">General</a>
-                                    <a class="nav-link" id="nav-terms-tab" data-toggle="tab" href="#menu6" role="tab" aria-controls="nav-contact" aria-selected="false">Terms</a>
 									<a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#menu3" role="tab" aria-controls="nav-contact" aria-selected="false">Routing</a>
 									<a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#menu2" role="tab" aria-controls="nav-contact" aria-selected="false">Charges</a>
 									<a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#menu4" role="tab" aria-controls="nav-contact" aria-selected="false">Items</a>
+                                    <a class="nav-link" id="nav-terms-tab" data-toggle="tab" href="#menu6" role="tab" aria-controls="nav-contact" aria-selected="false">Terms</a>
 							  </div>
 							</nav>
 						  	<!-- ACA SE DEFINE PARA CADA TAB SU CONTENIDO -->
@@ -312,19 +312,6 @@ a {
                                 <!------------------------------------------------------------->
                                 <!-- end tab general -->
                                 <!------------------------------------------------------------->
-
-
-                                <!------------------------------------------------------------->
-                                <!-- tab routing -->
-                                <!------------------------------------------------------------->
-                                <div class="tab-pane fade" id="menu6" role="tabpanel" aria-labelledby="menu5-tab" style="min-height: 600px;">
-                                    <div class="row" style="margin-bottom:20px; margin-top:20px;">
-                                        <div class="col-md-12">
-                                            <label class="col-md-12" style="font-weight: bold;">Payment Terms</label>
-                                            <textarea name="magaya__Terms" id="magaya__Terms" cols="50" rows="5" class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
 
 
                                 <!------------------------------------------------------------->
@@ -705,6 +692,7 @@ a {
 												</tr>
 										   </thead>
 										   <tbody></tbody>
+                                           <tfoot></tfoot>
 										</table>
                                     </div>
 
@@ -724,6 +712,7 @@ a {
 												</tr>
 										   </thead>
 										   <tbody></tbody>
+                                           <tfoot></tfoot>
 										</table>
                                     </div>
 
@@ -837,18 +826,19 @@ a {
 										<table id="table-items" class="table table-striped" style="width:100%;">
 											<thead>
 												<tr>
-                                                    <th style="width:9%"></th>
+                                                <th style="width:9%"></th>
                                                     <th style="width:9%">Status</th>
-                                                    <th style="width:26%">Description</th>
+                                                    <th style="width:20%">Description</th>
 													<th style="width:7%">Pieces</th>
-													<th colspan="2" style="width:10%">Length</th>
-                                                    <th colspan="2" style="width:10%">Heigth</th>
-													<th colspan="2" style="width:10%">Width</th>
-													<th colspan="2" style="width:10%">Weigth</th>
-													<th colspan="2" style="width:10%">Volume</th>
+													<th colspan="2" style="width:11%">Length</th>
+                                                    <th colspan="2" style="width:11%">Heigth</th>
+													<th colspan="2" style="width:11%">Width</th>
+													<th colspan="2" style="width:12%">Weigth</th>
+													<th colspan="2" style="width:12%">Volume</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
+                                           <tfoot></tfoot>
 										</table>
 
                                         <table id="table-items-new" class="table table-striped" style="width:100%;">
@@ -856,16 +846,17 @@ a {
 												<tr>
                                                     <th style="width:9%"></th>
                                                     <th style="width:9%">Status</th>
-                                                    <th style="width:26%">Description</th>
+                                                    <th style="width:20%">Description</th>
 													<th style="width:7%">Pieces</th>
-													<th colspan="2" style="width:10%">Length</th>
-                                                    <th colspan="2" style="width:10%">Heigth</th>
-													<th colspan="2" style="width:10%">Width</th>
-													<th colspan="2" style="width:10%">Weigth</th>
-													<th colspan="2" style="width:10%">Volume</th>
+													<th colspan="2" style="width:11%">Length</th>
+                                                    <th colspan="2" style="width:11%">Heigth</th>
+													<th colspan="2" style="width:11%">Width</th>
+													<th colspan="2" style="width:12%">Weigth</th>
+													<th colspan="2" style="width:12%">Volume</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
+                                           <tfoot></tfoot>
 										</table>
 
 
@@ -873,6 +864,19 @@ a {
                                 <!------------------------------------------------------------->
                                 <!-- end tab items -->
                                 <!------------------------------------------------------------->
+
+
+                                <!------------------------------------------------------------->
+                                <!-- tab terms -->
+                                <!------------------------------------------------------------->
+                                <div class="tab-pane fade" id="menu6" role="tabpanel" aria-labelledby="menu5-tab" style="min-height: 600px;">
+                                    <div class="row" style="margin-bottom:20px; margin-top:20px;">
+                                        <div class="col-md-12">
+                                            <label class="col-md-12" style="font-weight: bold;">Payment Terms</label>
+                                            <textarea name="magaya__Terms" id="magaya__Terms" cols="50" rows="5" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
 
 
 							</div>
