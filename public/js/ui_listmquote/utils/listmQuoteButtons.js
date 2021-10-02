@@ -210,27 +210,27 @@ $(document).ready(function(){
     })
 
 
-        //add charges on new mquote form
-        $("#newCharges").click(function(e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            store.dispatch(addActionEdited())
+    //add charges on new mquote form
+    $("#newCharges").click(function(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        store.dispatch(addActionEdited())
 
-            let $form = $("#new-charge");
-            let item = getFormData($form);
-            let accountId = $("select[name=Account]").val()
-            Object.assign(item, {'magaya__ApplyToAccounts': accountId})
-            Object.assign(item, {"Name": item["magaya__Charge_Description"]})
-            storeCharge.dispatch(addChargeOnNew({...item}))
-            $(`#panel-charge`).animate({width:'toggle'},150);
-        })
+        let $form = $("#new-charge");
+        let item = getFormData($form);
+        let accountId = $("select[name=Account]").val()
+        Object.assign(item, {'magaya__ApplyToAccounts': accountId})
+        Object.assign(item, {"Name": item["magaya__Charge_Description"]})
+        storeCharge.dispatch(addChargeOnNew({...item}))
+        $(`#panel-charge`).animate({width:'toggle'},150);
+    })
 
 
     //boton add mquote
     $(".addMquote").click(function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        $("#Heading").html("Add mQuote");
+        $("#Title").html("Add mQuote");
 
         //drop the state temporal items and charges
         storeItem.dispatch(emptyItems())
@@ -285,6 +285,8 @@ $(document).ready(function(){
     if (accountId <= 0)
         throw new UserException('Mandatory data not found: Client Quote is not defined');
 
+    let contact = $(":input[name=magaya__Representative] option:selected").val()
+
     let idQuote = quoteToEdit['id']
 
     let is_hazardous = false;
@@ -311,9 +313,12 @@ $(document).ready(function(){
         "magaya__Destination": sanitize($("input[name=magaya__Destination]").val()),
         "magaya__Origin": sanitize($("input[name=magaya__Origin]").val()),
         "magaya__Is_Hazardous": is_hazardous,
-        "magaya__Terms": sanitize($(":input[name=magaya__Terms]").val())
-
-
+        "magaya__Terms": sanitize($(":input[name=magaya__Terms]").val()),
+        "magaya__Representative": contact,
+        "magaya__ContactMobile": sanitize($("input[name=Mobile]").val()),
+        "magaya__ContactHomePhone": sanitize($("input[name=Phone]").val()),
+        "magaya__ContactName": sanitize($("select[name=magaya__Representative] option:selected").text()),
+        "magaya__Terms": sanitize($("#magaya__Terms").val()),
     }
 
 
@@ -414,7 +419,7 @@ $(document).ready(function(){
             is_hazardous = true
 
         recordData = {
-            "Name": "QT-00",
+            "Name": $(":input[name=NameQuote]").val() !== "" ? $(":input[name=NameQuote]").val() : "qt",
             "Account": accountId,
             "magaya__Deal": $(":input[name=Deal] option:selected").val() > 0 ? $(":input[name=Deal] option:selected").val() : '',
             "magaya__Shipper": sanitize($(":input[name=magaya__Shipper] option:selected").text()),
@@ -451,7 +456,7 @@ $(document).ready(function(){
             "magaya__AddedTime": $("input[name=magaya__AddedTime]").val(),
             "magaya__Employee": sanitize($("input[name=magaya__Employee]").val()),
             "magaya__Seller": $("select[name=magaya__Seller]").val(),
-            "magaya__Terms": sanitize($(":input[name=magaya__Terms]").val()),
+            "magaya__Terms": sanitize($("#magaya__Terms").val()),
             "magaya__IssuedBy": $(":input[name=magaya__IssuedByName]").val()
         }
 

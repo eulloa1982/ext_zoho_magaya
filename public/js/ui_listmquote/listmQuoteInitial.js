@@ -156,6 +156,14 @@ $(document).ready(function(){
             localStorage.setItem('organization', JSON.stringify(orgData))
         });
 
+        //current user
+        //get current user
+        ZOHO.CRM.CONFIG.getCurrentUser().then(function(data){
+            console.log("Current user", data.users[0].full_name)
+            localStorage.setItem('current_user', data.users[0].full_name)
+        })
+
+
     });
 
 
