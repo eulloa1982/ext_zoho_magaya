@@ -488,19 +488,19 @@ a {
                                             <label class="col-md-12" style="font-weight: bold;">Customer Rol</label>
                                             <!-- Material inline 1 -->
                                             <div class="form-check form-check-inline">
-                                            <input type="checkbox" class="form-check-input" id="rol_shipper" name="inlineMaterialRadiosExample">
+                                            <input type="radio" class="form-check-input" id="rol_shipper" name="customer_rol" value="shipper">
                                             <label class="form-check-label" for="materialInline1">Shipper</label>
                                             </div>
 
                                             <!-- Material inline 2 -->
                                             <div class="form-check form-check-inline">
-                                            <input type="checkbox" class="form-check-input" id="rol_consignee" name="inlineMaterialRadiosExample">
+                                            <input type="radio" class="form-check-input" id="rol_consignee" name="customer_rol" value="consignee">
                                             <label class="form-check-label" for="materialInline2">Consignee</label>
                                             </div>
 
                                             <!-- Material inline 3 -->
                                             <div class="form-check form-check-inline">
-                                            <input type="checkbox" class="form-check-input" id="rol_other" name="inlineMaterialRadiosExample">
+                                            <input type="radio" class="form-check-input" id="rol_other" name="customer_rol" value="other">
                                             <label class="form-check-label" for="materialInline3">Other</label>
                                             </div>
                                         </div>

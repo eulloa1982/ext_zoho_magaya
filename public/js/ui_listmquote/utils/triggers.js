@@ -118,36 +118,53 @@ $("select[name=magaya__TransportationMode]").change(function(e) {
 })
 
 
-let rol_shipper = document.getElementById("rol_shipper")
-rol_shipper.addEventListener("change", validaRolShipper, false)
-function validaRolShipper() {
-    let checked = rol_shipper.checked
-    if (checked) {
-        let account = $("select[name=Account]").val();
-        storeAccounts.dispatch(setAccountShipper({id: account}))
+$('input[type=radio][name=customer_rol]').on('change', function() {
+    switch ($(this).val()) {
+        case 'shipper':
+            rolShipper();
+            break;
+        case 'consignee':
+            rolConsignee();
+            break;
+        case 'other':
+            rolOther();
+            break;
+
     }
-    else {
-        $("select[name=magaya__Shipper]").val("")
-        $("input[name=Shipper_City]").val("")
-        $("input[name=Shipper_State").val("")
-        $("input[name=Shipper_Country]").val("")
-        $("input[name=Shipper_Street]").val("")
-    }
+  });
+
+function rolShipper(){
+    let account = $("select[name=Account]").val();
+    storeAccounts.dispatch(setAccountShipper({id: account}))
+    $("select[name=magaya__ConsigneeName]").val("")
+    $("input[name=Consignee_City]").val("")
+    $("input[name=Consignee_State").val("")
+    $("input[name=Consignee_Country]").val("")
+    $("input[name=Consignee_Street]").val("")
 }
 
-let rol_consignee = document.getElementById("rol_consignee")
-rol_consignee.addEventListener("change", validaRolConsignee, false)
-function validaRolConsignee() {
-    let checked = rol_consignee.checked
-    if (checked) {
-        let account = $("select[name=Account]").val();
-        storeAccounts.dispatch(setAccountConsignee({id: account}))
-    }
-    else {
-        $("select[name=magaya__ConsigneeName]").val("")
-        $("input[name=Consignee_City]").val("")
-        $("input[name=Consignee_State").val("")
-        $("input[name=Consignee_Country]").val("")
-        $("input[name=Consignee_Street]").val("")
-    }
+function rolConsignee() {
+    let account = $("select[name=Account]").val();
+    storeAccounts.dispatch(setAccountConsignee({id: account}))
+    $("select[name=magaya__Shipper]").val("")
+    $("input[name=Shipper_City]").val("")
+    $("input[name=Shipper_State").val("")
+    $("input[name=Shipper_Country]").val("")
+    $("input[name=Shipper_Street]").val("")
 }
+
+function rolOther() {
+    $("select[name=magaya__ConsigneeName]").val("")
+    $("input[name=Consignee_City]").val("")
+    $("input[name=Consignee_State").val("")
+    $("input[name=Consignee_Country]").val("")
+    $("input[name=Consignee_Street]").val("")
+    $("select[name=magaya__Shipper]").val("")
+    $("input[name=Shipper_City]").val("")
+    $("input[name=Shipper_State").val("")
+    $("input[name=Shipper_Country]").val("")
+    $("input[name=Shipper_Street]").val("")
+}
+
+
+
