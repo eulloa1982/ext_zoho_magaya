@@ -147,7 +147,6 @@ function limpiar_form() {
 
 //redondear decimales
 function roundDec(num) {
-    console.log(num)
     if (typeof num === 'undefined' || num === 'null' || num === null) return 0;
 
     return Number(parseFloat(num).toFixed(2));

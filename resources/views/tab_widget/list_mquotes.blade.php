@@ -747,7 +747,7 @@ a {
                                                     <div class="row">
                                                         <div class="col-md-4">Type</div>
                                                         <div class="col-md-6">
-                                                            <select class="form-control new-item text" name="Name"><option value='-1'></option></select>
+                                                            <select class="form-control text" name="Name"><option value='-1'></option></select>
                                                         </div>
                                                     </div>
 
