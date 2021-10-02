@@ -948,11 +948,11 @@ async function buildPdf(mquote_id) {
     data += `<div class="container mt-3">
             <div class="row session-fourth headerMquote headerPrincipal">
                 <div class="col-sm">
-                    Payment Terms
+                    Terms
                 </div>
             </div>`
     data += `<div class="row">
-        <div class="col headerMquote p-2">${quoteToEdit["magaya__Terms"]}</div>`
+        <div class="col headerMquote p-2">${quoteToEdit["magaya__Terms"] !== null ? quoteToEdit["magaya__Terms"] : ""}</div>`
     data += `</div></div>`
 
     $("#htmlToPdf").html(data)
