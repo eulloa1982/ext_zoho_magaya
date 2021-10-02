@@ -15,6 +15,19 @@
 {
     text-align: right;
 }
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #007bff;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+a {
+    color: #495057;
+    text-decoration: none;
+    background-color: transparent;
+}
+
 </style>
 
 
@@ -530,11 +543,14 @@
                                             <div class="row" style="margin-bottom:10px;"></div>
                                             <div class="row" style="margin-bottom:20px;">
                                                 <div class="col-md-6">
-                                                    <label class="col-md-12" style="font-weight: bold;">Billing Address Street</label>
-                                                    <div class="form-group">
+                                                    <label class="col-md-12" style="font-weight: bold;">Billing Address</label>
+                                                    <label class="col-md-12" style="font-weight: bold;"> Street</label>
+                                                    <input type="text" name="Mailing_Street" class="form-control no-border">
+                                            		<div class="row" style="margin-bottom:10px;"></div>
+                                                    <!--<div class="form-group">
                                                         <input type="text" name="Mailing_Street" class="form-control" style="height: 60px; word-break: break-word;"/>
-                                                        <!--textarea rows="2" class="form-control"></textarea-->
-                                                    </div>
+                                                        textarea rows="2" class="form-control"></textarea
+                                                    </div>-->
                                                     <div class="row" style="margin-bottom:20px;">
                                                         <div class="col-md-6" >
                                                             <label class="col-md-12" style="width: 100%; font-weight: bold;">City</label>
