@@ -15,6 +15,19 @@
 {
     text-align: right;
 }
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #007bff;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+a {
+    color: #495057;
+    text-decoration: none;
+    background-color: transparent;
+}
+
 </style>
 
 
@@ -163,10 +176,10 @@
 								<div class="nav nav-tabs" id="nav-tab" role="tablist">
 									<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#menu5" role="tab" aria-controls="nav-home" aria-selected="true">Customer</a>
 									<a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#menu1" role="tab" aria-controls="nav-profile" aria-selected="false">General</a>
-                                    <a class="nav-link" id="nav-terms-tab" data-toggle="tab" href="#menu6" role="tab" aria-controls="nav-contact" aria-selected="false">Terms</a>
 									<a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#menu3" role="tab" aria-controls="nav-contact" aria-selected="false">Routing</a>
 									<a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#menu2" role="tab" aria-controls="nav-contact" aria-selected="false">Charges</a>
 									<a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#menu4" role="tab" aria-controls="nav-contact" aria-selected="false">Items</a>
+                                    <a class="nav-link" id="nav-terms-tab" data-toggle="tab" href="#menu6" role="tab" aria-controls="nav-contact" aria-selected="false">Terms</a>
 							  </div>
 							</nav>
 						  	<!-- ACA SE DEFINE PARA CADA TAB SU CONTENIDO -->
@@ -299,19 +312,6 @@
                                 <!------------------------------------------------------------->
                                 <!-- end tab general -->
                                 <!------------------------------------------------------------->
-
-
-                                <!------------------------------------------------------------->
-                                <!-- tab routing -->
-                                <!------------------------------------------------------------->
-                                <div class="tab-pane fade" id="menu6" role="tabpanel" aria-labelledby="menu5-tab" style="min-height: 600px;">
-                                    <div class="row" style="margin-bottom:20px; margin-top:20px;">
-                                        <div class="col-md-12">
-                                            <label class="col-md-12" style="font-weight: bold;">Payment Terms</label>
-                                            <textarea name="magaya__Terms" id="magaya__Terms" cols="50" rows="5" class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
 
 
                                 <!------------------------------------------------------------->
@@ -488,19 +488,19 @@
                                             <label class="col-md-12" style="font-weight: bold;">Customer Rol</label>
                                             <!-- Material inline 1 -->
                                             <div class="form-check form-check-inline">
-                                            <input type="checkbox" class="form-check-input" id="rol_shipper" name="inlineMaterialRadiosExample">
+                                            <input type="radio" class="form-check-input" id="rol_shipper" name="customer_rol" value="shipper">
                                             <label class="form-check-label" for="materialInline1">Shipper</label>
                                             </div>
 
                                             <!-- Material inline 2 -->
                                             <div class="form-check form-check-inline">
-                                            <input type="checkbox" class="form-check-input" id="rol_consignee" name="inlineMaterialRadiosExample">
+                                            <input type="radio" class="form-check-input" id="rol_consignee" name="customer_rol" value="consignee">
                                             <label class="form-check-label" for="materialInline2">Consignee</label>
                                             </div>
 
                                             <!-- Material inline 3 -->
                                             <div class="form-check form-check-inline">
-                                            <input type="checkbox" class="form-check-input" id="rol_other" name="inlineMaterialRadiosExample">
+                                            <input type="radio" class="form-check-input" id="rol_other" name="customer_rol" value="other">
                                             <label class="form-check-label" for="materialInline3">Other</label>
                                             </div>
                                         </div>
@@ -530,11 +530,14 @@
                                             <div class="row" style="margin-bottom:10px;"></div>
                                             <div class="row" style="margin-bottom:20px;">
                                                 <div class="col-md-6">
-                                                    <label class="col-md-12" style="font-weight: bold;">Billing Address Street</label>
-                                                    <div class="form-group">
+                                                    <label class="col-md-12" style="font-weight: bold;">Billing Address</label>
+                                                    <label class="col-md-12" style="font-weight: bold;"> Street</label>
+                                                    <input type="text" name="Mailing_Street" class="form-control no-border">
+                                            		<div class="row" style="margin-bottom:10px;"></div>
+                                                    <!--<div class="form-group">
                                                         <input type="text" name="Mailing_Street" class="form-control" style="height: 60px; word-break: break-word;"/>
-                                                        <!--textarea rows="2" class="form-control"></textarea-->
-                                                    </div>
+                                                        textarea rows="2" class="form-control"></textarea
+                                                    </div>-->
                                                     <div class="row" style="margin-bottom:20px;">
                                                         <div class="col-md-6" >
                                                             <label class="col-md-12" style="width: 100%; font-weight: bold;">City</label>
@@ -689,6 +692,7 @@
 												</tr>
 										   </thead>
 										   <tbody></tbody>
+                                           <tfoot></tfoot>
 										</table>
                                     </div>
 
@@ -708,6 +712,7 @@
 												</tr>
 										   </thead>
 										   <tbody></tbody>
+                                           <tfoot></tfoot>
 										</table>
                                     </div>
 
@@ -821,18 +826,19 @@
 										<table id="table-items" class="table table-striped" style="width:100%;">
 											<thead>
 												<tr>
-                                                    <th style="width:9%"></th>
+                                                <th style="width:9%"></th>
                                                     <th style="width:9%">Status</th>
-                                                    <th style="width:26%">Description</th>
+                                                    <th style="width:20%">Description</th>
 													<th style="width:7%">Pieces</th>
-													<th colspan="2" style="width:10%">Length</th>
-                                                    <th colspan="2" style="width:10%">Heigth</th>
-													<th colspan="2" style="width:10%">Width</th>
-													<th colspan="2" style="width:10%">Weigth</th>
-													<th colspan="2" style="width:10%">Volume</th>
+													<th colspan="2" style="width:11%">Length</th>
+                                                    <th colspan="2" style="width:11%">Heigth</th>
+													<th colspan="2" style="width:11%">Width</th>
+													<th colspan="2" style="width:12%">Weigth</th>
+													<th colspan="2" style="width:12%">Volume</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
+                                           <tfoot></tfoot>
 										</table>
 
                                         <table id="table-items-new" class="table table-striped" style="width:100%;">
@@ -840,16 +846,17 @@
 												<tr>
                                                     <th style="width:9%"></th>
                                                     <th style="width:9%">Status</th>
-                                                    <th style="width:26%">Description</th>
+                                                    <th style="width:20%">Description</th>
 													<th style="width:7%">Pieces</th>
-													<th colspan="2" style="width:10%">Length</th>
-                                                    <th colspan="2" style="width:10%">Heigth</th>
-													<th colspan="2" style="width:10%">Width</th>
-													<th colspan="2" style="width:10%">Weigth</th>
-													<th colspan="2" style="width:10%">Volume</th>
+													<th colspan="2" style="width:11%">Length</th>
+                                                    <th colspan="2" style="width:11%">Heigth</th>
+													<th colspan="2" style="width:11%">Width</th>
+													<th colspan="2" style="width:12%">Weigth</th>
+													<th colspan="2" style="width:12%">Volume</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
+                                           <tfoot></tfoot>
 										</table>
 
 
@@ -857,6 +864,19 @@
                                 <!------------------------------------------------------------->
                                 <!-- end tab items -->
                                 <!------------------------------------------------------------->
+
+
+                                <!------------------------------------------------------------->
+                                <!-- tab terms -->
+                                <!------------------------------------------------------------->
+                                <div class="tab-pane fade" id="menu6" role="tabpanel" aria-labelledby="menu5-tab" style="min-height: 600px;">
+                                    <div class="row" style="margin-bottom:20px; margin-top:20px;">
+                                        <div class="col-md-12">
+                                            <label class="col-md-12" style="font-weight: bold;">Payment Terms</label>
+                                            <textarea name="magaya__Terms" id="magaya__Terms" cols="50" rows="5" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
 
 
 							</div>

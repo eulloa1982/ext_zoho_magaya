@@ -948,11 +948,11 @@ async function buildPdf(mquote_id) {
     data += `<div class="container mt-3">
             <div class="row session-fourth headerMquote headerPrincipal">
                 <div class="col-sm">
-                    Payment Terms
+                    Terms
                 </div>
             </div>`
     data += `<div class="row">
-        <div class="col headerMquote p-2">${quoteToEdit["magaya_Terms"]}</div>`
+        <div class="col headerMquote p-2">${quoteToEdit["magaya__Terms"] !== null ? quoteToEdit["magaya__Terms"] : ""}</div>`
     data += `</div></div>`
 
     $("#htmlToPdf").html(data)
@@ -999,10 +999,21 @@ function buildPdfHeader(orgData, quoteToEdit) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">${orgData["website"]}</div>
-                        <div class="col">${orgData["phone"]}</div>
-                        <div class="col">${orgData["primary_email"]}</div>
-                        <div class="col">${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
+                        <div class="col"><span class="material-icons">
+                        language
+                        </span>${orgData["website"]}</div>
+
+                        <div class="col"><span class="material-icons">
+                                    phone
+                                    </span>${orgData["phone"]}</div>
+
+                        <div class="col"><span class="material-icons">
+                                    alternate_email
+                                    </span>${orgData["primary_email"]}</div>
+
+                        <div class="col"><span class="material-icons">
+                                    home
+                                    </span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
                     </div>
                 </div>
 
@@ -1031,17 +1042,17 @@ function buildPdfHeader(orgData, quoteToEdit) {
                     <div class="col-1"></div>
                     <div class="col">
                         <div class="row">
-                            <div class="col-4 headerMquote p-2 headerTable">Quote Number</div>
-                            <div class="col headerMquote p-2">${quoteToEdit["magaya__Number"]}</div>
+                            <div class="col-4 p-2">Quote Number</div>
+                            <div class="col p-2">${quoteToEdit["magaya__Number"]}</div>
                             <div class="w-100"></div>
-                            <div class="col-4 headerMquote p-2 headerTable">Creation Date</div>
-                            <div class="col headerMquote p-2">${quoteToEdit["Created_Time"]} </div>
+                            <div class="col-4 p-2">Creation Date</div>
+                            <div class="col p-2">${quoteToEdit["Created_Time"]} </div>
                             <div class="w-100"></div>
-                            <div class="col-4 headerMquote p-2 headerTable">Expiration Date</div>
-                            <div class="col headerMquote p-2">${quoteToEdit["magaya__ExpirationDate"]}</div>
+                            <div class="col-4 p-2">Expiration Date</div>
+                            <div class="col p-2">${quoteToEdit["magaya__ExpirationDate"]}</div>
                             <div class="w-100"></div>
-                            <div class="col-4 headerMquote p-2 headerTable">Contact To</div>
-                            <div class="col headerMquote p-2">${quoteToEdit["magaya__Employee"]}</div>
+                            <div class="col-4 p-2">Contact To</div>
+                            <div class="col p-2">${quoteToEdit["magaya__Employee"]}</div>
                         </div>
                     </div>
                 </div>
@@ -1176,10 +1187,10 @@ function buildPdfCharges(charges) {
         <div class="col-sm-3">
         </div>
         <div class="col-sm">
-            ${roundDec(totalWeight)}
+            ${roundDec(totalWeight)} kg
         </div>
         <div class="col-sm">
-            ${roundDec(totalVolume)}
+            ${roundDec(totalVolume)} m3
         </div>
     </div>`
 

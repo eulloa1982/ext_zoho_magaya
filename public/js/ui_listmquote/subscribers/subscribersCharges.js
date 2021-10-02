@@ -115,6 +115,7 @@ storeCharge.subscribe(() => {
         let accountId = 0;
         //let totalIncome = 0
         $("#table-charges tbody").empty();
+        $("#table-charges tfoot").empty();
 
         let amount_ = 0
         let tax_amount_total = 0
@@ -165,7 +166,7 @@ storeCharge.subscribe(() => {
             })
             //totalIncome = roundDec(totalIncome)
             //incorporando data de totales
-            $("#table-charges").append(`<tr><td align="right" colspan="5"><strong>Totals USD</strong></td>
+            $("#table-charges tfoot").append(`<tr><td align="right" colspan="5"><strong>Totals USD</strong></td>
                                         <td align="right"><strong>${amount_.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         <td align="right"><strong>${tax_amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         <td align="right"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
@@ -177,6 +178,8 @@ storeCharge.subscribe(() => {
 
     } else {
         $("#table-charges tbody").empty()
+        $("#table-charges tfoot").empty();
+
         $("#info-charge").html("No charges found");
     }
 })
@@ -192,6 +195,8 @@ storeCharge.subscribe(() => {
         data_module_flag_charge = true
 
         $("#table-charges-new tbody").empty();
+        $("#table-charges-new tfoot").empty();
+
         if (!_.isEmpty(u)) {
 
 
@@ -235,25 +240,16 @@ storeCharge.subscribe(() => {
             })
 
 
-            $("#table-charges-new").append(`<tr><td colspan="5"class="Delete"><strong>Totals USD</strong></td>
+            $("#table-charges-new tfoot").append(`<tr><td colspan="5"class="Delete"><strong>Totals USD</strong></td>
                                         <td align="right" class="Delete"><strong>${amount_.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         <td align="right" class="Delete"><strong>${tax_amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         <td align="right" class="Delete"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         <td align="right" class="Delete"><strong>${final_amount.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td></tr>`);
-
-
-            /*let totals = `<div class="row"><div class="col">Totals</div>
-                                        <div class="col"><strong>${amount_.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></div></div>
-                                        <div class="col"><strong>${tax_amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></div>
-                                        <div class="col"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></div>
-                                        <div class="col"><strong>${final_amount.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></div>
-                                        </div>
-                                        `*/
-                                        //<td class="magaya__ApplyToAccounts" style="display: none;">${k.magaya__ApplyToAccounts}</td>
-
         }
 
     } else {
         $("#table-charges-new tbody").empty()
+        $("#table-charges-new tfoot").empty();
+
     }
 })
