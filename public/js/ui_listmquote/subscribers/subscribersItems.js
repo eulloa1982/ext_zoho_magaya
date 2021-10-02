@@ -98,6 +98,8 @@ storeItem.subscribe(() => {
     if (!_.isEmpty(u)) {
         data_module_flag_item = true;
         $("#table-items-new tbody").empty();
+        $("#table-items-new tfoot").empty();
+
         if (!_.isEmpty(u)) {
             let totalPieces = 0
             let totalVolume = 0
@@ -157,7 +159,7 @@ storeItem.subscribe(() => {
             totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
             totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
-            $("#table-items-new tbody").append(`<tr><td align="right" colspan="3" class="Delete">Totals</td>
+            $("#table-items-new tfoot").append(`<tr><td align="right" colspan="3" class="Delete">Totals</td>
             <td align="right" class="Delete"><strong>${totalPieces}</strong></td>
             <td colspan="6"></td>
             <td align="right" class="Delete"><strong>${roundDec(totalWeight)}</td><td><strong> kg</strong></td>
@@ -166,6 +168,7 @@ storeItem.subscribe(() => {
 
     } else {
         $("#table-items-new tbody").empty()
+        $("#table-items-new tfoot").empty();
     }
 })
 
@@ -185,6 +188,7 @@ storeItem.subscribe(() => {
         let total_volume_english = 0
 
         $("#table-items tbody").empty();
+        $("#table-items tfoot").empty();
         $.each(u, function(i, k) {
             let measure_length = "in";
             let measure_volume = "ft3";
@@ -236,12 +240,13 @@ storeItem.subscribe(() => {
         totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
-        $("#table-items tbody").append(`<tr><td align="right" colspan="3" class="Delete">Totals</td>
+        $("#table-items tfoot").append(`<tr><td align="right" colspan="3" class="Delete">Totals</td>
                                                 <td align="right" class="Delete"><strong>${totalPieces}</strong></td>
                                                 <td colspan="6"></td>
                                                 <td align="right" class="Delete"><strong>${roundDec(totalWeight)}</td><td><strong> kg</strong></td>
                                                 <td align="right" class="Delete"><strong>${roundDec(totalVolume)}</td><td><strong> m3</strong></td></tr>`)
     } else {
         $("#table-items tbody").empty()
+        $("#table-items tfoot").empty();
     }
 })
