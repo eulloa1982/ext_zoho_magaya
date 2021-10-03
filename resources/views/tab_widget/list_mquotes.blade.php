@@ -747,7 +747,7 @@ a {
                                                     <div class="row">
                                                         <div class="col-md-4">Type</div>
                                                         <div class="col-md-6">
-                                                            <select class="form-control new-item text" name="Name"><option value='-1'></option></select>
+                                                            <select class="form-control text" name="Name"><option value='-1'></option></select>
                                                         </div>
                                                     </div>
 
@@ -827,14 +827,13 @@ a {
 											<thead>
 												<tr>
                                                 <th style="width:9%"></th>
-                                                    <th style="width:9%">Status</th>
-                                                    <th style="width:20%">Description</th>
-													<th style="width:7%">Pieces</th>
-													<th colspan="2" style="width:11%">Length</th>
-                                                    <th colspan="2" style="width:11%">Heigth</th>
-													<th colspan="2" style="width:11%">Width</th>
-													<th colspan="2" style="width:12%">Weigth</th>
-													<th colspan="2" style="width:12%">Volume</th>
+                                                    <th style="width:23%">Description</th>
+													<th style="width:8%">Pieces</th>
+													<th colspan="2" style="width:12%">Length</th>
+                                                    <th colspan="2" style="width:12%">Heigth</th>
+													<th colspan="2" style="width:12%">Width</th>
+													<th colspan="2" style="width:13%">Weigth</th>
+													<th colspan="2" style="width:13%">Volume</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
@@ -844,15 +843,13 @@ a {
                                         <table id="table-items-new" class="table table-striped" style="width:100%;">
 											<thead>
 												<tr>
-                                                    <th style="width:9%"></th>
-                                                    <th style="width:9%">Status</th>
-                                                    <th style="width:20%">Description</th>
-													<th style="width:7%">Pieces</th>
-													<th colspan="2" style="width:11%">Length</th>
-                                                    <th colspan="2" style="width:11%">Heigth</th>
-													<th colspan="2" style="width:11%">Width</th>
-													<th colspan="2" style="width:12%">Weigth</th>
-													<th colspan="2" style="width:12%">Volume</th>
+                                                    <th style="width:23%">Description</th>
+													<th style="width:8%">Pieces</th>
+													<th colspan="2" style="width:12%">Length</th>
+                                                    <th colspan="2" style="width:12%">Heigth</th>
+													<th colspan="2" style="width:12%">Width</th>
+													<th colspan="2" style="width:13%">Weigth</th>
+													<th colspan="2" style="width:13%">Volume</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
@@ -872,7 +869,7 @@ a {
                                 <div class="tab-pane fade" id="menu6" role="tabpanel" aria-labelledby="menu5-tab" style="min-height: 600px;">
                                     <div class="row" style="margin-bottom:20px; margin-top:20px;">
                                         <div class="col-md-12">
-                                            <label class="col-md-12" style="font-weight: bold;">Payment Terms</label>
+                                            <label class="col-md-12" style="font-weight: bold;">Terms and Conditions</label>
                                             <textarea name="magaya__Terms" id="magaya__Terms" cols="50" rows="5" class="form-control"></textarea>
                                         </div>
                                     </div>

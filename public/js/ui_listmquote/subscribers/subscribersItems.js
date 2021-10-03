@@ -134,7 +134,6 @@ storeItem.subscribe(() => {
                     <span class="material-icons oculto btn-slide" data-module="table-items-new" data-id="${i}">create</span>
                     <span class="material-icons oculto del-item-warehouse-new" data-id=${i}>clear</span>
                 </td>
-                <td class='magaya__Status'>InQuote</td>
                 <td class='magaya__Package_Description'>${sanitize(k.magaya__Package_Description)}</td>
                 <td align="right" class="magaya__Pieces">${k.magaya__Pieces}</td>
                 <td align="right" class="magaya__Length">${roundDec(k.magaya__Length)}</td>
@@ -147,6 +146,8 @@ storeItem.subscribe(() => {
                 <td class="NoData" align="left"><strong>${measure_weigth}</td>
                 <td align="right" class="magaya__Volume">${roundDec(k.magaya__Volume * k.magaya__Pieces)}</td>
                 <td class="NoData" align="left"><strong>${measure_volume}</td>
+
+                <td class="magaya__Status" style="display: none;">InQuote</td>
                 <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
                 <td class='Name' style="display: none;">${sanitize(k.Name)}</td>
                 </tr>`);
@@ -159,7 +160,7 @@ storeItem.subscribe(() => {
             totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
             totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
-            $("#table-items-new tfoot").append(`<tr><td align="right" colspan="3" class="Delete">Totals</td>
+            $("#table-items-new tfoot").append(`<tr><td align="right" colspan="2" class="Delete">Totals</td>
             <td align="right" class="Delete"><strong>${totalPieces}</strong></td>
             <td colspan="6"></td>
             <td align="right" class="Delete"><strong>${roundDec(totalWeight)}</td><td><strong> kg</strong></td>
@@ -217,7 +218,7 @@ storeItem.subscribe(() => {
                 <span class="material-icons oculto btn-slide" data-module="table-items" data-id="${i}">create</span>
                 <span class="material-icons oculto del-item-warehouse" data-id=${k.id}>clear</span>
             </td>
-            <td class="magaya__Status">InQuote</td>
+
             <td class='magaya__Package_Description'>${sanitize(k.magaya__Package_Description)}</td>
             <td align="right" class="magaya__Pieces">${k.magaya__Pieces}</td>
             <td align="right" class="magaya__Length">${roundDec(k.magaya__Length)}</td>
@@ -230,6 +231,8 @@ storeItem.subscribe(() => {
             <td align="left" class="NoData"><strong>${measure_weigth}</td>
             <td align="right" class="magaya__Volume">${roundDec(k.magaya__Volume * k.magaya__Pieces)}</td>
             <td align="left" class="NoData"><strong>${measure_volume}</td>
+
+            <td class="magaya__Status" style="display: none;">InQuote</td>
             <td class='Name' style="display: none;">${k.Name}</td>
             <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
             </tr>`
@@ -240,7 +243,7 @@ storeItem.subscribe(() => {
         totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
-        $("#table-items tfoot").append(`<tr><td align="right" colspan="3" class="Delete">Totals</td>
+        $("#table-items tfoot").append(`<tr><td align="right" colspan="2" class="Delete">Totals</td>
                                                 <td align="right" class="Delete"><strong>${totalPieces}</strong></td>
                                                 <td colspan="6"></td>
                                                 <td align="right" class="Delete"><strong>${roundDec(totalWeight)}</td><td><strong> kg</strong></td>

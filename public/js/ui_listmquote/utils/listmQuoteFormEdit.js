@@ -253,7 +253,7 @@
                     $(this).val(value);
                     if (oldValue.toString() !== value.toString()) {
                         value = sanitize(value)
-                        if (field !== "Name" && field !== "magaya__Pieces") {
+                        if (field !== "Name" && field !== "magaya__Pieces"  && field !== "magaya__Package_Description") {
                             value = roundDec(value)
                         }
 
@@ -269,7 +269,7 @@
             })
 
 
-            $(".no-border-item-new").click(function(e) {
+            /*$(".no-border-item-new").click(function(e) {
                 $(this).addClass("editable");
 
                 oldValue = $(this).val()
@@ -283,9 +283,10 @@
                 let field = $(this).attr('name');
                 let value = $(this).val()
 
+                console.log(`fgdfg ${field} - ${value}`)
                 value = sanitize(value)
 
-                if (field !== "Name")
+                if (field !== "Name" && field !== "magaya__Package_Description")
                     value = roundDec(value);
 
                 let idItem = $(this).parent().attr("data-id")
@@ -296,7 +297,7 @@
                     storeItem.dispatch(setVolumeOnNew({id:idItem, field: field, value: value}))
                 }
 
-            })
+            })*/
 
 
     })
