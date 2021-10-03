@@ -79,7 +79,20 @@ function reducerCharge (state = initialStateCharge, actions)  {
             const byId = actions.payload.id;
             //always get just 1 item on the state
             state.singleCharge = initialStateCharge.singleCharge;
-            newArray = {...state.charges[byId]}
+
+            if (byId < 0) {
+                byId = 0
+                newArray = state.singleCharge
+            } else {
+                if (!_.isEmpty (state.charges[byId])) {
+                    newArray = {...state.charges[byId]}
+                }
+                else {
+                    byId = 0
+                    newArray = state.singleCharge
+                }
+            }
+            //newArray = {...state.charges[byId]}
 
             return {
                 ...state,
@@ -216,9 +229,22 @@ function reducerCharge (state = initialStateCharge, actions)  {
         case GET_CHARGE_QUOTE_ON_NEW: {
             const byId = actions.payload.id;
 
+            console.log(byId)
             //always get just 1 item on the state
             state.singleCharge = initialStateCharge.singleCharge;
-            newArray = {...state.chargesOnNew[byId]}
+
+            if (byId < 0) {
+                byId = 0
+                newArray = {...state.chargesOnNew[0]}
+            } else {
+                if (!_.isEmpty(state.chargesOnNew[byId]))
+                    newArray = {...state.chargesOnNew[byId]}
+                else {
+                    byId = 0
+                    newArray = {...state.chargesOnNew[0]}
+                }
+            }
+            //newArray = {...state.chargesOnNew[byId]}
             //state.chargesOnNew[byId]["id"] = byId
             return {
                 ...state,

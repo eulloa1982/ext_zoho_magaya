@@ -168,3 +168,18 @@ function rolOther() {
 
 
 
+//var obs = new MutationObserver(function(mutations, observer) {
+
+    $("select[name=Name]").change(function(e) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+        let index = parseInt($("select[name=Name]").val());
+
+        let length = packageType[index]["magaya__PackageLength"]
+        let height = packageType[index]["magaya__PackageHeight"]
+        let width = packageType[index]["magaya__PackageWidth"]
+
+        storeItem.dispatch(updateAllItemNew({Name: index, length: length, width: width, height: height}))
+    })
+
+//})
