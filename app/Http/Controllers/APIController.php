@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
+use Barryvdh\DomPDF\Facade as PDF;
+
 
 class APIController extends Controller
 {
@@ -90,22 +92,6 @@ class APIController extends Controller
         }
     }
 
-    /*
-    *get working ports en Magaya
-    *
-    *endpoint getPorts
-    * work in progress
-    */
-    /*public function GetWorkingPorts(Request $request) :array
-    {
-
-        $result = $this->magayaApi->GetWorkingPorts();
-        print_r($result);
-        return [
-            'data' => simplexml_load_string($result['ports_list_xml'])
-        ];
-    }*/
-
 
     /*
     *generate a ramdom email
@@ -117,6 +103,26 @@ class APIController extends Controller
         $randomString = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
         $randomEmail = $randomString."@gmail.com";
         return ($randomEmail);
+    }
+
+
+    public function createPdf(Request $request)
+    {
+        $data = $request->get('cabecera');
+        print_r ($data);
+
+        $table = "<table><tr><td>Name</td><td>Dir</td></tr>";
+        foreach($data as $key => $value) {
+                $table .= "<tr>";
+                $table .= "<td>{$value}</td>";
+                $table .= "<td>reter</td></tr>";
+        }
+
+        $table .= "</table>";
+        //$data = "<table><tr><td>Mando</td></tr><tr><td>2</td></tr></table>";
+        $pdf = PDF::loadHTML($table);
+        return $pdf->download('invoice.pdf');
+        //return view ('tab_widget.quote_pdf');
     }
 
     /*private function validateData(string $method, $request)
