@@ -28,6 +28,10 @@ a {
     background-color: transparent;
 }
 
+.material-icons {
+	font-size: 18px;
+}
+
 </style>
 
 
@@ -54,32 +58,29 @@ a {
 					<div class="card-header" style="padding: 0px;background-color: #0b3355;border-color:#0b3355;">
 
                     <div class="row">
-							<div class="col-md-3" style="padding: 5px 0px;">
-								<p style="color: white; font-weight: bold; font-size: 24px;padding-left: 20px;margin:0px">List mQuote</p>
+							<div class="col-md-3" style="padding-top: 12px;">
+								<p style="color: white; font-weight: bold; font-size: 20px;padding-left: 20px;margin:0px">List mQuote</p>
 							</div>
 							<div class="col-md-7" style="padding: 5px 0px;">
 								<form class="form-inline my-2 my-lg-0">
 									<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="margin-left:-100px;">
-									<span class="input-group-btn"><span class="btn btn-primary" id="search-by-name"><span class="material-icons">search</span></span></span>
+									<span class="input-group-btn"><span class="btn btn-primary" id="search-by-name" style="padding-top: 10px; padding-bottom: 3px;height: 38px;"><span class="material-icons">search</span></span></span>
 								</form>
 							</div>
-
-
-
                                     <div class="col-md-2" style="padding: 5px 0px;">
 								 		<div class="btn-group">
-									 		<button type="button" class="btn btn-primary addMquote" style="margin-right: 20px; font-weight: bold;">Add</button>
+									 		<button type="button" class="btn btn-primary addMquote" style=" font-weight: bold;">Add</button>
 
 			 								<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
-                                            <span class="material-icons">more_horiz</span>
+                                            <span class="material-icons" style="font-weight: bold;height: 18px">more_horiz</span>
 			  								</button>
 											<div class="dropdown-menu">
-												<!--a class="dropdown-item">Mass Update</a-->
+												<a class="dropdown-item">Mass Update</a>
 												<a class="dropdown-item" id="deleteMquote">Mass Delete</a>
 											</div>
 
 								 		</div>
-
+										
 									</div>
 
 
