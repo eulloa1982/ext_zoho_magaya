@@ -16,6 +16,10 @@ storeCharge.subscribe(() => {
             applyToName = u[1].magaya__ApplyToAccounts.name
         })
 
+        if (_.isEmpty(applyToName) || applyToName === undefined) {
+            applyToName = $("select[name=Account]").text()
+        }
+
 
         let data_module = data_module_flag_charge ? "table-charges-new" : "table-charges"
         let button_type = data_module_flag_charge ? "updateChargeNew" : "updateCharge"
@@ -151,11 +155,11 @@ storeCharge.subscribe(() => {
                     <td class="magaya__Status">${k.magaya__Status}</td>
                     <td class="Name" id="first">${k.Name}</td>
                     <td align="right" class="magaya__CQuantity">${k.magaya__CQuantity}</td>
-                    <td align="right" class="magaya__Price">${roundDec(k.magaya__Price).toLocaleString('en-US')}</td>
-                    <td align="right" class="magaya__Amount">${roundDec(k.magaya__Amount).toLocaleString('en-US')}</td>
-                    <td align="right" class="magaya__Tax_Amount">${roundDec(k.magaya__Tax_Amount).toLocaleString('en-US')}</td>
-                    <td align="right" class="magaya__Amount_Total">${roundDec(k.magaya__Amount_Total).toLocaleString('en-US')}</td>
-                    <td align="right" class="magaya__Final_Amount">${roundDec(k.magaya__Final_Amount).toLocaleString('en-US')}</td>
+                    <td align="right" class="magaya__Price">${roundDec(k.magaya__Price).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                    <td align="right" class="magaya__Amount">${roundDec(k.magaya__Amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                    <td align="right" class="magaya__Tax_Amount">${roundDec(k.magaya__Tax_Amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                    <td align="right" class="magaya__Amount_Total">${roundDec(k.magaya__Amount_Total).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                    <td align="right" class="magaya__Final_Amount">${roundDec(k.magaya__Final_Amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                     <td class="magaya__ChargeCode" style="display: none;">${k.magaya__ChargeCode}</td>
                     <td style="display: none;" class="magaya__Tax_Rate0">${k.magaya__TaxRate}</td>
                     <td style="display: none;" clss="magaya__Unit">${k.magaya__Unit}</td>
@@ -226,11 +230,11 @@ storeCharge.subscribe(() => {
                 <td class="magaya__Status">${k.magaya__Status}</td>
                 <td class="Name" id="first">${k.Name}</td>
                 <td align="right" class="magaya__CQuantity">${k.magaya__CQuantity}</td>
-                <td align="right" class="magaya__Price">${roundDec(k.magaya__Price)}</td>
-                <td align="right" class="magaya__Amount">${roundDec(k.magaya__Amount)}</td>
-                <td align="right" class="magaya__Tax_Amount">${roundDec(k.magaya__Tax_Amount)}</td>
-                <td align="right" class="magaya__Amount_Total">${roundDec(k.magaya__Amount_Total)}</td>
-                <td align="right" class="magaya__Final_Amount">${roundDec(k.magaya__Final_Amount)}</td>
+                <td align="right" class="magaya__Price">${roundDec(k.magaya__Price).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                <td align="right" class="magaya__Amount">${roundDec(k.magaya__Amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                <td align="right" class="magaya__Tax_Amount">${roundDec(k.magaya__Tax_Amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                <td align="right" class="magaya__Amount_Total">${roundDec(k.magaya__Amount_Total).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                <td align="right" class="magaya__Final_Amount">${roundDec(k.magaya__Final_Amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 <td class="magaya__ChargeCode" style="display: none;">${k.magaya__ChargeCode}</td>
                 <td class="magaya__Tax_Rate0" style="display: none;">${k.magaya__TaxRate}</td>
                 <td class="magaya__Unit" style="display: none;">${k.magaya__Unit}</td>
