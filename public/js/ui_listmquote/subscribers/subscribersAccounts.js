@@ -9,8 +9,6 @@ storeAccounts.subscribe(() => {
     //fill data address in quote
     if (!_.isEmpty(accountQuote)) {
         $("select[name=Account]").val(accountQuote.id)
-        $("input[name=applyToName]").val(accountQuote.Account_Name)
-
     }
 
     //select rigth one on list
