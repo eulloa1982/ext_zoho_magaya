@@ -465,7 +465,7 @@ $(document).ready(function(){
        // Object.assign(jsonData, {"magaya__ApplyToAccounts": accountId})
         //console.log("Chrges json", jsonData)
         //insertind data, get the id and insert items and charges
-        ZOHO.CRM.API.insertRecord({ Entity: "magaya__SQuotes", APIData: recordData, Trigger: [] })
+        ZOHO.CRM.API.insertRecord({ Entity: "magaya__SQuotes", APIData: recordData, Trigger: ["workflow"] })
             .then(function(response) {
                 console.log("ïnserting mquote response", response)
                 data = response.data;
