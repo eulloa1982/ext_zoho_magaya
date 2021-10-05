@@ -532,6 +532,7 @@ a {
                                             <div class="row" style="margin-bottom:20px;">
                                                 <div class="col-md-6">
                                                     <label class="col-md-12" style="font-weight: bold;">Billing Address</label>
+                                                    <br /><br/>
                                                     <label class="col-md-12" style="font-weight: bold;"> Street</label>
                                                     <input type="text" name="Mailing_Street" class="form-control no-border">
                                             		<div class="row" style="margin-bottom:10px;"></div>
@@ -660,7 +661,7 @@ a {
 
                                                 <div class="row">
                                                     <div class="col-md-4">Apply To</div>
-                                                    <div class="col-md-6"><input type="text" class="form-control" readonly=""></div>
+                                                    <div class="col-md-6"><input type="text" class="form-control" name="applyToName" readonly=""></div>
                                                 </div>
                                                 <!--div class="row">
                                                     <div class="col-md-4">Tax Amount</div>
@@ -827,7 +828,7 @@ a {
 										<table id="table-items" class="table table-striped" style="width:100%;">
 											<thead>
 												<tr>
-                                                <th style="width:9%"></th>
+                                                    <th style="width:9%"></th>
                                                     <th style="width:23%">Description</th>
 													<th style="width:8%">Pieces</th>
 													<th colspan="2" style="width:12%">Length</th>
@@ -844,6 +845,7 @@ a {
                                         <table id="table-items-new" class="table table-striped" style="width:100%;">
 											<thead>
 												<tr>
+                                                    <th style="width:9%"></th>
                                                     <th style="width:23%">Description</th>
 													<th style="width:8%">Pieces</th>
 													<th colspan="2" style="width:12%">Length</th>

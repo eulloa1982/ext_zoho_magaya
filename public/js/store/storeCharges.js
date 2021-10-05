@@ -133,12 +133,12 @@ function reducerCharge (state = initialStateCharge, actions)  {
             let amount = roundDec(newArray[1]['magaya__Price']) * roundDec(newArray[1]['magaya__CQuantity']);
             newArray[1]['magaya__Amount'] = roundDec(amount)
             let amount_tax = (roundDec(newArray[1]['magaya__Amount']) / 100) * roundDec(newArray[1]['magaya__TaxRate'])
-            newArray[1]['magaya__Tax_Amount'] = roundDec(amount_tax);
-            let amount_total = roundDec(amount + amount_tax);
+            newArray[1]['magaya__Tax_Amount'] = roundDec(amount_tax)
+            let amount_total = roundDec(amount + amount_tax)
             newArray[1]['magaya__Amount_Total'] = roundDec(amount_total);
 
             let final_amount = roundDec(amount_total) + roundDec(newArray[1]['magaya__Adjustment'])
-             newArray[1]['magaya__Final_Amount'] = roundDec(final_amount)
+            newArray[1]['magaya__Final_Amount'] = roundDec(final_amount)
             return {
                 ...state,
                 singleCharge: newArray
@@ -192,17 +192,21 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray = {...state.emptyCharge}
             newArray[field] = value
 
-            let amount = roundDec(newArray['magaya__Price']) * roundDec (newArray['magaya__CQuantity']);
-            newArray['magaya__Amount'] = roundDec(amount)
+            let price = roundDec(newArray['magaya__Price'])
+            let quantity = roundDec (newArray['magaya__CQuantity'])
+
+            let amount = price * quantity;
+            newArray['magaya__Amount'] = roundDec(amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             //calculate amount tax
             let amount_tax = (newArray['magaya__Amount'] / 100) * roundDec (newArray['magaya__TaxRate'])
-            newArray['magaya__Tax_Amount'] = roundDec(amount_tax)
+            newArray['magaya__Tax_Amount'] = roundDec(amount_tax).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             let amount_total = amount + amount_tax;
-            newArray["magaya__Amount_Total"] = roundDec(amount_total)
+            newArray["magaya__Amount_Total"] = roundDec(amount_total).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
             newArray['Name'] = newArray["magaya__Charge_Description"]
             newArray["magaya__TaxRate"] = newArray["magaya__TaxCode"]
-            newArray["magaya__Final_Amount"] = roundDec(newArray["magaya__Adjustment"]) + roundDec(amount_total)
+            newArray["magaya__Final_Amount"] = (roundDec(newArray["magaya__Adjustment"]) + roundDec(amount_total)).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray['magaya__Price'] = price.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             return {
                 ...state,
                 emptyCharge: newArray
@@ -265,12 +269,6 @@ function reducerCharge (state = initialStateCharge, actions)  {
 //REDUX Store
 /////////////////////////////////////////////////////
 const storeCharge = Redux.createStore(reducerCharge)
-
-
-/*storeCharge.subscribe(() => {
-    let u = storeCharge.getState()
-})*/
-
 
 ////////////////////////////////////////////////////
 //REDUX Actions

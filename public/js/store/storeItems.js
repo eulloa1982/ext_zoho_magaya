@@ -193,15 +193,21 @@ function reducerItem (state = initialStateIntems, actions)  {
             const field = actions.payload.field;
             const value = actions.payload.value;
 
-
             let newArray = initialStateIntems.itemEmpty
             newArray[field] = value
 
+            let height = newArray["magaya__Height"];
+            let length = newArray["magaya__Length"];
+            let width = newArray["magaya__Width"];
             //calculate volume
-            let volume = roundDec(newArray["magaya__Height"]) * roundDec(newArray["magaya__Length"]) * roundDec(newArray["magaya__Width"])
-            newArray["magaya__Volume"] = roundDec(volume)
+            let volume = roundDec(height) * roundDec(length) * roundDec(width)
+            newArray["magaya__Height"] = height.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray["magaya__Length"] = length.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray["magaya__Width"] = width.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray["magaya__Weigth"] = newArray["magaya__Weigth"].toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
-            console.log("newAeear item", newArray)
+            newArray["magaya__Volume"] = roundDec(volume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+
             return {
                 ...state,
                 itemNew: newArray
@@ -212,22 +218,25 @@ function reducerItem (state = initialStateIntems, actions)  {
 
         case CALCULATE_VOLUME: {
             //const idItem = actions.payload.id;
+            console.log("CALCULATE VOLUME")
             const field = actions.payload.field;
             const value = actions.payload.value;
             //const index = state.items.findIndex(item => item.id === idItem)
             newArray = { ...state.singleItem};
             newArray[1][field] = value
-            //calculate volume
-            let volume = newArray[1]['magaya__Height'] * newArray[1]['magaya__Length'] * newArray[1]['magaya__Width'];
-            newArray[1]['magaya__Volume'] = roundDec(volume)
-            //calculate weigth
-            let system = newArray[1]['magaya__Measure_System']
-            //let factor = 166;
-            //if (system === "International")
-            //    factor = 1000
 
-            //newArray[1]["magaya__Weigth"] = roundDec(volume / factor)
-            //calculate totales
+            let height = newArray[1]["magaya__Height"];
+            let length = newArray[1]["magaya__Length"];
+            let width = newArray[1]["magaya__Width"];
+            //calculate volume
+            let volume = roundDec(height) * roundDec(length) * roundDec(width);
+            newArray[1]['magaya__Volume'] = roundDec(volume)
+
+            newArray[1]["magaya__Height"] = height.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["magaya__Length"] = length.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["magaya__Width"] = width.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["magaya__Weigth"] = newArray[1]["magaya__Weigth"].toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            console.log(newArray[1])
 
             return {
                 ...state,
@@ -238,7 +247,7 @@ function reducerItem (state = initialStateIntems, actions)  {
         }
 
 
-        case CALCULATE_VOLUME_ON_NEW: {
+        /*case CALCULATE_VOLUME_ON_NEW: {
             //const index = actions.payload.id;
             const field = actions.payload.field;
             const value = actions.payload.value;
@@ -263,7 +272,7 @@ function reducerItem (state = initialStateIntems, actions)  {
                 ...state,
                 singleItem: [index, newArray]
             }
-        }
+        }*/
 
 
         case EMPTY_ITEMS : {
@@ -340,9 +349,9 @@ function setVolume(payload) {
 }
 
 //set volume on new mquote form
-function setVolumeOnNew(payload) {
+/*function setVolumeOnNew(payload) {
     return {type: CALCULATE_VOLUME_ON_NEW, payload}
-}
+}*/
 
 //empty store, ready to fill it again
 //when edit an item or add new one
