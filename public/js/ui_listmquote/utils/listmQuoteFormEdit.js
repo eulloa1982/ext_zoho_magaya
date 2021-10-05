@@ -258,7 +258,7 @@
                         }
 
                         let json_items ='{"id":"'+ idItem +'", "' + field + '": "' + value + '"}';
-                        storeItem.dispatch(updateItemOnNew({id: idItem, field: field, value: value}))
+                        //storeItem.dispatch(updateItemOnNew({id: idItem, field: field, value: value}))
                         storeItem.dispatch(setVolume({id:idItem, field: field, value: value}))
                         //storeSuccess.dispatch(addSuccess({message: message}))
 

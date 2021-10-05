@@ -36,7 +36,7 @@ storeItem.subscribe(() => {
                 if (_.has(ITEMS_FIELDS, [v, 'type'])) {
                     type = "number";
                     if (v !== "magaya__Pieces")
-                        k = roundDec(k)
+                        k = roundDec(k).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
                 }
                 /*if (type === "number") {
                     k = roundDec(k)

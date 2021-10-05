@@ -41,6 +41,8 @@ storeCharge.subscribe(() => {
                 let type = "text"
                 if (_.has(CHARGES_FIELDS, [v, 'type'])) {
                     type = "number";
+                    k = roundDec(k).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+
                     if (Number.isInteger(k))
                         k = `${k}.00`
                 }

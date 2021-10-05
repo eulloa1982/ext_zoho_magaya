@@ -462,9 +462,13 @@ function buildXmlCharge(charges, data_account) {
                     <Name>${data_account.Account_Name}</Name>
                     <IsPrepaid>true</IsPrepaid>
                 </Entity>`;
+                if (k.magaya__TaxRate === null || k.magaya__TaxRate === "null")
+                    k.magaya__TaxRate = 0.00
+                else k.magaya__TaxRate = k.magaya__TaxRate.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
                 chargesString += `
                             <Quantity>${k.magaya__CQuantity}</Quantity>
                             <Price Currency="USD">${k.magaya__Price}</Price>
+                            <TaxAmount Currency="USD">${k.magaya__Tax_Amount}</TaxAmount>
                             <HomeCurrency Code="USD">
                                 <Name>United States Dollar</Name>
                                 <ExchangeRate>1.00</ExchangeRate>
@@ -472,6 +476,19 @@ function buildXmlCharge(charges, data_account) {
                                 <IsHomeCurrency>true</IsHomeCurrency>
                             </HomeCurrency>
                             <Amount Currency="USD">${k.magaya__Amount}</Amount>
+                            <TaxAmountInCurrency Currency="USD">${k.magaya__Tax_Amount}</TaxAmountInCurrency>
+                            <TaxDefinition>
+                                <Code>${k.magaya__TaxCode}</Code>
+                                <Name>Impuesto</Name>
+                                <Rate>${k.magaya__TaxRate}</Rate>
+                                <Layout>Simple</Layout>
+                                <Type>Tax</Type>
+                                <TaxAuthority>
+                                    <Type>Vendor</Type>
+                                    <Name>Autoridad Impositiva Predeterminada</Name>
+                                </TaxAuthority>
+
+                            </TaxDefinition>
                             <IsPrepaid>true</IsPrepaid>
                             <IsThirdPartyCharge>false</IsThirdPartyCharge>
                             <ChargeDefinition>
@@ -488,7 +505,6 @@ function buildXmlCharge(charges, data_account) {
                                         <IsHomeCurrency>true</IsHomeCurrency>
                                     </Currency>
                                 </AccountDefinition>
-                                <Amount Currency="USD">0.00</Amount>
                                 <Currency Code="USD">
                                     <Name>United States Dollar</Name>
                                     <ExchangeRate>1.00</ExchangeRate>
@@ -501,6 +517,7 @@ function buildXmlCharge(charges, data_account) {
                             <Description>${k.magaya__Charge_Description}</Description>
                             <PriceInCurrency Currency="USD">${k.magaya__Price}</PriceInCurrency>
                             <AmountInCurrency Currency="USD">${k.magaya__Amount_Total}</AmountInCurrency>
+
                             <ExchangeRate>1.00</ExchangeRate>
                             <Currency Code="USD">
                                 <Name>United States Dollar</Name>
@@ -515,117 +532,20 @@ function buildXmlCharge(charges, data_account) {
             })
     }
 
+    /*
+<LiabilityAccount>
+                                    <Type>OtherCurrentLiability</Type>
+                                    <Name>Pagos de Impuestos</Name>
+                                    <Currency Code="USD">
+                                    <Name>Euro</Name>
+                                    <ExchangeRate>1.00</ExchangeRate>
+                                    <DecimalPlaces>2</DecimalPlaces>
+                                    <IsHomeCurrency>true</IsHomeCurrency>
+                                    </Currency>
+                                </LiabilityAccount>
+    */
     return chargesString
 }
-
-/*
- * async function to build the XML to send Magaya
- * @idem dataArray of Squote from Quote List
- *
-async function buildXML(idQuote) {
-
-    stringCharge = stringItem = stringQuote = stringXML = '';
-    transpMethods = new Array();
-    let entity = "magaya__SQuotes";
-    let related_list_charges = "magaya__SQuote_Name0"
-    config = await getMagayaVariables()
-
-    stringQuote = buildStringQuote2(idQuote)
-
-    console.log("XML resolved", stringQuote)
-
-    stringXML = '<Quotation xmlns="http://www.magaya.com/XMLSchema/V1" xsi:schemaLocation="http://www.magaya.com/XMLSchema/V1 schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
-    stringXML += stringQuote;
-    //console.log("String XML", stringXML)
-    /*if (stringCharge !== undefined) {
-        //code
-        stringXML += '<Charges UseSequenceOrder="false">' + stringCharge + "</Charges>";
-    }
-    if (stringItem !== undefined) {
-        //code
-        stringXML += "<Items>" + stringItem + "</Items>";
-    }*
-
-    stringXML += '</Quotation>'
-
-    /*charges = await getRelatedRecordCRM(entity, related_list_charges, idQuote)
-                    .then(response => {
-                        console.log("Charges", response)
-                    })
-    items = await getRelatedRecordCRM(entity, related_list_charges, idQuote)
-            .then(response => {
-                console.log("Items", response)
-            })*/
-
-
-
-    /*stringCharge = await $(this).buildStringCharge(idQuote).catch(() => {
-        stringCharge = '';
-    });
-    stringItem = await $(this).buildStringItems(idQuote).catch(() => {
-        stringItem = '';
-    });*/
-    //stringQuote = await buildStringQuote2(idQuote)
-
-    //stringXML = '<Quotation xmlns="http://www.magaya.com/XMLSchema/V1" xsi:schemaLocation="http://www.magaya.com/XMLSchema/V1 schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
-    //stringXML += stringQuote;
-    //console.log("String XML", stringXML)
-    /*if (stringCharge !== undefined) {
-        //code
-        stringXML += '<Charges UseSequenceOrder="false">' + stringCharge + "</Charges>";
-    }
-    if (stringItem !== undefined) {
-        //code
-        stringXML += "<Items>" + stringItem + "</Items>";
-    }*
-
-    //stringXML += '</Quotation>'
-        //finding user
-        //xmlDoc = $.parseXML(stringXML),
-        //    $xml = $(xmlDoc),
-        //    $title = $xml.find("ContactName");
-        //ContactName = $title.text();
-    //console.log("XML String", stringXML);
-
-    //send xml trougth magaya api
-    flags = MagayaAPI.TRANSACTIONS_FLAGS.BasicFields
-    entity_type = MagayaAPI.TRANSACTION_TYPES.Quotation
-
-    data = {
-        method: 'SetTransaction',
-        data: [
-            config.network_id,
-            entity_type,
-            flags,
-            stringXML
-        ],
-        url: config.magaya_url
-    };
-
-    /*MagayaAPI.sendRequest(data, function(result) {
-        //console.log(result)
-            if (result.error) {
-                Swal.fire({
-                    title: result.error,
-                    text: result.data,
-                    icon: 'error'
-                }).then(function() {
-                    location.reload();
-                })
-                stringCharge = stringItem = stringQuote = stringXML = '';
-            } else {
-                Swal.fire({
-                        title: 'Success',
-                        text: 'Operation success',
-                        icon: 'success',
-                        allowOutsideClick: false
-                    })
-                    //all OK, update QuoteInMagaya field
-                //$(this).updateRecordCRM(data);
-            } //else
-        }) //magaya api*
-
-} //function buildXML*/
 
 
 async function sendmQuote(mquote, idQuote) {
