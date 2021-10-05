@@ -13,6 +13,8 @@ storeDeal.subscribe(() => {
             $("#magaya__Description").val(sanitize(k["magaya__DescriptionofGoods"]))
             $("input[name=magaya__Origin]").val(sanitize(k["Origin"]))
             $("input[name=magaya__Destination]").val(sanitize(k['Destination']))
+            $("input[name=applyToName]").val(sanitize(k['Account_Name']["name"]))
+
         })
 
 

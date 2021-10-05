@@ -8,8 +8,8 @@ storeAccounts.subscribe(() => {
     let accountQuote = u.quoteAccount
     //fill data address in quote
     if (!_.isEmpty(accountQuote)) {
-
         $("select[name=Account]").val(accountQuote.id)
+        $("input[name=applyToName]").val(accountQuote.Account_Name)
 
     }
 
