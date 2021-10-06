@@ -274,10 +274,27 @@ $(document).ready(function(){
         $("#sendItem").hide();
         $("#newItem").show();
 
+        $("#addNoteNew").show()
+        $("#notes-new").show()
+        $("#addNote").hide()
+        $("#notes").hide()
+
         $("#mquoteModal").modal("show")
     })
 
 
+    $("#addNoteNew").click(function(e) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+
+        let subject = $("input[name=notes_subject]").val()
+        let note = $("#notes_body").val()
+        let now = moment().format("YYYY-MM-DD hh:mm:ss");
+        let user = localStorage.getItem('current_user')
+
+        let noteall = `<tr><td>${subject}</td><td>${note}</td><td>${now}</td><td>${user}</td></tr>`
+        $("#notes-new tbody").append(noteall)
+    })
 
  //boton send new mquote
  $("#Save").click(function(e) {

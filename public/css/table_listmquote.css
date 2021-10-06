@@ -204,3 +204,17 @@ td {
     word-wrap:break-word;
 }
 
+#notes-new {
+    table-layout: fixed;
+        font-family: Arial, Helvetica, sans-serif;
+        letter-spacing: 2px;
+        color: #000;
+        word-wrap: break-word;
+
+}
+
+#notes-new td {
+    width: 20%;
+    word-wrap: break-word;
+}
+

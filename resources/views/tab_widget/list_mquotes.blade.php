@@ -32,6 +32,7 @@ a {
 	font-size: 18px;
 }
 
+
 </style>
 
 
@@ -80,7 +81,7 @@ a {
 											</div>
 
 								 		</div>
-										
+
 									</div>
 
 
@@ -181,7 +182,7 @@ a {
 									<a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#menu2" role="tab" aria-controls="nav-contact" aria-selected="false">Charges</a>
 									<a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#menu4" role="tab" aria-controls="nav-contact" aria-selected="false">Items</a>
                                     <a class="nav-link" id="nav-terms-tab" data-toggle="tab" href="#menu6" role="tab" aria-controls="nav-contact" aria-selected="false">Terms</a>
-							  </div>
+                                    <a class="nav-link" id="nav-notes-tab" data-toggle="tab" href="#menu7" role="tab" aria-controls="nav-contact" aria-selected="false">Notes</a>							  </div>
 							</nav>
 						  	<!-- ACA SE DEFINE PARA CADA TAB SU CONTENIDO -->
 							<div class="tab-content" id="nav-tabContent">
@@ -874,6 +875,38 @@ a {
                                         <div class="col-md-12">
                                             <label class="col-md-12" style="font-weight: bold;">Terms and Conditions</label>
                                             <textarea name="magaya__Terms" id="magaya__Terms" cols="50" rows="5" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!------------------------------------------------------------->
+                                <!-- tab notes -->
+                                <!------------------------------------------------------------->
+                                <div class="tab-pane fade" id="menu7" role="tabpanel" aria-labelledby="menu7-tab" style="min-height: 600px;">
+                                    <div class="row" style="margin-bottom:20px; margin-top:20px;">
+                                        <div class="col-md-12">
+                                            <label class="col-md-12" style="font-weight: bold;">Notes</label>
+                                            <table id="notes-new">
+
+                                                <th style="width:25%"></th>
+                                                <th style="width:25%"></th>
+                                                <th style="width:25%"></th>
+                                                <th style="width:25%"></th>
+                                                <tbody></tbody>
+                                            </table>
+
+                                            <table id="notes">
+                                                <tbody></tbody>
+                                            </table>
+
+                                            <div class="col-md-3">
+                                                <input name="notes_subject" class="form-control" />
+                                            </div>
+                                            <div class="col-md-4" style="margin-bottom:20px; margin-top:20px;">
+                                                <textarea id="notes_body" rows="2" class="form-control"></textarea>
+                                            </div>
+                                            <span class="btn btn-outline-primary" id="addNoteNew">Add Note</span>
+                                            <span class="btn btn-outline-primary" id="addNote">Add Note</span>
                                         </div>
                                     </div>
                                 </div>
