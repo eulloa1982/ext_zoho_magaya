@@ -342,7 +342,7 @@ a {
 										<div class="col-md-6">
 											<label class="col-md-12" style="font-weight: bold;">Main Carrier</label>
 											<select name='magaya__Carrier' id='Carrier' class='form-control'>
-                                                <option value="select"></option>
+                                                <option value=""></option>
                                             </select>
 										</div>
 
