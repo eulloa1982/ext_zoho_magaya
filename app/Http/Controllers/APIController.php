@@ -16,7 +16,7 @@ class APIController extends Controller
     public function __construct(Request $request)
     {
         $url = $request->get('url');
-        //$this->magayaApi = new MagayaAPI($url);
+        $this->magayaApi = new MagayaAPI($url);
     }
 
     public function execMethod(Request $request)
