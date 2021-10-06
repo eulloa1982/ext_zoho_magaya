@@ -581,7 +581,7 @@ $('#sortable1').bind("DOMSubtreeModified", function() {
                     data = {
                             method: 'DeleteTransaction',
                             data: [
-                                Utils.getAccessKey(),
+                                '96101',
                                 type,
                                 guid
                             ]
@@ -1826,7 +1826,7 @@ function addedToApplyAccounts(id) {
 
 }
 
-//get magaya login var
+//get magaya n var
 async function getMagayaVariables() {
     console.log("Seek magaya vars")
     network_id = await getMagayaNetworkId()

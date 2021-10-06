@@ -475,7 +475,7 @@ function buildXmlCharge(charges, data_account) {
                                 <DecimalPlaces>2</DecimalPlaces>
                                 <IsHomeCurrency>true</IsHomeCurrency>
                             </HomeCurrency>
-                            <Amount Currency="USD">${k.magaya__Amount}</Amount>
+                            <Amount Currency="USD">${k.magaya__Final_Amount}</Amount>
                             <TaxAmountInCurrency Currency="USD">${k.magaya__Tax_Amount}</TaxAmountInCurrency>
                             <TaxDefinition>
                                 <Code>${k.magaya__TaxCode}</Code>
@@ -516,7 +516,7 @@ function buildXmlCharge(charges, data_account) {
                             <Status>Open</Status>
                             <Description>${k.magaya__Charge_Description}</Description>
                             <PriceInCurrency Currency="USD">${k.magaya__Price}</PriceInCurrency>
-                            <AmountInCurrency Currency="USD">${k.magaya__Amount_Total}</AmountInCurrency>
+                            <AmountInCurrency Currency="USD">${k.magaya__Final_Amount}</AmountInCurrency>
 
                             <ExchangeRate>1.00</ExchangeRate>
                             <Currency Code="USD">
