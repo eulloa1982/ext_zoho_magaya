@@ -37,6 +37,23 @@ class APIController extends Controller
     */
     public function createUser(Request $request)
     {
+        $url_handler = "http://98.211.167.16:3691/Invoke?Handler=CSSoapService";
+        //$url_handler = "http://98.211.167.16:3691/Invoke?Handler=CSSoapService";
+        $url_soap = "http://98.211.167.16:3691/CSSoapService?wsdl";
+
+        $options = [
+            'trace' => 1,
+            'exceptions' => 1,
+            'location' => $url_handler,
+            'stream_context' => stream_context_create(array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true //can fiddle with this one.
+                )
+            ))
+        ];
+        $l = new \SoapClient($options);
         $data = $request->get('data');
         $access_key = $data[0];
         $contactData = $request->get('contactData');
