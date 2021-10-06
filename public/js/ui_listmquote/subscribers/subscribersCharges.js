@@ -163,11 +163,14 @@ storeCharge.subscribe(() => {
                     <td align="right" class="magaya__Amount_Total">${roundDec(k.magaya__Amount_Total).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                     <td align="right" class="magaya__Final_Amount">${roundDec(k.magaya__Final_Amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                     <td class="magaya__ChargeCode" style="display: none;">${k.magaya__ChargeCode}</td>
-                    <td style="display: none;" class="magaya__Tax_Rate0">${k.magaya__TaxRate}</td>
+                    <td style="display: none;" class="magaya__TaxRate">${k.magaya__TaxRate}</td>
                     <td style="display: none;" clss="magaya__Unit">${k.magaya__Unit}</td>
                     <td style="display: none;" class="magaya__Paid_As">${k.magaya__Paid_As}</td>
                     <td style="display: none;" class="magaya__ChargeCurrency">${k.magaya__ChargeCurrency}</td>
                     <td style="display: none;" class="magaya__ApplyToAccounts">${accountId}</td>
+                    <td class="magaya__TaxCode" style="display: none;">${k.magaya__TaxCode}</td>
+                    <td class="magaya__Adjustment" style="display: none;">${k.magaya__Adjustment}</td>
+
                 </tr>`);
             })
             //totalIncome = roundDec(totalIncome)
@@ -238,10 +241,12 @@ storeCharge.subscribe(() => {
                 <td align="right" class="magaya__Amount_Total">${roundDec(k.magaya__Amount_Total).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 <td align="right" class="magaya__Final_Amount">${roundDec(k.magaya__Final_Amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 <td class="magaya__ChargeCode" style="display: none;">${k.magaya__ChargeCode}</td>
-                <td class="magaya__Tax_Rate0" style="display: none;">${k.magaya__TaxRate}</td>
+                <td class="magaya__TaxRate" style="display: none;">${k.magaya__TaxRate}</td>
                 <td class="magaya__Unit" style="display: none;">${k.magaya__Unit}</td>
                 <td class="magaya__Paid_As" style="display: none;">${k.magaya__Paid_As}</td>
                 <td class="magaya__ChargeCurrency" style="display: none;">${k.magaya__ChargeCurrency}</td>
+                <td class="magaya__TaxCode" style="display: none;">${k.magaya__TaxCode}</td>
+                <td class="magaya__Adjustment" style="display: none;">${k.magaya__Adjustment}</td>
                 </tr>`);
             })
 

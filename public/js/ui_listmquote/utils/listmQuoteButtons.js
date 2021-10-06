@@ -219,8 +219,11 @@ $(document).ready(function(){
         let $form = $("#new-charge");
         let item = getFormData($form);
         let accountId = $("select[name=Account]").val()
+        let taxcode = $("select[name=magaya__TaxCode] option:selected").text()
+
         Object.assign(item, {'magaya__ApplyToAccounts': accountId})
         Object.assign(item, {"Name": item["magaya__Charge_Description"]})
+        Object.assign(item, {'magaya__TaxCode': taxcode})
         storeCharge.dispatch(addChargeOnNew({...item}))
         $(`#panel-charge`).animate({width:'toggle'},150);
     })
