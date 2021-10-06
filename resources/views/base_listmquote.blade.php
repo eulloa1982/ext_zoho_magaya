@@ -15,13 +15,13 @@
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
     <!--link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" /-->
 
-    <link href="{{ url('datetimepicker/jquery.datetimepicker.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url('css/preloader.css') }}"/>
-    <link rel="stylesheet" href="{{ url('css/custom-lismquotes.css') }}"/>
+    <link href="{{ url('datetimepicker/jquery.datetimepicker.css', $extra = [], $secure = 1) }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url('css/preloader.css', $extra = [], $secure = 1) }}"/>
+    <link rel="stylesheet" href="{{ url('css/custom-lismquotes.css', $extra = [], $secure = 1) }}"/>
     <!--link rel="stylesheet" href="{{ url('css/dataTables/dataTables.bootstrap.css') }}"/-->
-    <link rel="stylesheet" href="{{ url('css/table_listmquote.css') }}"/>
+    <link rel="stylesheet" href="{{ url('css/table_listmquote.css', $extra = [], $secure = 1) }}"/>
     <!--link rel="stylesheet" href="{{ url('css/form_listmquote.css') }}"/-->
-    <link rel="stylesheet" href="{{ url('css/font_css_material-design-iconic-font.min.css') }}"/>
+    <link rel="stylesheet" href="{{ url('css/font_css_material-design-iconic-font.min.css', $extra = [], $secure = 1) }}"/>
 
 </head>
 <body style="margin-top:40px">
