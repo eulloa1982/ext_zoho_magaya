@@ -55,11 +55,11 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/jitbit/HtmlSanitizer@master/HtmlSanitizer.js"></script>
 
-    <script src="{{ url('js/utils/moment.js') }}"></script>
-    <script src="{{ url('sweetalert/sweetalert.js') }}"></script>
-    <script src="{{ url('select2/js/select2.full.js') }}"></script>
-    <script src="{{ url('datetimepicker/build/jquery.datetimepicker.full.min.js') }}"></script>
-    <script src="{{ url('underscore-master/underscore-min.js') }}"></script>
+    <script src="{{ url('js/utils/moment.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('sweetalert/sweetalert.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('select2/js/select2.full.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('datetimepicker/build/jquery.datetimepicker.full.min.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('underscore-master/underscore-min.js', $extra = [], $secure = 1) }}"></script>
     <!--script src="{{ url('decimal/decimal.js') }}"></script>
     <SDK CDN-->
     <script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"></script>
@@ -80,40 +80,40 @@
     <script src="{{ url('js/utils/magaya_api.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('js/utils/utils.js', $extra = [], $secure = 1) }}"></script>
 
-    <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteInitial.js') }}"></script>
-    <script src="{{ url('js/errors_handlers/errors.js') }}"></script>
-    <script src="{{ url('js/store/constants.js') }}"></script>
+    <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteInitial.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/errors_handlers/errors.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/store/constants.js', $extra = [], $secure = 1) }}"></script>
 
-    <script src="{{ url('js/store/storeError.js') }}"></script>
-    <script src="{{ url('js/store/storeSuccess.js') }}"></script>
-    <script src="{{ url('js/store/store.js') }}"></script>
-    <script src="{{ url('js/store/storeAccounts.js') }}"></script>
-    <script src="{{ url('js/store/storeQuotes.js') }}"></script>
-    <script src="{{ url('js/store/storeItems.js') }}"></script>
-    <script src="{{ url('js/store/storeCharges.js') }}"></script>
-    <script src="{{ url('js/store/storeOrganization.js') }}"></script>
-    <script src="{{ url('js/store/storeDeal.js') }}"></script>
-    <script src="{{ url('js/store/storePorts.js') }}"></script>
-    <script src="{{ url('js/store/storeChargesType.js') }}"></script>
-
-
-    <script src="{{ url('js/ui_listmquote/subscribers/subscribersAccounts.js') }}"></script>
-    <script src="{{ url('js/ui_listmquote/subscribers/subscribersCharges.js') }}"></script>
-    <script src="{{ url('js/ui_listmquote/subscribers/subscribersItems.js') }}"></script>
-    <script src="{{ url('js/ui_listmquote/subscribers/subscribersQuotes.js') }}"></script>
-    <script src="{{ url('js/ui_listmquote/subscribers/subscribersDeal.js') }}"></script>
-    <script src="{{ url('js/ui_listmquote/subscribers/subscribersPorts.js') }}"></script>
-
-    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuote.js') }}"></script>
-    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuoteButtons.js') }}"></script>
-    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuoteFormEdit.js') }}"></script>
-    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/triggers.js') }}"></script>
-
-    <script src="{{ url('js/ui_listmquote/validators/validators.js') }}"></script>
+    <script src="{{ url('js/store/storeError.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/store/storeSuccess.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/store/store.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/store/storeAccounts.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/store/storeQuotes.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/store/storeItems.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/store/storeCharges.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/store/storeOrganization.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/store/storeDeal.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/store/storePorts.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/store/storeChargesType.js', $extra = [], $secure = 1) }}"></script>
 
 
-    <script src="{{ url('html2pdf/html2canvas.min.js') }}"></script>
-    <script src="{{ url('html2pdf/html2pdf.bundle.min.js') }}"></script>
+    <script src="{{ url('js/ui_listmquote/subscribers/subscribersAccounts.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/ui_listmquote/subscribers/subscribersCharges.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/ui_listmquote/subscribers/subscribersItems.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/ui_listmquote/subscribers/subscribersQuotes.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/ui_listmquote/subscribers/subscribersDeal.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/ui_listmquote/subscribers/subscribersPorts.js', $extra = [], $secure = 1) }}"></script>
+
+    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuote.js', $extra = [], $secure = 1) }}"></script>
+    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuoteButtons.js', $extra = [], $secure = 1) }}"></script>
+    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/listmQuoteFormEdit.js', $extra = [], $secure = 1) }}"></script>
+    <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/triggers.js', $extra = [], $secure = 1) }}"></script>
+
+    <script src="{{ url('js/ui_listmquote/validators/validators.js', $extra = [], $secure = 1) }}"></script>
+
+
+    <script src="{{ url('html2pdf/html2canvas.min.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('html2pdf/html2pdf.bundle.min.js', $extra = [], $secure = 1) }}"></script>
     <!--script src="{{ url('js/store/storeForms.js') }}"></script-->
 
     @yield('js')
