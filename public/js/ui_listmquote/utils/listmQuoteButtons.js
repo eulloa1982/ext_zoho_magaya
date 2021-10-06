@@ -219,8 +219,11 @@ $(document).ready(function(){
         let $form = $("#new-charge");
         let item = getFormData($form);
         let accountId = $("select[name=Account]").val()
+        let taxcode = $("select[name=magaya__TaxCode] option:selected").text()
+
         Object.assign(item, {'magaya__ApplyToAccounts': accountId})
         Object.assign(item, {"Name": item["magaya__Charge_Description"]})
+        Object.assign(item, {'magaya__TaxCode': taxcode})
         storeCharge.dispatch(addChargeOnNew({...item}))
         $(`#panel-charge`).animate({width:'toggle'},150);
     })
@@ -465,7 +468,7 @@ $(document).ready(function(){
        // Object.assign(jsonData, {"magaya__ApplyToAccounts": accountId})
         //console.log("Chrges json", jsonData)
         //insertind data, get the id and insert items and charges
-        ZOHO.CRM.API.insertRecord({ Entity: "magaya__SQuotes", APIData: recordData, Trigger: [] })
+        ZOHO.CRM.API.insertRecord({ Entity: "magaya__SQuotes", APIData: recordData, Trigger: ["workflow"] })
             .then(function(response) {
                 console.log("ïnserting mquote response", response)
                 data = response.data;
