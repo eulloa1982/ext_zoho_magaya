@@ -54,8 +54,7 @@ class APIController extends Controller
             ))
         ];
         $l = new \SoapClient($options);
-        return $options;
-        /*$data = $request->get('data');
+        $data = $request->get('data');
         $access_key = $data[0];
         $contactData = $request->get('contactData');
         $emailCustomer = $contactData['Email'];
@@ -105,7 +104,7 @@ class APIController extends Controller
 
         } else {
             return false;
-        }*/
+        }
     }
 
     /*
