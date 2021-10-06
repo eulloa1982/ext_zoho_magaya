@@ -74,11 +74,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 
-    <script src="{{ url('js/ui_listmquote/utils/biblio_jquery.js') }}"></script>
+    <script src="{{ url('js/ui_listmquote/utils/biblio_jquery.js', $extra = [], $secure = 1) }}"></script>
     <!--script src="{{ url('js/quotation3.js') }}"></script>
     <script src="{{ url('js/quotation_utils3.js') }}"></script-->
-    <script src="{{ url('js/utils/magaya_api.js') }}"></script>
-    <script src="{{ url('js/utils/utils.js') }}"></script>
+    <script src="{{ url('js/utils/magaya_api.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/utils/utils.js', $extra = [], $secure = 1) }}"></script>
 
     <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteInitial.js') }}"></script>
     <script src="{{ url('js/errors_handlers/errors.js') }}"></script>
