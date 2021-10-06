@@ -36,8 +36,6 @@ class ArrayToXml
      */
     public static function xml_from_array($arr, $xml = NULL)
     {
-        //print_r($arr);
-
         $first = $xml;
         //set Attribute Tag to find and add
 		$attr = "Attribute_";
@@ -62,8 +60,8 @@ class ArrayToXml
 			}
 			/*is_array($v)
                 ? self::xml_from_array($v, $xml->addChild($k))
-                : $xml->addChild($k, $v);
-*/
+                : $xml->addChild($k, $v);*/
+
         }
         return ($first === NULL) ? $xml->asXML() : $xml;
     }

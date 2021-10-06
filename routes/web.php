@@ -23,7 +23,6 @@ $router->group(['prefix'=> 'tab-widget'], function($router){
     $router->get('/addCharge', 'TabWidgetController@addCharges');
     $router->get('/addItems', 'TabWidgetController@addItems');
     $router->get('/listMquotes', 'TabWidgetController@listMQuotes');
-    $router->get('/pdf', 'TabWidgetController@pdf');
 
     //$router->get('/qtts', 'TabWidgetController@quotation_ts');
 });
