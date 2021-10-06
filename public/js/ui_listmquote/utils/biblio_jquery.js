@@ -505,6 +505,7 @@ function buildXmlCharge(charges, data_account) {
                                         <IsHomeCurrency>true</IsHomeCurrency>
                                     </Currency>
                                 </AccountDefinition>
+                                <Amount Currency="USD">${k.magaya__Final_Amount}</Amount>
                                 <Currency Code="USD">
                                     <Name>United States Dollar</Name>
                                     <ExchangeRate>1.00</ExchangeRate>
