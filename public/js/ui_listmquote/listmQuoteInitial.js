@@ -75,8 +75,6 @@ $(document).ready(function(){
         ZOHO.CRM.API.getAllRecords({Entity: "magaya__Employees", sort_order: "asc"})
             .then(function(response){
                 $.map (response.data, function (k, i) {
-                    //console.log(k)
-                    //$(`<option value='${k.Name}'>${k.Name}</option>`).appendTo("select[name=magaya__Employee]");
                     if (k.magaya__Is_Salesperson) {
                         $(`<option value="${k.Name}">${k.Name}</option>`).appendTo("select[name=magaya__Seller]");
                     }
@@ -149,6 +147,7 @@ $(document).ready(function(){
                     })
                 }
             })
+
 
         //organization data
         ZOHO.CRM.CONFIG.getOrgInfo().then(function(data){
