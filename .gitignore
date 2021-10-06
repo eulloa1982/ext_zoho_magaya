@@ -5,5 +5,4 @@ Homestead.yaml
 .env
 .phpunit.result.cache
 composer.json
-composer.json
 composer.lock
