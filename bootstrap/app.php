@@ -91,13 +91,13 @@ $app->middleware([
 |
 */
 
-$app->register(App\Providers\AppServiceProvider::class);
-$app->register(Barryvdh\DomPDF\ServiceProvider::class);
-$app->configure('dompdf');
+//$app->register(App\Providers\AppServiceProvider::class);
+//$app->register(Barryvdh\DomPDF\ServiceProvider::class);
+//$app->configure('dompdf');
 
 
-$app->register(tibonilab\Pdf\PdfServiceProvider::class);
-class_alias('tibonilab\Pdf\PdfFacade', 'PDF');
+///$app->register(tibonilab\Pdf\PdfServiceProvider::class);
+//class_alias('tibonilab\Pdf\PdfFacade', 'PDF');
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 //$app->alias('PDF', 'tibonilab\\Pdf\\PdfFacade');
