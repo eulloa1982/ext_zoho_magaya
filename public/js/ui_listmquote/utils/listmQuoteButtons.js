@@ -219,8 +219,11 @@ $(document).ready(function(){
         let $form = $("#new-charge");
         let item = getFormData($form);
         let accountId = $("select[name=Account]").val()
+        let taxcode = $("select[name=magaya__TaxCode] option:selected").text()
+
         Object.assign(item, {'magaya__ApplyToAccounts': accountId})
         Object.assign(item, {"Name": item["magaya__Charge_Description"]})
+        Object.assign(item, {'magaya__TaxCode': taxcode})
         storeCharge.dispatch(addChargeOnNew({...item}))
         $(`#panel-charge`).animate({width:'toggle'},150);
     })
@@ -271,10 +274,27 @@ $(document).ready(function(){
         $("#sendItem").hide();
         $("#newItem").show();
 
+        $("#addNoteNew").show()
+        $("#notes-new").show()
+        $("#addNote").hide()
+        $("#notes").hide()
+
         $("#mquoteModal").modal("show")
     })
 
 
+    $("#addNoteNew").click(function(e) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+
+        let subject = $("input[name=notes_subject]").val()
+        let note = $("#notes_body").val()
+        let now = moment().format("YYYY-MM-DD hh:mm:ss");
+        let user = localStorage.getItem('current_user')
+
+        let noteall = `<tr><td>${subject}</td><td>${note}</td><td>${now}</td><td>${user}</td></tr>`
+        $("#notes-new tbody").append(noteall)
+    })
 
  //boton send new mquote
  $("#Save").click(function(e) {
@@ -465,7 +485,7 @@ $(document).ready(function(){
        // Object.assign(jsonData, {"magaya__ApplyToAccounts": accountId})
         //console.log("Chrges json", jsonData)
         //insertind data, get the id and insert items and charges
-        ZOHO.CRM.API.insertRecord({ Entity: "magaya__SQuotes", APIData: recordData, Trigger: [] })
+        ZOHO.CRM.API.insertRecord({ Entity: "magaya__SQuotes", APIData: recordData, Trigger: ["workflow"] })
             .then(function(response) {
                 console.log("ïnserting mquote response", response)
                 data = response.data;

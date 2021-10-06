@@ -221,6 +221,11 @@ $(document).ready(function(){
             $("#table-items").show();
             $("#table-items-new").hide();
 
+            $("#addNoteNew").hide()
+            $("#notes-new").hide()
+            $("#addNote").show()
+            $("#notes").show()
+
             $("select[name=Deal]").val("")
             idmQuoteToEdit = $(this).attr('data-id')
 

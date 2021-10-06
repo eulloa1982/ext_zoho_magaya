@@ -32,20 +32,25 @@
                     }
                     charge[this.name].push(sanitize(this.value) || '');
                 } else {
-                    charge[this.name] = sanitize(this.value) || '';
+                    //if (this.name !== "Name" && this.name !== "id" && this.name !== "magaya__SQuote_Name" && this.name !== "magaya__ChargeCode" && this.name !== "magaya__ChargeCurrency" && this.name !== "magaya__Paid_As" && this.name !== "magaya__Status")
+                    if ($.isNumeric(this.value))
+                        charge[this.name] = Number(this.value)
+                    else
+                        charge[this.name] = sanitize(this.value) || '';
                 }
             });
 
             Object.assign(charge, { id: idCharge, magaya__SQuote_Name: idmQuoteToEdit});
             let config = { APIData: charge }
             Object.assign(config, { Entity: "magaya__ChargeQuote" });
+            Object.assign(config, {Trigger:[]})
 
+            console.log("Charges updated", config)
 
             ZOHO.CRM.API.updateRecord(config)
                 .then(function(data){
                     res = data.data;
                     $.map(res, function(k, v) {
-                        console.log("Error", k)
                         if (k.code !== "SUCCESS") {
                             codeError = k.code;
                             field = k.details.api_name;
@@ -1074,4 +1079,3 @@ var obs = new MutationObserver(function(mutations, observer) {
                 }
             })
     })*/
-
