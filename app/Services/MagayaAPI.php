@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Services;
-use \SoapClient;
+use SoapClient;
 
 class MagayaAPI extends SoapClient implements MagayaAPIInterface
 {
