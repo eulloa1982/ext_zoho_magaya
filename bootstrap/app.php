@@ -24,7 +24,8 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->withFacades();
-$app->withEloquent();
+
+// $app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,7 @@ $app->configure('app');
 
 $app->middleware([
         App\Http\Middleware\CorsMiddleware::class,
+        //App\Http\Middleware\HttpsProtocol::class
         //App\Http\Middleware\IpMiddleware::class
 ]);
 
@@ -96,12 +98,11 @@ $app->middleware([
 //$app->configure('dompdf');
 
 
-//$app->register(tibonilab\Pdf\PdfServiceProvider::class);
+///$app->register(tibonilab\Pdf\PdfServiceProvider::class);
 //class_alias('tibonilab\Pdf\PdfFacade', 'PDF');
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
-//$app->alias('PDF', 'tibonilab\\Pdf\\PdfFacade');
-//class_alias('tibonilab\Pdf\PdfFacade', 'PDF');
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
