@@ -98,6 +98,8 @@ $app->middleware([
 //$app->configure('dompdf');
 
 
+
+//$app->register(tibonilab\Pdf\PdfServiceProvider::class);
 ///$app->register(tibonilab\Pdf\PdfServiceProvider::class);
 //class_alias('tibonilab\Pdf\PdfFacade', 'PDF');
 // $app->register(App\Providers\AuthServiceProvider::class);
