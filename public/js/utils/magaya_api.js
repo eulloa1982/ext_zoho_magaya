@@ -92,7 +92,7 @@ var MagayaAPI = function() {
 
             $.ajax({
                 type: 'POST',
-                url: 'api',
+                url: 'https://zohomagaya.herokuapp.com/api',
                 data: data,
                 beforeSend: function() {
                     Utils.blockUI()
