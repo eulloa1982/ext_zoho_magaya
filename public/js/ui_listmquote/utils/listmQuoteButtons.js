@@ -516,8 +516,8 @@ $(document).ready(function(){
 
                             })
 
-                        message = `A new mQuote inserted!!`
-                        storeSuccess.dispatch(addSuccess({message: message}))
+                        //message = `A new mQuote inserted!!`
+                        //storeSuccess.dispatch(addSuccess({message: message}))
                         $("#mquoteModal").modal("hide")
 
                     }
@@ -546,10 +546,6 @@ $(document).ready(function(){
                                     show = true;
                                     module = 'Cargo Items'
                                     storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                                } else {
-                                    message = " : Item Updated!!";
-                                    storeSuccess.dispatch(addSuccess({message: message}))
 
                                 }
                             })
@@ -585,10 +581,6 @@ $(document).ready(function(){
                                     show = true;
                                     module = 'Service Items'
                                     storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                                } else {
-                                    message = " : Charges Inserted!!";
-                                    storeSuccess.dispatch(addSuccess({message: message}))
 
                                 }
                             })
