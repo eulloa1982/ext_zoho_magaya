@@ -25,7 +25,7 @@ $('#info-datad').bind("DOMSubtreeModified", function() {
     var el = $('.number');
     el.prop("autocomplete",false); // remove autocomplete (optional)
     el.on('keydown',function(e){
-        var allowedKeyCodesArr = [9,96,97,98,99,100,101,102,103,104,105,48,49,50,51,52,53,54,55,56,57,8,37,39,109,189,46,110,190];  // allowed keys
+        var allowedKeyCodesArr = [9,96,97,98,99,100,101,102,103,104,105,48,49,50,51,52,53,54,55,56,57,8,37,39,109,188,189,46,110,190];  // allowed keys
         if($.inArray(e.keyCode,allowedKeyCodesArr) === -1 && (e.keyCode != 17 && e.keyCode != 86)){  // if event key is not in array and its not Ctrl+V (paste) return false;
             e.preventDefault();
             e.stopImmediatePropagation()

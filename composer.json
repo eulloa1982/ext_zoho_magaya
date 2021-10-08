@@ -5,9 +5,9 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "ext-soap": "*",
-        "ext-openssl": "*",
-        "php": "^7.3|^8.0"
+        "php": "^7.3|^8.0",
+        "laravel/lumen-framework": "^8.0",
+        "ext-soap": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

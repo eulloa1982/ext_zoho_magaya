@@ -1140,13 +1140,13 @@ float:left;
 
 @stop
 @section('js')
-<script src="{{ url('js/biblio.jquery3.js') }}"></script>
-<script src="{{ url('js/quotation2.js') }}"></script>
-<script src="{{ url('js/shipments2.js') }}"></script>
+<script src="{{ url('js/biblio.jquery3.js', $extra = [], $secure = 1) }}"></script>
+<script src="{{ url('js/quotation2.js', $extra = [], $secure = 1) }}"></script>
+<script src="{{ url('js/shipments2.js', $extra = [], $secure = 1) }}"></script>
 
-<script src="{{ url('js/contacts2.js') }}"></script>
-<script src="{{ url('js/quotation_utils2.js') }}"></script>
-<script src="{{ url('js/utils_cookies.js') }}"></script>
+<script src="{{ url('js/contacts2.js', $extra = [], $secure = 1) }}"></script>
+<script src="{{ url('js/quotation_utils2.js', $extra = [], $secure = 1) }}"></script>
+<script src="{{ url('js/utils_cookies.js', $extra = [], $secure = 1) }}"></script>
 
 
 <script>

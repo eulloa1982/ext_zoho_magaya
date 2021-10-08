@@ -247,16 +247,22 @@ $(document).ready(function(){
         limpiar_form()
 
         //set tab quotatioFor active by default
-        /*$("#nav-home-tab").addClass("active");
+        $("#nav-home-tab").addClass("active");
         $("#menu5").addClass("active show");
-        $("#nav-profile-tab").removeClass("active");
-        $("#nav-contact-tab").removeClass("active");
+        $("#nav-general-tab").removeClass("active");
+        $("#nav-routing-tab").removeClass("active");
+        $("#nav-charges-tab").removeClass("active");
+        $("#nav-items-tab").removeClass("active");
+        $("#nav-terms-tab").removeClass("active");
+        $("#nav-notes-tab").removeClass("active");
         //$("#nav-charges-tab").removeClass("active");
         //$("#nav-items-tab").removeClass("active");
         $("#menu1").removeClass("show active");
         $("#menu2").removeClass("show active");
         $("#menu3").removeClass("show active");
-        $("#menu4").removeClass("show active");*/
+        $("#menu4").removeClass("show active");
+        $("#menu6").removeClass("show active");
+        $("#menu7").removeClass("show active");
 
         $("#table-charges").hide();
         $("#table-charges-new tbody").empty();
@@ -286,15 +292,24 @@ $(document).ready(function(){
     $("#addNoteNew").click(function(e) {
         e.preventDefault()
         e.stopImmediatePropagation()
-
+        console.log("Ädding note")
         let subject = $("input[name=notes_subject]").val()
         let note = $("#notes_body").val()
         let now = moment().format("YYYY-MM-DD hh:mm:ss");
         let user = localStorage.getItem('current_user')
 
-        let noteall = `<tr><td>${subject}</td><td>${note}</td><td>${now}</td><td>${user}</td></tr>`
-        $("#notes-new tbody").append(noteall)
+        let noteall = `<tr><td class="Delete">
+        <span class="material-icons oculto del-item-note-new">clear</span></td>
+        <td style="width:25%" class="Note_Title">${subject}</td>
+        <td style="width:25%" class="Note_Content">${note}</td>
+        <td class="NoData">${now}</td><td class="NoData">${user}</td>
+        <td style="width:25%" class="Note_Title">${subject}</td>
+        </tr>`
+        $(noteall).appendTo("#notes-new tbody")
+        //$("#notes-new tbody").append(`<tr><td>${subject}</td><td>${note}</td><td>${now}</td><td>${user}</td></tr>`)
     })
+
+
 
  //boton send new mquote
  $("#Save").click(function(e) {
@@ -487,7 +502,6 @@ $(document).ready(function(){
         //insertind data, get the id and insert items and charges
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__SQuotes", APIData: recordData, Trigger: ["workflow"] })
             .then(function(response) {
-                console.log("ïnserting mquote response", response)
                 data = response.data;
                 let id = 0;
                 $.each(data, function(key, valor) {
@@ -502,13 +516,18 @@ $(document).ready(function(){
 
                     } else {
                         //get the record from zoho
+                        let data_return = {}
                         ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id})
                             .then(function(data){
                                 record = data.data;
-                                var func_name = "magaya__setQuoteTotalAmount";
-                                var req_data ={
+                                let func_name = "magaya__setQuoteTotalAmount";
+                                let req_data ={
                                     "quote_id" : id
                                 };
+                                data_return = {
+                                    "idQuote": id,
+                                    "name": record.Name
+                                }
                                 ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
                                     console.log("Update quote amount", data)
                                 })
@@ -516,16 +535,20 @@ $(document).ready(function(){
 
                             })
 
-                        message = `A new mQuote inserted!!`
-                        storeSuccess.dispatch(addSuccess({message: message}))
+                        //message = `A new mQuote inserted!!`
+                        //storeSuccess.dispatch(addSuccess({message: message}))
                         $("#mquoteModal").modal("hide")
 
                     }
                 })
 
+                //console.log("Dat to returne", data_return)
+
                 return id
             })
             .then(function(idQuote) {
+                //let idQuote = data.idQuote
+                //let name = data.name
 
                 jsonItems = $(this).tableToJson('table-items-new', idQuote);
                 jsonItems = JSON.parse(`[${jsonItems}]`)
@@ -533,7 +556,20 @@ $(document).ready(function(){
                 jsonCharges = $(this).tableToJson('table-charges-new', idQuote);
                 jsonData = JSON.parse(`[${jsonCharges}]`)
 
+                /*jsonNotes = $(this).tableToJson('notes-new', idQuote)
+                jsonNotesData = JSON.parse(`[${jsonNotes}]`)
+                console.log("Notes", jsonNotesData)
                 //check the data
+                /*if (!_.isEmpty(jsonNotes)) {
+
+                    Object.assign(jsonNotesData, {"Parent_Id": {"name": name, "id": idQuote}})
+                    ZOHO.CRM.API.insertRecord({ Entity: "Notes", APIData: jsonNotesData, Trigger: [] })
+                        .then(function(response) {
+                            console.log("Response Notes", response)
+                        })
+                }*/
+
+
                 if (!_.isEmpty(jsonItems)) {
                     ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: jsonItems, Trigger: [] })
                         .then(function(response) {
@@ -546,10 +582,6 @@ $(document).ready(function(){
                                     show = true;
                                     module = 'Cargo Items'
                                     storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                                } else {
-                                    message = " : Item Updated!!";
-                                    storeSuccess.dispatch(addSuccess({message: message}))
 
                                 }
                             })
@@ -585,10 +617,6 @@ $(document).ready(function(){
                                     show = true;
                                     module = 'Service Items'
                                     storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                                } else {
-                                    message = " : Charges Inserted!!";
-                                    storeSuccess.dispatch(addSuccess({message: message}))
 
                                 }
                             })
