@@ -188,16 +188,21 @@ $(document).ready(function(){
             storeQuote.dispatch(clearQuoteToEdit())
 
             limpiar_form()
-            /*$("#nav-home-tab").addClass("active");
+            //set tab quotatioFor active by default
+            $("#nav-home-tab").addClass("active");
             $("#menu5").addClass("active show");
-            $("#nav-profile-tab").removeClass("active");
-            $("#nav-contact-tab").removeClass("active");
-            //$("#nav-charges-tab").removeClass("active");
-            //$("#nav-items-tab").removeClass("active");
+            $("#nav-general-tab").removeClass("active");
+            $("#nav-routing-tab").removeClass("active");
+            $("#nav-charges-tab").removeClass("active");
+            $("#nav-items-tab").removeClass("active");
+            $("#nav-terms-tab").removeClass("active");
+            $("#nav-notes-tab").removeClass("active");
             $("#menu1").removeClass("show active");
             $("#menu2").removeClass("show active");
             $("#menu3").removeClass("show active");
-            $("#menu4").removeClass("show active");*/
+            $("#menu4").removeClass("show active");
+            $("#menu6").removeClass("show active");
+            $("#menu7").removeClass("show active");
 
             $("#table-charges").show();
             $("#table-charges tbody").empty();
