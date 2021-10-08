@@ -3,7 +3,7 @@
 namespace App\Services;
 use \SoapClient;
 
-class MagayaAPI extends \SoapClient
+class MagayaAPI extends \SoapClient implements MagayaAPIInterface
 {
     const  ERROR_CODES = [
         'no_error'                    =>    "API call succeeded",
