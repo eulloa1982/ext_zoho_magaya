@@ -890,11 +890,15 @@ a {
                                         <div class="col-md-12">
                                             <label class="col-md-12" style="font-weight: bold;">Notes</label>
                                             <table id="notes-new">
+                                            <thead>
+												<tr>
+                                                    <th style="width:25%"></th>
+                                                    <th style="width:40%"></th>
+													<th style="width:20%"></th>
+													<th style="width:15%"></th>
 
-                                                <th style="width:25%"></th>
-                                                <th style="width:25%"></th>
-                                                <th style="width:25%"></th>
-                                                <th style="width:25%"></th>
+												</tr>
+										   </thead>
                                                 <tbody></tbody>
                                             </table>
 

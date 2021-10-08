@@ -183,3 +183,33 @@ function rolOther() {
     })
 
 //})
+
+
+/****table notes new change events******/
+var obs = new MutationObserver(function(mutations, observer) {
+    $('#notes-new').on('click', '.del-item-note-new', function(e) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+        Swal.fire({
+            title: "Confirm",
+            text: "You are about to delete record from mQuote, you sure?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            cancelButtonText: "Cancel",
+            cancelButtonColor: '#d33'
+
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $(this).closest('tr').remove();
+            }
+        })
+        //console.debug('Index', rowindex);
+  });
+
+
+
+
+  });
+  var canvasElement = $("#notes-new")[0];
+  obs.observe(canvasElement, {childList: true, subtree: true});

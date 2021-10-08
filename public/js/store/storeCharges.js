@@ -144,6 +144,8 @@ function reducerCharge (state = initialStateCharge, actions)  {
 
             let final_amount = roundDec(amount_total) + roundDec(newArray[1]['magaya__Adjustment'])
             newArray[1]['magaya__Final_Amount'] = roundDec(final_amount)
+
+
             return {
                 ...state,
                 singleCharge: newArray
@@ -202,17 +204,28 @@ function reducerCharge (state = initialStateCharge, actions)  {
             price = price > 0 ? price : 0;
             quantity = quantity > 0 ? quantity : 0
             let amount = price * quantity;
-            newArray['magaya__Amount'] = roundDec(amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+
             //calculate amount tax
             let amount_tax = (newArray['magaya__Amount'] / 100) * roundDec (newArray['magaya__TaxRate'])
-            newArray['magaya__Tax_Amount'] = roundDec(amount_tax).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             let amount_total = amount + amount_tax;
-            newArray["magaya__Amount_Total"] = roundDec(amount_total).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            let final_amount = (roundDec(newArray["magaya__Adjustment"]) + roundDec(amount_total))
+            //newArray["magaya__Amount_Total"] = roundDec(amount_total).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray["magaya__Amount_Total"] = Intl.NumberFormat("es-MX", {style: "decimal"}).format(amount_total)
+            newArray["magaya__Final_Amount"] = Intl.NumberFormat("es-MX", {style: "decimal"}).format(final_amount)
+            newArray['magaya__Tax_Amount'] = Intl.NumberFormat("es-MX", {style: "decimal"}).format(amount_tax)
+            newArray['magaya__Amount'] = roundDec(amount)
+
 
             newArray['Name'] = newArray["magaya__Charge_Description"]
             newArray["magaya__TaxRate"] = newArray["magaya__TaxCode"]
-            newArray["magaya__Final_Amount"] = (roundDec(newArray["magaya__Adjustment"]) + roundDec(amount_total)).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            //newArray["magaya__Final_Amount"] = (roundDec(newArray["magaya__Adjustment"]) + roundDec(amount_total)).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             newArray['magaya__Price'] = price.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            //newArray['magaya__Tax_Amount'] = roundDec(amount_tax).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            //newArray['magaya__Tax_Amount'] = Intl.NumberFormat("en-US", {style: "decimal"}).format(amount_tax)
+            //newArray['magaya__Amount'] = roundDec(amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            //newArray['magaya__Amount'] = Intl.NumberFormat("en-US", {style: "decimal"}).format(amount)
+            console.log(newArray)
+
             return {
                 ...state,
                 emptyCharge: newArray
