@@ -130,7 +130,12 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray = {...state.singleCharge};
             newArray[1][field] = value
             //calculate volume
-            let amount = roundDec(newArray[1]['magaya__Price']) * roundDec(newArray[1]['magaya__CQuantity']);
+            let price = roundDec(newArray['magaya__Price'])
+            let quantity = roundDec (newArray['magaya__CQuantity'])
+            price = price > 0 ? price : 0;
+            quantity = quantity > 0 ? quantity : 0
+            let amount = price * quantity;
+
             newArray[1]['magaya__Amount'] = roundDec(amount)
             let amount_tax = (roundDec(newArray[1]['magaya__Amount']) / 100) * roundDec(newArray[1]['magaya__TaxRate'])
             newArray[1]['magaya__Tax_Amount'] = roundDec(amount_tax)
@@ -194,7 +199,8 @@ function reducerCharge (state = initialStateCharge, actions)  {
 
             let price = roundDec(newArray['magaya__Price'])
             let quantity = roundDec (newArray['magaya__CQuantity'])
-
+            price = price > 0 ? price : 0;
+            quantity = quantity > 0 ? quantity : 0
             let amount = price * quantity;
             newArray['magaya__Amount'] = roundDec(amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             //calculate amount tax
