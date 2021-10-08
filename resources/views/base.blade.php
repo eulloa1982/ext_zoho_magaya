@@ -9,7 +9,7 @@
     <title>Magaya</title>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link href="{{ url('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url('bootstrap/css/bootstrap.min.css', $extra = [], $secure = 1) }}" rel="stylesheet">
     <!-- Plugins -->
     <link href="{{ url('sweetalert/sweetalert2.min.css', $extra = [], $secure = 1) }}" rel="stylesheet">
     <link href="{{ url('font-awesome/css/all.min.css', $extra = [], $secure = 1) }}" rel="stylesheet">
@@ -20,7 +20,7 @@
         <link href="{{ url('select2/css/select2.css', $extra = [], $secure = 1) }}" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/custom.css" rel="stylesheet">
+    <link href="{{ url('css/custom.css', $extra = [], $secure = 1) }} " rel="stylesheet">
   </head>
   <body>
     <div id="preloader" >
