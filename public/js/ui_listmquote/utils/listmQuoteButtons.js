@@ -220,9 +220,10 @@ $(document).ready(function(){
         let item = getFormData($form);
         let accountId = $("select[name=Account]").val()
         let taxcode = $("select[name=magaya__TaxCode] option:selected").text()
+        let chargeDescription = $("#magaya__Charge_Description").val()
 
         Object.assign(item, {'magaya__ApplyToAccounts': accountId})
-        Object.assign(item, {"Name": item["magaya__Charge_Description"]})
+        Object.assign(item, {"Name": chargeDescription})
         Object.assign(item, {'magaya__TaxCode': taxcode})
 
         console.log("new charge", item)
