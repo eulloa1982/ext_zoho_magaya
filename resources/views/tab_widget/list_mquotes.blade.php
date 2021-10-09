@@ -639,16 +639,6 @@ a {
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-4">Adjustment</div>
-                                                    <div class="col-md-6"><input type="text" class="form-control number new-charge" name="magaya__Adjustment"></div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-4">Final Amount</div>
-                                                    <div class="col-md-6"><input type="text" class="form-control number new-charge" name="magaya__Final_Amount" readonly></div>
-                                                </div>
-
-                                                <div class="row">
                                                     <div class="col-md-4">Currency</div>
                                                     <div class="col-md-6"><select name="magaya__ChargeCurrency" class="form-control new-charge"><option></option><option value="USD">USD</option></select></div>
                                                 </div>
@@ -694,7 +684,6 @@ a {
                                                     <th style="width:9%">Amount</th>
                                                     <th style="width:9%">Tax Amount</th>
 													<th style="width:9%">Amount + Tax</th>
-                                                    <th style="width:9%">Final Amount</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
@@ -714,7 +703,6 @@ a {
                                                     <th style="width:9%">Amount</th>
                                                     <th style="width:9%">Tax Amount</th>
 													<th style="width:9%">Amount + Tax</th>
-                                                    <th style="width:9%">Final Amount</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>

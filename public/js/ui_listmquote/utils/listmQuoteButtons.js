@@ -224,6 +224,8 @@ $(document).ready(function(){
         Object.assign(item, {'magaya__ApplyToAccounts': accountId})
         Object.assign(item, {"Name": item["magaya__Charge_Description"]})
         Object.assign(item, {'magaya__TaxCode': taxcode})
+
+        console.log("new charge", item)
         storeCharge.dispatch(addChargeOnNew({...item}))
         $(`#panel-charge`).animate({width:'toggle'},150);
     })

@@ -27,6 +27,14 @@
                 }
                 else {
                     let nameValue = $(this).html()
+                    //remove commas
+                    let dataType = $(this).attr("data-type")
+                    if (dataType === "number") {
+                        console.log("Number value before", nameValue)
+                        nameValue = nameValue.replace(/[,]/g, '')
+                        console.log("Number value after", nameValue)
+
+                    }
                     json_items += `, "${class_name}":"${nameValue}"`
                 }
             })
