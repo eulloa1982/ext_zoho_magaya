@@ -8,7 +8,7 @@
  * ******************************************************
  * ****************************************************
  */
- (function($) {
+(function($) {
     $.fn.tableToJson = function(table, id) {
         jsonData = '';
         json_items = ''
@@ -24,9 +24,15 @@
                     json_items += ',"magaya__StatusA":"' + $("select[name=StatusA]").val() + '"';
                 } else if (class_name === 'Delete' || class_name === "NoData") {
                     //
-                }
-                else {
+                } else {
                     let nameValue = $(this).html()
+                        //remove commas
+                    let dataType = $(this).attr("data-type")
+                    if (dataType === "number") {
+                        console.log("Number value before", nameValue)
+                        nameValue = nameValue.replace(/[,]/g, '')
+                        console.log("Number value after", nameValue)
+                    }
                     json_items += `, "${class_name}":"${nameValue}"`
                 }
             })
@@ -49,27 +55,31 @@
 (function($) {
     $.fn.dataShow = function(module, id) {
         //console.log("Lanzando en modulo " + module + ", con id, "  + id)
-        switch(module) {
-            case "table-items": {
-                storeItem.dispatch(getItemQuote({id: id}))
-                break;
-            }
+        switch (module) {
+            case "table-items":
+                {
+                    storeItem.dispatch(getItemQuote({ id: id }))
+                    break;
+                }
 
-            case "table-items-new": {
-                //console.log("Table charges new")
-                storeItem.dispatch(getItemQuoteOnNew({id: id}))
-                break;
-            }
+            case "table-items-new":
+                {
+                    //console.log("Table charges new")
+                    storeItem.dispatch(getItemQuoteOnNew({ id: id }))
+                    break;
+                }
 
-            case "table-charges": {
-                storeCharge.dispatch(getCharge({id: id}))
-                break;
-            }
+            case "table-charges":
+                {
+                    storeCharge.dispatch(getCharge({ id: id }))
+                    break;
+                }
 
-            case "table-charges-new": {
-                storeCharge.dispatch(getChargeOnNew({id: id}))
-                break;
-            }
+            case "table-charges-new":
+                {
+                    storeCharge.dispatch(getChargeOnNew({ id: id }))
+                    break;
+                }
 
             default:
                 return "No data"
@@ -89,13 +99,13 @@ function sanitize(input) {
                  replace(/<![\s\S]*?--[ \t\n\r]*>/gi, '');
     return output;
     */
-   if (!_.isEmpty(input)) {
-       /*if (input.match(/^[0-9a-zA-Z]\-\#{1,255}$/))
+    if (!_.isEmpty(input)) {
+        /*if (input.match(/^[0-9a-zA-Z]\-\#{1,255}$/))
         return input;
     return false;*/
         let a = HtmlSanitizer.SanitizeHtml(input);
         return input.replace(/['"]+/g, '').replace(/[^a-zA-Z0-9]\-/g, ' ').replace(/<(|\/["]\/[&<>]\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g, '');
-   }
+    }
 };
 
 
@@ -107,24 +117,26 @@ function limpiar_form() {
     $("select[name=magaya__Shipper]").val("")
     $("select[name=Deal]").val("")
     $("#magaya__Description").val("")
-    $("select[name=magaya__PortofUnloading]").val("")
-    $("select[name=magaya__PortofLoading]").val("")
-    $("input[name=Shipper_Street]").val("")
-    $("input[name=Shipper_City]").val("")
-    $("input[name=Shipper_State]").val("")
-    $("input[name=Shipper_Country]").val("")
-    $("input[name=Consignee_Street]").val("")
-    $("input[name=Consignee_City]").val("")
-    $("input[name=Consignee_State]").val("")
-    $("input[name=Consignee_Country]").val("")
-    $("select[name=magaya__ConsigneeName]").val("")
+        //$("select[name=magaya__PortofUnloading]").val("")
+        //$("select[name=magaya__PortofLoading]").val("")
+    $("input[name=magaya__ShipperState]").val("")
+    $("input[name=magaya__ShipperCity]").val("")
+    $("input[name=magaya__ShipperCountry]").val("")
+    $("input[name=magaya__ShipperStreet]").val("")
+    $("input[name=magaya__ConsigneeCity]").val("")
+    $("input[name=magaya__ConsigneeState]").val("")
+    $("input[name=magaya__ConsigneeCountry]").val("")
+    $("input[name=magaya__ConsigneeStreet]").val("")
+    $("select[name=magaya__Consignee]").val("")
+    $("select[name=magaya__Consignee]").change()
     $("select[name=magaya__Shipper]").val("")
     $("input[name=magaya__Magaya_Status]").val("Open")
     $("input[name=magaya__Is_Hazardous]").prop("checked", false)
     $("input[name=Magaya_updated]").prop("checked", false)
     $("#magaya__Terms").val("")
 
-    //hora actual
+    $("select")
+        //hora actual
 
     //$("select[name=Account]").removeAttr("selected")
     // expected output: 10*/
@@ -141,7 +153,7 @@ function limpiar_form() {
 
     $("input[name=magaya__IssuedByName]").val(organization.company_name)
     $("input[name=magaya__Employee]").val(current_user)
-    //console.log("Organization", JSON.parse(organization))
+        //console.log("Organization", JSON.parse(organization))
 }
 
 
@@ -159,8 +171,8 @@ function roundDec(num) {
 //get items cargo table, return xml charge
 (function($) {
     $.fn.buildStringCharge = function(idSQuote) {
-//async function buildStringCharge(idSQuote) {
-    stringCharges = '';
+        //async function buildStringCharge(idSQuote) {
+        stringCharges = '';
         return new Promise(function(resolve, reject) {
             ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idSQuote, RelatedList: "magaya__SQuote_Name0", page: 1, per_page: 200 })
                 .then(function(response) {
@@ -249,13 +261,13 @@ async function buildStringQuote2(idSQuote) {
 
     stringQuote += `<IsOpenQuote>true</IsOpenQuote><Status>Open</Status>`
 
-    let contactName =''
+    let contactName = ''
     let contact = ''
 
     //customer of the quote
     try {
         accountId = quoteXML.Account.id
-        storeAccounts.dispatch(findAccount({id: accountId}))
+        storeAccounts.dispatch(findAccount({ id: accountId }))
         stringQuote += `<ContactName>${singleAccount['Account_Name']}</ContactName>`
 
         if (!_.isEmpty(singleAccount['magaya__MagayaGUID']))
@@ -270,7 +282,7 @@ async function buildStringQuote2(idSQuote) {
 
     } catch (err) {
         message = `'There is an error whit mQuote Account' ${err}`
-        storeSuccess.dispatch(addSuccess({message: message}))
+        storeSuccess.dispatch(addSuccess({ message: message }))
     }
 
     //representative
@@ -318,7 +330,7 @@ async function buildStringQuote2(idSQuote) {
 //send quote
 async function buildStringXML(idSQuote) {
     //check magaya updated
-    storeQuote.dispatch(findById({id: idSQuote}))
+    storeQuote.dispatch(findById({ id: idSQuote }))
     let quote = quoteXML[0]
 
     if (quote.Magaya_updated) {
@@ -326,7 +338,7 @@ async function buildStringXML(idSQuote) {
         show = false;
         field = ``;
         module = 'mQuote'
-        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+        storeError.dispatch(addError({ errorCode: codeError, showInfo: show, field: field, module: module }))
 
 
     } else {
@@ -341,24 +353,24 @@ async function buildStringXML(idSQuote) {
         let charges = ``
         let stringCharge = ``
         stringCharge = await $(this).buildStringCharge(idSQuote)
-                    .then(resp => {
-                        //if its here, charges exists, so get the account data
-                        account_id = resp[0].magaya__ApplyToAccounts.id
-                        console.log(account_id)
-                        charges = resp;
-                    })
-                    .catch(() => {
-                        //distpath an error
-                        charges = '';
-                    });
+            .then(resp => {
+                //if its here, charges exists, so get the account data
+                account_id = resp[0].magaya__ApplyToAccounts.id
+                console.log(account_id)
+                charges = resp;
+            })
+            .catch(() => {
+                //distpath an error
+                charges = '';
+            });
 
         //do not send charges without an apply to
         if (account_id > 0) {
             let data = await getRecordCRM("Accounts", account_id)
-                    .then(resp => {
-                        console.log("Resp", resp)
-                        data_account = resp[0]
-                    })
+                .then(resp => {
+                    console.log("Resp", resp)
+                    data_account = resp[0]
+                })
 
             if (charges !== undefined && !_.isEmpty(charges)) {
                 let stringCharges = buildXmlCharge(charges, data_account)
@@ -369,14 +381,14 @@ async function buildStringXML(idSQuote) {
         //items
         let items = {}
         stringItem = await $(this).buildStringItems(idSQuote)
-                    .then(resp => {
-                        console.log("Items", resp)
-                        items = resp
-                    })
-                    .catch(() => {
-                        //distpath an error
-                        charges = '';
-                    });
+            .then(resp => {
+                console.log("Items", resp)
+                items = resp
+            })
+            .catch(() => {
+                //distpath an error
+                charges = '';
+            });
 
         if (items !== undefined && !_.isEmpty(items)) {
             let stringItems = buildXmlItem(items)
@@ -449,23 +461,23 @@ function buildXmlCharge(charges, data_account) {
     let chargesString = ``
 
     if (!_.isEmpty(charges)) {
-        $.map(charges, function (k, v) {
+        $.map(charges, function(k, v) {
             chargesString += `<Charge>
                 <Type>Standard</Type>`
 
-                if (data_account.magaya__MagayaGUID !== null && data_account.magaya__MagayaGUID !== undefined && data_account.magaya__MagayaGUID !== "null" && data_account.magaya__MagayaGUID !== "undefined")
-                    chargesString += `<Entity GUID="${data_account.magaya__MagayaGUID}">`
-                else
-                    chargesString += `<Entity>`
+            if (data_account.magaya__MagayaGUID !== null && data_account.magaya__MagayaGUID !== undefined && data_account.magaya__MagayaGUID !== "null" && data_account.magaya__MagayaGUID !== "undefined")
+                chargesString += `<Entity GUID="${data_account.magaya__MagayaGUID}">`
+            else
+                chargesString += `<Entity>`
 
-                    chargesString += `<Type>Client</Type>
+            chargesString += `<Type>Client</Type>
                     <Name>${data_account.Account_Name}</Name>
                     <IsPrepaid>true</IsPrepaid>
                 </Entity>`;
-                if (k.magaya__TaxRate === null || k.magaya__TaxRate === "null")
-                    k.magaya__TaxRate = 0.00
-                else k.magaya__TaxRate = k.magaya__TaxRate.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-                chargesString += `
+            if (k.magaya__TaxRate === null || k.magaya__TaxRate === "null")
+                k.magaya__TaxRate = 0.00
+            else k.magaya__TaxRate = k.magaya__TaxRate.toLocaleString('en-US', { minimumFractionDigits: 2 })
+            chargesString += `
                             <Quantity>${k.magaya__CQuantity}</Quantity>
                             <Price Currency="USD">${k.magaya__Price}</Price>
                             <TaxAmount Currency="USD">${k.magaya__Tax_Amount}</TaxAmount>
@@ -530,7 +542,7 @@ function buildXmlCharge(charges, data_account) {
                             <IsCredit>false</IsCredit>
                             <IsFromSegment>false</IsFromSegment>
                         </Charge>`;
-            })
+        })
     }
 
     /*
@@ -567,7 +579,7 @@ async function sendmQuote(mquote, idQuote) {
     };
 
     MagayaAPI.sendRequest(data, function(result) {
-        //console.log(result)
+            //console.log(result)
             if (result.error) {
 
                 Swal.fire({
@@ -579,27 +591,27 @@ async function sendmQuote(mquote, idQuote) {
             } else {
 
                 Swal.fire({
-                        title: 'Success',
-                        text: 'Operation success',
-                        icon: 'success',
-                        allowOutsideClick: false
-                    }).then(function() {
-                        //all OK, update QuoteInMagaya field
-                        var config={
-                            Entity:"magaya__SQuotes",
-                            APIData:{
-                                "id": idQuote,
-                                "Magaya_updated": true
-                            },
-                            Trigger:[""]
-                        }
-                        ZOHO.CRM.API.updateRecord(config)
-                            .then(function(data){
-                                console.log("Update data", data)
-                            })
+                    title: 'Success',
+                    text: 'Operation success',
+                    icon: 'success',
+                    allowOutsideClick: false
+                }).then(function() {
+                    //all OK, update QuoteInMagaya field
+                    var config = {
+                        Entity: "magaya__SQuotes",
+                        APIData: {
+                            "id": idQuote,
+                            "Magaya_updated": true
+                        },
+                        Trigger: [""]
+                    }
+                    ZOHO.CRM.API.updateRecord(config)
+                        .then(function(data) {
+                            console.log("Update data", data)
+                        })
 
-                        storeQuote.dispatch(updateQuoteByField({id: idQuote, field: "Magaya_updated", value: true}))
-                    })
+                    storeQuote.dispatch(updateQuoteByField({ id: idQuote, field: "Magaya_updated", value: true }))
+                })
 
 
 
@@ -645,20 +657,20 @@ async function getMagayaVariables() {
 function getMagayaNetworkId() {
     return new Promise(function(resolve, reject) {
         ZOHO.CRM.API.getOrgVariable("magaya__networkid")
-        .then(function (response) {
-               network_id = response.Success.Content;
-               resolve(network_id)
-        })
-        .catch(function(error) {
-            reject()
-        })
+            .then(function(response) {
+                network_id = response.Success.Content;
+                resolve(network_id)
+            })
+            .catch(function(error) {
+                reject()
+            })
     })
 }
 
 function getMagayaUrl() {
     return new Promise(function(resolve, reject) {
         ZOHO.CRM.API.getOrgVariable("magaya__magaya_url")
-            .then(function (response) {
+            .then(function(response) {
                 url = response.Success.Content;
                 resolve(url);
             })
@@ -671,9 +683,9 @@ function getMagayaUrl() {
 function getMagayaUser() {
     return new Promise(function(resolve, reject) {
         ZOHO.CRM.API.getOrgVariable("magaya__magaya_user")
-            .then(function (response) {
-                    user = response.Success.Content;
-                    resolve(user)
+            .then(function(response) {
+                user = response.Success.Content;
+                resolve(user)
 
             })
             .catch(function(error) {
@@ -685,9 +697,9 @@ function getMagayaUser() {
 function getMagayaPass() {
     return new Promise(function(resolve, reject) {
         ZOHO.CRM.API.getOrgVariable("magaya__magaya_pass")
-            .then(function (response) {
-                    pass = response.Success.Content;
-                    resolve(pass)
+            .then(function(response) {
+                pass = response.Success.Content;
+                resolve(pass)
             })
             .catch(function(error) {
                 reject()
@@ -701,13 +713,13 @@ function getTranspMethod(transpId) {
     //code
     return new Promise(function(resolve, reject) {
         ZOHO.CRM.API.getRecord({ Entity: "magaya__TransportationMethods", RecordID: transpId })
-                .then(function(data) {
-                    resolve(data.data);
-                })
-                .catch(function(error) {
-                    reject()
-                })
-        })
+            .then(function(data) {
+                resolve(data.data);
+            })
+            .catch(function(error) {
+                reject()
+            })
+    })
 }
 
 
@@ -715,7 +727,7 @@ function getTranspMethod(transpId) {
 async function getRecordCRM(entity, idRecord) {
     //code
     return new Promise(function(resolve, reject) {
-       ZOHO.CRM.API.getRecord({ Entity: entity, RecordID: idRecord })
+        ZOHO.CRM.API.getRecord({ Entity: entity, RecordID: idRecord })
             .then(function(data) {
                 resolve(data.data);
             })
@@ -732,33 +744,33 @@ function ping(host, port, pong) {
 
     var http = new XMLHttpRequest();
 
-    http.open("GET", "http://" + host + ":" + port, /*async*/true);
+    http.open("GET", "http://" + host + ":" + port, /*async*/ true);
     http.onreadystatechange = function() {
-      if (http.readyState == 4) {
-        var ended = new Date().getTime();
+        if (http.readyState == 4) {
+            var ended = new Date().getTime();
 
-        var milliseconds = ended - started;
+            var milliseconds = ended - started;
 
-        if (pong != null) {
-          pong(milliseconds);
+            if (pong != null) {
+                pong(milliseconds);
+            }
         }
-      }
     };
     try {
-      http.send(null);
-    } catch(exception) {
+        http.send(null);
+    } catch (exception) {
         console.log("Execption")
-      // this is expected
+            // this is expected
     }
 
-  }
+}
 
 
-  function getFormData($form){
+function getFormData($form) {
     var unindexed_array = $form.serializeArray();
     var indexed_array = {};
 
-    $.map(unindexed_array, function(n, i){
+    $.map(unindexed_array, function(n, i) {
         if (isNaN(n['value'])) {
             indexed_array[n['name']] = sanitize(n['value']);
         } else {
@@ -777,14 +789,13 @@ function ping(host, port, pong) {
 async function make_pdf(id) {
     try {
         let pdf = await buildPdf(id);
-    }
-    catch(error) {
+    } catch (error) {
         let message = error
         codeError = error;
         field = ``;
         show = false;
         module = ''
-        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+        storeError.dispatch(addError({ errorCode: codeError, showInfo: show, field: field, module: module }))
 
     }
 }
@@ -792,8 +803,8 @@ async function make_pdf(id) {
 async function buildPdf(mquote_id) {
     quoteToEdit = [];
     Utils.blockUI()
-    //dispatch
-    storeQuote.dispatch(findQuote({id: mquote_id}))
+        //dispatch
+    storeQuote.dispatch(findQuote({ id: mquote_id }))
 
     //general data
     let orgData = localStorage.getItem('organization')
@@ -843,7 +854,7 @@ async function buildPdf(mquote_id) {
                         Items
                     </div>
                 </div>`
-                data += `
+    data += `
                 <div class="row headerMquote">
                     <div class="col-sm-3">
                         Package Type
@@ -877,7 +888,7 @@ async function buildPdf(mquote_id) {
 
     $("#htmlToPdf").html(data)
     getPdf("htmlToPdf")
-    //$("#pdfModal").modal("show")
+        //$("#pdfModal").modal("show")
 }
 
 
@@ -919,19 +930,19 @@ function buildPdfHeader(orgData, quoteToEdit) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col"><span class="material-icons">
+                        <div class="col-md-6 text-right"><span class="material-icons">
                         language
                         </span>${orgData["website"]}</div>
 
-                        <div class="col"><span class="material-icons">
+                        <div class="col-md-6 text-right"><span class="material-icons">
                                     phone
                                     </span>${orgData["phone"]}</div>
 
-                        <div class="col"><span class="material-icons">
+                        <div class="col-md-6 text-right"><span class="material-icons">
                                     alternate_email
                                     </span>${orgData["primary_email"]}</div>
 
-                        <div class="col"><span class="material-icons">
+                        <div class="col-md-6 text-right"><span class="material-icons">
                                     home
                                     </span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
                     </div>
@@ -1042,7 +1053,7 @@ function buildPdfCharges(charges) {
 /****build items styles for PDF
  * @items items object
  */
- function buildPdfItems(items) {
+function buildPdfItems(items) {
     let data = ``
     if (!_.isEmpty(items)) {
 
@@ -1055,26 +1066,26 @@ function buildPdfCharges(charges) {
         let total_volume_english = 0
 
         $.map(items, function(k, v) {
-            totalPieces += parseInt(k.magaya__Pieces)
+                totalPieces += parseInt(k.magaya__Pieces)
 
-            let measure_length = "in";
-            let measure_weigth = "lb";
-            let measure_volume = "ft3"
+                let measure_length = "in";
+                let measure_weigth = "lb";
+                let measure_volume = "ft3"
 
-            if (k.magaya__Measure_System === "International") {
-                measure_length = "m";
-                measure_volume = "m3";
-                measure_weigth = "kg"
-                total_volume_international += roundDec(k.magaya__Volume * k.magaya__Pieces)
-                total_weight_international += roundDec(k.magaya__Weigth * k.magaya__Pieces)
+                if (k.magaya__Measure_System === "International") {
+                    measure_length = "m";
+                    measure_volume = "m3";
+                    measure_weigth = "kg"
+                    total_volume_international += roundDec(k.magaya__Volume * k.magaya__Pieces)
+                    total_weight_international += roundDec(k.magaya__Weigth * k.magaya__Pieces)
 
-            }else {
-                //pulgadas y libras
-                total_volume_english += roundDec(k.magaya__Volume * k.magaya__Pieces)
-                total_weight_english += roundDec(k.magaya__Weigth * k.magaya__Pieces)
-            }
+                } else {
+                    //pulgadas y libras
+                    total_volume_english += roundDec(k.magaya__Volume * k.magaya__Pieces)
+                    total_weight_english += roundDec(k.magaya__Weigth * k.magaya__Pieces)
+                }
 
-            data += `<div class="row headerMquote">
+                data += `<div class="row headerMquote">
                         <div class="col-sm-3">
                             ${k["Name"]}
                         </div>
@@ -1092,8 +1103,8 @@ function buildPdfCharges(charges) {
                         </div>
                     </div>
                         `
-        })
-        //get all to international system
+            })
+            //get all to international system
         totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
