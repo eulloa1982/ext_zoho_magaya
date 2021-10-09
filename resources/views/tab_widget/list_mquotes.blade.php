@@ -763,7 +763,7 @@ a {
                                                     <div class="row">
                                                         <div class="col-md-3">Description</div>
                                                         <div class="col-md-8">
-                                                            <textarea class="form-control new-item text" name="magaya__Package_Description" aria-label="With textarea"></textarea>
+                                                            <textarea class="form-control new-item text" id="magaya__Package_Description" name="magaya__Package_Description" aria-label="With textarea"></textarea>
                                                         </div>
                                                     </div>
 

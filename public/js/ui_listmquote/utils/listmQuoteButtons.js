@@ -85,6 +85,7 @@ $(document).ready(function(){
         let item = getFormData($form);
         Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
         Object.assign(item, {'magaya__SQuote_Name': idmQuoteToEdit})
+        Object.assign(item, {"magaya__Package_Description": sanitize($("#magaya__Package_Description").val())})
 
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: item, Trigger: [] })
         .then(function(data) {
@@ -134,7 +135,7 @@ $(document).ready(function(){
         let $form = $("#new-item");
         let item = getFormData($form);
         Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
-        Object.assign(item, {"magaya__Package_Description": $('input[name=magaya__Package_Description]').val()})
+        Object.assign(item, {"magaya__Package_Description": $('#magaya__Package_Description').val()})
 
         storeItem.dispatch(addItemOnNew({...item}))
         $(`#panel-item`).animate({width:'toggle'},150);
