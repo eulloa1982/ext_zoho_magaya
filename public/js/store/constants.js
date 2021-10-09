@@ -81,9 +81,8 @@ const CHARGES_FIELDS = {"magaya__ChargeCode": {"field": "Type", "editable":"read
                 "magaya__Price": {"field": "Price", "type": "number", "editable":"", "place": 5}, "magaya__Amount": {"field": "Amount", "type": "number", "editable":"readonly", "place": 6},
                 "magaya__TaxCode": {"field": "Tax Code", "editable": "readonly", "place": 7}, "magaya__TaxRate": {"field": "Tax Rate", "type": "number", "editable":"readonly", "place": 8},
                 "magaya__Tax_Amount":{"field": "Tax Amount", "type": "number", "editable":"readonly", "place": 9}, "magaya__Amount_Total":{"field": "Amount + Tax", "type": "number", "editable":"readonly", "place": 10},
-                "magaya__Adjustment": {"field": "Adjustment", "editable":"", "place": 11}, "magaya__Final_Amount": {"field": "Final Amount", "type": "number", "editable":"readonly", "place": 12},
-                "magaya__ChargeCurrency": {"field": "Currency", "editable":"readonly", "values": ["USD"], "place": 13}, "magaya__Paid_As": {"field": "Paid As", "values": ["Paid", "Collect"], "editable":"", "place": 14},
-                "magaya__Status": {"field": "Status", "values": ["Open", "Posted", "Paid"], "editable":"", "place": 15},
+                "magaya__ChargeCurrency": {"field": "Currency", "editable":"readonly", "values": ["USD"], "place": 11}, "magaya__Paid_As": {"field": "Paid As", "values": ["Paid", "Collect"], "editable":"", "place": 12},
+                "magaya__Status": {"field": "Status", "values": ["Open", "Posted", "Paid"], "editable":"", "place": 13},
 
 }
 

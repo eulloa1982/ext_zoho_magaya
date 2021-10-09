@@ -64,8 +64,9 @@ storeItem.subscribe(() => {
             }
         })
 
-        arrows += `<span id="${button_type}" data-id="${id}" class="material-icons btn btn-primary">task_alt</span>
-                    <span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px" data-close="panel">close</span>`
+        arrows += `<span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel">close</span>
+                    <span id="${button_type}" data-id="${id}" class="material-icons btn btn-primary" style="background: none;border: none;">task_alt</span>
+                    `
 
         $("#arrows").append(arrows)
 

@@ -113,8 +113,6 @@ function sanitize(input) {
 function limpiar_form() {
     //limpiar Account, remove selected
     //$("select[name=Account]").removeAttr("selected")
-    $("select[name=magaya__ConsigneeName]").val("")
-    $("select[name=magaya__Shipper]").val("")
     $("select[name=Deal]").val("")
     $("#magaya__Description").val("")
         //$("select[name=magaya__PortofUnloading]").val("")
@@ -130,10 +128,13 @@ function limpiar_form() {
     $("select[name=magaya__Consignee]").val("")
     $("select[name=magaya__Consignee]").change()
     $("select[name=magaya__Shipper]").val("")
+    $("select[name=magaya__Shipper]").change()
+    $("select[name=magaya__MainCarrier]").val("")
     $("input[name=magaya__Magaya_Status]").val("Open")
     $("input[name=magaya__Is_Hazardous]").prop("checked", false)
     $("input[name=Magaya_updated]").prop("checked", false)
     $("#magaya__Terms").val("")
+    $("input[name=ModeOfTransportation]").val("")
 
     $("select")
         //hora actual

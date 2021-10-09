@@ -85,6 +85,7 @@ $(document).ready(function(){
         let item = getFormData($form);
         Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
         Object.assign(item, {'magaya__SQuote_Name': idmQuoteToEdit})
+        Object.assign(item, {"magaya__Package_Description": sanitize($("#magaya__Package_Description").val())})
 
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: item, Trigger: [] })
         .then(function(data) {
@@ -134,7 +135,7 @@ $(document).ready(function(){
         let $form = $("#new-item");
         let item = getFormData($form);
         Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
-        Object.assign(item, {"magaya__Package_Description": $('input[name=magaya__Package_Description]').val()})
+        Object.assign(item, {"magaya__Package_Description": $('#magaya__Package_Description').val()})
 
         storeItem.dispatch(addItemOnNew({...item}))
         $(`#panel-item`).animate({width:'toggle'},150);
@@ -220,10 +221,13 @@ $(document).ready(function(){
         let item = getFormData($form);
         let accountId = $("select[name=Account]").val()
         let taxcode = $("select[name=magaya__TaxCode] option:selected").text()
+        let chargeDescription = $("#magaya__Charge_Description").val()
 
         Object.assign(item, {'magaya__ApplyToAccounts': accountId})
-        Object.assign(item, {"Name": item["magaya__Charge_Description"]})
+        Object.assign(item, {"Name": chargeDescription})
         Object.assign(item, {'magaya__TaxCode': taxcode})
+
+        console.log("new charge", item)
         storeCharge.dispatch(addChargeOnNew({...item}))
         $(`#panel-charge`).animate({width:'toggle'},150);
     })
@@ -323,6 +327,10 @@ $(document).ready(function(){
     let contact = $(":input[name=magaya__Representative] option:selected").val()
 
     let idQuote = quoteToEdit['id']
+    let idRouting = 0
+
+    if (!_.isEmpty(quoteToEdit['magaya__Routing']))
+        idRouting = quoteToEdit['magaya__Routing']['id']
 
     let is_hazardous = false;
     let hz = $("input[name=magaya__Is_Hazardous]")
@@ -331,22 +339,11 @@ $(document).ready(function(){
 
     let recordData = {
         "id": idQuote,
-        "magaya__Shipper": $(":input[name=magaya__Shipper] option:selected").text().replace(/[^a-zA-Z0-9]/g, ' '),
         "magaya__Direction": $(":input[name=magaya__Direction]").val(),
         "magaya__TransportationMode": $("select[name=magaya__TransportationMode] option:selected").val(),
         "magaya__Description": $("#magaya__Description").val().replace(/[^a-zA-Z0-9]/g, ' '),
         "magaya__Service": $("select[name=Service]").val(),
-        "magaya__ConsigneeName": $("select[name=magaya__ConsigneeName] option:selected").text(),
-        "magaya__Carrier": $("select[name=magaya__Carrier] option:selected").val(),
-        "magaya__DestinationReceipt": (!_.isEmpty($("input[name=magaya__DestinationReceipt]").val())) ? $("input[name=magaya__DestinationReceipt]").val().replace(/[^a-zA-Z0-9]/g, ' ') : '',
-        "magaya__OriginReceipt": (!_.isEmpty(($("input[name=magaya__OriginReceipt]").val()))) ? $("input[name=magaya__OriginReceipt]").val().replace(/[^a-zA-Z0-9]/g, ' ') : '',
-        "magaya__DestinationPrecarriageBy": (!_.isEmpty($("input[name=magaya__DestinationPrecarriageBy]").val())) ? $("input[name=magaya__DestinationPrecarriageBy]").val().replace(/[^a-zA-Z0-9]/g, ' ') : '',
-        "magaya__OriginPrecarriageBy": (!_.isEmpty(($("input[name=magaya__OriginPrecarriageBy]").val()))) ? $("input[name=magaya__OriginPrecarriageBy]").val().replace(/[^a-zA-Z0-9]/g, ' ') : '',
         "magaya__Status": $("select[name=magaya__Status] option:selected").val(),
-        "magaya__PortofLoading": $("select[name=magaya__PortofLoading]").val(),
-        "magaya__PortofUnloading": $("select[name=magaya__PortofUnloading]").val(),
-        "magaya__Destination": sanitize($("input[name=magaya__Destination]").val()),
-        "magaya__Origin": sanitize($("input[name=magaya__Origin]").val()),
         "magaya__Is_Hazardous": is_hazardous,
         "magaya__Terms": sanitize($(":input[name=magaya__Terms]").val()),
         "magaya__Representative": contact,
@@ -361,6 +358,23 @@ $(document).ready(function(){
         Entity:"magaya__SQuotes",
         APIData: recordData
     }
+
+    routingData = {
+        "Name": $(":input[name=NameQuote]").val() !== "" ? $(":input[name=NameQuote]").val() : "Routing Data",
+        "magaya__Shipper": sanitize($(":input[name=magaya__Shipper] option:selected").text()),
+        "magaya__ShipperCity": sanitize($("input[name=magaya__ShipperCity]").val()),
+        "magaya__ShipperState": sanitize($("input[name=magaya__ShipperState]").val()),
+        "magaya__ShipperCountry": sanitize($("input[name=magaya__ShipperCountry]").val()),
+        "magaya__ShipperStreet": sanitize($("input[name=magaya__ShipperStreet]").val()),
+        "magaya__Consignee": sanitize($("select[name=magaya__Consignee] option:selected").text()),
+        "magaya__ConsigneeCity": sanitize($("input[name=magaya__ConsigneeCity]").val()),
+        "magaya__ConsigneeCountry": sanitize($("input[name=magaya__ConsigneeCountry]").val()),
+        "magaya__ConsigneeState": sanitize($("input[name=magaya__ConsigneeState]").val()),
+        "magaya__ConsigneeStreet": sanitize($("input[name=magaya__ConsigneeStreet]").val()),
+        "magaya__MainCarrier": $("select[name=magaya__MainCarrier] option:selected").val(),
+        "magaya__ModeofTransportation": $("select[name=magaya__TransportationMode] option:selected").val(),
+    }
+
 
     //updating data
     ZOHO.CRM.API.updateRecord(config)
@@ -396,10 +410,49 @@ $(document).ready(function(){
 
         })
         .then(function() {
-            Utils.unblockUI()
+            if (idRouting > 0) {
+                Object.assign(routingData, {"id": idRouting})
+                let configRouting = {
+                    Entity: "magaya__Routing",
+                    APIData: routingData
+                }
+                ZOHO.CRM.API.updateRecord(configRouting)
+                    .then(function(data) {
+                        console.log("Data routing", data)
+                    })
+
+
+            } else {
+                ZOHO.CRM.API.insertRecord({ Entity: "magaya__Routing", APIData: routingData})
+                    .then(function(response) {
+                        res = response.data[0]
+                        let id = res.details.id
+                        console.log("Id routing to insert", res)
+                        //update mquote with the new record
+                        let recordData = {
+                            "id": idQuote,
+                            "magaya__Routing": id
+                        }
+                        let updatemQuoteRouting = {
+                            Entity:"magaya__SQuotes",
+                            APIData: recordData
+                        }
+
+                        console.log(updatemQuoteRouting)
+                        ZOHO.CRM.API.updateRecord(updatemQuoteRouting)
+                            .then(function(data) {
+                                console.log("New Data routing", data)
+                        })
+                    })
+            }
 
         })
+        .then(function() {
+            Utils.unblockUI()
+        })
         .catch(function(error) {
+            Utils.unblockUI()
+
             dataError = error.data;
             $.map(dataError, function(k, v) {
                 errorCode = k.code;
@@ -410,6 +463,10 @@ $(document).ready(function(){
 
             })
         })
+
+
+
+
     })
 
 
@@ -457,26 +514,12 @@ $(document).ready(function(){
             "Name": $(":input[name=NameQuote]").val() !== "" ? $(":input[name=NameQuote]").val() : "qt",
             "Account": accountId,
             "magaya__Deal": $(":input[name=Deal] option:selected").val() > 0 ? $(":input[name=Deal] option:selected").val() : '',
-            "magaya__Shipper": sanitize($(":input[name=magaya__Shipper] option:selected").text()),
-            "magaya__ShipperAddress": `${sanitize($("input[name=Shipper_Street]").val())} / ${sanitize($("input[name=Shipper_City]").val())} / ${sanitize($("input[name=Shipper_State]").val())} / ${sanitize($("input[name=Shipper_Country]").val())}`,
             "magaya__ExpirationDate": expirationDateFinal,
             "magaya__Direction": $(":input[name=magaya__Direction]").val(),
-            "magaya__TransportationMode": $("select[name=magaya__TransportationMode] option:selected").val(),
             "magaya__Description": sanitize($("#magaya__Description").val()),
             "magaya__Service": $("select[name=Service]").val(),
-            "magaya__ConsigneeName": sanitize($("select[name=magaya__ConsigneeName] option:selected").text()),
-            "magaya__ConsigneeAddress": `${sanitize($("input[name=Consignee_Street]").val())} / ${sanitize($("input[name=Consignee_City]").val())} / ${sanitize($("input[name=Consignee_State]").val())} / ${sanitize($("input[name=Consignee_Country]").val())}`,
-            "magaya__Carrier": $("select[name=magaya__Carrier] option:selected").val(),
-            "magaya__DestinationReceipt": sanitize($("input[name=magaya__DestinationReceipt]").val()),
-            "magaya__OriginReceipt": sanitize($("input[name=magaya__OriginReceipt]").val()),
-            "magaya__DestinationPrecarriageBy": sanitize($("input[name=magaya__DestinationPrecarriageBy]").val()),
-            "magaya__OriginPrecarriageBy": sanitize($("input[name=magaya__OriginPrecarriageBy]").val()),
             "magaya__Status": $("select[name=magaya__mQuoteStatus] option:selected").val(),
             "magaya__Representative": contact,
-            "magaya__PortofLoading": $("select[name=magaya__PortofLoading]").val(),
-            "magaya__PortofUnloading": $("select[name=magaya__PortofUnloading]").val(),
-            "magaya__Destination": sanitize($("input[name=magaya__Destination]").val()),
-            "magaya__Origin": sanitize($("input[name=magaya__Origin]").val()),
             "magaya__BillingCity": sanitize($("input[name=Mailing_City]").val()),
             "magaya__BillingCountry": sanitize($("input[name=Mailing_Country]").val()),
             "magaya__BillingState": sanitize($("input[name=Mailing_State]").val()),
@@ -492,177 +535,218 @@ $(document).ready(function(){
             "magaya__Employee": sanitize($("input[name=magaya__Employee]").val()),
             "magaya__Seller": $("select[name=magaya__Seller]").val(),
             "magaya__Terms": sanitize($("#magaya__Terms").val()),
-            "magaya__IssuedBy": $(":input[name=magaya__IssuedByName]").val()
+            "magaya__IssuedBy": $(":input[name=magaya__IssuedByName]").val(),
         }
+
+
+        routingData = {
+            "Name": $(":input[name=NameQuote]").val() !== "" ? $(":input[name=NameQuote]").val() : "Routing Data",
+            "magaya__Shipper": sanitize($(":input[name=magaya__Shipper] option:selected").text()),
+            "magaya__ShipperCity": sanitize($("input[name=magaya__ShipperCity]").val()),
+            "magaya__ShipperState": sanitize($("input[name=magaya__ShipperState]").val()),
+            "magaya__ShipperCountry": sanitize($("input[name=magaya__ShipperCountry]").val()),
+            "magaya__ShipperStreet": sanitize($("input[name=magaya__ShipperStreet]").val()),
+            "magaya__Consignee": sanitize($("select[name=magaya__Consignee] option:selected").text()),
+            "magaya__ConsigneeCity": sanitize($("input[name=magaya__ConsigneeCity]").val()),
+            "magaya__ConsigneeCountry": sanitize($("input[name=magaya__ConsigneeCountry]").val()),
+            "magaya__ConsigneeState": sanitize($("input[name=magaya__ConsigneeState]").val()),
+            "magaya__ConsigneeStreet": sanitize($("input[name=magaya__ConsigneeStreet]").val()),
+            "magaya__MainCarrier": $("select[name=magaya__MainCarrier] option:selected").val(),
+            "magaya__ModeofTransportation": $("select[name=magaya__TransportationMode] option:selected").val(),
+        }
+
+        console.log("Routing Data", routingData)
+
+
+
+        //insertMquoteInt(recordData)
 
         //jsonCharges = $(this).tableToJson('table-charges-new', 992929292929229);
         //jsonData = JSON.parse(`[${jsonCharges}]`)
        // Object.assign(jsonData, {"magaya__ApplyToAccounts": accountId})
         //console.log("Chrges json", jsonData)
         //insertind data, get the id and insert items and charges
-        ZOHO.CRM.API.insertRecord({ Entity: "magaya__SQuotes", APIData: recordData, Trigger: ["workflow"] })
+        ZOHO.CRM.API.insertRecord({ Entity: "magaya__Routing", APIData: routingData, Trigger: [] })
             .then(function(response) {
-                data = response.data;
-                let id = 0;
-                $.each(data, function(key, valor) {
-                    id = valor['details']['id'];
-                    if (valor.code !== "SUCCESS") {
-                        codeError = valor.code;
-                        field = valor.details.api_name;
-                        show = true;
-                        module = 'Service Items'
-
-                        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                    } else {
-                        //get the record from zoho
-                        let data_return = {}
-                        ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id})
-                            .then(function(data){
-                                record = data.data;
-                                let func_name = "magaya__setQuoteTotalAmount";
-                                let req_data ={
-                                    "quote_id" : id
-                                };
-                                data_return = {
-                                    "idQuote": id,
-                                    "name": record.Name
-                                }
-                                ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
-                                    console.log("Update quote amount", data)
-                                })
-                                storeQuote.dispatch(addQuote(record))
-
-                            })
-
-                        //message = `A new mQuote inserted!!`
-                        //storeSuccess.dispatch(addSuccess({message: message}))
-                        $("#mquoteModal").modal("hide")
-
-                    }
+                res = response.data
+                id = 0
+                $.map(res, function(k) {
+                    id = k.details.id
                 })
-
-                //console.log("Dat to returne", data_return)
-
                 return id
+
             })
-            .then(function(idQuote) {
-                //let idQuote = data.idQuote
-                //let name = data.name
+            .then(function(idRouting) {
+                Object.assign(recordData, {"magaya__Routing": idRouting})
 
-                jsonItems = $(this).tableToJson('table-items-new', idQuote);
-                jsonItems = JSON.parse(`[${jsonItems}]`)
-
-                jsonCharges = $(this).tableToJson('table-charges-new', idQuote);
-                jsonData = JSON.parse(`[${jsonCharges}]`)
-
-                /*jsonNotes = $(this).tableToJson('notes-new', idQuote)
-                jsonNotesData = JSON.parse(`[${jsonNotes}]`)
-                console.log("Notes", jsonNotesData)
-                //check the data
-                /*if (!_.isEmpty(jsonNotes)) {
-
-                    Object.assign(jsonNotesData, {"Parent_Id": {"name": name, "id": idQuote}})
-                    ZOHO.CRM.API.insertRecord({ Entity: "Notes", APIData: jsonNotesData, Trigger: [] })
-                        .then(function(response) {
-                            console.log("Response Notes", response)
-                        })
-                }*/
-
-
-                if (!_.isEmpty(jsonItems)) {
-                    ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: jsonItems, Trigger: [] })
-                        .then(function(response) {
-                            res = response.data;
-                            console.log("ITEM Operation", res)
-                            $.map(res, function(k, v) {
-                                if (k.code !== "SUCCESS") {
-                                    codeError = k.code;
-                                    field = k.details.api_name;
-                                    show = true;
-                                    module = 'Cargo Items'
-                                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                                }
-                            })
-                        })
-                         .catch(function(error) {
-                            dataError = error.data;
-                            $.map(dataError, function(k, v) {
-                                errorCode = k.code;
-                                field = k.details.api_name;
+                ZOHO.CRM.API.insertRecord({ Entity: "magaya__SQuotes", APIData: recordData, Trigger: ["workflow"] })
+                    .then(function(response) {
+                        data = response.data;
+                        let id = 0;
+                        $.each(data, function(key, valor) {
+                            id = valor['details']['id'];
+                            if (valor.code !== "SUCCESS") {
+                                codeError = valor.code;
+                                field = valor.details.api_name;
                                 show = true;
-                                module = 'mQuote'
-                                storeError.dispatch(addError({errorCode: errorCode, showInfo: show, field: field, module: module}))
+                                module = 'Service Items'
 
-                            })
+                                storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                            } else {
+                                //get the record from zoho
+                                let data_return = {}
+                                ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id})
+                                    .then(function(data){
+                                        record = data.data;
+                                        let func_name = "magaya__setQuoteTotalAmount";
+                                        let req_data ={
+                                            "quote_id" : id
+                                        };
+                                        data_return = {
+                                            "idQuote": id,
+                                            "name": record.Name
+                                        }
+                                        ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
+                                            console.log("Update quote amount", data)
+                                        })
+                                        storeQuote.dispatch(addQuote(record))
+
+                                    })
+
+                                //message = `A new mQuote inserted!!`
+                                //storeSuccess.dispatch(addSuccess({message: message}))
+                                $("#mquoteModal").modal("hide")
+
+                            }
                         })
-                }
 
-                if (!_.isEmpty(jsonCharges)) {
-                    jsonCharges[0]['Name'] = jsonCharges[0]['magaya__Charge_Description'];
+                        //console.log("Dat to returne", data_return)
 
-                    $.map(jsonData, function(k) {
-                        Object.assign(k, {"magaya__ApplyToAccounts": accountId})
+                        return id
+                    })
+                    .then(function(idQuote) {
+                        //let idQuote = data.idQuote
+                        //let name = data.name
+
+                        jsonItems = $(this).tableToJson('table-items-new', idQuote);
+                        jsonItems = JSON.parse(`[${jsonItems}]`)
+
+                        jsonCharges = $(this).tableToJson('table-charges-new', idQuote);
+                        jsonData = JSON.parse(`[${jsonCharges}]`)
+
+                        /*jsonNotes = $(this).tableToJson('notes-new', idQuote)
+                        jsonNotesData = JSON.parse(`[${jsonNotes}]`)
+                        console.log("Notes", jsonNotesData)
+                        //check the data
+                        /*if (!_.isEmpty(jsonNotes)) {
+
+                            Object.assign(jsonNotesData, {"Parent_Id": {"name": name, "id": idQuote}})
+                            ZOHO.CRM.API.insertRecord({ Entity: "Notes", APIData: jsonNotesData, Trigger: [] })
+                                .then(function(response) {
+                                    console.log("Response Notes", response)
+                                })
+                        }*/
+
+
+                        if (!_.isEmpty(jsonItems)) {
+                            ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: jsonItems, Trigger: [] })
+                                .then(function(response) {
+                                    res = response.data;
+                                    console.log("ITEM Operation", res)
+                                    $.map(res, function(k, v) {
+                                        if (k.code !== "SUCCESS") {
+                                            codeError = k.code;
+                                            field = k.details.api_name;
+                                            show = true;
+                                            module = 'Cargo Items'
+                                            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                                        }
+                                    })
+                                })
+                                .catch(function(error) {
+                                    dataError = error.data;
+                                    $.map(dataError, function(k, v) {
+                                        errorCode = k.code;
+                                        field = k.details.api_name;
+                                        show = true;
+                                        module = 'mQuote'
+                                        storeError.dispatch(addError({errorCode: errorCode, showInfo: show, field: field, module: module}))
+
+                                    })
+                                })
+                        }
+
+                        if (!_.isEmpty(jsonCharges)) {
+                            jsonCharges[0]['Name'] = jsonCharges[0]['magaya__Charge_Description'];
+
+                            $.map(jsonData, function(k) {
+                                Object.assign(k, {"magaya__ApplyToAccounts": accountId})
+                            })
+
+                            ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: jsonData, Trigger: [] })
+                                .then(function(response) {
+                                    res = response.data;
+                                    console.log("CHARGES OPERATION", res)
+                                    $.map(res, function(k, v) {
+                                        if (k.code !== "SUCCESS") {
+                                            codeError = k.code;
+                                            field = k.details.api_name;
+                                            show = true;
+                                            module = 'Service Items'
+                                            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                                        }
+                                    })
+
+                                }).catch(function(error) {
+                                    dataError = error.data;
+                                    $.map(dataError, function(k, v) {
+                                        errorCode = k.code;
+                                        field = k.details.api_name;
+                                        show = true;
+                                        module = 'mQuote'
+                                        storeError.dispatch(addError({errorCode: errorCode, showInfo: show, field: field, module: module}))
+
+                                    })
+                                })
+                        }
+                    })
+                    .then(function() {
+                        Utils.unblockUI()
+                        Swal.fire({
+                            title: "Success",
+                            text: "New mQuote inserted!!!",
+                            icon: "question",
+                            showCancelButton: false,
+                            confirmButtonText: "Yes",
+                            allowOutsideClick: false
+
+                        }).then((result) => {
+
+                            if (result.isConfirmed) {
+                                location.reload()
+                            }
+                        })
+
+                    })
+                    .catch(function(error) {
+                        dataError = error.data;
+                        $.map(dataError, function(k, v) {
+                            errorCode = k.code;
+                            field = k.details.api_name;
+                            show = true;
+                            module = 'mQuote'
+                            storeError.dispatch(addError({errorCode: errorCode, showInfo: show, field: field, module: module}))
+                        })
                     })
 
-                    ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: jsonData, Trigger: [] })
-                        .then(function(response) {
-                            res = response.data;
-                            console.log("CHARGES OPERATION", res)
-                            $.map(res, function(k, v) {
-                                if (k.code !== "SUCCESS") {
-                                    codeError = k.code;
-                                    field = k.details.api_name;
-                                    show = true;
-                                    module = 'Service Items'
-                                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                                }
-                            })
-
-                        }).catch(function(error) {
-                            dataError = error.data;
-                            $.map(dataError, function(k, v) {
-                                errorCode = k.code;
-                                field = k.details.api_name;
-                                show = true;
-                                module = 'mQuote'
-                                storeError.dispatch(addError({errorCode: errorCode, showInfo: show, field: field, module: module}))
-
-                            })
-                        })
-                }
             })
-            .then(function() {
-                Utils.unblockUI()
-                Swal.fire({
-                    title: "Success",
-                    text: "New mQuote inserted!!!",
-                    icon: "question",
-                    showCancelButton: false,
-                    confirmButtonText: "Yes",
-                    allowOutsideClick: false
 
-                }).then((result) => {
-
-                    if (result.isConfirmed) {
-                        location.reload()
-                    }
-                })
-
-            })
-            .catch(function(error) {
-                dataError = error.data;
-                $.map(dataError, function(k, v) {
-                    errorCode = k.code;
-                    field = k.details.api_name;
-                    show = true;
-                    module = 'mQuote'
-                    storeError.dispatch(addError({errorCode: errorCode, showInfo: show, field: field, module: module}))
-                })
-            })
     })
+
+
 
 
     //////////////////boton cerrar modal////////////////
