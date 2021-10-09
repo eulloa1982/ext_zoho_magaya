@@ -533,7 +533,7 @@ function buildXmlCharge(charges, data_account) {
                                 <DecimalPlaces>2</DecimalPlaces>
                                 <IsHomeCurrency>true</IsHomeCurrency>
                             </HomeCurrency>
-                            <Amount Currency="USD">${k.magaya__Final_Amount}</Amount>
+                            <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
                             <TaxAmountInCurrency Currency="USD">${k.magaya__Tax_Amount}</TaxAmountInCurrency>
                             <TaxDefinition>
                                 <Code>${k.magaya__TaxCode}</Code>
@@ -563,7 +563,7 @@ function buildXmlCharge(charges, data_account) {
                                         <IsHomeCurrency>true</IsHomeCurrency>
                                     </Currency>
                                 </AccountDefinition>
-                                <Amount Currency="USD">${k.magaya__Final_Amount}</Amount>
+                                <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
                                 <Currency Code="USD">
                                     <Name>United States Dollar</Name>
                                     <ExchangeRate>1.00</ExchangeRate>
@@ -575,7 +575,7 @@ function buildXmlCharge(charges, data_account) {
                             <Status>Open</Status>
                             <Description>${k.magaya__Charge_Description}</Description>
                             <PriceInCurrency Currency="USD">${k.magaya__Price}</PriceInCurrency>
-                            <AmountInCurrency Currency="USD">${k.magaya__Final_Amount}</AmountInCurrency>
+                            <AmountInCurrency Currency="USD">${k.magaya__Amount_Total}</AmountInCurrency>
 
                             <ExchangeRate>1.00</ExchangeRate>
                             <Currency Code="USD">
@@ -643,7 +643,7 @@ async function sendmQuote(mquote, idQuote) {
                         allowOutsideClick: false
                     }).then(function() {
                         //all OK, update QuoteInMagaya field
-                        /*var config={
+                        var config={
                             Entity:"magaya__SQuotes",
                             APIData:{
                                 "id": idQuote,
@@ -654,7 +654,7 @@ async function sendmQuote(mquote, idQuote) {
                         ZOHO.CRM.API.updateRecord(config)
                             .then(function(data){
                                 console.log("Update data", data)
-                            })*/
+                            })
 
                         storeQuote.dispatch(updateQuoteByField({id: idQuote, field: "Magaya_updated", value: true}))
                     })
