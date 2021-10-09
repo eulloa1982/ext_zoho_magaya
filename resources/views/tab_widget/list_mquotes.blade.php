@@ -342,7 +342,7 @@ a {
 									<div class="row" style="margin-bottom:20px; margin-top:20px;">
 										<div class="col-md-6">
 											<label class="col-md-12" style="font-weight: bold;">Main Carrier</label>
-											<select name='magaya__Carrier' id='Carrier' class='form-control'>
+											<select name='magaya__MainCarrier' id='Carrier' class='form-control'>
                                                 <option value=""></option>
                                             </select>
 										</div>
@@ -412,7 +412,7 @@ a {
 										</div>
 										<div class="col-md-6">
 											<label class="col-md-12" style="font-weight: bold;">Consignee</label>
-											<select name="magaya__ConsigneeName" class="form-control no-border">
+											<select name="magaya__Consignee" class="form-control no-border">
 												<option></option>
 											</select>
 										</div>
@@ -424,21 +424,21 @@ a {
 														<div class="row" style="margin-bottom:20px;">
 															<div class="col-md-6" >
 																<label class="col-md-12" style="width: 100%; font-weight: bold;">City</label>
-																<input type="text" name="Shipper_City" class="form-control" />
+																<input type="text" name="magaya__ShipperCity" class="form-control" />
 															</div>
 															<div class="col-md-6">
 																<label class="col-md-12" style="font-weight: bold;">State</label>
-																<input type="text" name="Shipper_State" class="form-control"/>
+																<input type="text" name="magaya__ShipperState" class="form-control"/>
 															</div>
 														</div>
 														<div class="row" style="margin-bottom:20px;">
 															<div class="col-md-6">
 																<label class="col-md-12" style="font-weight: bold;">Country</label>
-																<input type="text" name="Shipper_Country" class="form-control"/>
+																<input type="text" name="magaya__ShipperCountry" class="form-control"/>
 															</div>
 															<div class="col-md-6">
 																<label class="col-md-12" style="font-weight: bold;">Street</label>
-																<input type="text" name="Shipper_Street" class="form-control">
+																<input type="text" name="magaya__ShipperStreet" class="form-control">
 															</div>
 														</div>
 										</div>
@@ -447,21 +447,21 @@ a {
 														<div class="row" style="margin-bottom:20px;">
 															<div class="col-md-6" >
 																<label class="col-md-12" style="width: 100%; font-weight: bold;">City</label>
-																<input type="text" name="Consignee_City" class="form-control">
+																<input type="text" name="magaya__ConsigneeCity" class="form-control">
 															</div>
 															<div class="col-md-6">
 																<label class="col-md-12" style="font-weight: bold;">State</label>
-																<input type="text" name="Consignee_State" class="form-control"/>
+																<input type="text" name="magaya__ConsigneeState" class="form-control"/>
 															</div>
 														</div>
 														<div class="row" style="margin-bottom:20px;">
 															<div class="col-md-6">
 																<label class="col-md-12" style="font-weight: bold;">Country</label>
-																<input type="text" name="Consignee_Country" class="form-control"/>
+																<input type="text" name="magaya__ConsigneeCountry" class="form-control"/>
 															</div>
 															<div class="col-md-6">
 																<label class="col-md-12" style="font-weight: bold;">Street</label>
-																<input type="text" name="Consignee_Street" class="form-control">
+																<input type="text" name="magaya__ConsigneeStreet" class="form-control">
 															</div>
 														</div>
 										</div>
