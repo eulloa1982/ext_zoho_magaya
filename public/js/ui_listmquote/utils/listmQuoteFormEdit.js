@@ -33,10 +33,14 @@
                     charge[this.name].push(sanitize(this.value) || '');
                 } else {
                     //if (this.name !== "Name" && this.name !== "id" && this.name !== "magaya__SQuote_Name" && this.name !== "magaya__ChargeCode" && this.name !== "magaya__ChargeCurrency" && this.name !== "magaya__Paid_As" && this.name !== "magaya__Status")
-                    if ($.isNumeric(this.value))
+                    if ($.isNumeric(this.value)) {
+                        this.value = this.value.replace(',', '')
                         charge[this.name] = Number(this.value)
-                    else
+                    }
+                    else {
+                        this.value = this.value.replace(',', '')
                         charge[this.name] = sanitize(this.value) || '';
+                    }
                 }
             });
 

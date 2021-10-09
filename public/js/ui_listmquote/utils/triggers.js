@@ -67,11 +67,11 @@ $("select[name=magaya__Shipper]").change(function(e) {
 })
 
 
-$("select[name=magaya__ConsigneeName]").change(function(e) {
+$("select[name=magaya__Consignee]").change(function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
 
-    let account = $("select[name=magaya__ConsigneeName]").val();
+    let account = $("select[name=magaya__Consignee]").val();
     storeAccounts.dispatch(setAccountConsignee({id: account}))
 
 })
@@ -136,34 +136,34 @@ $('input[type=radio][name=customer_rol]').on('change', function() {
 function rolShipper(){
     let account = $("select[name=Account]").val();
     storeAccounts.dispatch(setAccountShipper({id: account}))
-    $("select[name=magaya__ConsigneeName]").val("")
-    $("input[name=Consignee_City]").val("")
-    $("input[name=Consignee_State").val("")
-    $("input[name=Consignee_Country]").val("")
-    $("input[name=Consignee_Street]").val("")
+    $("select[name=magaya__Consignee]").val("")
+    $("input[name=magaya__ConsigneeCity]").val("")
+    $("input[name=magaya__ConsigneeState").val("")
+    $("input[name=magaya__ConsigneeCountry]").val("")
+    $("input[name=magaya__ConsigneeStreet]").val("")
 }
 
 function rolConsignee() {
     let account = $("select[name=Account]").val();
     storeAccounts.dispatch(setAccountConsignee({id: account}))
     $("select[name=magaya__Shipper]").val("")
-    $("input[name=Shipper_City]").val("")
-    $("input[name=Shipper_State").val("")
-    $("input[name=Shipper_Country]").val("")
-    $("input[name=Shipper_Street]").val("")
+    $("input[name=magaya__ShipperCity]").val("")
+    $("input[name=magaya__ShipperState").val("")
+    $("input[name=magaya__ShipperCountry]").val("")
+    $("input[name=magaya__ShipperStreet]").val("")
 }
 
 function rolOther() {
-    $("select[name=magaya__ConsigneeName]").val("")
-    $("input[name=Consignee_City]").val("")
-    $("input[name=Consignee_State").val("")
-    $("input[name=Consignee_Country]").val("")
-    $("input[name=Consignee_Street]").val("")
+    $("select[name=magaya__Consignee]").val("")
+    $("input[name=magaya__ConsigneeCity]").val("")
+    $("input[name=magaya__ConsigneeState").val("")
+    $("input[name=magaya__ConsigneeCountry]").val("")
+    $("input[name=magaya__ConsigneeStreet]").val("")
     $("select[name=magaya__Shipper]").val("")
-    $("input[name=Shipper_City]").val("")
-    $("input[name=Shipper_State").val("")
-    $("input[name=Shipper_Country]").val("")
-    $("input[name=Shipper_Street]").val("")
+    $("input[name=magaya__ShipperCity]").val("")
+    $("input[name=magaya__ShipperState").val("")
+    $("input[name=magaya__ShipperCountry]").val("")
+    $("input[name=magaya__ShipperStreet]").val("")
 }
 
 

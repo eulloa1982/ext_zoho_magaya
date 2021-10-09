@@ -59,17 +59,21 @@ $(document).ready(function(){
             .then(function(response){
                 $.map (response.data, function (k, i) {
                     k.Account_Name = sanitize(k.Account_Name)
-                    if (k.magaya__mEntityType === "Carrier") {
-                        $(`<option value='${k.Account_Name}'>${k.Account_Name}</option>`).appendTo("select[name=magaya__Carrier]");
+                    $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
+                    $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Shipper]");
+                    $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Consignee]");
 
-                    } else {
-                        $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
-                        $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Shipper]");
-                        $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__ConsigneeName]");
-
-                    }
                 })
                 storeAccounts.dispatch(addAccount(response.data))
+            })
+
+        ZOHO.CRM.API.getAllRecords({Entity: "magaya__Providers", sort_order: "asc"})
+            .then(function(response){
+                $.map (response.data, function (k, i) {
+                    k.Name = sanitize(k.Name)
+                    //if (k.magaya__mEntityType === "Carrier") {
+                    $(`<option value='${k.id}'>${k.Name}</option>`).appendTo("select[name=magaya__MainCarrier]");
+                })
             })
 
         ZOHO.CRM.API.getAllRecords({Entity: "magaya__Employees", sort_order: "asc"})

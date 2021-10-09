@@ -32,6 +32,20 @@ a {
 	font-size: 18px;
 }
 
+.panel select, .panel input {
+    text-align-last: left;
+    padding: 0px 5px 0px 10px;
+    direction: initial;
+}
+
+.fieldset .legend {
+    background: #0b3355;
+    padding: 6px;
+    font-weight: bold;
+    color: white;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
 
 </style>
 
@@ -342,7 +356,7 @@ a {
 									<div class="row" style="margin-bottom:20px; margin-top:20px;">
 										<div class="col-md-6">
 											<label class="col-md-12" style="font-weight: bold;">Main Carrier</label>
-											<select name='magaya__Carrier' id='Carrier' class='form-control'>
+											<select name='magaya__MainCarrier' id='Carrier' class='form-control'>
                                                 <option value=""></option>
                                             </select>
 										</div>
@@ -412,7 +426,7 @@ a {
 										</div>
 										<div class="col-md-6">
 											<label class="col-md-12" style="font-weight: bold;">Consignee</label>
-											<select name="magaya__ConsigneeName" class="form-control no-border">
+											<select name="magaya__Consignee" class="form-control no-border">
 												<option></option>
 											</select>
 										</div>
@@ -424,21 +438,21 @@ a {
 														<div class="row" style="margin-bottom:20px;">
 															<div class="col-md-6" >
 																<label class="col-md-12" style="width: 100%; font-weight: bold;">City</label>
-																<input type="text" name="Shipper_City" class="form-control" />
+																<input type="text" name="magaya__ShipperCity" class="form-control" />
 															</div>
 															<div class="col-md-6">
 																<label class="col-md-12" style="font-weight: bold;">State</label>
-																<input type="text" name="Shipper_State" class="form-control"/>
+																<input type="text" name="magaya__ShipperState" class="form-control"/>
 															</div>
 														</div>
 														<div class="row" style="margin-bottom:20px;">
 															<div class="col-md-6">
 																<label class="col-md-12" style="font-weight: bold;">Country</label>
-																<input type="text" name="Shipper_Country" class="form-control"/>
+																<input type="text" name="magaya__ShipperCountry" class="form-control"/>
 															</div>
 															<div class="col-md-6">
 																<label class="col-md-12" style="font-weight: bold;">Street</label>
-																<input type="text" name="Shipper_Street" class="form-control">
+																<input type="text" name="magaya__ShipperStreet" class="form-control">
 															</div>
 														</div>
 										</div>
@@ -447,21 +461,21 @@ a {
 														<div class="row" style="margin-bottom:20px;">
 															<div class="col-md-6" >
 																<label class="col-md-12" style="width: 100%; font-weight: bold;">City</label>
-																<input type="text" name="Consignee_City" class="form-control">
+																<input type="text" name="magaya__ConsigneeCity" class="form-control">
 															</div>
 															<div class="col-md-6">
 																<label class="col-md-12" style="font-weight: bold;">State</label>
-																<input type="text" name="Consignee_State" class="form-control"/>
+																<input type="text" name="magaya__ConsigneeState" class="form-control"/>
 															</div>
 														</div>
 														<div class="row" style="margin-bottom:20px;">
 															<div class="col-md-6">
 																<label class="col-md-12" style="font-weight: bold;">Country</label>
-																<input type="text" name="Consignee_Country" class="form-control"/>
+																<input type="text" name="magaya__ConsigneeCountry" class="form-control"/>
 															</div>
 															<div class="col-md-6">
 																<label class="col-md-12" style="font-weight: bold;">Street</label>
-																<input type="text" name="Consignee_Street" class="form-control">
+																<input type="text" name="magaya__ConsigneeStreet" class="form-control">
 															</div>
 														</div>
 										</div>
@@ -583,69 +597,61 @@ a {
                                         <div class="panel">
 
 											<fieldset class="fieldset"><legend class="legend">New Charge
-                                                <span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px" data-close="panel-charge">close</span>
-                                                <span id="sendCharges" class="material-icons btn btn-primary float-right">task_alt</span>
-                                                <span id="newCharges" class="material-icons btn btn-primary float-right">task_alt</span>
+                                                <span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel-charge">close</span>
+                                                <span id="sendCharges" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
+                                                <span id="newCharges" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
                                            </legend>
                                             <form id="new-charge">
                                                 <div class="row">
-                                                    <div class="col-md-4">Type</div>
-                                                    <div class="col-md-6"><select name="magaya__ChargeCode" class="form-control new-charge"></select></div>
+                                                    <div class="col-md-3">Type</div>
+                                                    <div class="col-md-8"><select name="magaya__ChargeCode" class="form-control new-charge"></select></div>
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-4">Description</div>
-                                                    <div class="col-md-6"><input type="text" class="form-control text new-charge" name="magaya__Charge_Description"></div>
+                                                    <div class="col-md-3">Description</div>
+                                                    <div class="col-md-8">
+                                                        <textarea class="form-control text new-charge" id="magaya__Charge_Description" name="magaya__Charge_Description" aria-label="With textarea"></textarea>
+                                                    </div>
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-4">Quantity</div>
-                                                    <div class="col-md-6"><input type="text" class="form-control number new-charge" name="magaya__CQuantity"></div>
+                                                    <div class="col-md-3">Quantity</div>
+                                                    <div class="col-md-8"><input type="text" class="form-control number new-charge" name="magaya__CQuantity"style="text-align-last:right;"></div>
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-4">Unit</div>
-                                                    <div class="col-md-6"><select name="magaya__Unit" class="form-control new-charge"><option></option><option value="U">U</option><option value="Lb">Lb</option></select></div>
+                                                    <div class="col-md-3">Unit</div>
+                                                    <div class="col-md-8"><select name="magaya__Unit" class="form-control new-charge"><option></option><option value="U">U</option><option value="Lb">Lb</option></select></div>
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-4">Price</div>
-                                                    <div class="col-md-6"><input type="text" class="form-control number new-charge" name="magaya__Price"></div>
+                                                    <div class="col-md-3">Price</div>
+                                                    <div class="col-md-8"><input type="text" class="form-control number new-charge" name="magaya__Price" style="text-align-last:right;"></div>
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-4">Amount</div>
-                                                    <div class="col-md-6"><input type="text" class="form-control number" name="magaya__Amount" readonly></div>
+                                                    <div class="col-md-3">Amount</div>
+                                                    <div class="col-md-8"><input type="text" class="form-control number" name="magaya__Amount" readonly style="text-align-last:right;"></div>
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-4">Tax Code</div>
-                                                    <div class="col-md-6"><select class="form-control new-charge" name="magaya__TaxCode"><option value=0></option></select></div>
+                                                    <div class="col-md-3">Tax Code</div>
+                                                    <div class="col-md-8"><select class="form-control new-charge" name="magaya__TaxCode"><option value=0></option></select></div>
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-4">Tax Rate</div>
-                                                    <div class="col-md-6"><input type="text" class="form-control number new-charge" name="magaya__TaxRate" readonly></div>
+                                                    <div class="col-md-3">Tax Rate</div>
+                                                    <div class="col-md-8"><input type="text" class="form-control number new-charge" name="magaya__TaxRate" readonly style="text-align-last:right;"></div>
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-4">Tax Amount</div>
-                                                    <div class="col-md-6"><input type="text" class="form-control number new-charge" name="magaya__Tax_Amount" readonly></div>
+                                                    <div class="col-md-3">Tax Amount</div>
+                                                    <div class="col-md-8"><input type="text" class="form-control number new-charge" name="magaya__Tax_Amount" readonly style="text-align-last:right;"></div>
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-4">Amount + Tax</div>
-                                                    <div class="col-md-6"><input type="text" class="form-control number" name="magaya__Amount_Total" readonly></div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-4">Adjustment</div>
-                                                    <div class="col-md-6"><input type="text" class="form-control number new-charge" name="magaya__Adjustment"></div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-4">Final Amount</div>
-                                                    <div class="col-md-6"><input type="text" class="form-control number new-charge" name="magaya__Final_Amount" readonly></div>
+                                                    <div class="col-md-3">Amount + Tax</div>
+                                                    <div class="col-md-8"><input type="text" class="form-control number" name="magaya__Amount_Total" readonly style="text-align-last:right;"></div>
                                                 </div>
 
                                                 <div class="row">
@@ -654,18 +660,18 @@ a {
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-4">Paid As</div>
-                                                    <div class="col-md-6"><select name="magaya__Paid_As" class="form-control new-charge"><option></option><option value="Paid">Paid</option><option value="Collect">Collect</option></select></div>
+                                                    <div class="col-md-3">Paid As</div>
+                                                    <div class="col-md-8"><select name="magaya__Paid_As" class="form-control new-charge"><option></option><option value="Paid">Paid</option><option value="Collect">Collect</option></select></div>
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-4">Status</div>
-                                                    <div class="col-md-6"><select name="magaya__Status" class="form-control new-charge"><option></option><option value="Open">Open</option><option value="Posted">Posted</option><option value="Paid">Paid</option></select></div>
+                                                    <div class="col-md-3">Status</div>
+                                                    <div class="col-md-8"><select name="magaya__Status" class="form-control new-charge"><option></option><option value="Open">Open</option><option value="Posted">Posted</option><option value="Paid">Paid</option></select></div>
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-4">Apply To</div>
-                                                    <div class="col-md-6"><input type="text" class="form-control" name="applyToName" readonly=""></div>
+                                                    <div class="col-md-3">Apply To</div>
+                                                    <div class="col-md-8"><input type="text" class="form-control" name="applyToName" readonly=""></div>
                                                 </div>
                                                 <!--div class="row">
                                                     <div class="col-md-4">Tax Amount</div>
@@ -694,7 +700,6 @@ a {
                                                     <th style="width:9%">Amount</th>
                                                     <th style="width:9%">Tax Amount</th>
 													<th style="width:9%">Amount + Tax</th>
-                                                    <th style="width:9%">Final Amount</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
@@ -714,7 +719,6 @@ a {
                                                     <th style="width:9%">Amount</th>
                                                     <th style="width:9%">Tax Amount</th>
 													<th style="width:9%">Amount + Tax</th>
-                                                    <th style="width:9%">Final Amount</th>
 												</tr>
 										   </thead>
 										   <tbody></tbody>
@@ -744,78 +748,78 @@ a {
                                         <div class="panel">
 											<fieldset class="fieldset">
                                                 <legend class="legend">New Item
-                                                    <span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px" data-close="panel-item">close</span>
-                                                    <span id="sendItem" class="material-icons btn btn-primary float-right">task_alt</span>
-                                                    <span id="newItem" class="material-icons btn btn-primary float-right">task_alt</span>
+                                                    <span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel-item">close</span>
+                                                    <span id="sendItem" class="material-icons btn btn-primary float-right"style="background: none;border: none;">task_alt</span>
+                                                    <span id="newItem" class="material-icons btn btn-primary float-right"style="background: none;border: none;">task_alt</span>
 
                                                 </legend>
                                                 <form id="new-item">
                                                     <div class="row">
-                                                        <div class="col-md-4">Type</div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-3">Type</div>
+                                                        <div class="col-md-8">
                                                             <select class="form-control text" name="Name"><option value='-1'></option></select>
                                                         </div>
                                                     </div>
 
                                                     <div class="row">
-                                                        <div class="col-md-4">Description</div>
-                                                        <div class="col-md-6">
-                                                            <input type="text" class="form-control new-item text" name="magaya__Package_Description"/>
+                                                        <div class="col-md-3">Description</div>
+                                                        <div class="col-md-8">
+                                                            <textarea class="form-control new-item text" name="magaya__Package_Description" aria-label="With textarea"></textarea>
                                                         </div>
                                                     </div>
 
                                                     <div class="row">
-                                                        <div class="col-md-4">Pieces</div>
-                                                        <div class="col-md-6">
-                                                            <input type="text" class="form-control number new-item" name="magaya__Pieces">
+                                                        <div class="col-md-3">Pieces</div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control number new-item" name="magaya__Pieces"style="text-align-last:right;">
                                                         </div>
                                                     </div>
 
                                                     <div class="row">
-                                                        <div class="col-md-4">Length</div>
-                                                        <div class="col-md-6">
-                                                            <input type="text" class="form-control number new-item" name="magaya__Length">
+                                                        <div class="col-md-3">Length</div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control number new-item" name="magaya__Length"style="text-align-last:right;">
                                                         </div>
                                                     </div>
 
                                                     <div class="row">
-                                                        <div class="col-md-4">Height</div>
-                                                        <div class="col-md-6">
-                                                            <input type="text" class="form-control number new-item" name="magaya__Height">
+                                                        <div class="col-md-3">Height</div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control number new-item" name="magaya__Height"style="text-align-last:right;">
                                                         </div>
                                                     </div>
 
                                                     <div class="row">
-                                                        <div class="col-md-4">Width</div>
-                                                        <div class="col-md-6">
-                                                            <input type="text" class="form-control number new-item" name="magaya__Width">
+                                                        <div class="col-md-3">Width</div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control number new-item" name="magaya__Width"style="text-align-last:right;">
                                                         </div>
                                                     </div>
 
                                                     <div class="row">
-                                                        <div class="col-md-4">Weigth</div>
-                                                        <div class="col-md-6">
-                                                            <input type="text" class="form-control number new-item" name="magaya__Weigth">
+                                                        <div class="col-md-3">Weigth</div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control number new-item" name="magaya__Weigth"style="text-align-last:right;">
                                                         </div>
                                                     </div>
 
                                                     <div class="row">
-                                                        <div class="col-md-4">Volume</div>
-                                                        <div class="col-md-6">
-                                                            <input type="text" class="form-control number new-item" name="magaya__Volume">
+                                                        <div class="col-md-3">Volume</div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control number new-item" name="magaya__Volume"style="text-align-last:right;">
                                                         </div>
                                                     </div>
 
                                                     <div class="row">
-                                                        <div class="col-md-4">Measure System</div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-3">Measure System</div>
+                                                        <div class="col-md-8">
                                                             <select name="magaya__Measure_System" class="form-control new-item"><option></option><option value="International">International</option><option value="English">English</option></select>
                                                         </div>
                                                     </div>
 
                                                     <div class="row">
-                                                        <div class="col-md-4">Status</div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-3">Status</div>
+                                                        <div class="col-md-8">
                                                             <select name="magaya__Status" class="form-control new-item"><option value="InQuote">InQuote</option></select>
                                                         </div>
                                                     </div>

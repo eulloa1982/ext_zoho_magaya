@@ -255,10 +255,10 @@ $(document).ready(function(){
 
             //campos q son objetos
             //transportation mode
-            if (!_.isEmpty(quoteToEdit['magaya__TransportationMode'])) {
+            /*if (!_.isEmpty(quoteToEdit['magaya__TransportationMode'])) {
                 $("<option value='" + quoteToEdit['magaya__TransportationMode']['id'] + "' selected>" +quoteToEdit['magaya__TransportationMode']['name'] + "</option>").appendTo("select[name=magaya__TransportationMode]");
                 $("input[name=ModeOfTransportation]").val(quoteToEdit['magaya__TransportationMode']['name'])
-            }
+            }*/
 
             //account, cliente de la cotizacion
             if (!_.isEmpty(quoteToEdit["Account"])) {
@@ -368,6 +368,62 @@ $(document).ready(function(){
 
             $("#mquoteModal").modal("show")
 
+            //other modules related
+            if (!_.isEmpty(quoteToEdit.magaya__Routing)) {
+                let routingId = quoteToEdit.magaya__Routing.id
+
+                ZOHO.CRM.API.getRecord( {Entity: "magaya__Routing", RecordID: routingId })
+                    .then(function(response) {
+                        $.map(response.data[0], function(k, v) {
+                            if (!_.isObject(v) && !v.includes("$") && !_.isEmpty(k)) {
+                                $(`input[name=${v}]`).val(k)
+                                $(`select[name=${v}]`).val(k)
+                            }
+                        })
+
+                        let data = response.data[0]
+                        let idMainCarrier = 0
+                        if (!_.isEmpty(data.magaya__MainCarrier)) {
+                            idMainCarrier = data.magaya__MainCarrier.id
+                        }
+
+                        if (!_.isEmpty(data.magaya__ModeofTransportation)) {
+                            let idMethod = data.magaya__ModeofTransportation.id
+                            let method = getTranspMethod(idMethod).then(res => {
+                                $("select[name=magaya__TransportationMode]").val(res[0]['id'])
+                                $("input[name=ModeOfTransportation]").val(res[0]['Name'])
+                            })
+
+                        }
+
+                        let shipper = data.magaya__Shipper;
+                        let shipperValues = $("select[name=magaya__Shipper] option")
+                        $.map(shipperValues, function(k, v) {
+
+                            if (k.text === shipper) {
+                                console.log(k, v)
+                                $(`select[name=magaya__Shipper] option:contains(${shipper})`).attr('selected', true);
+                                $(`select[name=magaya__Shipper]`).change()
+                            }
+                        })
+                        let consignee = data.magaya__Consignee;
+                        let consigneeValues = $("select[name=magaya__Consignee] option")
+                        $.map(consigneeValues, function(k, v) {
+
+                            if (k.text === consignee) {
+                                console.log(k, v)
+                                $(`select[name=magaya__Consignee] option:contains(${consignee})`).attr('selected', true);
+                                $(`select[name=magaya__Consignee]`).change()
+                            }
+                        })
+
+                        $("select[name=magaya__MainCarrier]").val(idMainCarrier);
+                        $("select[name=magaya__MainCarrier]").selectpicker('render');
+                    })
+
+            }
+
+
             //cargo items
             ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idmQuoteToEdit, RelatedList: "magaya__SQuote_Name1", page: 1, per_page: 200 })
                 .then(function(response) {
@@ -398,9 +454,11 @@ $(document).ready(function(){
 
                 //service items
                 ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idmQuoteToEdit, RelatedList: "Notes", page: 1, per_page: 200 })
-                .then(function(response) {
-                    console.log(response.data)
-                })
+                    .then(function(response) {
+                        console.log(response.data)
+                    })
+
+                $("#mquoteModal").modal("show")
         })
 
 

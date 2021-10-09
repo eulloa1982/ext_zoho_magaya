@@ -13,7 +13,6 @@ const initialStateCharge = {
         magaya__ChargeCode: 0,
         magaya__ChargeCurrency: "",
         magaya__Charge_Description: "",
-        magaya__Final_Amount: 0,
         magaya__Paid_As: "",
         magaya__Price: 0,
         magaya__Status: "",
@@ -21,7 +20,6 @@ const initialStateCharge = {
         magaya__Tax_Amount: 0,
         magaya__Unit: "",
         magaya__ApplyToAccounts: 0,
-        Adjustment: 0
     },
     showEmptyCharge: false
   };
@@ -129,22 +127,30 @@ function reducerCharge (state = initialStateCharge, actions)  {
 
             newArray = {...state.singleCharge};
             newArray[1][field] = value
-            //calculate volume
-            let price = roundDec(newArray['magaya__Price'])
-            let quantity = roundDec (newArray['magaya__CQuantity'])
+            //get values
+            let price = roundDec(newArray[1]['magaya__Price'])
+            let quantity = roundDec (newArray[1]['magaya__CQuantity'])
+            let amount = roundDec(newArray[1]['magaya__Amount'])
+            let amount_tax = roundDec(newArray[1]['magaya__Tax_Amount'])
+            let amount_total = roundDec(newArray[1]['magaya__Amount_Total'])
+            let tax_rate = roundDec(newArray[1]['magaya__TaxRate'])
+
             price = price > 0 ? price : 0;
             quantity = quantity > 0 ? quantity : 0
-            let amount = price * quantity;
+            amount = amount > 0 ? amount : 0
+            amount_tax = amount_tax > 0 ? amount_tax : 0
+            amount_total = amount_total > 0 ? amount_total : 0
+            tax_rate = tax_rate > 0 ? tax_rate : 0
 
+            //calculos
+            amount = price * quantity;
+            amount_tax = (roundDec(amount) / 100) * roundDec(tax_rate)
+            amount_total = roundDec(amount + amount_tax)
+
+            //back to field
             newArray[1]['magaya__Amount'] = roundDec(amount)
-            let amount_tax = (roundDec(newArray[1]['magaya__Amount']) / 100) * roundDec(newArray[1]['magaya__TaxRate'])
             newArray[1]['magaya__Tax_Amount'] = roundDec(amount_tax)
-            let amount_total = roundDec(amount + amount_tax)
             newArray[1]['magaya__Amount_Total'] = roundDec(amount_total);
-
-            let final_amount = roundDec(amount_total) + roundDec(newArray[1]['magaya__Adjustment'])
-            newArray[1]['magaya__Final_Amount'] = roundDec(final_amount)
-
 
             return {
                 ...state,
@@ -201,25 +207,40 @@ function reducerCharge (state = initialStateCharge, actions)  {
 
             let price = roundDec(newArray['magaya__Price'])
             let quantity = roundDec (newArray['magaya__CQuantity'])
+            let amount = roundDec(newArray['magaya__Amount'])
+            let amount_tax = roundDec(newArray['magaya__Tax_Amount'])
+            let amount_total = roundDec(newArray['magaya__Amount_Total'])
+            let tax_rate = roundDec(newArray['magaya__TaxRate'])
+
             price = price > 0 ? price : 0;
             quantity = quantity > 0 ? quantity : 0
-            let amount = price * quantity;
+            amount = amount > 0 ? amount : 0
+            amount_tax = amount_tax > 0 ? amount_tax : 0
+            amount_total = amount_total > 0 ? amount_total : 0
+            tax_rate = tax_rate > 0 ? tax_rate : 0
+
+            //calculos
+            amount = price * quantity;
+            amount_tax = (roundDec(amount) / 100) * roundDec(tax_rate)
+            amount_total = roundDec(amount + amount_tax)
+
+            //back to field
+            newArray['magaya__Amount'] = amount.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray['magaya__Tax_Amount'] = amount_tax.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray['magaya__Amount_Total'] = amount_total.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray['magaya__Price'] = price.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
             //calculate amount tax
-            let amount_tax = (newArray['magaya__Amount'] / 100) * roundDec (newArray['magaya__TaxRate'])
-            let amount_total = amount + amount_tax;
-            let final_amount = (roundDec(newArray["magaya__Adjustment"]) + roundDec(amount_total))
-            //newArray["magaya__Amount_Total"] = roundDec(amount_total).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray["magaya__Amount_Total"] = Intl.NumberFormat("es-MX", {style: "decimal"}).format(amount_total)
-            newArray["magaya__Final_Amount"] = Intl.NumberFormat("es-MX", {style: "decimal"}).format(final_amount)
-            newArray['magaya__Tax_Amount'] = Intl.NumberFormat("es-MX", {style: "decimal"}).format(amount_tax)
-            newArray['magaya__Amount'] = roundDec(amount)
+            //let amount_tax = (newArray['magaya__Amount'] / 100) * roundDec (newArray['magaya__TaxRate'])
+            //let amount_total = amount + amount_tax;
+            //newArray["magaya__Amount_Total"] = Intl.NumberFormat("es-MX", {style: "decimal"}).format(amount_total)
+            //newArray['magaya__Tax_Amount'] = Intl.NumberFormat("es-MX", {style: "decimal"}).format(amount_tax)
+            //newArray['magaya__Amount'] = roundDec(amount)
 
 
             newArray['Name'] = newArray["magaya__Charge_Description"]
             newArray["magaya__TaxRate"] = newArray["magaya__TaxCode"]
-            //newArray["magaya__Final_Amount"] = (roundDec(newArray["magaya__Adjustment"]) + roundDec(amount_total)).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray['magaya__Price'] = price.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            //newArray['magaya__Price'] = price.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             //newArray['magaya__Tax_Amount'] = roundDec(amount_tax).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             //newArray['magaya__Tax_Amount'] = Intl.NumberFormat("en-US", {style: "decimal"}).format(amount_tax)
             //newArray['magaya__Amount'] = roundDec(amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
