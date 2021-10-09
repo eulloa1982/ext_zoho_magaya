@@ -551,7 +551,7 @@ function buildXmlCharge(charges, data_account) {
                             <IsThirdPartyCharge>false</IsThirdPartyCharge>
                             <ChargeDefinition>
                                 <Type>Other</Type>
-                                <Description>${k.magaya__Name}</Description>
+                                <Description>${k.Name}</Description>
                                 <Code>${k.magaya__ChargeCode}</Code>
                                 <AccountDefinition>
                                     <Type>Income</Type>
@@ -624,7 +624,7 @@ async function sendmQuote(mquote, idQuote) {
         url: config.magaya_url
     };
 
-    /*MagayaAPI.sendRequest(data, function(result) {
+    MagayaAPI.sendRequest(data, function(result) {
         //console.log(result)
             if (result.error) {
 
