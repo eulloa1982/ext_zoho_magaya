@@ -224,6 +224,11 @@ a {
 											<label class="col-md-12" style="font-weight: bold;">Employee</label>
                                             <input type="text" name='magaya__Employee' class='form-control'/>
 										</div>
+
+                                        <div class="col-md-3">
+											<label class="col-md-12" style="font-weight: bold;">Owner</label>
+                                            <input type="text" name='Owner' class='form-control' readonly/>
+										</div>
                                     </div>
 
                                     <div class="row" style="margin-bottom:20px">
@@ -360,17 +365,6 @@ a {
                                                 <option value=""></option>
                                             </select>
 										</div>
-
-										<!--div class="col-md-6">
-											<label class="col-md-12" style="font-weight: bold;">Route</label>
-											<select id="Sel2" class="form-control">
-												<option>2 - UNO</option>
-												<option>2 - DOS</option>
-												<option>2 - TRES</option>
-												<option>2 - CUATRO</option>
-												<option>2 - CINCO</option>
-											</select>
-										</div-->
 									</div>
 									<hr>
 

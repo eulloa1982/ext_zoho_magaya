@@ -154,8 +154,10 @@ $(document).ready(function(){
         Object.assign(item, {"magaya__SQuote_Name": idmQuoteToEdit})
         Object.assign(item, {'magaya__ApplyToAccounts': accountId})
         Object.assign(item, {"Name": item["magaya__Charge_Description"]})
+        Object.assign(item, {"magaya__Charge_Description": item["magaya__Charge_Description"]})
         Object.assign(item, {"magaya__TaxCode": tax_code})
 
+        console.log("Charge send", item)
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: item, Trigger: [] })
             .then(function(data) {
                 res = data.data;
@@ -225,6 +227,7 @@ $(document).ready(function(){
 
         Object.assign(item, {'magaya__ApplyToAccounts': accountId})
         Object.assign(item, {"Name": chargeDescription})
+        Object.assign(item, {"magaya__Charge_Description": chargeDescription})
         Object.assign(item, {'magaya__TaxCode': taxcode})
 
         console.log("new charge", item)
