@@ -249,7 +249,6 @@ async function buildStringQuote2(idSQuote) {
     stringQuote += `<IsCommerceQuotation>false</IsCommerceQuotation>`
 
     $.map(mapa, function(k, v) {
-        console.log(v, quoteXML[`${k}`])
         stringQuote += buildField(v, quoteXML[`${k}`])
     })
 
@@ -294,37 +293,83 @@ async function buildStringQuote2(idSQuote) {
                         <MobilePhone>${quoteXML.magaya__ContactMobile}</MobilePhone>
                     </Representative>`*/
 
-    //carrier
-    if (!_.isEmpty(quoteXML.magaya__Carrier)) {
-        stringQuote += `<Carrier><Type>Carrier</Type><Name>${quoteXML.magaya__Carrier}</Name></Carrier>`
-    }
-
-    if (!(_.isEmpty(quoteXML.magaya__ConsigneeName))) {
-
-        stringQuote += `<ConsigneeName>${quoteXML.magaya__ConsigneeName}</ConsigneeName>
-                        <Consignee><Type>Client</Type><Name>${quoteXML.magaya__ConsigneeName}</Name></Consignee>`
-    }
-
-    if (!(_.isEmpty(quoteXML.magaya__Shipper))) {
-        stringQuote += `<ShipperName>${quoteXML.magaya__Shipper}</ShipperName>
-                        <Shipper><Type>Client</Type><Name>${quoteXML.magaya__Shipper}</Name></Shipper>`
-    }
-
-    //transport method
-    if (!_.isEmpty(quoteXML.magaya__TransportationMode)) {
-        transporMethod = await getTranspMethod(quoteXML.magaya__TransportationMode.id)
-        stringQuote += `<ModeOfTransportation Code="${transporMethod[0].magaya__TransportationMethodCode}">
-                        <Description>${transporMethod[0].Name}</Description>
-                        <Method>${transporMethod[0].magaya__ParentMethod}</Method>
-                        </ModeOfTransportation>
-                        <ModeOfTransportCode>${transporMethod[0].magaya__TransportationMethodCode}</ModeOfTransportCode>`
-    }
-
     //return(stringQuote)
 
     return stringQuote;
 }
 
+
+async function buildStringRouting() {
+    //routing
+    if (!_.isEmpty(quoteXML.magaya__Routing)) {
+        let idRouting = quoteXML.magaya__Routing.id
+        let routing = await getRecordCRM("magaya__Routing", idRouting)
+        console.log(" routing", routing)
+
+        let transporMethod = await buildStringTransport(routing)
+        let stringRouting = `<ModeOfTransportation Code="${transporMethod[0].magaya__TransportationMethodCode}">
+                <Description>${transporMethod[0].Name}</Description>
+                <Method>${transporMethod[0].magaya__ParentMethod}</Method>
+                </ModeOfTransportation>
+                <ModeOfTransportCode>${transporMethod[0].magaya__TransportationMethodCode}</ModeOfTransportCode>`
+
+        if (!_.isEmpty(routing[0].magaya__MainCarrier)) {
+            let mainCarrier = await buildStringMainCarrier(routing[0].magaya__MainCarrier.id)
+            console.log(" Main Carrier returned", mainCarrier)
+            stringRouting += `<Carrier><Type>Carrier</Type><Name>${mainCarrier[0].Name}</Name></Carrier>`
+
+        }
+
+        if (!(_.isEmpty(routing[0].magaya__Consignee))) {
+
+            stringRouting += `<ConsigneeName>${routing[0].magaya__Consignee}</ConsigneeName>
+                            <Consignee><Type>Client</Type><Name>${routing[0].magaya__Consignee}</Name></Consignee>`
+        }
+
+        if (!(_.isEmpty(routing[0].magaya__Shipper))) {
+            stringRouting += `<ShipperName>${routing[0].magaya__Shipper}</ShipperName>
+                            <Shipper><Type>Client</Type><Name>${routing[0].magaya__Shipper}</Name></Shipper>`
+        }
+
+
+        return stringRouting;
+    }
+
+}
+
+function buildStringTransport(dataRouting) {
+
+    return new Promise(function(resolve, reject) {
+        if (!_.isEmpty(dataRouting[0].magaya__ModeofTransportation)) {
+            getTranspMethod(dataRouting[0].magaya__ModeofTransportation.id)
+                .then(r => {
+                    console.log("transport m", r)
+                    resolve(r)
+                })
+                .catch(function() {
+                    reject()
+                })
+
+            }
+            else {
+                reject()
+            }
+
+    })
+}
+
+function buildStringMainCarrier(idCarrier) {
+    return new Promise(function(resolve, reject) {
+        getRecordCRM("magaya__Providers", idCarrier)
+            .then(r => {
+                console.log("carrier", r)
+                resolve(r)
+            })
+            .catch(function() {
+                reject()
+            })
+    })
+}
 
 //send quote
 async function buildStringXML(idSQuote) {
@@ -343,9 +388,12 @@ async function buildStringXML(idSQuote) {
     } else {
 
         xml = await buildStringQuote2(idSQuote);
+
         stringXML = '<Quotation xmlns="http://www.magaya.com/XMLSchema/V1" xsi:schemaLocation="http://www.magaya.com/XMLSchema/V1 schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
         stringXML += stringQuote;
+        let routing = await buildStringRouting()
 
+        stringXML += routing
         //charges
         let account_id = 0;
         let data_account = {}
@@ -367,7 +415,6 @@ async function buildStringXML(idSQuote) {
         if (account_id > 0) {
             let data = await getRecordCRM("Accounts", account_id)
                     .then(resp => {
-                        console.log("Resp", resp)
                         data_account = resp[0]
                     })
 
@@ -596,7 +643,7 @@ async function sendmQuote(mquote, idQuote) {
                         allowOutsideClick: false
                     }).then(function() {
                         //all OK, update QuoteInMagaya field
-                        var config={
+                        /*var config={
                             Entity:"magaya__SQuotes",
                             APIData:{
                                 "id": idQuote,
@@ -607,7 +654,7 @@ async function sendmQuote(mquote, idQuote) {
                         ZOHO.CRM.API.updateRecord(config)
                             .then(function(data){
                                 console.log("Update data", data)
-                            })
+                            })*/
 
                         storeQuote.dispatch(updateQuoteByField({id: idQuote, field: "Magaya_updated", value: true}))
                     })
