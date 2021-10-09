@@ -80,8 +80,7 @@ storeCharge.subscribe(() => {
 
         let append = ``
         arrows += `<span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel">close</span>
-                    <span id="${button_type}" data-id="${id}" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
-                    `
+                    <span id="${button_type}" data-id="${id}" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>`
 
 
         //imprimir campos en orden
