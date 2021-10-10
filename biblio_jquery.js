@@ -928,27 +928,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
         var none = "";
         if (!_.isEmpty(orgData["website"]))
             none = orgData["website"];
-        data = `<div class="container">
-                    <div class="row col" style="float:right; clear:both;">
-                        <div class="row session-first">
-                            <div class="col-md-6 text-right">
-                                ${orgData["company_name"]}
-                            </div>
-                        </div>
-                        <div class="col headerPDF p-2"><span class="material-icons">
-                        language
-                        </span>${none}</div>
-                        <div class="col headerPDF p-2"><span class="material-icons">
-                        phone
-                        </span>${orgData["phone"]}</div>
-                        <div class="col headerPDF p-2"><span class="material-icons">
-                        alternate_email
-                        </span>${orgData["primary_email"]}</div>
-                        <div class="col headerPDF p-2"><span class="material-icons">
-                        home
-                        </span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
-                    </div>
-                </div>
+        data = `
 
             <div class="container mt-3 mb-3">
                 <div class="row">
