@@ -365,6 +365,9 @@ $(document).ready(function(){
             let terms = quoteToEdit.magaya__Terms
             $("#magaya__Terms").val(terms)
 
+            //Incoterms
+            let incoterms = quoteToEdit.magaya__Incoterms
+            $("select[name=magaya__Incoterms").val(incoterms).change()
 
             $("#mquoteModal").modal("show")
 

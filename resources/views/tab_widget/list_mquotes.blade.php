@@ -267,8 +267,18 @@ a {
                                         <div class="col-md-3">
 											<label class="col-md-12" style="font-weight: bold;">Incoterms</label>
                                             <select name='magaya__Incoterms' class='form-control no-border'>
-                                                <option></option>
-                                                <option></option>
+                                                <option value=""></option>
+                                                <option value="EXW - EX Works">EXW - EX Works</option>
+                                                <option value="FCA - Free Carrier">FCA - Free Carrier</option>
+                                                <option value="CPT - Carriage Paid To">CPT - Carriage Paid To</option>
+                                                <option value="CIP - Carriage and Insurance Paid To">CIP - Carriage and Insurance Paid To</option>
+                                                <option value="DAP - Delivered at Place">DAP - Delivered at Place</option>
+                                                <option value="DPU - Delivered at Place Unloaded">DPU - Delivered at Place Unloaded</option>
+                                                <option value="DDP - Delivered Duty Paid">DDP - Delivered Duty Paid</option>
+                                                <option value="FAS - Free Alongside Ship">FAS - Free Alongside Ship</option>
+                                                <option value="FOP - Free On Board">FOP - Free On Board</option>
+                                                <option value="CFR - Cost and Freight">CFR - Cost and Freight</option>
+                                                <option value="CIF - Cost, Insurance and Freight">CIF - Cost, Insurance and Freight</option>
                                             </select>
 
 										</div>
