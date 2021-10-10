@@ -1,31 +1,30 @@
 .no-border {
-    border:none;
+    border: none;
     background: white;
     border: 1px solid #03A9F4;
 }
 
-.oculto:hover{
+.oculto:hover {
     cursor: pointer;
 }
 
-.cursor-hand{
+.cursor-hand {
     cursor: pointer;
-
 }
 
 .no-border:focus {
-    font-size   : 105%;
+    font-size: 105%;
     /*transform: translateX(-1%);
     transition: .3s ease-out;*/
     font: 1.5em "handwriting", sans-serif;
     padding: 0 10px;
-    margin : 0;
-
+    margin: 0;
 }
 
 input:active {
-    border:1px solid #000;
+    border: 1px solid #000;
 }
+
 .editable {
     border: 1px solid #03A9F4;
     padding: 1px 1px 1px 1px;
@@ -35,6 +34,7 @@ input:active {
     opacity: 0.07;
     margin-left: 15px;
 }
+
 .oculto:hover {
     opacity: 0.9;
 }
@@ -49,7 +49,8 @@ input:active {
     color: white;
 }
 
-#quote-info, #quote-alert {
+#quote-info,
+#quote-alert {
     position: absolute;
     top: 0;
     bottom: 70%;
@@ -59,24 +60,21 @@ input:active {
     padding: 0px 0px 0px 0px;
     margin: 20px 20px 20px 20px;
     font-size: 14px;
-    border:rgb(55, 65, 56);
+    border: rgb(55, 65, 56);
     box-shadow: 10px 15px 15px 15px black;
     background-color: #eee;
 }
 
-
 .panel {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-
-  background: white;
-  color: #333;
-  overflow: auto;
-  margin: 5px 0px 5px 5px;
-  padding: 5px 0px 5px 5px;
-
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    color: #333;
+    overflow: auto;
+    margin: 5px 0px 5px 5px;
+    padding: 5px 0px 5px 5px;
 }
 
 .message-data {
@@ -87,7 +85,11 @@ input:active {
 
 
 /**********panel editing*************/
-#panel, #panel-charge, #panel-item, #panel-search {
+
+#panel,
+#panel-charge,
+#panel-item,
+#panel-search {
     background: #dbdbd2;
     display: none;
     position: fixed;
@@ -100,21 +102,26 @@ input:active {
     overflow-y: auto;
     overflow-x: hidden;
 }
+
 .active {
     background-position: right 12px;
 }
 
-#table-charges input, #table-charges-new input, #table-items input, #table-items-new input {
+#table-charges input,
+#table-charges-new input,
+#table-items input,
+#table-items-new input {
     background-color: rgb(255, 255, 255);
     border: none;
 }
 
 
 /******** labels on panel **********/
+
 .fieldset {
-	border: 1px solid #38312b;
-	background: #eee;
-	padding: 18px 0px 20px 18px;
+    border: 1px solid #38312b;
+    background: #eee;
+    padding: 18px 0px 20px 18px;
     color: #333;
     margin: 10px 0px 10px 0px;
 }
@@ -125,40 +132,50 @@ input:active {
 }
 
 .fieldset .legend {
-	background: #CCA383;
-	padding: 6px;
-	font-weight: bold;
+    background: #CCA383;
+    padding: 6px;
+    font-weight: bold;
 }
+
 .label {
-	color: #333;
-	font-weight: bold;
-	display: block;
-	width: 60%;
-	float: left;
+    color: #333;
+    font-weight: bold;
+    display: block;
+    width: 60%;
+    float: left;
 }
 
 table td .numeric {
     text-align: right;
-  }
+}
 
- .panel select, .panel input{
-    text-align-last:right;
+.panel select,
+.panel input {
+    text-align-last: right;
     padding: 0px 5px 0px 10px;
     direction: rtl;
 }
 
+
 /*removing scrollbar from table list mquote*/
+
 .jsgrid-grid-header,
-.jsgrid-grid-body{
-  overflow: auto;
+.jsgrid-grid-body {
+    overflow: auto;
 }
 
+
 /**** pdf styles ***/
+
 #htmlToPdf {
     font-family: Arial, Helvetica, sans-serif;
     letter-spacing: 2px;
     color: #000;
     word-wrap: break-word;
+}
+
+.border-right {
+    border-right: 1px #000 solid;
 }
 
 #htmlToPdf span {
@@ -167,12 +184,22 @@ table td .numeric {
 
 .headerMquote {
     padding: 5px 0px 5px 0px;
-    border: 2px solid #a8a19b;
+    border: 1px solid #a8a19b;
+    font-size: 12px;
+}
+
+.headerPDF {
+    padding: 5px 0px 5px 0px;
+    border: none;
     font-size: 12px;
 }
 
 .headerPrincipal {
     background-color: #c5cbce;
+}
+
+.bolder {
+    font-weight: bolder;
 }
 
 .headerTable {
@@ -192,6 +219,8 @@ table td .numeric {
 .HtmltoPdf .col {
     font-size: 12px;
 }
+
+
 /*.toPdf {
     font-size: 12px;
 }*/

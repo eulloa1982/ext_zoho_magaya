@@ -1025,26 +1025,26 @@ function buildPdfCharges(charges) {
             amount_total += roundDec(k["magaya__Final_Amount"]);
             amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<div class="row headerMquote">
-                        <div class="col-sm-5">
+                        <div class="col-sm-5 border-right">
                             ${k["Name"]}
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm border-right">
                             ${k["magaya__Price"]}
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm border-right">
                             ${k["magaya__CQuantity"]}
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm border-right">
                             ${k["magaya__Tax_Amount"]}
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm border-right">
                             ${k["magaya__Final_Amount"]}
                         </div>
                     </div>
                         `
         })
 
-        data += `<div class="row headerMquote"><div class="col-sm-5"></div><div class="col-sm"></div><div class="col-sm"></div><div class="col-sm">${roundDec(amount_tax)}</div><div class="col-sm">${roundDec(amount_total)}</div></div>`
+        data += `<div class="row headerMquote"><div class="col-sm-5"></div><div class="col-sm"></div><div class="col-sm border-right"></div><div class="col-sm border-right bolder">${roundDec(amount_tax)}</div><div class="col-sm border-right bolder">${roundDec(amount_total)}</div></div>`
         data += `</div>`
     }
 
@@ -1087,19 +1087,19 @@ function buildPdfItems(items) {
                 }
 
                 data += `<div class="row headerMquote">
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 border-right">
                             ${k["Name"]}
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm border-right">
                             ${k["magaya__Pieces"]}
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 border-right">
                             ${k["magaya__Length"]}*${k["magaya__Height"]}*${k["magaya__Width"]} (${measure_length})
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm border-right">
                             ${k["magaya__Weigth"]}
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm border-right">
                             ${k["magaya__Volume"]}
                         </div>
                     </div>
@@ -1110,18 +1110,18 @@ function buildPdfItems(items) {
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
         data += `<div class="row headerMquote">
-        <div class="col-sm-3">
+        <div class="col-sm-3 border-right bolder">
             Totals
         </div>
-        <div class="col-sm">
+        <div class="col-sm border-right bolder">
             ${totalPieces}
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-3 border-right bolder">
         </div>
-        <div class="col-sm">
+        <div class="col-sm border-right bolder">
             ${roundDec(totalWeight)} kg
         </div>
-        <div class="col-sm">
+        <div class="col-sm border-right bolder">
             ${roundDec(totalVolume)} m3
         </div>
     </div>`
