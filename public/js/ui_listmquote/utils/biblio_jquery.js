@@ -476,8 +476,8 @@ function buildXmlItem(items) {
             stringItems += `<Length Unit="${measure_length}">${k.magaya__Length}</Length>`
             stringItems += `<Height Unit="${measure_length}">${k.magaya__Height}</Height>`
             stringItems += `<Width Unit="${measure_length}">${k.magaya__Width}</Width>`
-            stringItems += `<Weight Unit="${measure_weigth}">${k.magaya__Weigth}</Weight>
-                            <Volume Unit="${measure_volume}">${k.magaya__Volume}</Volume>`
+            stringItems += `<Weight Unit="${measure_weigth}">${k.magaya__Weigth * k.magaya__Pieces}</Weight>
+                            <Volume Unit="${measure_volume}">${k.magaya__Volume * k.magaya__Pieces}</Volume>`
             stringItems += `<Package>`
             stringItems += `<Type>Container</Type>
                             <Name>${k.Name}</Name>
