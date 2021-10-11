@@ -268,7 +268,7 @@ a {
 											<label class="col-md-12" style="font-weight: bold;">Incoterms</label>
                                             <select name='magaya__Incoterms' class='form-control no-border'>
                                                 <option value=""></option>
-                                                <option value="EXW - EX Works">EXW - EX Works</option>
+                                                <option value="EXW - Ex Works">EXW - Ex Works</option>
                                                 <option value="FCA - Free Carrier">FCA - Free Carrier</option>
                                                 <option value="CPT - Carriage Paid To">CPT - Carriage Paid To</option>
                                                 <option value="CIP - Carriage and Insurance Paid To">CIP - Carriage and Insurance Paid To</option>

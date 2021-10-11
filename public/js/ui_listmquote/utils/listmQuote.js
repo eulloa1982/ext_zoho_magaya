@@ -367,6 +367,17 @@ $(document).ready(function(){
 
             //Incoterms
             let incoterms = quoteToEdit.magaya__Incoterms
+            let incotermsValues = $("select[name=magaya__Incoterms] option")
+            $.map(incotermsValues, function(k, v) {
+                console.log(k.text === incoterms, k.text)
+                if (k.text === incoterms) {
+                    $(`select[name=magaya__Incoterms] option:contains(${incoterms})`).prop('selected', true);
+                    $(`select[name=magaya__Incoterms]`).change()
+                } else {
+                    $(`select[name=magaya__Incoterms]`).prop('selected', false);
+
+                }
+            })
             $("select[name=magaya__Incoterms").val(incoterms).change()
 
             $("#mquoteModal").modal("show")
