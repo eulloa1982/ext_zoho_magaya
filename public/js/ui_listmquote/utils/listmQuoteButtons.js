@@ -323,6 +323,11 @@ $(document).ready(function(){
     e.preventDefault()
     e.stopImmediatePropagation()
 
+    //get deal and quote account, now editable
+    let accountQuoteData = storeAccounts.getState().quoteAccount
+    let dealQuoteData = storeDeal.getState().dealQuote[0]
+    let accountQuote = accountQuoteData['id']
+    let dealQuote = dealQuoteData.id
     //receipt fields
     if (accountId <= 0)
         throw new UserException('Mandatory data not found: Client Quote is not defined');
@@ -342,6 +347,8 @@ $(document).ready(function(){
 
     let recordData = {
         "id": idQuote,
+        "Account": accountQuote,
+        "magaya__Deal": dealQuote,
         "magaya__Direction": $(":input[name=magaya__Direction]").val(),
         "magaya__TransportationMode": $("select[name=magaya__TransportationMode] option:selected").val(),
         "magaya__Description": $("#magaya__Description").val().replace(/[^a-zA-Z0-9]/g, ' '),
@@ -363,6 +370,7 @@ $(document).ready(function(){
         APIData: recordData
     }
 
+    console.log("mQuote to update", config)
     routingData = {
         "Name": $(":input[name=NameQuote]").val() !== "" ? $(":input[name=NameQuote]").val() : "Routing Data",
         "magaya__Shipper": sanitize($(":input[name=magaya__Shipper] option:selected").text()),

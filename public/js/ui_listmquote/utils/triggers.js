@@ -29,14 +29,12 @@ $("select[name=Account]").change(function(e) {
     e.stopImmediatePropagation();
     store.dispatch(addActionEdited())
 
+    storeAccounts.dispatch(emptySingleContact())
     //$("input[id=rol_shipper]").prop("checked", false)
     let account = $("select[name=Account]").val();
     storeAccounts.dispatch(addQuoteAccount({id: account}))
     storeAccounts.dispatch(findContactOfAccount({id: account}))
 
-    $("input[name=magaya__ContactPhone]").val("")
-    $("input[name=magaya__ContactMobile]").val("")
-    $("input[name=magaya__ContactEmail]").val("")
 })
 
 ////////// change representative, find contact data //////////////////
@@ -52,10 +50,11 @@ $("select[name=magaya__Representative]").change(function(e) {
 $("select[name=Deal]").change(function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    store.dispatch(addActionEdited())
 
-    let deal = $("select[name=Deal]").val();
+    storeAccounts.dispatch(emptySingleContact())
+    let deal = $(this).val();
     storeDeal.dispatch(getDeal({id: deal}))
+    store.dispatch(addActionEdited())
 })
 
 $("select[name=magaya__Shipper]").change(function(e) {
