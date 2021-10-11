@@ -349,6 +349,7 @@ $(document).ready(function(){
         "id": idQuote,
         "Account": accountQuote,
         "magaya__Deal": dealQuote,
+        "magaya__Employee": sanitize($("input[name=magaya__Employee]").val()),
         "magaya__Direction": $(":input[name=magaya__Direction]").val(),
         "magaya__TransportationMode": $("select[name=magaya__TransportationMode] option:selected").val(),
         "magaya__Description": $("#magaya__Description").val().replace(/[^a-zA-Z0-9]/g, ' '),
@@ -370,7 +371,6 @@ $(document).ready(function(){
         APIData: recordData
     }
 
-    console.log("mQuote to update", config)
     routingData = {
         "Name": $(":input[name=NameQuote]").val() !== "" ? $(":input[name=NameQuote]").val() : "Routing Data",
         "magaya__Shipper": sanitize($(":input[name=magaya__Shipper] option:selected").text()),
