@@ -83,6 +83,7 @@ $(document).ready(function(){
         rowIndex = $("#select-package").val();
         let $form = $("#new-item");
         let item = getFormData($form);
+        console.log("Send Item", item)
         Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
         Object.assign(item, {'magaya__SQuote_Name': idmQuoteToEdit})
         Object.assign(item, {"magaya__Package_Description": sanitize($("#magaya__Package_Description").val())})
@@ -107,6 +108,7 @@ $(document).ready(function(){
                     //add partial copy to store
                     storeItem.dispatch(addItem({...item, id: idItem}))
                     storeSuccess.dispatch(addSuccess({message: message}))
+                    $(`#panel-item`).animate({width:'toggle'},150);
                 }
             })
         })
@@ -197,6 +199,7 @@ $(document).ready(function(){
             })
             .then(function(){
                 Utils.unblockUI()
+                $(`#panel-charge`).animate({width:'toggle'},150);
             })
             .catch(function(error){
                 dataError = error.data;
