@@ -221,9 +221,14 @@ a {
 										</div>
 
                                         <div class="col-md-3">
-											<label class="col-md-12" style="font-weight: bold;">Employee</label>
-                                            <input type="text" name='magaya__Employee' class='form-control'/>
+											<label class="col-md-12" style="font-weight: bold;">Created By Name</label>
+                                            <input type="text" name='magaya__CreatedByName' class='form-control' readonly/>
 										</div>
+
+                                        <!--div class="col-md-3">
+											<label class="col-md-12" style="font-weight: bold;">Owner</label>
+                                            <input type="text" name='Owner' class='form-control' readonly/>
+										</div-->
                                     </div>
 
                                     <div class="row" style="margin-bottom:20px">
@@ -262,8 +267,18 @@ a {
                                         <div class="col-md-3">
 											<label class="col-md-12" style="font-weight: bold;">Incoterms</label>
                                             <select name='magaya__Incoterms' class='form-control no-border'>
-                                                <option></option>
-                                                <option></option>
+                                                <option value=""></option>
+                                                <option value="EXW - Ex Works">EXW - Ex Works</option>
+                                                <option value="FCA - Free Carrier">FCA - Free Carrier</option>
+                                                <option value="CPT - Carriage Paid To">CPT - Carriage Paid To</option>
+                                                <option value="CIP - Carriage and Insurance Paid To">CIP - Carriage and Insurance Paid To</option>
+                                                <option value="DAP - Delivered at Place">DAP - Delivered at Place</option>
+                                                <option value="DPU - Delivered at Place Unloaded">DPU - Delivered at Place Unloaded</option>
+                                                <option value="DDP - Delivered Duty Paid">DDP - Delivered Duty Paid</option>
+                                                <option value="FAS - Free Alongside Ship">FAS - Free Alongside Ship</option>
+                                                <option value="FOP - Free On Board">FOP - Free On Board</option>
+                                                <option value="CFR - Cost and Freight">CFR - Cost and Freight</option>
+                                                <option value="CIF - Cost, Insurance and Freight">CIF - Cost, Insurance and Freight</option>
                                             </select>
 
 										</div>
@@ -360,17 +375,6 @@ a {
                                                 <option value=""></option>
                                             </select>
 										</div>
-
-										<!--div class="col-md-6">
-											<label class="col-md-12" style="font-weight: bold;">Route</label>
-											<select id="Sel2" class="form-control">
-												<option>2 - UNO</option>
-												<option>2 - DOS</option>
-												<option>2 - TRES</option>
-												<option>2 - CUATRO</option>
-												<option>2 - CINCO</option>
-											</select>
-										</div-->
 									</div>
 									<hr>
 
@@ -654,8 +658,8 @@ a {
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-4">Currency</div>
-                                                    <div class="col-md-6"><select name="magaya__ChargeCurrency" class="form-control new-charge"><option></option><option value="USD">USD</option></select></div>
+                                                    <div class="col-md-3">Currency</div>
+                                                    <div class="col-md-8"><select name="magaya__ChargeCurrency" class="form-control new-charge"><option></option><option value="USD">USD</option></select></div>
                                                 </div>
 
                                                 <div class="row">
@@ -763,7 +767,7 @@ a {
                                                     <div class="row">
                                                         <div class="col-md-3">Description</div>
                                                         <div class="col-md-8">
-                                                            <textarea class="form-control new-item text" name="magaya__Package_Description" aria-label="With textarea"></textarea>
+                                                            <textarea class="form-control new-item text" id="magaya__Package_Description" name="magaya__Package_Description" aria-label="With textarea"></textarea>
                                                         </div>
                                                     </div>
 

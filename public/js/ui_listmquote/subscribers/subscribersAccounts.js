@@ -24,16 +24,27 @@ storeAccounts.subscribe(() => {
    let contact = u.singleContact
    if (!_.isEmpty(contact)) {
        let idContact = contact[0]["id"];
-
        $("select[name=magaya__Representative]").val(idContact)
+
        $.map(contact[0], function (k, v) {
             if (!_.isObject(v) && !v.includes("$")) {
-                $(`input[name=${v}]`).val(k)
-                $(`select[name=${v}]`).val(k)
+               $(`input[name=${v}]`).val(k)
+               $(`select[name=${v}]`).val(k)
             }
         })
+    } else {
+        $("input[name=Phone]").val("")
+        $("input[name=Mobile]").val("")
+        $("input[name=Email]").val("")
+        $("input[name=Mailing_Street]").val("")
+        $("input[name=Mailing_City]").val("")
+        $("input[name=Mailing_State]").val("")
+        $("input[name=Mailing_Country]").val("")
+        $("input[name=Mailing_Zip]").val("")
 
-   }
+
+    }
+
 
 
     let accountShipper = u.accountShipper;
