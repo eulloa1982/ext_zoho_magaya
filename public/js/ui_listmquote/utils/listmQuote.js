@@ -402,11 +402,10 @@ $(document).ready(function(){
                             idMainCarrier = data.magaya__MainCarrier.id
                             $.map(carriersValues, function(k, v) {
                                 if (k.value === idMainCarrier) {
-                                    console.log(k.value)
                                     $(`select[name=magaya__MainCarrier]`).val(idMainCarrier).prop('selected', true)
                                     $(`select[name=magaya__MainCarrier]`).change()
                                 } else {
-                                    console.log("no value", k.value)
+
                                     $(`select[name=magaya__MainCarrier]`).prop('selected', false);
                                 }
                             })

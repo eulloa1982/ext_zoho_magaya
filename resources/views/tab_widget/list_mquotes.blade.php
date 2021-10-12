@@ -221,14 +221,14 @@ a {
 										</div>
 
                                         <div class="col-md-3">
-											<label class="col-md-12" style="font-weight: bold;">Employee</label>
-                                            <input type="text" name='magaya__Employee' class='form-control'/>
+											<label class="col-md-12" style="font-weight: bold;">Created By Name</label>
+                                            <input type="text" name='magaya__CreatedByName' class='form-control' readonly/>
 										</div>
 
-                                        <div class="col-md-3">
+                                        <!--div class="col-md-3">
 											<label class="col-md-12" style="font-weight: bold;">Owner</label>
                                             <input type="text" name='Owner' class='form-control' readonly/>
-										</div>
+										</div-->
                                     </div>
 
                                     <div class="row" style="margin-bottom:20px">

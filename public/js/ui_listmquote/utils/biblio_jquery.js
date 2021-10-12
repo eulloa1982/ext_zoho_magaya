@@ -152,7 +152,7 @@ function limpiar_form() {
     let current_user = localStorage.getItem("current_user")
 
     $("input[name=magaya__IssuedByName]").val(organization.company_name)
-    $("input[name=magaya__Employee]").val(current_user)
+    $("input[name=magaya__CreatedByName]").val(current_user)
     //console.log("Organization", JSON.parse(organization))
 }
 
