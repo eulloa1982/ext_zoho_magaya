@@ -44,8 +44,8 @@ input:active {
 }
 
 .header {
-    background-color: #375580;
-    height: 18%;
+    background-color: #0b3355;
+    height: 25%;
     color: white;
 }
 
@@ -59,9 +59,11 @@ input:active {
     padding: 0px 0px 0px 0px;
     margin: 20px 20px 20px 20px;
     font-size: 14px;
-    border:rgb(55, 65, 56);
-    box-shadow: 10px 15px 15px 15px black;
-    background-color: #eee;
+    /*border:rgb(55, 65, 56);
+    box-shadow: 10px 15px 15px 15px black;*/
+    background-color: #f5f5f5;
+    border-color: grey;
+    border: solid 0.1px;
 }
 
 
@@ -80,9 +82,10 @@ input:active {
 }
 
 .message-data {
-    position: absolute;
-    margin: 20px 20px 20px 20px;
+    /*position: absolute;*/
+    margin: 25px;
     font-size: 16px;
+    text-align: center;
 }
 
 
