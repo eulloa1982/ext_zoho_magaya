@@ -932,6 +932,8 @@ function buildPdfHeader(orgData, quoteToEdit) {
     let data = ``;
     if (!_.isEmpty(orgData) && !_.isEmpty(quoteToEdit)) {
         var none = "";
+        create_date = quoteToEdit["Created_Time"] !== null ? new Date(quoteToEdit["Created_Time"]).getDate() : "";
+        expire_date = quoteToEdit["magaya__ExpirationDate"] !== null ? new Date(quoteToEdit["magaya__ExpirationDate"]).getDate() : "";
         if (!_.isEmpty(orgData["website"]))
             none = orgData["website"];
         data = `<div class="container">
@@ -1022,13 +1024,13 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                         <td>
                                             Creation Date</td>
                                         <td>
-                                            ${date('d-m-Y', quoteToEdit["Created_Time"])}</td>
+                                            ${create_date}</td>
                                     </tr>
                                     <tr>
                                         <td>
                                             Expiration Date</td>
                                         <td>
-                                            ${date('d-m-Y', quoteToEdit["magaya__ExpirationDate"])}</td>
+                                            ${expire_date}</td>
                                     </tr>
                                     <tr>
                                         <td>
