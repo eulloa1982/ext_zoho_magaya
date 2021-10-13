@@ -995,7 +995,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                         <td>
                                             Creation Date</td>
                                         <td>
-                                            ${quoteToEdit["Created_Time"].toString("dd/MM/YYYY")}</td>
+                                            ${quoteToEdit["Created_Time"].format("dd/MM/YYYY")}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
@@ -1005,7 +1005,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                         <td>
                                             Expiration Date</td>
                                         <td>
-                                            ${quoteToEdit["magaya__ExpirationDate"].toString("dd/MM/YYYY")}</td>
+                                            ${quoteToEdit["magaya__ExpirationDate"].format("dd/MM/YYYY")}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
@@ -1028,34 +1028,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                     </tr>
                                 </table>
                             </td>
-                            <td>
-                                <table id="info2" cellspacing="0px" cellpadding="2px" style="border: none">
-                                    <tr>
-                                        <td>
-                                            Quote Number</td>
-                                        <td>
-                                            ${quoteToEdit["magaya__Number"]}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Creation Date</td>
-                                        <td>
-                                            ${quoteToEdit["Created_Time"].toString("dd/MM/YYYY")}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Expiration Date</td>
-                                        <td>
-                                            ${quoteToEdit["magaya__ExpirationDate"].toString("dd/MM/YYYY")}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Contact To</td>
-                                        <td>
-                                            ${quoteToEdit["magaya__Employee"]}</td>
-                                    </tr>
-                                </table>
-                            </td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td colspan="2">
@@ -1079,6 +1052,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                     </tr>
                                 </table>
                             </td>
+                            <td></td>
                         </tr>
                     </table>
                 </div>`
@@ -1095,19 +1069,19 @@ function buildPdfCharges(charges) {
     data += `<div class="row headerMquote">
                 <table>
                     <tr style="background-color: lightskyblue;">
-                        <th colspan="5">
+                        <th colspan="5" style="border: 1px #000 solid;">
                             Charges</th>
                     </tr>   
-                    <tr style="background-color: lightskyblue;">
-                        <th>
-                            Charge Description</div></th>
-                        <th>
+                    <tr style="background-color: lightskyblue; font-weight: bold;">
+                        <th style="border: 1px #000 solid;">
+                            Charge Description</th>
+                        <th style="border: 1px #000 solid;">
                             Price</th>
-                        <th> 
+                        <th style="border: 1px #000 solid;"> 
                             Quantity</th>
-                        <th>
+                        <th style="border: 1px #000 solid;">
                             Tax Amount</th>
-                        <th>
+                        <th style="border: 1px #000 solid;">
                             Final Amount</th></tr>`
     if (!_.isEmpty(charges)) {
 
