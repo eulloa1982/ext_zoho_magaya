@@ -1077,22 +1077,22 @@ function buildPdfHeader(orgData, quoteToEdit) {
  */
 function buildPdfCharges(charges) {
     let data = ``
-    data += `<div class="row headerMquote">
+    data += `<div class="row">
                 <table width="100%">
                     <tr style="background-color: lightskyblue;">
                         <th colspan="5" style="border: 1px #000 solid; text-align: center;">
                             Charges</th>
                     </tr>   
                     <tr style="background-color: lightskyblue; font-weight: bold;">
-                        <th style="border: 1px #000 solid;">
+                        <th style="border: 1px #000 solid; text-align: center;">
                             Charge Description</th>
-                        <th style="border: 1px #000 solid;">
+                        <th style="border: 1px #000 solid; text-align: right;">
                             Price</th>
-                        <th style="border: 1px #000 solid;"> 
+                        <th style="border: 1px #000 solid; text-align: right;"> 
                             Quantity</th>
-                        <th style="border: 1px #000 solid;">
+                        <th style="border: 1px #000 solid; text-align: right;">
                             Tax Amount</th>
-                        <th style="border: 1px #000 solid;">
+                        <th style="border: 1px #000 solid; text-align: right;">
                             Final Amount</th></tr>`
     if (!_.isEmpty(charges)) {
 
@@ -1102,15 +1102,15 @@ function buildPdfCharges(charges) {
             amount_total += roundDec(k["magaya__Final_Amount"]);
             amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<tr>
-                        <td style="border-right: 1px #000 solid;">
+                        <td style="border-right: 1px #000 solid; text-align: left;">
                             ${k["Name"]}</td>
-                        <td style="border-right: 1px #000 solid;">
+                        <td style="border-right: 1px #000 solid; text-align: right;">
                             ${k["magaya__Price"]}</td>
-                        <td style="border-right: 1px #000 solid;">
+                        <td style="border-right: 1px #000 solid; text-align: right;">
                             ${k["magaya__CQuantity"]}</td>
-                        <td style="border-right: 1px #000 solid;">
+                        <td style="border-right: 1px #000 solid; text-align: right;">
                             ${k["magaya__Tax_Amount"]}</td>
-                        <td style="border-right: 1px #000 solid;">
+                        <td style="border-right: 1px #000 solid; text-align: right; font-weight: bold;">
                             ${k["magaya__Final_Amount"]}</td>
                     </tr>`
         })
