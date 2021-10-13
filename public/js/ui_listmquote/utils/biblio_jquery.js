@@ -1022,13 +1022,13 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                         <td>
                                             Creation Date</td>
                                         <td>
-                                            ${quoteToEdit["Created_Time"].format("dd/MM/YYYY")}</td>
+                                            ${date('d-m-Y', quoteToEdit["Created_Time"])}</td>
                                     </tr>
                                     <tr>
                                         <td>
                                             Expiration Date</td>
                                         <td>
-                                            ${quoteToEdit["magaya__ExpirationDate"].format("dd/MM/YYYY")}</td>
+                                            ${date('d-m-Y', quoteToEdit["magaya__ExpirationDate"])}</td>
                                     </tr>
                                     <tr>
                                         <td>
