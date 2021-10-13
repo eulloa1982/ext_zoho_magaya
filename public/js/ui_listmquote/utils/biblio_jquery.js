@@ -976,46 +976,30 @@ function buildPdfHeader(orgData, quoteToEdit) {
                         </tr>
                         <tr>
                             <td>
-                                <table id="info1" cellspacing="0px" cellpadding="2px" style="border: 1px #000 solid; text-align: left;">
+                                <table id="info1" cellspacing="0px" cellpadding="2px" width="100%" style="border: 1px #000 solid; text-align: left;">
                                     <tr>
                                         <td style="background-color: lightskyblue;">
                                             Customer</td>
                                         <td>
                                             ${quoteToEdit["Account"]["name"]}</td>
-                                        <td>
-                                            Quote Number</td>
-                                        <td>
-                                            ${quoteToEdit["magaya__Number"]}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
                                             Representative</td>
                                         <td>
                                             ${quoteToEdit["magaya__Representative"]["name"]}</td>
-                                        <td>
-                                            Creation Date</td>
-                                        <td>
-                                            ${quoteToEdit["Created_Time"].format("dd/MM/YYYY")}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
                                             Phone</td>
                                         <td>
                                             ${quoteToEdit["magaya__ContactMobile"]}</td>
-                                        <td>
-                                            Expiration Date</td>
-                                        <td>
-                                            ${quoteToEdit["magaya__ExpirationDate"].format("dd/MM/YYYY")}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
                                             Email</td>
                                         <td>
                                             ${quoteToEdit["magaya__ContactEmail"]}</td>
-                                        <td>
-                                            Contact To</td>
-                                        <td>
-                                            ${quoteToEdit["magaya__Employee"]}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
@@ -1023,12 +1007,37 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                         <td>
                                             ${quoteToEdit["magaya__ContactStreet"]}, ${quoteToEdit["magaya__ContactCity"]}, ${quoteToEdit["magaya__ContactState"]}, ${quoteToEdit["magaya__ContactCountry"]}
                                         </td>
-                                        <td></td>
-                                        <td></td>
                                     </tr>
                                 </table>
                             </td>
-                            <td></td>
+                            <td>
+                                <table id="info2" cellspacing="0px" cellpadding="2px" style="border: none;">
+                                    <tr>
+                                        <td>
+                                            Quote Number</td>
+                                        <td>
+                                            ${quoteToEdit["magaya__Number"]}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Creation Date</td>
+                                        <td>
+                                            ${quoteToEdit["Created_Time"].format("dd/MM/YYYY")}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Expiration Date</td>
+                                        <td>
+                                            ${quoteToEdit["magaya__ExpirationDate"].format("dd/MM/YYYY")}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Contact To</td>
+                                        <td>
+                                            ${quoteToEdit["magaya__Employee"]}</td>
+                                    </tr>
+                                </table>
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="2">
@@ -1067,9 +1076,9 @@ function buildPdfHeader(orgData, quoteToEdit) {
 function buildPdfCharges(charges) {
     let data = ``
     data += `<div class="row headerMquote">
-                <table>
+                <table width="100%">
                     <tr style="background-color: lightskyblue;">
-                        <th colspan="5" style="border: 1px #000 solid;">
+                        <th colspan="5" style="border: 1px #000 solid; text-align: center;">
                             Charges</th>
                     </tr>   
                     <tr style="background-color: lightskyblue; font-weight: bold;">
