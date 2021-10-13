@@ -885,7 +885,7 @@ async function buildPdf(mquote_id) {
     data += `</div>`
 
     data += `<div class="container mt-3">
-            <div class="row session-fourth headerMquote headerPrincipal">
+            <div class="row session-fourth headerMquote headerPrincipal" style="background-color: lightskyblue;">
                 <div class="col-sm" style="background-color: lightskyblue; text-align:center;font-weight:bold;">
                     Terms
                 </div>
@@ -1121,6 +1121,20 @@ function buildPdfCharges(charges) {
                 </tr>
             </table>
         </div>`
+    } else {
+        data += `<tr>
+                        <td style="border-right: 1px #000 solid; text-align: left;"></td>
+                        <td style="border-right: 1px #000 solid; text-align: right;"></td>
+                        <td style="border-right: 1px #000 solid; text-align: right;"></td>
+                        <td style="border-right: 1px #000 solid; text-align: right;"></td>
+                        <td style="border-right: 1px #000 solid; text-align: right; font-weight: bold;"></td>
+                    </tr>
+                    <tr style="font-weight: bold;">
+                    <td style="border-right: 1px #000 solid; text-align: right;" colspan="4"></td>
+                    <td style="border-right: 1px #000 solid;"></td>
+                </tr>
+            </table>
+        </div>`
     }
 
     return data
@@ -1199,6 +1213,23 @@ function buildPdfItems(items) {
             <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
                 ${roundDec(totalVolume)} m3</td>
             </tr>
+        </table></div>`
+    } else {
+        data += `<tr>
+                   <td style="border-right: 1px #000 solid; text-align: left;"></td>
+                    <td style="border-right: 1px #000 solid; text-align: right;"></td>
+                    <td style="border-right: 1px #000 solid; text-align: left;"></td>
+                    <td style="border-right: 1px #000 solid; text-align: right;"></td>
+                    <td style="border-right: 1px #000 solid; text-align: right;"></td>
+                </tr>
+                <tr style="font-weight: bold;">
+                    <td style="border-right: 1px #000 solid;border-top: 1px #000 solid;">
+                        Totals</td>
+                    <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
+                        <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
+                    <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
+                    <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
+                </tr>
         </table></div>`
     }
 
