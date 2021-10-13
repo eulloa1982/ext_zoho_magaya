@@ -943,9 +943,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                     <tr>
                                         <td colspan="12">
                                             <div class="row session-first">
-                                                <div class="col-md-6">
-                                                    ${orgData["company_name"]}
-                                                </div>
+                                                ${orgData["company_name"]}
                                             </div>
                                         </td>
                                     </tr>
@@ -984,24 +982,40 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                             Customer</td>
                                         <td>
                                             ${quoteToEdit["Account"]["name"]}</td>
+                                        <td>
+                                            Quote Number</td>
+                                        <td>
+                                            ${quoteToEdit["magaya__Number"]}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
                                             Representative</td>
                                         <td>
                                             ${quoteToEdit["magaya__Representative"]["name"]}</td>
+                                        <td>
+                                            Creation Date</td>
+                                        <td>
+                                            ${quoteToEdit["Created_Time"].toString("dd/MM/YYYY")}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
                                             Phone</td>
                                         <td>
                                             ${quoteToEdit["magaya__ContactMobile"]}</td>
+                                        <td>
+                                            Expiration Date</td>
+                                        <td>
+                                            ${quoteToEdit["magaya__ExpirationDate"].toString("dd/MM/YYYY")}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
                                             Email</td>
                                         <td>
                                             ${quoteToEdit["magaya__ContactEmail"]}</td>
+                                        <td>
+                                            Contact To</td>
+                                        <td>
+                                            ${quoteToEdit["magaya__Employee"]}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
@@ -1009,6 +1023,8 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                         <td>
                                             ${quoteToEdit["magaya__ContactStreet"]}, ${quoteToEdit["magaya__ContactCity"]}, ${quoteToEdit["magaya__ContactState"]}, ${quoteToEdit["magaya__ContactCountry"]}
                                         </td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 </table>
                             </td>
