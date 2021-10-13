@@ -1134,8 +1134,8 @@ function buildPdfItems(items) {
     let data = ``
     data += `<div class="row">
                     <table>
-                        <tr colspan="5" style="background-color: lightskyblue;">
-                            <th>Items</th></tr>
+                        <tr style="background-color: lightskyblue;">
+                            <th colspan="5" style="text-align: center; font-weight: bold">Items</th></tr>
                         <tr style="background-color: lightskyblue;">
                             <th>Package Type</th>
                             <th>Quantity</th>
