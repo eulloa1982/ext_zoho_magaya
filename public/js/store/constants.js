@@ -38,6 +38,7 @@ const EMPTY_ACCOUNTS = "EMPTY_ACCOUNTS"
 const ALL_ACCOUNTS = "ALL_ACCOUNTS"
 const EMPTY_ALL_ACCOUNTS = "EMPTY_ALL_ACCOUNTS"
 const UPDATE_QUOTE_BY_FIELD = "UPDATE_QUOTE_BY_FIELD"
+const EMPTY_SINGLE_CONTACT = "EMPTY_SINGLE_CONTACT"
 
 const ADD_CHARGES_DEF = "ADD_CHARGES_DEF"
 const ADD_ITEMS_CRM = "ADD_ITEMS_CRM"
@@ -76,7 +77,7 @@ const ADD_DEAL = "ADD_DEAL"
 const GET_DEAL = "GET_DEAL"
 
 //campos a mostrar en formularios de Charges
-const CHARGES_FIELDS = {"magaya__ChargeCode": {"field": "Type", "editable":"readonly", "place": 1}, "Name": {"field": "Description", "editable":"", "place": 2},
+const CHARGES_FIELDS = {"magaya__ChargeCode": {"field": "Type", "editable":"readonly", "place": 1}, "Name": {"field": "Description", "type": "textarea", "editable":"", "place": 2},
                 "magaya__CQuantity": {"field": "Quantity", "type": "number", "editable":"", "place": 3}, "magaya__Unit": {"field": "Unit", "values": ["U", "Lb"], "editable":"", "place": 4},
                 "magaya__Price": {"field": "Price", "type": "number", "editable":"", "place": 5}, "magaya__Amount": {"field": "Amount", "type": "number", "editable":"readonly", "place": 6},
                 "magaya__TaxCode": {"field": "Tax Code", "editable": "readonly", "place": 7}, "magaya__TaxRate": {"field": "Tax Rate", "type": "number", "editable":"readonly", "place": 8},
@@ -88,7 +89,7 @@ const CHARGES_FIELDS = {"magaya__ChargeCode": {"field": "Type", "editable":"read
 
 
 const ITEMS_FIELDS = {
-    "Name": {"field": "Description", "place": 1, "editable":"readonly"}, "magaya__Package_Description": {"field": "Description", "place": 2},
+    "Name": {"field": "Description", "place": 1, "editable":"readonly"}, "magaya__Package_Description": {"field": "Description", "place": 2, "type": "textarea"},
     "magaya__Length": {"field": "Length", "type": "number", "place": 4}, "magaya__Width": {"field": "Width", "type": "number", "place": 6},
     "magaya__Weigth": {"field": "Weigth", "type": "number", "place": 7}, "magaya__Status": {"field": "Status", "values":["InQuote"], "place": 10}, "magaya__Height": {"field": "Height", "type": "number", "place": 5},
     "magaya__Pieces": {"field": "Pieces", "type": "number", "place": 3}, "magaya__Measure_System": {"field": "Measure System", "values": ["International", "English"], "place": 9},
