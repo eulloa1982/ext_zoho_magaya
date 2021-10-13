@@ -658,8 +658,8 @@ a {
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-4">Currency</div>
-                                                    <div class="col-md-6"><select name="magaya__ChargeCurrency" class="form-control new-charge"><option></option><option value="USD">USD</option></select></div>
+                                                    <div class="col-md-3">Currency</div>
+                                                    <div class="col-md-8"><select name="magaya__ChargeCurrency" class="form-control new-charge"><option></option><option value="USD">USD</option></select></div>
                                                 </div>
 
                                                 <div class="row">
