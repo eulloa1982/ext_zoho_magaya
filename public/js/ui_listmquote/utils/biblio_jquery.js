@@ -156,7 +156,7 @@ function limpiar_form() {
 
     $("input[name=magaya__IssuedByName]").val(organization.company_name)
     $("input[name=magaya__CreatedByName]").val(current_user)
-    //console.log("Organization", JSON.parse(organization))
+        //console.log("Organization", JSON.parse(organization))
 }
 
 
@@ -364,10 +364,9 @@ function buildStringTransport(dataRouting) {
                     reject()
                 })
 
-            }
-            else {
-                reject()
-            }
+        } else {
+            reject()
+        }
 
     })
 }
@@ -408,7 +407,7 @@ async function buildStringXML(idSQuote) {
         let routing = await buildStringRouting()
 
         stringXML += routing
-        //charges
+            //charges
         let account_id = 0;
         let data_account = {}
         let charges = ``
@@ -428,9 +427,9 @@ async function buildStringXML(idSQuote) {
         //do not send charges without an apply to
         if (account_id > 0) {
             let data = await getRecordCRM("Accounts", account_id)
-                    .then(resp => {
-                        data_account = resp[0]
-                    })
+                .then(resp => {
+                    data_account = resp[0]
+                })
             if (charges !== undefined && !_.isEmpty(charges)) {
                 let stringCharges = buildXmlCharge(charges, data_account)
                 stringXML += '<Charges UseSequenceOrder="false">' + stringCharges + "</Charges>";
@@ -878,65 +877,15 @@ async function buildPdf(mquote_id) {
     let data = `<div class="HtmltoPdf">`
     data += buildPdfHeader(orgData, quoteToEdit)
 
-    data += `
-            <div class="container mt-3">
-                <div class="row session-fourth headerMquote headerPrincipal">
-                    <div class="col-sm">
-                        Charges
-                    </div>
-                </div>`
-    data += `
-        <div class="row headerMquote">
-            <div class="col-sm-5">
-                Charge Description
-            </div>
-            <div class="col-sm">
-                Price
-            </div>
-            <div class="col-sm">
-                Quantity
-            </div>
-            <div class="col-sm">
-                Tax Amount
-            </div>
-            <div class="col-sm">
-                Final Amount
-            </div>
-        </div>
-        `
     data += buildPdfCharges(charges)
+
     data += `</div>`
 
-    data += `<div class="container mt-3">
-                <div class="row session-fourth headerMquote headerPrincipal">
-                    <div class="col-sm">
-                        Items
-                    </div>
-                </div>`
-    data += `
-                <div class="row headerMquote">
-                    <div class="col-sm-3">
-                        Package Type
-                    </div>
-                    <div class="col-sm">
-                        Quantity
-                    </div>
-                    <div class="col-sm-3">
-                        Dimensions
-                    </div>
-                    <div class="col-sm">
-                        Weight
-                    </div>
-                    <div class="col-sm">
-                        Volume
-                    </div>
-                </div>
-                `
     data += buildPdfItems(items)
     data += `</div>`
 
     data += `<div class="container mt-3">
-            <div class="row session-fourth headerMquote headerPrincipal">
+            <div class="row session-fourth headerMquote headerPrincipal" style="background-color: lightskyblue;>
                 <div class="col-sm">
                     Terms
                 </div>
@@ -1150,13 +1099,27 @@ function buildPdfHeader(orgData, quoteToEdit) {
  */
 function buildPdfCharges(charges) {
     let data = ``
+    data += `<div class="row headerMquote">
+                <table>
+                    <tr style="background-color: lightskyblue;>
+                        <th><div class="col-sm">
+                            Charges</div></th></tr>`
+    data += `<tr style="background-color: lightskyblue;">
+                    <th>
+                        <div class="col-sm-5">
+                            Charge Description</div></th>
+                    <th>
+                        <div class="col-sm">Price</div></th>
+                    <th"><div class="col-sm">
+                        Quantity</div></th>
+                    <th"><div class="col-sm">
+                        Tax Amount</div></th>
+                    <th"><div class="col-sm">
+                        Final Amount</div></th></tr>`
     if (!_.isEmpty(charges)) {
 
         let amount_total = 0;
         let amount_tax = 0;
-        data += `<div class="row headerMquote"><table>`
-        data += `<tr style="background-color: lightskyblue;">
-                    <th">Name</th><th">Price</th><th">Quantity</th><th">Tax Amount</th><th">Final Amount</th></tr>`
         $.map(charges, function(k, v) {
             amount_total += roundDec(k["magaya__Final_Amount"]);
             amount_tax += roundDec(k["magaya__Tax_Amount"])
@@ -1205,6 +1168,27 @@ function buildPdfCharges(charges) {
  */
 function buildPdfItems(items) {
     let data = ``
+    data += `<div class="row headerMquote">
+                    <table>
+                        <tr style="background-color: lightskyblue;><th>
+                            <div class="col-sm">
+                                Items</div></th></tr>
+                        <tr style="background-color: lightskyblue;">
+                        <th><div class="col-sm-3">
+                            Package Type
+                        </div></th>
+                        <th><div class="col-sm">
+                            Quantity
+                        </div></th>
+                        <th><div class="col-sm-3">
+                            Dimensions
+                        </div></th>
+                        <th><div class="col-sm">
+                            Weight
+                        </div></th>
+                        <th><div class="col-sm">
+                            Volume
+                        </div></th></tr>`
     if (!_.isEmpty(items)) {
 
         let totalPieces = 0
@@ -1214,9 +1198,7 @@ function buildPdfItems(items) {
         let total_volume_international = 0
         let total_weight_english = 0
         let total_volume_english = 0
-        data += `<div class="row headerMquote">
-                    <table><tr style="background-color: lightskyblue;">
-                    <th>Name</th><th>Pieces</th><th>Dimensions</th><th>Weight</th><th>Volume</th></tr>`
+
         $.map(items, function(k, v) {
                 totalPieces += parseInt(k.magaya__Pieces)
 
