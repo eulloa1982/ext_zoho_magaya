@@ -36,24 +36,32 @@ storeCharge.subscribe(() => {
         $.map(u[1], function(k, v) {
             //get place order
             let order = _.get(CHARGES_FIELDS, [v, 'place'])
+            let editable = _.get(CHARGES_FIELDS, [v, 'editable'])
+
             if ( _.has(CHARGES_FIELDS, v)) {
                 //get type of field
                 let type = "text"
-                if (_.has(CHARGES_FIELDS, [v, 'type'])) {
+                if (_.has(CHARGES_FIELDS, [v, 'type']) && _.get(CHARGES_FIELDS, [v, 'type']) === "number") {
                     type = "number";
                     k = roundDec(k).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
                     if (Number.isInteger(k))
                         k = `${k}.00`
+
+                    input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" ${editable}/>`
+
+                } else if (_.get(CHARGES_FIELDS, [v, 'type']) === "textarea") {
+                    input = `<textarea class='form-control ${no_border}' id="${v}">${k}</textarea>`
+                } else {
+                    input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" ${editable}/>`
+
                 }
 
-                let editable = _.get(CHARGES_FIELDS, [v, 'editable'])
 
                 if (k === null || k === "null") k = 0
 
                 //check values .00
 
-                input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" ${editable}/>`
 
                 let field = _.get(CHARGES_FIELDS, [v, 'field'])
                 let values = _.has(CHARGES_FIELDS, [v, "values"]) ? _.get(CHARGES_FIELDS, [v, 'values']) : ''
@@ -80,8 +88,7 @@ storeCharge.subscribe(() => {
 
         let append = ``
         arrows += `<span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel">close</span>
-                    <span id="${button_type}" data-id="${id}" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
-                    `
+                    <span id="${button_type}" data-id="${id}" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>`
 
 
         //imprimir campos en orden

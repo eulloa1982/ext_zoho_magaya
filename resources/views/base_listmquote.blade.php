@@ -41,12 +41,12 @@
 
 
     <div id="quote-alert" style="position: absolute; display: none; z-index: 6000">
-        <div class="header"><span class="material-icons close cursor-hand" data-close="quote-alert">close</span></div>
+        <div class="header"><span class="material-icons close cursor-hand" data-close="quote-alert" style="margin: 4px 4px 0px 4px; color: white; background: none; border: none;">close</span></div>
         <div id="message-alert" class="message-data"></div>
     </div>
 
     <div id="quote-info" style="position: absolute; display: none; z-index: 6000;">
-        <div class="header"><span class="material-icons close cursor-hand" data-close="quote-info">close</span></div>
+        <div class="header"><span class="material-icons close cursor-hand" data-close="quote-info" style="margin: 4px 4px 0px 4px; color: white; background: none; border: none;">close</span ></div>
         <div id="message-info" class="message-data"></div>
     </div>
 

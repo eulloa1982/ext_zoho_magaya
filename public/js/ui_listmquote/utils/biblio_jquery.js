@@ -126,6 +126,7 @@ function limpiar_form() {
     $("input[name=magaya__ConsigneeState]").val("")
     $("input[name=magaya__ConsigneeCountry]").val("")
     $("input[name=magaya__ConsigneeStreet]").val("")
+    $("select[name=magaya__Incoterms]").val("")
     $("select[name=magaya__Consignee]").val("")
     $("select[name=magaya__Consignee]").change()
     $("select[name=magaya__Shipper]").val("")
@@ -154,8 +155,8 @@ function limpiar_form() {
     let current_user = localStorage.getItem("current_user")
 
     $("input[name=magaya__IssuedByName]").val(organization.company_name)
-    $("input[name=magaya__Employee]").val(current_user)
-        //console.log("Organization", JSON.parse(organization))
+    $("input[name=magaya__CreatedByName]").val(current_user)
+    //console.log("Organization", JSON.parse(organization))
 }
 
 
@@ -232,6 +233,7 @@ let mapa = {
     "Direction": "magaya__Direction",
     "DescriptionOfGoods": "magaya__Description",
     "IsHazardous": "magaya__Is_Hazardous",
+    //"Incoterm": "magaya__Incoterms"
     //"Carrier": {"Type": "Carrier", "Name": "magaya__Carrier"}
 }
 
@@ -252,10 +254,18 @@ async function buildStringQuote2(idSQuote) {
     stringQuote += `<IsCommerceQuotation>false</IsCommerceQuotation>`
 
     $.map(mapa, function(k, v) {
-        console.log(v, quoteXML[`${k}`])
         stringQuote += buildField(v, quoteXML[`${k}`])
     })
 
+    if (!_.isEmpty(quoteXML.magaya__Incoterms)) {
+        let incoterm = quoteXML.magaya__Incoterms.split(" - ")
+        let codeIncoterm = incoterm[0]
+        let descriptionIncoterm = incoterm[1]
+        stringQuote += `<Incoterm>
+                            <Code>${codeIncoterm}</Code>
+                            <Description>${descriptionIncoterm}</Description>
+                        </Incoterm>`
+    }
     stringQuote += `<CreatedByName>${quoteXML.Owner.name}</CreatedByName>
                     <Version>104</Version>`
 
@@ -297,37 +307,83 @@ async function buildStringQuote2(idSQuote) {
                         <MobilePhone>${quoteXML.magaya__ContactMobile}</MobilePhone>
                     </Representative>`*/
 
-    //carrier
-    if (!_.isEmpty(quoteXML.magaya__Carrier)) {
-        stringQuote += `<Carrier><Type>Carrier</Type><Name>${quoteXML.magaya__Carrier}</Name></Carrier>`
-    }
-
-    if (!(_.isEmpty(quoteXML.magaya__ConsigneeName))) {
-
-        stringQuote += `<ConsigneeName>${quoteXML.magaya__ConsigneeName}</ConsigneeName>
-                        <Consignee><Type>Client</Type><Name>${quoteXML.magaya__ConsigneeName}</Name></Consignee>`
-    }
-
-    if (!(_.isEmpty(quoteXML.magaya__Shipper))) {
-        stringQuote += `<ShipperName>${quoteXML.magaya__Shipper}</ShipperName>
-                        <Shipper><Type>Client</Type><Name>${quoteXML.magaya__Shipper}</Name></Shipper>`
-    }
-
-    //transport method
-    if (!_.isEmpty(quoteXML.magaya__TransportationMode)) {
-        transporMethod = await getTranspMethod(quoteXML.magaya__TransportationMode.id)
-        stringQuote += `<ModeOfTransportation Code="${transporMethod[0].magaya__TransportationMethodCode}">
-                        <Description>${transporMethod[0].Name}</Description>
-                        <Method>${transporMethod[0].magaya__ParentMethod}</Method>
-                        </ModeOfTransportation>
-                        <ModeOfTransportCode>${transporMethod[0].magaya__TransportationMethodCode}</ModeOfTransportCode>`
-    }
-
     //return(stringQuote)
 
     return stringQuote;
 }
 
+
+async function buildStringRouting() {
+    //routing
+    if (!_.isEmpty(quoteXML.magaya__Routing)) {
+        let idRouting = quoteXML.magaya__Routing.id
+        let routing = await getRecordCRM("magaya__Routing", idRouting)
+        console.log(" routing", routing)
+
+        let transporMethod = await buildStringTransport(routing)
+        let stringRouting = `<ModeOfTransportation Code="${transporMethod[0].magaya__TransportationMethodCode}">
+                <Description>${transporMethod[0].Name}</Description>
+                <Method>${transporMethod[0].magaya__ParentMethod}</Method>
+                </ModeOfTransportation>
+                <ModeOfTransportCode>${transporMethod[0].magaya__TransportationMethodCode}</ModeOfTransportCode>`
+
+        if (!_.isEmpty(routing[0].magaya__MainCarrier)) {
+            let mainCarrier = await buildStringMainCarrier(routing[0].magaya__MainCarrier.id)
+            console.log(" Main Carrier returned", mainCarrier)
+            stringRouting += `<Carrier><Type>Carrier</Type><Name>${mainCarrier[0].Name}</Name></Carrier>`
+
+        }
+
+        if (!(_.isEmpty(routing[0].magaya__Consignee))) {
+
+            stringRouting += `<ConsigneeName>${routing[0].magaya__Consignee}</ConsigneeName>
+                            <Consignee><Type>Client</Type><Name>${routing[0].magaya__Consignee}</Name></Consignee>`
+        }
+
+        if (!(_.isEmpty(routing[0].magaya__Shipper))) {
+            stringRouting += `<ShipperName>${routing[0].magaya__Shipper}</ShipperName>
+                            <Shipper><Type>Client</Type><Name>${routing[0].magaya__Shipper}</Name></Shipper>`
+        }
+
+
+        return stringRouting;
+    }
+
+}
+
+function buildStringTransport(dataRouting) {
+
+    return new Promise(function(resolve, reject) {
+        if (!_.isEmpty(dataRouting[0].magaya__ModeofTransportation)) {
+            getTranspMethod(dataRouting[0].magaya__ModeofTransportation.id)
+                .then(r => {
+                    console.log("transport m", r)
+                    resolve(r)
+                })
+                .catch(function() {
+                    reject()
+                })
+
+            }
+            else {
+                reject()
+            }
+
+    })
+}
+
+function buildStringMainCarrier(idCarrier) {
+    return new Promise(function(resolve, reject) {
+        getRecordCRM("magaya__Providers", idCarrier)
+            .then(r => {
+                console.log("carrier", r)
+                resolve(r)
+            })
+            .catch(function() {
+                reject()
+            })
+    })
+}
 
 //send quote
 async function buildStringXML(idSQuote) {
@@ -346,9 +402,12 @@ async function buildStringXML(idSQuote) {
     } else {
 
         xml = await buildStringQuote2(idSQuote);
+
         stringXML = '<Quotation xmlns="http://www.magaya.com/XMLSchema/V1" xsi:schemaLocation="http://www.magaya.com/XMLSchema/V1 schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
         stringXML += stringQuote;
+        let routing = await buildStringRouting()
 
+        stringXML += routing
         //charges
         let account_id = 0;
         let data_account = {}
@@ -369,11 +428,9 @@ async function buildStringXML(idSQuote) {
         //do not send charges without an apply to
         if (account_id > 0) {
             let data = await getRecordCRM("Accounts", account_id)
-                .then(resp => {
-                    console.log("Resp", resp)
-                    data_account = resp[0]
-                })
-
+                    .then(resp => {
+                        data_account = resp[0]
+                    })
             if (charges !== undefined && !_.isEmpty(charges)) {
                 let stringCharges = buildXmlCharge(charges, data_account)
                 stringXML += '<Charges UseSequenceOrder="false">' + stringCharges + "</Charges>";
@@ -432,8 +489,8 @@ function buildXmlItem(items) {
             stringItems += `<Length Unit="${measure_length}">${k.magaya__Length}</Length>`
             stringItems += `<Height Unit="${measure_length}">${k.magaya__Height}</Height>`
             stringItems += `<Width Unit="${measure_length}">${k.magaya__Width}</Width>`
-            stringItems += `<Weight Unit="${measure_weigth}">${k.magaya__Weigth}</Weight>
-                            <Volume Unit="${measure_volume}">${k.magaya__Volume}</Volume>`
+            stringItems += `<Weight Unit="${measure_weigth}">${k.magaya__Weigth * k.magaya__Pieces}</Weight>
+                            <Volume Unit="${measure_volume}">${k.magaya__Volume * k.magaya__Pieces}</Volume>`
             stringItems += `<Package>`
             stringItems += `<Type>Container</Type>
                             <Name>${k.Name}</Name>
@@ -489,7 +546,7 @@ function buildXmlCharge(charges, data_account) {
                                 <DecimalPlaces>2</DecimalPlaces>
                                 <IsHomeCurrency>true</IsHomeCurrency>
                             </HomeCurrency>
-                            <Amount Currency="USD">${k.magaya__Final_Amount}</Amount>
+                            <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
                             <TaxAmountInCurrency Currency="USD">${k.magaya__Tax_Amount}</TaxAmountInCurrency>
                             <TaxDefinition>
                                 <Code>${k.magaya__TaxCode}</Code>
@@ -507,7 +564,7 @@ function buildXmlCharge(charges, data_account) {
                             <IsThirdPartyCharge>false</IsThirdPartyCharge>
                             <ChargeDefinition>
                                 <Type>Other</Type>
-                                <Description>Description</Description>
+                                <Description>${k.Name}</Description>
                                 <Code>${k.magaya__ChargeCode}</Code>
                                 <AccountDefinition>
                                     <Type>Income</Type>
@@ -519,7 +576,7 @@ function buildXmlCharge(charges, data_account) {
                                         <IsHomeCurrency>true</IsHomeCurrency>
                                     </Currency>
                                 </AccountDefinition>
-                                <Amount Currency="USD">${k.magaya__Final_Amount}</Amount>
+                                <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
                                 <Currency Code="USD">
                                     <Name>United States Dollar</Name>
                                     <ExchangeRate>1.00</ExchangeRate>
@@ -531,7 +588,7 @@ function buildXmlCharge(charges, data_account) {
                             <Status>Open</Status>
                             <Description>${k.magaya__Charge_Description}</Description>
                             <PriceInCurrency Currency="USD">${k.magaya__Price}</PriceInCurrency>
-                            <AmountInCurrency Currency="USD">${k.magaya__Final_Amount}</AmountInCurrency>
+                            <AmountInCurrency Currency="USD">${k.magaya__Amount_Total}</AmountInCurrency>
 
                             <ExchangeRate>1.00</ExchangeRate>
                             <Currency Code="USD">

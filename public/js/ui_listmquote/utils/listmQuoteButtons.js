@@ -83,6 +83,7 @@ $(document).ready(function(){
         rowIndex = $("#select-package").val();
         let $form = $("#new-item");
         let item = getFormData($form);
+        console.log("Send Item", item)
         Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
         Object.assign(item, {'magaya__SQuote_Name': idmQuoteToEdit})
         Object.assign(item, {"magaya__Package_Description": sanitize($("#magaya__Package_Description").val())})
@@ -107,6 +108,7 @@ $(document).ready(function(){
                     //add partial copy to store
                     storeItem.dispatch(addItem({...item, id: idItem}))
                     storeSuccess.dispatch(addSuccess({message: message}))
+                    $(`#panel-item`).animate({width:'toggle'},150);
                 }
             })
         })
@@ -154,8 +156,10 @@ $(document).ready(function(){
         Object.assign(item, {"magaya__SQuote_Name": idmQuoteToEdit})
         Object.assign(item, {'magaya__ApplyToAccounts': accountId})
         Object.assign(item, {"Name": item["magaya__Charge_Description"]})
+        Object.assign(item, {"magaya__Charge_Description": item["magaya__Charge_Description"]})
         Object.assign(item, {"magaya__TaxCode": tax_code})
 
+        console.log("Charge send", item)
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: item, Trigger: [] })
             .then(function(data) {
                 res = data.data;
@@ -195,6 +199,7 @@ $(document).ready(function(){
             })
             .then(function(){
                 Utils.unblockUI()
+                $(`#panel-charge`).animate({width:'toggle'},150);
             })
             .catch(function(error){
                 dataError = error.data;
@@ -225,6 +230,7 @@ $(document).ready(function(){
 
         Object.assign(item, {'magaya__ApplyToAccounts': accountId})
         Object.assign(item, {"Name": chargeDescription})
+        Object.assign(item, {"magaya__Charge_Description": chargeDescription})
         Object.assign(item, {'magaya__TaxCode': taxcode})
 
         console.log("new charge", item)
@@ -320,6 +326,11 @@ $(document).ready(function(){
     e.preventDefault()
     e.stopImmediatePropagation()
 
+    //get deal and quote account, now editable
+    let accountQuoteData = storeAccounts.getState().quoteAccount
+    let dealQuoteData = storeDeal.getState().dealQuote[0]
+    let accountQuote = accountQuoteData['id']
+    let dealQuote = dealQuoteData.id
     //receipt fields
     if (accountId <= 0)
         throw new UserException('Mandatory data not found: Client Quote is not defined');
@@ -339,6 +350,9 @@ $(document).ready(function(){
 
     let recordData = {
         "id": idQuote,
+        "Account": accountQuote,
+        "magaya__Deal": dealQuote,
+        "magaya__Employee": sanitize($("input[name=magaya__Employee]").val()),
         "magaya__Direction": $(":input[name=magaya__Direction]").val(),
         "magaya__TransportationMode": $("select[name=magaya__TransportationMode] option:selected").val(),
         "magaya__Description": $("#magaya__Description").val().replace(/[^a-zA-Z0-9]/g, ' '),
@@ -351,6 +365,7 @@ $(document).ready(function(){
         "magaya__ContactHomePhone": sanitize($("input[name=Phone]").val()),
         "magaya__ContactName": sanitize($("select[name=magaya__Representative] option:selected").text()),
         "magaya__Terms": sanitize($("#magaya__Terms").val()),
+        "magaya__Incoterms": $("select[name=magaya__Incoterms]").val()
     }
 
 
@@ -532,10 +547,11 @@ $(document).ready(function(){
             "magaya__Is_Hazardous": is_hazardous,
             "magaya__Magaya_Status": "Open",
             "magaya__AddedTime": $("input[name=magaya__AddedTime]").val(),
-            "magaya__Employee": sanitize($("input[name=magaya__Employee]").val()),
+            "magaya__CreatedByName": sanitize($("input[name=magaya__CreatedByName]").val()),
             "magaya__Seller": $("select[name=magaya__Seller]").val(),
             "magaya__Terms": sanitize($("#magaya__Terms").val()),
             "magaya__IssuedBy": $(":input[name=magaya__IssuedByName]").val(),
+            "magaya__Incoterms": $("select[name=magaya__Incoterms]").val()
         }
 
 

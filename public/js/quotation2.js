@@ -1389,7 +1389,7 @@ function drawQuotationCRM() {
  async function getCarriersFromMagaya() {
     let dataVar = await getMagayaVariables()
 
-    flags = MagayaAPI.TRANSACTIONS_FLAGS.BasicFields
+    flags = MagayaAPI.TRANSACTIONS_FLAGS.IncludeRelatedObj
     type = MagayaAPI.ENTITY_TYPES.Any
 
     data = {

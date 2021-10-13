@@ -365,6 +365,20 @@ $(document).ready(function(){
             let terms = quoteToEdit.magaya__Terms
             $("#magaya__Terms").val(terms)
 
+            //Incoterms
+            let incoterms = quoteToEdit.magaya__Incoterms
+            let incotermsValues = $("select[name=magaya__Incoterms] option")
+            $.map(incotermsValues, function(k, v) {
+                console.log(k.text === incoterms, k.text)
+                if (k.text === incoterms) {
+                    $(`select[name=magaya__Incoterms] option:contains(${incoterms})`).prop('selected', true);
+                    $(`select[name=magaya__Incoterms]`).change()
+                } else {
+                    $(`select[name=magaya__Incoterms]`).prop('selected', false);
+
+                }
+            })
+            $("select[name=magaya__Incoterms").val(incoterms).change()
 
             $("#mquoteModal").modal("show")
 
@@ -384,7 +398,17 @@ $(document).ready(function(){
                         let data = response.data[0]
                         let idMainCarrier = 0
                         if (!_.isEmpty(data.magaya__MainCarrier)) {
+                            let carriersValues = $("select[name=magaya__MainCarrier] option")
                             idMainCarrier = data.magaya__MainCarrier.id
+                            $.map(carriersValues, function(k, v) {
+                                if (k.value === idMainCarrier) {
+                                    $(`select[name=magaya__MainCarrier]`).val(idMainCarrier).prop('selected', true)
+                                    $(`select[name=magaya__MainCarrier]`).change()
+                                } else {
+
+                                    $(`select[name=magaya__MainCarrier]`).prop('selected', false);
+                                }
+                            })
                         }
 
                         if (!_.isEmpty(data.magaya__ModeofTransportation)) {
@@ -398,27 +422,31 @@ $(document).ready(function(){
 
                         let shipper = data.magaya__Shipper;
                         let shipperValues = $("select[name=magaya__Shipper] option")
+                        //$("select[name=magaya__Shipper] option:selected").prop("selected", false)
                         $.map(shipperValues, function(k, v) {
-
+                            //$(`select[name=magaya__Shipper] option`).attr('selected', false)
                             if (k.text === shipper) {
-                                console.log(k, v)
-                                $(`select[name=magaya__Shipper] option:contains(${shipper})`).attr('selected', true);
+                                $(`select[name=magaya__Shipper] option:contains(${shipper})`).prop('selected', true);
                                 $(`select[name=magaya__Shipper]`).change()
+                            } else {
+                                $(`select[name=magaya__Shipper]`).prop('selected', false);
+
                             }
                         })
                         let consignee = data.magaya__Consignee;
                         let consigneeValues = $("select[name=magaya__Consignee] option")
                         $.map(consigneeValues, function(k, v) {
-
+                            //$(`select[name=magaya__Consignee] option`).attr("selected", false)
                             if (k.text === consignee) {
-                                console.log(k, v)
-                                $(`select[name=magaya__Consignee] option:contains(${consignee})`).attr('selected', true);
+                                $(`select[name=magaya__Consignee] option:contains(${consignee})`).prop('selected', true);
                                 $(`select[name=magaya__Consignee]`).change()
+                            } else {
+                                $(`select[name=magaya__Consignee]`).prop('selected', false)
                             }
                         })
 
-                        $("select[name=magaya__MainCarrier]").val(idMainCarrier);
-                        $("select[name=magaya__MainCarrier]").selectpicker('render');
+                        //$(`select[name=magaya__MainCarrier] option:contains(${idMainCarrier})`).val(idMainCarrier);
+                        //$("select[name=magaya__MainCarrier]").selectpicker('render');
                     })
 
             }
