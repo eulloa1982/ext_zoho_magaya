@@ -932,8 +932,8 @@ function buildPdfHeader(orgData, quoteToEdit) {
     let data = ``;
     if (!_.isEmpty(orgData) && !_.isEmpty(quoteToEdit)) {
         var none = "";
-        create_date = quoteToEdit["Created_Time"] !== null ? quoteToEdit["Created_Time"].split("T")[0] : "";
-        expire_date = quoteToEdit["magaya__ExpirationDate"] !== null ? quoteToEdit["magaya__ExpirationDate"].split("T")[0] : "";
+        create_date = quoteToEdit["Created_Time"] !== null ? quoteToEdit["Created_Time"].split('T')[0] : "";
+        expire_date = quoteToEdit["magaya__ExpirationDate"] !== null ? quoteToEdit["magaya__ExpirationDate"].toi.split('T')[0] : "";
         if (!_.isEmpty(orgData["website"]))
             none = orgData["website"];
         data = `<div class="container">
