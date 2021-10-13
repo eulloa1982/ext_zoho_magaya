@@ -885,7 +885,7 @@ async function buildPdf(mquote_id) {
     data += `</div>`
 
     data += `<div class="container mt-3">
-            <div class="row session-fourth headerMquote headerPrincipal" style="background-color: lightskyblue;>
+            <div class="row session-fourth headerMquote headerPrincipal" style="background-color: lightskyblue; text-align:center;font-weight:bold";>
                 <div class="col-sm">
                     Terms
                 </div>
@@ -944,7 +944,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                 <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right;">
                                     <tr>
                                         <td colspan="12">
-                                            <div class="row session-first">
+                                            <div class="session-first">
                                                 ${orgData["company_name"]}
                                             </div>
                                         </td>
@@ -1013,28 +1013,28 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                 </table>
                             </td>
                             <td>
-                                <table id="info2" cellspacing="0px" cellpadding="2px" style="border: none;">
+                                <table id="info2" cellspacing="0px" cellpadding="2px" style="border: none; padding-left: 15px;">
                                     <tr>
-                                        <td>
-                                            Quote Number</td>
+                                        <th>
+                                            Quote Number:</th>
                                         <td>
                                             ${quoteToEdit["magaya__Number"]}</td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            Creation Date</td>
+                                        <th>
+                                            Creation Date:</th>
                                         <td>
                                             ${create_date}</td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            Expiration Date</td>
+                                        <th>
+                                            Expiration Date:</th>
                                         <td>
                                             ${expire_date}</td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            Contact To</td>
+                                        <th>
+                                            Contact To:</th>
                                         <td>
                                             ${quoteToEdit["magaya__Employee"]}</td>
                                     </tr>
@@ -1050,20 +1050,19 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                         </th>
                                     </tr>
                                     <tr>
-                                        <td><span>Description of Goods:</span></td>
+                                        <th><span>Description of Goods:</span></th>
                                         <td>${quoteToEdit["magaya__Description"]}</td>
                                     </tr>
                                     <tr>
-                                        <td><span>Origin:</span></td>
-                                        <td>${quoteToEdit["magaya__Origin"]}</td>
+                                        <th><span>Origin:</span></th>
+                                        <td>${quoteToEdit["magaya__Origin"] !== null ? quoteToEdit["magaya__Origin"] : ""}</td>
                                     </tr>
                                     <tr>
-                                        <td><span>Destination:</span></td>
-                                        <td>${quoteToEdit["magaya__Destination"]}</td>
+                                        <th><span>Destination:</span></th>
+                                        <td>${quoteToEdit["magaya__Destination"] !== null ? quoteToEdit["magaya__Destination"] : ""}</td>
                                     </tr>
                                 </table>
                             </td>
-                            <td></td>
                         </tr>
                     </table>
                 </div>`
@@ -1078,7 +1077,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
 function buildPdfCharges(charges) {
     let data = ``
     data += `<div class="row">
-                <table width="100%">
+                <table width="98%">
                     <tr style="background-color: lightskyblue;">
                         <th colspan="5" style="border: 1px #000 solid; text-align: center;">
                             Charges</th>
@@ -1133,7 +1132,7 @@ function buildPdfCharges(charges) {
 function buildPdfItems(items) {
     let data = ``
     data += `<div class="row">
-                    <table width="100%">
+                    <table width="98%">
                         <tr style="background-color: lightskyblue;">
                             <th colspan="5" style="text-align: center; font-weight: bold; border: 1px #000 solid;">Items</th></tr>
                         <tr style="background-color: lightskyblue;">
