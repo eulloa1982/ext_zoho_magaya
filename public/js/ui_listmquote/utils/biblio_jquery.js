@@ -885,8 +885,8 @@ async function buildPdf(mquote_id) {
     data += `</div>`
 
     data += `<div class="container mt-3">
-            <div class="row session-fourth headerMquote headerPrincipal" style="background-color: lightskyblue; text-align:center;font-weight:bold";>
-                <div class="col-sm">
+            <div class="row session-fourth headerMquote headerPrincipal">
+                <div class="col-sm" style="background-color: lightskyblue; text-align:center;font-weight:bold;">
                     Terms
                 </div>
             </div>`
@@ -1076,7 +1076,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
  */
 function buildPdfCharges(charges) {
     let data = ``
-    data += `<div class="row">
+    data += `<div class="row" style="margin-left: 2px;">
                 <table width="98%">
                     <tr style="background-color: lightskyblue;">
                         <th colspan="5" style="border: 1px #000 solid; text-align: center;">
@@ -1131,14 +1131,14 @@ function buildPdfCharges(charges) {
  */
 function buildPdfItems(items) {
     let data = ``
-    data += `<div class="row">
+    data += `<div class="row" style="margin-left: 2px;">
                     <table width="98%">
                         <tr style="background-color: lightskyblue;">
                             <th colspan="5" style="text-align: center; font-weight: bold; border: 1px #000 solid;">Items</th></tr>
                         <tr style="background-color: lightskyblue;">
-                            <th style="border-right: 1px #000 solid; text-align: right;">Package Type</th>
+                            <th style="border-right: 1px #000 solid; text-align: left;">Package Type</th>
                             <th style="border-right: 1px #000 solid; text-align: right;">Quantity</th>
-                            <th style="border-right: 1px #000 solid; text-align: right;">Dimensions</th>
+                            <th style="border-right: 1px #000 solid; text-align: left;">Dimensions</th>
                             <th style="border-right: 1px #000 solid; text-align: right;">Weight</th>
                             <th style="border-right: 1px #000 solid; text-align: right;">Volume</th></tr>`
     if (!_.isEmpty(items)) {
@@ -1172,15 +1172,15 @@ function buildPdfItems(items) {
                 }
 
                 data += `<tr>
-                   <td style="border-right: 1px #000 solid;">
+                   <td style="border-right: 1px #000 solid; text-align: left;">
                         ${k["Name"]}</td>
-                    <td style="border-right: 1px #000 solid;">
+                    <td style="border-right: 1px #000 solid; text-align: right;">
                         ${k["magaya__Pieces"]}</td>
-                    <td style="border-right: 1px #000 solid;">
+                    <td style="border-right: 1px #000 solid; text-align: left;">
                         ${k["magaya__Length"]}*${k["magaya__Height"]}*${k["magaya__Width"]} (${measure_length})</td>
-                    <td style="border-right: 1px #000 solid;">
+                    <td style="border-right: 1px #000 solid; text-align: right;">
                         ${k["magaya__Weigth"]}</td>
-                    <td style="border-right: 1px #000 solid;">
+                    <td style="border-right: 1px #000 solid; text-align: right;">
                         ${k["magaya__Volume"]}</td>
                 </tr>`
             })
@@ -1189,14 +1189,14 @@ function buildPdfItems(items) {
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
         data += `<tr style="font-weight: bold;">
-            <td style="border-right: 1px #000 solid;">
+            <td style="border-right: 1px #000 solid;border-top: 1px #000 solid;">
                 Totals</td>
-            <td style="border-right: 1px #000 solid;">
+            <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
                 ${totalPieces}</td>
-                <td style="border-right: 1px #000 solid;"></td>
-            <td style="border-right: 1px #000 solid;">
+                <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
+            <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
                 ${roundDec(totalWeight)} kg</td>
-            <td style="border-right: 1px #000 solid;">
+            <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
                 ${roundDec(totalVolume)} m3</td>
             </tr>
         </table></div>`
