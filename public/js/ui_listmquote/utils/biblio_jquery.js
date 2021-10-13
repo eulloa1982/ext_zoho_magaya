@@ -935,48 +935,46 @@ function buildPdfHeader(orgData, quoteToEdit) {
         if (!_.isEmpty(orgData["website"]))
             none = orgData["website"];
         data = `<div class="container">
-                    <table class="container" cellspacing="0px" cellpadding="2px" style="border: none;">
-                    <thead>
+                    <table class="container" cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
                         <tr>
-                        <th>
-                            <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right; float: right;">
-                                <tr>
-                                    <td colspan="12">
-                                        <div class="row session-first">
-                                            <div class="col-md-6 text-right">
-                                                ${orgData["company_name"]}
+                            <th colspan="2">
+                                <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right; float: right;">
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="row session-first">
+                                                <div class="col-md-6">
+                                                    ${orgData["company_name"]}
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="12">
-                                        <div class="col headerPDF p-2"><span class="material-icons">
-                                        language</span>${none}</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="12">
-                                        <div class="col headerPDF p-2"><span class="material-icons">
-                                        phone</span>${orgData["phone"]}</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="12">
-                                        <div class="col headerPDF p-2"><span class="material-icons">
-                                        alternate_email</span>${orgData["primary_email"]}</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="12">
-                                        <div class="col headerPDF p-2"><span class="material-icons">
-                                        home</span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </th></tr>
-                    </thead>
-                    <tbody>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            language</span>${none}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            phone</span>${orgData["phone"]}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            alternate_email</span>${orgData["primary_email"]}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            home</span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </th>
+                        </tr>
                         <tr>
                             <td style="float:left;">
                                 <table id="info1" cellspacing="0px" cellpadding="2px" style="border: 1px #000 solid; text-align: left;">
@@ -1065,9 +1063,8 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                 </table>
                             </td>
                         </tr>
-                    </tbody>
-                </table>
-            </div>`
+                    </table>
+                </div>`
     }
 
     return data;
