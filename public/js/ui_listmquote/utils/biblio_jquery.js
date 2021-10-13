@@ -1026,7 +1026,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                     </tr>
                                 </table>
                             </td>
-                            <td">
+                            <td>
                                 <table id="info2" cellspacing="0px" cellpadding="2px" style="border: none">
                                     <tr>
                                         <td>
