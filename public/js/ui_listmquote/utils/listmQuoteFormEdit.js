@@ -24,6 +24,7 @@
             store.dispatch(addActionEdited())
             //Utils.blockUI();
             let a = $(".edit-record").serializeArray();
+            console.log(a)
             let charge = {}
             $.each(a, function() {
                 if (charge[this.name]) {
@@ -33,14 +34,18 @@
                     charge[this.name].push(sanitize(this.value) || '');
                 } else {
                     //if (this.name !== "Name" && this.name !== "id" && this.name !== "magaya__SQuote_Name" && this.name !== "magaya__ChargeCode" && this.name !== "magaya__ChargeCurrency" && this.name !== "magaya__Paid_As" && this.name !== "magaya__Status")
-                    if ($.isNumeric(this.value))
+                    if ($.isNumeric(this.value)) {
+                        this.value = this.value.replace(',', '')
                         charge[this.name] = Number(this.value)
-                    else
+                    }
+                    else {
+                        this.value = this.value.replace(',', '')
                         charge[this.name] = sanitize(this.value) || '';
+                    }
                 }
             });
 
-            Object.assign(charge, { id: idCharge, magaya__SQuote_Name: idmQuoteToEdit});
+            Object.assign(charge, { id: idCharge, magaya__SQuote_Name: idmQuoteToEdit, Name: sanitize($("#Name").val())});
             let config = { APIData: charge }
             Object.assign(config, { Entity: "magaya__ChargeQuote" });
             Object.assign(config, {Trigger:[]})
@@ -189,11 +194,12 @@
                     }
                 });
 
+                console.log(item)
                 Object.assign(item, { id: idItem, magaya__SQuote_Name: idmQuoteToEdit});
                 let config = { APIData: item }
                 Object.assign(config, { Entity: "magaya__ItemQuotes" });
 
-                console.log(config)
+
                 ZOHO.CRM.API.updateRecord(config)
                     .then(function(data){
                         res = data.data;

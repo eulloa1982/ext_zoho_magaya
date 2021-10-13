@@ -9,6 +9,14 @@ $(document).ready(function(){
     //try {
     ZOHO.embeddedApp.on("PageLoad",function(data)
     {
+        //current user
+        //get current user
+        ZOHO.CRM.CONFIG.getCurrentUser().then(function(data){
+            console.log(data.users[0])
+            localStorage.setItem('current_user', data.users[0].full_name)
+            //$("input[name=Owner]").val(data.users[0].full_name)
+        })
+
         //Las 100 primeras mQuotes
         ZOHO.CRM.API.getAllRecords({Entity:"magaya__SQuotes",sort_order:"desc",per_page:150,page:page})
             .then(function(data){
@@ -59,17 +67,21 @@ $(document).ready(function(){
             .then(function(response){
                 $.map (response.data, function (k, i) {
                     k.Account_Name = sanitize(k.Account_Name)
-                    if (k.magaya__mEntityType === "Carrier") {
-                        $(`<option value='${k.Account_Name}'>${k.Account_Name}</option>`).appendTo("select[name=magaya__Carrier]");
+                    $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
+                    $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Shipper]");
+                    $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Consignee]");
 
-                    } else {
-                        $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
-                        $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Shipper]");
-                        $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__ConsigneeName]");
-
-                    }
                 })
                 storeAccounts.dispatch(addAccount(response.data))
+            })
+
+        ZOHO.CRM.API.getAllRecords({Entity: "magaya__Providers", sort_order: "asc"})
+            .then(function(response){
+                $.map (response.data, function (k, i) {
+                    k.Name = sanitize(k.Name)
+                    //if (k.magaya__mEntityType === "Carrier") {
+                    $(`<option value='${k.id}'>${k.Name}</option>`).appendTo("select[name=magaya__MainCarrier]");
+                })
             })
 
         ZOHO.CRM.API.getAllRecords({Entity: "magaya__Employees", sort_order: "asc"})
@@ -156,12 +168,7 @@ $(document).ready(function(){
             localStorage.setItem('organization', JSON.stringify(orgData))
         });
 
-        //current user
-        //get current user
-        ZOHO.CRM.CONFIG.getCurrentUser().then(function(data){
-            console.log("Current user", data.users[0].full_name)
-            localStorage.setItem('current_user', data.users[0].full_name)
-        })
+
 
 
     });

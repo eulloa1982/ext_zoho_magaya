@@ -143,6 +143,13 @@ function reducerAccounts (state = initialStateAccount, actions)  {
             }
         }
 
+        case EMPTY_SINGLE_CONTACT: {
+            state.singleContact = initialStateAccount.singleContact
+            return {
+                ...state
+            }
+        }
+
         case EMPTY_ALL_ACCOUNTS: {
             return {
                 ...state,
@@ -226,4 +233,8 @@ function setAccountShipper(payload) {
 
 function setAccountConsignee(payload) {
     return {type: SET_ACCOUNT_CONSIGNEE, payload}
+}
+
+function emptySingleContact() {
+    return {type: EMPTY_SINGLE_CONTACT}
 }
