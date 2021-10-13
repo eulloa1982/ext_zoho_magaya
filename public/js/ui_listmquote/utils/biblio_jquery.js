@@ -938,7 +938,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                     <table class="container" cellspacing="0px" cellpadding="2px" style="border: none;">
                     <thead>
                         <tr>
-                        <th colspan="12">
+                        <th>
                             <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right; float: right;">
                                 <tr>
                                     <td colspan="12">
@@ -1043,7 +1043,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="12">
+                            <td colspan="2">
                                 <table>
                                     <tr>
                                         <th colspan="2">
@@ -1080,8 +1080,8 @@ function buildPdfCharges(charges) {
     let data = ``
     data += `<div class="row headerMquote">
                 <table>
-                    <tr style="background-color: lightskyblue; colspan="5">
-                        <th>
+                    <tr style="background-color: lightskyblue;">
+                        <th colspan="5">
                             Charges</th>
                     </tr>   
                     <tr style="background-color: lightskyblue;">
@@ -1091,10 +1091,10 @@ function buildPdfCharges(charges) {
                             Price</th>
                         <th> 
                             Quantity</th>
-                    <th>
-                        Tax Amount</th>
-                    <th>
-                        Final Amount</th></tr>`
+                        <th>
+                            Tax Amount</th>
+                        <th>
+                            Final Amount</th></tr>`
     if (!_.isEmpty(charges)) {
 
         let amount_total = 0;
@@ -1133,9 +1133,9 @@ function buildPdfCharges(charges) {
  */
 function buildPdfItems(items) {
     let data = ``
-    data += `<div class="row headerMquote">
+    data += `<div class="row">
                     <table>
-                        <tr style="background-color: lightskyblue;">
+                        <tr colspan="5" style="background-color: lightskyblue;">
                             <th>Items</th></tr>
                         <tr style="background-color: lightskyblue;">
                             <th>Package Type</th>
@@ -1191,7 +1191,7 @@ function buildPdfItems(items) {
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
         data += `<tr style="font-weight: bold;">
-            <td style="border-right: 1px #000 solid; text-align: right;">
+            <td style="border-right: 1px #000 solid;">
                 Totals</td>
             <td style="border-right: 1px #000 solid;">
                 ${totalPieces}</td>
@@ -1200,8 +1200,8 @@ function buildPdfItems(items) {
                 ${roundDec(totalWeight)} kg</td>
             <td style="border-right: 1px #000 solid;">
                 ${roundDec(totalVolume)} m3</td>
-        </tr>`
-        data += `</table></div>`
+            </tr>
+        </table></div>`
     }
 
     return data
