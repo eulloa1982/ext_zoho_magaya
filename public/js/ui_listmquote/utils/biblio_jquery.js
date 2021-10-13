@@ -1077,7 +1077,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
 function buildPdfCharges(charges) {
     let data = ``
     data += `<div class="row" style="margin-left: 2px;">
-                <table width="98%">
+                <table width="100%">
                     <tr style="background-color: lightskyblue;">
                         <th colspan="5" style="border: 1px #000 solid; text-align: center;">
                             Charges</th>
@@ -1131,14 +1131,14 @@ function buildPdfCharges(charges) {
  */
 function buildPdfItems(items) {
     let data = ``
-    data += `<div class="row" style="margin-left: 2px;">
+    data += `<div class="row" style="margin-left: 1px;">
                     <table width="98%">
                         <tr style="background-color: lightskyblue;">
                             <th colspan="5" style="text-align: center; font-weight: bold; border: 1px #000 solid;">Items</th></tr>
                         <tr style="background-color: lightskyblue;">
                             <th style="border-right: 1px #000 solid; text-align: left;">Package Type</th>
                             <th style="border-right: 1px #000 solid; text-align: right;">Quantity</th>
-                            <th style="border-right: 1px #000 solid; text-align: left;">Dimensions</th>
+                            <th style="border-right: 1px #000 solid; text-align: center;">Dimensions</th>
                             <th style="border-right: 1px #000 solid; text-align: right;">Weight</th>
                             <th style="border-right: 1px #000 solid; text-align: right;">Volume</th></tr>`
     if (!_.isEmpty(items)) {
