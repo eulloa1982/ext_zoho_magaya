@@ -932,8 +932,8 @@ function buildPdfHeader(orgData, quoteToEdit) {
     let data = ``;
     if (!_.isEmpty(orgData) && !_.isEmpty(quoteToEdit)) {
         var none = "";
-        create_date = quoteToEdit["Created_Time"] !== null ? new Date(quoteToEdit["Created_Time"]).getDate() : "";
-        expire_date = quoteToEdit["magaya__ExpirationDate"] !== null ? new Date(quoteToEdit["magaya__ExpirationDate"]).getDate() : "";
+        create_date = quoteToEdit["Created_Time"] !== null ? new Date(quoteToEdit["Created_Time"]).split("T")[0] : "";
+        expire_date = quoteToEdit["magaya__ExpirationDate"] !== null ? new Date(quoteToEdit["magaya__ExpirationDate"]).split("T")[0] : "";
         if (!_.isEmpty(orgData["website"]))
             none = orgData["website"];
         data = `<div class="container">
@@ -978,7 +978,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                         </tr>
                         <tr>
                             <td>
-                                <table id="info1" cellspacing="0px" cellpadding="2px" width="100%" style="border: 1px #000 solid; text-align: left;">
+                                <table id="info1" cellspacing="0px" cellpadding="2px" width="100%" style="border: 1px #000 solid; text-align: left; padding-left:15px;">
                                     <tr>
                                         <td style="background-color: lightskyblue;">
                                             Customer</td>
@@ -1045,7 +1045,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                             <td colspan="2">
                                 <table>
                                     <tr>
-                                        <th colspan="2">
+                                        <th colspan="2" style="text-align: center;">
                                             Quotation Info
                                         </th>
                                     </tr>
@@ -1133,15 +1133,15 @@ function buildPdfCharges(charges) {
 function buildPdfItems(items) {
     let data = ``
     data += `<div class="row">
-                    <table>
+                    <table width="100%">
                         <tr style="background-color: lightskyblue;">
-                            <th colspan="5" style="text-align: center; font-weight: bold">Items</th></tr>
+                            <th colspan="5" style="text-align: center; font-weight: bold; border: 1px #000 solid;">Items</th></tr>
                         <tr style="background-color: lightskyblue;">
-                            <th>Package Type</th>
-                            <th>Quantity</th>
-                            <th>Dimensions</th>
-                            <th>Weight</th>
-                            <th>Volume</th></tr>`
+                            <th style="border-right: 1px #000 solid; text-align: right;">Package Type</th>
+                            <th style="border-right: 1px #000 solid; text-align: right;">Quantity</th>
+                            <th style="border-right: 1px #000 solid; text-align: right;">Dimensions</th>
+                            <th style="border-right: 1px #000 solid; text-align: right;">Weight</th>
+                            <th style="border-right: 1px #000 solid; text-align: right;">Volume</th></tr>`
     if (!_.isEmpty(items)) {
 
         let totalPieces = 0
