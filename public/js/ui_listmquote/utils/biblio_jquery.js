@@ -937,7 +937,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
         data = `<div class="container">
                     <table class="container" cellspacing="0px" cellpadding="2px" style="border: none;">
                     <thead>
-                        <tr style="background-color: lightskyblue;">
+                        <tr>
                         <th colspan="12">
                             <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right; float: right;">
                                 <tr>
@@ -985,43 +985,43 @@ function buildPdfHeader(orgData, quoteToEdit) {
                             <td style="width: 50%;">
                                 <table id="info1" cellspacing="0px" cellpadding="2px" style="border: 1px #000 solid; text-align: left;">
                                     <tr>
-                                        <td>
-                                            <div class="col-4 headerMquote p-2 headerTable">Customer</div>
+                                        <td style="background-color: lightskyblue;">
+                                            Customer
                                         </td>
                                         <td>
-                                            <div class="col headerMquote p-2">${quoteToEdit["Account"]["name"]}</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="col-4 headerMquote p-2 headerTable">Representative</div>
-                                        </td>
-                                        <td>
-                                            <div class="col headerMquote p-2">${quoteToEdit["magaya__Representative"]["name"]}</div>
+                                            ${quoteToEdit["Account"]["name"]}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <div class="col-4 headerMquote p-2 headerTable">Phone</div>
+                                        <td style="background-color: lightskyblue;">
+                                            Representative
                                         </td>
                                         <td>
-                                            <div class="col headerMquote p-2">${quoteToEdit["magaya__ContactMobile"]}</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="col-4 headerMquote p-2 headerTable">Email</div>
-                                        </td>
-                                        <td>
-                                            <div class="col headerMquote p-2">${quoteToEdit["magaya__ContactEmail"]}</div>
+                                            ${quoteToEdit["magaya__Representative"]["name"]}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <div class="col-4 headerMquote p-2 headerTable">Address</div>
+                                        <td style="background-color: lightskyblue;">
+                                            Phone
                                         </td>
                                         <td>
-                                            <div class="col headerMquote p-2">${quoteToEdit["magaya__ContactStreet"]}, ${quoteToEdit["magaya__ContactCity"]}, ${quoteToEdit["magaya__ContactState"]}, ${quoteToEdit["magaya__ContactCountry"]}</div>
+                                            ${quoteToEdit["magaya__ContactMobile"]}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color: lightskyblue;">
+                                            Email
+                                        </td>
+                                        <td>
+                                            ${quoteToEdit["magaya__ContactEmail"]}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color: lightskyblue;">
+                                            Address
+                                        </td>
+                                        <td>
+                                            ${quoteToEdit["magaya__ContactStreet"]}, ${quoteToEdit["magaya__ContactCity"]}, ${quoteToEdit["magaya__ContactState"]}, ${quoteToEdit["magaya__ContactCountry"]}
                                         </td>
                                     </tr>
                                 </table>
