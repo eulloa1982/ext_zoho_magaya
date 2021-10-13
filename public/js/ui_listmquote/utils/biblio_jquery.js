@@ -952,29 +952,25 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                 <tr>
                                     <td colspan="12">
                                         <div class="col headerPDF p-2"><span class="material-icons">
-                                        language
-                                        </span>${none}</div>
+                                        language</span>${none}</div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="12">
                                         <div class="col headerPDF p-2"><span class="material-icons">
-                                    phone
-                                    </span>${orgData["phone"]}</div>
+                                        phone</span>${orgData["phone"]}</div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="12">
                                         <div class="col headerPDF p-2"><span class="material-icons">
-                                    alternate_email
-                                    </span>${orgData["primary_email"]}</div>
+                                        alternate_email</span>${orgData["primary_email"]}</div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="12">
                                         <div class="col headerPDF p-2"><span class="material-icons">
-                                    home
-                                    </span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
+                                        home</span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
                                     </td>
                                 </tr>
                             </table>
@@ -982,83 +978,66 @@ function buildPdfHeader(orgData, quoteToEdit) {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
+                            <td style="float:left;">
                                 <table id="info1" cellspacing="0px" cellpadding="2px" style="border: 1px #000 solid; text-align: left;">
                                     <tr>
                                         <td style="background-color: lightskyblue;">
-                                            Customer
-                                        </td>
+                                            Customer</td>
                                         <td>
-                                            ${quoteToEdit["Account"]["name"]}
-                                        </td>
+                                            ${quoteToEdit["Account"]["name"]}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
-                                            Representative
-                                        </td>
+                                            Representative</td>
                                         <td>
-                                            ${quoteToEdit["magaya__Representative"]["name"]}
-                                        </td>
+                                            ${quoteToEdit["magaya__Representative"]["name"]}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
-                                            Phone
-                                        </td>
+                                            Phone</td>
                                         <td>
-                                            ${quoteToEdit["magaya__ContactMobile"]}
-                                        </td>
+                                            ${quoteToEdit["magaya__ContactMobile"]}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
-                                            Email
-                                        </td>
+                                            Email</td>
                                         <td>
-                                            ${quoteToEdit["magaya__ContactEmail"]}
-                                        </td>
+                                            ${quoteToEdit["magaya__ContactEmail"]}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
-                                            Address
-                                        </td>
+                                            Address</td>
                                         <td>
                                             ${quoteToEdit["magaya__ContactStreet"]}, ${quoteToEdit["magaya__ContactCity"]}, ${quoteToEdit["magaya__ContactState"]}, ${quoteToEdit["magaya__ContactCountry"]}
                                         </td>
                                     </tr>
                                 </table>
                             </td>
-                            <td>
+                            <td style="float:right;">
                                 <table id="info2" cellspacing="0px" cellpadding="2px" style="border: none">
                                     <tr>
                                         <td>
-                                            Quote Number
-                                        </td>
+                                            Quote Number</td>
                                         <td>
-                                            ${quoteToEdit["magaya__Number"]}
-                                        </td>
+                                            ${quoteToEdit["magaya__Number"]}</td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            Creation Date
-                                        </td>
+                                            Creation Date</td>
                                         <td>
-                                            ${quoteToEdit["Created_Time"]}
-                                        </td>
+                                            ${quoteToEdit["Created_Time"]}</td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            Expiration Date
-                                        </td>
+                                            Expiration Date</td>
                                         <td>
-                                            ${quoteToEdit["magaya__ExpirationDate"]}
-                                        </td>
+                                            ${quoteToEdit["magaya__ExpirationDate"]}</td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            Contact To
-                                        </td>
+                                            Contact To</td>
                                         <td>
-                                            ${quoteToEdit["magaya__Employee"]}
-                                        </td>
+                                            ${quoteToEdit["magaya__Employee"]}</td>
                                     </tr>
                                 </table>
                             </td>
@@ -1101,21 +1080,21 @@ function buildPdfCharges(charges) {
     let data = ``
     data += `<div class="row headerMquote">
                 <table>
-                    <tr style="background-color: lightskyblue;>
-                        <th><div class="col-sm">
-                            Charges</div></th></tr>`
-    data += `<tr style="background-color: lightskyblue;">
-                    <th>
-                        <div class="col-sm-5">
+                    <tr style="background-color: lightskyblue; colspan="5">
+                        <th>
+                            Charges</th>
+                    </tr>   
+                    <tr style="background-color: lightskyblue;">
+                        <th>
                             Charge Description</div></th>
+                        <th>
+                            Price</th>
+                        <th> 
+                            Quantity</th>
                     <th>
-                        <div class="col-sm">Price</div></th>
-                    <th"><div class="col-sm">
-                        Quantity</div></th>
-                    <th"><div class="col-sm">
-                        Tax Amount</div></th>
-                    <th"><div class="col-sm">
-                        Final Amount</div></th></tr>`
+                        Tax Amount</th>
+                    <th>
+                        Final Amount</th></tr>`
     if (!_.isEmpty(charges)) {
 
         let amount_total = 0;
@@ -1125,39 +1104,25 @@ function buildPdfCharges(charges) {
             amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<tr>
                         <td style="border-right: 1px #000 solid;">
-                            <div class="col-sm-5 border-right">
-                                ${k["Name"]}
-                            </div>
-                        </td>
+                            ${k["Name"]}</td>
                         <td style="border-right: 1px #000 solid;">
-                            <div class="col-sm border-right">
-                                ${k["magaya__Price"]}
-                            </div>
-                        </td>
+                            ${k["magaya__Price"]}</td>
                         <td style="border-right: 1px #000 solid;">
-                            <div class="col-sm border-right">
-                                ${k["magaya__CQuantity"]}
-                            </div>
-                        </td>
+                            ${k["magaya__CQuantity"]}</td>
                         <td style="border-right: 1px #000 solid;">
-                            <div class="col-sm border-right">
-                                ${k["magaya__Tax_Amount"]}
-                            </div>
-                        </td>
+                            ${k["magaya__Tax_Amount"]}</td>
                         <td style="border-right: 1px #000 solid;">
-                            <div class="col-sm border-right">
-                                ${k["magaya__Final_Amount"]}
-                            </div>
-                        </td>
-                    </tr>
-                        `
+                            ${k["magaya__Final_Amount"]}</td>
+                    </tr>`
         })
 
         data += `<tr style="font-weight: bold;">
                     <td style="border-right: 1px #000 solid; text-align: right;" colspan="4">
-                        <div class="col-sm border-right bolder">${roundDec(amount_tax)}</div></td>
-                    <td style="border-right: 1px #000 solid;"><div class="col-sm border-right bolder">${roundDec(amount_total)}</div></td>
-                </tr></table></div>`
+                        ${roundDec(amount_tax)}</td>
+                    <td style="border-right: 1px #000 solid;">${roundDec(amount_total)}</td>
+                </tr>
+            </table>
+        </div>`
     }
 
     return data
@@ -1170,14 +1135,14 @@ function buildPdfItems(items) {
     let data = ``
     data += `<div class="row headerMquote">
                     <table>
-                        <tr style="background-color: lightskyblue;><th>
-                            Items</th></tr>
                         <tr style="background-color: lightskyblue;">
-                        <th>Package Type</th>
-                        <th>Quantity</th>
-                        <th>Dimensions</th>
-                        <th>Weight</th>
-                        <th>Volume</th></tr>`
+                            <th>Items</th></tr>
+                        <tr style="background-color: lightskyblue;">
+                            <th>Package Type</th>
+                            <th>Quantity</th>
+                            <th>Dimensions</th>
+                            <th>Weight</th>
+                            <th>Volume</th></tr>`
     if (!_.isEmpty(items)) {
 
         let totalPieces = 0
@@ -1212,7 +1177,7 @@ function buildPdfItems(items) {
                    <td style="border-right: 1px #000 solid;">
                         ${k["Name"]}</td>
                     <td style="border-right: 1px #000 solid;">
-                            ${k["magaya__Pieces"]}</td>
+                        ${k["magaya__Pieces"]}</td>
                     <td style="border-right: 1px #000 solid;">
                         ${k["magaya__Length"]}*${k["magaya__Height"]}*${k["magaya__Width"]} (${measure_length})</td>
                     <td style="border-right: 1px #000 solid;">
@@ -1226,10 +1191,11 @@ function buildPdfItems(items) {
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
         data += `<tr style="font-weight: bold;">
-            <td style="border-right: 1px #000 solid; text-align: right;" colspan="2">
+            <td style="border-right: 1px #000 solid; text-align: right;">
                 Totals</td>
             <td style="border-right: 1px #000 solid;">
                 ${totalPieces}</td>
+                <td style="border-right: 1px #000 solid;"></td>
             <td style="border-right: 1px #000 solid;">
                 ${roundDec(totalWeight)} kg</td>
             <td style="border-right: 1px #000 solid;">
