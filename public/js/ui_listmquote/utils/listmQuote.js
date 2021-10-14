@@ -254,6 +254,18 @@ $(document).ready(function(){
             })
             $("input[name=NameQuote]").val(quoteToEdit.Name)
 
+            let owner = quoteToEdit.Owner.id
+            let ownerName = quoteToEdit.Owner.name
+            let ownerValues = $("select[name=Owner] option")
+            $.map(ownerValues, function(k, v) {
+                if (k.value === owner) {
+                    console.log("Coincidencia", k.value + ' text: ' + k.text)
+                    $(`select[name=Owner] option:contains(${k.text})`).prop('selected', true);
+                    $(`select[name=Owner]`).change()
+                } else {
+                    $(`select[name=Owner]`).prop('selected', false)
+                }
+            })
             //campos q son objetos
             //transportation mode
             /*if (!_.isEmpty(quoteToEdit['magaya__TransportationMode'])) {
@@ -485,7 +497,6 @@ $(document).ready(function(){
                 //service items
                 ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idmQuoteToEdit, RelatedList: "Notes", page: 1, per_page: 200 })
                     .then(function(response) {
-                        console.log(response.data)
                     })
 
                 $("#mquoteModal").modal("show")

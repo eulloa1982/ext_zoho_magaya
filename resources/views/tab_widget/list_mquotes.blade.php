@@ -145,25 +145,6 @@ a {
 		</div>
 
 
-<!-- modal pdf -->
-<div id="pdfModal" class="modal fade" role="dialog" aria-labelledby="edit" aria-hidden="true">
-    <div class="modal-dialog">
-		<div class="modal-content">
-            <div class="modal-header" style="background: #0b3355;color: white;">
-				<h4 class="modal-title custom_align" style="font-weight: bold;" id="Heading">mQuote</h4>
-    				<button type="button" class="close cerrar-modal" aria-hidden="true"><span class="material-icons btn btn-primary">highlight_off</span></button>
-			</div>
-
-            <div class="modal-body">
-                <div id="htmlToPdf">
-
-                </div>
-
-
-            </div>
-</div>
-    </div>
-</div>
 
 <!-- Edit Modal HTML -->
 <div id="mquoteModal" class="modal fade" id="edit" tabindex="-10" role="dialog" aria-labelledby="edit" aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -227,10 +208,11 @@ a {
                                             <input type="text" name='magaya__CreatedByName' class='form-control' readonly/>
 										</div>
 
-                                        <!--div class="col-md-3">
+                                        <div class="col-md-3">
 											<label class="col-md-12" style="font-weight: bold;">Owner</label>
-                                            <input type="text" name='Owner' class='form-control' readonly/>
-										</div-->
+                                            <select name='Owner' class='form-control'>
+                                            </select>
+										</div>
                                     </div>
 
                                     <div class="row" style="margin-bottom:20px">
