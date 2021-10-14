@@ -1081,13 +1081,13 @@ function buildPdfCharges(charges) {
                     <tr style="background-color: lightskyblue;">
                         <th colspan="5" style="border: 1px #000 solid; text-align: center;">
                             Charges</th>
-                    </tr>   
+                    </tr>
                     <tr style="background-color: lightskyblue; font-weight: bold;">
                         <th style="border: 1px #000 solid; text-align: center;">
                             Charge Description</th>
                         <th style="border: 1px #000 solid; text-align: right;">
                             Price</th>
-                        <th style="border: 1px #000 solid; text-align: right;"> 
+                        <th style="border: 1px #000 solid; text-align: right;">
                             Quantity</th>
                         <th style="border: 1px #000 solid; text-align: right;">
                             Tax Amount</th>

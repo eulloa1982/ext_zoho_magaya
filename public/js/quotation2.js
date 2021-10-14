@@ -1580,9 +1580,19 @@ function drawQuotationMagayaFromArray() {
  ********* GET MAGAYA QUOTE, CONVERT TO CRM SQUOTE **********
  ********* *************************************************/
 async function sendQuoteMagaya2CRM(dataArray) {
-    var state = "";
-    var methodCode = 0;
-    var idQuote = 0;
+    let state = "";
+    let methodCode = 0;
+    let idQuote = 0;
+    const guidQuote = dataArray["@attributes"]["GUID"];
+    let createdOn = dataArray["CreatedOn"].split("T")
+    const createdAt = createdOn[0]
+    let measurementUnit = "International"
+    let ms = dataArray["MeasurementUnits"]["LengthUnit"]
+    if (ms === "in") {
+        measurementUnit = "English"
+    }
+
+    console.log(dataArray)
     //get method code
     if (!_.isEmpty(dataArray['ModeOfTransportation'])) {
         //get transportation code
@@ -1609,191 +1619,323 @@ async function sendQuoteMagaya2CRM(dataArray) {
 
     //get carrier
     carrier = '';
+    let idCarrier = 0
     if (!_.isEmpty(dataArray['Carrier'])) {
+        //check if carrier exists in CRM
         carrier = dataArray['Carrier'].Name;
+        carrierGUID = dataArray['Carrier']['@attributes']["GUID"]
+        let status = 0
+
+        let resCarrier = '';
+        cc = await ZOHO.CRM.API.searchRecord({Entity:"magaya__Providers",Type:"criteria",Query:"(magaya__Magaya_GUID:equals:"+carrierGUID + ")"})
+        .then(function(data){
+            console.log("Searching carrier", data)
+            resCarrier = data
+            status = data.status
+
+        })
+
+        if (status && status == 204) {
+            //create carrier
+            let carrier = {
+                "Name": dataArray['Carrier'].Name,
+                "magaya__Magaya_GUID": dataArray['Carrier']['@attributes']["GUID"],
+                "magaya__Type": dataArray['Carrier'].Type,
+                "magaya__BillingAddress_City": dataArray['Carrier'].BillingAddress.City,
+                "magaya__BillingAddress_Country": dataArray['Carrier'].BillingAddress.Country,
+                "magaya__BillingAddress_State": dataArray['Carrier'].BillingAddress.State,
+                "magaya__BillingAddress_Street": dataArray['Carrier'].BillingAddress.Street,
+                "magaya__BillingAddress_ZipCode": dataArray['Carrier'].BillingAddress.ZipCode,
+            }
+
+            let a = await insertRecordCRM("magaya__Providers", carrier)
+                    .then(function(data){
+                        idCarrier = data[0]["details"]["id"]
+                        console.log("result inserting", idCarrier)
+                    })
+        } else {
+            idCarrier = resCarrier.data[0]["id"]
+        }
     }
     //SQuotes
+    //seleccionar account
+    let accountGUID = 0;
+    let resAccount = {}
+    let statusAccount = ''
+    let idAccount = 0
+    if (!_.isEmpty(dataArray["Contact"])) {
+        accountGUID = dataArray["Contact"]["@attributes"]["GUID"]
+
+        cc = await ZOHO.CRM.API.searchRecord({Entity:"Accounts",Type:"criteria",Query:"(magaya__MagayaGUID:equals:"+accountGUID+")"})
+        .then(function(data){
+            console.log("Searching account", data)
+            resAccount = data
+            statusAccount = data.status
+
+        })
+
+        if (statusAccount && statusAccount == 204) {
+            //create carrier
+            let account = {
+                "Account_Name": dataArray['Contact'].Name,
+                "magaya__MagayaGUID": dataArray['Contact']['@attributes']["GUID"],
+                "magaya__MagayaEmail": dataArray['Contact'].Email,
+                "Billing_City": dataArray['Contact'].BillingAddress.City,
+                "Billing_Country": dataArray['Contact'].BillingAddress.Country,
+                "Billing_State": dataArray['Contact'].BillingAddress.State,
+                "Billing_Street": dataArray['Contact'].BillingAddress.Street,
+                "Billing_ZipCode": dataArray['Contact'].BillingAddress.ZipCode,
+            }
+
+            let a = await insertRecordCRM("Accounts", account)
+                    .then(function(data){
+                        idAccount = data[0]["details"]["id"]
+                        console.log("result inserting account", idAccount)
+                    })
+        } else {
+            idAccount = resAccount.data[0]["id"]
+        }
+    }
 
     recordData = {
-        "magaya__ConsigneeName": !_.isEmpty(dataArray['ConsigneeName']) ? dataArray['ConsigneeName'] : "",
-        "magaya__Shipper": !_.isEmpty(dataArray['ShipperName']) ? dataArray['ShipperName'] : "",
-        "magaya__Carrier": carrier,
         "magaya__ExpirationDate": !_.isEmpty(dataArray['ExpirationDate']) ? dataArray['ExpirationDate'] : "",
         "magaya__IssuedBy": !_.isEmpty(dataArray['IssuedByName']) ? dataArray['IssuedByName'] : "",
         "Name": !_.isEmpty(dataArray['Number']) ? dataArray['Number'] : "",
         "magaya__Direction": !_.isEmpty(dataArray['Direction']) ? dataArray['Direction'] : "",
-        "magaya__TransportationMode": methodCode > 0 ? methodCode : "",
         "magaya__Seller": "",
-        "magaya__Description": !_.isEmpty(dataArray['Description']) ? dataArray['Description'] : "",
+        "magaya__Description": !_.isEmpty(dataArray['DescriptionOfGoods']) ? dataArray['DescriptionOfGoods'] : "",
         "magaya__Stage": state,
         "magaya__ContactName": !_.isEmpty(dataArray['ContactName']) ? dataArray['ContactName'] : "",
-        "magaya__Service": !_.isEmpty(dataArray['Service']) ? dataArray['Service'] : ""
+        "magaya__Service": !_.isEmpty(dataArray['Service']) ? dataArray['Service'] : "",
+        "magaya__Status": !_.isEmpty(dataArray['Status']) ? dataArray['Status'] : "",
+        "magaya__MagayaGUID": guidQuote,
+        "magaya__AddedTime": createdAt,
+        "magaya__CreatedByName": dataArray['CreatedByName']
     };
+
+    if (!_.isEmpty(dataArray["Incoterm"])) {
+        let incoterm = `${dataArray["Incoterm"]["Code"]} - ${dataArray["Incoterm"]["Description"]}`
+        Object.assign(recordData, {"magaya__Incoterms": incoterm})
+    }
+
+    if (idAccount > 0)
+        Object.assign(recordData, {"Account": idAccount})
+
+
+    routing = {
+        "Name": !_.isEmpty(dataArray['Number']) ? dataArray['Number'] : "Data Routing",
+        "magaya__Consignee": !_.isEmpty(dataArray['ConsigneeName']) ? dataArray['ConsigneeName'] : "",
+        "magaya__Shipper": !_.isEmpty(dataArray['ShipperName']) ? dataArray['ShipperName'] : "",
+    }
+    if (idCarrier > 0)
+        Object.assign(routing, {"magaya__MainCarrier": idCarrier})
+    if (methodCode > 0)
+        Object.assign(routing, {"magaya__ModeofTransportation":methodCode})
+
+
+
+    console.log("mQuote Data", recordData)
+    console.log("Routing Data", routing)
     //datos del contact
-    if (!_.isEmpty(dataArray["Contact"]["Email"]) && dataArray["Contact"]["Email"] !== "null") {
+    /*if (!_.isEmpty(dataArray["Contact"]["Email"]) && dataArray["Contact"]["Email"] !== "null") {
         dataContact = {
             "magaya__ContactEmail": dataArray['Contact']["Email"],
             "magaya__ContactMobile": dataArray['Contact']['Phone']
         }
         Object.assign(recordData, dataContact)
-    }
+    }*/
 
     idQuote = 0;
-    ZOHO.CRM.API.insertRecord({ Entity: "magaya__SQuotes", APIData: recordData, Trigger: [] })
+    ZOHO.CRM.API.insertRecord({ Entity: "magaya__Routing", APIData: routing, Trigger: []})
         .then(function(response) {
-            data = response.data;
-            $.each(data, function(key, valor) {
-                idQuote = valor['details']['id'];
-            })
+            res = response.data
+                id = 0
+                $.map(res, function(k) {
+                    id = k.details.id
+                })
+                return id
 
-        }).then(function() {
-            //Service Items
-            if (!_.isEmpty(dataArray["Charges"])) {
+        })
+        .then(function(idRouting) {
+            Object.assign(recordData, {"magaya__Routing": idRouting})
 
-                var data = {};
-                var dataCharges = {};
-                var crmId = 0;
-                //var a = dataArray["Charges"]["Charge"];
-                cantElem = [].concat.apply([], dataArray["Charges"]["Charge"]).length;
-                //mas de un charge, array de objetos [{},{}]
-                if (cantElem > 1) {
+            ZOHO.CRM.API.insertRecord({ Entity: "magaya__SQuotes", APIData: recordData, Trigger: [] })
+            .then(function(response) {
+                data = response.data;
+                $.each(data, function(key, valor) {
+                    idQuote = valor['details']['id'];
+                })
 
-                    $.map(dataArray["Charges"]["Charge"], function(k) {
+            }).then(function() {
+                //Service Items
+                if (!_.isEmpty(dataArray["Charges"])) {
 
-                        dataCharges = {
-                            "magaya__SQuote_Name": idQuote,
-                            "magaya__Amount": k.Amount,
-                            "magaya__Charge_Description": k.ChargeDefinition.Description,
-                            "magaya__ChargeCode": k.ChargeDefinition.Code,
-                            "magaya__Price": k.Price,
-                            "magaya__CQuantity": parseInt(k.Quantity),
-                            "magaya__Amount": k.Amount,
-                            "magaya__ChargeCurrency": k.Currency["@attributes"]["Code"],
-                            "Name": k.ChargeDefinition.Description
-                        }
-                        if (!_.isEmpty(k.Entity)) {
-                            guid = k.Entity["@attributes"]["GUID"];
-                            guidChecking = accounts.findIndex(i => i["magaya__MagayaGUID"] === guid);
-                            //si el usuario existe en el CRM, agregar el ApplyTo
-                            if (guidChecking >= 0) {
-                                crmId = accounts[guidChecking]['id'];
-                                dataPlus = { "magaya__ApplyToAccounts": crmId }
+                    var data = {};
+                    var dataCharges = {};
+                    var crmId = 0;
+                    //var a = dataArray["Charges"]["Charge"];
+                    cantElem = [].concat.apply([], dataArray["Charges"]["Charge"]).length;
+                    //mas de un charge, array de objetos [{},{}]
+                    if (cantElem > 1) {
 
-                                Object.assign(dataCharges, dataPlus)
-                            } else {
-                                $("#no-configuration-alert").html(`User ${k.Entity.Name} with Magaya GUID ${guid} not found in CRM`)
-                                    .css("display", "inline").fadeIn("slow").delay(6000).fadeOut("slow");
+                        $.map(dataArray["Charges"]["Charge"], function(k) {
+
+                            dataCharges = {
+                                "magaya__SQuote_Name": idQuote,
+                                "magaya__Amount": k.Amount,
+                                "magaya__Amount_Total": k.Amount,
+                                "magaya__Charge_Description": k.ChargeDefinition.Description,
+                                "magaya__ChargeCode": k.ChargeDefinition.Code,
+                                "magaya__Price": k.Price,
+                                "magaya__CQuantity": parseInt(k.Quantity),
+                                "magaya__Amount": k.Amount,
+                                "magaya__ChargeCurrency": k.Currency["@attributes"]["Code"],
+                                "Name": k.ChargeDefinition.Description
                             }
 
+                            console.log("Data charges", dataCharges)
+                            if (!_.isEmpty(k.Entity)) {
+                                guid = k.Entity["@attributes"]["GUID"];
+                                guidChecking = accounts.findIndex(i => i["magaya__MagayaGUID"] === guid);
+                                //si el usuario existe en el CRM, agregar el ApplyTo
+                                if (guidChecking >= 0) {
+                                    crmId = accounts[guidChecking]['id'];
+                                    dataPlus = { "magaya__ApplyToAccounts": crmId }
+
+                                    Object.assign(dataCharges, dataPlus)
+                                } else {
+                                    $("#no-configuration-alert").html(`User ${k.Entity.Name} with Magaya GUID ${guid} not found in CRM`)
+                                        .css("display", "inline").fadeIn("slow").delay(6000).fadeOut("slow");
+                                }
+
+                            }
+                            ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: dataCharges, Trigger: ["workflow"] })
+                                .then(function(response) {
+                                    /*var func_name = "magaya__setQuoteTotalAmount";
+                                    var req_data ={
+                                        "quote_id" : idQuote
+                                    };
+
+                                    ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
+                                        console.log("Update quote amount", data)
+                                    })*/
+                                })
+                                .catch(function(error) {
+
+                                })
+                        });
+
+                    } else {
+                        //JSON {} de un solo elemento
+                        charge = dataArray["Charges"]["Charge"];
+                        if (!_.isEmpty(charge.Entity)) {
+                            guid = charge.Entity["@attributes"]["GUID"];
+                            guidChecking = accounts.findIndex(i => i["magaya__MagayaGUID"] === guid);
+                            //si guidChecking < 0, crear el usuario
+                            dataCharges = {
+                                "magaya__SQuote_Name": idQuote,
+                                "magaya__Amount": charge.Amount,
+                                "magaya__Amount_Total": charge.Amount,
+                                "magaya__Charge_Description": charge.ChargeDefinition.Description,
+                                "magaya__ChargeCode": charge.ChargeDefinition.Code,
+                                "magaya__Price": charge.Price,
+                                "magaya__CQuantity": parseInt(charge.Quantity),
+                                "magaya__Amount": charge.Amount,
+                                "magaya__ChargeCurrency": charge.Currency["@attributes"]["Code"],
+                                "Name": charge.ChargeDefinition.Description
+                            }
+                            console.log("Data charges", dataCharges)
+                            if (guidChecking < 0) {
+                                $("#no-configuration-alert").html(`User ${charge.Entity.Name} with Magaya GUID ${guid} not found in CRM`)
+                                    .css("display", "inline").fadeIn("slow").delay(6000).fadeOut("slow");
+
+                            } else {
+                                crmId = accounts[guidChecking]['id'];
+                                dataPlus = { "magaya__ApplyToAccounts": crmId }
+                                Object.assign(dataCharges, dataPlus)
+                            }
+
+                            ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: dataCharges, Trigger: ["workflow"] })
+                                .then(function(response) {}).catch(function(error) {
+
+                                })
                         }
-                        ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: dataCharges, Trigger: [] })
-                            .then(function(response) {}).catch(function(error) {
-
-                            })
-                    });
-
-                } else {
-                    //JSON {} de un solo elemento
-                    charge = dataArray["Charges"]["Charge"];
-                    if (!_.isEmpty(charge.Entity)) {
-                        guid = charge.Entity["@attributes"]["GUID"];
-                        guidChecking = accounts.findIndex(i => i["magaya__MagayaGUID"] === guid);
-                        //si guidChecking < 0, crear el usuario
-                        dataCharges = {
-                            "magaya__SQuote_Name": idQuote,
-                            "magaya__Amount": charge.Amount,
-                            "magaya__Charge_Description": charge.ChargeDefinition.Description,
-                            "magaya__ChargeCode": charge.ChargeDefinition.Code,
-                            "magaya__Price": charge.Price,
-                            "magaya__CQuantity": parseInt(charge.Quantity),
-                            "magaya__Amount": charge.Amount,
-                            "magaya__ChargeCurrency": charge.Currency["@attributes"]["Code"],
-                            "Name": charge.ChargeDefinition.Description
-                        }
-                        if (guidChecking < 0) {
-                            $("#no-configuration-alert").html(`User ${charge.Entity.Name} with Magaya GUID ${guid} not found in CRM`)
-                                .css("display", "inline").fadeIn("slow").delay(6000).fadeOut("slow");
-
-                        } else {
-                            crmId = accounts[guidChecking]['id'];
-                            dataPlus = { "magaya__ApplyToAccounts": crmId }
-                            Object.assign(dataCharges, dataPlus)
-                        }
-
-                        ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: dataCharges, Trigger: [] })
-                            .then(function(response) {}).catch(function(error) {
-
-                            })
                     }
+
                 }
+                //packages
+                if (!_.isEmpty(dataArray["Items"])) {
+                    var data = {};
+                    var dataPackages = {};
+                    var crmId = 0;
+                    //var a = dataArray["Charges"]["Charge"];
+                    cantElem = [].concat.apply([], dataArray["Items"]["Item"]).length;
+                    //mas de un charge, array de objetos [{},{}]
+                    if (cantElem > 1) {
+                        $.map(dataArray["Items"]["Item"], function(k) {
 
-            }
-            //packages
-            if (!_.isEmpty(dataArray["Items"])) {
-                var data = {};
-                var dataPackages = {};
-                var crmId = 0;
-                //var a = dataArray["Charges"]["Charge"];
-                cantElem = [].concat.apply([], dataArray["Items"]["Item"]).length;
-                //mas de un charge, array de objetos [{},{}]
-                if (cantElem > 1) {
-                    $.map(dataArray["Items"]["Item"], function(k) {
+                            dataPackages = {
+                                "magaya__SQuote_Name": idQuote,
+                                "magaya__Length": roundDec(k.Length),
+                                "magaya__Pieces": k.Pieces,
+                                "magaya__Height": roundDec(k.Height),
+                                "magaya__Status": k.Status,
+                                "magaya__Volume": roundDec(k.Volume),
+                                "magaya__Weigth": roundDec(k.Weight),
+                                "Name": k.Package.Name,
+                                "magaya__Width": k.Width,
+                                "magaya__Measure_System": measurementUnit
+                            }
 
+                            ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: dataPackages, Trigger: [] })
+                                .then(function(response) {}).catch(function(error) {
+
+                                })
+                        });
+
+                    } else {
+                        //JSON {} de un solo elemento
+                        items = dataArray["Items"]["Item"];
+                        var itemName = 'No Package Name'
+                        if (!_.isEmpty(items.PackageName)) {
+                            itemName = items.PackageName
+                        }
                         dataPackages = {
                             "magaya__SQuote_Name": idQuote,
-                            "magaya__Length": roundDec(k.Length),
-                            "magaya__Pieces": k.Pieces,
-                            "magaya__Height": roundDec(k.Height),
-                            "magaya__Status": k.Status,
-                            "magaya__Volume": roundDec(k.Volume),
-                            "magaya__Weigth": roundDec(k.Weight),
-                            "Name": k.Package.Name,
-                            "magaya__Width": k.Width
+                            "magaya__Length": roundDec(items.Length),
+                            "magaya__Pieces": items.Pieces,
+                            "magaya__Status": items.Status,
+                            "magaya__Height": roundDec(items.Height),
+                            "magaya__Volume": roundDec(items.Volume),
+                            "magaya__Weigth": roundDec(items.Weight),
+                            "Name": itemName,
+                            "magaya__Width": roundDec(items.Width),
+                            "magaya__Measure_System": measurementUnit
                         }
 
                         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: dataPackages, Trigger: [] })
                             .then(function(response) {}).catch(function(error) {
 
                             })
-                    });
-
-                } else {
-                    //JSON {} de un solo elemento
-                    items = dataArray["Items"]["Item"];
-                    var itemName = 'No Package Name'
-                    if (!_.isEmpty(items.PackageName)) {
-                        itemName = items.PackageName
                     }
-                    dataPackages = {
-                        "magaya__SQuote_Name": idQuote,
-                        "magaya__Length": roundDec(items.Length),
-                        "magaya__Pieces": items.Pieces,
-                        "magaya__Status": items.Status,
-                        "magaya__Height": roundDec(items.Height),
-                        "magaya__Volume": roundDec(items.Volume),
-                        "magaya__Weigth": roundDec(items.Weight),
-                        "Name": itemName,
-                        "magaya__Width": roundDec(items.Width)
-                    }
-
-                    ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: dataPackages, Trigger: [] })
-                        .then(function(response) {}).catch(function(error) {
-
-                        })
                 }
-            }
-            //dibuja el area
-            Swal.fire({
-                title: 'Success',
-                html: "Operation successfull",
-                //text: message,
-                icon: 'success',
-                allowOutsideClick: false
-            }).then(function() {
-                drawQuotationCRM();
-            })
+                //dibuja el area
+                Swal.fire({
+                    title: 'Success',
+                    html: "Operation successfull",
+                    //text: message,
+                    icon: 'success',
+                    allowOutsideClick: false
+                }).then(function() {
+                    drawQuotationCRM();
+                })
 
+            })
         })
+
+
+
+
 }
 
 //redondear decimales
