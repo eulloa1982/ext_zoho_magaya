@@ -453,7 +453,6 @@ $(document).ready(function(){
                             APIData: recordData
                         }
 
-                        console.log(updatemQuoteRouting)
                         ZOHO.CRM.API.updateRecord(updatemQuoteRouting)
                             .then(function(data) {
                                 console.log("New Data routing", data)

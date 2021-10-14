@@ -187,7 +187,7 @@ $(document).ready(function(){
             storeAccounts.dispatch(emptyAllAccounts())
             storeQuote.dispatch(clearQuoteToEdit())
 
-            limpiar_form()
+
             //set tab quotatioFor active by default
             $("#nav-home-tab").addClass("active");
             $("#menu5").addClass("active show");
@@ -235,6 +235,7 @@ $(document).ready(function(){
             idmQuoteToEdit = $(this).attr('data-id')
 
             quoteToEdit = [];
+            limpiar_form()
             //dispatch
             storeQuote.dispatch(findQuote({id: idmQuoteToEdit}))
 
@@ -305,7 +306,7 @@ $(document).ready(function(){
             }
 
             //is sent to magaya
-            let imported_from_magaya = quoteToEdit["magaya__QuoteInMagaya"]
+            let imported_from_magaya = quoteToEdit["magaya__MagayaGUID"]
             if (!_.isEmpty(imported_from_magaya) && _.size(imported_from_magaya) > 8) {
                 $("input[name=magaya__QuoteInMagaya]").prop("checked", true)
             } else {
@@ -325,7 +326,7 @@ $(document).ready(function(){
             })
 
             //procesar el nombre, ya q no podemos recuperar id
-            let shipperAddress = quoteToEdit.magaya__ShipperAddress
+            /*let shipperAddress = quoteToEdit.magaya__ShipperAddress
             if (!_.isEmpty(shipperAddress)) {
                 shipperAddress = shipperAddress.split(" / ")
                 if (!_.isEmpty(shipperAddress[0]) && shipperAddress[0] !== "undefined" && shipperAddress[0] !== undefined)
@@ -336,7 +337,7 @@ $(document).ready(function(){
                     $("input[name=Shipper_State").val(shipperAddress[2])
                 if (!_.isEmpty(shipperAddress[3]) && shipperAddress[3] !== "undefined" && shipperAddress[3] !== undefined)
                     $("input[name=Shipper_Country").val(shipperAddress[3])
-            }
+            }*/
 
             let consignee = quoteToEdit.magaya__ConsigneeName
             $("select[name=magaya__ConsigneeName] option").each(function(k) {
@@ -345,7 +346,7 @@ $(document).ready(function(){
             })
 
             //procesar el nombre, ya q no podemos recuperar id
-            let consigneeAddress = quoteToEdit.magaya__ConsigneeAddress
+            /*let consigneeAddress = quoteToEdit.magaya__ConsigneeAddress
             if (!_.isEmpty(consigneeAddress)) {
                 consigneeAddress = consigneeAddress.split(" / ")
                 if (!_.isEmpty(consigneeAddress[0]) && consigneeAddress[0] !== "undefined" && consigneeAddress[0] !== undefined)
@@ -356,7 +357,7 @@ $(document).ready(function(){
                     $("input[name=Consignee_State").val(consigneeAddress[2])
                 if (!_.isEmpty(consigneeAddress[3]) && consigneeAddress[3] !== "undefined" && consigneeAddress[3] !== undefined)
                     $("input[name=Consignee_Country").val(consigneeAddress[3])
-            }
+            }*/
 
             let nameQuote = quoteToEdit.magaya__Number
             $(":input[name=NameQuote]").val(nameQuote)
@@ -369,7 +370,7 @@ $(document).ready(function(){
             let incoterms = quoteToEdit.magaya__Incoterms
             let incotermsValues = $("select[name=magaya__Incoterms] option")
             $.map(incotermsValues, function(k, v) {
-                console.log(k.text === incoterms, k.text)
+                //console.log(k.text === incoterms, k.text)
                 if (k.text === incoterms) {
                     $(`select[name=magaya__Incoterms] option:contains(${incoterms})`).prop('selected', true);
                     $(`select[name=magaya__Incoterms]`).change()
@@ -398,6 +399,7 @@ $(document).ready(function(){
                         let data = response.data[0]
                         let idMainCarrier = 0
                         if (!_.isEmpty(data.magaya__MainCarrier)) {
+                            console.log("Carrier", data.magaya__MainCarrier)
                             let carriersValues = $("select[name=magaya__MainCarrier] option")
                             idMainCarrier = data.magaya__MainCarrier.id
                             $.map(carriersValues, function(k, v) {
