@@ -330,7 +330,9 @@ $(document).ready(function(){
     let accountQuoteData = storeAccounts.getState().quoteAccount
     let dealQuoteData = storeDeal.getState().dealQuote[0]
     let accountQuote = accountQuoteData['id']
-    let dealQuote = dealQuoteData.id
+    let dealQuote = ""
+    if (!_.isEmpty(dealQuote))
+        dealQuote = dealQuoteData.id
     //receipt fields
     if (accountId <= 0)
         throw new UserException('Mandatory data not found: Client Quote is not defined');
@@ -453,7 +455,6 @@ $(document).ready(function(){
                             APIData: recordData
                         }
 
-                        console.log(updatemQuoteRouting)
                         ZOHO.CRM.API.updateRecord(updatemQuoteRouting)
                             .then(function(data) {
                                 console.log("New Data routing", data)
