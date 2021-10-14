@@ -17,6 +17,13 @@ $(document).ready(function(){
             //$("input[name=Owner]").val(data.users[0].full_name)
         })
 
+        ZOHO.CRM.API.getAllUsers({Type:"ActiveUsers"})
+            .then(function(data){
+                let activeUsers = data.users
+                $.map(activeUsers, function(k, v) {
+                    $(`<option value='${k.id}'>${k.full_name}</option>`).appendTo("select[name=Owner]")
+                })
+            })
         //Las 100 primeras mQuotes
         ZOHO.CRM.API.getAllRecords({Entity:"magaya__SQuotes",sort_order:"desc",per_page:150,page:page})
             .then(function(data){
