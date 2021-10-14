@@ -47,6 +47,8 @@ a {
     padding-bottom: 2px;
 }
 
+
+
 </style>
 
 
@@ -693,7 +695,7 @@ a {
                                     <div class="table-responsive">
                                         <div id="info-charge"></div>
                                         <table id="table-charges" class="table table-bordered table-striped">
-											<thead>
+											<thead style="text-align:center;">
                                                 <tr>
                                                     <th style="width:10%"></th>
 													<th style="width:10%">Status</th>
@@ -836,8 +838,8 @@ a {
                                     </div>
 
 
-										<table id="table-items" class="table table-striped" style="width:100%;">
-											<thead>
+										<table id="table-items" class="table table-striped" style="width:100%;border: 1px solid #dee2e6;">
+											<thead style="text-align:center;">
 												<tr>
                                                     <th style="width:9%"></th>
                                                     <th style="width:23%">Description</th>
@@ -853,7 +855,7 @@ a {
                                            <tfoot></tfoot>
 										</table>
 
-                                        <table id="table-items-new" class="table table-striped" style="width:100%;">
+                                        <table id="table-items-new" class="table table-striped" style="width:100%;border: 1px solid #dee2e6;">
 											<thead>
 												<tr>
                                                     <th style="width:9%"></th>
