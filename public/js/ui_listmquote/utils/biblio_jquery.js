@@ -619,6 +619,76 @@ function buildXmlCharge(charges, data_account) {
 }
 
 
+
+async function checkConnect() {
+    config = await getMagayaVariables()
+
+    const endpoint = `https://zohomagaya.herokuapp.com/ping?url=${config.magaya_url}`;
+    fetch(endpoint, {
+        method: 'POST',
+        headers: new Headers({
+            //'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        if (data.error == false)
+        {
+            //pintar el boton verde
+            $("#magaya_link").html(`<span class="material-icons md-24 btn btn-success float-right" style="background: none;border: none;">link</span>`)
+        }
+        else
+        {
+            //poner el boton para login
+            $("#magaya_link").html(`<span class="material-icons md-24 startSession btn btn-primary float-right">link_off</span>`)
+
+        }
+        console.log("From endpoint", data)
+    })
+    .catch(err => {
+        console.warn("error", err)
+    })
+
+}
+
+
+async function startSession() {
+    config = await getMagayaVariables()
+
+    data = {
+        method: 'StartSession',
+        data: [
+            config.magaya_user,
+            config.magaya_pass
+        ],
+        url: config.magaya_url
+    }
+
+    MagayaAPI.sendRequest(data, function(result) {
+        //console.log(result)
+        if (result.error) {
+
+            Swal.fire({
+                title: result.error,
+                text: result.data,
+                icon: 'error'
+            })
+        } else {
+
+            Swal.fire({
+                title: 'Success',
+                text: 'Operation success',
+                icon: 'success',
+                allowOutsideClick: false
+            })
+
+        } //else
+
+    }) //magaya api*/
+}
+
+
 async function sendmQuote(mquote, idQuote) {
     config = await getMagayaVariables()
 
@@ -805,17 +875,20 @@ function ping(host, port, pong) {
     http.open("GET", "http://" + host + ":" + port, /*async*/ true);
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
+            console.log("readystate")
             var ended = new Date().getTime();
 
             var milliseconds = ended - started;
 
             if (pong != null) {
+                console.log(" POMG ")
                 pong(milliseconds);
             }
         }
     };
     try {
         http.send(null);
+        console.log("all ok")
     } catch (exception) {
         console.log("Execption")
             // this is expected
@@ -829,6 +902,7 @@ function getFormData($form) {
     var indexed_array = {};
 
     $.map(unindexed_array, function(n, i) {
+        n['value'] = n['value'].replace(/[,]/g, '')
         if (isNaN(n['value'])) {
             indexed_array[n['name']] = sanitize(n['value']);
         } else {
@@ -1235,7 +1309,6 @@ function buildPdfItems(items) {
 
     return data
 }
-
 
 
 /*async function getRelatedCharges(idQuote) {

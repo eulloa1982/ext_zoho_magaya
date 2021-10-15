@@ -30,7 +30,6 @@ class MagayaAPI extends \SoapClient implements MagayaAPIInterface
         @set_exception_handler(array($this, 'exceptionHandler'));
 
         $url_handler = $url."/Invoke?Handler=CSSoapService";
-        //$url_handler = "http://98.211.167.16:3691/Invoke?Handler=CSSoapService";
         $url_soap = $url."/CSSoapService?wsdl";
 
         $options = [

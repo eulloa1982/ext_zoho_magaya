@@ -38,13 +38,13 @@ storeItem.subscribe(() => {
                     if (v !== "magaya__Pieces")
 
                     k = roundDec(k).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-                    input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}"/>`
+                    input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" autocomplete="off"/>`
 
 
                 } else if (_.get(ITEMS_FIELDS, [v, 'type']) === "textarea") {
                     input = `<textarea class='form-control ${no_border}' name="${v}" id="${v}">${k}</textarea>`
                 } else {
-                    input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}"/>`
+                    input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" autocomplete="off"/>`
 
                 }
 
@@ -148,15 +148,15 @@ storeItem.subscribe(() => {
                 <td class='magaya__Package_Description'>${sanitize(k.magaya__Package_Description)}</td>
                 <td align="right" class="magaya__Pieces">${k.magaya__Pieces}</td>
                 <td align="right" class="magaya__Length">${roundDec(k.magaya__Length).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-                <td class="NoData" align="left"><strong>${measure_length}</td>
+                <td class="NoData" align="left">${measure_length}</td>
                 <td align="right" class="magaya__Height">${roundDec(k.magaya__Height).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-                <td class="NoData" align="left"><strong>${measure_length}</td>
+                <td class="NoData" align="left">${measure_length}</td>
                 <td align="right" class="magaya__Width">${roundDec(k.magaya__Width).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-                <td class="NoData" align="left"><strong>${measure_length}</td>
+                <td class="NoData" align="left">${measure_length}</td>
                 <td align="right" class="magaya__Weigth">${roundDec(k.magaya__Weigth * k.magaya__Pieces).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-                <td class="NoData" align="left"><strong>${measure_weigth}</td>
+                <td class="NoData" align="left">${measure_weigth}</td>
                 <td align="right" class="magaya__Volume">${roundDec(k.magaya__Volume * k.magaya__Pieces).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-                <td class="NoData" align="left"><strong>${measure_volume}</td>
+                <td class="NoData" align="left">${measure_volume}</td>
 
                 <td class="magaya__Status" style="display: none;">InQuote</td>
                 <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>

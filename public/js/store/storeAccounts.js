@@ -85,7 +85,7 @@ function reducerAccounts (state = initialStateAccount, actions)  {
         }
 
         case FIND_CONTACT_OF_ACCOUNT: {
-            let accountId = actions.payload.id;
+            const accountId = actions.payload.id;
             newR = state.contacts
             ass = []
             $.map(newR, function(k, v) {

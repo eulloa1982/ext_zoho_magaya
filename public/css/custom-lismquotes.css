@@ -120,14 +120,16 @@ input:active {
 
 #table-items td, #table-items-new th{
     border: 1px solid #dee2e6;
+    padding-right: 0px;
+    padding-left: 2px;
 }
 
-.table td, .table th{
+/*.table td, .table th{
     padding-right: 0px;
     padding-left: 2px;
 
 }
-
+*/
 
 
 

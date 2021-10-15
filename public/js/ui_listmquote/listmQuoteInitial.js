@@ -175,14 +175,14 @@ $(document).ready(function(){
             localStorage.setItem('organization', JSON.stringify(orgData))
         });
 
+        checkConnect()
 
-
+        checkConnect()
 
     });
 
 
     ZOHO.embeddedApp.init()
-
 /*}
 catch {
     console.log("Error")

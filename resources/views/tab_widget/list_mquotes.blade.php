@@ -89,6 +89,8 @@ a {
 
                                     <div class="col-md-2" style="padding: 5px 0px;">
 								 		<div class="btn-group">
+                                            <span id="magaya_link"></span>
+                                            <!--button type="button" class="btn btn-primary startSession" style="margin-right: 20px; font-weight: bold;">Start</button-->
 									 		<button type="button" class="btn btn-primary addMquote" style="margin-right: 20px; font-weight: bold;">Add</button>
 
 			 								<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
@@ -516,6 +518,7 @@ a {
                                     <div class="row" style="margin-bottom:20px;">
                                         <div class="col-md-4">
                                             <div class="row" style="margin-bottom:10px;"></div>
+                                            <label class="col-md-12" style="font-weight: bold;"> &nbsp;</label>
                                             <label class="col-md-12" style="font-weight: bold;">Representative</label>
                                             <select name="magaya__Representative" class="form-control no-border">
                                                 <option></option>
@@ -537,8 +540,8 @@ a {
                                             <div class="row" style="margin-bottom:10px;"></div>
                                             <div class="row" style="margin-bottom:20px;">
                                                 <div class="col-md-6">
-                                                    <label class="col-md-12" style="font-weight: bold;">Billing Address</label>
-                                                    <br /><br/>
+                                                   <label class="col-md-12" style="font-weight: bold;">Billing Address</label>
+                                                    
                                                     <label class="col-md-12" style="font-weight: bold;"> Street</label>
                                                     <input type="text" name="Mailing_Street" class="form-control no-border">
                                             		<div class="row" style="margin-bottom:10px;"></div>

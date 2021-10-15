@@ -22,9 +22,8 @@
             let idCharge = $(this).attr('data-id')
             //add a change counter
             store.dispatch(addActionEdited())
-            //Utils.blockUI();
+            Utils.blockUI();
             let a = $(".edit-record").serializeArray();
-            console.log(a)
             let charge = {}
             $.each(a, function() {
                 if (charge[this.name]) {
@@ -35,11 +34,11 @@
                 } else {
                     //if (this.name !== "Name" && this.name !== "id" && this.name !== "magaya__SQuote_Name" && this.name !== "magaya__ChargeCode" && this.name !== "magaya__ChargeCurrency" && this.name !== "magaya__Paid_As" && this.name !== "magaya__Status")
                     if ($.isNumeric(this.value)) {
-                        this.value = this.value.replace(',', '')
+                        this.value = this.value
                         charge[this.name] = Number(this.value)
                     }
                     else {
-                        this.value = this.value.replace(',', '')
+                        this.value = this.value.replace(/[,]/g, '')
                         charge[this.name] = sanitize(this.value) || '';
                     }
                 }
@@ -76,7 +75,7 @@
                             ZOHO.CRM.API.getRecord({Entity:"magaya__ChargeQuote",RecordID:idCharge})
                                 .then(function(data){
                                     record = data.data;
-
+                                    Utils.unblockUI()
                                     $.map(record, function(k, v){
                                         storeCharge.dispatch(updateCharge({...k}))
                                     })
@@ -96,7 +95,7 @@
                     field = "oldValue";
                     module = 'Service Items'
                     storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
+                    Utils.unblockUI()
                 })
 
                 $("#panel").animate({width:'toggle'},150);
