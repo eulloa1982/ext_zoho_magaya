@@ -83,7 +83,6 @@ $(document).ready(function(){
             storeQuote.dispatch(clearQuoteToEdit())
 
             let idmQuote = $(this).attr('data-id')
-
             let pdf = make_pdf(idmQuote);
 
         })

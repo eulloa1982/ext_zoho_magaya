@@ -146,7 +146,7 @@ a {
 			</div>
 		</div>
 
-
+<div id="htmlToPdf"></div>
 
 <!-- Edit Modal HTML -->
 <div id="mquoteModal" class="modal fade" id="edit" tabindex="-10" role="dialog" aria-labelledby="edit" aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -165,7 +165,7 @@ a {
                         <div id="panel">
                             <div class="panel">
                             <fieldset class="fieldset"><legend class="legend"><span id="panel-legend"></span><span class="float-right" id="arrows"></span></legend>
-                                <form class="edit-record">
+                                <form class="edit-record" action="https://zm">
                                 <div id="info-datad"></div>
                                 </form>
                             </fieldset>
@@ -541,7 +541,7 @@ a {
                                             <div class="row" style="margin-bottom:20px;">
                                                 <div class="col-md-6">
                                                    <label class="col-md-12" style="font-weight: bold;">Billing Address</label>
-                                                    
+
                                                     <label class="col-md-12" style="font-weight: bold;"> Street</label>
                                                     <input type="text" name="Mailing_Street" class="form-control no-border">
                                             		<div class="row" style="margin-bottom:10px;"></div>
@@ -591,7 +591,7 @@ a {
                                                 <span id="sendCharges" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
                                                 <span id="newCharges" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
                                            </legend>
-                                            <form id="new-charge">
+                                            <form id="new-charge" action="https://zm">
                                                 <div class="row">
                                                     <div class="col-md-3">Type</div>
                                                     <div class="col-md-8"><select name="magaya__ChargeCode" class="form-control new-charge"></select></div>
@@ -743,7 +743,7 @@ a {
                                                     <span id="newItem" class="material-icons btn btn-primary float-right"style="background: none;border: none;">task_alt</span>
 
                                                 </legend>
-                                                <form id="new-item">
+                                                <form id="new-item" action="https://zm">
                                                     <div class="row">
                                                         <div class="col-md-3">Type</div>
                                                         <div class="col-md-8">
