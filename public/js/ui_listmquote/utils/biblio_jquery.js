@@ -623,7 +623,7 @@ function buildXmlCharge(charges, data_account) {
 async function checkConnect() {
     config = await getMagayaVariables()
 
-    const endpoint = `https://zohomagaya.herokuapp.com/ping?url=${config.magaya__url}`;
+    const endpoint = `https://zohomagaya.herokuapp.com/ping?url=${config.magaya_url}`;
     fetch(endpoint, {
         method: 'POST',
         headers: new Headers({
@@ -633,6 +633,17 @@ async function checkConnect() {
     })
     .then((response) => response.json())
     .then((data) => {
+        if (data.error == false)
+        {
+            //pintar el boton verde
+            $("#magaya_link").html(`<span class="material-icons md-24 btn btn-success float-right" style="background: none;border: none;">link</span>`)
+        }
+        else
+        {
+            //poner el boton para login
+            $("#magaya_link").html(`<span class="material-icons md-24 startSession btn btn-primary float-right">link_off</span>`)
+
+        }
         console.log("From endpoint", data)
     })
     .catch(err => {
