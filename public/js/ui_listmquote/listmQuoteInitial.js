@@ -175,6 +175,7 @@ $(document).ready(function(){
             localStorage.setItem('organization', JSON.stringify(orgData))
         });
 
+        checkConnect()
 
 
 
@@ -182,7 +183,6 @@ $(document).ready(function(){
 
 
     ZOHO.embeddedApp.init()
-
 /*}
 catch {
     console.log("Error")
