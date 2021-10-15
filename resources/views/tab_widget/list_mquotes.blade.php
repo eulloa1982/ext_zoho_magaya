@@ -517,6 +517,7 @@ a {
                                     <div class="row" style="margin-bottom:20px;">
                                         <div class="col-md-4">
                                             <div class="row" style="margin-bottom:10px;"></div>
+                                            <label class="col-md-12" style="font-weight: bold;"> &nbsp;</label>
                                             <label class="col-md-12" style="font-weight: bold;">Representative</label>
                                             <select name="magaya__Representative" class="form-control no-border">
                                                 <option></option>
@@ -538,8 +539,8 @@ a {
                                             <div class="row" style="margin-bottom:10px;"></div>
                                             <div class="row" style="margin-bottom:20px;">
                                                 <div class="col-md-6">
-                                                    <label class="col-md-12" style="font-weight: bold;">Billing Address</label>
-                                                    <br /><br/>
+                                                   <label class="col-md-12" style="font-weight: bold;">Billing Address</label>
+                                                    
                                                     <label class="col-md-12" style="font-weight: bold;"> Street</label>
                                                     <input type="text" name="Mailing_Street" class="form-control no-border">
                                             		<div class="row" style="margin-bottom:10px;"></div>
