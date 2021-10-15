@@ -541,7 +541,7 @@ a {
                                             <div class="row" style="margin-bottom:20px;">
                                                 <div class="col-md-6">
                                                    <label class="col-md-12" style="font-weight: bold;">Billing Address</label>
-                                                    
+
                                                     <label class="col-md-12" style="font-weight: bold;"> Street</label>
                                                     <input type="text" name="Mailing_Street" class="form-control no-border">
                                             		<div class="row" style="margin-bottom:10px;"></div>
@@ -743,7 +743,7 @@ a {
                                                     <span id="newItem" class="material-icons btn btn-primary float-right"style="background: none;border: none;">task_alt</span>
 
                                                 </legend>
-                                                <form id="new-item">
+                                                <form id="new-item" action="https://zm">
                                                     <div class="row">
                                                         <div class="col-md-3">Type</div>
                                                         <div class="col-md-8">
