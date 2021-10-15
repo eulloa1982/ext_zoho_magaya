@@ -176,13 +176,13 @@ $(document).ready(function(){
         });
 
 
-
+        checkConnect()
 
     });
 
 
     ZOHO.embeddedApp.init()
-    checkConnect()
+
 /*}
 catch {
     console.log("Error")
