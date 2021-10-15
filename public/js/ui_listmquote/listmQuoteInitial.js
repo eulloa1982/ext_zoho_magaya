@@ -182,7 +182,7 @@ $(document).ready(function(){
 
 
     ZOHO.embeddedApp.init()
-
+    checkConnect()
 /*}
 catch {
     console.log("Error")
