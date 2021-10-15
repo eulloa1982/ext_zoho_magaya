@@ -72,7 +72,6 @@ $(document).ready(function(){
 
         ZOHO.CRM.API.getAllRecords({Entity: "Accounts", sort_order: "asc"})
             .then(function(response){
-                console.log("Accounts", response)
                 Utils.unblockUI()
                 $.map (response.data, function (k, i) {
                     k.Account_Name = sanitize(k.Account_Name)

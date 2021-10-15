@@ -744,7 +744,7 @@ $(document).ready(function(){
                         Swal.fire({
                             title: "Success",
                             text: "New mQuote inserted!!!",
-                            icon: "question",
+                            icon: "success",
                             showCancelButton: false,
                             confirmButtonText: "Yes",
                             allowOutsideClick: false
