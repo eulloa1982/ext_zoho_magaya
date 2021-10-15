@@ -47,6 +47,18 @@ a {
     padding-bottom: 2px;
 }
 
+.table-items td, .table-items-new th{
+    border: 1px solid #dee2e6;
+    padding-right: 0px;
+    padding-left: 2px;
+}
+
+.table-items-new td {
+    border: 1px solid #dee2e6;
+    padding-right: 0px;
+    padding-left: 2px;
+}
+
 
 
 </style>
@@ -89,8 +101,6 @@ a {
 
                                     <div class="col-md-2" style="padding: 5px 0px;">
 								 		<div class="btn-group">
-                                            <span id="magaya_link"></span>
-                                            <!--button type="button" class="btn btn-primary startSession" style="margin-right: 20px; font-weight: bold;">Start</button-->
 									 		<button type="button" class="btn btn-primary addMquote" style="margin-right: 20px; font-weight: bold;">Add</button>
 
 			 								<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
@@ -146,7 +156,7 @@ a {
 			</div>
 		</div>
 
-<div id="htmlToPdf"></div>
+
 
 <!-- Edit Modal HTML -->
 <div id="mquoteModal" class="modal fade" id="edit" tabindex="-10" role="dialog" aria-labelledby="edit" aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -165,7 +175,7 @@ a {
                         <div id="panel">
                             <div class="panel">
                             <fieldset class="fieldset"><legend class="legend"><span id="panel-legend"></span><span class="float-right" id="arrows"></span></legend>
-                                <form class="edit-record" action="https://zm">
+                                <form class="edit-record">
                                 <div id="info-datad"></div>
                                 </form>
                             </fieldset>
@@ -541,15 +551,11 @@ a {
                                             <div class="row" style="margin-bottom:20px;">
                                                 <div class="col-md-6">
                                                    <label class="col-md-12" style="font-weight: bold;">Billing Address</label>
-
+                                                    
                                                     <label class="col-md-12" style="font-weight: bold;"> Street</label>
                                                     <input type="text" name="Mailing_Street" class="form-control no-border">
-                                            		<div class="row" style="margin-bottom:10px;"></div>
-                                                    <!--<div class="form-group">
-                                                        <input type="text" name="Mailing_Street" class="form-control" style="height: 60px; word-break: break-word;"/>
-                                                        textarea rows="2" class="form-control"></textarea
-                                                    </div>-->
-                                                    <div class="row" style="margin-bottom:20px;">
+                                                    <div class="row" style="margin-bottom:10px;"></div>
+                                                    <div class="row" style="margin-bottom:10px;">
                                                         <div class="col-md-6" >
                                                             <label class="col-md-12" style="width: 100%; font-weight: bold;">City</label>
                                                             <input type="text" name="Mailing_City" class="form-control">
@@ -591,7 +597,7 @@ a {
                                                 <span id="sendCharges" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
                                                 <span id="newCharges" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
                                            </legend>
-                                            <form id="new-charge" action="https://zm">
+                                            <form id="new-charge">
                                                 <div class="row">
                                                     <div class="col-md-3">Type</div>
                                                     <div class="col-md-8"><select name="magaya__ChargeCode" class="form-control new-charge"></select></div>
@@ -743,7 +749,7 @@ a {
                                                     <span id="newItem" class="material-icons btn btn-primary float-right"style="background: none;border: none;">task_alt</span>
 
                                                 </legend>
-                                                <form id="new-item" action="https://zm">
+                                                <form id="new-item">
                                                     <div class="row">
                                                         <div class="col-md-3">Type</div>
                                                         <div class="col-md-8">
@@ -824,7 +830,7 @@ a {
 
 
 										<table id="table-items" class="table table-striped" style="width:100%;border: 1px solid #dee2e6;">
-											<thead style="text-align:center;">
+											<thead>
 												<tr>
                                                     <th style="width:9%"></th>
                                                     <th style="width:23%">Description</th>
@@ -841,10 +847,11 @@ a {
 										</table>
 
                                         <table id="table-items-new" class="table table-striped" style="width:100%;border: 1px solid #dee2e6;">
-											<thead>
+											<thead style="text-align: center;">
 												<tr>
+
                                                     <th style="width:9%"></th>
-                                                    <th style="width:23%">Description</th>
+                                                    <th style="width:23%">Description </th>
 													<th style="width:8%">Pieces</th>
 													<th colspan="2" style="width:12%">Length</th>
                                                     <th colspan="2" style="width:12%">Heigth</th>
