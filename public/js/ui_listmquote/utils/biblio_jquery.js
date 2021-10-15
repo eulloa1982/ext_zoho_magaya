@@ -636,12 +636,12 @@ async function checkConnect() {
         if (data.error == false)
         {
             //pintar el boton verde
-            $("#magaya_link").html(`<span class="material-icons md-18 btn btn-success float-right" style="background: none;border: none;">link</span>`)
+            $("#magaya_link").html(`<span class="material-icons md-24 btn btn-success float-right" style="background: none;border: none;">link</span>`)
         }
         else
         {
             //poner el boton para login
-            $("#magaya_link").html(`<span class="material-icons md-18 startSession btn btn-primary float-right">link_off</span>`)
+            $("#magaya_link").html(`<span class="material-icons md-24 startSession btn btn-primary float-right">link_off</span>`)
 
         }
         console.log("From endpoint", data)
