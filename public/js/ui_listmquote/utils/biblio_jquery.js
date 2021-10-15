@@ -1010,6 +1010,9 @@ function buildPdfHeader(orgData, quoteToEdit) {
         expire_date = quoteToEdit["magaya__ExpirationDate"] !== null ? new Date(quoteToEdit["magaya__ExpirationDate"]).toISOString().split('T')[0] : "";
         if (!_.isEmpty(orgData["website"]))
             none = orgData["website"];
+        let nameAccount = !_.isEmpty(quoteToEdit["Account"])  ? quoteToEdit["Account"]["name"] : ""
+        let representative = !_.isEmpty(quoteToEdit["magaya__Representative"]) ? quoteToEdit["magaya__Representative"]["name"] : ""
+
         data = `<div class="container">
                     <table class="container" cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
                         <tr>
@@ -1057,13 +1060,13 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                         <td style="background-color: lightskyblue;">
                                             Customer</td>
                                         <td>
-                                            ${quoteToEdit["Account"]["name"]}</td>
+                                            ${nameAccount}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
                                             Representative</td>
                                         <td>
-                                            ${quoteToEdit["magaya__Representative"]["name"]}</td>
+                                            ${representative}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
