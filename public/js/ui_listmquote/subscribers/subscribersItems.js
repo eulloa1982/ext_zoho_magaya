@@ -38,13 +38,13 @@ storeItem.subscribe(() => {
                     if (v !== "magaya__Pieces")
 
                     k = roundDec(k).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-                    input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}"/>`
+                    input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" autocomplete="off"/>`
 
 
                 } else if (_.get(ITEMS_FIELDS, [v, 'type']) === "textarea") {
                     input = `<textarea class='form-control ${no_border}' name="${v}" id="${v}">${k}</textarea>`
                 } else {
-                    input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}"/>`
+                    input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" autocomplete="off"/>`
 
                 }
 
