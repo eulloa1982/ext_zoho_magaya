@@ -80,7 +80,7 @@
     <script src="{{ url('js/utils/magaya_api.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('js/utils/utils.js', $extra = [], $secure = 1) }}"></script>
 
-    <script type="text/javascript" src="{{ url('js/ui_listmquote/listToolsInitial.js', $extra = [], $secure = 1) }}"></script>
+    <!--script type="text/javascript" src="{{ url('js/ui_listmquote/listToolsInitial.js', $extra = [], $secure = 1) }}"></script-->
     <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteInitial.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('js/errors_handlers/errors.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('js/store/constants.js', $extra = [], $secure = 1) }}"></script>
