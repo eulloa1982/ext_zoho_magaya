@@ -89,7 +89,8 @@ a {
 
                                     <div class="col-md-2" style="padding: 5px 0px;">
 								 		<div class="btn-group">
-                                            <button type="button" class="btn btn-primary startSession" style="margin-right: 20px; font-weight: bold;">Start</button>
+                                            <span id="magaya_link"></span>
+                                            <!--button type="button" class="btn btn-primary startSession" style="margin-right: 20px; font-weight: bold;">Start</button-->
 									 		<button type="button" class="btn btn-primary addMquote" style="margin-right: 20px; font-weight: bold;">Add</button>
 
 			 								<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">

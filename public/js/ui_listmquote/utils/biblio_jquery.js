@@ -633,6 +633,17 @@ async function checkConnect() {
     })
     .then((response) => response.json())
     .then((data) => {
+        if (data.error == false)
+        {
+            //pintar el boton verde
+            $("#magaya_link").html(`<span class="material-icons">link</span>`)
+        }
+        else
+        {
+            //poner el boton para login
+            $("#magaya_link").html(`<span class="material-icons startSession">link_off</span>`)
+
+        }
         console.log("From endpoint", data)
     })
     .catch(err => {
