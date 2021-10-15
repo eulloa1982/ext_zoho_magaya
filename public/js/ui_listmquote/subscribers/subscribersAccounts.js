@@ -22,7 +22,6 @@ storeAccounts.subscribe(() => {
         $("select[name=magaya__Representative]").empty();
         $("<option></option>").appendTo("select[name=magaya__Representative]");
         $.map(contacts, function(k, v) {
-            console.log(k.id, k.Full_Name)
             $(`<option value="${k.id}">${k.Full_Name}</option>`).appendTo("select[name=magaya__Representative]")
         })
     } else {

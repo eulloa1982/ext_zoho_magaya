@@ -284,7 +284,6 @@ $(document).ready(function(){
 
             //representative
             if (!_.isEmpty(quoteToEdit["magaya__Representative"])) {
-                console.log("Representative", quoteToEdit["magaya__Representative"])
                 //$("select[name=magaya__Representative]").empty()
                 let idContact = quoteToEdit["magaya__Representative"]["id"];
                 let nameContact = sanitize(quoteToEdit["magaya__Representative"]["name"]);
@@ -424,7 +423,6 @@ $(document).ready(function(){
                         let data = response.data[0]
                         let idMainCarrier = 0
                         if (!_.isEmpty(data.magaya__MainCarrier)) {
-                            console.log("Carrier", data.magaya__MainCarrier)
                             let carriersValues = $("select[name=magaya__MainCarrier] option")
                             idMainCarrier = data.magaya__MainCarrier.id
                             $.map(carriersValues, function(k, v) {
