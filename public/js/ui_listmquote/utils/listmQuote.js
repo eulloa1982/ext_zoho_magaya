@@ -236,6 +236,7 @@ $(document).ready(function(){
 
             quoteToEdit = [];
             limpiar_form()
+            storeAccounts.dispatch(emptySingleContact())
             //dispatch
             storeQuote.dispatch(findQuote({id: idmQuoteToEdit}))
 
@@ -254,6 +255,17 @@ $(document).ready(function(){
             })
             $("input[name=NameQuote]").val(quoteToEdit.Name)
 
+            let owner = quoteToEdit.Owner.id
+            let ownerName = quoteToEdit.Owner.name
+            let ownerValues = $("select[name=Owner] option")
+            $.map(ownerValues, function(k, v) {
+                if (k.value === owner) {
+                    $(`select[name=Owner] option:contains(${k.text})`).prop('selected', true);
+                    $(`select[name=Owner]`).change()
+                } else {
+                    $(`select[name=Owner]`).prop('selected', false)
+                }
+            })
             //campos q son objetos
             //transportation mode
             /*if (!_.isEmpty(quoteToEdit['magaya__TransportationMode'])) {
@@ -263,19 +275,32 @@ $(document).ready(function(){
 
             //account, cliente de la cotizacion
             if (!_.isEmpty(quoteToEdit["Account"])) {
-                let id = quoteToEdit["Account"]["id"];
-                let client = sanitize(quoteToEdit["Account"]["name"]);
+                const id = quoteToEdit["Account"]["id"];
+                const client = sanitize(quoteToEdit["Account"]["name"]);
                 $("<option value='" + id + "' selected>" + client + "</option>").appendTo("select[name=Account]");
+                storeAccounts.dispatch(findContactOfAccount({id: id}))
                 //$("select[name=Account]").val(id)
             }
 
             //representative
             if (!_.isEmpty(quoteToEdit["magaya__Representative"])) {
-                $("select[name=magaya__Representative]").empty()
+                console.log("Representative", quoteToEdit["magaya__Representative"])
+                //$("select[name=magaya__Representative]").empty()
                 let idContact = quoteToEdit["magaya__Representative"]["id"];
                 let nameContact = sanitize(quoteToEdit["magaya__Representative"]["name"]);
                 storeAccounts.dispatch(findContact({id: idContact}));
-                $(`<option value="${idContact}" selected>${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
+                //get values
+                let contactValues = $("select[name=magaya__Representative] option")
+                $.map(contactValues, function(k, v) {
+                    if (k.value === idContact) {
+                        $(`select[name=magaya__Representative] option:contains(${k.text})`).prop('selected', true);
+                        $(`select[name=magaya__Representative]`).change()
+                    } else {
+                        $(`select[name=magaya__Representative]`).prop('selected', false);
+
+                    }
+                })
+                //$(`<option value="${idContact}" selected>${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
             }
 
             //deal en la cotizacion
@@ -485,7 +510,6 @@ $(document).ready(function(){
                 //service items
                 ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idmQuoteToEdit, RelatedList: "Notes", page: 1, per_page: 200 })
                     .then(function(response) {
-                        console.log(response.data)
                     })
 
                 $("#mquoteModal").modal("show")

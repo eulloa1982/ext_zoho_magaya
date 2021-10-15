@@ -17,6 +17,7 @@ class APIController extends Controller
     {
         $url = $request->get('url');
         $this->magayaApi = new MagayaAPI($url);
+
     }
 
     public function execMethod(Request $request)
@@ -62,11 +63,10 @@ class APIController extends Controller
         $result = $this->magayaApi->SetEntity($access_key, 524288, $XML);
         $customer_data = '';
 
-        print_r($XML);
-        print_r($result);
+        //print_r($XML);
+       // print_r($result);
 
         if (!$result['error'] || $result['error'] != 1) {
-            echo "No error";
             //find customer by email
             //check the type of entity to change the method
             /*if (strcasecmp("EntityContact", $typeEntity)) {
@@ -107,27 +107,10 @@ class APIController extends Controller
             return $customer_guid;
 
         } else {
-            echo "Error";
+            //echo "Error";
             return false;
         }
     }
-
-
-    /*
-    *get working ports en Magaya
-    *
-    *endpoint getPorts
-    * work in progress
-    */
-    /*public function GetWorkingPorts(Request $request) :array
-    {
-
-        $result = $this->magayaApi->GetWorkingPorts();
-        print_r($result);
-        return [
-            'data' => simplexml_load_string($result['ports_list_xml'])
-        ];
-    }*/
 
 
     /*

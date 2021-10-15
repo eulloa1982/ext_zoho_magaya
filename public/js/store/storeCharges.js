@@ -175,29 +175,6 @@ function reducerCharge (state = initialStateCharge, actions)  {
         }
 
 
-        /*case SET_AMOUNT_ON_NEW: {
-            //const index = actions.payload.id;
-            const field = actions.payload.field;
-            const value = actions.payload.value;
-            const index = state.singleCharge[0];
-            //state.singleCharge = initialStateCharge.singleCharge
-            newArray = state.chargesOnNew[index];
-            newArray[field] = value
-            //calculate amount
-            let amount = parseFloat(newArray['magaya__Price']) * parseFloat (newArray['magaya__CQuantity']);
-            newArray['magaya__Amount'] = roundDec(amount)
-            //calculate amount tax
-            let amount_tax = (newArray['magaya__Amount'] / 100) * parseFloat (newArray['magaya__TaxRate'])
-            newArray['magaya__Tax_Amount'] = roundDec(amount_tax)
-            let amount_total = amount + amount_tax;
-            newArray["magaya__Amount_Total"] = roundDec(amount_total)
-            return {
-                ...state,
-                singleCharge: [index, newArray]
-            }
-        }*/
-
-
         case UPDATE_CHARGE_ON_NEW : {
             const field = actions.payload.field;
             const value = actions.payload.value;
@@ -228,7 +205,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray['magaya__Amount'] = amount.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             newArray['magaya__Tax_Amount'] = amount_tax.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             newArray['magaya__Amount_Total'] = amount_total.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray['magaya__Price'] = price.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            //newArray['magaya__Price'] = price.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
             //calculate amount tax
             //let amount_tax = (newArray['magaya__Amount'] / 100) * roundDec (newArray['magaya__TaxRate'])
