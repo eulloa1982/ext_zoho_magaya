@@ -146,7 +146,7 @@ a {
 			</div>
 		</div>
 
-
+<div id="htmlToPdf"></div>
 
 <!-- Edit Modal HTML -->
 <div id="mquoteModal" class="modal fade" id="edit" tabindex="-10" role="dialog" aria-labelledby="edit" aria-hidden="true" data-backdrop="static" data-keyboard="false">
