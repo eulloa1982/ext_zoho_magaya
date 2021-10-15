@@ -165,7 +165,7 @@ a {
                         <div id="panel">
                             <div class="panel">
                             <fieldset class="fieldset"><legend class="legend"><span id="panel-legend"></span><span class="float-right" id="arrows"></span></legend>
-                                <form class="edit-record">
+                                <form class="edit-record" action="https://zm">
                                 <div id="info-datad"></div>
                                 </form>
                             </fieldset>
@@ -591,7 +591,7 @@ a {
                                                 <span id="sendCharges" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
                                                 <span id="newCharges" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
                                            </legend>
-                                            <form id="new-charge">
+                                            <form id="new-charge" action="https://zm">
                                                 <div class="row">
                                                     <div class="col-md-3">Type</div>
                                                     <div class="col-md-8"><select name="magaya__ChargeCode" class="form-control new-charge"></select></div>
