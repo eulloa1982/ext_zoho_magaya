@@ -27,13 +27,25 @@ $("select[name=magaya__TransportationMode]").change(function(e) {
 $("select[name=Account]").change(function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
+    //storeAccounts.dispatch(emptySingleContact())
+    $("select[name=magaya__Representative]").empty();
     store.dispatch(addActionEdited())
 
-    storeAccounts.dispatch(emptySingleContact())
+    //storeAccounts.dispatch(emptySingleContact())
     //$("input[id=rol_shipper]").prop("checked", false)
     let account = $("select[name=Account]").val();
     storeAccounts.dispatch(addQuoteAccount({id: account}))
     storeAccounts.dispatch(findContactOfAccount({id: account}))
+    //deberia vaciar todo con emptySingleContact (BUG -- No cambia el valor del account)
+
+    $("input[name=Phone]").val("")
+    $("input[name=Mobile]").val("")
+    $("input[name=Email]").val("")
+    $("input[name=Mailing_Street]").val("")
+    $("input[name=Mailing_City]").val("")
+    $("input[name=Mailing_State]").val("")
+    $("input[name=Mailing_Country]").val("")
+    $("input[name=Mailing_Zip]").val("")
 
 })
 

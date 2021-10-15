@@ -9,20 +9,33 @@ storeAccounts.subscribe(() => {
     //fill data address in quote
     if (!_.isEmpty(accountQuote)) {
         $("select[name=Account]").val(accountQuote.id)
+        $("input[name=applyToName]").val(accountQuote.Account_Name)
     }
 
     //select rigth one on list
    // console.log("Id account in quote edit", accountQuote.id)
    let contacts = u.contactList;
-   $("select[name=magaya__Representative]").empty();
-   $("<option></option>").appendTo("select[name=magaya__Representative]");
-
-   $.map(contacts, function(k, v) {
-       $(`<option value="${k.id}">${k.Full_Name}</option>`).appendTo("select[name=magaya__Representative]")
-   })
-
    let contact = u.singleContact
+
+
+    if (!_.isEmpty(contacts)) {
+        $("select[name=magaya__Representative]").empty();
+        $("<option></option>").appendTo("select[name=magaya__Representative]");
+        $.map(contacts, function(k, v) {
+            console.log(k.id, k.Full_Name)
+            $(`<option value="${k.id}">${k.Full_Name}</option>`).appendTo("select[name=magaya__Representative]")
+        })
+    } else {
+        $("select[name=magaya__Representative]").empty();
+    }
+
+
    if (!_.isEmpty(contact)) {
+       //console.log("Contact single", contact)
+       //let contactValues = $("select[name=magaya__Representative] option")
+
+        //$("select[name=magaya__Representative]").empty();
+        //$("<option></option>").appendTo("select[name=magaya__Representative]");
        let idContact = contact[0]["id"];
        $("select[name=magaya__Representative]").val(idContact)
 
@@ -33,6 +46,9 @@ storeAccounts.subscribe(() => {
             }
         })
     } else {
+        //storeAccounts.dispatch(emptySingleContact())
+        /*console.log(" No hay contact sinfle")*/
+        //$("select[name=magaya__Representative]").empty();
         $("input[name=Phone]").val("")
         $("input[name=Mobile]").val("")
         $("input[name=Email]").val("")

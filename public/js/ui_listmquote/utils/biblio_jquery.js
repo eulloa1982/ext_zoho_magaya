@@ -829,6 +829,7 @@ function getFormData($form) {
     var indexed_array = {};
 
     $.map(unindexed_array, function(n, i) {
+        n['value'] = n['value'].replace(/[,]/g, '')
         if (isNaN(n['value'])) {
             indexed_array[n['name']] = sanitize(n['value']);
         } else {
