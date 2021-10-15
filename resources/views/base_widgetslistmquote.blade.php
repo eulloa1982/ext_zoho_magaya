@@ -77,11 +77,9 @@
     <script src="{{ url('js/ui_listmquote/utils/biblio_jquery.js', $extra = [], $secure = 1) }}"></script>
     <!--script src="{{ url('js/quotation3.js') }}"></script>
     <script src="{{ url('js/quotation_utils3.js') }}"></script-->
-    <script src="{{ url('js/utils/magaya_api.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('js/utils/utils.js', $extra = [], $secure = 1) }}"></script>
 
     <script type="text/javascript" src="{{ url('js/ui_listmquote/listToolsInitial.js', $extra = [], $secure = 1) }}"></script>
-    <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteInitial.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('js/errors_handlers/errors.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('js/store/constants.js', $extra = [], $secure = 1) }}"></script>
 
@@ -95,7 +93,6 @@
     <script src="{{ url('js/store/storeOrganization.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('js/store/storeDeal.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('js/store/storePorts.js', $extra = [], $secure = 1) }}"></script>
-    <script src="{{ url('js/store/storeChargesType.js', $extra = [], $secure = 1) }}"></script>
 
 
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersAccounts.js', $extra = [], $secure = 1) }}"></script>
@@ -113,8 +110,6 @@
     <script src="{{ url('js/ui_listmquote/validators/validators.js', $extra = [], $secure = 1) }}"></script>
 
 
-    <script src="{{ url('html2pdf/html2canvas.min.js', $extra = [], $secure = 1) }}"></script>
-    <script src="{{ url('html2pdf/html2pdf.bundle.min.js', $extra = [], $secure = 1) }}"></script>
     <!--script src="{{ url('js/store/storeForms.js') }}"></script-->
 
     @yield('js')
