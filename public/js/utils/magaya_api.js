@@ -88,7 +88,7 @@ var MagayaAPI = function() {
             //data.url = localStorage.getItem('url');
 
             //data.url = getCookie('url');
-            data.url = "http://98.211.167.16:3691";
+            //data.url = "http://98.211.167.16:3691";
 
             $.ajax({
                 type: 'POST',
@@ -109,7 +109,7 @@ var MagayaAPI = function() {
                         //error(message_error)
                         Swal.fire({
                             title: 'Unknown Error',
-                            html: "Unknown error during operation, please try to Login again",
+                            html: "Unknown error during operation, please try to <a class='startSession'>Login again</a>",
                             icon: 'error'
                         })
                         $("#no-configuration-alert").show();
