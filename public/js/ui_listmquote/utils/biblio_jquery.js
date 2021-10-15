@@ -623,7 +623,7 @@ function buildXmlCharge(charges, data_account) {
 async function checkConnect() {
     config = await getMagayaVariables()
 
-    const endpoint = `https://zohomagaya.herokuapp.com/ping?url=${config.magaya__url}`;
+    const endpoint = `https://zohomagaya.herokuapp.com/ping?url=${config.magaya_url}`;
     fetch(endpoint, {
         method: 'POST',
         headers: new Headers({
