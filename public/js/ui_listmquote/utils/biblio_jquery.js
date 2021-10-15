@@ -620,6 +620,28 @@ function buildXmlCharge(charges, data_account) {
 
 
 
+async function checkConnect() {
+    config = await getMagayaVariables()
+
+    const endpoint = `https://zohomagaya.herokuapp.com/ping?url=${config.magaya__url}`;
+    fetch(endpoint, {
+        method: 'POST',
+        headers: new Headers({
+            //'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        console.log("From endpoint", data)
+    })
+    .catch(err => {
+        console.warn("error", err)
+    })
+
+}
+
+
 async function startSession() {
     config = await getMagayaVariables()
 
@@ -632,7 +654,6 @@ async function startSession() {
         url: config.magaya_url
     }
 
-    console.log("Calling function ping", ping(config.magaya_url, '3691'))
     MagayaAPI.sendRequest(data, function(result) {
         //console.log(result)
         if (result.error) {
@@ -843,11 +864,13 @@ function ping(host, port, pong) {
     http.open("GET", "http://" + host + ":" + port, /*async*/ true);
     http.onreadystatechange = function() {
         if (http.readyState == 4) {
+            console.log("readystate")
             var ended = new Date().getTime();
 
             var milliseconds = ended - started;
 
             if (pong != null) {
+                console.log(" POMG ")
                 pong(milliseconds);
             }
         }
