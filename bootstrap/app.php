@@ -93,9 +93,10 @@ $app->middleware([
 |
 */
 
+
 //$app->register(App\Providers\AppServiceProvider::class);
-//$app->register(Barryvdh\DomPDF\ServiceProvider::class);
-//$app->configure('dompdf');
+$app->register(Barryvdh\DomPDF\ServiceProvider::class);
+$app->configure('dompdf');
 
 
 ///$app->register(tibonilab\Pdf\PdfServiceProvider::class);
