@@ -964,8 +964,8 @@ async function buildPdf(mquote_id) {
     data += `</div>`
 
     data += `<div class="container mt-3">
-            <div class="row session-fourth" style="background-color: lightskyblue;">
-                <div class="col-sm" style="background-color: lightskyblue; text-align:center;font-weight:bold;">
+            <div class="row session-fourth" style="background-color: lightskyblue; margin-top:15px;">
+                <div class="col-sm headerFont" style="background-color: lightskyblue; text-align:center;">
                     Terms
                 </div>
             </div>`
@@ -1060,7 +1060,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                         </tr>
                         <tr>
                             <td>
-                                <div style="float: left; padding-left:15px;">
+                                <div style="float: left;">
                                     <table id="info1" cellspacing="0px" cellpadding="0px" width="100%" style="border: 1px #000 solid; text-align: left;">
                                         <tr>
                                             <td class="headerFont" style="background-color: lightskyblue;">
@@ -1129,7 +1129,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <table>
+                                <table cellspacing="0px" cellpadding="2px" style="border: none; margin-top: 15px;">
                                     <tr>
                                         <th class="headerFont" colspan="2" style="text-align: center;">
                                             Quotation Info
@@ -1162,7 +1162,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
  */
 function buildPdfCharges(charges) {
     let data = ``
-    data += `<div class="row" style="margin-left: 1px; margin-top: 5px;">
+    data += `<div class="row" style="margin-left: 1px; margin-top: 15px;">
                 <table width="97%">
                     <tr style="background-color: lightskyblue;">
                         <th class="headerFont" colspan="5" style="border: 1px #000 solid; text-align: center;">
@@ -1171,13 +1171,13 @@ function buildPdfCharges(charges) {
                     <tr style="background-color: lightskyblue;">
                         <th class="headerFont" style="border: 1px #000 solid; text-align: center;">
                             Charge Description</th>
-                        <th class="headerFont" style="border: 1px #000 solid; text-align: right;">
+                        <th class="headerFont" style="border: 1px #000 solid; text-align: center;">
                             Price</th>
-                        <th class="headerFont" style="border: 1px #000 solid; text-align: right;">
+                        <th class="headerFont" style="border: 1px #000 solid; text-align: center;">
                             Quantity</th>
-                        <th class="headerFont" style="border: 1px #000 solid; text-align: right;">
+                        <th class="headerFont" style="border: 1px #000 solid; text-align: center;">
                             Tax Amount</th>
-                        <th class="headerFont" style="border: 1px #000 solid; text-align: right;">
+                        <th class="headerFont" style="border: 1px #000 solid; text-align: center;">
                             Final Amount</th></tr>`
     if (!_.isEmpty(charges)) {
 
@@ -1231,16 +1231,16 @@ function buildPdfCharges(charges) {
  */
 function buildPdfItems(items) {
     let data = ``
-    data += `<div class="row" style="margin-left: 1px; margin-top: 5px;">
+    data += `<div class="row" style="margin-left: 1px; margin-top: 15px;">
                     <table width="97%">
                         <tr style="background-color: lightskyblue;">
                             <th class="headerFont" colspan="5" style="text-align: center; font-weight: bold; border: 1px #000 solid;">Items</th></tr>
                         <tr style="background-color: lightskyblue; border-bottom: 1px #000 solid;">
-                            <th class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: left;">Package Type</th>
-                            <th class="headerFont" style="border-right: 1px #000 solid; text-align: right;">Quantity</th>
+                            <th class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">Package Type</th>
+                            <th class="headerFont" style="border-right: 1px #000 solid; text-align: center;">Quantity</th>
                             <th class="headerFont" style="border-right: 1px #000 solid; text-align: center;">Dimensions</th>
-                            <th class="headerFont" style="border-right: 1px #000 solid; text-align: right;">Weight</th>
-                            <th class="headerFont" style="border-right: 1px #000 solid; text-align: right;">Volume</th></tr>`
+                            <th class="headerFont" style="border-right: 1px #000 solid; text-align: center;">Weight</th>
+                            <th class="headerFont" style="border-right: 1px #000 solid; text-align: center;">Volume</th></tr>`
     if (!_.isEmpty(items)) {
 
         let totalPieces = 0
