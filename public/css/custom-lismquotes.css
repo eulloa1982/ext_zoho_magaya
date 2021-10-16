@@ -220,6 +220,10 @@ table td .numeric {
     letter-spacing: 1px;
 }
 
+#header {
+    float: inline-end;
+}
+
 .dataFont {
     font-family: 'Times New Roman', Times, serif;
     font-size: 11px;
