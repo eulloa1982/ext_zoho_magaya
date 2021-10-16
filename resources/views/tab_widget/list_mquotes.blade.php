@@ -89,7 +89,8 @@ a {
 
                                     <div class="col-md-2" style="padding: 5px 0px;">
 								 		<div class="btn-group">
-                                            <button type="button" class="btn btn-primary startSession" style="margin-right: 20px; font-weight: bold;">Start</button>
+                                            <span id="magaya_link"></span>
+                                            <!--button type="button" class="btn btn-primary startSession" style="margin-right: 20px; font-weight: bold;">Start</button-->
 									 		<button type="button" class="btn btn-primary addMquote" style="margin-right: 20px; font-weight: bold;">Add</button>
 
 			 								<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
@@ -145,7 +146,9 @@ a {
 			</div>
 		</div>
 
-
+<div class="modal fade" id="edit" tabindex="-10" role="dialog" aria-labelledby="edit" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div id="htmlToPdf"></div>
+</div>
 
 <!-- Edit Modal HTML -->
 <div id="mquoteModal" class="modal fade" id="edit" tabindex="-10" role="dialog" aria-labelledby="edit" aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -164,7 +167,7 @@ a {
                         <div id="panel">
                             <div class="panel">
                             <fieldset class="fieldset"><legend class="legend"><span id="panel-legend"></span><span class="float-right" id="arrows"></span></legend>
-                                <form class="edit-record">
+                                <form class="edit-record" action="https://zm">
                                 <div id="info-datad"></div>
                                 </form>
                             </fieldset>
@@ -228,7 +231,7 @@ a {
 										</div>
 										<div class="col-md-3">
 											<label class="col-md-12" style="font-weight: bold;">Sales Person</label>
-                                            <select name="magaya__Seller" class="form-control"></select>
+                                            <input name="magaya__Seller" class="form-control" />
 										</div>
 									</div>
 
@@ -251,7 +254,7 @@ a {
 
                                         <div class="col-md-3">
 											<label class="col-md-12" style="font-weight: bold;">Incoterms</label>
-                                            <select name='magaya__Incoterms' class='form-control no-border'>
+                                            <select name='magaya__Incoterm_rule' class='form-control no-border'>
                                                 <option value=""></option>
                                                 <option value="EXW - Ex Works">EXW - Ex Works</option>
                                                 <option value="FCA - Free Carrier">FCA - Free Carrier</option>
@@ -517,6 +520,7 @@ a {
                                     <div class="row" style="margin-bottom:20px;">
                                         <div class="col-md-4">
                                             <div class="row" style="margin-bottom:10px;"></div>
+                                            <label class="col-md-12" style="font-weight: bold;"> &nbsp;</label>
                                             <label class="col-md-12" style="font-weight: bold;">Representative</label>
                                             <select name="magaya__Representative" class="form-control no-border">
                                                 <option></option>
@@ -538,8 +542,8 @@ a {
                                             <div class="row" style="margin-bottom:10px;"></div>
                                             <div class="row" style="margin-bottom:20px;">
                                                 <div class="col-md-6">
-                                                    <label class="col-md-12" style="font-weight: bold;">Billing Address</label>
-                                                    <br /><br/>
+                                                   <label class="col-md-12" style="font-weight: bold;">Billing Address</label>
+
                                                     <label class="col-md-12" style="font-weight: bold;"> Street</label>
                                                     <input type="text" name="Mailing_Street" class="form-control no-border">
                                             		<div class="row" style="margin-bottom:10px;"></div>
@@ -589,7 +593,7 @@ a {
                                                 <span id="sendCharges" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
                                                 <span id="newCharges" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
                                            </legend>
-                                            <form id="new-charge">
+                                            <form id="new-charge" action="https://zm">
                                                 <div class="row">
                                                     <div class="col-md-3">Type</div>
                                                     <div class="col-md-8"><select name="magaya__ChargeCode" class="form-control new-charge"></select></div>
@@ -741,18 +745,18 @@ a {
                                                     <span id="newItem" class="material-icons btn btn-primary float-right"style="background: none;border: none;">task_alt</span>
 
                                                 </legend>
-                                                <form id="new-item">
+                                                <form id="new-item" action="https://zm">
                                                     <div class="row">
                                                         <div class="col-md-3">Type</div>
                                                         <div class="col-md-8">
-                                                            <select class="form-control text" name="Name"><option value='-1'></option></select>
+                                                            <select class="form-control text" name="magaya__Package_Type"><option value='-1'></option></select>
                                                         </div>
                                                     </div>
 
                                                     <div class="row">
                                                         <div class="col-md-3">Description</div>
                                                         <div class="col-md-8">
-                                                            <textarea class="form-control new-item text" id="magaya__Package_Description" name="magaya__Package_Description" aria-label="With textarea"></textarea>
+                                                            <textarea class="form-control new-item text" id="magaya__Package_Description" name="Name" aria-label="With textarea"></textarea>
                                                         </div>
                                                     </div>
 

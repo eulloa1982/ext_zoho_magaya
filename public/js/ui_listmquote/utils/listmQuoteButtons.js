@@ -90,10 +90,12 @@ $(document).ready(function(){
         rowIndex = $("#select-package").val();
         let $form = $("#new-item");
         let item = getFormData($form);
-        console.log("Send Item", item)
-        Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
+
+        //Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
         Object.assign(item, {'magaya__SQuote_Name': idmQuoteToEdit})
-        Object.assign(item, {"magaya__Package_Description": sanitize($("#magaya__Package_Description").val())})
+        Object.assign(item, {"magaya__Package_Type": $("select[name=magaya__Package_Type]").val()})
+        //item = JSON.parse(item)
+        console.log("Send Item", item)
 
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: item, Trigger: [] })
         .then(function(data) {
@@ -143,9 +145,9 @@ $(document).ready(function(){
 
         let $form = $("#new-item");
         let item = getFormData($form);
-        Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
-        Object.assign(item, {"magaya__Package_Description": $('#magaya__Package_Description').val()})
+        Object.assign(item, {"magaya__Package_Type": $("select[name=magaya__Package_Type]").val()})
 
+        console.log("new item", item)
         storeItem.dispatch(addItemOnNew({...item}))
         $(`#panel-item`).animate({width:'toggle'},150);
     });
@@ -374,7 +376,7 @@ $(document).ready(function(){
         "magaya__ContactHomePhone": sanitize($("input[name=Phone]").val()),
         "magaya__ContactName": sanitize($("select[name=magaya__Representative] option:selected").text()),
         "magaya__Terms": sanitize($("#magaya__Terms").val()),
-        "magaya__Incoterms": $("select[name=magaya__Incoterms]").val(),
+        "magaya__Incoterm_rule": $("select[name=magaya__Incoterm_rule]").val(),
         "Owner": $("select[name=Owner]").val()
     }
 
@@ -503,7 +505,8 @@ $(document).ready(function(){
     $("#New").click(function(e) {
         e.preventDefault()
         e.stopImmediatePropagation()
-
+        //subscribe to get data on store
+        let dataAccount = storeAccounts.getState()
 
         let date = new Date()
         let day = date.getDate()
@@ -523,11 +526,12 @@ $(document).ready(function(){
             expirationDateFinal = expirationDate[0] + "T" + expirationDate[1]
         }
 
-        let accountId = $(":input[name=Account] option:selected").val()
+        //let accountId = $(":input[name=Account] option:selected").val()
+        let accountId = dataAccount.quoteAccount.id
         let contact = $(":input[name=magaya__Representative] option:selected").val()
         //receipt fields
         if (accountId <= 0 || accountId === undefined || accountId === "undefined")
-            throw new UserException('Mandatory data not found: Client Quote is not defined');
+            throw new UserException('Client Quote not found');
 
         let is_hazardous = false;
         let hz = $("input[name=magaya__Is_Hazardous]")
@@ -560,7 +564,7 @@ $(document).ready(function(){
             "magaya__Seller": $("select[name=magaya__Seller]").val(),
             "magaya__Terms": sanitize($("#magaya__Terms").val()),
             "magaya__IssuedBy": $(":input[name=magaya__IssuedByName]").val(),
-            "magaya__Incoterms": $("select[name=magaya__Incoterms]").val(),
+            "magaya__Incoterm_rule": $("select[name=magaya__Incoterm_rule]").val(),
             "Owner": $("select[name=Owner]").val()
         }
 
@@ -581,10 +585,7 @@ $(document).ready(function(){
             "magaya__ModeofTransportation": $("select[name=magaya__TransportationMode] option:selected").val(),
         }
 
-        console.log("Routing Data", routingData)
-
-
-
+        console.log("RecordData", recordData)
         //insertMquoteInt(recordData)
 
         //jsonCharges = $(this).tableToJson('table-charges-new', 992929292929229);
@@ -744,7 +745,7 @@ $(document).ready(function(){
                         Swal.fire({
                             title: "Success",
                             text: "New mQuote inserted!!!",
-                            icon: "question",
+                            icon: "success",
                             showCancelButton: false,
                             confirmButtonText: "Yes",
                             allowOutsideClick: false

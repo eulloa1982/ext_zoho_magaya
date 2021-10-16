@@ -14,7 +14,7 @@ $(document).ready(function(){
         ZOHO.CRM.CONFIG.getCurrentUser().then(function(data){
             console.log(data.users[0])
             localStorage.setItem('current_user', data.users[0].full_name)
-            $("input[name=magaya__Seller]").val(data.users[0].full_name)
+            //$("input[name=Owner]").val(data.users[0].full_name)
         })
 
         ZOHO.CRM.API.getAllUsers({Type:"ActiveUsers"})
@@ -25,7 +25,7 @@ $(document).ready(function(){
                 })
             })
         //Las 100 primeras mQuotes
-        ZOHO.CRM.API.getAllRecords({Entity:"magaya__SQuotes",sort_order:"desc",per_page:150,page:page})
+        /*ZOHO.CRM.API.getAllRecords({Entity:"magaya__SQuotes",sort_order:"desc",per_page:150,page:page})
             .then(function(data){
                 let quotes = data.data;
 
@@ -48,7 +48,7 @@ $(document).ready(function(){
                 })
                 storeQuote.dispatch(addQuote(quotes))
                 Utils.unblockUI()
-            })
+            })*/
         //Packages Types
         ZOHO.CRM.API.getAllRecords({Entity:"magaya__Package_Types",sort_order:"asc",per_page:120,page:1})
             .then(function(data){
@@ -56,7 +56,7 @@ $(document).ready(function(){
                 $.map (data.data, function (k, i){
                     k.Name = sanitize(k.Name)
                     //$("<option value='"+i+"'>"+k.Name+"</option>").appendTo("#new-item select[name=Name]");
-                    $("#new-item select[name=magaya__Package_Type]").append("<option value='"+k.id+"'>"+k.Name+"</option>");
+                    $("#new-item select[name=Name]").append("<option value='"+i+"'>"+k.Name+"</option>");
                     packageType.push(k);
                 })
             })
@@ -92,6 +92,16 @@ $(document).ready(function(){
                 })
             })
 
+        /*ZOHO.CRM.API.getAllRecords({Entity: "magaya__Employees", sort_order: "asc"})
+            .then(function(response){
+                $.map (response.data, function (k, i) {
+                    //console.log(k)
+                    //$(`<option value='${k.Name}'>${k.Name}</option>`).appendTo("select[name=magaya__Employee]");
+                    if (k.magaya__Is_Salesperson) {
+                        $(`<option value="${k.Name}">${k.Name}</option>`).appendTo("select[name=magaya__Seller]");
+                    }
+                })
+            })*/
 
         ZOHO.CRM.API.getAllRecords({Entity: "Contacts", sort_order: "asc"})
             .then(function(response){

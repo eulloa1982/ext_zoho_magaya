@@ -56,11 +56,11 @@ $(document).ready(function(){
 
         //let idItem = $(this).attr("data-id")
         value = sanitize(value);
-        if (field === "magaya__Package_Description") {
+        /*if (field === "magaya__Package_Description" || field === "magaya__Package_Type") {
             value = sanitize(value)
         } else {
             value = parseFloat(value);
-        }
+        }*/
         //si los valores son iguales, no actualizar nada
         if (sanitize(oldValue) !== sanitize(value)) {
             storeItem.dispatch(updateItemOnNew({field: field, value: value}))
@@ -83,7 +83,6 @@ $(document).ready(function(){
             storeQuote.dispatch(clearQuoteToEdit())
 
             let idmQuote = $(this).attr('data-id')
-
             let pdf = make_pdf(idmQuote);
 
         })
@@ -243,7 +242,6 @@ $(document).ready(function(){
             //relleno los campos
             //campos q no son objetos
             console.log(quoteToEdit)
-            $("input[name=magaya__Employee]").val(quoteToEdit.Owner.name)
             $("#magaya__Description").val(quoteToEdit.magaya__Description)
             let idAccount = !_.isEmpty(quoteToEdit.Account) ? quoteToEdit.Account.id : 0
             storeAccounts.dispatch(addQuoteAccount({id: idAccount}))
@@ -266,12 +264,6 @@ $(document).ready(function(){
                     $(`select[name=Owner]`).prop('selected', false)
                 }
             })
-            //campos q son objetos
-            //transportation mode
-            /*if (!_.isEmpty(quoteToEdit['magaya__TransportationMode'])) {
-                $("<option value='" + quoteToEdit['magaya__TransportationMode']['id'] + "' selected>" +quoteToEdit['magaya__TransportationMode']['name'] + "</option>").appendTo("select[name=magaya__TransportationMode]");
-                $("input[name=ModeOfTransportation]").val(quoteToEdit['magaya__TransportationMode']['name'])
-            }*/
 
             //account, cliente de la cotizacion
             if (!_.isEmpty(quoteToEdit["Account"])) {
@@ -284,7 +276,6 @@ $(document).ready(function(){
 
             //representative
             if (!_.isEmpty(quoteToEdit["magaya__Representative"])) {
-                console.log("Representative", quoteToEdit["magaya__Representative"])
                 //$("select[name=magaya__Representative]").empty()
                 let idContact = quoteToEdit["magaya__Representative"]["id"];
                 let nameContact = sanitize(quoteToEdit["magaya__Representative"]["name"]);
@@ -350,19 +341,6 @@ $(document).ready(function(){
                     $("select[name=magaya__Shipper]").val($(this).val())
             })
 
-            //procesar el nombre, ya q no podemos recuperar id
-            /*let shipperAddress = quoteToEdit.magaya__ShipperAddress
-            if (!_.isEmpty(shipperAddress)) {
-                shipperAddress = shipperAddress.split(" / ")
-                if (!_.isEmpty(shipperAddress[0]) && shipperAddress[0] !== "undefined" && shipperAddress[0] !== undefined)
-                    $("input[name=Shipper_Street").val(shipperAddress[0])
-                if (!_.isEmpty(shipperAddress[1]) && shipperAddress[1] !== "undefined" && shipperAddress[1] !== undefined)
-                    $("input[name=Shipper_City").val(shipperAddress[1])
-                if (!_.isEmpty(shipperAddress[2]) && shipperAddress[2] !== "undefined" && shipperAddress[2] !== undefined)
-                    $("input[name=Shipper_State").val(shipperAddress[2])
-                if (!_.isEmpty(shipperAddress[3]) && shipperAddress[3] !== "undefined" && shipperAddress[3] !== undefined)
-                    $("input[name=Shipper_Country").val(shipperAddress[3])
-            }*/
 
             let consignee = quoteToEdit.magaya__ConsigneeName
             $("select[name=magaya__ConsigneeName] option").each(function(k) {
@@ -370,19 +348,6 @@ $(document).ready(function(){
                     $("select[name=magaya__ConsigneeName]").val($(this).val())
             })
 
-            //procesar el nombre, ya q no podemos recuperar id
-            /*let consigneeAddress = quoteToEdit.magaya__ConsigneeAddress
-            if (!_.isEmpty(consigneeAddress)) {
-                consigneeAddress = consigneeAddress.split(" / ")
-                if (!_.isEmpty(consigneeAddress[0]) && consigneeAddress[0] !== "undefined" && consigneeAddress[0] !== undefined)
-                    $("input[name=Consignee_Street").val(consigneeAddress[0])
-                if (!_.isEmpty(consigneeAddress[1]) && consigneeAddress[1] !== "undefined" && consigneeAddress[1] !== undefined)
-                    $("input[name=Consignee_City").val(consigneeAddress[1])
-                if (!_.isEmpty(consigneeAddress[2]) && consigneeAddress[2] !== "undefined" && consigneeAddress[2] !== undefined)
-                    $("input[name=Consignee_State").val(consigneeAddress[2])
-                if (!_.isEmpty(consigneeAddress[3]) && consigneeAddress[3] !== "undefined" && consigneeAddress[3] !== undefined)
-                    $("input[name=Consignee_Country").val(consigneeAddress[3])
-            }*/
 
             let nameQuote = quoteToEdit.magaya__Number
             $(":input[name=NameQuote]").val(nameQuote)
@@ -392,19 +357,19 @@ $(document).ready(function(){
             $("#magaya__Terms").val(terms)
 
             //Incoterms
-            let incoterms = quoteToEdit.magaya__Incoterms
-            let incotermsValues = $("select[name=magaya__Incoterms] option")
+            let incoterms = quoteToEdit.magaya__Incoterm_rule
+            let incotermsValues = $("select[name=magaya__Incoterm_rule] option")
             $.map(incotermsValues, function(k, v) {
                 //console.log(k.text === incoterms, k.text)
                 if (k.text === incoterms) {
-                    $(`select[name=magaya__Incoterms] option:contains(${incoterms})`).prop('selected', true);
-                    $(`select[name=magaya__Incoterms]`).change()
+                    $(`select[name=magaya__Incoterm_rule] option:contains(${incoterms})`).prop('selected', true);
+                    $(`select[name=magaya__Incoterm_rule]`).change()
                 } else {
-                    $(`select[name=magaya__Incoterms]`).prop('selected', false);
+                    $(`select[name=magaya__Incoterm_rule]`).prop('selected', false);
 
                 }
             })
-            $("select[name=magaya__Incoterms").val(incoterms).change()
+            $("select[name=magaya__Incoterm_rule").val(incoterms).change()
 
             $("#mquoteModal").modal("show")
 
@@ -424,7 +389,6 @@ $(document).ready(function(){
                         let data = response.data[0]
                         let idMainCarrier = 0
                         if (!_.isEmpty(data.magaya__MainCarrier)) {
-                            console.log("Carrier", data.magaya__MainCarrier)
                             let carriersValues = $("select[name=magaya__MainCarrier] option")
                             idMainCarrier = data.magaya__MainCarrier.id
                             $.map(carriersValues, function(k, v) {
