@@ -138,13 +138,13 @@
 
 @stop
  @section('js')
- <script src="{{ url('js/ui_madmin/utils/biblio_jquery.js', $extra = [], $secure = 1) ) }}"></script>
+ <script src="{{ url('js/ui_madmin/utils/biblio_jquery.js', $extra = [], $secure = 1) }}"></script>
 
- <script src="{{ url('js/ui_madmin/subscribers/subscribersChargeDef.js', $extra = [], $secure = 1) ) }}"></script>
- <script src="{{ url('js/ui_madmin/subscribers/subscribersPortsDef.js', $extra = [], $secure = 1) ) }}"></script>
+ <script src="{{ url('js/ui_madmin/subscribers/subscribersChargeDef.js', $extra = [], $secure = 1) }}"></script>
+ <script src="{{ url('js/ui_madmin/subscribers/subscribersPortsDef.js', $extra = [], $secure = 1) }}"></script>
 
- <script src="{{ url('js/ui_madmin/subscribers/subscribersItemsCrm.js', $extra = [], $secure = 1) ) }}"></script>
- <script src="{{ url('js/ui_madmin/subscribers/subscribersCurrentModule.js', $extra = [], $secure = 1) ) }}"></script>
+ <script src="{{ url('js/ui_madmin/subscribers/subscribersItemsCrm.js', $extra = [], $secure = 1) }}"></script>
+ <script src="{{ url('js/ui_madmin/subscribers/subscribersCurrentModule.js', $extra = [], $secure = 1) }}"></script>
 
 
 <script>
