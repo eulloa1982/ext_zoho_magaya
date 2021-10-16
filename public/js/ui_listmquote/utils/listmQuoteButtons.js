@@ -503,7 +503,8 @@ $(document).ready(function(){
     $("#New").click(function(e) {
         e.preventDefault()
         e.stopImmediatePropagation()
-
+        //subscribe to get data on store
+        let dataAccount = storeAccounts.getState()
 
         let date = new Date()
         let day = date.getDate()
@@ -523,11 +524,12 @@ $(document).ready(function(){
             expirationDateFinal = expirationDate[0] + "T" + expirationDate[1]
         }
 
-        let accountId = $(":input[name=Account] option:selected").val()
+        //let accountId = $(":input[name=Account] option:selected").val()
+        let accountId = dataAccount.quoteAccount.id
         let contact = $(":input[name=magaya__Representative] option:selected").val()
         //receipt fields
         if (accountId <= 0 || accountId === undefined || accountId === "undefined")
-            throw new UserException('Mandatory data not found: Client Quote is not defined');
+            throw new UserException('Client Quote not found');
 
         let is_hazardous = false;
         let hz = $("input[name=magaya__Is_Hazardous]")
@@ -581,10 +583,7 @@ $(document).ready(function(){
             "magaya__ModeofTransportation": $("select[name=magaya__TransportationMode] option:selected").val(),
         }
 
-        console.log("Routing Data", routingData)
-
-
-
+        console.log("RecordData", recordData)
         //insertMquoteInt(recordData)
 
         //jsonCharges = $(this).tableToJson('table-charges-new', 992929292929229);
@@ -744,7 +743,7 @@ $(document).ready(function(){
                         Swal.fire({
                             title: "Success",
                             text: "New mQuote inserted!!!",
-                            icon: "question",
+                            icon: "success",
                             showCancelButton: false,
                             confirmButtonText: "Yes",
                             allowOutsideClick: false

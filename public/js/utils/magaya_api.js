@@ -88,7 +88,7 @@ var MagayaAPI = function() {
             //data.url = localStorage.getItem('url');
 
             //data.url = getCookie('url');
-            //data.url = "http://98.211.167.16:3691";
+            data.url = "http://98.211.167.16:3691";
 
             $.ajax({
                 type: 'POST',

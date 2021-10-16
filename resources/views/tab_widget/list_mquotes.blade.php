@@ -146,7 +146,9 @@ a {
 			</div>
 		</div>
 
-<div id="htmlToPdf"></div>
+<div class="modal fade" id="edit" tabindex="-10" role="dialog" aria-labelledby="edit" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div id="htmlToPdf"></div>
+</div>
 
 <!-- Edit Modal HTML -->
 <div id="mquoteModal" class="modal fade" id="edit" tabindex="-10" role="dialog" aria-labelledby="edit" aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -229,7 +231,7 @@ a {
 										</div>
 										<div class="col-md-3">
 											<label class="col-md-12" style="font-weight: bold;">Sales Person</label>
-                                            <select name="magaya__Seller" class="form-control"></select>
+                                            <input name="magaya__Seller" class="form-control" />
 										</div>
 									</div>
 

@@ -138,7 +138,8 @@ function limpiar_form() {
     $("#magaya__Terms").val("")
     $("input[name=ModeOfTransportation]").val("")
 
-    $("select")
+    $("select[name=Account]").prop('disabled', false);
+
         //hora actual
 
     //$("select[name=Account]").removeAttr("selected")
@@ -156,6 +157,7 @@ function limpiar_form() {
 
     $("input[name=magaya__IssuedByName]").val(organization.company_name)
     $("input[name=magaya__CreatedByName]").val(current_user)
+    $("input[name=magaya__Seller]").val(current_user)
         //console.log("Organization", JSON.parse(organization))
 }
 
@@ -902,10 +904,16 @@ function getFormData($form) {
     var indexed_array = {};
 
     $.map(unindexed_array, function(n, i) {
+        if (_.size(n['value'] == 0)) {
+            n['value'] = ""
+        }
         n['value'] = n['value'].replace(/[,]/g, '')
         if (isNaN(n['value'])) {
+
             indexed_array[n['name']] = sanitize(n['value']);
         } else {
+            if (_.size(n['value'] == 0))
+                n['value'] = 0
             indexed_array[n['name']] = roundDec(n['value']);
         }
 
@@ -1010,6 +1018,9 @@ function buildPdfHeader(orgData, quoteToEdit) {
         expire_date = quoteToEdit["magaya__ExpirationDate"] !== null ? new Date(quoteToEdit["magaya__ExpirationDate"]).toISOString().split('T')[0] : "";
         if (!_.isEmpty(orgData["website"]))
             none = orgData["website"];
+        let nameAccount = !_.isEmpty(quoteToEdit["Account"])  ? quoteToEdit["Account"]["name"] : ""
+        let representative = !_.isEmpty(quoteToEdit["magaya__Representative"]) ? quoteToEdit["magaya__Representative"]["name"] : ""
+
         data = `<div class="container">
                     <table class="container" cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
                         <tr>
@@ -1057,13 +1068,13 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                         <td style="background-color: lightskyblue;">
                                             Customer</td>
                                         <td>
-                                            ${quoteToEdit["Account"]["name"]}</td>
+                                            ${nameAccount}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
                                             Representative</td>
                                         <td>
-                                            ${quoteToEdit["magaya__Representative"]["name"]}</td>
+                                            ${representative}</td>
                                     </tr>
                                     <tr>
                                         <td style="background-color: lightskyblue;">
