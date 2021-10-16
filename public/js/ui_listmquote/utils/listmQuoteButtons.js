@@ -145,7 +145,7 @@ $(document).ready(function(){
 
         let $form = $("#new-item");
         let item = getFormData($form);
-        Object.assign(item, {"magaya__Package_Type": $("select[name=magaya__Package_Type]").val()})
+        Object.assign(item, {"magaya__Package_Type": {'id': $("select[name=magaya__Package_Type]").val(), 'name':$("select[name=magaya__Package_Type] option:selected").text()}})
 
         console.log("new item", item)
         storeItem.dispatch(addItemOnNew({...item}))
