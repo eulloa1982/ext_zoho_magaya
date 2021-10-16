@@ -140,7 +140,7 @@ function limpiar_form() {
 
     $("select[name=Account]").prop('disabled', false);
 
-        //hora actual
+    //hora actual
 
     //$("select[name=Account]").removeAttr("selected")
     // expected output: 10*/
@@ -627,30 +627,27 @@ async function checkConnect() {
 
     const endpoint = `https://zohomagaya.herokuapp.com/ping?url=${config.magaya_url}`;
     fetch(endpoint, {
-        method: 'POST',
-        headers: new Headers({
-            //'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-        }),
-    })
-    .then((response) => response.json())
-    .then((data) => {
-        if (data.error == false)
-        {
-            //pintar el boton verde
-            $("#magaya_link").html(`<span class="material-icons md-24 btn btn-success float-right" style="background: none;border: none;">link</span>`)
-        }
-        else
-        {
-            //poner el boton para login
-            $("#magaya_link").html(`<span class="material-icons md-24 startSession btn btn-primary float-right">link_off</span>`)
+            method: 'POST',
+            headers: new Headers({
+                //'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.error == false) {
+                //pintar el boton verde
+                $("#magaya_link").html(`<span class="material-icons md-24 btn btn-success float-right" style="background: none;border: none;">link</span>`)
+            } else {
+                //poner el boton para login
+                $("#magaya_link").html(`<span class="material-icons md-24 startSession btn btn-primary float-right">link_off</span>`)
 
-        }
-        console.log("From endpoint", data)
-    })
-    .catch(err => {
-        console.warn("error", err)
-    })
+            }
+            console.log("From endpoint", data)
+        })
+        .catch(err => {
+            console.warn("error", err)
+        })
 
 }
 
@@ -668,26 +665,26 @@ async function startSession() {
     }
 
     MagayaAPI.sendRequest(data, function(result) {
-        //console.log(result)
-        if (result.error) {
+            //console.log(result)
+            if (result.error) {
 
-            Swal.fire({
-                title: result.error,
-                text: result.data,
-                icon: 'error'
-            })
-        } else {
+                Swal.fire({
+                    title: result.error,
+                    text: result.data,
+                    icon: 'error'
+                })
+            } else {
 
-            Swal.fire({
-                title: 'Success',
-                text: 'Operation success',
-                icon: 'success',
-                allowOutsideClick: false
-            })
+                Swal.fire({
+                    title: 'Success',
+                    text: 'Operation success',
+                    icon: 'success',
+                    allowOutsideClick: false
+                })
 
-        } //else
+            } //else
 
-    }) //magaya api*/
+        }) //magaya api*/
 }
 
 
@@ -967,7 +964,7 @@ async function buildPdf(mquote_id) {
     data += `</div>`
 
     data += `<div class="container mt-3">
-            <div class="row session-fourth headerMquote headerPrincipal" style="background-color: lightskyblue;">
+            <div class="row session-fourth" style="background-color: lightskyblue;">
                 <div class="col-sm" style="background-color: lightskyblue; text-align:center;font-weight:bold;">
                     Terms
                 </div>
@@ -1018,11 +1015,11 @@ function buildPdfHeader(orgData, quoteToEdit) {
         expire_date = quoteToEdit["magaya__ExpirationDate"] !== null ? new Date(quoteToEdit["magaya__ExpirationDate"]).toISOString().split('T')[0] : "";
         if (!_.isEmpty(orgData["website"]))
             none = orgData["website"];
-        let nameAccount = !_.isEmpty(quoteToEdit["Account"])  ? quoteToEdit["Account"]["name"] : ""
+        let nameAccount = !_.isEmpty(quoteToEdit["Account"]) ? quoteToEdit["Account"]["name"] : ""
         let representative = !_.isEmpty(quoteToEdit["magaya__Representative"]) ? quoteToEdit["magaya__Representative"]["name"] : ""
 
         data = `<div class="container">
-                    <table class="container" cellspacing="5px" cellpadding="2px" style="border: none;" width="100%">
+                    <table class="container" cellspacing="0px" cellpadding="10px" style="border: none;" width="100%">
                         <tr>
                             <th width="50%">    </th>
                             <th width="50%">
