@@ -1233,8 +1233,8 @@ function buildPdfItems(items) {
                     <table width="97%">
                         <tr style="background-color: lightskyblue;">
                             <th colspan="5" style="text-align: center; font-weight: bold; border: 1px #000 solid;">Items</th></tr>
-                        <tr style="background-color: lightskyblue;">
-                            <th style="border-right: 1px #000 solid; text-align: left;">Package Type</th>
+                        <tr style="background-color: lightskyblue; border-bottom: 1px #000 solid;">
+                            <th style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: left;">Package Type</th>
                             <th style="border-right: 1px #000 solid; text-align: right;">Quantity</th>
                             <th style="border-right: 1px #000 solid; text-align: center;">Dimensions</th>
                             <th style="border-right: 1px #000 solid; text-align: right;">Weight</th>
@@ -1254,11 +1254,11 @@ function buildPdfItems(items) {
 
                 let measure_length = "in";
                 let measure_weigth = "lb";
-                let measure_volume = "ft3"
+                let measure_volume = "ft<sup>3</sup>"
 
                 if (k.magaya__Measure_System === "International") {
                     measure_length = "m";
-                    measure_volume = "m3";
+                    measure_volume = "m<sup>3</sup>";
                     measure_weigth = "kg"
                     total_volume_international += roundDec(k.magaya__Volume * k.magaya__Pieces)
                     total_weight_international += roundDec(k.magaya__Weigth * k.magaya__Pieces)
@@ -1277,9 +1277,9 @@ function buildPdfItems(items) {
                     <td style="border-right: 1px #000 solid; text-align: left;">
                         ${k["magaya__Length"]}*${k["magaya__Height"]}*${k["magaya__Width"]} (${measure_length})</td>
                     <td style="border-right: 1px #000 solid; text-align: right;">
-                        ${k["magaya__Weigth"]}</td>
+                        ${k["magaya__Weigth"]} (${measure_weigth})</td>
                     <td style="border-right: 1px #000 solid; text-align: right;">
-                        ${k["magaya__Volume"]}</td>
+                        ${k["magaya__Volume"]} (${measure_volume})</td>
                 </tr>`
             })
             //get all to international system
@@ -1287,15 +1287,15 @@ function buildPdfItems(items) {
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
         data += `<tr style="font-weight: bold;">
-            <td style="border-right: 1px #000 solid;border-top: 1px #000 solid;">
+            <td style="border-top: 1px #000 solid;">
                 Totals</td>
             <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
                 ${totalPieces}</td>
                 <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
             <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
-                ${roundDec(totalWeight)} kg</td>
+                ${roundDec(totalWeight)} (${measure_weigth})</td>
             <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
-                ${roundDec(totalVolume)} m3</td>
+                ${roundDec(totalVolume)} (${measure_volume})</td>
             </tr>
         </table></div>`
     } else {
