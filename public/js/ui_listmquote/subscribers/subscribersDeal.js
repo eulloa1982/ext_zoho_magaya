@@ -3,7 +3,7 @@ storeDeal.subscribe(() => {
     let u = storeDeal.getState()
 
     if (!_.isEmpty(u.dealQuote)) {
-        $("select[name=Account]").empty()
+        $("select[name=Account]").prop('disabled', true);
         let dealQuote = u.dealQuote;
         let accountId = 0;
         $.map(u.dealQuote, function(k, v) {
@@ -21,5 +21,4 @@ storeDeal.subscribe(() => {
         store.dispatch(addQuoteAccount({accountId: accountId}))
         storeAccounts.dispatch(findContactOfAccount({id: accountId}))
     }
-
 })

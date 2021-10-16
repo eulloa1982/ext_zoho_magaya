@@ -109,7 +109,7 @@ var MagayaAPI = function() {
                         //error(message_error)
                         Swal.fire({
                             title: 'Unknown Error',
-                            html: "Unknown error during operation, please try to Login again",
+                            html: "Unknown error during operation, please try to <a class='startSession'>Login again</a>",
                             icon: 'error'
                         })
                         $("#no-configuration-alert").show();
