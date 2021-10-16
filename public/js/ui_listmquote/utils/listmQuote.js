@@ -56,11 +56,11 @@ $(document).ready(function(){
 
         //let idItem = $(this).attr("data-id")
         value = sanitize(value);
-        if (field === "magaya__Package_Description") {
+        /*if (field === "magaya__Package_Description" || field === "magaya__Package_Type") {
             value = sanitize(value)
         } else {
             value = parseFloat(value);
-        }
+        }*/
         //si los valores son iguales, no actualizar nada
         if (sanitize(oldValue) !== sanitize(value)) {
             storeItem.dispatch(updateItemOnNew({field: field, value: value}))
