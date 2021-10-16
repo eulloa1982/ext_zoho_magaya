@@ -156,6 +156,7 @@ function limpiar_form() {
 
     $("input[name=magaya__IssuedByName]").val(organization.company_name)
     $("input[name=magaya__CreatedByName]").val(current_user)
+    $("input[name=magaya__Seller]").val(current_user)
         //console.log("Organization", JSON.parse(organization))
 }
 

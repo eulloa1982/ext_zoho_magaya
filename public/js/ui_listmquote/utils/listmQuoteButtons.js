@@ -527,7 +527,7 @@ $(document).ready(function(){
         let contact = $(":input[name=magaya__Representative] option:selected").val()
         //receipt fields
         if (accountId <= 0 || accountId === undefined || accountId === "undefined")
-            throw new UserException('Mandatory data not found: Client Quote is not defined');
+            throw new UserException('Client Quote not found');
 
         let is_hazardous = false;
         let hz = $("input[name=magaya__Is_Hazardous]")

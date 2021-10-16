@@ -231,7 +231,7 @@ a {
 										</div>
 										<div class="col-md-3">
 											<label class="col-md-12" style="font-weight: bold;">Sales Person</label>
-                                            <select name="magaya__Seller" class="form-control"></select>
+                                            <input name="magaya__Seller" class="form-control" />
 										</div>
 									</div>
 

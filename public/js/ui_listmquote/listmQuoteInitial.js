@@ -14,7 +14,7 @@ $(document).ready(function(){
         ZOHO.CRM.CONFIG.getCurrentUser().then(function(data){
             console.log(data.users[0])
             localStorage.setItem('current_user', data.users[0].full_name)
-            //$("input[name=Owner]").val(data.users[0].full_name)
+            $("input[name=magaya__Seller]").val(data.users[0].full_name)
         })
 
         ZOHO.CRM.API.getAllUsers({Type:"ActiveUsers"})
@@ -92,16 +92,6 @@ $(document).ready(function(){
                 })
             })
 
-        /*ZOHO.CRM.API.getAllRecords({Entity: "magaya__Employees", sort_order: "asc"})
-            .then(function(response){
-                $.map (response.data, function (k, i) {
-                    //console.log(k)
-                    //$(`<option value='${k.Name}'>${k.Name}</option>`).appendTo("select[name=magaya__Employee]");
-                    if (k.magaya__Is_Salesperson) {
-                        $(`<option value="${k.Name}">${k.Name}</option>`).appendTo("select[name=magaya__Seller]");
-                    }
-                })
-            })*/
 
         ZOHO.CRM.API.getAllRecords({Entity: "Contacts", sort_order: "asc"})
             .then(function(response){

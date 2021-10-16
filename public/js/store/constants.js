@@ -113,3 +113,9 @@ const MQUOTE_XML = {
     "magaya__Service": "Service", "magaya__Direction": "Direction", "magaya__Description": "DescriptionOfGoods",
     "magaya__ContactName": "RepresentativeName"
 }
+
+
+const ERRORS_TYPES = {
+    'MANDATORY_NOT_FOUND': "Required Field Missing",
+    "Client Quote not found": 'Mandatory data not found: Client Quote is not defined'
+}
