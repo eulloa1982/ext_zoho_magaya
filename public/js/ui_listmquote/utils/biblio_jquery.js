@@ -1269,7 +1269,7 @@ function buildPdfItems(items) {
                 }
 
                 data += `<tr>
-                   <td style="border-right: 1px #000 solid; text-align: left;">
+                   <td style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: left;">
                         ${k["Name"]}</td>
                     <td style="border-right: 1px #000 solid; text-align: right;">
                         ${k["magaya__Pieces"]}</td>
