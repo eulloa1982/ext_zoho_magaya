@@ -1235,12 +1235,12 @@ function buildPdfItems(items) {
                     <table width="97%">
                         <tr style="background-color: lightskyblue;">
                             <th class="headerFont" colspan="5" style="text-align: center; font-weight: bold; border: 1px #000 solid;">Items</th></tr>
-                        <tr style="background-color: lightskyblue; border-bottom: 1px #000 solid;">
-                            <th class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">Package Type</th>
-                            <th class="headerFont" style="border-right: 1px #000 solid; text-align: center;">Quantity</th>
-                            <th class="headerFont" style="border-right: 1px #000 solid; text-align: center;">Dimensions</th>
-                            <th class="headerFont" style="border-right: 1px #000 solid; text-align: center;">Weight</th>
-                            <th class="headerFont" style="border-right: 1px #000 solid; text-align: center;">Volume</th></tr>`
+                        <tr style="background-color: lightskyblue;">
+                            <th class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Package Type</th>
+                            <th class="headerFont" style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Quantity</th>
+                            <th class="headerFont" style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Dimensions</th>
+                            <th class="headerFont" style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Weight</th>
+                            <th class="headerFont" style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Volume</th></tr>`
     if (!_.isEmpty(items)) {
 
         let totalPieces = 0
