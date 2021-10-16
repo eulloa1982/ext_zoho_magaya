@@ -1250,12 +1250,11 @@ function buildPdfItems(items) {
         let total_volume_international = 0
         let total_weight_english = 0
         let total_volume_english = 0
-        let measure_length = "in";
-        let measure_weight = "lb";
-        let measure_volume = "ft<sup>3</sup>";
         $.map(items, function(k, v) {
                 totalPieces += parseInt(k.magaya__Pieces)
-
+                let measure_length = "in";
+                let measure_weight = "lb";
+                let measure_volume = "ft<sup>3</sup>";
                 if (k.magaya__Measure_System === "International") {
                     measure_length = "m";
                     measure_volume = "m<sup>3</sup>";
@@ -1293,9 +1292,9 @@ function buildPdfItems(items) {
                 ${totalPieces}</td>
                 <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
             <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
-                ${roundDec(totalWeight)} (${measure_weight})</td>
+                ${roundDec(totalWeight)} kg</td>
             <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
-                ${roundDec(totalVolume)} (${measure_volume})</td>
+                ${roundDec(totalVolume)} m<sup>3</sup></td>
             </tr>
         </table></div>`
     } else {
