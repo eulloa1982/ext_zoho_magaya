@@ -1061,33 +1061,33 @@ function buildPdfHeader(orgData, quoteToEdit) {
                         <tr>
                             <td>
                                 <div style="float: left; padding-left:15px;">
-                                    <table id="info1" cellspacing="0px" cellpadding="2px" width="100%" style="border: 1px #000 solid; text-align: left;">
+                                    <table id="info1" cellspacing="0px" cellpadding="0px" width="100%" style="border: 1px #000 solid; text-align: left;">
                                         <tr>
-                                            <td style="background-color: lightskyblue;">
+                                            <td class="headerFont" style="background-color: lightskyblue;">
                                                 Customer</td>
                                             <td>
                                                 ${nameAccount}</td>
                                         </tr>
                                         <tr>
-                                            <td style="background-color: lightskyblue;">
+                                            <td class="headerFont" style="background-color: lightskyblue;">
                                                 Representative</td>
                                             <td>
                                                 ${representative}</td>
                                         </tr>
                                         <tr>
-                                            <td style="background-color: lightskyblue;">
+                                            <td class="headerFont" style="background-color: lightskyblue;">
                                                 Phone</td>
                                             <td>
                                                 ${quoteToEdit["magaya__ContactMobile"]}</td>
                                         </tr>
                                         <tr>
-                                            <td style="background-color: lightskyblue;">
+                                            <td class="headerFont" style="background-color: lightskyblue;">
                                                 Email</td>
                                             <td>
                                                 ${quoteToEdit["magaya__ContactEmail"]}</td>
                                         </tr>
                                         <tr>
-                                            <td style="background-color: lightskyblue;">
+                                            <td class="headerFont" style="background-color: lightskyblue;">
                                                 Address</td>
                                             <td>
                                                 ${quoteToEdit["magaya__ContactStreet"]}, ${quoteToEdit["magaya__ContactCity"]}, ${quoteToEdit["magaya__ContactState"]}, ${quoteToEdit["magaya__ContactCountry"]}
@@ -1100,25 +1100,25 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                 <div style="float: right; padding-left:15px;">
                                     <table id="info2" cellspacing="0px" cellpadding="2px" style="border: none; padding-left: 15px;">
                                         <tr>
-                                            <th>
+                                            <th class="headerFont">
                                                 Quote Number:</th>
                                             <td>
                                                 ${quoteToEdit["magaya__Number"]}</td>
                                         </tr>
                                         <tr>
-                                            <th>
+                                            <th class="headerFont">
                                                 Creation Date:</th>
                                             <td>
                                                 ${create_date}</td>
                                         </tr>
                                         <tr>
-                                            <th>
+                                            <th class="headerFont">
                                                 Expiration Date:</th>
                                             <td>
                                                 ${expire_date}</td>
                                         </tr>
                                         <tr>
-                                            <th>
+                                            <th class="headerFont">
                                                 Contact To:</th>
                                             <td>
                                                 ${quoteToEdit["magaya__Employee"]}</td>
@@ -1131,20 +1131,20 @@ function buildPdfHeader(orgData, quoteToEdit) {
                             <td colspan="2">
                                 <table>
                                     <tr>
-                                        <th colspan="2" style="text-align: center;">
+                                        <th class="headerFont" colspan="2" style="text-align: center;">
                                             Quotation Info
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th><span>Description of Goods:</span></th>
+                                        <th class="headerFont"><span>Description of Goods:</span></th>
                                         <td>${quoteToEdit["magaya__Description"]}</td>
                                     </tr>
                                     <tr>
-                                        <th><span>Origin:</span></th>
+                                        <th class="headerFont"><span>Origin:</span></th>
                                         <td>${quoteToEdit["magaya__Origin"] !== null ? quoteToEdit["magaya__Origin"] : ""}</td>
                                     </tr>
                                     <tr>
-                                        <th><span>Destination:</span></th>
+                                        <th class="headerFont"><span>Destination:</span></th>
                                         <td>${quoteToEdit["magaya__Destination"] !== null ? quoteToEdit["magaya__Destination"] : ""}</td>
                                     </tr>
                                 </table>

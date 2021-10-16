@@ -118,11 +118,13 @@ input:active {
     border: none;
 }
 
-#table-items td, #table-items-new th{
+#table-items td,
+#table-items-new th {
     border: 1px solid #dee2e6;
     padding-right: 0px;
     padding-left: 2px;
 }
+
 
 /*.table td, .table th{
     padding-right: 0px;
@@ -130,7 +132,6 @@ input:active {
 
 }
 */
-
 
 
 /******** labels on panel **********/
@@ -208,7 +209,13 @@ table td .numeric {
 .headerPDF {
     padding: 5px 0px 5px 0px;
     border: none;
+    font-size: 11px;
+}
+
+.headerFont {
+    font-family: 'Times New Roman', Times, serif;
     font-size: 12px;
+    letter-spacing: 1px;
 }
 
 .headerPrincipal {
