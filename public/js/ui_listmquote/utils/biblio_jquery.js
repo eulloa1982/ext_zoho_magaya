@@ -937,7 +937,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
         if (!_.isEmpty(orgData["website"]))
             none = orgData["website"];
         data = `<div class="container">
-                    <table class="container" cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
+                    <table class="container" cellspacing="5px" cellpadding="2px" style="border: none;" width="100%">
                         <tr>
                             <th width="50%">    </th>
                             <th width="50%">
