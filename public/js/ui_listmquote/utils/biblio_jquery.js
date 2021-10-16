@@ -138,7 +138,8 @@ function limpiar_form() {
     $("#magaya__Terms").val("")
     $("input[name=ModeOfTransportation]").val("")
 
-    $("select")
+    $("select[name=Account]").prop('disabled', false);
+
         //hora actual
 
     //$("select[name=Account]").removeAttr("selected")
