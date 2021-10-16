@@ -1065,31 +1065,31 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                         <tr>
                                             <td class="headerFont" style="background-color: lightskyblue;">
                                                 Customer</td>
-                                            <td>
+                                            <td class="dataFont">
                                                 ${nameAccount}</td>
                                         </tr>
                                         <tr>
                                             <td class="headerFont" style="background-color: lightskyblue;">
                                                 Representative</td>
-                                            <td>
+                                            <td class="dataFont">
                                                 ${representative}</td>
                                         </tr>
                                         <tr>
                                             <td class="headerFont" style="background-color: lightskyblue;">
                                                 Phone</td>
-                                            <td>
+                                            <td class="dataFont">
                                                 ${quoteToEdit["magaya__ContactMobile"]}</td>
                                         </tr>
                                         <tr>
                                             <td class="headerFont" style="background-color: lightskyblue;">
                                                 Email</td>
-                                            <td>
+                                            <td class="dataFont">
                                                 ${quoteToEdit["magaya__ContactEmail"]}</td>
                                         </tr>
                                         <tr>
                                             <td class="headerFont" style="background-color: lightskyblue;">
                                                 Address</td>
-                                            <td>
+                                            <td class="dataFont">
                                                 ${quoteToEdit["magaya__ContactStreet"]}, ${quoteToEdit["magaya__ContactCity"]}, ${quoteToEdit["magaya__ContactState"]}, ${quoteToEdit["magaya__ContactCountry"]}
                                             </td>
                                         </tr>
@@ -1114,13 +1114,13 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                         <tr>
                                             <th class="headerFont">
                                                 Expiration Date:</th>
-                                            <td>
+                                            <td class="dataFont">
                                                 ${expire_date}</td>
                                         </tr>
                                         <tr>
                                             <th class="headerFont">
                                                 Contact To:</th>
-                                            <td>
+                                            <td class="dataFont">
                                                 ${quoteToEdit["magaya__Employee"]}</td>
                                         </tr>
                                     </table>
@@ -1137,15 +1137,15 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                     </tr>
                                     <tr>
                                         <th class="headerFont"><span>Description of Goods:</span></th>
-                                        <td>${quoteToEdit["magaya__Description"]}</td>
+                                        <td class="dataFont">${quoteToEdit["magaya__Description"]}</td>
                                     </tr>
                                     <tr>
                                         <th class="headerFont"><span>Origin:</span></th>
-                                        <td>${quoteToEdit["magaya__Origin"] !== null ? quoteToEdit["magaya__Origin"] : ""}</td>
+                                        <td class="dataFont">${quoteToEdit["magaya__Origin"] !== null ? quoteToEdit["magaya__Origin"] : ""}</td>
                                     </tr>
                                     <tr>
                                         <th class="headerFont"><span>Destination:</span></th>
-                                        <td>${quoteToEdit["magaya__Destination"] !== null ? quoteToEdit["magaya__Destination"] : ""}</td>
+                                        <td class="dataFont">${quoteToEdit["magaya__Destination"] !== null ? quoteToEdit["magaya__Destination"] : ""}</td>
                                     </tr>
                                 </table>
                             </td>
@@ -1165,10 +1165,10 @@ function buildPdfCharges(charges) {
     data += `<div class="row" style="margin-left: 1px;">
                 <table width="97%">
                     <tr style="background-color: lightskyblue;">
-                        <th colspan="5" style="border: 1px #000 solid; text-align: center;">
+                        <th class="headerFont" colspan="5" style="border: 1px #000 solid; text-align: center;">
                             Charges</th>
                     </tr>
-                    <tr style="background-color: lightskyblue; font-weight: bold;">
+                    <tr class="headerFont" style="background-color: lightskyblue;">
                         <th style="border: 1px #000 solid; text-align: center;">
                             Charge Description</th>
                         <th style="border: 1px #000 solid; text-align: right;">
@@ -1187,20 +1187,20 @@ function buildPdfCharges(charges) {
             amount_total += roundDec(k["magaya__Final_Amount"]);
             amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<tr>
-                        <td style="border-right: 1px #000 solid; text-align: left;">
+                        <td class="dataFont" style="border-right: 1px #000 solid; text-align: left;">
                             ${k["Name"]}</td>
-                        <td style="border-right: 1px #000 solid; text-align: right;">
+                        <td class="dataFont" style="border-right: 1px #000 solid; text-align: right;">
                             ${k["magaya__Price"]}</td>
-                        <td style="border-right: 1px #000 solid; text-align: right;">
+                        <td class="dataFont" style="border-right: 1px #000 solid; text-align: right;">
                             ${k["magaya__CQuantity"]}</td>
-                        <td style="border-right: 1px #000 solid; text-align: right;">
+                        <td class="dataFont" style="border-right: 1px #000 solid; text-align: right;">
                             ${k["magaya__Tax_Amount"]}</td>
-                        <td style="border-right: 1px #000 solid; text-align: right; font-weight: bold;">
+                        <td class="dataFont" style="border-right: 1px #000 solid; text-align: right; font-weight: bold;">
                             ${k["magaya__Final_Amount"]}</td>
                     </tr>`
         })
 
-        data += `<tr style="font-weight: bold;">
+        data += `<tr class="headerFont">
                     <td style="border-right: 1px #000 solid; text-align: right;" colspan="4">
                         ${roundDec(amount_tax)}</td>
                     <td style="border-right: 1px #000 solid;">${roundDec(amount_total)}</td>
@@ -1234,8 +1234,8 @@ function buildPdfItems(items) {
     data += `<div class="row" style="margin-left: 1px;">
                     <table width="97%">
                         <tr style="background-color: lightskyblue;">
-                            <th colspan="5" style="text-align: center; font-weight: bold; border: 1px #000 solid;">Items</th></tr>
-                        <tr style="background-color: lightskyblue; border-bottom: 1px #000 solid;">
+                            <th class="headerFont" colspan="5" style="text-align: center; font-weight: bold; border: 1px #000 solid;">Items</th></tr>
+                        <tr class="headerFont" style="background-color: lightskyblue; border-bottom: 1px #000 solid;">
                             <th style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: left;">Package Type</th>
                             <th style="border-right: 1px #000 solid; text-align: right;">Quantity</th>
                             <th style="border-right: 1px #000 solid; text-align: center;">Dimensions</th>
@@ -1268,7 +1268,7 @@ function buildPdfItems(items) {
                     total_weight_english += roundDec(k.magaya__Weigth * k.magaya__Pieces)
                 }
 
-                data += `<tr>
+                data += `<tr class="dataFont">
                    <td style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: left;">
                         ${k["Name"]}</td>
                     <td style="border-right: 1px #000 solid; text-align: right;">
@@ -1285,7 +1285,7 @@ function buildPdfItems(items) {
         totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
-        data += `<tr style="font-weight: bold;">
+        data += `<tr class="headerFont" style="font-weight: bold;">
             <td style="border-top: 1px #000 solid;">
                 Totals</td>
             <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
