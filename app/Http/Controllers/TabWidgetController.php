@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //use tibonilab\Pdf\PdfServiceProvider;
-use Barryvdh\DomPDF\Facade as PDF;
 
 class TabWidgetController extends Controller
 {
@@ -72,11 +71,6 @@ class TabWidgetController extends Controller
         return view ('tab_widget.list_mquotes');
     }
 
-    public function pdf() {
-        $pdf = PDF::loadView('tab_widget.list_mquotes')->setOptions(['defaultFont' => 'sans-serif']);
 
-        return $pdf->download('invoice.pdf');
-        //return view ('tab_widget.quote_pdf');
-    }
 
 }
