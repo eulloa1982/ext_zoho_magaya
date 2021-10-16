@@ -1019,139 +1019,146 @@ function buildPdfHeader(orgData, quoteToEdit) {
         let representative = !_.isEmpty(quoteToEdit["magaya__Representative"]) ? quoteToEdit["magaya__Representative"]["name"] : ""
 
         data = `<div class="container">
-                    <table cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
+        <table cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
+            <tr>
+                <th colspan="2">
+                    <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: left;">
                         <tr>
-                            <th width="50%">    </th>
-                            <th width="50%">
-                                <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right;">
-                                    <tr>
-                                        <td colspan="12">
-                                            <div class="session-first">
-                                                ${orgData["company_name"]}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="12">
-                                            <div class="col headerFont p-2"><span class="material-icons">
-                                            language</span>${none}</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="12">
-                                            <div class="col headerFont p-2"><span class="material-icons">
-                                            phone</span>${orgData["phone"]}</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="12">
-                                            <div class="col headerFont p-2"><span class="material-icons">
-                                            alternate_email</span>${orgData["primary_email"]}</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="12">
-                                            <div class="col headerFont p-2"><span class="material-icons">
-                                            home</span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div style="float: left;">
-                                    <table id="info1" cellspacing="0px" cellpadding="0px" width="100%" style="border: 1px #000 solid; text-align: left;">
-                                        <tr>
-                                            <td class="headerFont" style="background-color: lightskyblue;">
-                                                Customer</td>
-                                            <td class="dataFont">
-                                                ${nameAccount}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="headerFont" style="background-color: lightskyblue;">
-                                                Representative</td>
-                                            <td class="dataFont">
-                                                ${representative}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="headerFont" style="background-color: lightskyblue;">
-                                                Phone</td>
-                                            <td class="dataFont">
-                                                ${quoteToEdit["magaya__ContactMobile"]}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="headerFont" style="background-color: lightskyblue;">
-                                                Email</td>
-                                            <td class="dataFont">
-                                                ${quoteToEdit["magaya__ContactEmail"]}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="headerFont" style="background-color: lightskyblue;">
-                                                Address</td>
-                                            <td class="dataFont">
-                                                ${quoteToEdit["magaya__ContactStreet"]}, ${quoteToEdit["magaya__ContactCity"]}, ${quoteToEdit["magaya__ContactState"]}, ${quoteToEdit["magaya__ContactCountry"]}
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </td>
-                            <td>
-                                <div style="float: right; padding-left:15px;">
-                                    <table id="info2" cellspacing="0px" cellpadding="2px" style="border: none; padding-left: 15px;">
-                                        <tr>
-                                            <th class="headerFont">
-                                                Quote Number:</th>
-                                            <td class="dataFont">
-                                                ${quoteToEdit["magaya__Number"]}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="headerFont">
-                                                Creation Date:</th>
-                                            <td class="dataFont">
-                                                ${create_date}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="headerFont">
-                                                Expiration Date:</th>
-                                            <td class="dataFont">
-                                                ${expire_date}</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="headerFont">
-                                                Contact To:</th>
-                                            <td class="dataFont">
-                                                ${quoteToEdit["magaya__Employee"]}</td>
-                                        </tr>
-                                    </table>
+                            <td colspan="12">
+                                <div class="session-first">
+                                    ${orgData["company_name"]}
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2">
-                                <table cellspacing="0px" cellpadding="2px" style="border: none; margin-top: 15px;">
-                                    <tr>
-                                        <th class="headerFont" colspan="2" style="text-align: center;">
-                                            Quotation Info
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th class="headerFont"><span>Description of Goods:</span></th>
-                                        <td class="dataFont">${quoteToEdit["magaya__Description"]}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="headerFont"><span>Origin:</span></th>
-                                        <td class="dataFont">${quoteToEdit["magaya__Origin"] !== null ? quoteToEdit["magaya__Origin"] : ""}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="headerFont"><span>Destination:</span></th>
-                                        <td class="dataFont">${quoteToEdit["magaya__Destination"] !== null ? quoteToEdit["magaya__Destination"] : ""}</td>
-                                    </tr>
-                                </table>
+                            <td colspan="12">
+                                <div class="col headerFont p-2"><span class="material-icons">
+                                language</span>${none}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="12">
+                                <div class="col headerFont p-2"><span class="material-icons">
+                                phone</span>${orgData["phone"]}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="12">
+                                <div class="col headerFont p-2"><span class="material-icons">
+                                alternate_email</span>${orgData["primary_email"]}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="12">
+                                <div class="col headerFont p-2"><span class="material-icons">
+                                home</span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
                             </td>
                         </tr>
                     </table>
-                </div>`
+                </th>
+            </tr>
+            <tr>
+                <td width="50%">
+                    <div style="float: left;">
+                        <table id="info1" cellspacing="0px" cellpadding="0px" width="100%" style="border: 1px #000 solid; text-align: left;">
+                            <tr>
+                                <th class="headerFont" colspan="2" style="background-color: lightskyblue; text-align: center;">Contact Info</th>
+                            </tr>
+                            <tr>
+                                <td class="headerFont" style="background-color: lightskyblue; padding: 3px;">
+                                    Customer</td>
+                                <td class="dataFont">
+                                    ${nameAccount}</td>
+                            </tr>
+                            <tr>
+                                <td class="headerFont" style="background-color: lightskyblue;">
+                                    Representative</td>
+                                <td class="dataFont">
+                                    ${representative}</td>
+                            </tr>
+                            <tr>
+                                <td class="headerFont" style="background-color: lightskyblue;">
+                                    Phone</td>
+                                <td class="dataFont">
+                                    ${quoteToEdit["magaya__ContactMobile"]}</td>
+                            </tr>
+                            <tr>
+                                <td class="headerFont" style="background-color: lightskyblue;">
+                                    Email</td>
+                                <td class="dataFont">
+                                    ${quoteToEdit["magaya__ContactEmail"]}</td>
+                            </tr>
+                            <tr>
+                                <td class="headerFont" style="background-color: lightskyblue;">
+                                    Address</td>
+                                <td class="dataFont">
+                                    ${quoteToEdit["magaya__ContactStreet"]}, ${quoteToEdit["magaya__ContactCity"]}, ${quoteToEdit["magaya__ContactState"]}, ${quoteToEdit["magaya__ContactCountry"]}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+                <td width="50%">
+                    <div style="float: right; padding-left:15px;">
+                        <table id="info2" cellspacing="0px" cellpadding="2px" style="text-align:left;border: none; padding-left: 15px;">
+                            <tr>
+                                <th colspan="2" class="headerFont" style="text-align:right;border: none;">Quotation</th>
+                            </tr>
+                            <tr>
+                                <th class="headerFont" style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;">
+                                    Quote Number:</th>
+                                <td class="dataFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;">
+                                    ${quoteToEdit["magaya__Number"]}</td>
+                            </tr>
+                            <tr>
+                                <th class="headerFont" style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;">
+                                    Creation Date:</th>
+                                <td class="dataFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;">
+                                    ${create_date}</td>
+                            </tr>
+                            <tr>
+                                <th class="headerFont" style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;">
+                                    Expiration Date:</th>
+                                <td class="dataFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;">
+                                    ${expire_date}</td>
+                            </tr>
+                            <tr>
+                                <th class="headerFont" style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                                    Contact To:</th>
+                                <td class="dataFont" style="border-bottom: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;">
+                                    ${quoteToEdit["magaya__Employee"]}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table width="100%" cellspacing="0px" cellpadding="2px" style="border: none; margin-top: 15px;">
+                        <tr>
+                            <th class="headerFont" colspan="2" style="text-align: center;">
+                                Quotation Info
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class="headerFont" style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: center;background-color: lightskyblue;"><span>Origin:</span></th>
+                            <th class="headerFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: center;background-color: lightskyblue;"><span>Destination:</span></th>
+                        </tr>
+                        <tr>
+                            <td class="dataFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">${quoteToEdit["magaya__Origin"] !== null ? quoteToEdit["magaya__Origin"] : ""}</td>
+                            <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid;">${quoteToEdit["magaya__Destination"] !== null ? quoteToEdit["magaya__Destination"] : ""}</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;background-color: lightskyblue;"><span>Description of Goods:</span></th>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="dataFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">${quoteToEdit["magaya__Description"]}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>`
     }
 
     return data;

@@ -215,7 +215,7 @@ table td .numeric {
 
 .headerFont {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bolder;
     letter-spacing: 1px;
 }
@@ -226,10 +226,15 @@ table td .numeric {
 
 .dataFont {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500px;
     letter-spacing: 1px;
     padding: 2px;
+}
+
+.container table tr th,
+.container table tr th td {
+    padding: 3px;
 }
 
 .headerPrincipal {
