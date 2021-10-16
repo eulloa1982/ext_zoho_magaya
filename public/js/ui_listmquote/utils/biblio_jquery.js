@@ -1250,18 +1250,16 @@ function buildPdfItems(items) {
         let total_volume_international = 0
         let total_weight_english = 0
         let total_volume_english = 0
-
+        let measure_length = "in";
+        let measure_weight = "lb";
+        let measure_volume = "ft<sup>3</sup>";
         $.map(items, function(k, v) {
                 totalPieces += parseInt(k.magaya__Pieces)
-
-                let measure_length = "in";
-                let measure_weigth = "lb";
-                let measure_volume = "ft<sup>3</sup>"
 
                 if (k.magaya__Measure_System === "International") {
                     measure_length = "m";
                     measure_volume = "m<sup>3</sup>";
-                    measure_weigth = "kg"
+                    measure_weight = "kg";
                     total_volume_international += roundDec(k.magaya__Volume * k.magaya__Pieces)
                     total_weight_international += roundDec(k.magaya__Weigth * k.magaya__Pieces)
 
@@ -1279,7 +1277,7 @@ function buildPdfItems(items) {
                     <td style="border-right: 1px #000 solid; text-align: left;">
                         ${k["magaya__Length"]}*${k["magaya__Height"]}*${k["magaya__Width"]} (${measure_length})</td>
                     <td style="border-right: 1px #000 solid; text-align: right;">
-                        ${k["magaya__Weigth"]} (${measure_weigth})</td>
+                        ${k["magaya__Weigth"]} (${measure_weight})</td>
                     <td style="border-right: 1px #000 solid; text-align: right;">
                         ${k["magaya__Volume"]} (${measure_volume})</td>
                 </tr>`
@@ -1295,7 +1293,7 @@ function buildPdfItems(items) {
                 ${totalPieces}</td>
                 <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
             <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
-                ${roundDec(totalWeight)} (${measure_weigth})</td>
+                ${roundDec(totalWeight)} (${measure_weight})</td>
             <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
                 ${roundDec(totalVolume)} (${measure_volume})</td>
             </tr>
