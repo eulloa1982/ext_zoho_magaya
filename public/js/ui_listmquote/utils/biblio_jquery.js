@@ -1059,7 +1059,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                             </th>
                         </tr>
                         <tr>
-                            <td>
+                            <td colspan="2">
                                 <div style="float: left; padding-left:15px;">
                                     <table id="info1" cellspacing="0px" cellpadding="2px" width="100%" style="border: 1px #000 solid; text-align: left;">
                                         <tr>
@@ -1095,9 +1095,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                         </tr>
                                     </table>
                                 </div>
-                            </td>
-                            <td>
-                                <div style="float: right; padding-right:15px;">
+                                <div style="float: right; padding-left:15px;">
                                     <table id="info2" cellspacing="0px" cellpadding="2px" style="border: none; padding-left: 15px;">
                                         <tr>
                                             <th>
