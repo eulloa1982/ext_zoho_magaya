@@ -16,8 +16,11 @@ class PDFController extends Controller
 
 
 
-    public function pdf() {
-        $pdf = PDF::loadView('tab_widget.list_mquotes')->setOptions(['defaultFont' => 'sans-serif']);
+    public function pdf(Request $request) {
+        $data = $request->get('data');
+        //print_r($data);
+        $dataPdf = ['name' => $data['name']];
+        $pdf = PDF::loadView('tab_widget.quotation_pdf', $dataPdf)->setOptions(['defaultFont' => 'sans-serif']);
 
         return $pdf->download('invoice.pdf');
         //return view ('tab_widget.quote_pdf');
