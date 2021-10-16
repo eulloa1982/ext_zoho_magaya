@@ -190,6 +190,7 @@ table td .numeric {
     letter-spacing: 2px;
     color: #000;
     word-wrap: break-word;
+    background-color: #a8a19b;
 }
 
 .border-right {
@@ -215,6 +216,7 @@ table td .numeric {
 .headerFont {
     font-family: 'Times New Roman', Times, serif;
     font-size: 12px;
+    font-weight: 700px;
     letter-spacing: 1px;
 }
 

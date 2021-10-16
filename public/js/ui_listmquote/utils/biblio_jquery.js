@@ -1033,25 +1033,25 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                     </tr>
                                     <tr>
                                         <td colspan="12">
-                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            <div class="col headerFont p-2"><span class="material-icons">
                                             language</span>${none}</div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="12">
-                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            <div class="col headerFont p-2"><span class="material-icons">
                                             phone</span>${orgData["phone"]}</div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="12">
-                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            <div class="col headerFont p-2"><span class="material-icons">
                                             alternate_email</span>${orgData["primary_email"]}</div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="12">
-                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            <div class="col headerFont p-2"><span class="material-icons">
                                             home</span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
                                         </td>
                                     </tr>
