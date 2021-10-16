@@ -1271,9 +1271,9 @@ function buildPdfItems(items) {
                 data += `<tr>
                    <td class="dataFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: left;">
                         ${k["Name"]}</td>
-                    <td class="dataFont" style="border-right: 1px #000 solid; text-align: right;">
+                    <td class="dataFont" style="border-right: 1px #000 solid; text-align: center;">
                         ${k["magaya__Pieces"]}</td>
-                    <td class="dataFont" style="border-right: 1px #000 solid; text-align: left;">
+                    <td class="dataFont" style="border-right: 1px #000 solid; text-align: center;">
                         ${k["magaya__Length"]}*${k["magaya__Height"]}*${k["magaya__Width"]} (${measure_length})</td>
                     <td class="dataFont" style="border-right: 1px #000 solid; text-align: right;">
                         ${k["magaya__Weigth"]} (${measure_weight})</td>
