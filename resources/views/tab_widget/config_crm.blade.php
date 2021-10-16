@@ -197,8 +197,8 @@ $(document).ready(function(){
 
                 })
         })
-        //getChargesDefinition()
-        //getWorkingPorts()
+        getChargesDefinition()
+        getWorkingPorts()
 
     })
 
