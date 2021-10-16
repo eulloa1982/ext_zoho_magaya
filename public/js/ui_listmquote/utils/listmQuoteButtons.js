@@ -93,7 +93,7 @@ $(document).ready(function(){
 
         //Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
         Object.assign(item, {'magaya__SQuote_Name': idmQuoteToEdit})
-        Object.assign(item, {"magaya__Package_Type": $("select[name=magaya__Package_Type]").val()})
+        Object.assign(item, {"magaya__Package_Type": {'id': $("select[name=magaya__Package_Type]").val(), 'name':$("select[name=magaya__Package_Type] option:selected").text()}})
         //item = JSON.parse(item)
         console.log("Send Item", item)
 
