@@ -376,7 +376,7 @@ $(document).ready(function(){
         "magaya__ContactHomePhone": sanitize($("input[name=Phone]").val()),
         "magaya__ContactName": sanitize($("select[name=magaya__Representative] option:selected").text()),
         "magaya__Terms": sanitize($("#magaya__Terms").val()),
-        "magaya__Incoterms": $("select[name=magaya__Incoterms]").val(),
+        "magaya__Incoterm_rule": $("select[name=magaya__Incoterm_rule]").val(),
         "Owner": $("select[name=Owner]").val()
     }
 
@@ -564,7 +564,7 @@ $(document).ready(function(){
             "magaya__Seller": $("select[name=magaya__Seller]").val(),
             "magaya__Terms": sanitize($("#magaya__Terms").val()),
             "magaya__IssuedBy": $(":input[name=magaya__IssuedByName]").val(),
-            "magaya__Incoterms": $("select[name=magaya__Incoterms]").val(),
+            "magaya__Incoterm_rule": $("select[name=magaya__Incoterm_rule]").val(),
             "Owner": $("select[name=Owner]").val()
         }
 
