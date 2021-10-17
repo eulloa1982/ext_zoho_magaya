@@ -1292,7 +1292,7 @@ function buildPdfItems(items) {
                         <tr style="background-color: lightskyblue;">
                             <th colspan="5" style="text-align: center; font-weight: bold; border: 1px #000 solid;">Items</th></tr>
                         <tr style="background-color: lightskyblue;">
-                            <th style="border-right: 1px #000 solid; text-align: center;">Description</th>
+                            <th style="border-right: 1px #000 solid; text-align: center;">Description </th>
                             <th style="border-right: 1px #000 solid; text-align: center;">Quantity</th>
                             <th style="border-right: 1px #000 solid; text-align: center;">Dimensions</th>
                             <th style="border-right: 1px #000 solid; text-align: center;">Weight</th>
