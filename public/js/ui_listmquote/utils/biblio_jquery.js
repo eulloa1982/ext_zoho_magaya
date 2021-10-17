@@ -1166,11 +1166,11 @@ function buildPdfCharges(charges) {
     data += `<div class="row" style="margin-left: 1px; margin-top: 15px;">
                 <table width="97%">
                     <tr style="background-color: lightskyblue;">
-                        <th class="headerFont" colspan="5" style="border: 1px #000 solid; text-align: center;">
+                        <th class="headerFont" colspan="5" style="border-top: 1px #000 solid;border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">
                             Charges</th>
                     </tr>
                     <tr style="background-color: lightskyblue;">
-                        <th class="headerFont" style="border-bottom: 1px #000 solid;border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">
+                        <th class="headerFont" style="border-left: 1px #000 solid;border-bottom: 1px #000 solid;border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">
                             Charge Description</th>
                         <th class="headerFont" style="border-bottom: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">
                             Price</th>
@@ -1188,7 +1188,7 @@ function buildPdfCharges(charges) {
             amount_total += roundDec(k["magaya__Final_Amount"]);
             amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<tr>
-                        <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: left;">
+                        <td class="dataFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: left;">
                             ${k["Name"]}</td>
                         <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
                             ${k["magaya__Price"]}</td>
@@ -1202,7 +1202,7 @@ function buildPdfCharges(charges) {
         })
 
         data += `<tr>
-                    <td class="headerFont" style="border-right: 1px #000 solid; text-align: right;" colspan="4">
+                    <td class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: right;" colspan="4">
                         ${roundDec(amount_tax)}</td>
                     <td class="headerFont" style="border-right: 1px #000 solid;">${roundDec(amount_total)}</td>
                 </tr>
@@ -1210,15 +1210,21 @@ function buildPdfCharges(charges) {
         </div>`
     } else {
         data += `<tr>
-                        <td style="border-right: 1px #000 solid; text-align: left;"></td>
-                        <td style="border-right: 1px #000 solid; text-align: right;"></td>
-                        <td style="border-right: 1px #000 solid; text-align: right;"></td>
-                        <td style="border-right: 1px #000 solid; text-align: right;"></td>
-                        <td style="border-right: 1px #000 solid; text-align: right; font-weight: bold;"></td>
-                    </tr>
-                    <tr style="font-weight: bold;">
-                    <td style="border-right: 1px #000 solid; text-align: right;" colspan="4"></td>
-                    <td style="border-right: 1px #000 solid;"></td>
+                    <td class="dataFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: left;">
+                    </td>
+                    <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
+                    </td>
+                    <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
+                    </td>
+                    <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
+                    </td>
+                    <td class="headerFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: right;" colspan="4">
+                    </td>
+                    <td class="headerFont" style="border-right: 1px #000 solid;"></td>
                 </tr>
             </table>
         </div>`
