@@ -18,11 +18,10 @@ class PDFController extends Controller
 
     public function pdf(Request $request) {
         $data = $request->get('data');
-        //print_r($data);
-        $dataPdf = ['name' => $data['name']];
-        $pdf = PDF::loadView('tab_widget.quotation_pdf', $dataPdf)->setOptions(['defaultFont' => 'sans-serif']);
+        $dataPdf = ['name' => $data];
+        return PDF::loadView('tab_widget.quotation_pdf', $dataPdf)->setOptions(['defaultFont' => 'sans-serif'])->stream('invoice.pdf');
 
-        return $pdf->download('invoice.pdf');
+
         //return view ('tab_widget.quote_pdf');
     }
 }

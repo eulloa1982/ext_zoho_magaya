@@ -114,6 +114,12 @@ const MQUOTE_XML = {
     "magaya__ContactName": "RepresentativeName"
 }
 
+const MAP_ITEMS = {"Name":"Name", "magaya__Height":"magaya__Height", "magaya__Length":"magaya__Length",
+                    "magaya__Measure_System":"magaya__Measure_System","magaya__Package_Type":"magaya__Package_Type",
+                    "magaya__Pieces":"magaya__Pieces", "magaya__Status":"magaya__Status",
+                    "magaya__Volume":"magaya__Volume","magaya__Weigth":"magaya__Weigth",
+                    "magaya__Width":"magaya__Width"}
+
 
 const ERRORS_TYPES = {
     'MANDATORY_NOT_FOUND': "Required Field Missing",

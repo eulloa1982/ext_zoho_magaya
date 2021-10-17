@@ -325,7 +325,7 @@ async function buildStringRouting() {
         let transporMethod = await buildStringTransport(routing)
         let stringRouting = `<ModeOfTransportation Code="${transporMethod[0].magaya__TransportationMethodCode}">
                 <Description>${transporMethod[0].Name}</Description>
-                <Method>${transporMethod[0].magaya__ParentMethod}</Method>
+                <Method>${transporMethod[0].magaya__Parent_Mode}</Method>
                 </ModeOfTransportation>
                 <ModeOfTransportCode>${transporMethod[0].magaya__TransportationMethodCode}</ModeOfTransportCode>`
 
@@ -483,10 +483,15 @@ function buildXmlItem(items) {
                 measure_volume = "m3";
                 measure_weigth = "kg";
             }
+            //set name
+            let name_item = k.Name
+            if (!_.isEmpty(k.magaya__Package_Type))
+                name_item = k.magaya__Package_Type.name;
+
             stringItems += `<Item><Version>105</Version>`
             stringItems += `<Status>${k.magaya__Status}</Status>`
             stringItems += `<Pieces>${k.magaya__Pieces}</Pieces>`
-            stringItems += `<PackageName>${k.Name}</PackageName>`
+            stringItems += `<PackageName>${name_item}</PackageName>`
             stringItems += `<Length Unit="${measure_length}">${k.magaya__Length}</Length>`
             stringItems += `<Height Unit="${measure_length}">${k.magaya__Height}</Height>`
             stringItems += `<Width Unit="${measure_length}">${k.magaya__Width}</Width>`
@@ -940,6 +945,17 @@ async function make_pdf(id) {
     }
 }
 
+
+
+function bipdf(items) {
+    let data_items = {}
+    if (!_.isEmpty(items)) {
+        $.map(items, function(k, v) {
+            console.log(k, v)
+        })
+    }
+}
+
 async function buildPdf(mquote_id) {
     quoteToEdit = [];
     Utils.blockUI()
@@ -951,11 +967,35 @@ async function buildPdf(mquote_id) {
     orgData = JSON.parse(orgData)
     let charges = []
     let items = []
+
+
     items = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
     charges = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id)
     Utils.unblockUI();
+    let dataPost = bipdf(items)
 
-
+    const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
+    fetch(endpoint, {
+        method: 'POST',
+        headers: new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Access-Control-Allow-Origin': '*',
+            //'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        }),
+        body: dataPost
+    })
+    .then((response) => response.blob())
+    .then((blob) => {
+        /*var img = document.createElement('img');
+        var file = window.URL.createObjectURL(blob);
+        img.src = file;
+        img.target = "_blank"
+        document.body.appendChild(img);
+        window.location.assign(file);*/
+    })
+    .catch((err) => {
+        console.warn("error", err)
+    })
     let data = `<div class="HtmltoPdf">`
     data += buildPdfHeader(orgData, quoteToEdit)
 
@@ -977,7 +1017,7 @@ async function buildPdf(mquote_id) {
     data += `</div></div>`
 
     $("#htmlToPdf").html(data)
-    getPdf("htmlToPdf")
+    //getPdf("htmlToPdf")
         //$("#pdfModal").modal("show")
 }
 

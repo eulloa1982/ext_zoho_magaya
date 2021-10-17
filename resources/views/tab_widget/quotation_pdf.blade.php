@@ -7,12 +7,7 @@
 <?php
 print_r($name);
 ?>
-@foreach ($name as $dat)
-        <li>{{ $dat }}</li>
-
-        @endforeach
-
-
+<table><tr><td>Name</td><td>Last Name</td></tr></table>
 
 
 
