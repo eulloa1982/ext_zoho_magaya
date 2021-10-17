@@ -325,7 +325,7 @@ async function buildStringRouting() {
         let transporMethod = await buildStringTransport(routing)
         let stringRouting = `<ModeOfTransportation Code="${transporMethod[0].magaya__TransportationMethodCode}">
                 <Description>${transporMethod[0].Name}</Description>
-                <Method>${transporMethod[0].magaya__Parent_Mode}</Method>
+                <Method>${transporMethod[0].magaya__ParentMethod}</Method>
                 </ModeOfTransportation>
                 <ModeOfTransportCode>${transporMethod[0].magaya__TransportationMethodCode}</ModeOfTransportCode>`
 
@@ -951,7 +951,7 @@ function bipdf(items) {
     let data_items = {}
     if (!_.isEmpty(items)) {
         $.map(items, function(k, v) {
-            console.log(k, v)
+
         })
     }
 }
