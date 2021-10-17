@@ -1062,36 +1062,36 @@ function buildPdfHeader(orgData, quoteToEdit) {
                     <div style="float: left;">
                         <table id="info1" cellspacing="0px" cellpadding="0px" width="100%" style="border: 1px #000 solid; text-align: left;">
                             <tr>
-                                <th class="headerFont" colspan="2" style="background-color: lightskyblue; text-align: center;">Contact Info</th>
+                                <th class="headerFont" colspan="2" style="background-color: lightskyblue; text-align: center;border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;">Contact Info</th>
                             </tr>
                             <tr>
-                                <td class="headerFont" style="background-color: lightskyblue;">
+                                <td class="headerFont" style="background-color: lightskyblue;border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;">
                                     Customer</td>
-                                <td class="dataFont">
+                                <td class="dataFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;">
                                     ${nameAccount}</td>
                             </tr>
                             <tr>
-                                <td class="headerFont" style="background-color: lightskyblue;">
+                                <td class="headerFont" style="background-color: lightskyblue;border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;">
                                     Representative</td>
-                                <td class="dataFont">
+                                <td class="dataFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;">
                                     ${representative}</td>
                             </tr>
                             <tr>
-                                <td class="headerFont" style="background-color: lightskyblue;">
+                                <td class="headerFont" style="background-color: lightskyblue;border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;">
                                     Phone</td>
-                                <td class="dataFont">
+                                <td class="dataFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;">
                                     ${quoteToEdit["magaya__ContactMobile"]}</td>
                             </tr>
                             <tr>
-                                <td class="headerFont" style="background-color: lightskyblue;">
+                                <td class="headerFont" style="background-color: lightskyblue;border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;">
                                     Email</td>
-                                <td class="dataFont">
+                                <td class="dataFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;">
                                     ${quoteToEdit["magaya__ContactEmail"]}</td>
                             </tr>
                             <tr>
-                                <td class="headerFont" style="background-color: lightskyblue;">
+                                <td class="headerFont" style="background-color: lightskyblue;border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;">
                                     Address</td>
-                                <td class="dataFont">
+                                <td class="dataFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;">
                                     ${quoteToEdit["magaya__ContactStreet"]}, ${quoteToEdit["magaya__ContactCity"]}, ${quoteToEdit["magaya__ContactState"]}, ${quoteToEdit["magaya__ContactCountry"]}
                                 </td>
                             </tr>
@@ -1149,7 +1149,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                             <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid;">${quoteToEdit["magaya__Destination"] !== null ? quoteToEdit["magaya__Destination"] : ""}</td>
                         </tr>
                         <tr>
-                            <th colspan="2" class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;background-color: lightskyblue;"><span>Description of Goods:</span></th>
+                            <th colspan="2" class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;background-color: lightskyblue;text-align:center;"><span>Description of Goods:</span></th>
                         </tr>
                         <tr>
                             <td colspan="2" class="dataFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">${quoteToEdit["magaya__Description"]}</td>
