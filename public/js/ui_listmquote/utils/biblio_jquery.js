@@ -1050,7 +1050,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                 <th class="headerFont" colspan="2" style="background-color: lightskyblue; text-align: center;">Contact Info</th>
                             </tr>
                             <tr>
-                                <td class="headerFont" style="background-color: lightskyblue; padding: 3px;">
+                                <td class="headerFont" style="background-color: lightskyblue;">
                                     Customer</td>
                                 <td class="dataFont">
                                     ${nameAccount}</td>
