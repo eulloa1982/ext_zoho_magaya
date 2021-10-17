@@ -1024,34 +1024,28 @@ function buildPdfHeader(orgData, quoteToEdit) {
                 <th colspan="2">
                     <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: left;">
                         <tr>
-                            <td colspan="12">
-                                <div class="session-first">
-                                    ${orgData["company_name"]}
-                                </div>
+                            <td colspan="12" class="session-first">
+                                ${orgData["company_name"]}
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="12">
-                                <div class="col dataFont p-2"><span class="material-icons">
-                                language</span>${none}</div>
+                            <td colspan="12" class="col dataFont p-2"><span class="material-icons">
+                                language</span>${none}
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="12">
-                                <div class="col dataFont p-2"><span class="material-icons">
-                                phone</span>${orgData["phone"]}</div>
+                            <td colspan="12" class="col dataFont p-2"><span class="material-icons">
+                                phone</span>${orgData["phone"]}
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="12">
-                                <div class="col dataFont p-2"><span class="material-icons">
-                                alternate_email</span>${orgData["primary_email"]}</div>
+                            <td colspan="12" class="col dataFont p-2"><span class="material-icons">
+                                alternate_email</span>${orgData["primary_email"]}
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="12">
-                                <div class="col dataFont p-2"><span class="material-icons">
-                                home</span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
+                            <td colspan="12" class="col dataFont p-2"><span class="material-icons">
+                                home</span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}
                             </td>
                         </tr>
                     </table>
@@ -1060,9 +1054,9 @@ function buildPdfHeader(orgData, quoteToEdit) {
             <tr>
                 <td width="50%">
                     <div style="float: left;">
-                        <table id="info1" cellspacing="0px" cellpadding="0px" width="100%" style="border: 1px #000 solid; text-align: left;">
+                        <table id="info1" cellspacing="0px" cellpadding="0px" width="100%" style="text-align: left;">
                             <tr>
-                                <th class="headerFont" colspan="2" style="background-color: lightskyblue; text-align: center;border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;">Contact Info</th>
+                                <th class="headerFont" colspan="2" style="text-align: center;">Contact Info</th>
                             </tr>
                             <tr>
                                 <td class="headerFont" style="background-color: lightskyblue;border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;">
