@@ -1170,7 +1170,7 @@ function buildPdfCharges(charges) {
                             Charges</th>
                     </tr>
                     <tr style="background-color: lightskyblue;">
-                        <th class="headerFont" style="border-left: 1px #000 solid;border-bottom: 1px #000 solid;border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">
+                        <th class="headerFont" style="border-bottom: 1px #000 solid;border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">
                             Charge Description</th>
                         <th class="headerFont" style="border-bottom: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">
                             Price</th>
