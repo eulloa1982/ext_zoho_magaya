@@ -1083,9 +1083,9 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                     ${quoteToEdit["magaya__ContactEmail"]}</td>
                             </tr>
                             <tr>
-                                <td class="headerFont" style="background-color: lightskyblue;border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;">
+                                <td class="headerFont" style="background-color: lightskyblue;border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
                                     Address</td>
-                                <td class="dataFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;">
+                                <td class="dataFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
                                     ${quoteToEdit["magaya__ContactStreet"]}, ${quoteToEdit["magaya__ContactCity"]}, ${quoteToEdit["magaya__ContactState"]}, ${quoteToEdit["magaya__ContactCountry"]}
                                 </td>
                             </tr>
@@ -1170,15 +1170,15 @@ function buildPdfCharges(charges) {
                             Charges</th>
                     </tr>
                     <tr style="background-color: lightskyblue;">
-                        <th class="headerFont" style="border: 1px #000 solid; text-align: center;">
+                        <th class="headerFont" style="border-bottom: 1px #000 solid;border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">
                             Charge Description</th>
-                        <th class="headerFont" style="border: 1px #000 solid; text-align: center;">
+                        <th class="headerFont" style="border-bottom: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">
                             Price</th>
-                        <th class="headerFont" style="border: 1px #000 solid; text-align: center;">
+                        <th class="headerFont" style="border-bottom: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">
                             Quantity</th>
-                        <th class="headerFont" style="border: 1px #000 solid; text-align: center;">
+                        <th class="headerFont" style="border-bottom: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">
                             Tax Amount</th>
-                        <th class="headerFont" style="border: 1px #000 solid; text-align: center;">
+                        <th class="headerFont" style="border-bottom: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">
                             Final Amount</th></tr>`
     if (!_.isEmpty(charges)) {
 
@@ -1188,15 +1188,15 @@ function buildPdfCharges(charges) {
             amount_total += roundDec(k["magaya__Final_Amount"]);
             amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<tr>
-                        <td class="dataFont" style="border-right: 1px #000 solid; text-align: left;">
+                        <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: left;">
                             ${k["Name"]}</td>
-                        <td class="dataFont" style="border-right: 1px #000 solid; text-align: right;">
+                        <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
                             ${k["magaya__Price"]}</td>
-                        <td class="dataFont" style="border-right: 1px #000 solid; text-align: right;">
+                        <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
                             ${k["magaya__CQuantity"]}</td>
-                        <td class="dataFont" style="border-right: 1px #000 solid; text-align: right;">
+                        <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
                             ${k["magaya__Tax_Amount"]}</td>
-                        <td class="headerFont" style="border-right: 1px #000 solid; text-align: right;">
+                        <td class="headerFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
                             ${k["magaya__Final_Amount"]}</td>
                     </tr>`
         })
