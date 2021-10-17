@@ -6,8 +6,22 @@
 </style>
 <?php
 print_r($name);
+
+/*
+@foreach ($name as $dat)
+        <li>{{ $dat }}</li>
+
+        @endforeach
+*/
 ?>
-<table><tr><td>Name</td><td>Last Name</td></tr></table>
+<table><tr><td>Name</td></tr>
+@foreach ($name as $dat)
+        <li>{{ $dat }}</li>
+
+        @endforeach
+
+
+</table>
 
 
 
