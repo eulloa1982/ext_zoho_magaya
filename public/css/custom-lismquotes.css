@@ -252,7 +252,13 @@ table td .numeric {
 }
 
 .session-first {
-    font-size: 18px;
+    font-size: 24px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.session-contact {
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .session-second {
