@@ -1093,7 +1093,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                     </div>
                 </td>
                 <td width="50%">
-                    <div style="float: right; padding-left:15px;">
+                    <div style="float: right; padding-left:5px;">
                         <table id="info2" cellspacing="0px" cellpadding="2px" style="text-align:left;border: none; padding-left: 15px;">
                             <tr>
                                 <th colspan="2" class="headerFont" style="text-align:right;border: none;">Quotation</th>
@@ -1128,7 +1128,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
             </tr>
             <tr>
                 <td colspan="2">
-                    <table width="100%" cellspacing="0px" cellpadding="2px" style="border: none; margin-top: 15px;">
+                    <table width="100%" cellspacing="0px" cellpadding="2px" style="border: none; margin-top: 5px;">
                         <tr>
                             <th class="headerFont" colspan="2" style="text-align: center;">
                                 Quotation Info
@@ -1163,7 +1163,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
  */
 function buildPdfCharges(charges) {
     let data = ``
-    data += `<div class="row" style="margin-left: 1px; margin-top: 15px;">
+    data += `<div class="row" style="margin-left: 1px; margin-top: 5px;">
                 <table width="97%">
                     <tr style="background-color: lightskyblue;">
                         <th class="headerFont" colspan="5" style="border-top: 1px #000 solid;border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">
@@ -1238,7 +1238,7 @@ function buildPdfCharges(charges) {
  */
 function buildPdfItems(items) {
     let data = ``
-    data += `<div class="row" style="margin-left: 1px; margin-top: 15px;">
+    data += `<div class="row" style="margin-left: 1px; margin-top: 5px;">
                     <table width="97%">
                         <tr style="background-color: lightskyblue;">
                             <th class="headerFont" colspan="5" style="text-align: center; font-weight: bold; border: 1px #000 solid;">Items</th></tr>
