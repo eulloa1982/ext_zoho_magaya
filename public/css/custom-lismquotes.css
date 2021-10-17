@@ -233,11 +233,6 @@ table td .numeric {
     padding: 3px;
 }
 
-.container table tr th,
-.container table tr th td {
-    padding: 3px;
-}
-
 .headerPrincipal {
     background-color: #c5cbce;
 }
