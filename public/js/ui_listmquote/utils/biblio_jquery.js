@@ -315,16 +315,19 @@ async function buildStringQuote2(idSQuote) {
 async function buildStringRouting() {
     //routing
     if (!_.isEmpty(quoteXML.magaya__Routing)) {
+        console.log("Building routing")
         let idRouting = quoteXML.magaya__Routing.id
         let routing = await getRecordCRM("magaya__Routing", idRouting)
         console.log(" routing", routing)
-
-        let transporMethod = await buildStringTransport(routing)
-        let stringRouting = `<ModeOfTransportation Code="${transporMethod[0].magaya__TransportationMethodCode}">
+        let stringRouting = ``
+        if (!_.isEmpty(routing.magaya__ModeofTransportation)) {
+            let transporMethod = await buildStringTransport(routing)
+            stringRouting += `<ModeOfTransportation Code="${transporMethod[0].magaya__TransportationMethodCode}">
                 <Description>${transporMethod[0].Name}</Description>
                 <Method>${transporMethod[0].magaya__ParentMethod}</Method>
                 </ModeOfTransportation>
                 <ModeOfTransportCode>${transporMethod[0].magaya__TransportationMethodCode}</ModeOfTransportCode>`
+        }
 
         if (!_.isEmpty(routing[0].magaya__MainCarrier)) {
             let mainCarrier = await buildStringMainCarrier(routing[0].magaya__MainCarrier.id)
@@ -354,6 +357,7 @@ function buildStringTransport(dataRouting) {
 
     return new Promise(function(resolve, reject) {
         if (!_.isEmpty(dataRouting[0].magaya__ModeofTransportation)) {
+            console.log("Building transport")
             getTranspMethod(dataRouting[0].magaya__ModeofTransportation.id)
                 .then(r => {
                     console.log("transport m", r)
@@ -388,16 +392,16 @@ async function buildStringXML(idSQuote) {
     //check magaya updated
     storeQuote.dispatch(findById({ id: idSQuote }))
     let quote = quoteXML[0]
-    console.log(quote)
-    if (quote.Magaya_updated) {
-        codeError = 'It seems like this mQuote is already in Magaya. Please contact with your administrator';
+    console.log("XAML", quote)
+    //if (quote.Magaya_updated) {
+    /*    codeError = 'It seems like this mQuote is already in Magaya. Please contact with your administrator';
         show = false;
         field = ``;
         module = 'mQuote'
         storeError.dispatch(addError({ errorCode: codeError, showInfo: show, field: field, module: module }))
 
-
-    } else {
+*/
+    //} else {
 
         xml = await buildStringQuote2(idSQuote);
 
@@ -405,7 +409,8 @@ async function buildStringXML(idSQuote) {
         stringXML += stringQuote;
         let routing = await buildStringRouting()
 
-        stringXML += routing
+        if (!_.isEmpty(routing))
+            stringXML += routing
             //charges
         let account_id = 0;
         let data_account = {}
@@ -457,13 +462,10 @@ async function buildStringXML(idSQuote) {
         console.log(stringXML);
 
         //Utils.blockUI();
-        try {
-            let result = await sendmQuote(stringXML, idSQuote)
-        }
-        catch (err) {
-            console.warn(err)
-        }
-    }
+
+        let result = await sendmQuote(stringXML, idSQuote)
+
+    //}
 } //.send-quote
 
 
@@ -547,7 +549,6 @@ function buildXmlCharge(charges, data_account) {
             chargesString += `
                             <Quantity>${k.magaya__CQuantity}</Quantity>
                             <Price Currency="USD">${k.magaya__Price}</Price>
-                            <TaxAmount Currency="USD">${k.magaya__Tax_Amount}</TaxAmount>
                             <HomeCurrency Code="USD">
                                 <Name>United States Dollar</Name>
                                 <ExchangeRate>1.00</ExchangeRate>
@@ -555,19 +556,6 @@ function buildXmlCharge(charges, data_account) {
                                 <IsHomeCurrency>true</IsHomeCurrency>
                             </HomeCurrency>
                             <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
-                            <TaxAmountInCurrency Currency="USD">${k.magaya__Tax_Amount}</TaxAmountInCurrency>
-                            <TaxDefinition>
-                                <Code>${k.magaya__TaxCode}</Code>
-                                <Name>Impuesto</Name>
-                                <Rate>${k.magaya__TaxRate}</Rate>
-                                <Layout>Simple</Layout>
-                                <Type>Tax</Type>
-                                <TaxAuthority>
-                                    <Type>Vendor</Type>
-                                    <Name>Autoridad Impositiva Predeterminada</Name>
-                                </TaxAuthority>
-
-                            </TaxDefinition>
                             <IsPrepaid>true</IsPrepaid>
                             <IsThirdPartyCharge>false</IsThirdPartyCharge>
                             <ChargeDefinition>
