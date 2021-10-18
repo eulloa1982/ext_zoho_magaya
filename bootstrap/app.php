@@ -72,11 +72,11 @@ $app->configure('app');
 |
 */
 
-$app->middleware([
-        App\Http\Middleware\CorsMiddleware::class,
+//$app->middleware([
+        //App\Http\Middleware\CorsMiddleware::class,
         //App\Http\Middleware\HttpsProtocol::class
         //App\Http\Middleware\IpMiddleware::class
-]);
+//]);
 
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
@@ -93,9 +93,10 @@ $app->middleware([
 |
 */
 
+
 //$app->register(App\Providers\AppServiceProvider::class);
-//$app->register(Barryvdh\DomPDF\ServiceProvider::class);
-//$app->configure('dompdf');
+$app->register(Barryvdh\DomPDF\ServiceProvider::class);
+$app->configure('dompdf');
 
 
 

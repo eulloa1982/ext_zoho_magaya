@@ -254,7 +254,7 @@ a {
 
                                         <div class="col-md-3">
 											<label class="col-md-12" style="font-weight: bold;">Incoterms</label>
-                                            <select name='magaya__Incoterms' class='form-control no-border'>
+                                            <select name='magaya__Incoterm_rule' class='form-control no-border'>
                                                 <option value=""></option>
                                                 <option value="EXW - Ex Works">EXW - Ex Works</option>
                                                 <option value="FCA - Free Carrier">FCA - Free Carrier</option>
@@ -749,14 +749,14 @@ a {
                                                     <div class="row">
                                                         <div class="col-md-3">Type</div>
                                                         <div class="col-md-8">
-                                                            <select class="form-control text" name="Name"><option value='-1'></option></select>
+                                                            <select class="form-control text" name="magaya__Package_Type"><option value='-1'></option></select>
                                                         </div>
                                                     </div>
 
                                                     <div class="row">
                                                         <div class="col-md-3">Description</div>
                                                         <div class="col-md-8">
-                                                            <textarea class="form-control new-item text" id="magaya__Package_Description" name="magaya__Package_Description" aria-label="With textarea"></textarea>
+                                                            <textarea class="form-control new-item text" id="magaya__Package_Description" name="Name" aria-label="With textarea"></textarea>
                                                         </div>
                                                     </div>
 

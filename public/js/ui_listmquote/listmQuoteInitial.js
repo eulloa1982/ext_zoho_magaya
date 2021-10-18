@@ -56,7 +56,7 @@ $(document).ready(function(){
                 $.map (data.data, function (k, i){
                     k.Name = sanitize(k.Name)
                     //$("<option value='"+i+"'>"+k.Name+"</option>").appendTo("#new-item select[name=Name]");
-                    $("#new-item select[name=Name]").append("<option value='"+i+"'>"+k.Name+"</option>");
+                    $("#new-item select[name=magaya__Package_Type]").append("<option value='"+k.id+"'>"+k.Name+"</option>");
                     packageType.push(k);
                 })
             })
@@ -166,7 +166,7 @@ $(document).ready(function(){
             localStorage.setItem('organization', JSON.stringify(orgData))
         });
 
-        //checkConnect()
+        checkConnect()
 
 
     });

@@ -913,16 +913,6 @@ async function make_pdf(id) {
 }
 
 
-
-function bipdf(items) {
-    let data_items = {}
-    if (!_.isEmpty(items)) {
-        $.map(items, function(k, v) {
-
-        })
-    }
-}
-
 async function buildPdf(mquote_id) {
     quoteToEdit = [];
     Utils.blockUI()
@@ -932,78 +922,53 @@ async function buildPdf(mquote_id) {
     //general data
     let orgData = localStorage.getItem('organization')
     orgData = JSON.parse(orgData)
+        //orgData = orgData)
     let charges = []
     let items = []
 
 
-    //items = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
-    //charges = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id)
-    //Utils.unblockUI();
+    items = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
+    charges = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id)
+    Utils.unblockUI();
     //let dataPost = bipdf(items)
 
+
     dataPost = {
-        'first_name': "Name from post",
-        'last_name': "Apellido from posdt"
-    }
+            'organization': {
+                "orgData": orgData,
+                //'dataQuote': buildPdfHeader(orgData, quoteToEdit),
+                'charges': await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id),
+                'items': await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
+            }
+        }
+        //dataPost = {}
+
+    /*console.log("passing organization", dataPost)
     const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
-    /*$.ajax({
-        type: 'POST',
-        url: endpoint,
-        data: dataPost,
-        beforeSend: function() {
-            Utils.blockUI()
-        },
-        success: function(resp) {
-            blob = resp.blob
-            var file = window.URL.createObjectURL(blob);
+
+    fetch(endpoint, {
+        method: 'POST',
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            //'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        }),
+        body: JSON.stringify(dataPost)
+    })
+    .then((response) => response.blob())
+    .then((blob) => {
+        //var img = document.createElement('img');
+        var file = window.URL.createObjectURL(blob);
         //img.src = file;
         //img.target = "_blank"
         //document.body.appendChild(img);
         window.location.assign(file);
-        },
-        error: function(resp) {
-            console.log(resp)
-            if (error) {
-                error(resp)
-            } else {
-                message_error = 'Unknown error during operation, please try again';
-                //error(message_error)
-                Swal.fire({
-                    title: 'Unknown Error',
-                    html: "Unknown error during operation, please try to <a class='startSession'>Login again</a>",
-                    icon: 'error'
-                })
-                $("#no-configuration-alert").show();
-            }
-        },
-        complete: function() {
-            Utils.unblockUI()
-        }
-
+    })
+    .catch((err) => {
+        console.warn("error", err)
     })*/
-    fetch(endpoint, {
-            method: 'POST',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                //'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-            }),
-            body: JSON.stringify(dataPost)
-        })
-        .then((response) => response.blob())
-        .then((blob) => {
-            //var img = document.createElement('img');
-            var file = window.URL.createObjectURL(blob);
-            //img.src = file;
-            //img.target = "_blank"
-            //document.body.appendChild(img);
-            window.location.assign(file);
-        })
-        .catch((err) => {
-            console.warn("error", err)
-        })
-        //let data = `<div class="HtmltoPdf">`
-        //data += buildPdfHeader(orgData, quoteToEdit)
+    let data = `<div class="HtmltoPdf">`
+    data += buildPdfHeader(orgData, quoteToEdit)
 
     //data += buildPdfCharges(charges)
 

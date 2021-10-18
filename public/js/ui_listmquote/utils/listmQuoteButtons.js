@@ -90,10 +90,12 @@ $(document).ready(function(){
         rowIndex = $("#select-package").val();
         let $form = $("#new-item");
         let item = getFormData($form);
-        console.log("Send Item", item)
-        Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
+
+        //Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
         Object.assign(item, {'magaya__SQuote_Name': idmQuoteToEdit})
-        Object.assign(item, {"magaya__Package_Description": sanitize($("#magaya__Package_Description").val())})
+        Object.assign(item, {"magaya__Package_Type": {'id': $("select[name=magaya__Package_Type]").val(), 'name':$("select[name=magaya__Package_Type] option:selected").text()}})
+        //item = JSON.parse(item)
+        console.log("Send Item", item)
 
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: item, Trigger: [] })
         .then(function(data) {
@@ -143,9 +145,9 @@ $(document).ready(function(){
 
         let $form = $("#new-item");
         let item = getFormData($form);
-        Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
-        Object.assign(item, {"magaya__Package_Description": $('#magaya__Package_Description').val()})
+        Object.assign(item, {"magaya__Package_Type": {'id': $("select[name=magaya__Package_Type]").val(), 'name':$("select[name=magaya__Package_Type] option:selected").text()}})
 
+        console.log("new item", item)
         storeItem.dispatch(addItemOnNew({...item}))
         $(`#panel-item`).animate({width:'toggle'},150);
     });
@@ -374,7 +376,7 @@ $(document).ready(function(){
         "magaya__ContactHomePhone": sanitize($("input[name=Phone]").val()),
         "magaya__ContactName": sanitize($("select[name=magaya__Representative] option:selected").text()),
         "magaya__Terms": sanitize($("#magaya__Terms").val()),
-        "magaya__Incoterms": $("select[name=magaya__Incoterms]").val(),
+        "magaya__Incoterm_rule": $("select[name=magaya__Incoterm_rule]").val(),
         "Owner": $("select[name=Owner]").val()
     }
 
@@ -562,7 +564,7 @@ $(document).ready(function(){
             "magaya__Seller": $("select[name=magaya__Seller]").val(),
             "magaya__Terms": sanitize($("#magaya__Terms").val()),
             "magaya__IssuedBy": $(":input[name=magaya__IssuedByName]").val(),
-            "magaya__Incoterms": $("select[name=magaya__Incoterms]").val(),
+            "magaya__Incoterm_rule": $("select[name=magaya__Incoterm_rule]").val(),
             "Owner": $("select[name=Owner]").val()
         }
 
