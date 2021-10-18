@@ -29,10 +29,7 @@
                         //remove commas
                     let dataType = $(this).attr("data-type")
                     if (dataType === "number") {
-                        console.log("Number value before", nameValue)
                         nameValue = nameValue.replace(/[,]/g, '')
-                        console.log("Number value after", nameValue)
-
                     }
                     json_items += `, "${class_name}":"${nameValue}"`
                 }
@@ -391,7 +388,7 @@ async function buildStringXML(idSQuote) {
     //check magaya updated
     storeQuote.dispatch(findById({ id: idSQuote }))
     let quote = quoteXML[0]
-
+    console.log(quote)
     if (quote.Magaya_updated) {
         codeError = 'It seems like this mQuote is already in Magaya. Please contact with your administrator';
         show = false;
@@ -460,7 +457,12 @@ async function buildStringXML(idSQuote) {
         console.log(stringXML);
 
         //Utils.blockUI();
-        let result = await sendmQuote(stringXML, idSQuote)
+        try {
+            let result = await sendmQuote(stringXML, idSQuote)
+        }
+        catch (err) {
+            console.warn(err)
+        }
     }
 } //.send-quote
 
@@ -489,7 +491,7 @@ function buildXmlItem(items) {
                 name_item = k.magaya__Package_Type.name;
 
             stringItems += `<Item><Version>105</Version>`
-            stringItems += `<Status>${k.magaya__Status}</Status>`
+            stringItems += `<Status>InQuote</Status>`
             stringItems += `<Pieces>${k.magaya__Pieces}</Pieces>`
             stringItems += `<PackageName>${name_item}</PackageName>`
             stringItems += `<Length Unit="${measure_length}">${k.magaya__Length}</Length>`

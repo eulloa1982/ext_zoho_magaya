@@ -3,7 +3,7 @@ let data_module_flag_item = true
 
 //get an item, draw the data view
 storeItem.subscribe(() => {
-    console.log("State items", storeItem.getState())
+    //console.log("State items", storeItem.getState())
     let u = storeItem.getState().singleItem;
     if (!_.isEmpty(u)) {
         //construir los campos y la data
@@ -160,7 +160,7 @@ storeItem.subscribe(() => {
 
                 <td class="magaya__Status" style="display: none;">InQuote</td>
                 <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
-                <td class='magaya__Package_Type' style="display: none;">${k.magaya__Package_Type}</td>
+                <td class='magaya__Package_Type' style="display: none;">${k.magaya__Package_Type.id}</td>
                 </tr>`);
 
             })

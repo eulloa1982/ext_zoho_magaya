@@ -11,7 +11,6 @@ const initialStateIntems = {
         magaya__Length: 0,
         magaya__Weigth: 0,
         magaya__Height: 0,
-        magaya__Status: "",
         magaya__Pieces: 0,
         magaya__Width: 0,
         magaya__Measure_System: "",

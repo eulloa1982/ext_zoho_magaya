@@ -182,9 +182,9 @@ a {
 								<div class="nav nav-tabs" id="nav-tab" role="tablist">
 									<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#menu5" role="tab" aria-controls="nav-home" aria-selected="true">Customer</a>
 									<a class="nav-link" id="nav-general-tab" data-toggle="tab" href="#menu1" role="tab" aria-controls="nav-profile" aria-selected="false">General</a>
-									<a class="nav-link" id="nav-routing-tab" data-toggle="tab" href="#menu3" role="tab" aria-controls="nav-contact" aria-selected="false">Routing</a>
-									<a class="nav-link" id="nav-charges-tab" data-toggle="tab" href="#menu2" role="tab" aria-controls="nav-contact" aria-selected="false">Charges</a>
 									<a class="nav-link" id="nav-items-tab" data-toggle="tab" href="#menu4" role="tab" aria-controls="nav-contact" aria-selected="false">Items</a>
+									<a class="nav-link" id="nav-charges-tab" data-toggle="tab" href="#menu2" role="tab" aria-controls="nav-contact" aria-selected="false">Charges</a>
+                                    <a class="nav-link" id="nav-routing-tab" data-toggle="tab" href="#menu3" role="tab" aria-controls="nav-contact" aria-selected="false">Routing</a>
                                     <a class="nav-link" id="nav-terms-tab" data-toggle="tab" href="#menu6" role="tab" aria-controls="nav-contact" aria-selected="false">Terms</a>
                                     <a class="nav-link" id="nav-notes-tab" data-toggle="tab" href="#menu7" role="tab" aria-controls="nav-contact" aria-selected="false">Notes</a>							  </div>
 							</nav>
@@ -809,12 +809,12 @@ a {
                                                         </div>
                                                     </div>
 
-                                                    <div class="row">
+                                                    <!--div class="row">
                                                         <div class="col-md-3">Status</div>
                                                         <div class="col-md-8">
                                                             <select name="magaya__Status" class="form-control new-item"><option value="InQuote">InQuote</option></select>
                                                         </div>
-                                                    </div>
+                                                    </div-->
                                                 </form>
 												<!--
                                                     <div id="info-datad"></div>
