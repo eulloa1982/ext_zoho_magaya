@@ -11,9 +11,9 @@
         word-wrap: break-word;
         /*width: 1% !important;**
     }*/
-    .number
+.number
 {
-    text-align: right;
+    text-align-last:right;
 }
 
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
@@ -596,7 +596,7 @@ a {
                                             <form id="new-charge" action="https://zm">
                                                 <div class="row">
                                                     <div class="col-md-3">Type</div>
-                                                    <div class="col-md-8"><select name="magaya__ChargeCode" class="form-control new-charge"></select></div>
+                                                    <div class="col-md-8"><select name="magaya__ChargeCode" class="form-control new-charge"><option value=""></option></select></div>
                                                 </div>
 
                                                 <div class="row">
@@ -608,7 +608,7 @@ a {
 
                                                 <div class="row">
                                                     <div class="col-md-3">Quantity</div>
-                                                    <div class="col-md-8"><input type="text" class="form-control number new-charge" name="magaya__CQuantity"style="text-align-last:right;"></div>
+                                                    <div class="col-md-8"><input type="text" class="form-control number new-charge" name="magaya__CQuantity" style="text-align-last:right;"></div>
                                                 </div>
 
                                                 <div class="row">
@@ -628,7 +628,7 @@ a {
 
                                                 <div class="row">
                                                     <div class="col-md-3">Tax Code</div>
-                                                    <div class="col-md-8"><select class="form-control new-charge" name="magaya__TaxCode"><option value=0></option></select></div>
+                                                    <div class="col-md-8"><select class="form-control new-charge" name="magaya__Tax"><option value=0></option></select></div>
                                                 </div>
 
                                                 <div class="row">

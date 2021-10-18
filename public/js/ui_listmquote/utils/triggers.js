@@ -181,21 +181,37 @@ function rolOther() {
 
 //var obs = new MutationObserver(function(mutations, observer) {
 
-    $("select[name=magaya__Package_Type]").change(function(e) {
-        e.preventDefault()
-        e.stopImmediatePropagation()
-        let index = $(this).val();
+$("select[name=magaya__Package_Type]").change(function(e) {
+    e.preventDefault()
+    e.stopImmediatePropagation()
+    let index = $(this).val();
 
-        let pck = packageType.filter(k => k.id === index)
-        if (!_.isEmpty(pck)) {
+    let pck = packageType.filter(k => k.id === index)
+    if (!_.isEmpty(pck)) {
 
-            let length = pck[0]["magaya__PackageLength"]
-            let height = pck[0]["magaya__PackageHeight"]
-            let width = pck[0]["magaya__PackageWidth"]
+        let length = pck[0]["magaya__PackageLength"]
+        let height = pck[0]["magaya__PackageHeight"]
+        let width = pck[0]["magaya__PackageWidth"]
 
-            storeItem.dispatch(updateAllItemNew({Name: index, length: length, width: width, height: height}))
-        }
-    })
+        storeItem.dispatch(updateAllItemNew({Name: index, length: length, width: width, height: height}))
+    }
+})
+
+
+$("select[name=magaya__Tax]").change(function(e) {
+    e.preventDefault()
+    e.stopImmediatePropagation()
+    let index = $(this).val();
+    let rate = 0;
+    let pck = taxes.filter(k => k.id === index)
+    if (!_.isEmpty(pck)) {
+
+        rate = pck[0]["magaya__Tax_Rate0"]
+        storeCharge.dispatch(updateChargeOnNew({field: 'magaya__TaxRate', value: rate}))
+    }
+
+})
+
 
 //})
 

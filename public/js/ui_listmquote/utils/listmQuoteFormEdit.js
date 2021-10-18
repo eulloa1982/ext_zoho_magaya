@@ -33,8 +33,7 @@
                     charge[this.name].push(sanitize(this.value) || '');
                 } else {
                     //if (this.name !== "Name" && this.name !== "id" && this.name !== "magaya__SQuote_Name" && this.name !== "magaya__ChargeCode" && this.name !== "magaya__ChargeCurrency" && this.name !== "magaya__Paid_As" && this.name !== "magaya__Status")
-                    if ($.isNumeric(this.value)) {
-                        this.value = this.value
+                    if (this.name !== "magaya__Tax" && $.isNumeric(this.value)) {
                         charge[this.name] = Number(this.value)
                     }
                     else {

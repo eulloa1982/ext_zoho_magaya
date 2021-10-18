@@ -4,7 +4,7 @@ $("#info-charge").html("Loading, please wait...");
 //get one charge
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
-    //console.log("State charges now", storeCharge.getState())
+    console.log("State charges now", storeCharge.getState())
     if (!_.isEmpty(u)) {
         let k = parseInt(u[0])
         //construir los campos y la data
@@ -48,12 +48,15 @@ storeCharge.subscribe(() => {
                     if (Number.isInteger(k))
                         k = `${k}.00`
 
-                    input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" ${editable}/>`
+                    input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" style="text-align-last:right;" ${editable}/>`
 
                 } else if (_.get(CHARGES_FIELDS, [v, 'type']) === "textarea") {
                     input = `<textarea class='form-control ${no_border}' id="${v}">${k}</textarea>`
                 } else {
-                    input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" ${editable}/>`
+                    input = _.isObject(k) ? `<select data-id="${id}" class="form-control" name="${v}"><option value="${k.id}">${k.name}</option></select>`
+                    : input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" style="text-align-last:right;" />`
+
+                    //input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" ${editable}/>`
 
                 }
 
@@ -233,7 +236,7 @@ storeCharge.subscribe(() => {
                 <td align="right" data-type="number" class="magaya__Tax_Amount">${k.magaya__Tax_Amount.toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 <td align="right" data-type="number" class="magaya__Amount_Total">${k.magaya__Amount_Total.toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 <td class="magaya__ChargeCode" style="display: none;">${k.magaya__ChargeCode}</td>
-                <td class="magaya__TaxRate" style="display: none;">${k.magaya__TaxRate}</td>
+                <td class="magaya__Tax" style="display: none;">${k.magaya__Tax}</td>
                 <td class="magaya__Unit" style="display: none;">${k.magaya__Unit}</td>
                 <td class="magaya__Paid_As" style="display: none;">${k.magaya__Paid_As}</td>
                 <td class="magaya__ChargeCurrency" style="display: none;">${k.magaya__ChargeCurrency}</td>
