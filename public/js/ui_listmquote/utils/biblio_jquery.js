@@ -543,9 +543,9 @@ function buildXmlCharge(charges, data_account) {
                     <Name>${data_account.Account_Name}</Name>
                     <IsPrepaid>true</IsPrepaid>
                 </Entity>`;
-            if (k.magaya__TaxRate === null || k.magaya__TaxRate === "null")
+            /*if (k.magaya__TaxRate === null || k.magaya__TaxRate === "null")
                 k.magaya__TaxRate = 0.00
-            else k.magaya__TaxRate = k.magaya__TaxRate.toLocaleString('en-US', { minimumFractionDigits: 2 })
+            else k.magaya__TaxRate = k.magaya__TaxRate.toLocaleString('en-US', { minimumFractionDigits: 2 })*/
             chargesString += `
                             <Quantity>${k.magaya__CQuantity}</Quantity>
                             <Price Currency="USD">${k.magaya__Price}</Price>
