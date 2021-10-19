@@ -167,7 +167,7 @@ $(document).ready(function(){
             localStorage.setItem('organization', JSON.stringify(orgData))
         });
 
-        checkConnect()
+        //checkConnect()
 
 
     });

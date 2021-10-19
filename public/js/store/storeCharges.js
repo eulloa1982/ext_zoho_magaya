@@ -29,8 +29,13 @@ function reducerCharge (state = initialStateCharge, actions)  {
 
     switch (actions.type) {
         case ADD_CHARGE: {
-            if (_.isEmpty(actions.payload.Name) || _.isEmpty(actions.payload.magaya__ApplyToAccounts))
+            if (_.isEmpty(actions.payload.magaya__ApplyToAccounts))
                 throw new UserException('Mandatory data not found: eigther Charge Name or Client are mandatory');
+            if (_.isEmpty(actions.payload.magaya__ChargeCode) || actions.payload.magaya__ChargeCode === "select")
+                throw new UserException('You need to select a Charge Type')
+
+                if (_.size(actions.payload.Name) <= 0)
+                    actions.payload.Name = 'No Description';
 
                 return Object.assign({}, state, {
                     charges: state.charges.concat(actions.payload)
@@ -160,12 +165,15 @@ function reducerCharge (state = initialStateCharge, actions)  {
 
 
         case ADD_CHARGE_ON_NEW: {
-            if (_.isEmpty(actions.payload.Name)  || _.isEmpty(actions.payload.magaya__ApplyToAccounts))
+            if (_.isEmpty(actions.payload.magaya__ApplyToAccounts))
                 throw new UserException('Mandatory data not found: eigther Charge Name or Client are mandatory');
             if (_.isEmpty(actions.payload.magaya__ChargeCode) || actions.payload.magaya__ChargeCode === "select")
                 throw new UserException('You need to select a Charge Type')
 
-            $.map(state.emptyCharge, function(k, v) {
+            if (_.size(actions.payload.Name) <= 0)
+                actions.payload.Name = 'No description';
+
+                $.map(state.emptyCharge, function(k, v) {
                 state.emptyCharge[v] = 0
             })
 
@@ -206,7 +214,9 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray['magaya__Tax_Amount'] = amount_tax.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             newArray['magaya__Amount_Total'] = amount_total.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
-            newArray['Name'] = newArray["magaya__Charge_Description"]
+            if (_.isEmpty(newArray['Name']))
+                newArray['Name'] = "No Description"
+            console.log("Empty charege", newArray)
 
             return {
                 ...state,
