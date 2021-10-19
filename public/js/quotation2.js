@@ -1676,17 +1676,25 @@ async function sendQuoteMagaya2CRM(dataArray) {
 
         if (statusAccount && statusAccount == 204) {
             //create carrier
+
             let account = {
                 "Account_Name": dataArray['Contact'].Name,
                 "magaya__MagayaGUID": dataArray['Contact']['@attributes']["GUID"],
                 "magaya__MagayaEmail": dataArray['Contact'].Email,
-                "Billing_City": dataArray['Contact'].BillingAddress.City,
-                "Billing_Country": dataArray['Contact'].BillingAddress.Country,
-                "Billing_State": dataArray['Contact'].BillingAddress.State,
-                "Billing_Street": dataArray['Contact'].BillingAddress.Street,
-                "Billing_ZipCode": dataArray['Contact'].BillingAddress.ZipCode,
+
             }
 
+            if (!_.isEmpty(dataArray['Contact'].BillingAddress)) {
+                let billingdata = {
+                    "Billing_City": dataArray['Contact'].BillingAddress.City,
+                    "Billing_Country": dataArray['Contact'].BillingAddress.Country,
+                    "Billing_State": dataArray['Contact'].BillingAddress.State,
+                    "Billing_Street": dataArray['Contact'].BillingAddress.Street,
+                    "Billing_ZipCode": dataArray['Contact'].BillingAddress.ZipCode,
+                }
+
+                Object.assign(account, billingdata)
+            }
             let a = await insertRecordCRM("Accounts", account)
                     .then(function(data){
                         idAccount = data[0]["details"]["id"]
