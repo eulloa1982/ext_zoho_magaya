@@ -1171,7 +1171,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                 </td>
                 <td width="50%">
                     <div style="float: right;">
-                        <table id="info2" cellspacing="0px" cellpadding="2px" style="text-align:left;border: none;">
+                        <table id="info2" width="100%" cellspacing="0px" cellpadding="2px" style="text-align:left;border: none;">
                             <tr>
                                 <th colspan="2" class="headerFont" style="text-align:right;border: none;">Quotation</th>
                             </tr>
@@ -1205,7 +1205,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
             </tr>
             <tr>
                 <td colspan="2">
-                    <table width="100%" cellspacing="0px" cellpadding="2px" style="border: none; margin-top: 5px;">
+                    <table width="100%" cellspacing="0px" cellpadding="2px" style="border: none; margin: 5px 0 0 0;">
                         <tr>
                             <th class="headerFont" colspan="2" style="text-align: center;">
                                 Quotation Info
