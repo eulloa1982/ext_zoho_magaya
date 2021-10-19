@@ -1089,11 +1089,11 @@ function buildPdfHeader(orgData, quoteToEdit) {
         let nameAccount = !_.isEmpty(quoteToEdit["Account"]) ? quoteToEdit["Account"]["name"] : ""
         let representative = !_.isEmpty(quoteToEdit["magaya__Representative"]) ? quoteToEdit["magaya__Representative"]["name"] : ""
 
-        data = `<div class="container" style="margin-left:-5px;">
-        <table cellspacing="0px" cellpadding="2px" style="border: none; margin: 0px" width="100%">
+        data = `<div class="container">
+        <table cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
             <tr>
-                <th style="display: inline-block;">
-                <img width="200px" height="150px" src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: left;" />
+                <th><img src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: left; float: left;" /></th>
+                <th>
                     <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: left;">
                         <tr>
                             <td colspan="12">
@@ -1131,7 +1131,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
             </tr>
             <tr>
                 <td width="50%">
-                    <div style="float: left; padding: 0px;">
+                    <div style="float: left;">
                         <table id="info1" cellspacing="0px" cellpadding="0px" width="100%" style="text-align: left;">
                             <tr>
                                 <th class="headerFont" colspan="2" style="text-align: center;">Contact Info</th>
@@ -1171,8 +1171,8 @@ function buildPdfHeader(orgData, quoteToEdit) {
                     </div>
                 </td>
                 <td width="50%">
-                    <div style="float: right; padding-left: 10px;">
-                        <table id="info2" width="100%" cellspacing="0px" cellpadding="2px" style="text-align:left;border: none;">
+                    <div style="float: right;">
+                        <table id="info2" cellspacing="0px" cellpadding="2px" style="text-align:left;border: none;">
                             <tr>
                                 <th colspan="2" class="headerFont" style="text-align:right;border: none;">Quotation</th>
                             </tr>
@@ -1206,7 +1206,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
             </tr>
             <tr>
                 <td colspan="2">
-                    <table width="100%" cellspacing="0px" cellpadding="2px" style="border: none; margin: 5px 0 0 0;">
+                    <table width="100%" cellspacing="0px" cellpadding="2px" style="border: none; margin-top: 5px;">
                         <tr>
                             <th class="headerFont" colspan="2" style="text-align: center;">
                                 Quotation Info
@@ -1221,7 +1221,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                             <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid;">${quoteToEdit["magaya__Destination"] !== null ? quoteToEdit["magaya__Destination"] : ""}</td>
                         </tr>
                         <tr>
-                            <th colspan="2" class="headerFont" style="text-align: center;border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;background-color: lightskyblue;"><span>Description of Goods:</span></th>
+                            <th colspan="2" class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;background-color: lightskyblue;"><span>Description of Goods:</span></th>
                         </tr>
                         <tr>
                             <td colspan="2" class="dataFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">${quoteToEdit["magaya__Description"]}</td>
@@ -1241,48 +1241,47 @@ function buildPdfHeader(orgData, quoteToEdit) {
  */
 function buildPdfCharges(charges) {
     let data = ``
-    data += `<div class="row" style="margin-left: 5px;">
-                <table width="97%">
-                    <tr style="background-color: lightskyblue;">
-                        <th colspan="5" style="border: 1px #000 solid; text-align: center;">
-                            Charges</th>
-                    </tr>
-                    <tr style="background-color: lightskyblue; font-weight: bold;">
-                        <th style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                            Charge Description</th>
-                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                            Price</th>
-                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                            Quantity</th>
-                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                            Tax Amount</th>
-                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                            Final Amount</th></tr>`
+    data += `<div class="container">
+    <table width="100%" cellspacing="0px" cellpadding="0px">
+        <tr style="background-color: lightskyblue;">
+            <th colspan="5" style="border: 1px #000 solid; text-align: center;">
+                Charges</th>
+        </tr>
+        <tr style="background-color: lightskyblue; font-weight: bold;">
+            <th style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                Charge Description</th>
+            <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                Price</th>
+            <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                Quantity</th>
+            <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                Tax Amount</th>
+            <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                Final Amount</th>
+        </tr>`
     if (!_.isEmpty(charges)) {
-
         let amount_total = 0;
         let amount_tax = 0;
         $.map(charges, function(k, v) {
             amount_total += roundDec(k["magaya__Final_Amount"]);
             amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<tr>
-                        <td style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: left;">
-                            ${k["Name"]}</td>
-                        <td style="border-right: 1px #000 solid; text-align: right;">
-                            ${k["magaya__Price"]}</td>
-                        <td style="border-right: 1px #000 solid; text-align: right;">
-                            ${k["magaya__CQuantity"]}</td>
-                        <td style="border-right: 1px #000 solid; text-align: right;">
-                            ${k["magaya__Tax_Amount"]}</td>
-                        <td style="border-right: 1px #000 solid; text-align: right; font-weight: bold;">
-                            ${k["magaya__Final_Amount"]}</td>
-                    </tr>`
+                <td style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: left;">
+                    ${k["Name"]}</td>
+                <td style="border-right: 1px #000 solid; text-align: right;">
+                    ${k["magaya__Price"]}</td>
+                <td style="border-right: 1px #000 solid; text-align: right;">
+                    ${k["magaya__CQuantity"]}</td>
+                <td style="border-right: 1px #000 solid; text-align: right;">
+                    ${k["magaya__Tax_Amount"]}</td>
+                <td style="border-right: 1px #000 solid; text-align: right; font-weight: bold;">
+                    ${k["magaya__Final_Amount"]}</td>
+            </tr>`
         })
-
         data += `<tr style="font-weight: bold;">
-                    <td style="border-top: 1px #000 solid;" colspan="3">
+                    <td style="border-left: 1px #000 solid; border-top: 1px #000 solid;" colspan="3">
                         Totals</td>
-                    <td style="border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: right;">
+                    <td style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: right;">
                         ${roundDec(amount_tax)}</td>
                     <td style="border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: right;">${roundDec(amount_total)}</td>
                 </tr>
@@ -1312,18 +1311,19 @@ function buildPdfCharges(charges) {
  */
 function buildPdfItems(items) {
     let data = ``
-    data += `<div class="row" style="margin-left: 5px;">
-                    <table width="97%">
-                        <tr style="background-color: lightskyblue;">
-                            <th colspan="5" style="text-align: center; font-weight: bold; border: 1px #000 solid;">Items</th></tr>
-                        <tr style="background-color: lightskyblue;">
-                            <th style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">Description </th>
-                            <th style="border-right: 1px #000 solid; text-align: center;">Quantity</th>
-                            <th style="border-right: 1px #000 solid; text-align: center;">Dimensions</th>
-                            <th style="border-right: 1px #000 solid; text-align: center;">Weight</th>
-                            <th style="border-right: 1px #000 solid; text-align: center;">Volume</th></tr>`
+    data += `<div class="container">
+                <table width="100%">
+                    <tr style="background-color: lightskyblue;">
+                        <th colspan="5" style="text-align: center; font-weight: bold; border: 1px #000 solid;">Items</th>
+                    </tr>
+                    <tr style="background-color: lightskyblue;">
+                        <th style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">Description </th>
+                        <th style="border-right: 1px #000 solid; text-align: center;">Quantity</th>
+                        <th style="border-right: 1px #000 solid; text-align: center;">Dimensions</th>
+                        <th style="border-right: 1px #000 solid; text-align: center;">Weight</th>
+                        <th style="border-right: 1px #000 solid; text-align: center;">Volume</th>
+                    </tr>`
     if (!_.isEmpty(items)) {
-
         let totalPieces = 0
         let totalVolume = 0
         let totalWeight = 0
@@ -1331,56 +1331,51 @@ function buildPdfItems(items) {
         let total_volume_international = 0
         let total_weight_english = 0
         let total_volume_english = 0
-
         $.map(items, function(k, v) {
                 totalPieces += parseInt(k.magaya__Pieces)
-
                 let measure_length = "in";
                 let measure_weigth = "lb";
                 let measure_volume = "ft<sup>3</sup>"
-
                 if (k.magaya__Measure_System === "International") {
                     measure_length = "m";
                     measure_volume = "m<sup>3</sup>";
                     measure_weigth = "kg"
                     total_volume_international += roundDec(k.magaya__Volume * k.magaya__Pieces)
                     total_weight_international += roundDec(k.magaya__Weigth * k.magaya__Pieces)
-
                 } else {
-                    //pulgadas y libras
+                    //pulgadas y libras 
                     total_volume_english += roundDec(k.magaya__Volume * k.magaya__Pieces)
                     total_weight_english += roundDec(k.magaya__Weigth * k.magaya__Pieces)
                 }
-
                 data += `<tr>
-                   <td style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: left;">
-                        ${k["Name"]}</td>
-                    <td style="border-right: 1px #000 solid; text-align: center;">
-                        ${k["magaya__Pieces"]}</td>
-                    <td style="border-right: 1px #000 solid; text-align: center;">
-                        ${k["magaya__Length"]}*${k["magaya__Height"]}*${k["magaya__Width"]} (${measure_length})</td>
-                    <td style="border-right: 1px #000 solid; text-align: right;">
-                        ${k["magaya__Weigth"]} (${measure_weigth})</td>
-                    <td style="border-right: 1px #000 solid; text-align: right;">
-                        ${k["magaya__Volume"]} (${measure_volume})</td>
-                </tr>`
+            <td style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: left;">
+                ${k["Name"]}</td>
+            <td style="border-right: 1px #000 solid; text-align: center;">
+                ${k["magaya__Pieces"]}</td>
+            <td style="border-right: 1px #000 solid; text-align: center;">
+                ${k["magaya__Length"]}*${k["magaya__Height"]}*${k["magaya__Width"]} (${measure_length})</td>
+            <td style="border-right: 1px #000 solid; text-align: right;">
+                ${k["magaya__Weigth"]} (${measure_weigth})</td>
+            <td style="border-right: 1px #000 solid; text-align: right;">
+                ${k["magaya__Volume"]} (${measure_volume})</td>
+        </tr>`
             })
-            //get all to international system
+            //get all to international system 
         totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
-
         data += `<tr style="font-weight: bold;">
-            <td style="border-top: 1px #000 solid;">
-                Totals</td>
-            <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: center;">
-                ${totalPieces}</td>
-                <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
-            <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
-                ${roundDec(totalWeight)} kg</td>
-            <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
-                ${roundDec(totalVolume)} m<sup>3</sup></td>
-            </tr>
-        </table></div>`
+                    <td style="border-left: 1px #000 solid;border-top: 1px #000 solid;">
+                        Totals</td>
+                    <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: center;">
+                        ${totalPieces}</td>
+                    <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
+                    <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
+                        ${roundDec(totalWeight)} kg</td>
+                    <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
+                        ${roundDec(totalVolume)} m<sup>3</sup></td>
+                </tr>
+            </table>
+        </div>`
     } else {
         data += `<tr>
                     <td style="border-right: 1px #000 solid; text-align: left;">
