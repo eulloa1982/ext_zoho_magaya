@@ -1089,7 +1089,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
         let nameAccount = !_.isEmpty(quoteToEdit["Account"]) ? quoteToEdit["Account"]["name"] : ""
         let representative = !_.isEmpty(quoteToEdit["magaya__Representative"]) ? quoteToEdit["magaya__Representative"]["name"] : ""
 
-        data = `<div class="container">
+        data = `<div class="container" style="margin-left:-5px;">
         <table cellspacing="0px" cellpadding="2px" style="border: none; margin: 0px" width="100%">
             <tr>
                 <th style="display: inline-block;">
@@ -1171,7 +1171,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                     </div>
                 </td>
                 <td width="50%">
-                    <div style="float: right; padding: 0px;">
+                    <div style="float: right; padding-left: 10px;">
                         <table id="info2" width="100%" cellspacing="0px" cellpadding="2px" style="text-align:left;border: none;">
                             <tr>
                                 <th colspan="2" class="headerFont" style="text-align:right;border: none;">Quotation</th>
