@@ -207,7 +207,6 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray['magaya__Amount_Total'] = amount_total.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
             newArray['Name'] = newArray["magaya__Charge_Description"]
-            console.log(newArray)
 
             return {
                 ...state,

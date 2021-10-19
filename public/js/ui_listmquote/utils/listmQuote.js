@@ -63,6 +63,7 @@ $(document).ready(function(){
             value = parseFloat(value);
         }*/
         //si los valores son iguales, no actualizar nada
+        console.log(`${field}  val  ${value}`)
         if (sanitize(oldValue) !== sanitize(value)) {
             storeItem.dispatch(updateItemOnNew({field: field, value: value}))
         }

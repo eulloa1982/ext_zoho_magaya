@@ -9,6 +9,7 @@ storeCharge.subscribe(() => {
         let k = parseInt(u[0])
         //construir los campos y la data
         let id = 0;
+        let idTax = 0;
         //find id charge
         let applyToName = ''
         $.map(u[1], function(k, v) {
@@ -53,18 +54,12 @@ storeCharge.subscribe(() => {
                 } else if (_.get(CHARGES_FIELDS, [v, 'type']) === "textarea") {
                     input = `<textarea class='form-control ${no_border}' id="${v}">${k}</textarea>`
                 } else {
+                    idTax = (v === "magaya__Tax" ? k.id : 0)
                     input = _.isObject(k) ? `<select data-id="${id}" class="form-control" name="${v}"><option value="${k.id}">${k.name}</option></select>`
                     : input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" style="text-align-last:right;" />`
-
-                    //input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" ${editable}/>`
-
                 }
 
-
                 if (k === null || k === "null") k = 0
-
-                //check values .00
-
 
                 let field = _.get(CHARGES_FIELDS, [v, 'field'])
                 let values = _.has(CHARGES_FIELDS, [v, "values"]) ? _.get(CHARGES_FIELDS, [v, 'values']) : ''
@@ -88,6 +83,22 @@ storeCharge.subscribe(() => {
                 arr[order] = appendArr
             }
         })
+
+        //tax rate manually
+        index = idTax;
+        let rate = 0;
+        let pck = taxes.filter(k => k.id === index)
+        if (!_.isEmpty(pck)) {
+
+            rate = pck[0]["magaya__Tax_Rate0"]
+        }
+        let taxrate = `<div class="row">
+                    <div class="col-md-4">Tax Rate</div>
+                    <div class="col-md-6">
+                    <input type='text' value='${rate}' data-id="${id}" class="form-control ${no_border} number" name="magaya__TaxRate" style="text-align-last:right;" readonly=""/>
+                    </div>
+                    </div>`
+        arr[8] = taxrate;
 
         let append = ``
         arrows += `<span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel">close</span>
