@@ -157,6 +157,11 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray[1]['magaya__Tax_Amount'] = roundDec(amount_tax)
             newArray[1]['magaya__Amount_Total'] = roundDec(amount_total);
 
+            if (_.isEmpty(newArray['Name']))
+                newArray['Name'] = "No Description"
+            if (_.isEmpty(newArray['magaya__Tax']) || newArray['magaya__Tax'] == 'null')
+                newArray['magaya__Tax'] = ''
+
             return {
                 ...state,
                 singleCharge: newArray
@@ -182,6 +187,54 @@ function reducerCharge (state = initialStateCharge, actions)  {
             });
         }
 
+
+        case UPDATE_CHARGE_ON_NEW2 : {
+            const field = actions.payload.field;
+            const value = actions.payload.value;
+
+            const index = state.singleCharge[0]
+
+            newArray = {...state.singleCharge};
+            newArray[1][field] = value
+
+            let price = roundDec(newArray[1]['magaya__Price'])
+            let quantity = roundDec (newArray[1]['magaya__CQuantity'])
+            let amount = roundDec(newArray[1]['magaya__Amount'])
+            let amount_tax = roundDec(newArray[1]['magaya__Tax_Amount'])
+            let amount_total = roundDec(newArray[1]['magaya__Amount_Total'])
+            let tax_rate = roundDec(newArray[1]['magaya__TaxRate'])
+
+            price = price > 0 ? price : 0;
+            quantity = quantity > 0 ? quantity : 0
+            amount = amount > 0 ? amount : 0
+            amount_tax = amount_tax > 0 ? amount_tax : 0
+            amount_total = amount_total > 0 ? amount_total : 0
+            tax_rate = tax_rate > 0 ? tax_rate : 0
+
+            //calculos
+            amount = price * quantity;
+            amount_tax = (roundDec(amount) / 100) * roundDec(tax_rate)
+            amount_total = roundDec(amount + amount_tax)
+
+            //back to field
+            newArray[1]['magaya__Amount'] = amount.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]['magaya__Tax_Amount'] = amount_tax.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]['magaya__Amount_Total'] = amount_total.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+
+            /*if (_.size(newArray['Name']) <= 0) {
+                console.log("Name size", _.size(newArray['Name']))
+                newArray['Name'] = "No Description"
+
+            }*/
+            if (_.size(newArray['magaya__Tax']) <= 0)
+                newArray['magaya__Tax'] = ''
+            state.chargesOnNew[index] = {...newArray[1]}
+            return {
+                ...state,
+                singleCharge: newArray
+
+            }
+        }
 
         case UPDATE_CHARGE_ON_NEW : {
             const field = actions.payload.field;
@@ -214,8 +267,13 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray['magaya__Tax_Amount'] = amount_tax.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             newArray['magaya__Amount_Total'] = amount_total.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
-            if (_.isEmpty(newArray['Name']))
+            /*if (_.size(newArray['Name']) <= 0) {
+                console.log("Name size", _.size(newArray['Name']))
                 newArray['Name'] = "No Description"
+
+            }*/
+            if (_.size(newArray['magaya__Tax']) <= 0)
+                newArray['magaya__Tax'] = ''
             console.log("Empty charege", newArray)
 
             return {
@@ -337,4 +395,8 @@ function addChargeEmpty() {
 
 function updateChargeOnNew(payload) {
     return {type: UPDATE_CHARGE_ON_NEW, payload}
+}
+
+function updateChargeOnNew2(payload) {
+    return {type: UPDATE_CHARGE_ON_NEW2, payload}
 }

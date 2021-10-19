@@ -43,6 +43,7 @@
                 }
             });
 
+            //get textarea
             Object.assign(charge, { id: idCharge, magaya__SQuote_Name: idmQuoteToEdit, Name: sanitize($("#Name").val())});
             let config = { APIData: charge }
             Object.assign(config, { Entity: "magaya__ChargeQuote" });
@@ -82,7 +83,7 @@
 
                                 })
 
-
+                            $("#panel").animate({width:'toggle'},150);
                             let message = ": Updated successfully!!"
                             storeSuccess.dispatch(addSuccess({message: message}))
                         }
@@ -97,7 +98,7 @@
                     Utils.unblockUI()
                 })
 
-                $("#panel").animate({width:'toggle'},150);
+
         })
 
 
@@ -124,7 +125,7 @@
                 if (field === "Adjustment" || field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
                     value = roundDec(value);
                 }
-
+                console.log(`${field} -- ${value}`)
                 //si los valores son iguales, no actualizar nada
                 if (oldValue.toString() !== value.toString()) {
 
@@ -142,7 +143,7 @@
             ///// VALORAR QUITAR
             ///// VERIFICAR, DEBE SOBRAR
             ///////////////////////////////////////////////////////////////////
-            /*$(".no-border-charge-new").focus(function(e) {
+            $(".no-border-charge-new").focus(function(e) {
                 $(this).addClass("editable");
                 oldValue = $(this).val()
             })
@@ -151,20 +152,36 @@
                 e.stopImmediatePropagation()
                 let $celd = $(this)
                 $(this).removeClass("editable")
-                let value = $(this).val().replace(/[^a-zA-Z0-9]\./g, ' ');
+                let value = $(this).val();
                 let field = $(this).attr('name');
                 let idItem = $(this).attr("data-id")
-                value = sanitize(value);
-                if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
+                //value = sanitize(value);
+                if (field !== undefined && field !== 'undefined') {
+
+                    value = sanitize(value)
+                    if (field === "Adjustment" || field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
+                        value = roundDec(value);
+                    }
+                    console.log(`${field} -- ${value}`)
+                    //si los valores son iguales, no actualizar nada
+                    if (oldValue.toString() !== value.toString()) {
+
+                        //let json_items ='{"id":"'+ idCharge +'", "' + field + '": "' + value + '"}';
+                        //message = " : Item Updated!!";
+                        storeCharge.dispatch(updateChargeOnNew2({field: field, value: value}))
+                        //storeSuccess.dispatch(addSuccess({message: message}))
+                    }
+                }
+                /*if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
                     value = parseFloat(value);
                 }
                 console.log(`${idItem}, ${field} ${value}`)
                 //si los valores son iguales, no actualizar nada
                 if (oldValue.toString() !== value.toString()) {
                     //storeCharge.dispatch(updateCharge({id:idItem, field: field, value: value}))
-                    storeCharge.dispatch(setAmountOnNew({id:idItem, field: field, value: value}))
-                }
-            })*/
+                    storeCharge.dispatch(updateChargeOnNew({field: field, value: value}))
+                }*/
+            })
 
             ////////////////////ITEMS//////////////////////////////
             $("#updateItemNew").click(function(e) {

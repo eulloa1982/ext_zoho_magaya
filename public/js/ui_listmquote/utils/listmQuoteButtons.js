@@ -37,7 +37,8 @@ $(document).ready(function(){
         let panel = $(this).attr("data-panel");
         //$('form').toggleClass('show');
         $("#"+panel).show("fast");
-        console.log("Opening", panel)
+        $("#new-charge select").val("")
+        $("textarea").val(" ")
         $(this).toggleClass("active");
 
         switch (panel) {
