@@ -1272,7 +1272,7 @@ function buildPdfCharges(charges) {
                 <td style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: left;">
                     ${k["Name"]}</td>
                 <td style="border-right: 1px #000 solid; text-align: right;">
-                    ${k["magaya__Price"]}</td>
+                    ${k["magaya__Price"] !== null ? k["magaya__Price"] : 1}</td>
                 <td style="border-right: 1px #000 solid; text-align: right;">
                     ${k["magaya__CQuantity"]}</td>
                 <td style="border-right: 1px #000 solid; text-align: right;">
