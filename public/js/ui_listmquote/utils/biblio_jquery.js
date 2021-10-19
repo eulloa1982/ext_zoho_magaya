@@ -709,6 +709,8 @@ async function startSession() {
                 icon: 'success',
                 allowOutsideClick: false
             })
+            $("#no-configuration-alert").hide();
+
 
         } //else
 
