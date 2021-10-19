@@ -26,7 +26,7 @@ $(document).ready(function(){
                 })
             })
         //Las 100 primeras mQuotes
-        ZOHO.CRM.API.getAllRecords({Entity:"magaya__SQuotes",sort_order:"desc",per_page:150,page:page})
+        ZOHO.CRM.API.getAllRecords({Entity:"magaya__SQuotes",per_page:150,page:page})
             .then(function(data){
                 let quotes = data.data;
 
