@@ -1099,45 +1099,6 @@ function buildPdfHeader(orgData, quoteToEdit) {
                 <th>
                     <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: left;">
                         <tr>
-                            <th><img width="200px" height="150px" src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: center; margin-left:15px;" /></th>
-
-                            <th>
-                                <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right;">
-                                    <tr>
-                                        <td colspan="12">
-                                            <div class="session-first">
-                                                ${orgData["company_name"]}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="12">
-                                            <div class="col headerPDF p-2"><span class="material-icons">
-                                            language</span>${none}</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="12">
-                                            <div class="col headerPDF p-2"><span class="material-icons">
-                                            phone</span>${orgData["phone"]}</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="12">
-                                            <div class="col headerPDF p-2"><span class="material-icons">
-                                            alternate_email</span>${orgData["primary_email"]}</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="12">
-                                            <div class="col headerPDF p-2"><span class="material-icons">
-                                            home</span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </th>
-                        </tr>
-                        <tr>
                             <td colspan="12">
                                 <div class="col headerFont p-2"><span class="material-icons">
                                 language</span>${none}</div>
@@ -1352,11 +1313,11 @@ function buildPdfItems(items) {
                         <th colspan="5" style="text-align: center; font-weight: bold; border: 1px #000 solid;">Items</th>
                     </tr>
                     <tr style="background-color: lightskyblue;">
-                        <th style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">Description </th>
-                        <th style="border-right: 1px #000 solid; text-align: center;">Quantity</th>
-                        <th style="border-right: 1px #000 solid; text-align: center;">Dimensions</th>
-                        <th style="border-right: 1px #000 solid; text-align: center;">Weight</th>
-                        <th style="border-right: 1px #000 solid; text-align: center;">Volume</th>
+                        <th style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Description </th>
+                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Quantity</th>
+                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Dimensions</th>
+                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Weight</th>
+                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Volume</th>
                     </tr>`
     if (!_.isEmpty(items)) {
         let totalPieces = 0
@@ -1408,9 +1369,7 @@ function buildPdfItems(items) {
                         ${roundDec(totalWeight)} kg</td>
                     <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
                         ${roundDec(totalVolume)} m<sup>3</sup></td>
-                </tr>
-            </table>
-        </div>`
+                </tr>`
     } else {
         data += `<tr>
                     <td style="border-right: 1px #000 solid; text-align: left;">
@@ -1431,9 +1390,9 @@ function buildPdfItems(items) {
                         <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
                     <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
                     <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
-                </tr>
-        </table></div>`
+                </tr>`
     }
+    data += `</table></div>`
 
     return data
 }
