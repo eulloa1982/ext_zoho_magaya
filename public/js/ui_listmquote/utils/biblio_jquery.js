@@ -958,10 +958,10 @@ async function buildPdf(mquote_id) {
     let items = []
 
 
-    //items = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
-    //charges = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id)
-    //Utils.unblockUI();
-    //let dataPost = bipdf(items)
+    items = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
+    charges = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id)
+        //Utils.unblockUI();
+        //let dataPost = bipdf(items)
 
     dataPost = {
         'first_name': "Name from post",
@@ -1024,8 +1024,8 @@ async function buildPdf(mquote_id) {
         .catch((err) => {
             console.warn("error", err)
         })*/
-    //let data = `<div class="HtmltoPdf">`
-    //data += buildPdfHeader(orgData, quoteToEdit)
+    let data = `<div class="HtmltoPdf">`
+    data += buildPdfHeader(orgData, quoteToEdit)
 
     data += buildPdfCharges(charges)
 
