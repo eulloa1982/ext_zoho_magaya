@@ -1,6 +1,7 @@
 $(document).ready(function(){
     packageType = [];
     transpMethods = [];
+    taxes = [];
 
     idmQuoteToEdit = 0;
     let page = 1;
@@ -55,8 +56,7 @@ $(document).ready(function(){
                 $("#select-package").empty();
                 $.map (data.data, function (k, i){
                     k.Name = sanitize(k.Name)
-                    //$("<option value='"+i+"'>"+k.Name+"</option>").appendTo("#new-item select[name=Name]");
-                    $("#new-item select[name=Name]").append("<option value='"+i+"'>"+k.Name+"</option>");
+                    $("#new-item select[name=magaya__Package_Type]").append("<option value='"+k.id+"'>"+k.Name+"</option>");
                     packageType.push(k);
                 })
             })
@@ -152,9 +152,10 @@ $(document).ready(function(){
                 storeChargesType.dispatch(addChargeType(response.data))
                 if (!_.isEmpty (response.data)) {
                     $.map(response.data, function (k, i) {
+                        taxes.push(k)
                         k.magaya__Tax_Rate = sanitize(k.magaya__Tax_Rate)
                         k.Name = sanitize(k.Name)
-                        $(`<option value="${k.magaya__Tax_Rate0}">${k.Name}</option>`).appendTo("select[name=magaya__TaxCode]");
+                        $(`<option value="${k.id}">${k.Name}</option>`).appendTo("select[name=magaya__Tax]");
 
                     })
                 }

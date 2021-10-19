@@ -11,9 +11,9 @@
         word-wrap: break-word;
         /*width: 1% !important;**
     }*/
-    .number
+.number
 {
-    text-align: right;
+    text-align-last:right;
 }
 
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
@@ -182,11 +182,12 @@ a {
 								<div class="nav nav-tabs" id="nav-tab" role="tablist">
 									<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#menu5" role="tab" aria-controls="nav-home" aria-selected="true">Customer</a>
 									<a class="nav-link" id="nav-general-tab" data-toggle="tab" href="#menu1" role="tab" aria-controls="nav-profile" aria-selected="false">General</a>
-									<a class="nav-link" id="nav-routing-tab" data-toggle="tab" href="#menu3" role="tab" aria-controls="nav-contact" aria-selected="false">Routing</a>
-									<a class="nav-link" id="nav-charges-tab" data-toggle="tab" href="#menu2" role="tab" aria-controls="nav-contact" aria-selected="false">Charges</a>
 									<a class="nav-link" id="nav-items-tab" data-toggle="tab" href="#menu4" role="tab" aria-controls="nav-contact" aria-selected="false">Items</a>
+									<a class="nav-link" id="nav-charges-tab" data-toggle="tab" href="#menu2" role="tab" aria-controls="nav-contact" aria-selected="false">Charges</a>
+                                    <a class="nav-link" id="nav-routing-tab" data-toggle="tab" href="#menu3" role="tab" aria-controls="nav-contact" aria-selected="false">Routing</a>
                                     <a class="nav-link" id="nav-terms-tab" data-toggle="tab" href="#menu6" role="tab" aria-controls="nav-contact" aria-selected="false">Terms</a>
-                                    <a class="nav-link" id="nav-notes-tab" data-toggle="tab" href="#menu7" role="tab" aria-controls="nav-contact" aria-selected="false">Notes</a>							  </div>
+                                    <!--a class="nav-link" id="nav-notes-tab" data-toggle="tab" href="#menu7" role="tab" aria-controls="nav-contact" aria-selected="false">Notes</a-->
+                                </div>
 							</nav>
 						  	<!-- ACA SE DEFINE PARA CADA TAB SU CONTENIDO -->
 							<div class="tab-content" id="nav-tabContent">
@@ -596,7 +597,7 @@ a {
                                             <form id="new-charge" action="https://zm">
                                                 <div class="row">
                                                     <div class="col-md-3">Type</div>
-                                                    <div class="col-md-8"><select name="magaya__ChargeCode" class="form-control new-charge"></select></div>
+                                                    <div class="col-md-8"><select name="magaya__ChargeCode" class="form-control new-charge"><option value=""></option></select></div>
                                                 </div>
 
                                                 <div class="row">
@@ -608,7 +609,7 @@ a {
 
                                                 <div class="row">
                                                     <div class="col-md-3">Quantity</div>
-                                                    <div class="col-md-8"><input type="text" class="form-control number new-charge" name="magaya__CQuantity"style="text-align-last:right;"></div>
+                                                    <div class="col-md-8"><input type="text" class="form-control number new-charge" name="magaya__CQuantity" style="text-align-last:right;"></div>
                                                 </div>
 
                                                 <div class="row">
@@ -628,7 +629,7 @@ a {
 
                                                 <div class="row">
                                                     <div class="col-md-3">Tax Code</div>
-                                                    <div class="col-md-8"><select class="form-control new-charge" name="magaya__TaxCode"><option value=0></option></select></div>
+                                                    <div class="col-md-8"><select class="form-control new-charge" name="magaya__Tax"><option value=0></option></select></div>
                                                 </div>
 
                                                 <div class="row">
@@ -809,12 +810,12 @@ a {
                                                         </div>
                                                     </div>
 
-                                                    <div class="row">
+                                                    <!--div class="row">
                                                         <div class="col-md-3">Status</div>
                                                         <div class="col-md-8">
                                                             <select name="magaya__Status" class="form-control new-item"><option value="InQuote">InQuote</option></select>
                                                         </div>
-                                                    </div>
+                                                    </div-->
                                                 </form>
 												<!--
                                                     <div id="info-datad"></div>

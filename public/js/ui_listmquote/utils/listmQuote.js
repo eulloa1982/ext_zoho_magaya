@@ -26,11 +26,12 @@ $(document).ready(function(){
         let idItem = $(this).attr("data-id")
         value = sanitize(value);
 
-        if (field === "Adjustment" || field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
+        if (field === "magaya__CQuantity" || field === "magaya__Price") {
             value = parseFloat(value);
         }
         //si los valores son iguales, no actualizar nada
         if (oldValue.toString() !== value.toString()) {
+            console.log(`${field}: ${value}`)
             //storeCharge.dispatch(updateCharge({id:idItem, field: field, value: value}))
             //storeCharge.dispatch(setAmountOnNew({id:idItem, field: field, value: value}))
             storeCharge.dispatch(updateChargeOnNew({field: field, value: value}))

@@ -154,20 +154,20 @@ $(document).ready(function(){
     $("#sendCharges").click(function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        Utils.blockUI();
+        //Utils.blockUI();
         store.dispatch(addActionEdited())
-        //get tax code
-        let tax_code = sanitize($("select[name=magaya__TaxCode] option:selected").text());
-        let $form = $("#new-charge");
-        let item = getFormData($form);
-        Object.assign(item, {"magaya__SQuote_Name": idmQuoteToEdit})
-        Object.assign(item, {'magaya__ApplyToAccounts': accountId})
-        Object.assign(item, {"Name": item["magaya__Charge_Description"]})
-        Object.assign(item, {"magaya__Charge_Description": item["magaya__Charge_Description"]})
-        Object.assign(item, {"magaya__TaxCode": tax_code})
 
-        console.log("Charge send", item)
-        ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: item, Trigger: [] })
+        let charge = storeCharge.getState().emptyCharge
+        Object.assign(charge, {"magaya__SQuote_Name": idmQuoteToEdit})
+        Object.assign(charge, {'magaya__ApplyToAccounts': accountId})
+
+        //quitarles las comas a los numeros grandes
+        charge.magaya__Amount = charge.magaya__Amount.replace(/[,]/g, '')
+        charge.magaya__Amount_Total = charge.magaya__Amount_Total.replace(/[,]/g, '')
+        charge.magaya__Tax_Amount = charge.magaya__Tax_Amount.replace(/[,]/g, '')
+
+        console.log("Charge send", charge)
+        ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: charge, Trigger: [] })
             .then(function(data) {
                 res = data.data;
 
@@ -229,19 +229,13 @@ $(document).ready(function(){
         e.stopImmediatePropagation();
         store.dispatch(addActionEdited())
 
-        let $form = $("#new-charge");
-        let item = getFormData($form);
+        let charge = storeCharge.getState().emptyCharge
         let accountId = $("select[name=Account]").val()
-        let taxcode = $("select[name=magaya__TaxCode] option:selected").text()
-        let chargeDescription = $("#magaya__Charge_Description").val()
 
-        Object.assign(item, {'magaya__ApplyToAccounts': accountId})
-        Object.assign(item, {"Name": chargeDescription})
-        Object.assign(item, {"magaya__Charge_Description": chargeDescription})
-        Object.assign(item, {'magaya__TaxCode': taxcode})
+        Object.assign(charge, {'magaya__ApplyToAccounts': accountId})
 
-        console.log("new charge", item)
-        storeCharge.dispatch(addChargeOnNew({...item}))
+        console.log("new charge", charge)
+        storeCharge.dispatch(addChargeOnNew({...charge}))
         $(`#panel-charge`).animate({width:'toggle'},150);
     })
 
@@ -366,7 +360,7 @@ $(document).ready(function(){
         "magaya__TransportationMode": $("select[name=magaya__TransportationMode] option:selected").val(),
         "magaya__Description": $("#magaya__Description").val().replace(/[^a-zA-Z0-9]/g, ' '),
         "magaya__Service": $("select[name=Service]").val(),
-        "magaya__Status": $("select[name=magaya__Status] option:selected").val(),
+        "magaya__Status": $("select[name=magaya__mQuoteStatus] option:selected").val(),
         "magaya__Is_Hazardous": is_hazardous,
         "magaya__Terms": sanitize($(":input[name=magaya__Terms]").val()),
         "magaya__Representative": contact,

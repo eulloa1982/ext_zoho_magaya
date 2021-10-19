@@ -91,7 +91,7 @@ $("select[name=magaya__Consignee]").change(function(e) {
 $("select[name=magaya__TransportationMode]").change(function(e) {
     e.preventDefault()
     e.stopImmediatePropagation()
-    store.dispatch(addActionEdited())
+    /*store.dispatch(addActionEdited())
 
     let idT = $(this).val()
 
@@ -124,7 +124,7 @@ $("select[name=magaya__TransportationMode]").change(function(e) {
 
         storePorts.dispatch(searchByType({type: query}))
 
-    }
+    }*/
 
 })
 
@@ -181,17 +181,37 @@ function rolOther() {
 
 //var obs = new MutationObserver(function(mutations, observer) {
 
-    $("select[name=Name]").change(function(e) {
-        e.preventDefault()
-        e.stopImmediatePropagation()
-        let index = parseInt($("select[name=Name]").val());
+$("select[name=magaya__Package_Type]").change(function(e) {
+    e.preventDefault()
+    e.stopImmediatePropagation()
+    let index = $(this).val();
 
-        let length = packageType[index]["magaya__PackageLength"]
-        let height = packageType[index]["magaya__PackageHeight"]
-        let width = packageType[index]["magaya__PackageWidth"]
+    let pck = packageType.filter(k => k.id === index)
+    if (!_.isEmpty(pck)) {
+
+        let length = pck[0]["magaya__PackageLength"]
+        let height = pck[0]["magaya__PackageHeight"]
+        let width = pck[0]["magaya__PackageWidth"]
 
         storeItem.dispatch(updateAllItemNew({Name: index, length: length, width: width, height: height}))
-    })
+    }
+})
+
+
+$("select[name=magaya__Tax]").change(function(e) {
+    e.preventDefault()
+    e.stopImmediatePropagation()
+    let index = $(this).val();
+    let rate = 0;
+    let pck = taxes.filter(k => k.id === index)
+    if (!_.isEmpty(pck)) {
+
+        rate = pck[0]["magaya__Tax_Rate0"]
+        storeCharge.dispatch(updateChargeOnNew({field: 'magaya__TaxRate', value: rate}))
+    }
+
+})
+
 
 //})
 
