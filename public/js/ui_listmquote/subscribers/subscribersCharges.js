@@ -88,6 +88,7 @@ storeCharge.subscribe(() => {
         index = idTax;
         let rate = 0;
         let pck = taxes.filter(k => k.id === index)
+        console.log(pck)
         if (!_.isEmpty(pck)) {
 
             rate = pck[0]["magaya__Tax_Rate0"]
