@@ -1099,11 +1099,43 @@ function buildPdfHeader(orgData, quoteToEdit) {
                 <th>
                     <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: left;">
                         <tr>
-                            <td colspan="12">
-                                <div class="session-first">
-                                    ${orgData["company_name"]}
-                                </div>
-                            </td>
+                            <th><img width="200px" height="150px" src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: center; margin-left:15px;" /></th>
+
+                            <th>
+                                <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right;">
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="session-first">
+                                                ${orgData["company_name"]}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            language</span>${none}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            phone</span>${orgData["phone"]}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            alternate_email</span>${orgData["primary_email"]}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            home</span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </th>
                         </tr>
                         <tr>
                             <td colspan="12">
@@ -1266,7 +1298,7 @@ function buildPdfCharges(charges) {
         let amount_total = 0;
         let amount_tax = 0;
         $.map(charges, function(k, v) {
-            amount_total += roundDec(k["magaya__Final_Amount"]);
+            amount_total += roundDec(k["magaya__Amount_Total"]);
             amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<tr>
                 <td style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: left;">
