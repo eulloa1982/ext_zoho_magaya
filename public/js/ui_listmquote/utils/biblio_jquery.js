@@ -1248,15 +1248,15 @@ function buildPdfCharges(charges) {
                             Charges</th>
                     </tr>
                     <tr style="background-color: lightskyblue; font-weight: bold;">
-                        <th style="border: 1px #000 solid; text-align: center;">
+                        <th style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
                             Charge Description</th>
-                        <th style="border: 1px #000 solid; text-align: center;">
+                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
                             Price</th>
-                        <th style="border: 1px #000 solid; text-align: center;">
+                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
                             Quantity</th>
-                        <th style="border: 1px #000 solid; text-align: center;">
+                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
                             Tax Amount</th>
-                        <th style="border: 1px #000 solid; text-align: center;">
+                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
                             Final Amount</th></tr>`
     if (!_.isEmpty(charges)) {
 
@@ -1266,7 +1266,7 @@ function buildPdfCharges(charges) {
             amount_total += roundDec(k["magaya__Final_Amount"]);
             amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<tr>
-                        <td style="border-right: 1px #000 solid; text-align: left;">
+                        <td style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: left;">
                             ${k["Name"]}</td>
                         <td style="border-right: 1px #000 solid; text-align: right;">
                             ${k["magaya__Price"]}</td>
@@ -1280,9 +1280,9 @@ function buildPdfCharges(charges) {
         })
 
         data += `<tr style="font-weight: bold;">
-                    <td style="border-right: 1px #000 solid; text-align: right;" colspan="4">
+                    <td style="border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: right;" colspan="4">
                         ${roundDec(amount_tax)}</td>
-                    <td style="border-right: 1px #000 solid; text-align: right;">${roundDec(amount_total)}</td>
+                    <td style="border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: right;">${roundDec(amount_total)}</td>
                 </tr>
             </table>
         </div>`
@@ -1368,7 +1368,7 @@ function buildPdfItems(items) {
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
         data += `<tr style="font-weight: bold;">
-            <td style="border-right: 1px #000 solid;border-top: 1px #000 solid;">
+            <td style="border-top: 1px #000 solid;">
                 Totals</td>
             <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: center;">
                 ${totalPieces}</td>
