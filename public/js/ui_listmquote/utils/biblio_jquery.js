@@ -1003,7 +1003,7 @@ async function buildPdf(mquote_id) {
         }
 
     })*/
-    fetch(endpoint, {
+    /*fetch(endpoint, {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -1023,18 +1023,18 @@ async function buildPdf(mquote_id) {
         })
         .catch((err) => {
             console.warn("error", err)
-        })
+        })*/
         //let data = `<div class="HtmltoPdf">`
         //data += buildPdfHeader(orgData, quoteToEdit)
 
-    //data += buildPdfCharges(charges)
+    data += buildPdfCharges(charges)
 
-    //data += `</div>`
+    data += `</div>`
 
-    // data += buildPdfItems(items)
-    //data += `</div>`
+    data += buildPdfItems(items)
+    data += `</div>`
 
-    /*data += `<div class="container mt-3">
+    data += `<div class="container mt-3">
             <div class="row session-fourth headerMquote headerPrincipal" style="background-color: lightskyblue;">
                 <div class="col-sm" style="background-color: lightskyblue; text-align:center;font-weight:bold;">
                     Terms
@@ -1044,8 +1044,8 @@ async function buildPdf(mquote_id) {
         <div class="col headerMquote p-2">${quoteToEdit["magaya__Terms"] !== null ? quoteToEdit["magaya__Terms"] : ""}</div>`
     data += `</div></div>`
 
-    $("#htmlToPdf").html(data)*/
-    //getPdf("htmlToPdf")
+    $("#htmlToPdf").html(data)
+    getPdf("htmlToPdf")
     //$("#pdfModal").modal("show")
 }
 
