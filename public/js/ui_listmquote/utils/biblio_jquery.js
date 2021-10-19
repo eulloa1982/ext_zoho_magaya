@@ -1034,15 +1034,18 @@ async function buildPdf(mquote_id) {
     data += buildPdfItems(items)
     data += `</div>`
 
-    data += `<div class="container mt-3">
-            <div class="row session-fourth headerMquote headerPrincipal" style="background-color: lightskyblue;">
-                <div class="col-sm" style="background-color: lightskyblue; text-align:center;font-weight:bold;">
-                    Terms
-                </div>
+    data += `<div class="container" style="margin-top: 5px;">
+                <table width="100%" cellpadding="0px" cellspacing="0px">
+                    <tr>
+                        <th colspan="12" class="session-fourth headerFont" style="border:1px #000 solid;background-color: lightskyblue; text-align:center;font-weight:bold;">
+                            Terms</th>
+                    </tr>
+                    <tr>
+                        <td colspan="12">
+                            ${quoteToEdit["magaya__Terms"] !== null ? quoteToEdit["magaya__Terms"] : ""}</td>
+                    </tr>
+                </table>
             </div>`
-    data += `<div class="row">
-        <div class="col headerMquote p-2">${quoteToEdit["magaya__Terms"] !== null ? quoteToEdit["magaya__Terms"] : ""}</div>`
-    data += `</div></div>`
 
     $("#htmlToPdf").html(data)
     getPdf("htmlToPdf")
@@ -1092,7 +1095,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
         data = `<div class="container">
         <table cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
             <tr>
-                <th><img src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: left; float: left;" /></th>
+                <th><img src="https://zohomagayab.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: left; float: left;" /></th>
                 <th>
                     <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: left;">
                         <tr>
