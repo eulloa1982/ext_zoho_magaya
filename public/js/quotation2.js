@@ -1604,7 +1604,7 @@ async function sendQuoteMagaya2CRM(dataArray) {
     }
 
     //set right stage
-    if (!_.isEmpty(dataArray['Status'])) {
+    /*if (!_.isEmpty(dataArray['Status'])) {
         stage = await getAllRecordCRM("magaya__SQuoteStage")
             .then(r => {
                 if (!_.isEmpty(r)) {
@@ -1615,7 +1615,7 @@ async function sendQuoteMagaya2CRM(dataArray) {
                     })
                 }
             })
-    }
+    }*/
 
     //get carrier
     carrier = '';
@@ -1676,21 +1676,37 @@ async function sendQuoteMagaya2CRM(dataArray) {
 
         if (statusAccount && statusAccount == 204) {
             //create carrier
+            let email = ''
+            if (dataArray['Contact'].Email !== 'null' && dataArray['Contact'].Email !== null)
+                email = dataArray['Contact'].Email
+
             let account = {
                 "Account_Name": dataArray['Contact'].Name,
                 "magaya__MagayaGUID": dataArray['Contact']['@attributes']["GUID"],
-                "magaya__MagayaEmail": dataArray['Contact'].Email,
-                "Billing_City": dataArray['Contact'].BillingAddress.City,
-                "Billing_Country": dataArray['Contact'].BillingAddress.Country,
-                "Billing_State": dataArray['Contact'].BillingAddress.State,
-                "Billing_Street": dataArray['Contact'].BillingAddress.Street,
-                "Billing_ZipCode": dataArray['Contact'].BillingAddress.ZipCode,
+                "magaya__MagayaEmail": email ,
+
+            }
+
+
+            if (!_.isEmpty(dataArray['Contact'].BillingAddress)) {
+                let billingdata = {
+                    "Billing_City": dataArray['Contact'].BillingAddress.City,
+                    "Billing_Country": dataArray['Contact'].BillingAddress.Country,
+                    "Billing_State": dataArray['Contact'].BillingAddress.State,
+                    "Billing_Street": dataArray['Contact'].BillingAddress.Street,
+                    "Billing_ZipCode": dataArray['Contact'].BillingAddress.ZipCode,
+                }
+
+                Object.assign(account, billingdata)
             }
 
             let a = await insertRecordCRM("Accounts", account)
                     .then(function(data){
                         idAccount = data[0]["details"]["id"]
                         console.log("result inserting account", idAccount)
+                    })
+                    .catch(err => {
+                        console.log("error inserting", err)
                     })
         } else {
             idAccount = resAccount.data[0]["id"]
