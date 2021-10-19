@@ -1695,10 +1695,14 @@ async function sendQuoteMagaya2CRM(dataArray) {
 
                 Object.assign(account, billingdata)
             }
+
             let a = await insertRecordCRM("Accounts", account)
                     .then(function(data){
                         idAccount = data[0]["details"]["id"]
                         console.log("result inserting account", idAccount)
+                    })
+                    .catch(err => {
+                        console.log("error inserting", err)
                     })
         } else {
             idAccount = resAccount.data[0]["id"]
