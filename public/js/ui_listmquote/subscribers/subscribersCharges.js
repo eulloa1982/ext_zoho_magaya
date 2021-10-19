@@ -53,6 +53,7 @@ storeCharge.subscribe(() => {
                 } else if (_.get(CHARGES_FIELDS, [v, 'type']) === "textarea") {
                     input = `<textarea class='form-control ${no_border}' id="${v}">${k}</textarea>`
                 } else {
+                    idTax = (v === "magaya__Tax" ? k.id : 0)
                     input = _.isObject(k) ? `<select data-id="${id}" class="form-control" name="${v}"><option value="${k.id}">${k.name}</option></select>`
                     : input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" style="text-align-last:right;" />`
 
