@@ -1280,7 +1280,9 @@ function buildPdfCharges(charges) {
         })
 
         data += `<tr style="font-weight: bold;">
-                    <td style="border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: right;" colspan="4">
+                    <td style="border-top: 1px #000 solid;" colspan="3">
+                        Totals</td>
+                    <td style="border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: right;">
                         ${roundDec(amount_tax)}</td>
                     <td style="border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: right;">${roundDec(amount_total)}</td>
                 </tr>
@@ -1315,7 +1317,7 @@ function buildPdfItems(items) {
                         <tr style="background-color: lightskyblue;">
                             <th colspan="5" style="text-align: center; font-weight: bold; border: 1px #000 solid;">Items</th></tr>
                         <tr style="background-color: lightskyblue;">
-                            <th style="border-right: 1px #000 solid; text-align: center;">Description </th>
+                            <th style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: center;">Description </th>
                             <th style="border-right: 1px #000 solid; text-align: center;">Quantity</th>
                             <th style="border-right: 1px #000 solid; text-align: center;">Dimensions</th>
                             <th style="border-right: 1px #000 solid; text-align: center;">Weight</th>
@@ -1351,7 +1353,7 @@ function buildPdfItems(items) {
                 }
 
                 data += `<tr>
-                   <td style="border-right: 1px #000 solid; text-align: left;">
+                   <td style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: left;">
                         ${k["Name"]}</td>
                     <td style="border-right: 1px #000 solid; text-align: center;">
                         ${k["magaya__Pieces"]}</td>
