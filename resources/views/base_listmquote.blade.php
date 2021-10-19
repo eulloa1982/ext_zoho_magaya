@@ -49,9 +49,17 @@
         <div class="header"><span class="material-icons close cursor-hand" data-close="quote-info" style="margin: 4px 4px 0px 4px; color: white; background: none; border: none;">close</span ></div>
         <div id="message-info" class="message-data"></div>
     </div>
-
+    <div class="alert alert-danger startSession" id="no-configuration-alert" style="display: none">
+        Can´t reach Magaya, check Login data or try to Log in <a class="btn btn-outline-success" id="magaya-loguin">Login</a>
+    </div>
 
     @yield('main')
+
+
+
+
+
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/jitbit/HtmlSanitizer@master/HtmlSanitizer.js"></script>
 
