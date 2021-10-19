@@ -91,7 +91,7 @@ $("select[name=magaya__Consignee]").change(function(e) {
 $("select[name=magaya__TransportationMode]").change(function(e) {
     e.preventDefault()
     e.stopImmediatePropagation()
-    store.dispatch(addActionEdited())
+    /*store.dispatch(addActionEdited())
 
     let idT = $(this).val()
 
@@ -124,7 +124,7 @@ $("select[name=magaya__TransportationMode]").change(function(e) {
 
         storePorts.dispatch(searchByType({type: query}))
 
-    }
+    }*/
 
 })
 

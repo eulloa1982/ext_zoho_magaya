@@ -362,7 +362,7 @@ $(document).ready(function(){
         "magaya__TransportationMode": $("select[name=magaya__TransportationMode] option:selected").val(),
         "magaya__Description": $("#magaya__Description").val().replace(/[^a-zA-Z0-9]/g, ' '),
         "magaya__Service": $("select[name=Service]").val(),
-        "magaya__Status": $("select[name=magaya__Status] option:selected").val(),
+        "magaya__Status": $("select[name=magaya__mQuoteStatus] option:selected").val(),
         "magaya__Is_Hazardous": is_hazardous,
         "magaya__Terms": sanitize($(":input[name=magaya__Terms]").val()),
         "magaya__Representative": contact,
