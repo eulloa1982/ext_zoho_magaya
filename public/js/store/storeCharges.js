@@ -157,6 +157,12 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray[1]['magaya__Tax_Amount'] = roundDec(amount_tax)
             newArray[1]['magaya__Amount_Total'] = roundDec(amount_total);
 
+            if (_.isEmpty(newArray['Name']))
+                newArray['Name'] = "No Description"
+            if (_.isEmpty(newArray['magaya__Tax']) || newArray['magaya__Tax'] == 'null')
+                newArray['magaya__Tax'] = ''
+            console.log("Empty charege", newArray)
+
             return {
                 ...state,
                 singleCharge: newArray
@@ -214,8 +220,13 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray['magaya__Tax_Amount'] = amount_tax.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             newArray['magaya__Amount_Total'] = amount_total.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
-            if (_.isEmpty(newArray['Name']))
+            /*if (_.size(newArray['Name']) <= 0) {
+                console.log("Name size", _.size(newArray['Name']))
                 newArray['Name'] = "No Description"
+
+            }*/
+            if (_.size(newArray['magaya__Tax']) <= 0)
+                newArray['magaya__Tax'] = ''
             console.log("Empty charege", newArray)
 
             return {

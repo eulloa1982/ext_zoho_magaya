@@ -43,6 +43,7 @@
                 }
             });
 
+            //get textarea
             Object.assign(charge, { id: idCharge, magaya__SQuote_Name: idmQuoteToEdit, Name: sanitize($("#Name").val())});
             let config = { APIData: charge }
             Object.assign(config, { Entity: "magaya__ChargeQuote" });
@@ -82,7 +83,7 @@
 
                                 })
 
-
+                            $("#panel").animate({width:'toggle'},150);
                             let message = ": Updated successfully!!"
                             storeSuccess.dispatch(addSuccess({message: message}))
                         }
@@ -97,7 +98,7 @@
                     Utils.unblockUI()
                 })
 
-                $("#panel").animate({width:'toggle'},150);
+
         })
 
 
@@ -124,7 +125,7 @@
                 if (field === "Adjustment" || field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
                     value = roundDec(value);
                 }
-
+                console.log(`${field} -- ${value}`)
                 //si los valores son iguales, no actualizar nada
                 if (oldValue.toString() !== value.toString()) {
 

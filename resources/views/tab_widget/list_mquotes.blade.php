@@ -603,7 +603,7 @@ a {
                                                 <div class="row">
                                                     <div class="col-md-3">Description</div>
                                                     <div class="col-md-8">
-                                                        <textarea class="form-control text new-charge" id="magaya__Charge_Description" name="magaya__Charge_Description" aria-label="With textarea"></textarea>
+                                                        <textarea class="form-control text new-charge" id="Name" name="Name" aria-label="With textarea"></textarea>
                                                     </div>
                                                 </div>
 
