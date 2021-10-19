@@ -1604,7 +1604,7 @@ async function sendQuoteMagaya2CRM(dataArray) {
     }
 
     //set right stage
-    if (!_.isEmpty(dataArray['Status'])) {
+    /*if (!_.isEmpty(dataArray['Status'])) {
         stage = await getAllRecordCRM("magaya__SQuoteStage")
             .then(r => {
                 if (!_.isEmpty(r)) {
@@ -1615,7 +1615,7 @@ async function sendQuoteMagaya2CRM(dataArray) {
                     })
                 }
             })
-    }
+    }*/
 
     //get carrier
     carrier = '';
