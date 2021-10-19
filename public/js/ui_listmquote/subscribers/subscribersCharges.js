@@ -35,6 +35,9 @@ storeCharge.subscribe(() => {
         $("#panel-legend").html(`Editing Charge`)
         let arr = {}
         $.map(u[1], function(k, v) {
+            //dejo vacio los campos en null
+            if (k === null || k === 'null')
+                k = ''
             //get place order
             let order = _.get(CHARGES_FIELDS, [v, 'place'])
             let editable = _.get(CHARGES_FIELDS, [v, 'editable'])
