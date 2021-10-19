@@ -1090,9 +1090,9 @@ function buildPdfHeader(orgData, quoteToEdit) {
         let representative = !_.isEmpty(quoteToEdit["magaya__Representative"]) ? quoteToEdit["magaya__Representative"]["name"] : ""
 
         data = `<div class="container">
-        <table cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
+        <table cellspacing="0px" cellpadding="2px" style="border: none; margin: 0" width="100%">
             <tr>
-                <th style="display: inline-block;"><img src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: left;" />
+                <th style="display: inline-block;"><img width="200px" height="150px" src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: left;" />
                     <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: left;>
                         <tr>
                             <td colspan="12">
