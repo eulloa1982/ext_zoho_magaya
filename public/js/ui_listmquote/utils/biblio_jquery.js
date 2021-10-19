@@ -1230,7 +1230,7 @@ function buildPdfCharges(charges) {
                         <td style="border-right: 1px #000 solid; text-align: right;">
                             ${k["magaya__Tax_Amount"]}</td>
                         <td style="border-right: 1px #000 solid; text-align: right; font-weight: bold;">
-                            ${k["magaya__Final_Amount"]}</td>
+                            ${k["magaya__Amount_Total"]}</td>
                     </tr>`
         })
 
