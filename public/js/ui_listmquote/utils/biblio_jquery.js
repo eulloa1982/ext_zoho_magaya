@@ -318,9 +318,8 @@ async function buildStringRouting() {
         console.log("Building routing")
         let idRouting = quoteXML.magaya__Routing.id
         let routing = await getRecordCRM("magaya__Routing", idRouting)
-        console.log(" routing", routing)
         let stringRouting = ``
-        if (!_.isEmpty(routing.magaya__ModeofTransportation)) {
+        if (!_.isEmpty(routing[0].magaya__ModeofTransportation)) {
             let transporMethod = await buildStringTransport(routing)
             stringRouting += `<ModeOfTransportation Code="${transporMethod[0].magaya__TransportationMethodCode}">
                 <Description>${transporMethod[0].Name}</Description>
@@ -346,7 +345,6 @@ async function buildStringRouting() {
             stringRouting += `<ShipperName>${routing[0].magaya__Shipper}</ShipperName>
                             <Shipper><Type>Client</Type><Name>${routing[0].magaya__Shipper}</Name></Shipper>`
         }
-
 
         return stringRouting;
     }
@@ -408,9 +406,9 @@ async function buildStringXML(idSQuote) {
         stringXML = '<Quotation xmlns="http://www.magaya.com/XMLSchema/V1" xsi:schemaLocation="http://www.magaya.com/XMLSchema/V1 schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
         stringXML += stringQuote;
         let routing = await buildStringRouting()
-
-        if (!_.isEmpty(routing))
+        if (_.size(routing) > 0) {
             stringXML += routing
+        }
             //charges
         let account_id = 0;
         let data_account = {}
@@ -463,7 +461,7 @@ async function buildStringXML(idSQuote) {
 
         //Utils.blockUI();
 
-        let result = await sendmQuote(stringXML, idSQuote)
+       let result = await sendmQuote(stringXML, idSQuote)
 
     //}
 } //.send-quote
@@ -521,6 +519,115 @@ function buildXmlItem(items) {
 
 
 
+
+function buildSimpleCharge(k, data_account) {
+    chargesString = `<Charge>
+    <Type>Standard</Type>`
+
+    if (data_account.magaya__MagayaGUID !== null && data_account.magaya__MagayaGUID !== undefined && data_account.magaya__MagayaGUID !== "null" && data_account.magaya__MagayaGUID !== "undefined")
+        chargesString += `<Entity GUID="${data_account.magaya__MagayaGUID}">`
+    else
+        chargesString += `<Entity>`
+
+    chargesString += `<Type>Client</Type>
+            <Name>${data_account.Account_Name}</Name>
+            <IsPrepaid>true</IsPrepaid>
+        </Entity>`;
+
+    /*if (!_.isEmpty(k.magaya__Tax)) {
+        idTax = k.magaya__Tax.id
+        let dataTax = await getRecordCRM("magaya__Taxes", idTax)
+                    .then((rec) => {
+                        console.log("Tax record", rec)
+                        chargesString += `<TaxDefinition>
+                                <Code>${rec.magaya__TaxCode}</Code>
+                                <Name>Impuesto</Name>
+                                <Rate>${rec.magaya__TaxRate}</Rate>
+                                <Layout>Simple</Layout>
+                                <Type>Tax</Type>
+                                <TaxAuthority>
+                                    <Type>Vendor</Type>
+                                    <Name>Autoridad Impositiva Predeterminada</Name>
+                                </TaxAuthority>
+
+                            </TaxDefinition>`
+                    })
+    }*/
+/*if (k.magaya__TaxRate === null || k.magaya__TaxRate === "null")
+    k.magaya__TaxRate = 0.00
+else k.magaya__TaxRate = k.magaya__TaxRate.toLocaleString('en-US', { minimumFractionDigits: 2 })*/
+    chargesString += `
+                <Quantity>${k.magaya__CQuantity}</Quantity>
+                <Price Currency="USD">${k.magaya__Price}</Price>
+                <HomeCurrency Code="USD">
+                    <Name>United States Dollar</Name>
+                    <ExchangeRate>1.00</ExchangeRate>
+                    <DecimalPlaces>2</DecimalPlaces>
+                    <IsHomeCurrency>true</IsHomeCurrency>
+                </HomeCurrency>
+                <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
+                <IsPrepaid>true</IsPrepaid>
+                <IsThirdPartyCharge>false</IsThirdPartyCharge>
+                <ChargeDefinition>
+                    <Type>Other</Type>
+                    <Description>${k.Name}</Description>
+                    <Code>${k.magaya__ChargeCode}</Code>
+                    <AccountDefinition>
+                        <Type>Income</Type>
+                        <Name>Servicios</Name>
+                        <Currency Code="USD">
+                            <Name>United States Dollar</Name>
+                            <ExchangeRate>1.00</ExchangeRate>
+                            <DecimalPlaces>2</DecimalPlaces>
+                            <IsHomeCurrency>true</IsHomeCurrency>
+                        </Currency>
+                    </AccountDefinition>
+                    <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
+                    <Currency Code="USD">
+                        <Name>United States Dollar</Name>
+                        <ExchangeRate>1.00</ExchangeRate>
+                        <DecimalPlaces>2</DecimalPlaces>
+                        <IsHomeCurrency>true</IsHomeCurrency>
+                    </Currency>
+                    <Enforce3rdPartyBilling>false</Enforce3rdPartyBilling>
+                </ChargeDefinition>
+                <Status>Open</Status>
+                <Description>${k.magaya__Charge_Description}</Description>
+                <PriceInCurrency Currency="USD">${k.magaya__Price}</PriceInCurrency>
+                <AmountInCurrency Currency="USD">${k.magaya__Amount_Total}</AmountInCurrency>
+
+                <ExchangeRate>1.00</ExchangeRate>
+                <Currency Code="USD">
+                    <Name>United States Dollar</Name>
+                    <ExchangeRate>1.00</ExchangeRate>
+                    <DecimalPlaces>2</DecimalPlaces>
+                    <IsHomeCurrency>true</IsHomeCurrency>
+                </Currency>
+                <ShowInDocuments>true</ShowInDocuments>
+                <IsCredit>false</IsCredit>
+                <IsFromSegment>false</IsFromSegment>
+            </Charge>`;
+
+
+    /*if (idTax > 0) {
+        console.log("Tax", idTax)
+    }*/
+
+        /*
+        <LiabilityAccount>
+                                <Type>OtherCurrentLiability</Type>
+                                <Name>Pagos de Impuestos</Name>
+                                <Currency Code="USD">
+                                <Name>Euro</Name>
+                                <ExchangeRate>1.00</ExchangeRate>
+                                <DecimalPlaces>2</DecimalPlaces>
+                                <IsHomeCurrency>true</IsHomeCurrency>
+                                </Currency>
+                            </LiabilityAccount>
+        */
+    return chargesString
+}
+
 /*
 @charges object
 @data_account object (apply to)
@@ -528,91 +635,14 @@ function buildXmlItem(items) {
 function buildXmlCharge(charges, data_account) {
 
     let chargesString = ``
-
+    let idTax = 0
     if (!_.isEmpty(charges)) {
         $.map(charges, function(k, v) {
-            chargesString += `<Charge>
-                <Type>Standard</Type>`
-
-            if (data_account.magaya__MagayaGUID !== null && data_account.magaya__MagayaGUID !== undefined && data_account.magaya__MagayaGUID !== "null" && data_account.magaya__MagayaGUID !== "undefined")
-                chargesString += `<Entity GUID="${data_account.magaya__MagayaGUID}">`
-            else
-                chargesString += `<Entity>`
-
-            chargesString += `<Type>Client</Type>
-                    <Name>${data_account.Account_Name}</Name>
-                    <IsPrepaid>true</IsPrepaid>
-                </Entity>`;
-            /*if (k.magaya__TaxRate === null || k.magaya__TaxRate === "null")
-                k.magaya__TaxRate = 0.00
-            else k.magaya__TaxRate = k.magaya__TaxRate.toLocaleString('en-US', { minimumFractionDigits: 2 })*/
-            chargesString += `
-                            <Quantity>${k.magaya__CQuantity}</Quantity>
-                            <Price Currency="USD">${k.magaya__Price}</Price>
-                            <HomeCurrency Code="USD">
-                                <Name>United States Dollar</Name>
-                                <ExchangeRate>1.00</ExchangeRate>
-                                <DecimalPlaces>2</DecimalPlaces>
-                                <IsHomeCurrency>true</IsHomeCurrency>
-                            </HomeCurrency>
-                            <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
-                            <IsPrepaid>true</IsPrepaid>
-                            <IsThirdPartyCharge>false</IsThirdPartyCharge>
-                            <ChargeDefinition>
-                                <Type>Other</Type>
-                                <Description>${k.Name}</Description>
-                                <Code>${k.magaya__ChargeCode}</Code>
-                                <AccountDefinition>
-                                    <Type>Income</Type>
-                                    <Name>Servicios</Name>
-                                    <Currency Code="USD">
-                                        <Name>United States Dollar</Name>
-                                        <ExchangeRate>1.00</ExchangeRate>
-                                        <DecimalPlaces>2</DecimalPlaces>
-                                        <IsHomeCurrency>true</IsHomeCurrency>
-                                    </Currency>
-                                </AccountDefinition>
-                                <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
-                                <Currency Code="USD">
-                                    <Name>United States Dollar</Name>
-                                    <ExchangeRate>1.00</ExchangeRate>
-                                    <DecimalPlaces>2</DecimalPlaces>
-                                    <IsHomeCurrency>true</IsHomeCurrency>
-                                </Currency>
-                                <Enforce3rdPartyBilling>false</Enforce3rdPartyBilling>
-                            </ChargeDefinition>
-                            <Status>Open</Status>
-                            <Description>${k.magaya__Charge_Description}</Description>
-                            <PriceInCurrency Currency="USD">${k.magaya__Price}</PriceInCurrency>
-                            <AmountInCurrency Currency="USD">${k.magaya__Amount_Total}</AmountInCurrency>
-
-                            <ExchangeRate>1.00</ExchangeRate>
-                            <Currency Code="USD">
-                                <Name>United States Dollar</Name>
-                                <ExchangeRate>1.00</ExchangeRate>
-                                <DecimalPlaces>2</DecimalPlaces>
-                                <IsHomeCurrency>true</IsHomeCurrency>
-                            </Currency>
-                            <ShowInDocuments>true</ShowInDocuments>
-                            <IsCredit>false</IsCredit>
-                            <IsFromSegment>false</IsFromSegment>
-                        </Charge>`;
+            chargesString += buildSimpleCharge(k, data_account)
         })
     }
 
-    /*
-<LiabilityAccount>
-                                    <Type>OtherCurrentLiability</Type>
-                                    <Name>Pagos de Impuestos</Name>
-                                    <Currency Code="USD">
-                                    <Name>Euro</Name>
-                                    <ExchangeRate>1.00</ExchangeRate>
-                                    <DecimalPlaces>2</DecimalPlaces>
-                                    <IsHomeCurrency>true</IsHomeCurrency>
-                                    </Currency>
-                                </LiabilityAccount>
-    */
-    return chargesString
+    return chargesString;
 }
 
 
