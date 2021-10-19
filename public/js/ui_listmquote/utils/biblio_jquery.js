@@ -1059,6 +1059,8 @@ function buildPdfHeader(orgData, quoteToEdit) {
         data = `<div class="container">
                     <table class="container" cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
                         <tr>
+                            <th><img width="200px" height="150px" src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: center; margin-left:15px;" /></th>
+
                             <th width="50%">    </th>
                             <th width="50%">
                                 <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right;">
@@ -1218,7 +1220,7 @@ function buildPdfCharges(charges) {
         let amount_total = 0;
         let amount_tax = 0;
         $.map(charges, function(k, v) {
-            amount_total += roundDec(k["magaya__Final_Amount"]);
+            amount_total += roundDec(k["magaya__Amount_Total"]);
             amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<tr>
                         <td style="border-right: 1px #000 solid; text-align: left;">
