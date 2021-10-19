@@ -1676,13 +1676,17 @@ async function sendQuoteMagaya2CRM(dataArray) {
 
         if (statusAccount && statusAccount == 204) {
             //create carrier
+            let email = ''
+            if (dataArray['Contact'].Email !== 'null' && dataArray['Contact'].Email !== null)
+                email = dataArray['Contact'].Email
 
             let account = {
                 "Account_Name": dataArray['Contact'].Name,
                 "magaya__MagayaGUID": dataArray['Contact']['@attributes']["GUID"],
-                "magaya__MagayaEmail": dataArray['Contact'].Email,
+                "magaya__MagayaEmail": email ,
 
             }
+
 
             if (!_.isEmpty(dataArray['Contact'].BillingAddress)) {
                 let billingdata = {
