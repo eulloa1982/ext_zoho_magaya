@@ -1282,7 +1282,7 @@ function buildPdfCharges(charges) {
         data += `<tr style="font-weight: bold;">
                     <td style="border-right: 1px #000 solid; text-align: right;" colspan="4">
                         ${roundDec(amount_tax)}</td>
-                    <td style="border-right: 1px #000 solid;">${roundDec(amount_total)}</td>
+                    <td style="border-right: 1px #000 solid; text-align: right;">${roundDec(amount_total)}</td>
                 </tr>
             </table>
         </div>`
