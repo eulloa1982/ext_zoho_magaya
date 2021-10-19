@@ -391,77 +391,77 @@ async function buildStringXML(idSQuote) {
     storeQuote.dispatch(findById({ id: idSQuote }))
     let quote = quoteXML[0]
     console.log("XAML", quote)
-    //if (quote.Magaya_updated) {
-    /*    codeError = 'It seems like this mQuote is already in Magaya. Please contact with your administrator';
+        //if (quote.Magaya_updated) {
+        /*    codeError = 'It seems like this mQuote is already in Magaya. Please contact with your administrator';
         show = false;
         field = ``;
         module = 'mQuote'
         storeError.dispatch(addError({ errorCode: codeError, showInfo: show, field: field, module: module }))
 
 */
-    //} else {
+        //} else {
 
-        xml = await buildStringQuote2(idSQuote);
+    xml = await buildStringQuote2(idSQuote);
 
-        stringXML = '<Quotation xmlns="http://www.magaya.com/XMLSchema/V1" xsi:schemaLocation="http://www.magaya.com/XMLSchema/V1 schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
-        stringXML += stringQuote;
-        let routing = await buildStringRouting()
-        if (_.size(routing) > 0) {
-            stringXML += routing
-        }
-            //charges
-        let account_id = 0;
-        let data_account = {}
-        let charges = ``
-        let stringCharge = ``
-        stringCharge = await $(this).buildStringCharge(idSQuote)
+    stringXML = '<Quotation xmlns="http://www.magaya.com/XMLSchema/V1" xsi:schemaLocation="http://www.magaya.com/XMLSchema/V1 schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
+    stringXML += stringQuote;
+    let routing = await buildStringRouting()
+    if (_.size(routing) > 0) {
+        stringXML += routing
+    }
+    //charges
+    let account_id = 0;
+    let data_account = {}
+    let charges = ``
+    let stringCharge = ``
+    stringCharge = await $(this).buildStringCharge(idSQuote)
+        .then(resp => {
+            //if its here, charges exists, so get the account data
+            account_id = resp[0].magaya__ApplyToAccounts.id
+            console.log(account_id)
+            charges = resp;
+        })
+        .catch(() => {
+            //distpath an error
+            charges = '';
+        });
+
+    //do not send charges without an apply to
+    if (account_id > 0) {
+        let data = await getRecordCRM("Accounts", account_id)
             .then(resp => {
-                //if its here, charges exists, so get the account data
-                account_id = resp[0].magaya__ApplyToAccounts.id
-                console.log(account_id)
-                charges = resp;
+                data_account = resp[0]
             })
-            .catch(() => {
-                //distpath an error
-                charges = '';
-            });
-
-        //do not send charges without an apply to
-        if (account_id > 0) {
-            let data = await getRecordCRM("Accounts", account_id)
-                .then(resp => {
-                    data_account = resp[0]
-                })
-            if (charges !== undefined && !_.isEmpty(charges)) {
-                let stringCharges = buildXmlCharge(charges, data_account)
-                stringXML += '<Charges UseSequenceOrder="false">' + stringCharges + "</Charges>";
-            }
+        if (charges !== undefined && !_.isEmpty(charges)) {
+            let stringCharges = buildXmlCharge(charges, data_account)
+            stringXML += '<Charges UseSequenceOrder="false">' + stringCharges + "</Charges>";
         }
+    }
 
-        //items
-        let items = {}
-        stringItem = await $(this).buildStringItems(idSQuote)
-            .then(resp => {
-                console.log("Items", resp)
-                items = resp
-            })
-            .catch(() => {
-                //distpath an error
-                charges = '';
-            });
+    //items
+    let items = {}
+    stringItem = await $(this).buildStringItems(idSQuote)
+        .then(resp => {
+            console.log("Items", resp)
+            items = resp
+        })
+        .catch(() => {
+            //distpath an error
+            charges = '';
+        });
 
-        if (items !== undefined && !_.isEmpty(items)) {
-            let stringItems = buildXmlItem(items)
-            stringXML += '<Items>' + stringItems + "</Items>";
-        }
+    if (items !== undefined && !_.isEmpty(items)) {
+        let stringItems = buildXmlItem(items)
+        stringXML += '<Items>' + stringItems + "</Items>";
+    }
 
-        stringXML += '</Quotation>'
+    stringXML += '</Quotation>'
 
-        console.log(stringXML);
+    console.log(stringXML);
 
-        //Utils.blockUI();
+    //Utils.blockUI();
 
-       let result = await sendmQuote(stringXML, idSQuote)
+    let result = await sendmQuote(stringXML, idSQuote)
 
     //}
 } //.send-quote
@@ -553,9 +553,9 @@ function buildSimpleCharge(k, data_account) {
                             </TaxDefinition>`
                     })
     }*/
-/*if (k.magaya__TaxRate === null || k.magaya__TaxRate === "null")
-    k.magaya__TaxRate = 0.00
-else k.magaya__TaxRate = k.magaya__TaxRate.toLocaleString('en-US', { minimumFractionDigits: 2 })*/
+    /*if (k.magaya__TaxRate === null || k.magaya__TaxRate === "null")
+        k.magaya__TaxRate = 0.00
+    else k.magaya__TaxRate = k.magaya__TaxRate.toLocaleString('en-US', { minimumFractionDigits: 2 })*/
     chargesString += `
                 <Quantity>${k.magaya__CQuantity}</Quantity>
                 <Price Currency="USD">${k.magaya__Price}</Price>
@@ -613,18 +613,18 @@ else k.magaya__TaxRate = k.magaya__TaxRate.toLocaleString('en-US', { minimumFrac
         console.log("Tax", idTax)
     }*/
 
-        /*
-        <LiabilityAccount>
-                                <Type>OtherCurrentLiability</Type>
-                                <Name>Pagos de Impuestos</Name>
-                                <Currency Code="USD">
-                                <Name>Euro</Name>
-                                <ExchangeRate>1.00</ExchangeRate>
-                                <DecimalPlaces>2</DecimalPlaces>
-                                <IsHomeCurrency>true</IsHomeCurrency>
-                                </Currency>
-                            </LiabilityAccount>
-        */
+    /*
+    <LiabilityAccount>
+                            <Type>OtherCurrentLiability</Type>
+                            <Name>Pagos de Impuestos</Name>
+                            <Currency Code="USD">
+                            <Name>Euro</Name>
+                            <ExchangeRate>1.00</ExchangeRate>
+                            <DecimalPlaces>2</DecimalPlaces>
+                            <IsHomeCurrency>true</IsHomeCurrency>
+                            </Currency>
+                        </LiabilityAccount>
+    */
     return chargesString
 }
 
@@ -700,13 +700,13 @@ async function startSession() {
                 })
             } else {
 
-            Swal.fire({
-                title: 'Success',
-                text: 'Operation success',
-                icon: 'success',
-                allowOutsideClick: false
-            })
-            $("#no-configuration-alert").hide();
+                Swal.fire({
+                    title: 'Success',
+                    text: 'Operation success',
+                    icon: 'success',
+                    allowOutsideClick: false
+                })
+                $("#no-configuration-alert").hide();
 
 
             } //else
@@ -947,8 +947,8 @@ function bipdf(items) {
 
 async function buildPdf(mquote_id) {
     quoteToEdit = [];
-    Utils.blockUI()
-        //dispatch
+    //Utils.blockUI()
+    //dispatch
     storeQuote.dispatch(findQuote({ id: mquote_id }))
 
     //general data
@@ -1024,8 +1024,8 @@ async function buildPdf(mquote_id) {
         .catch((err) => {
             console.warn("error", err)
         })*/
-        //let data = `<div class="HtmltoPdf">`
-        //data += buildPdfHeader(orgData, quoteToEdit)
+    //let data = `<div class="HtmltoPdf">`
+    //data += buildPdfHeader(orgData, quoteToEdit)
 
     data += buildPdfCharges(charges)
 
@@ -1046,7 +1046,7 @@ async function buildPdf(mquote_id) {
 
     $("#htmlToPdf").html(data)
     getPdf("htmlToPdf")
-    //$("#pdfModal").modal("show")
+        //$("#pdfModal").modal("show")
 }
 
 
@@ -1092,7 +1092,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
         data = `<div class="container">
         <table cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
             <tr>
-                <th><img src="https://zohomagayab.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: left; float: left;" /></th>
+                <th><img src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: left; float: left;" /></th>
                 <th>
                     <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: left;">
                         <tr>
