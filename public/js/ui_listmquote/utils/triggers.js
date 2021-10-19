@@ -213,6 +213,15 @@ $("select[name=magaya__Tax]").change(function(e) {
 })
 
 
+$("select[name=magaya__ChargeCode]").change(function(e) {
+    e.preventDefault()
+    e.stopImmediatePropagation()
+    let name = $("select[name=magaya__ChargeCode] option:selected").text();
+
+    $("textarea#Name").val(name).change()
+})
+
+
 //})
 
 
