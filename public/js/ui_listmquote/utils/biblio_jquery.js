@@ -1266,7 +1266,7 @@ function buildPdfCharges(charges) {
         let amount_total = 0;
         let amount_tax = 0;
         $.map(charges, function(k, v) {
-            amount_total += roundDec(k["magaya__Final_Amount"]);
+            amount_total += roundDec(k["magaya__Amount_Total"]);
             amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<tr>
                 <td style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: left;">
@@ -1278,7 +1278,7 @@ function buildPdfCharges(charges) {
                 <td style="border-right: 1px #000 solid; text-align: right;">
                     ${k["magaya__Tax_Amount"]}</td>
                 <td style="border-right: 1px #000 solid; text-align: right; font-weight: bold;">
-                    ${k["magaya__Final_Amount"]}</td>
+                    ${k["magaya__Amount_Total"]}</td>
             </tr>`
         })
         data += `<tr style="font-weight: bold;">
@@ -1346,7 +1346,7 @@ function buildPdfItems(items) {
                     total_volume_international += roundDec(k.magaya__Volume * k.magaya__Pieces)
                     total_weight_international += roundDec(k.magaya__Weigth * k.magaya__Pieces)
                 } else {
-                    //pulgadas y libras 
+                    //pulgadas y libras
                     total_volume_english += roundDec(k.magaya__Volume * k.magaya__Pieces)
                     total_weight_english += roundDec(k.magaya__Weigth * k.magaya__Pieces)
                 }
@@ -1363,7 +1363,7 @@ function buildPdfItems(items) {
                 ${k["magaya__Volume"]} (${measure_volume})</td>
         </tr>`
             })
-            //get all to international system 
+            //get all to international system
         totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
         data += `<tr style="font-weight: bold;">
