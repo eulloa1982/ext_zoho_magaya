@@ -1221,7 +1221,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                             <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid;">${quoteToEdit["magaya__Destination"] !== null ? quoteToEdit["magaya__Destination"] : ""}</td>
                         </tr>
                         <tr>
-                            <th colspan="2" class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;background-color: lightskyblue;"><span>Description of Goods:</span></th>
+                            <th colspan="2" class="headerFont" style="text-align:center;border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;background-color: lightskyblue;"><span>Description of Goods:</span></th>
                         </tr>
                         <tr>
                             <td colspan="2" class="dataFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">${quoteToEdit["magaya__Description"]}</td>
