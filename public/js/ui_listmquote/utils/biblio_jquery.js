@@ -1092,9 +1092,8 @@ function buildPdfHeader(orgData, quoteToEdit) {
         data = `<div class="container">
         <table cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
             <tr>
-                <th><img src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: left; float: left;" /></th>
-                <th>
-                    <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: left;">
+                <th style="display: inline-block;"><img src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: left;" />
+                    <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: left;>
                         <tr>
                             <td colspan="12">
                                 <div class="session-first">
