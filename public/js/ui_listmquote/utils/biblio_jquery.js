@@ -1241,7 +1241,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
  */
 function buildPdfCharges(charges) {
     let data = ``
-    data += `<div class="row">
+    data += `<div class="row" style="padding-left: 3px;">
                 <table width="97%">
                     <tr style="background-color: lightskyblue;">
                         <th colspan="5" style="border: 1px #000 solid; text-align: center;">
@@ -1310,7 +1310,7 @@ function buildPdfCharges(charges) {
  */
 function buildPdfItems(items) {
     let data = ``
-    data += `<div class="row">
+    data += `<div class="row" style="padding-left: 3px;">
                     <table width="97%">
                         <tr style="background-color: lightskyblue;">
                             <th colspan="5" style="text-align: center; font-weight: bold; border: 1px #000 solid;">Items</th></tr>
