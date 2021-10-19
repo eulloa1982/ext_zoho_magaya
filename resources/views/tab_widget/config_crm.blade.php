@@ -138,13 +138,13 @@
 
 @stop
  @section('js')
- <script src="{{ url('js/ui_madmin/utils/biblio_jquery.js', $extra = [], $secure = 1) }}"></script>
+ <script src="{{ url('js/ui_madmin/utils/biblio_jquery.js') }}"></script>
 
- <script src="{{ url('js/ui_madmin/subscribers/subscribersChargeDef.js', $extra = [], $secure = 1) }}"></script>
- <script src="{{ url('js/ui_madmin/subscribers/subscribersPortsDef.js', $extra = [], $secure = 1) }}"></script>
+ <script src="{{ url('js/ui_madmin/subscribers/subscribersChargeDef.js') }}"></script>
+ <script src="{{ url('js/ui_madmin/subscribers/subscribersPortsDef.js') }}"></script>
 
- <script src="{{ url('js/ui_madmin/subscribers/subscribersItemsCrm.js', $extra = [], $secure = 1) }}"></script>
- <script src="{{ url('js/ui_madmin/subscribers/subscribersCurrentModule.js', $extra = [], $secure = 1) }}"></script>
+ <script src="{{ url('js/ui_madmin/subscribers/subscribersItemsCrm.js') }}"></script>
+ <script src="{{ url('js/ui_madmin/subscribers/subscribersCurrentModule.js') }}"></script>
 
 
 <script>
@@ -164,9 +164,6 @@ $(document).ready(function(){
 
             let value = $(this).attr("data-module")
             storeCurrentModule.dispatch(addCurrentModule(value))
-            //console.log("Currentmodule", currentModule)
-            //if (!currentModule)
-            //    currentModule = "magaya__Charges_Type";
 
             //storeChargesDef.dispatch(getCurrentItemDef({module: value}))
             ZOHO.CRM.API.getAllRecords({Entity:currentModule,sort_order:"desc",per_page:250,page:1})
@@ -200,8 +197,8 @@ $(document).ready(function(){
 
                 })
         })
-        getChargesDefinition()
-        getWorkingPorts()
+        //getChargesDefinition()
+        //getWorkingPorts()
 
     })
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //use tibonilab\Pdf\PdfServiceProvider;
+//use Barryvdh\DomPDF\Facade as PDF;
 
 class TabWidgetController extends Controller
 {
@@ -67,10 +68,11 @@ class TabWidgetController extends Controller
     }
 
     public function listMQuotes() {
-
         return view ('tab_widget.list_mquotes');
     }
 
-
+    public function pdf() {
+        return view ('tab_widget.quote_pdf');
+    }
 
 }

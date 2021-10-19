@@ -3,7 +3,6 @@ let data_module_flag_item = true
 
 //get an item, draw the data view
 storeItem.subscribe(() => {
-    console.log("State items", storeItem.getState())
     let u = storeItem.getState().singleItem;
     if (!_.isEmpty(u)) {
         //construir los campos y la data
@@ -37,15 +36,16 @@ storeItem.subscribe(() => {
                 if (_.has(ITEMS_FIELDS, [v, 'type']) && _.get(ITEMS_FIELDS, [v, 'type']) === "number") {
                     type = "number";
                     if (v !== "magaya__Pieces")
-                        k = roundDec(k).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
+                    k = roundDec(k).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
                     input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" autocomplete="off"/>`
+
 
                 } else if (_.get(ITEMS_FIELDS, [v, 'type']) === "textarea") {
                     input = `<textarea class='form-control ${no_border}' name="${v}" id="${v}">${k}</textarea>`
                 } else {
-                    input = _.isObject(k) ? `<select data-id="${id}" class="form-control" name="${v}"><option value="${k.id}">${k.name}</option></select>`
-                            : input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" autocomplete="off"/>`
+                    input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" autocomplete="off"/>`
+
                 }
 
 
@@ -145,7 +145,7 @@ storeItem.subscribe(() => {
                     <span class="material-icons oculto btn-slide" data-module="table-items-new" data-id="${i}">create</span>
                     <span class="material-icons oculto del-item-warehouse-new" data-id=${i}>clear</span>
                 </td>
-                <td class='Name'>${sanitize(k.Name)}</td>
+                <td class='magaya__Package_Description'>${sanitize(k.magaya__Package_Description)}</td>
                 <td align="right" class="magaya__Pieces">${k.magaya__Pieces}</td>
                 <td align="right" class="magaya__Length">${roundDec(k.magaya__Length).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 <td class="NoData" align="left">${measure_length}</td>
@@ -160,7 +160,7 @@ storeItem.subscribe(() => {
 
                 <td class="magaya__Status" style="display: none;">InQuote</td>
                 <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
-                <td class='magaya__Package_Type' style="display: none;">${k.magaya__Package_Type}</td>
+                <td class='Name' style="display: none;">${sanitize(k.Name)}</td>
                 </tr>`);
 
             })
@@ -230,7 +230,7 @@ storeItem.subscribe(() => {
                 <span class="material-icons oculto del-item-warehouse" data-id=${k.id}>clear</span>
             </td>
 
-            <td class='Name'>${sanitize(k.Name)}</td>
+            <td class='magaya__Package_Description'>${sanitize(k.magaya__Package_Description)}</td>
             <td align="right" class="magaya__Pieces">${k.magaya__Pieces}</td>
             <td align="right" class="magaya__Length" style="border-right: none;">${roundDec(k.magaya__Length).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
             <td align="left" class="NoData"style="border-left: none;">${measure_length}</td>
@@ -244,7 +244,7 @@ storeItem.subscribe(() => {
             <td align="left" class="NoData" style="border-left: none;">${measure_volume}</td>
 
             <td class="magaya__Status" style="display: none;">InQuote</td>
-            <td class='magaya__Package_Type' style="display: none;">${k.magaya__Package_Type}</td>
+            <td class='Name' style="display: none;">${k.Name}</td>
             <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
             </tr>`
             $("#table-items tbody").append(appendData);

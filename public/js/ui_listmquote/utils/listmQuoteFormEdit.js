@@ -193,12 +193,12 @@
                     }
                 });
 
-
+                console.log(item)
                 Object.assign(item, { id: idItem, magaya__SQuote_Name: idmQuoteToEdit});
                 let config = { APIData: item }
                 Object.assign(config, { Entity: "magaya__ItemQuotes" });
 
-                console.log(item)
+
                 ZOHO.CRM.API.updateRecord(config)
                     .then(function(data){
                         res = data.data;
@@ -221,7 +221,7 @@
                                 storeSuccess.dispatch(addSuccess({message: message}))
                             }
                         })
-                        $("#panel").animate({width:'toggle'},150);
+
                     })
                     .catch(function(error) {
                         console.log("error", error)
@@ -233,7 +233,7 @@
 
                     })
 
-
+                    $("#panel").animate({width:'toggle'},150);
 
             })
 

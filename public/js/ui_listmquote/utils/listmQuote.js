@@ -56,11 +56,11 @@ $(document).ready(function(){
 
         //let idItem = $(this).attr("data-id")
         value = sanitize(value);
-        /*if (field === "magaya__Package_Description" || field === "magaya__Package_Type") {
+        if (field === "magaya__Package_Description") {
             value = sanitize(value)
         } else {
             value = parseFloat(value);
-        }*/
+        }
         //si los valores son iguales, no actualizar nada
         if (sanitize(oldValue) !== sanitize(value)) {
             storeItem.dispatch(updateItemOnNew({field: field, value: value}))
@@ -357,19 +357,19 @@ $(document).ready(function(){
             $("#magaya__Terms").val(terms)
 
             //Incoterms
-            let incoterms = quoteToEdit.magaya__Incoterm_rule
-            let incotermsValues = $("select[name=magaya__Incoterm_rule] option")
+            let incoterms = quoteToEdit.magaya__Incoterms
+            let incotermsValues = $("select[name=magaya__Incoterms] option")
             $.map(incotermsValues, function(k, v) {
                 //console.log(k.text === incoterms, k.text)
                 if (k.text === incoterms) {
-                    $(`select[name=magaya__Incoterm_rule] option:contains(${incoterms})`).prop('selected', true);
-                    $(`select[name=magaya__Incoterm_rule]`).change()
+                    $(`select[name=magaya__Incoterms] option:contains(${incoterms})`).prop('selected', true);
+                    $(`select[name=magaya__Incoterms]`).change()
                 } else {
-                    $(`select[name=magaya__Incoterm_rule]`).prop('selected', false);
+                    $(`select[name=magaya__Incoterms]`).prop('selected', false);
 
                 }
             })
-            $("select[name=magaya__Incoterm_rule").val(incoterms).change()
+            $("select[name=magaya__Incoterms").val(incoterms).change()
 
             $("#mquoteModal").modal("show")
 

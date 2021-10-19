@@ -181,20 +181,16 @@ function rolOther() {
 
 //var obs = new MutationObserver(function(mutations, observer) {
 
-    $("select[name=magaya__Package_Type]").change(function(e) {
+    $("select[name=Name]").change(function(e) {
         e.preventDefault()
         e.stopImmediatePropagation()
-        let index = $(this).val();
+        let index = parseInt($("select[name=Name]").val());
 
-        let pck = packageType.filter(k => k.id === index)
-        if (!_.isEmpty(pck)) {
+        let length = packageType[index]["magaya__PackageLength"]
+        let height = packageType[index]["magaya__PackageHeight"]
+        let width = packageType[index]["magaya__PackageWidth"]
 
-            let length = pck[0]["magaya__PackageLength"]
-            let height = pck[0]["magaya__PackageHeight"]
-            let width = pck[0]["magaya__PackageWidth"]
-
-            storeItem.dispatch(updateAllItemNew({Name: index, length: length, width: width, height: height}))
-        }
+        storeItem.dispatch(updateAllItemNew({Name: index, length: length, width: width, height: height}))
     })
 
 //})
