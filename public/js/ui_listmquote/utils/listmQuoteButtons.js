@@ -81,6 +81,7 @@ $(document).ready(function(){
 
         let div_close = $(this).attr("data-close");
         $(`#${div_close}`).animate({width:'toggle'},150);
+        storeCharge.dispatch(emptyCharge())
         //$("#" + div_close).hide()
     })
 
@@ -160,7 +161,7 @@ $(document).ready(function(){
     $("#sendCharges").click(function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        //Utils.blockUI();
+        Utils.blockUI();
         store.dispatch(addActionEdited())
 
         let charge = storeCharge.getState().emptyCharge[1]
