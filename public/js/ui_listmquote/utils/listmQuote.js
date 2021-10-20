@@ -506,7 +506,13 @@ $(document).ready(function(){
                 let data_id = $(this).attr("data-id");
                 let module = $(this).attr("data-module")
                 $(this).dataShow(module, data_id)
+                $("#sendCharges").hide()
+                $("#newCharges").hide()
+                $("#updateCharge").show()
+
+
                 $("#panel").show("fast");
+
                 $(this).toggleClass("active"); return false;
 
               });
@@ -581,7 +587,8 @@ $(document).ready(function(){
                 let data_id = $(this).attr("data-id");
                 let module = $(this).attr("data-module")
                 $(this).dataShow(module, data_id)
-                $("#panel").show("fast");
+                //$("#panel").show("fast");
+                $("#panel-charge").show("fast");
                 $(this).toggleClass("active"); return false;
 
               });
@@ -677,7 +684,8 @@ $(document).ready(function(){
                 let data_id = $(this).attr("data-id");
                 let module = $(this).attr("data-module")
                 $(this).dataShow(module, data_id)
-                $("#panel").show("fast");
+                //$("#panel").show("fast");
+                $("#panel-charge").show("fast");
                 $(this).toggleClass("active"); return false;
 
               });

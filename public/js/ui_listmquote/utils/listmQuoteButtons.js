@@ -37,12 +37,22 @@ $(document).ready(function(){
         let panel = $(this).attr("data-panel");
         //$('form').toggleClass('show');
         $("#"+panel).show("fast");
-        $("#new-charge select").val("")
+        //$("#new-charge select").val("")
         $("textarea").val(" ")
         $(this).toggleClass("active");
 
         switch (panel) {
             case ("panel-charge") : {
+                console.log("New charge")
+                $("#sendCharges").hide()
+                $("#newCharges").show()
+                $("#updateCharge").hide()
+                $("#new-charge").find(':input').each(function() {
+                    let nameInput = $(this).attr('name');
+                    console.log(nameInput)
+                    $(`input[name=${nameInput}]`).removeClass('new-charge no-border-charge-new no-border-charge')
+                    $(`select[name=${nameInput}]`).removeClass('new-charge no-border-charge-new no-border-charge')
+                })
                 storeCharge.dispatch(addChargeEmpty())
                 break;
             }
@@ -160,7 +170,7 @@ $(document).ready(function(){
         //Utils.blockUI();
         store.dispatch(addActionEdited())
 
-        let charge = storeCharge.getState().emptyCharge
+        let charge = storeCharge.getState().emptyCharge[1]
         Object.assign(charge, {"magaya__SQuote_Name": idmQuoteToEdit})
         Object.assign(charge, {'magaya__ApplyToAccounts': accountId})
 
@@ -191,6 +201,7 @@ $(document).ready(function(){
                             $.map(record, function(k, v){
                                 storeCharge.dispatch(addCharge({...k}))
                             })
+                            storeCharge.dispatch(emptyCharge())
 
                             var func_name = "magaya__setQuoteTotalAmount";
                             var req_data ={
@@ -232,13 +243,14 @@ $(document).ready(function(){
         e.stopImmediatePropagation();
         store.dispatch(addActionEdited())
 
-        let charge = storeCharge.getState().emptyCharge
+        let charge = storeCharge.getState().emptyCharge[1]
         let accountId = $("select[name=Account]").val()
 
         Object.assign(charge, {'magaya__ApplyToAccounts': accountId})
 
         console.log("new charge", charge)
         storeCharge.dispatch(addChargeOnNew({...charge}))
+        storeCharge.dispatch(emptyCharge())
         $(`#panel-charge`).animate({width:'toggle'},150);
     })
 

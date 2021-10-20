@@ -13,6 +13,7 @@
 
         $("#updateChargeNew").click(function(e) {
             $("#panel").hide("slow");
+            storeCharge.dispatch(emptyCharge())
         })
 
         ///////////////////CHARGES//////////////////////////////
@@ -23,7 +24,7 @@
             //add a change counter
             store.dispatch(addActionEdited())
             Utils.blockUI();
-            let a = $(".edit-record").serializeArray();
+            let a = $("#new-charge").serializeArray();
             let charge = {}
             $.each(a, function() {
                 if (charge[this.name]) {
@@ -56,6 +57,7 @@
                     res = data.data;
                     $.map(res, function(k, v) {
                         if (k.code !== "SUCCESS") {
+                            console.log("Error updating", k)
                             codeError = k.code;
                             field = k.details.api_name;
                             show = true;
@@ -80,10 +82,10 @@
                                         storeCharge.dispatch(updateCharge({...k}))
                                     })
 
-
+                                    storeCharge.dispatch(emptyCharge())
                                 })
 
-                            $("#panel").animate({width:'toggle'},150);
+                            $("#panel-charge").animate({width:'toggle'},150);
                             let message = ": Updated successfully!!"
                             storeSuccess.dispatch(addSuccess({message: message}))
                         }
@@ -162,7 +164,7 @@
                     if (field === "Adjustment" || field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
                         value = roundDec(value);
                     }
-                    console.log(`${field} -- ${value}`)
+                    console.log(`Data ${field} -- ${value}`)
                     //si los valores son iguales, no actualizar nada
                     if (oldValue.toString() !== value.toString()) {
 
