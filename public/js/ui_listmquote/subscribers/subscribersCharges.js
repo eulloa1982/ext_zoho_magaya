@@ -35,8 +35,9 @@ storeCharge.subscribe(() => {
         $("#panel-legend").html(`Editing Charge`)
         let arr = {}
         $.map(u[1], function(k, v) {
+            console.log(k, v)
             //dejo vacio los campos en null
-            if (k === null || k === 'null')
+            /*if (k === null || k === 'null')
                 k = ''
             //get place order
             let order = _.get(CHARGES_FIELDS, [v, 'place'])
@@ -85,7 +86,7 @@ storeCharge.subscribe(() => {
 
                 //Object.assign(arr, append)
                 arr[order] = appendArr
-            }
+            }*/
         })
 
         //tax rate manually
@@ -120,7 +121,7 @@ storeCharge.subscribe(() => {
         </div>`
 
         $("#arrows").append(arrows)
-        $("#info-datad").append(append)
+        $("#info-datad").append(append)*/
     }
 
 
