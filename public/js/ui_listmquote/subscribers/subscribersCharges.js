@@ -25,7 +25,7 @@ storeCharge.subscribe(() => {
         let button_type = data_module_flag_charge ? "updateChargeNew" : "updateCharge"
         let no_border = data_module_flag_charge ? "no-border-charge-new" : "no-border-charge"
 
-        $("#info-datad").empty()
+        //$("#info-datad").empty()
         $("#arrows").empty()
 
 
@@ -33,6 +33,7 @@ storeCharge.subscribe(() => {
 
 
             if (showEmpty) {
+                $("#arrows-charge").empty()
                 $("#title_legend").html("New Charge")
                 no_border = 'new-charge'
                 $("#sendCharges").hide()
@@ -45,9 +46,8 @@ storeCharge.subscribe(() => {
             <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
             <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
         `
-        console.log("arrows", arrows)
 
-                $("#arrows").html(arrows)
+                $("#arrows-charge").html(arrows)
                 $("#sendCharges").hide()
                 $("#newCharges").hide()
                 $("#updateCharge").hide()
@@ -56,6 +56,7 @@ storeCharge.subscribe(() => {
         } else {
 
             if (showEmpty) {
+                $("#arrows-charge").empty()
                 $("#title_legend").html("New Charge")
                 $("#sendCharges").show()
                 $("#newCharges").hide()
@@ -67,8 +68,7 @@ storeCharge.subscribe(() => {
             <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
             <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
         `
-        console.log("arrows", arrows)
-                $("#arrows").html(arrows)
+                $("#arrows-charge").html(arrows)
                 $("#sendCharges").hide()
                 $("#newCharges").hide()
                 $("#updateCharge").show()

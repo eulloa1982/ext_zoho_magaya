@@ -589,7 +589,7 @@ a {
                                     <!---- wrapper for new charge form-->
                                     <div class="panel-charge" id="panel-charge">
                                         <div class="panel">
-											<fieldset class="fieldset"><legend class="legend"><span id="title_legend">New Charge</span><span id="arrows"></span>
+											<fieldset class="fieldset"><legend class="legend"><span class="float-right" id="arrows-charge"></span><span id="title_legend">New Charge</span>
                                                 <span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel-charge">close</span>
                                                 <span id="sendCharges" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
                                                 <span id="newCharges" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
