@@ -12,8 +12,8 @@
         })
 
         $("#updateChargeNew").click(function(e) {
-            $("#panel").hide("slow");
-            storeCharge.dispatch(emptyCharge())
+            $("#panel-charge").hide("slow");
+            //storeCharge.dispatch(emptyCharge())
         })
 
         ///////////////////CHARGES//////////////////////////////
@@ -104,13 +104,13 @@
         })
 
 
-        $(".no-border-charge").focus(function(e) {
+        $("#new-charge > .no-border-charge").focus(function(e) {
             $(this).addClass("editable");
 
             oldValue = $(this).val()
         })
 
-        $(".no-border-charge").on("change blur", function(e) {
+        $("#new-charge > .no-border-charge").on("change blur", function(e) {
             e.preventDefault();
             e.stopImmediatePropagation()
 
@@ -129,7 +129,7 @@
                 }
                 console.log(`${field} -- ${value}`)
                 //si los valores son iguales, no actualizar nada
-                if (oldValue.toString() !== value.toString()) {
+                if (oldValue !== 'null' && oldValue !== null && oldValue.toString() !== value.toString()) {
 
                     //let json_items ='{"id":"'+ idCharge +'", "' + field + '": "' + value + '"}';
                     //message = " : Item Updated!!";

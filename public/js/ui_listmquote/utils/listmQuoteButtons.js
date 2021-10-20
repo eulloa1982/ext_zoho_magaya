@@ -43,16 +43,8 @@ $(document).ready(function(){
 
         switch (panel) {
             case ("panel-charge") : {
-                console.log("New charge")
-                $("#sendCharges").hide()
-                $("#newCharges").show()
-                $("#updateCharge").hide()
-                $("#new-charge").find(':input').each(function() {
-                    let nameInput = $(this).attr('name');
-                    console.log(nameInput)
-                    $(`input[name=${nameInput}]`).removeClass('new-charge no-border-charge-new no-border-charge')
-                    $(`select[name=${nameInput}]`).removeClass('new-charge no-border-charge-new no-border-charge')
-                })
+                $("#title_legend").html("New Charge")
+
                 storeCharge.dispatch(addChargeEmpty())
                 break;
             }

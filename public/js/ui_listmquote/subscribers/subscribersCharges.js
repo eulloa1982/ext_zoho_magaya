@@ -6,7 +6,7 @@ storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
     let y = storeCharge.getState().emptyCharge[1];
     let showEmpty = storeCharge.getState().showEmptyCharge;
-    console.log("State charges now", storeCharge.getState())
+    //console.log("State charges now", storeCharge.getState())
     if (!_.isEmpty(u)) {
         let k = parseInt(u[0])
         //construir los campos y la data
@@ -19,39 +19,56 @@ storeCharge.subscribe(() => {
             //applyToName = u[1].magaya__ApplyToAccounts.name
         })
 
-        /*if (_.isEmpty(applyToName) || applyToName === undefined) {
-            applyToName = $("select[name=Account]").text()
-        }*/
 
 
         let data_module = data_module_flag_charge ? "table-charges-new" : "table-charges"
         let button_type = data_module_flag_charge ? "updateChargeNew" : "updateCharge"
         let no_border = data_module_flag_charge ? "no-border-charge-new" : "no-border-charge"
 
+        $("#info-datad").empty()
+        $("#arrows").empty()
+
+
         if ($("#table-charges").is(':hidden')) {
 
+
             if (showEmpty) {
-                console.log("New charge")
+                $("#title_legend").html("New Charge")
                 no_border = 'new-charge'
                 $("#sendCharges").hide()
                 $("#newCharges").show()
                 $("#updateCharge").hide()
                 $("#updateChargeNew").hide()
             } else {
+                $("#title_legend").html("Editing Charge")
+                let arrows = `
+            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
+            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
+        `
+        console.log("arrows", arrows)
+
+                $("#arrows").html(arrows)
                 $("#sendCharges").hide()
                 $("#newCharges").hide()
                 $("#updateCharge").hide()
                 $("#updateChargeNew").show()
             }
         } else {
+
             if (showEmpty) {
-                console.log("new charge send")
-                no_border = 'new-charge'
+                $("#title_legend").html("New Charge")
                 $("#sendCharges").show()
                 $("#newCharges").hide()
                 $("#updateCharge").hide()
                 $("#updateChargeNew").hide()
             } else {
+                $("#title_legend").html("Editing Charge")
+                let arrows = `
+            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
+            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
+        `
+        console.log("arrows", arrows)
+                $("#arrows").html(arrows)
                 $("#sendCharges").hide()
                 $("#newCharges").hide()
                 $("#updateCharge").show()
@@ -60,13 +77,6 @@ storeCharge.subscribe(() => {
         }
 
 
-        $("#info-datad").empty()
-        $("#arrows").empty()
-        let arrows = `
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
-        `
-        $("#panel-legend").html(`Editing Charge`)
         let arr = {}
 
         $.map(u[1], function(k, v) {
@@ -107,7 +117,7 @@ storeCharge.subscribe(() => {
         <div class="col-md-6"><input type="text" class="form-control" value="" readonly></div>
         </div>`
 
-        $("#arrows").append(arrows)
+
         $("#info-datad").append(append)
     }
 

@@ -195,8 +195,8 @@ function reducerCharge (state = initialStateCharge, actions)  {
             });
         }
 
-
-        case UPDATE_CHARGE_ON_NEW2 : {
+        //Updating new charge
+        /*case UPDATE_CHARGE_ON_NEW2 : {
             const field = actions.payload.field;
             const value = actions.payload.value;
 
@@ -233,21 +233,23 @@ function reducerCharge (state = initialStateCharge, actions)  {
                 console.log("Name size", _.size(newArray['Name']))
                 newArray['Name'] = "No Description"
 
-            }*/
+            }*
             if (_.size(newArray['magaya__Tax']) <= 0)
                 newArray['magaya__Tax'] = ''
             state.chargesOnNew[index] = {...newArray[1]}
+
             return {
                 ...state,
                 singleCharge: newArray
 
             }
-        }
+        }*/
 
+        //new charge form, sendCharge form updateCharge form, updateChargeNew form
         case UPDATE_CHARGE_ON_NEW : {
             const field = actions.payload.field;
             const value = actions.payload.value;
-
+            const index = state.singleCharge[0]
             newArray = {...state.singleCharge};
             newArray[1][field] = value
 
@@ -282,6 +284,9 @@ function reducerCharge (state = initialStateCharge, actions)  {
             }*/
             if (_.size(newArray[1]['magaya__Tax']) <= 0)
                 newArray[1]['magaya__Tax'] = ''
+
+            if (!_.isEmpty(state.chargesOnNew[index]))
+                state.chargesOnNew[index] = {...newArray[1]}
             console.log("Empty charege", newArray)
 
             return {
