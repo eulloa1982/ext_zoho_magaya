@@ -49,8 +49,29 @@ function reducerCharge (state = initialStateCharge, actions)  {
             })
         }
 
+        //add charge empty on table-charges
+        //add a new charge empty, id = size(charges)
         case ADD_CHARGE_EMPTY: {
             const length = _.size(state.charges)
+            const index = length + 1
+
+            $.map(state.emptyCharge, function(k, v) {
+                state.emptyCharge[v] = ""
+            })
+
+            let newArray = state.emptyCharge;
+            Object.assign(newArray, {"id": index})
+            return {
+                ...state,
+                singleCharge: [index, newArray],
+                showEmptyCharge: true
+            }
+        }
+
+        //add charge empty on table-charges-new
+        //add charge empty, id = size(chargeOnNew)
+        case ADD_CHARGE_EMPTY_NEW: {
+            const length = _.size(state.chargesOnNew)
             const index = length + 1
 
             $.map(state.emptyCharge, function(k, v) {
@@ -404,6 +425,10 @@ function addChargesXML(payload) {
 
 function addChargeEmpty() {
     return {type: ADD_CHARGE_EMPTY}
+}
+
+function addChargeEmptyNew() {
+    return {type: ADD_CHARGE_EMPTY_NEW}
 }
 
 function updateChargeOnNew(payload) {

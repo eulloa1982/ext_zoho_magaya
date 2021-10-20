@@ -43,9 +43,10 @@ $(document).ready(function(){
 
         switch (panel) {
             case ("panel-charge") : {
-                $("#title_legend").html("New Charge")
-
-                storeCharge.dispatch(addChargeEmpty())
+                if ($("#table-charges-new").is(':hidden'))
+                    storeCharge.dispatch(addChargeEmpty())
+                else
+                    storeCharge.dispatch(addChargeEmptyNew())
                 break;
             }
 
