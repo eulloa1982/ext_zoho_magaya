@@ -31,8 +31,8 @@ function reducerCharge (state = initialStateCharge, actions)  {
         case ADD_CHARGE: {
             if (_.isEmpty(actions.payload.magaya__ApplyToAccounts))
                 throw new UserException('Mandatory data not found: eigther Charge Name or Client are mandatory');
-            if (_.isEmpty(actions.payload.magaya__ChargeCode) || actions.payload.magaya__ChargeCode === "select")
-                throw new UserException('You need to select a Charge Type')
+            //if (_.isEmpty(actions.payload.magaya__ChargeCode) || actions.payload.magaya__ChargeCode === "select")
+            //    throw new UserException('You need to select a Charge Type')
 
                 if (_.size(actions.payload.Name) <= 0)
                     actions.payload.Name = 'No Description';

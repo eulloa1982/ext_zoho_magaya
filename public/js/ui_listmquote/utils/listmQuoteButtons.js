@@ -86,26 +86,98 @@ $(document).ready(function(){
     })
 
 
+    ////////////////////ITEMS//////////////////////////////
+    $("#updateItemNew").click(function(e) {
+        $("#panel-item").animate({width:'toggle'},150);
+    })
+
+    $("#updateItemss").click(function(e) {
+        e.preventDefault();
+        //e.stopImmediatePropagation();
+
+        let idItem = $(this).attr('data-id')
+        //add a change counter
+        //store.dispatch(addActionEdited())
+        Utils.blockUI();
+        let a = $("#new-item").serializeArray();
+        let item = {}
+        $.each(a, function() {
+            if (item[this.name]) {
+                if (!item[this.name].push) {
+                    item[this.name] = sanitize([item[this.name]]);
+                }
+                item[this.name].push(sanitize(this.value) || '');
+            } else {
+                item[this.name] = sanitize(this.value) || '';
+            }
+        });
+
+
+        Object.assign(item, { id: idItem, magaya__SQuote_Name: idmQuoteToEdit});
+        let config = { APIData: item }
+        Object.assign(config, { Entity: "magaya__ItemQuotes" });
+
+        console.log(item)
+        ZOHO.CRM.API.updateRecord(config)
+            .then(function(data){
+                res = data.data;
+                $.map(res, function(k, v) {
+                    if (k.code !== "SUCCESS") {
+                        codeError = k.code;
+                        field = k.details.api_name;
+                        show = true;
+                        module = 'Cargo Items'
+                        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                    } else {
+                        ZOHO.CRM.API.getRecord({Entity:"magaya__ItemQuotes",RecordID:idItem})
+                        .then(function(data){
+                            console.log("response get item", data)
+                            record = data.data[0];
+                            storeItem.dispatch(updateItem({...record}))
+                        })
+                        message = " : Item Updated!!";
+                        storeSuccess.dispatch(addSuccess({message: message}))
+                    }
+                })
+                Utils.unblockUI()
+                $("#panel-item").animate({width:'toggle'},150);
+            })
+            .catch(function(error) {
+                Utils.unblockUI()
+                console.log("error", error)
+                codeError = 'Error on field';
+                show = true;
+                field = "oldValue";
+                module = 'Service Items'
+                storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+            })
+    })
+
+
     //boton send new item on edit form
     $("#sendItem").click(function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
 
         //store.dispatch(addActionEdited())
-        rowIndex = $("#select-package").val();
-        let $form = $("#new-item");
-        let item = getFormData($form);
-
+        //rowIndex = $("#select-package").val();
+        //let $form = $("#new-item");
+        //let item = getFormData($form);
+        let item = storeItem.getState().singleItem[1]
         //Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
         Object.assign(item, {'magaya__SQuote_Name': idmQuoteToEdit})
-        Object.assign(item, {"magaya__Package_Type": {'id': $("select[name=magaya__Package_Type]").val(), 'name':$("select[name=magaya__Package_Type] option:selected").text()}})
+        Object.assign(item, {"magaya__Package_Type": $("select[name=magaya__Package_Type]").val()})
         //item = JSON.parse(item)
         console.log("Send Item", item)
 
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: item, Trigger: [] })
         .then(function(data) {
             res = data.data;
+            console.log("Item insert result", res)
             $.map(res, function(k, v) {
+
                 if (k.code !== "SUCCESS") {
                     codeError = k.code;
                     field = k.details.api_name;

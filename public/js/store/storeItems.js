@@ -15,7 +15,6 @@ const initialStateIntems = {
         magaya__Width: 0,
         magaya__Measure_System: "",
         magaya__Volume: 0,
-        magaya__Package_Description: ""
 
     },
     showEmptyItem: false,
@@ -66,7 +65,6 @@ function reducerItem (state = initialStateIntems, actions)  {
                 state.itemNew[v] = 0
             })
 
-            console.log("Adding item new")
             return Object.assign({}, state, {
                 itemsOnNew: state.itemsOnNew.concat(actions.payload),
                 });
@@ -166,25 +164,25 @@ function reducerItem (state = initialStateIntems, actions)  {
         }
 
 
-        //update all item
+        //update all item when package type change
         case UPDATE_ALL_ITEM_ON_NEW : {
-            const name = actions.payload.Name
             const height = actions.payload.height
             const width = actions.payload.width
             const length = actions.payload.length
+            const package = actions.payload.package
 
-            let newArray = initialStateIntems.itemEmpty
-            newArray["Name"] = name
-            newArray["magaya__Length"] = length
-            newArray["magaya__Height"] = height
-            newArray["magaya__Width"] = width
-            newArray["magaya__Volume"] = roundDec(width * length * height)
+            console.log("Package id", package)
+            let newArray = {...state.singleItem}
+            newArray[1]["magaya__Package_Type"] = package
+            newArray[1]["magaya__Length"] = length
+            newArray[1]["magaya__Height"] = height
+            newArray[1]["magaya__Width"] = width
+            newArray[1]["magaya__Volume"] = roundDec(width * length * height)
 
             return {
                 ...state,
-                itemNew: newArray
+                singleItem: newArray
             }
-
         }
 
         //item empty on new on inserting
@@ -192,30 +190,29 @@ function reducerItem (state = initialStateIntems, actions)  {
             const field = actions.payload.field;
             const value = actions.payload.value;
 
-            let newArray = initialStateIntems.itemEmpty
-            newArray[field] = value
+            let newArray ={...state.singleItem}
+            newArray[1][field] = value
 
-            let height = newArray["magaya__Height"];
-            let length = newArray["magaya__Length"];
-            let width = newArray["magaya__Width"];
+            let height = newArray[1]["magaya__Height"];
+            let length = newArray[1]["magaya__Length"];
+            let width = newArray[1]["magaya__Width"];
             //calculate volume
             let volume = roundDec(height) * roundDec(length) * roundDec(width)
-            newArray["magaya__Height"] = height.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray["magaya__Length"] = length.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray["magaya__Width"] = width.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray["magaya__Weigth"] = newArray["magaya__Weigth"].toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["magaya__Height"] = height.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["magaya__Length"] = length.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["magaya__Width"] = width.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["magaya__Weigth"] = newArray[1]["magaya__Weigth"].toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
-            newArray["magaya__Volume"] = roundDec(volume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["magaya__Volume"] = roundDec(volume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
             return {
                 ...state,
                 itemNew: newArray
             }
-
         }
 
 
-        case CALCULATE_VOLUME: {
+        /*case CALCULATE_VOLUME: {
             //const idItem = actions.payload.id;
             console.log("CALCULATE VOLUME")
             const field = actions.payload.field;
@@ -243,7 +240,7 @@ function reducerItem (state = initialStateIntems, actions)  {
             }
 
 
-        }
+        }*/
 
 
         /*case CALCULATE_VOLUME_ON_NEW: {

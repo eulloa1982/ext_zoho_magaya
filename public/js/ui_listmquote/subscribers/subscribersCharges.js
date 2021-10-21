@@ -6,7 +6,7 @@ storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
     let y = storeCharge.getState().emptyCharge[1];
     let showEmpty = storeCharge.getState().showEmptyCharge;
-    console.log("State charges now", storeCharge.getState())
+    //console.log("State charges now", storeCharge.getState())
     if (!_.isEmpty(u)) {
         let k = parseInt(u[0])
         //construir los campos y la data
@@ -24,9 +24,6 @@ storeCharge.subscribe(() => {
         let data_module = data_module_flag_charge ? "table-charges-new" : "table-charges"
         let button_type = data_module_flag_charge ? "updateChargeNew" : "updateCharge"
         let no_border = data_module_flag_charge ? "no-border-charge-new" : "no-border-charge"
-
-        //$("#info-datad").empty()
-        $("#arrows").empty()
 
 
         if ($("#table-charges").is(':hidden')) {

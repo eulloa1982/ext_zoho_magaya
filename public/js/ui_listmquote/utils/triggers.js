@@ -193,7 +193,7 @@ $("select[name=magaya__Package_Type]").change(function(e) {
         let height = pck[0]["magaya__PackageHeight"]
         let width = pck[0]["magaya__PackageWidth"]
 
-        storeItem.dispatch(updateAllItemNew({Name: index, length: length, width: width, height: height}))
+        storeItem.dispatch(updateAllItemNew({length: length, width: width, height: height, package: pck[0]["id"]}))
     }
 })
 

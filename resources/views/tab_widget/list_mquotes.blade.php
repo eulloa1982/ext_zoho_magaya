@@ -742,10 +742,12 @@ a {
                                     <div class="panel-item" id="panel-item">
                                         <div class="panel">
 											<fieldset class="fieldset">
-                                                <legend class="legend">New Item
+                                                <legend class="legend"><span class="float-right" id="arrows-item"></span><span id="title_legend2">New Item</span>
                                                     <span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel-item">close</span>
                                                     <span id="sendItem" class="material-icons btn btn-primary float-right"style="background: none;border: none;">task_alt</span>
                                                     <span id="newItem" class="material-icons btn btn-primary float-right"style="background: none;border: none;">task_alt</span>
+                                                    <span id="updateItemss" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
+                                                    <span id="updateItemNew" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
 
                                                 </legend>
                                                 <form id="new-item" action="https://zm">

@@ -510,7 +510,7 @@ $(document).ready(function(){
                 $("#updateCharge").show()
 
 
-                $("#panel").show("fast");
+                $("#panel-item").show("fast");
 
                 $(this).toggleClass("active"); return false;
 
@@ -726,7 +726,7 @@ $(document).ready(function(){
                 let data_id = $(this).attr("data-id");
                 let module = $(this).attr("data-module")
                 $(this).dataShow(module, data_id)
-                $("#panel").show("fast");
+                $("#panel-item").show("fast");
                 $(this).toggleClass("active"); return false;
 
               });

@@ -145,7 +145,7 @@
             ///// VALORAR QUITAR
             ///// VERIFICAR, DEBE SOBRAR
             ///////////////////////////////////////////////////////////////////
-            $(".no-border-charge-new").focus(function(e) {
+            /*$(".no-border-charge-new").focus(function(e) {
                 $(this).addClass("editable");
                 oldValue = $(this).val()
             })
@@ -182,89 +182,23 @@
                 if (oldValue.toString() !== value.toString()) {
                     //storeCharge.dispatch(updateCharge({id:idItem, field: field, value: value}))
                     storeCharge.dispatch(updateChargeOnNew({field: field, value: value}))
-                }*/
-            })
-
-            ////////////////////ITEMS//////////////////////////////
-            $("#updateItemNew").click(function(e) {
-                $("#panel").hide("slow");
-            })
-
-            $("#updateItem").click(function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-
-                let idItem = $(this).attr('data-id')
-                //add a change counter
-                store.dispatch(addActionEdited())
-                //Utils.blockUI();
-                let a = $(".edit-record").serializeArray();
-                let item = {}
-                $.each(a, function() {
-                    if (item[this.name]) {
-                        if (!item[this.name].push) {
-                            item[this.name] = sanitize([item[this.name]]);
-                        }
-                        item[this.name].push(sanitize(this.value) || '');
-                    } else {
-                        item[this.name] = sanitize(this.value) || '';
-                    }
-                });
-
-
-                Object.assign(item, { id: idItem, magaya__SQuote_Name: idmQuoteToEdit});
-                let config = { APIData: item }
-                Object.assign(config, { Entity: "magaya__ItemQuotes" });
-
-                console.log(item)
-                ZOHO.CRM.API.updateRecord(config)
-                    .then(function(data){
-                        res = data.data;
-                        $.map(res, function(k, v) {
-                            if (k.code !== "SUCCESS") {
-                                codeError = k.code;
-                                field = k.details.api_name;
-                                show = true;
-                                module = 'Cargo Items'
-                                storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                            } else {
-                                ZOHO.CRM.API.getRecord({Entity:"magaya__ItemQuotes",RecordID:idItem})
-                                .then(function(data){
-                                    console.log("response get item", data)
-                                    record = data.data[0];
-                                    storeItem.dispatch(updateItem({...record}))
-                                })
-                                message = " : Item Updated!!";
-                                storeSuccess.dispatch(addSuccess({message: message}))
-                            }
-                        })
-                        $("#panel").animate({width:'toggle'},150);
-                    })
-                    .catch(function(error) {
-                        console.log("error", error)
-                        codeError = 'Error on field';
-                        show = true;
-                        field = "oldValue";
-                        module = 'Service Items'
-                        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                    })
+                }*
+            })*/
 
 
 
-            })
+
 
 
 
 
             //editable in situ
-            $(".no-border-item").click(function(e) {
+            /*$("#new-item > .no-border-item").click(function(e) {
                 $(this).addClass("editable");
                 oldValue = $(this).val()
             })
 
-            $(".no-border-item").on("change blur", function(e) {
+            $("#new-item > .no-border-item").on("change blur", function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation()
                 let $celd = $(this)
@@ -294,7 +228,7 @@
 
                     }
                 }
-            })
+            })*/
 
 
             /*$(".no-border-item-new").click(function(e) {
