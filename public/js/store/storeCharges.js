@@ -28,6 +28,7 @@ const initialStateCharge = {
 function reducerCharge (state = initialStateCharge, actions)  {
 
     switch (actions.type) {
+
         case ADD_CHARGE: {
             if (_.isEmpty(actions.payload.magaya__ApplyToAccounts))
                 throw new UserException('Mandatory data not found: eigther Charge Name or Client are mandatory');
@@ -116,7 +117,6 @@ function reducerCharge (state = initialStateCharge, actions)  {
                     newArray = state.singleCharge
                 }
             }
-            //newArray = {...state.charges[byId]}
 
             return {
                 ...state,
@@ -142,6 +142,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
             }
         }
 
+        //update all charge entity
         case UPDATE_CHARGE: {
             const id = actions.payload.id
             const index = state.charges.findIndex(charge => charge.id === id)
@@ -155,7 +156,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
         }
 
         //set amount on charge editing
-        case SET_AMOUNT: {
+        /*case SET_AMOUNT: {
             const field = actions.payload.field;
             const value = actions.payload.value;
 
@@ -195,7 +196,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
                 ...state,
                 singleCharge: newArray
             }
-        }
+        }*/
 
 
         case ADD_CHARGE_ON_NEW: {
@@ -300,17 +301,11 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray[1]['magaya__Tax_Amount'] = amount_tax.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             newArray[1]['magaya__Amount_Total'] = amount_total.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
-            /*if (_.size(newArray['Name']) <= 0) {
-                console.log("Name size", _.size(newArray['Name']))
-                newArray['Name'] = "No Description"
-
-            }*/
             if (_.size(tax_rate) <= 0)
                 newArray[1]['magaya__Tax'] = ''
 
             if (!_.isEmpty(state.chargesOnNew[index]))
                 state.chargesOnNew[index] = {...newArray[1]}
-            //console.log("Empty charege", newArray)
 
             return {
                 ...state,
