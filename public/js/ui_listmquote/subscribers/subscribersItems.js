@@ -3,7 +3,7 @@ let data_module_flag_item = true
 
 //get an item, draw the data view
 storeItem.subscribe(() => {
-    console.log("State items", storeItem.getState())
+    //console.log("State items", storeItem.getState())
     let u = storeItem.getState().singleItem;
     //empty charge
     let y = storeItem.getState().itemNew;
@@ -107,63 +107,7 @@ storeItem.subscribe(() => {
 
                 }
             }
-
-            //let order = _.get(ITEMS_FIELDS, [v, 'place'])
-
-            /*if ( _.has(ITEMS_FIELDS, v)) {
-                let type = "text"
-                if (_.has(ITEMS_FIELDS, [v, 'type']) && _.get(ITEMS_FIELDS, [v, 'type']) === "number") {
-                    type = "number";
-                    if (v !== "magaya__Pieces")
-                        k = roundDec(k).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-
-                    input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" autocomplete="off"/>`
-
-                } else if (_.get(ITEMS_FIELDS, [v, 'type']) === "textarea") {
-                    input = `<textarea class='form-control ${no_border}' name="${v}" id="${v}">${k}</textarea>`
-                } else {
-                    input = _.isObject(k) ? `<select data-id="${id}" class="form-control" name="${v}"><option value="${k.id}">${k.name}</option></select>`
-                            : input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" autocomplete="off"/>`
-                }
-
-
-
-
-
-                let field = _.get(ITEMS_FIELDS, [v, 'field'])
-                let values = _.has(ITEMS_FIELDS, [v, "values"]) ? _.get(ITEMS_FIELDS, [v, 'values']) : ''
-
-                if (!_.isEmpty(values)) {
-                    input = `<select data-id="${id}" name="${v}" class="form-control">`
-                        $.map(values, function(val) {
-                            if (val === k)
-                                input += `<option value="${val}" selected>${val}</option>`
-                            else
-                                input += `<option value="${val}">${val}</option>`
-                        })
-                    input += `</select>`
-                }
-                appendArr = `<div class="row">
-                <div class="col-md-4">${field}</div>
-                <div data-id="${id}" class="col-md-6">${input}</div>
-                </div>`
-
-                arr[order] = appendArr
-            }*/
         })
-
-        //arrows += `<span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel">close</span>
-          //          <span id="" data-id="${idItem}" class="material-icons btn btn-primary" style="background: none;border: none;">task_alt</span>
-          //          `
-
-        //$("#arrows").append(arrows)
-
-        //imprimir campos en orden
-        //for(i = 1; i <= 10; i++) {
-          //  append += arr[i];
-        //}
-
-        //$("#info-datad").append(append)
     }
 
 
