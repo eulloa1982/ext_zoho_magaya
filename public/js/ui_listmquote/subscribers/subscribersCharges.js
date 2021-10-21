@@ -4,130 +4,124 @@ $("#info-charge").html("Loading, please wait...");
 //get one charge
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
-    console.log("State charges now", storeCharge.getState())
+    let y = storeCharge.getState().emptyCharge[1];
+    let showEmpty = storeCharge.getState().showEmptyCharge;
+    //console.log("State charges now", storeCharge.getState())
     if (!_.isEmpty(u)) {
         let k = parseInt(u[0])
         //construir los campos y la data
-        let id = 0;
+        let idCharge = 0;
         let idTax = 0;
         //find id charge
         let applyToName = ''
         $.map(u[1], function(k, v) {
-            id = u[1].id
-            applyToName = u[1].magaya__ApplyToAccounts.name
+            idCharge = u[1].id
+            //applyToName = u[1].magaya__ApplyToAccounts.name
         })
 
-        if (_.isEmpty(applyToName) || applyToName === undefined) {
-            applyToName = $("select[name=Account]").text()
-        }
 
 
         let data_module = data_module_flag_charge ? "table-charges-new" : "table-charges"
         let button_type = data_module_flag_charge ? "updateChargeNew" : "updateCharge"
         let no_border = data_module_flag_charge ? "no-border-charge-new" : "no-border-charge"
 
-        $("#info-datad").empty()
-        $("#arrows").empty()
-        let arrows = `
+
+        if ($("#table-charges").is(':hidden')) {
+
+
+            if (showEmpty) {
+                $("#arrows-charge").empty()
+                $("#title_legend").html("New Charge")
+                no_border = 'new-charge'
+                $("#sendCharges").hide()
+                $("#newCharges").show()
+                $("#updateCharge").hide()
+                $("#updateChargeNew").hide()
+            } else {
+                $("#title_legend").html("Editing Charge")
+                let arrows = `
             <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
             <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
         `
-        $("#panel-legend").html(`Editing Charge`)
+
+                $("#arrows-charge").html(arrows)
+                $("#sendCharges").hide()
+                $("#newCharges").hide()
+                $("#updateCharge").hide()
+                $("#updateChargeNew").show()
+            }
+        } else {
+
+            if (showEmpty) {
+                $("#arrows-charge").empty()
+                $("#title_legend").html("New Charge")
+                $("#sendCharges").show()
+                $("#newCharges").hide()
+                $("#updateCharge").hide()
+                $("#updateChargeNew").hide()
+            } else {
+                $("#title_legend").html("Editing Charge")
+                let arrows = `
+            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
+            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
+        `
+                $("#arrows-charge").html(arrows)
+                $("#sendCharges").hide()
+                $("#newCharges").hide()
+                $("#updateCharge").show()
+                $("#updateChargeNew").hide()
+            }
+        }
+
+
         let arr = {}
+
         $.map(u[1], function(k, v) {
-            //dejo vacio los campos en null
             if (k === null || k === 'null')
                 k = ''
-            //get place order
-            let order = _.get(CHARGES_FIELDS, [v, 'place'])
-            let editable = _.get(CHARGES_FIELDS, [v, 'editable'])
-
-            if ( _.has(CHARGES_FIELDS, v)) {
-                //get type of field
-                let type = "text"
-                if (_.has(CHARGES_FIELDS, [v, 'type']) && _.get(CHARGES_FIELDS, [v, 'type']) === "number") {
-                    type = "number";
-                    k = roundDec(k).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-
-                    if (Number.isInteger(k))
-                        k = `${k}.00`
-
-                    input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" style="text-align-last:right;" ${editable}/>`
-
-                } else if (_.get(CHARGES_FIELDS, [v, 'type']) === "textarea") {
-                    input = `<textarea class='form-control ${no_border}' id="${v}">${k}</textarea>`
-                } else {
-                    if (!_.isEmpty(k))
-                        idTax = (v === "magaya__Tax" ? k.id : 0)
-                    input = _.isObject(k) ? `<select data-id="${id}" class="form-control" name="${v}"><option value="${k.id}">${k.name}</option></select>`
-                    : input = `<input type="text" data-id="${id}" class="form-control ${no_border} ${type}" name="${v}" value="${k}" style="text-align-last:right;" />`
-                }
-
-                if (k === null || k === "null") k = 0
-
-                let field = _.get(CHARGES_FIELDS, [v, 'field'])
-                let values = _.has(CHARGES_FIELDS, [v, "values"]) ? _.get(CHARGES_FIELDS, [v, 'values']) : ''
-                //si tiene una lista de valores, es un select y lo imprimimos
-                if (!_.isEmpty(values)) {
-                    input = `<select data-id="${id}" name="${v}" class="form-control ${no_border}">`
-                        $.map(values, function(val) {
-                            if (val === k)
-                                input += `<option value="${val}" selected>${val}</option>`
-                            else
-                                input += `<option value="${val}">${val}</option>`
-                        })
-                    input += `</select>`
-                }
-                appendArr = `<div class="row">
-                    <div class="col-md-4">${field}</div>
-                    <div class="col-md-6">${input}</div>
-                    </div>`
-
-                //Object.assign(arr, append)
-                arr[order] = appendArr
+            if (_.isObject(k) && !v.includes("$")) {
+                let id = k.id
+                $(`select[name=${v}]`).removeClass('new-charge no-border-charge-new no-border-charge').addClass(no_border)
+                $(`select[name=${v}]`).attr('data-id', id)
+                if (id > 0)
+                    $(`select[name=${v}]`).val(k.id)
             }
+
+            if (!_.isObject(v) && !v.includes("$")) {
+                if (!_.isObject(k)) {
+                    $(`input[name=${v}]`).removeClass('new-charge no-border-charge-new no-border-charge').addClass(no_border)
+                    $(`select[name=${v}]`).removeClass('new-charge no-border-charge-new no-border-charge').addClass(no_border)
+                    $(`#${v}`).removeClass('new-charge no-border-charge-new no-border-charge').addClass(no_border)
+                    $(`input[name=${v}]`).attr('data-id', idCharge)
+                    $(`select[name=${v}]`).attr('data-id', idCharge)
+                    $(`#${v}`).attr('data-id', idCharge)
+                    $("#updateCharge").attr('data-id', idCharge)
+
+
+                    $(`input[name=${v}]`).val(k)
+                    $(`select[name=${v}]`).val(k)
+                    $(`#${v}`).val(k)
+
+                }
+            }
+
+
         })
 
-        //tax rate manually
-        index = idTax;
-        let rate = 0;
-        let pck = taxes.filter(k => k.id === index)
-        if (!_.isEmpty(pck)) {
 
-            rate = pck[0]["magaya__Tax_Rate0"]
-        }
-        let taxrate = `<div class="row">
-                    <div class="col-md-4">Tax Rate</div>
-                    <div class="col-md-6">
-                    <input type='text' value='${rate}' data-id="${id}" class="form-control ${no_border} number" name="magaya__TaxRate" style="text-align-last:right;" readonly=""/>
-                    </div>
-                    </div>`
-        arr[8] = taxrate;
-
-        let append = ``
-        arrows += `<span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel">close</span>
-                    <span id="${button_type}" data-id="${id}" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>`
-
-
-        //imprimir campos en orden
-        for(i = 1; i < 14; i++) {
-            append += arr[i];
-        }
-
-        append += `<div class="row">
+        append = `<div class="row">
         <div class="col-md-4">Apply To</div>
-        <div class="col-md-6"><input type="text" class="form-control" value="${applyToName}" readonly></div>
+        <div class="col-md-6"><input type="text" class="form-control" value="" readonly></div>
         </div>`
 
-        $("#arrows").append(arrows)
+
         $("#info-datad").append(append)
     }
 
 
     //empty charge
     //console.log("State charges now", storeCharge.getState())
-    let y = storeCharge.getState().emptyCharge;
-    let showEmpty = storeCharge.getState().showEmptyCharge;
+
 
     if (!_.isEmpty(y) && showEmpty) {
         $.map(y, function (k, v) {

@@ -82,8 +82,7 @@ const GET_DEAL = "GET_DEAL"
 const CHARGES_FIELDS = {"magaya__ChargeCode": {"field": "Type", "editable":"readonly", "place": 1}, "Name": {"field": "Description", "type": "textarea", "editable":"", "place": 2},
                 "magaya__CQuantity": {"field": "Quantity", "type": "number", "editable":"", "place": 3}, "magaya__Unit": {"field": "Unit", "values": ["U", "Lb"], "editable":"", "place": 4},
                 "magaya__Price": {"field": "Price", "type": "number", "editable":"", "place": 5}, "magaya__Amount": {"field": "Amount", "type": "number", "editable":"readonly", "place": 6},
-                "magaya__Tax": {"field": "Tax Code", "editable": "readonly", "place": 7}, "magaya__TaxRate": {"field": "Tax Rate", "type": "number", "editable":"readonly", "place": 8},
-                "magaya__Tax_Amount":{"field": "Tax Amount", "type": "number", "editable":"readonly", "place": 9}, "magaya__Amount_Total":{"field": "Amount + Tax", "type": "number", "editable":"readonly", "place": 10},
+                "magaya__Tax": {"field": "Tax Code", "editable": "readonly", "place": 7}, "magaya__Tax_Amount":{"field": "Tax Amount", "type": "number", "editable":"readonly", "place": 9}, "magaya__Amount_Total":{"field": "Amount + Tax", "type": "number", "editable":"readonly", "place": 10},
                 "magaya__ChargeCurrency": {"field": "Currency", "editable":"readonly", "values": ["USD"], "place": 11}, "magaya__Paid_As": {"field": "Paid As", "values": ["Paid", "Collect"], "editable":"", "place": 12},
                 "magaya__Status": {"field": "Status", "values": ["Open", "Posted", "Paid"], "editable":"", "place": 13},
 

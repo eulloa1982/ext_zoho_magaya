@@ -193,7 +193,7 @@ $("select[name=magaya__Package_Type]").change(function(e) {
         let height = pck[0]["magaya__PackageHeight"]
         let width = pck[0]["magaya__PackageWidth"]
 
-        storeItem.dispatch(updateAllItemNew({Name: index, length: length, width: width, height: height}))
+        storeItem.dispatch(updateAllItemNew({length: length, width: width, height: height, package: pck[0]["id"]}))
     }
 })
 
@@ -207,19 +207,20 @@ $("select[name=magaya__Tax]").change(function(e) {
     if (!_.isEmpty(pck)) {
 
         rate = pck[0]["magaya__Tax_Rate0"]
+        storeCharge.dispatch(updateChargeOnNew({field: 'magaya__Tax', value: index}))
         storeCharge.dispatch(updateChargeOnNew({field: 'magaya__TaxRate', value: rate}))
     }
 
 })
 
 
-$("select[name=magaya__ChargeCode]").change(function(e) {
+/*$("select[name=magaya__ChargeCode]").change(function(e) {
     e.preventDefault()
     e.stopImmediatePropagation()
     let name = $("select[name=magaya__ChargeCode] option:selected").text();
 
     $("textarea#Name").val(name).change()
-})
+})*/
 
 
 //})

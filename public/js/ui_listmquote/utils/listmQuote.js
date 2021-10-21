@@ -31,7 +31,6 @@ $(document).ready(function(){
         }
         //si los valores son iguales, no actualizar nada
         if (oldValue.toString() !== value.toString()) {
-            console.log(`${field}: ${value}`)
             //storeCharge.dispatch(updateCharge({id:idItem, field: field, value: value}))
             //storeCharge.dispatch(setAmountOnNew({id:idItem, field: field, value: value}))
             storeCharge.dispatch(updateChargeOnNew({field: field, value: value}))
@@ -63,6 +62,7 @@ $(document).ready(function(){
             value = parseFloat(value);
         }
         //si los valores son iguales, no actualizar nada
+        console.log(`${field}  val  ${value}`)
         if (sanitize(oldValue) !== sanitize(value)) {
             storeItem.dispatch(updateItemOnNew({field: field, value: value}))
         }
@@ -505,7 +505,13 @@ $(document).ready(function(){
                 let data_id = $(this).attr("data-id");
                 let module = $(this).attr("data-module")
                 $(this).dataShow(module, data_id)
-                $("#panel").show("fast");
+                $("#sendCharges").hide()
+                $("#newCharges").hide()
+                $("#updateCharge").show()
+
+
+                $("#panel-item").show("fast");
+
                 $(this).toggleClass("active"); return false;
 
               });
@@ -580,7 +586,8 @@ $(document).ready(function(){
                 let data_id = $(this).attr("data-id");
                 let module = $(this).attr("data-module")
                 $(this).dataShow(module, data_id)
-                $("#panel").show("fast");
+                //$("#panel").show("fast");
+                $("#panel-charge").show("fast");
                 $(this).toggleClass("active"); return false;
 
               });
@@ -676,7 +683,8 @@ $(document).ready(function(){
                 let data_id = $(this).attr("data-id");
                 let module = $(this).attr("data-module")
                 $(this).dataShow(module, data_id)
-                $("#panel").show("fast");
+                //$("#panel").show("fast");
+                $("#panel-charge").show("fast");
                 $(this).toggleClass("active"); return false;
 
               });
@@ -718,7 +726,7 @@ $(document).ready(function(){
                 let data_id = $(this).attr("data-id");
                 let module = $(this).attr("data-module")
                 $(this).dataShow(module, data_id)
-                $("#panel").show("fast");
+                $("#panel-item").show("fast");
                 $(this).toggleClass("active"); return false;
 
               });

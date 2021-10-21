@@ -589,11 +589,13 @@ a {
                                     <!---- wrapper for new charge form-->
                                     <div class="panel-charge" id="panel-charge">
                                         <div class="panel">
-											<fieldset class="fieldset"><legend class="legend">New Charge
+											<fieldset class="fieldset"><legend class="legend"><span class="float-right" id="arrows-charge"></span><span id="title_legend">New Charge</span>
                                                 <span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel-charge">close</span>
                                                 <span id="sendCharges" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
                                                 <span id="newCharges" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
-                                           </legend>
+                                                <span id="updateCharge" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
+                                                <span id="updateChargeNew" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
+                                        </legend>
                                             <form id="new-charge" action="https://zm">
                                                 <div class="row">
                                                     <div class="col-md-3">Type</div>
@@ -740,10 +742,12 @@ a {
                                     <div class="panel-item" id="panel-item">
                                         <div class="panel">
 											<fieldset class="fieldset">
-                                                <legend class="legend">New Item
+                                                <legend class="legend"><span class="float-right" id="arrows-item"></span><span id="title_legend2">New Item</span>
                                                     <span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel-item">close</span>
                                                     <span id="sendItem" class="material-icons btn btn-primary float-right"style="background: none;border: none;">task_alt</span>
                                                     <span id="newItem" class="material-icons btn btn-primary float-right"style="background: none;border: none;">task_alt</span>
+                                                    <span id="updateItemss" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
+                                                    <span id="updateItemNew" class="material-icons btn btn-primary float-right" style="background: none;border: none;">task_alt</span>
 
                                                 </legend>
                                                 <form id="new-item" action="https://zm">
