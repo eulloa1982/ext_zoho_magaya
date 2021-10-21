@@ -37,12 +37,16 @@ $(document).ready(function(){
         let panel = $(this).attr("data-panel");
         //$('form').toggleClass('show');
         $("#"+panel).show("fast");
-        console.log("Opening", panel)
+        //$("#new-charge select").val("")
+        $("textarea").val(" ")
         $(this).toggleClass("active");
 
         switch (panel) {
             case ("panel-charge") : {
-                storeCharge.dispatch(addChargeEmpty())
+                if ($("#table-charges-new").is(':hidden'))
+                    storeCharge.dispatch(addChargeEmpty())
+                else
+                    storeCharge.dispatch(addChargeEmptyNew())
                 break;
             }
 
@@ -77,7 +81,78 @@ $(document).ready(function(){
 
         let div_close = $(this).attr("data-close");
         $(`#${div_close}`).animate({width:'toggle'},150);
+        storeCharge.dispatch(emptyCharge())
         //$("#" + div_close).hide()
+    })
+
+
+    ////////////////////ITEMS//////////////////////////////
+    $("#updateItemNew").click(function(e) {
+        $("#panel-item").animate({width:'toggle'},150);
+    })
+
+    $("#updateItemss").click(function(e) {
+        e.preventDefault();
+        //e.stopImmediatePropagation();
+
+        let idItem = $(this).attr('data-id')
+        //add a change counter
+        //store.dispatch(addActionEdited())
+        Utils.blockUI();
+        let a = $("#new-item").serializeArray();
+        let item = {}
+        $.each(a, function() {
+            if (item[this.name]) {
+                if (!item[this.name].push) {
+                    item[this.name] = sanitize([item[this.name]]);
+                }
+                item[this.name].push(sanitize(this.value) || '');
+            } else {
+                item[this.name] = sanitize(this.value) || '';
+            }
+        });
+
+
+        Object.assign(item, { id: idItem, magaya__SQuote_Name: idmQuoteToEdit});
+        let config = { APIData: item }
+        Object.assign(config, { Entity: "magaya__ItemQuotes" });
+
+        console.log(item)
+        ZOHO.CRM.API.updateRecord(config)
+            .then(function(data){
+                res = data.data;
+                $.map(res, function(k, v) {
+                    if (k.code !== "SUCCESS") {
+                        codeError = k.code;
+                        field = k.details.api_name;
+                        show = true;
+                        module = 'Cargo Items'
+                        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                    } else {
+                        ZOHO.CRM.API.getRecord({Entity:"magaya__ItemQuotes",RecordID:idItem})
+                        .then(function(data){
+                            console.log("response get item", data)
+                            record = data.data[0];
+                            storeItem.dispatch(updateItem({...record}))
+                        })
+                        message = " : Item Updated!!";
+                        storeSuccess.dispatch(addSuccess({message: message}))
+                    }
+                })
+                Utils.unblockUI()
+                $("#panel-item").animate({width:'toggle'},150);
+            })
+            .catch(function(error) {
+                Utils.unblockUI()
+                console.log("error", error)
+                codeError = 'Error on field';
+                show = true;
+                field = "oldValue";
+                module = 'Service Items'
+                storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+            })
     })
 
 
@@ -87,10 +162,10 @@ $(document).ready(function(){
         e.stopImmediatePropagation();
 
         //store.dispatch(addActionEdited())
-        rowIndex = $("#select-package").val();
-        let $form = $("#new-item");
-        let item = getFormData($form);
-
+        //rowIndex = $("#select-package").val();
+        //let $form = $("#new-item");
+        //let item = getFormData($form);
+        let item = storeItem.getState().singleItem[1]
         //Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
         Object.assign(item, {'magaya__SQuote_Name': idmQuoteToEdit})
         Object.assign(item, {"magaya__Package_Type": $("select[name=magaya__Package_Type]").val()})
@@ -100,7 +175,9 @@ $(document).ready(function(){
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: item, Trigger: [] })
         .then(function(data) {
             res = data.data;
+            console.log("Item insert result", res)
             $.map(res, function(k, v) {
+
                 if (k.code !== "SUCCESS") {
                     codeError = k.code;
                     field = k.details.api_name;
@@ -145,7 +222,7 @@ $(document).ready(function(){
 
         let $form = $("#new-item");
         let item = getFormData($form);
-        Object.assign(item, {"magaya__Package_Type": $("select[name=magaya__Package_Type]").val()})
+        Object.assign(item, {"magaya__Package_Type": {'id': $("select[name=magaya__Package_Type]").val(), 'name':$("select[name=magaya__Package_Type] option:selected").text()}})
 
         console.log("new item", item)
         storeItem.dispatch(addItemOnNew({...item}))
@@ -158,18 +235,18 @@ $(document).ready(function(){
         e.stopImmediatePropagation();
         Utils.blockUI();
         store.dispatch(addActionEdited())
-        //get tax code
-        let tax_code = sanitize($("select[name=magaya__TaxCode] option:selected").text());
-        let $form = $("#new-charge");
-        let item = getFormData($form);
-        Object.assign(item, {"magaya__SQuote_Name": idmQuoteToEdit})
-        Object.assign(item, {'magaya__ApplyToAccounts': accountId})
-        Object.assign(item, {"Name": item["magaya__Charge_Description"]})
-        Object.assign(item, {"magaya__Charge_Description": item["magaya__Charge_Description"]})
-        Object.assign(item, {"magaya__TaxCode": tax_code})
 
-        console.log("Charge send", item)
-        ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: item, Trigger: [] })
+        let charge = storeCharge.getState().emptyCharge[1]
+        Object.assign(charge, {"magaya__SQuote_Name": idmQuoteToEdit})
+        Object.assign(charge, {'magaya__ApplyToAccounts': accountId})
+
+        //quitarles las comas a los numeros grandes
+        charge.magaya__Amount = charge.magaya__Amount.replace(/[,]/g, '')
+        charge.magaya__Amount_Total = charge.magaya__Amount_Total.replace(/[,]/g, '')
+        charge.magaya__Tax_Amount = charge.magaya__Tax_Amount.replace(/[,]/g, '')
+
+        console.log("Charge send", charge)
+        ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: charge, Trigger: [] })
             .then(function(data) {
                 res = data.data;
 
@@ -190,6 +267,7 @@ $(document).ready(function(){
                             $.map(record, function(k, v){
                                 storeCharge.dispatch(addCharge({...k}))
                             })
+                            storeCharge.dispatch(emptyCharge())
 
                             var func_name = "magaya__setQuoteTotalAmount";
                             var req_data ={
@@ -231,19 +309,14 @@ $(document).ready(function(){
         e.stopImmediatePropagation();
         store.dispatch(addActionEdited())
 
-        let $form = $("#new-charge");
-        let item = getFormData($form);
+        let charge = storeCharge.getState().emptyCharge[1]
         let accountId = $("select[name=Account]").val()
-        let taxcode = $("select[name=magaya__TaxCode] option:selected").text()
-        let chargeDescription = $("#magaya__Charge_Description").val()
 
-        Object.assign(item, {'magaya__ApplyToAccounts': accountId})
-        Object.assign(item, {"Name": chargeDescription})
-        Object.assign(item, {"magaya__Charge_Description": chargeDescription})
-        Object.assign(item, {'magaya__TaxCode': taxcode})
+        Object.assign(charge, {'magaya__ApplyToAccounts': accountId})
 
-        console.log("new charge", item)
-        storeCharge.dispatch(addChargeOnNew({...item}))
+        console.log("new charge", charge)
+        storeCharge.dispatch(addChargeOnNew({...charge}))
+        storeCharge.dispatch(emptyCharge())
         $(`#panel-charge`).animate({width:'toggle'},150);
     })
 
@@ -368,7 +441,7 @@ $(document).ready(function(){
         "magaya__TransportationMode": $("select[name=magaya__TransportationMode] option:selected").val(),
         "magaya__Description": $("#magaya__Description").val().replace(/[^a-zA-Z0-9]/g, ' '),
         "magaya__Service": $("select[name=Service]").val(),
-        "magaya__Status": $("select[name=magaya__Status] option:selected").val(),
+        "magaya__Status": $("select[name=magaya__mQuoteStatus] option:selected").val(),
         "magaya__Is_Hazardous": is_hazardous,
         "magaya__Terms": sanitize($(":input[name=magaya__Terms]").val()),
         "magaya__Representative": contact,

@@ -1,6 +1,7 @@
 $(document).ready(function(){
     packageType = [];
     transpMethods = [];
+    taxes = [];
 
     idmQuoteToEdit = 0;
     let page = 1;
@@ -25,10 +26,10 @@ $(document).ready(function(){
                 })
             })
         //Las 100 primeras mQuotes
-        ZOHO.CRM.API.getAllRecords({Entity:"magaya__SQuotes",sort_order:"desc",per_page:150,page:page})
+        ZOHO.CRM.API.getAllRecords({Entity:"magaya__SQuotes",sort_order:"desc"})
             .then(function(data){
                 let quotes = data.data;
-
+                console.log("Quotes", quotes)
                 if (_.isEmpty(quotes)) {
                     let now = moment().format("YYYY-MM-DD T HH:mm:ss");
                     quotes = { "id": 1, "Name": "Quote Test", "magaya__Status": "Draft", "magaya__Description": "Do a new mquote, i'll gone", "Modified_Time": now }
@@ -55,7 +56,6 @@ $(document).ready(function(){
                 $("#select-package").empty();
                 $.map (data.data, function (k, i){
                     k.Name = sanitize(k.Name)
-                    //$("<option value='"+i+"'>"+k.Name+"</option>").appendTo("#new-item select[name=Name]");
                     $("#new-item select[name=magaya__Package_Type]").append("<option value='"+k.id+"'>"+k.Name+"</option>");
                     packageType.push(k);
                 })
@@ -152,9 +152,10 @@ $(document).ready(function(){
                 storeChargesType.dispatch(addChargeType(response.data))
                 if (!_.isEmpty (response.data)) {
                     $.map(response.data, function (k, i) {
+                        taxes.push(k)
                         k.magaya__Tax_Rate = sanitize(k.magaya__Tax_Rate)
                         k.Name = sanitize(k.Name)
-                        $(`<option value="${k.magaya__Tax_Rate0}">${k.Name}</option>`).appendTo("select[name=magaya__TaxCode]");
+                        $(`<option value="${k.id}">${k.Name}</option>`).appendTo("select[name=magaya__Tax]");
 
                     })
                 }

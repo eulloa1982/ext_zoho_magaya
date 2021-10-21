@@ -36,7 +36,7 @@
     </div>
     @yield('main')
     <script src="https://cdn.jsdelivr.net/gh/jitbit/HtmlSanitizer@master/HtmlSanitizer.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="{{ url('js/jquery-3.5.1.min.js', $extra = [], $secure = 1) }} "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.1.1/redux.min.js"></script>
     <script src="{{ url('js/store/constants.js', $extra = [], $secure = 1) }}"></script>
 

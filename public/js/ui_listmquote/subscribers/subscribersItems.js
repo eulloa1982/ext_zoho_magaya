@@ -5,34 +5,112 @@ let data_module_flag_item = true
 storeItem.subscribe(() => {
     console.log("State items", storeItem.getState())
     let u = storeItem.getState().singleItem;
+    //empty charge
+    let y = storeItem.getState().itemNew;
+    let showEmpty = storeItem.getState().showEmptyItem;
+
     if (!_.isEmpty(u)) {
+
         //construir los campos y la data
         let k = u[0]
-        let id = 0;
+        let idItem = 0;
         //find id charge
         $.map(u[1], function(k, v) {
-            id = u[1].id
+            idItem = u[1].id
         })
         let data_module = data_module_flag_item ? "table-items-new" : "table-items"
         let no_border = data_module_flag_item ? "no-border-item-new" : "no-border-item"
         let button_type = data_module_flag_item ? "updateItemNew" : "updateItem"
-
-        $("#info-datad").empty()
-        $("#arrows").empty()
 
         let arrows = `
             <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
             <span class="material-icons cursor-hand btn-slide" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
         `
 
+        if ($("#table-items").is(':hidden')) {
+
+
+            if (showEmpty) {
+                $("#arrows-item").empty()
+                $("#title_legend2").html("New Item")
+                no_border = 'new-item'
+                $("#sendItem").hide()
+                $("#newItem").show()
+                $("#updateItemss").hide()
+                $("#updateItemNew").hide()
+            } else {
+                $("#title_legend2").html("Editing Item")
+                let arrows = `
+            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
+            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
+        `
+
+                $("#arrows-item").html(arrows)
+                $("#sendItem").hide()
+                $("#newItem").hide()
+                $("#updateItemss").hide()
+                $("#updateItemNew").show()
+            }
+        } else {
+
+            if (showEmpty) {
+                $("#arrows-item").empty()
+                $("#title_legend2").html("New Item")
+                $("#sendItem").show()
+                $("#newItem").hide()
+                $("#updateItemss").hide()
+                $("#updateItemNew").hide()
+            } else {
+                $("#title_legend2").html("Editing Item")
+                let arrows = `
+            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
+            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
+        `
+                $("#arrows-item").html(arrows)
+                $("#sendItem").hide()
+                $("#newItem").hide()
+                $("#updateItemss").show()
+                $("#updateItemNew").hide()
+            }
+        }
 
         let append = ``
         $("#panel-legend").html(`Editing Item`)
         let arr = {}
         $.map(u[1], function(k, v) {
-            let order = _.get(ITEMS_FIELDS, [v, 'place'])
 
-            if ( _.has(ITEMS_FIELDS, v)) {
+            if (_.isObject(k) && !v.includes("$")) {
+                let id = k.id
+                $(`select[name=${v}]`).addClass('new-item')
+                $(`select[name=${v}]`).attr('data-id', id)
+                if (id > 0)
+                    $(`select[name=${v}]`).val(k.id)
+            }
+
+            if (!_.isObject(v) && !v.includes("$")) {
+                if (!_.isObject(k)) {
+                    $(`input[name=${v}]`).removeClass('new-item no-border-item-new no-border-item').addClass(no_border)
+                    $(`select[name=${v}]`).removeClass('new-item no-border-item-new no-border-item').addClass(no_border)
+                    $(`#${v}`).removeClass('new-item no-border-item-new no-border-item').addClass(no_border)
+                    $(`input[name=${v}]`).attr('data-id', idItem)
+                    $(`select[name=${v}]`).attr('data-id', idItem)
+                    $(`#${v}`).attr('data-id', idItem)
+                    $("#updateItemss").attr('data-id', idItem)
+
+
+                    $(`input[name=${v}]`).val(k)
+                    $(`select[name=${v}]`).val(k)
+                    $(`#${v}`).val(k)
+
+                    if (v === "Name")
+                        $(`#magaya__Package_Description`).val(k)
+
+                }
+            }
+
+            //let order = _.get(ITEMS_FIELDS, [v, 'place'])
+
+            /*if ( _.has(ITEMS_FIELDS, v)) {
                 let type = "text"
                 if (_.has(ITEMS_FIELDS, [v, 'type']) && _.get(ITEMS_FIELDS, [v, 'type']) === "number") {
                     type = "number";
@@ -71,31 +149,29 @@ storeItem.subscribe(() => {
                 </div>`
 
                 arr[order] = appendArr
-            }
+            }*/
         })
 
-        arrows += `<span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel">close</span>
-                    <span id="${button_type}" data-id="${id}" class="material-icons btn btn-primary" style="background: none;border: none;">task_alt</span>
-                    `
+        //arrows += `<span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel">close</span>
+          //          <span id="" data-id="${idItem}" class="material-icons btn btn-primary" style="background: none;border: none;">task_alt</span>
+          //          `
 
-        $("#arrows").append(arrows)
+        //$("#arrows").append(arrows)
 
         //imprimir campos en orden
-        for(i = 1; i <= 10; i++) {
-            append += arr[i];
-        }
+        //for(i = 1; i <= 10; i++) {
+          //  append += arr[i];
+        //}
 
-        $("#info-datad").append(append)
+        //$("#info-datad").append(append)
     }
 
-    //empty charge
-    let y = storeItem.getState().itemNew;
-    let showEmpty = storeItem.getState().showEmptyItem;
+
 
     if (!_.isEmpty(y) && showEmpty) {
         $.map(y, function (k, v) {
-            //console.log(k, v)
-            $(`input[name=${v}`).val(k)
+            console.log("Show empty", `${k}, ${v}`)
+            //s$(`input[name=${v}`).val(k)
         })
     }
 

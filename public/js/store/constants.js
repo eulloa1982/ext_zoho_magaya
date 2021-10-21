@@ -51,6 +51,8 @@ const MAKE_INACTIVE_CHARGEDEF = "MAKE_INACTIVE_CHARGEDEF"
 const ADD_CHARGE_EMPTY = "ADD_CHARGE_EMPTY"
 const ADD_CHARGE_EMPTY_NEW = "ADD_CHARGE_EMPTY_NEW"
 const UPDATE_CHARGE_ON_NEW = "UPDATE_CHARGE_ON_NEW"
+const UPDATE_CHARGE_ON_NEW2 = "UPDATE_CHARGE_ON_NEW2"
+
 
 const ADD_CHARGE_TYPE = "ADD_CHARGE_TYPE"
 
@@ -80,8 +82,7 @@ const GET_DEAL = "GET_DEAL"
 const CHARGES_FIELDS = {"magaya__ChargeCode": {"field": "Type", "editable":"readonly", "place": 1}, "Name": {"field": "Description", "type": "textarea", "editable":"", "place": 2},
                 "magaya__CQuantity": {"field": "Quantity", "type": "number", "editable":"", "place": 3}, "magaya__Unit": {"field": "Unit", "values": ["U", "Lb"], "editable":"", "place": 4},
                 "magaya__Price": {"field": "Price", "type": "number", "editable":"", "place": 5}, "magaya__Amount": {"field": "Amount", "type": "number", "editable":"readonly", "place": 6},
-                "magaya__TaxCode": {"field": "Tax Code", "editable": "readonly", "place": 7}, "magaya__TaxRate": {"field": "Tax Rate", "type": "number", "editable":"readonly", "place": 8},
-                "magaya__Tax_Amount":{"field": "Tax Amount", "type": "number", "editable":"readonly", "place": 9}, "magaya__Amount_Total":{"field": "Amount + Tax", "type": "number", "editable":"readonly", "place": 10},
+                "magaya__Tax": {"field": "Tax Code", "editable": "readonly", "place": 7}, "magaya__Tax_Amount":{"field": "Tax Amount", "type": "number", "editable":"readonly", "place": 9}, "magaya__Amount_Total":{"field": "Amount + Tax", "type": "number", "editable":"readonly", "place": 10},
                 "magaya__ChargeCurrency": {"field": "Currency", "editable":"readonly", "values": ["USD"], "place": 11}, "magaya__Paid_As": {"field": "Paid As", "values": ["Paid", "Collect"], "editable":"", "place": 12},
                 "magaya__Status": {"field": "Status", "values": ["Open", "Posted", "Paid"], "editable":"", "place": 13},
 
@@ -91,7 +92,7 @@ const CHARGES_FIELDS = {"magaya__ChargeCode": {"field": "Type", "editable":"read
 const ITEMS_FIELDS = {
     "magaya__Package_Type": {"field": "Type", "place": 1, "editable":"readonly"}, "Name": {"field": "Description", "place": 2, "type": "textarea"},
     "magaya__Length": {"field": "Length", "type": "number", "place": 4}, "magaya__Width": {"field": "Width", "type": "number", "place": 6},
-    "magaya__Weigth": {"field": "Weigth", "type": "number", "place": 7}, "magaya__Status": {"field": "Status", "values":["InQuote"], "place": 10}, "magaya__Height": {"field": "Height", "type": "number", "place": 5},
+    "magaya__Weigth": {"field": "Weigth", "type": "number", "place": 7}, "magaya__Height": {"field": "Height", "type": "number", "place": 5},
     "magaya__Pieces": {"field": "Pieces", "type": "number", "place": 3}, "magaya__Measure_System": {"field": "Measure System", "values": ["International", "English"], "place": 9},
     "magaya__Volume": {"field": "Volume", "type": "number", "place": 8}
 }
@@ -113,6 +114,12 @@ const MQUOTE_XML = {
     "magaya__Service": "Service", "magaya__Direction": "Direction", "magaya__Description": "DescriptionOfGoods",
     "magaya__ContactName": "RepresentativeName"
 }
+
+const MAP_ITEMS = {"Name":"Name", "magaya__Height":"magaya__Height", "magaya__Length":"magaya__Length",
+                    "magaya__Measure_System":"magaya__Measure_System","magaya__Package_Type":"magaya__Package_Type",
+                    "magaya__Pieces":"magaya__Pieces", "magaya__Status":"magaya__Status",
+                    "magaya__Volume":"magaya__Volume","magaya__Weigth":"magaya__Weigth",
+                    "magaya__Width":"magaya__Width"}
 
 
 const ERRORS_TYPES = {

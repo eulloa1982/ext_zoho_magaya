@@ -26,7 +26,7 @@ $(document).ready(function(){
         let idItem = $(this).attr("data-id")
         value = sanitize(value);
 
-        if (field === "Adjustment" || field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
+        if (field === "magaya__CQuantity" || field === "magaya__Price") {
             value = parseFloat(value);
         }
         //si los valores son iguales, no actualizar nada
@@ -62,6 +62,7 @@ $(document).ready(function(){
             value = parseFloat(value);
         }*/
         //si los valores son iguales, no actualizar nada
+        console.log(`${field}  val  ${value}`)
         if (sanitize(oldValue) !== sanitize(value)) {
             storeItem.dispatch(updateItemOnNew({field: field, value: value}))
         }
@@ -504,7 +505,13 @@ $(document).ready(function(){
                 let data_id = $(this).attr("data-id");
                 let module = $(this).attr("data-module")
                 $(this).dataShow(module, data_id)
-                $("#panel").show("fast");
+                $("#sendCharges").hide()
+                $("#newCharges").hide()
+                $("#updateCharge").show()
+
+
+                $("#panel-item").show("fast");
+
                 $(this).toggleClass("active"); return false;
 
               });
@@ -579,7 +586,8 @@ $(document).ready(function(){
                 let data_id = $(this).attr("data-id");
                 let module = $(this).attr("data-module")
                 $(this).dataShow(module, data_id)
-                $("#panel").show("fast");
+                //$("#panel").show("fast");
+                $("#panel-charge").show("fast");
                 $(this).toggleClass("active"); return false;
 
               });
@@ -675,7 +683,8 @@ $(document).ready(function(){
                 let data_id = $(this).attr("data-id");
                 let module = $(this).attr("data-module")
                 $(this).dataShow(module, data_id)
-                $("#panel").show("fast");
+                //$("#panel").show("fast");
+                $("#panel-charge").show("fast");
                 $(this).toggleClass("active"); return false;
 
               });
@@ -717,7 +726,7 @@ $(document).ready(function(){
                 let data_id = $(this).attr("data-id");
                 let module = $(this).attr("data-module")
                 $(this).dataShow(module, data_id)
-                $("#panel").show("fast");
+                $("#panel-item").show("fast");
                 $(this).toggleClass("active"); return false;
 
               });

@@ -29,10 +29,7 @@
                         //remove commas
                     let dataType = $(this).attr("data-type")
                     if (dataType === "number") {
-                        console.log("Number value before", nameValue)
                         nameValue = nameValue.replace(/[,]/g, '')
-                        console.log("Number value after", nameValue)
-
                     }
                     json_items += `, "${class_name}":"${nameValue}"`
                 }
@@ -318,16 +315,18 @@ async function buildStringQuote2(idSQuote) {
 async function buildStringRouting() {
     //routing
     if (!_.isEmpty(quoteXML.magaya__Routing)) {
+        console.log("Building routing")
         let idRouting = quoteXML.magaya__Routing.id
         let routing = await getRecordCRM("magaya__Routing", idRouting)
-        console.log(" routing", routing)
-
-        let transporMethod = await buildStringTransport(routing)
-        let stringRouting = `<ModeOfTransportation Code="${transporMethod[0].magaya__TransportationMethodCode}">
+        let stringRouting = ``
+        if (!_.isEmpty(routing[0].magaya__ModeofTransportation)) {
+            let transporMethod = await buildStringTransport(routing)
+            stringRouting += `<ModeOfTransportation Code="${transporMethod[0].magaya__TransportationMethodCode}">
                 <Description>${transporMethod[0].Name}</Description>
                 <Method>${transporMethod[0].magaya__ParentMethod}</Method>
                 </ModeOfTransportation>
                 <ModeOfTransportCode>${transporMethod[0].magaya__TransportationMethodCode}</ModeOfTransportCode>`
+        }
 
         if (!_.isEmpty(routing[0].magaya__MainCarrier)) {
             let mainCarrier = await buildStringMainCarrier(routing[0].magaya__MainCarrier.id)
@@ -347,7 +346,6 @@ async function buildStringRouting() {
                             <Shipper><Type>Client</Type><Name>${routing[0].magaya__Shipper}</Name></Shipper>`
         }
 
-
         return stringRouting;
     }
 
@@ -357,6 +355,7 @@ function buildStringTransport(dataRouting) {
 
     return new Promise(function(resolve, reject) {
         if (!_.isEmpty(dataRouting[0].magaya__ModeofTransportation)) {
+            console.log("Building transport")
             getTranspMethod(dataRouting[0].magaya__ModeofTransportation.id)
                 .then(r => {
                     console.log("transport m", r)
@@ -391,24 +390,25 @@ async function buildStringXML(idSQuote) {
     //check magaya updated
     storeQuote.dispatch(findById({ id: idSQuote }))
     let quote = quoteXML[0]
-
-    if (quote.Magaya_updated) {
-        codeError = 'It seems like this mQuote is already in Magaya. Please contact with your administrator';
+    console.log("XAML", quote)
+    //if (quote.Magaya_updated) {
+    /*    codeError = 'It seems like this mQuote is already in Magaya. Please contact with your administrator';
         show = false;
         field = ``;
         module = 'mQuote'
         storeError.dispatch(addError({ errorCode: codeError, showInfo: show, field: field, module: module }))
 
-
-    } else {
+*/
+    //} else {
 
         xml = await buildStringQuote2(idSQuote);
 
         stringXML = '<Quotation xmlns="http://www.magaya.com/XMLSchema/V1" xsi:schemaLocation="http://www.magaya.com/XMLSchema/V1 schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
         stringXML += stringQuote;
         let routing = await buildStringRouting()
-
-        stringXML += routing
+        if (_.size(routing) > 0) {
+            stringXML += routing
+        }
             //charges
         let account_id = 0;
         let data_account = {}
@@ -460,8 +460,10 @@ async function buildStringXML(idSQuote) {
         console.log(stringXML);
 
         //Utils.blockUI();
-        let result = await sendmQuote(stringXML, idSQuote)
-    }
+
+       let result = await sendmQuote(stringXML, idSQuote)
+
+    //}
 } //.send-quote
 
 
@@ -483,10 +485,15 @@ function buildXmlItem(items) {
                 measure_volume = "m3";
                 measure_weigth = "kg";
             }
+            //set name
+            let name_item = k.Name
+            if (!_.isEmpty(k.magaya__Package_Type))
+                name_item = k.magaya__Package_Type.name;
+
             stringItems += `<Item><Version>105</Version>`
-            stringItems += `<Status>${k.magaya__Status}</Status>`
+            stringItems += `<Status>InQuote</Status>`
             stringItems += `<Pieces>${k.magaya__Pieces}</Pieces>`
-            stringItems += `<PackageName>${k.Name}</PackageName>`
+            stringItems += `<PackageName>${name_item}</PackageName>`
             stringItems += `<Length Unit="${measure_length}">${k.magaya__Length}</Length>`
             stringItems += `<Height Unit="${measure_length}">${k.magaya__Height}</Height>`
             stringItems += `<Width Unit="${measure_length}">${k.magaya__Width}</Width>`
@@ -512,47 +519,30 @@ function buildXmlItem(items) {
 
 
 
-/*
-@charges object
-@data_account object (apply to)
-*/
-function buildXmlCharge(charges, data_account) {
 
-    let chargesString = ``
+function buildSimpleCharge(k, data_account) {
+    chargesString = `<Charge>
+    <Type>Standard</Type>`
 
-    if (!_.isEmpty(charges)) {
-        $.map(charges, function(k, v) {
-            chargesString += `<Charge>
-                <Type>Standard</Type>`
+    if (data_account.magaya__MagayaGUID !== null && data_account.magaya__MagayaGUID !== undefined && data_account.magaya__MagayaGUID !== "null" && data_account.magaya__MagayaGUID !== "undefined")
+        chargesString += `<Entity GUID="${data_account.magaya__MagayaGUID}">`
+    else
+        chargesString += `<Entity>`
 
-            if (data_account.magaya__MagayaGUID !== null && data_account.magaya__MagayaGUID !== undefined && data_account.magaya__MagayaGUID !== "null" && data_account.magaya__MagayaGUID !== "undefined")
-                chargesString += `<Entity GUID="${data_account.magaya__MagayaGUID}">`
-            else
-                chargesString += `<Entity>`
+    chargesString += `<Type>Client</Type>
+            <Name>${data_account.Account_Name}</Name>
+            <IsPrepaid>true</IsPrepaid>
+        </Entity>`;
 
-            chargesString += `<Type>Client</Type>
-                    <Name>${data_account.Account_Name}</Name>
-                    <IsPrepaid>true</IsPrepaid>
-                </Entity>`;
-            if (k.magaya__TaxRate === null || k.magaya__TaxRate === "null")
-                k.magaya__TaxRate = 0.00
-            else k.magaya__TaxRate = k.magaya__TaxRate.toLocaleString('en-US', { minimumFractionDigits: 2 })
-            chargesString += `
-                            <Quantity>${k.magaya__CQuantity}</Quantity>
-                            <Price Currency="USD">${k.magaya__Price}</Price>
-                            <TaxAmount Currency="USD">${k.magaya__Tax_Amount}</TaxAmount>
-                            <HomeCurrency Code="USD">
-                                <Name>United States Dollar</Name>
-                                <ExchangeRate>1.00</ExchangeRate>
-                                <DecimalPlaces>2</DecimalPlaces>
-                                <IsHomeCurrency>true</IsHomeCurrency>
-                            </HomeCurrency>
-                            <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
-                            <TaxAmountInCurrency Currency="USD">${k.magaya__Tax_Amount}</TaxAmountInCurrency>
-                            <TaxDefinition>
-                                <Code>${k.magaya__TaxCode}</Code>
+    /*if (!_.isEmpty(k.magaya__Tax)) {
+        idTax = k.magaya__Tax.id
+        let dataTax = await getRecordCRM("magaya__Taxes", idTax)
+                    .then((rec) => {
+                        console.log("Tax record", rec)
+                        chargesString += `<TaxDefinition>
+                                <Code>${rec.magaya__TaxCode}</Code>
                                 <Name>Impuesto</Name>
-                                <Rate>${k.magaya__TaxRate}</Rate>
+                                <Rate>${rec.magaya__TaxRate}</Rate>
                                 <Layout>Simple</Layout>
                                 <Type>Tax</Type>
                                 <TaxAuthority>
@@ -560,64 +550,99 @@ function buildXmlCharge(charges, data_account) {
                                     <Name>Autoridad Impositiva Predeterminada</Name>
                                 </TaxAuthority>
 
-                            </TaxDefinition>
-                            <IsPrepaid>true</IsPrepaid>
-                            <IsThirdPartyCharge>false</IsThirdPartyCharge>
-                            <ChargeDefinition>
-                                <Type>Other</Type>
-                                <Description>${k.Name}</Description>
-                                <Code>${k.magaya__ChargeCode}</Code>
-                                <AccountDefinition>
-                                    <Type>Income</Type>
-                                    <Name>Servicios</Name>
-                                    <Currency Code="USD">
-                                        <Name>United States Dollar</Name>
-                                        <ExchangeRate>1.00</ExchangeRate>
-                                        <DecimalPlaces>2</DecimalPlaces>
-                                        <IsHomeCurrency>true</IsHomeCurrency>
-                                    </Currency>
-                                </AccountDefinition>
-                                <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
-                                <Currency Code="USD">
-                                    <Name>United States Dollar</Name>
-                                    <ExchangeRate>1.00</ExchangeRate>
-                                    <DecimalPlaces>2</DecimalPlaces>
-                                    <IsHomeCurrency>true</IsHomeCurrency>
-                                </Currency>
-                                <Enforce3rdPartyBilling>false</Enforce3rdPartyBilling>
-                            </ChargeDefinition>
-                            <Status>Open</Status>
-                            <Description>${k.magaya__Charge_Description}</Description>
-                            <PriceInCurrency Currency="USD">${k.magaya__Price}</PriceInCurrency>
-                            <AmountInCurrency Currency="USD">${k.magaya__Amount_Total}</AmountInCurrency>
-
+                            </TaxDefinition>`
+                    })
+    }*/
+/*if (k.magaya__TaxRate === null || k.magaya__TaxRate === "null")
+    k.magaya__TaxRate = 0.00
+else k.magaya__TaxRate = k.magaya__TaxRate.toLocaleString('en-US', { minimumFractionDigits: 2 })*/
+    chargesString += `
+                <Quantity>${k.magaya__CQuantity}</Quantity>
+                <Price Currency="USD">${k.magaya__Price}</Price>
+                <HomeCurrency Code="USD">
+                    <Name>United States Dollar</Name>
+                    <ExchangeRate>1.00</ExchangeRate>
+                    <DecimalPlaces>2</DecimalPlaces>
+                    <IsHomeCurrency>true</IsHomeCurrency>
+                </HomeCurrency>
+                <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
+                <IsPrepaid>true</IsPrepaid>
+                <IsThirdPartyCharge>false</IsThirdPartyCharge>
+                <ChargeDefinition>
+                    <Type>Other</Type>
+                    <Description>${k.Name}</Description>
+                    <Code>${k.magaya__ChargeCode}</Code>
+                    <AccountDefinition>
+                        <Type>Income</Type>
+                        <Name>Servicios</Name>
+                        <Currency Code="USD">
+                            <Name>United States Dollar</Name>
                             <ExchangeRate>1.00</ExchangeRate>
-                            <Currency Code="USD">
-                                <Name>United States Dollar</Name>
+                            <DecimalPlaces>2</DecimalPlaces>
+                            <IsHomeCurrency>true</IsHomeCurrency>
+                        </Currency>
+                    </AccountDefinition>
+                    <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
+                    <Currency Code="USD">
+                        <Name>United States Dollar</Name>
+                        <ExchangeRate>1.00</ExchangeRate>
+                        <DecimalPlaces>2</DecimalPlaces>
+                        <IsHomeCurrency>true</IsHomeCurrency>
+                    </Currency>
+                    <Enforce3rdPartyBilling>false</Enforce3rdPartyBilling>
+                </ChargeDefinition>
+                <Status>Open</Status>
+                <Description>${k.magaya__Charge_Description}</Description>
+                <PriceInCurrency Currency="USD">${k.magaya__Price}</PriceInCurrency>
+                <AmountInCurrency Currency="USD">${k.magaya__Amount_Total}</AmountInCurrency>
+
+                <ExchangeRate>1.00</ExchangeRate>
+                <Currency Code="USD">
+                    <Name>United States Dollar</Name>
+                    <ExchangeRate>1.00</ExchangeRate>
+                    <DecimalPlaces>2</DecimalPlaces>
+                    <IsHomeCurrency>true</IsHomeCurrency>
+                </Currency>
+                <ShowInDocuments>true</ShowInDocuments>
+                <IsCredit>false</IsCredit>
+                <IsFromSegment>false</IsFromSegment>
+            </Charge>`;
+
+
+    /*if (idTax > 0) {
+        console.log("Tax", idTax)
+    }*/
+
+        /*
+        <LiabilityAccount>
+                                <Type>OtherCurrentLiability</Type>
+                                <Name>Pagos de Impuestos</Name>
+                                <Currency Code="USD">
+                                <Name>Euro</Name>
                                 <ExchangeRate>1.00</ExchangeRate>
                                 <DecimalPlaces>2</DecimalPlaces>
                                 <IsHomeCurrency>true</IsHomeCurrency>
-                            </Currency>
-                            <ShowInDocuments>true</ShowInDocuments>
-                            <IsCredit>false</IsCredit>
-                            <IsFromSegment>false</IsFromSegment>
-                        </Charge>`;
+                                </Currency>
+                            </LiabilityAccount>
+        */
+    return chargesString
+}
+
+/*
+@charges object
+@data_account object (apply to)
+*/
+function buildXmlCharge(charges, data_account) {
+
+    let chargesString = ``
+    let idTax = 0
+    if (!_.isEmpty(charges)) {
+        $.map(charges, function(k, v) {
+            chargesString += buildSimpleCharge(k, data_account)
         })
     }
 
-    /*
-<LiabilityAccount>
-                                    <Type>OtherCurrentLiability</Type>
-                                    <Name>Pagos de Impuestos</Name>
-                                    <Currency Code="USD">
-                                    <Name>Euro</Name>
-                                    <ExchangeRate>1.00</ExchangeRate>
-                                    <DecimalPlaces>2</DecimalPlaces>
-                                    <IsHomeCurrency>true</IsHomeCurrency>
-                                    </Currency>
-                                </LiabilityAccount>
-    */
-    return chargesString
+    return chargesString;
 }
 
 
@@ -675,12 +700,14 @@ async function startSession() {
                 })
             } else {
 
-                Swal.fire({
-                    title: 'Success',
-                    text: 'Operation success',
-                    icon: 'success',
-                    allowOutsideClick: false
-                })
+            Swal.fire({
+                title: 'Success',
+                text: 'Operation success',
+                icon: 'success',
+                allowOutsideClick: false
+            })
+            $("#no-configuration-alert").hide();
+
 
             } //else
 
@@ -865,36 +892,6 @@ async function getRecordCRM(entity, idRecord) {
 }
 
 
-function ping(host, port, pong) {
-
-    var started = new Date().getTime();
-
-    var http = new XMLHttpRequest();
-
-    http.open("GET", "http://" + host + ":" + port, /*async*/ true);
-    http.onreadystatechange = function() {
-        if (http.readyState == 4) {
-            console.log("readystate")
-            var ended = new Date().getTime();
-
-            var milliseconds = ended - started;
-
-            if (pong != null) {
-                console.log(" POMG ")
-                pong(milliseconds);
-            }
-        }
-    };
-    try {
-        http.send(null);
-        console.log("all ok")
-    } catch (exception) {
-        console.log("Execption")
-            // this is expected
-    }
-
-}
-
 
 function getFormData($form) {
     var unindexed_array = $form.serializeArray();
@@ -937,6 +934,7 @@ async function make_pdf(id) {
     }
 }
 
+
 async function buildPdf(mquote_id) {
     quoteToEdit = [];
     Utils.blockUI()
@@ -946,13 +944,50 @@ async function buildPdf(mquote_id) {
     //general data
     let orgData = localStorage.getItem('organization')
     orgData = JSON.parse(orgData)
+    //orgData = orgData)
     let charges = []
     let items = []
+
+
     items = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
     charges = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id)
     Utils.unblockUI();
+    //let dataPost = bipdf(items)
 
 
+    dataPost = {
+        'organization': {"orgData" :orgData,
+        //'dataQuote': buildPdfHeader(orgData, quoteToEdit),
+        'charges': await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id),
+        'items': await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
+        }
+    }
+    //dataPost = {}
+
+    /*console.log("passing organization", dataPost)
+    const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
+
+    fetch(endpoint, {
+        method: 'POST',
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            //'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        }),
+        body: JSON.stringify(dataPost)
+    })
+    .then((response) => response.blob())
+    .then((blob) => {
+        //var img = document.createElement('img');
+        var file = window.URL.createObjectURL(blob);
+        //img.src = file;
+        //img.target = "_blank"
+        //document.body.appendChild(img);
+        window.location.assign(file);
+    })
+    .catch((err) => {
+        console.warn("error", err)
+    })*/
     let data = `<div class="HtmltoPdf">`
     data += buildPdfHeader(orgData, quoteToEdit)
 
@@ -1024,14 +1059,43 @@ function buildPdfHeader(orgData, quoteToEdit) {
                 <th colspan="2">
                     <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: left;">
                         <tr>
-                            <td colspan="12" class="session-first">
-                                ${orgData["company_name"]}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="12" class="col dataFont p-2"><span class="material-icons">
-                                language</span>${none}
-                            </td>
+                            <th><img width="200px" height="150px" src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: center; margin-left:15px;" /></th>
+
+                            <th>
+                                <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right;">
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="session-first">
+                                                ${orgData["company_name"]}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            language</span>${none}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            phone</span>${orgData["phone"]}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            alternate_email</span>${orgData["primary_email"]}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            home</span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </th>
                         </tr>
                         <tr>
                             <td colspan="12" class="col dataFont p-2"><span class="material-icons">
@@ -1185,7 +1249,7 @@ function buildPdfCharges(charges) {
         let amount_total = 0;
         let amount_tax = 0;
         $.map(charges, function(k, v) {
-            amount_total += roundDec(k["magaya__Final_Amount"]);
+            amount_total += roundDec(k["magaya__Amount_Total"]);
             amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<tr>
                         <td class="dataFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: left;">
@@ -1196,8 +1260,8 @@ function buildPdfCharges(charges) {
                             ${k["magaya__CQuantity"]}</td>
                         <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
                             ${k["magaya__Tax_Amount"]}</td>
-                        <td class="headerFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
-                            ${k["magaya__Final_Amount"]}</td>
+                        <td style="border-right: 1px #000 solid; text-align: right; font-weight: bold;">
+                            ${k["magaya__Amount_Total"]}</td>
                     </tr>`
         })
 

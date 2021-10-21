@@ -12,7 +12,8 @@
         })
 
         $("#updateChargeNew").click(function(e) {
-            $("#panel").hide("slow");
+            $("#panel-charge").hide("slow");
+            //storeCharge.dispatch(emptyCharge())
         })
 
         ///////////////////CHARGES//////////////////////////////
@@ -23,7 +24,7 @@
             //add a change counter
             store.dispatch(addActionEdited())
             Utils.blockUI();
-            let a = $(".edit-record").serializeArray();
+            let a = $("#new-charge").serializeArray();
             let charge = {}
             $.each(a, function() {
                 if (charge[this.name]) {
@@ -33,8 +34,7 @@
                     charge[this.name].push(sanitize(this.value) || '');
                 } else {
                     //if (this.name !== "Name" && this.name !== "id" && this.name !== "magaya__SQuote_Name" && this.name !== "magaya__ChargeCode" && this.name !== "magaya__ChargeCurrency" && this.name !== "magaya__Paid_As" && this.name !== "magaya__Status")
-                    if ($.isNumeric(this.value)) {
-                        this.value = this.value
+                    if (this.name !== "magaya__Tax" && $.isNumeric(this.value)) {
                         charge[this.name] = Number(this.value)
                     }
                     else {
@@ -44,6 +44,7 @@
                 }
             });
 
+            //get textarea
             Object.assign(charge, { id: idCharge, magaya__SQuote_Name: idmQuoteToEdit, Name: sanitize($("#Name").val())});
             let config = { APIData: charge }
             Object.assign(config, { Entity: "magaya__ChargeQuote" });
@@ -56,6 +57,7 @@
                     res = data.data;
                     $.map(res, function(k, v) {
                         if (k.code !== "SUCCESS") {
+                            console.log("Error updating", k)
                             codeError = k.code;
                             field = k.details.api_name;
                             show = true;
@@ -80,10 +82,10 @@
                                         storeCharge.dispatch(updateCharge({...k}))
                                     })
 
-
+                                    storeCharge.dispatch(emptyCharge())
                                 })
 
-
+                            $("#panel-charge").animate({width:'toggle'},150);
                             let message = ": Updated successfully!!"
                             storeSuccess.dispatch(addSuccess({message: message}))
                         }
@@ -98,17 +100,17 @@
                     Utils.unblockUI()
                 })
 
-                $("#panel").animate({width:'toggle'},150);
+
         })
 
 
-        $(".no-border-charge").focus(function(e) {
+        $("#new-charge > .no-border-charge").focus(function(e) {
             $(this).addClass("editable");
 
             oldValue = $(this).val()
         })
 
-        $(".no-border-charge").on("change blur", function(e) {
+        $("#new-charge > .no-border-charge").on("change blur", function(e) {
             e.preventDefault();
             e.stopImmediatePropagation()
 
@@ -125,9 +127,9 @@
                 if (field === "Adjustment" || field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
                     value = roundDec(value);
                 }
-
+                console.log(`${field} -- ${value}`)
                 //si los valores son iguales, no actualizar nada
-                if (oldValue.toString() !== value.toString()) {
+                if (oldValue !== 'null' && oldValue !== null && oldValue.toString() !== value.toString()) {
 
                     //let json_items ='{"id":"'+ idCharge +'", "' + field + '": "' + value + '"}';
                     //message = " : Item Updated!!";
@@ -152,101 +154,51 @@
                 e.stopImmediatePropagation()
                 let $celd = $(this)
                 $(this).removeClass("editable")
-                let value = $(this).val().replace(/[^a-zA-Z0-9]\./g, ' ');
+                let value = $(this).val();
                 let field = $(this).attr('name');
                 let idItem = $(this).attr("data-id")
-                value = sanitize(value);
-                if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
+                //value = sanitize(value);
+                if (field !== undefined && field !== 'undefined') {
+
+                    value = sanitize(value)
+                    if (field === "Adjustment" || field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
+                        value = roundDec(value);
+                    }
+                    console.log(`Data ${field} -- ${value}`)
+                    //si los valores son iguales, no actualizar nada
+                    if (oldValue.toString() !== value.toString()) {
+
+                        //let json_items ='{"id":"'+ idCharge +'", "' + field + '": "' + value + '"}';
+                        //message = " : Item Updated!!";
+                        storeCharge.dispatch(updateChargeOnNew2({field: field, value: value}))
+                        //storeSuccess.dispatch(addSuccess({message: message}))
+                    }
+                }
+                /*if (field === "magaya__CQuantity" || field === "magaya__Price" || field === "magaya__TaxRate") {
                     value = parseFloat(value);
                 }
                 console.log(`${idItem}, ${field} ${value}`)
                 //si los valores son iguales, no actualizar nada
                 if (oldValue.toString() !== value.toString()) {
                     //storeCharge.dispatch(updateCharge({id:idItem, field: field, value: value}))
-                    storeCharge.dispatch(setAmountOnNew({id:idItem, field: field, value: value}))
-                }
+                    storeCharge.dispatch(updateChargeOnNew({field: field, value: value}))
+                }*
             })*/
 
-            ////////////////////ITEMS//////////////////////////////
-            $("#updateItemNew").click(function(e) {
-                $("#panel").hide("slow");
-            })
-
-            $("#updateItem").click(function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-
-                let idItem = $(this).attr('data-id')
-                //add a change counter
-                store.dispatch(addActionEdited())
-                //Utils.blockUI();
-                let a = $(".edit-record").serializeArray();
-                let item = {}
-                $.each(a, function() {
-                    if (item[this.name]) {
-                        if (!item[this.name].push) {
-                            item[this.name] = sanitize([item[this.name]]);
-                        }
-                        item[this.name].push(sanitize(this.value) || '');
-                    } else {
-                        item[this.name] = sanitize(this.value) || '';
-                    }
-                });
-
-
-                Object.assign(item, { id: idItem, magaya__SQuote_Name: idmQuoteToEdit});
-                let config = { APIData: item }
-                Object.assign(config, { Entity: "magaya__ItemQuotes" });
-
-                console.log(item)
-                ZOHO.CRM.API.updateRecord(config)
-                    .then(function(data){
-                        res = data.data;
-                        $.map(res, function(k, v) {
-                            if (k.code !== "SUCCESS") {
-                                codeError = k.code;
-                                field = k.details.api_name;
-                                show = true;
-                                module = 'Cargo Items'
-                                storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                            } else {
-                                ZOHO.CRM.API.getRecord({Entity:"magaya__ItemQuotes",RecordID:idItem})
-                                .then(function(data){
-                                    console.log("response get item", data)
-                                    record = data.data[0];
-                                    storeItem.dispatch(updateItem({...record}))
-                                })
-                                message = " : Item Updated!!";
-                                storeSuccess.dispatch(addSuccess({message: message}))
-                            }
-                        })
-                        $("#panel").animate({width:'toggle'},150);
-                    })
-                    .catch(function(error) {
-                        console.log("error", error)
-                        codeError = 'Error on field';
-                        show = true;
-                        field = "oldValue";
-                        module = 'Service Items'
-                        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                    })
 
 
 
-            })
 
 
 
 
             //editable in situ
-            $(".no-border-item").click(function(e) {
+            /*$("#new-item > .no-border-item").click(function(e) {
                 $(this).addClass("editable");
                 oldValue = $(this).val()
             })
 
-            $(".no-border-item").on("change blur", function(e) {
+            $("#new-item > .no-border-item").on("change blur", function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation()
                 let $celd = $(this)
@@ -276,7 +228,7 @@
 
                     }
                 }
-            })
+            })*/
 
 
             /*$(".no-border-item-new").click(function(e) {
