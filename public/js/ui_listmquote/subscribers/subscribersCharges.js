@@ -6,7 +6,7 @@ storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
     let y = storeCharge.getState().emptyCharge[1];
     let showEmpty = storeCharge.getState().showEmptyCharge;
-    //console.log("State charges now", storeCharge.getState())
+    console.log("State charges now", storeCharge.getState())
     if (!_.isEmpty(u)) {
         let k = parseInt(u[0])
         //construir los campos y la data
@@ -97,10 +97,11 @@ storeCharge.subscribe(() => {
                     $(`#${v}`).attr('data-id', idCharge)
                     $("#updateCharge").attr('data-id', idCharge)
 
-
-                    $(`input[name=${v}]`).val(k)
-                    $(`select[name=${v}]`).val(k)
-                    $(`#${v}`).val(k)
+                    if (k) {
+                        $(`input[name=${v}]`).val(k.toLocaleString('en-US', {  minimumFractionDigits: 2  } ))
+                        $(`select[name=${v}]`).val(k)
+                        $(`#${v}`).val(k)
+                    }
 
                 }
             }
@@ -123,11 +124,11 @@ storeCharge.subscribe(() => {
     //console.log("State charges now", storeCharge.getState())
 
 
-    if (!_.isEmpty(y) && showEmpty) {
+    /*if (!_.isEmpty(y) && showEmpty) {
         $.map(y, function (k, v) {
             $(`input[name=${v}`).val(k)
         })
-    }
+    }*/
 })
 
 ///////subscriber charges, render UI table
