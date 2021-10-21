@@ -99,7 +99,18 @@ var MagayaAPI = function() {
                 },
                 success: function(resp) {
                     console.log("Response", resp)
-                    success(resp)
+                    if (resp.data !== "Access denied.") {
+                        success(resp)
+                    }
+                    else {
+                        Swal.fire({
+                            title: 'Access Denied',
+                            html: "You need to login in again",
+                            icon: 'error'
+                        })
+                        $("#no-configuration-alert").show();
+                    }
+
                 },
                 error: function(resp) {
                     if (error) {
