@@ -168,7 +168,7 @@
 
                         //let json_items ='{"id":"'+ idCharge +'", "' + field + '": "' + value + '"}';
                         //message = " : Item Updated!!";
-                        storeCharge.dispatch(updateChargeOnNew({field: field, value: value}))
+                        storeCharge.dispatch(updateChargeOnNew2({field: field, value: value}))
                         //storeSuccess.dispatch(addSuccess({message: message}))
                     }
                 }
