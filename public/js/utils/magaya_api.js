@@ -98,10 +98,10 @@ var MagayaAPI = function() {
                     Utils.blockUI()
                 },
                 success: function(resp) {
+                    console.log("Response", resp)
                     success(resp)
                 },
                 error: function(resp) {
-                    console.log(resp)
                     if (error) {
                         error(resp)
                     } else {
