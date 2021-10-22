@@ -388,6 +388,7 @@ function buildStringMainCarrier(idCarrier) {
 //send quote
 async function buildStringXML(idSQuote) {
     //check magaya updated
+    Utils.blockUI()
     storeQuote.dispatch(findById({ id: idSQuote }))
     let quote = quoteXML[0]
     console.log("XAML", quote)
