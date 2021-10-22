@@ -1359,6 +1359,20 @@ function buildPdfItems(items) {
 }
 
 
+function move_quote(idQuote) {
+    console.log("moving quote", idQuote)
+    //drop the state temporal items and charges
+    storeItem.dispatch(emptyItems())
+    storeCharge.dispatch(emptyCharges())
+    storeAccounts.dispatch(emptyAllAccounts())
+    storeQuote.dispatch(clearQuoteToEdit())
+    quoteToEdit = [];
+    limpiar_form()
+    //dispatch
+    storeQuote.dispatch(findQuote({id: idQuote}))
+}
+
+
 /*async function getRelatedCharges(idQuote) {
     ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idQuote, RelatedList: "magaya__SQuote_Name1", page: 1, per_page: 200 })
         .then(function(response) {

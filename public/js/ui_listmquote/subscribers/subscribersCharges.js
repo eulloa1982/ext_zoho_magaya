@@ -6,7 +6,7 @@ storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
     let y = storeCharge.getState().emptyCharge[1];
     let showEmpty = storeCharge.getState().showEmptyCharge;
-    console.log("State charges now", storeCharge.getState())
+    //console.log("State charges now", storeCharge.getState())
     if (!_.isEmpty(u)) {
         let k = parseInt(u[0])
         //construir los campos y la data
