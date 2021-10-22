@@ -98,10 +98,21 @@ var MagayaAPI = function() {
                     Utils.blockUI()
                 },
                 success: function(resp) {
-                    success(resp)
+                    console.log("Response", resp)
+                    if (resp.data !== "Access denied.") {
+                        success(resp)
+                    }
+                    else {
+                        Swal.fire({
+                            title: 'Access Denied',
+                            html: "You need to login in again",
+                            icon: 'error'
+                        })
+                        $("#no-configuration-alert").show();
+                    }
+
                 },
                 error: function(resp) {
-                    console.log(resp)
                     if (error) {
                         error(resp)
                     } else {

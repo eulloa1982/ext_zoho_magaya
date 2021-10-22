@@ -630,7 +630,7 @@ a {
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-3">Tax Code</div>
+                                                    <div class="col-md-3">Tax</div>
                                                     <div class="col-md-8"><select class="form-control new-charge" name="magaya__Tax"><option value=0></option></select></div>
                                                 </div>
 
