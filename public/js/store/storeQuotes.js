@@ -79,10 +79,9 @@ function reducerQuote (state = initialStateQuote, actions)  {
 
         case FIND_BY_NAME: {
             charSeeker = actions.payload.char;
-
             return {
                 ...state,
-                quotes2: state.quotes.filter(quote => quote.magaya__Number === actions.payload.char)
+                quotes2: state.quotes.filter(quote => quote.Name === actions.payload.char)
             }
         }
 

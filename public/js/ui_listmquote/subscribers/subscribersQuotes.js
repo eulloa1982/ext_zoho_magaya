@@ -12,18 +12,20 @@ storeQuote.subscribe(() => {
         console.log("Quote search", u.quotes2)
         let append = ''
         let quote = u.quotes2
+        let accountName = !_.isEmpty(quote[0]['Account']) ? quote[0]['Account']['name'] : ''
+
         $("#quote-search tbody").empty()
+
         append += `<tr>
             <td>
                 <a><span class="material-icons oculto edit" data-id="${quote[0]['id']}">create</span></a>
                 <a><span class="material-icons oculto delete" data-id=${quote[0]['id']}>clear</span></a>
             </td>
             <td>${quote[0]['magaya__Number']}</td>
-            <td>${quote[0]['Account']['name']}</td>
-            <td></td>
-            <td></td>
+            <td>${accountName}</td>
+            <td>${quote[0]['magaya__QuoteTotalAmount']}</td>
+            <td>${quote[0]['Modified_Time']}</td>
             </tr>`
-
 
         $("#quote-search tbody").append(append)
     }

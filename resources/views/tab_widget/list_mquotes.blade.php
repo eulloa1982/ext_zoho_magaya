@@ -54,16 +54,28 @@ a {
 
 <div class="panel-search" id="panel-search">
     <div class="panel">
-        <span class="material-icons close cursor-hand" data-close="panel-search">close</span>
-
+    <fieldset class="fieldset">
+        <legend class="legend"><span>Search Results</span>
+            <span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel-search">close</span>
+        </legend>
 
         <div id="search">
 
-            <table id="quote-search"><tr><th></th><th>Number</th><th>Cient</th><th>Amount</th><th>Modified Time</th></tr>
+            <table id="quote-search" class="table table-bordred table-striped">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Number</th>
+                    <th>Cient</th>
+                    <th>Amount</th>
+                    <th>Modified Time</th>
+                </tr>
+                </thead>
                 <tbody>
                 </tbody>
             </table>
         </div>
+    </fieldset>
     </div>
 </div>
 
