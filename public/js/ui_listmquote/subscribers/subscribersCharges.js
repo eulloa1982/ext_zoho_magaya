@@ -137,7 +137,7 @@ storeCharge.subscribe(() => {
 
 
     if (!_.isEmpty(u)) {
-        $("#info-charge").html("Loading, please wait...");
+        $("#info-charge").html("");
         data_module_flag_charge = false;
         let accountId = 0;
         //let totalIncome = 0
@@ -196,7 +196,6 @@ storeCharge.subscribe(() => {
 
                                         //console.log(totn_number.toLocaleString('fr-FR'));
             //$("input[name=TotalIncomeCharges]").val(totalIncome)
-            $("#info-charge").html("");
 
     } else {
         $("#table-charges tbody").empty()
