@@ -24,7 +24,6 @@ storeQuote.subscribe(() => {
             <td>${quote[0]['magaya__Number']}</td>
             <td>${accountName}</td>
             <td>${quote[0]['magaya__QuoteTotalAmount']}</td>
-            <td>${quote[0]['Modified_Time']}</td>
             </tr>`
 
         $("#quote-search tbody").append(append)

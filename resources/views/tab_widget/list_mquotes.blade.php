@@ -58,7 +58,7 @@ a {
         <legend class="legend"><span>Search Results</span>
             <span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel-search">close</span>
         </legend>
-
+s
         <div id="search">
 
             <table id="quote-search" class="table table-bordred table-striped">
@@ -66,9 +66,8 @@ a {
                 <tr>
                     <th></th>
                     <th>Number</th>
-                    <th>Cient</th>
+                    <th>Customer</th>
                     <th>Amount</th>
-                    <th>Modified Time</th>
                 </tr>
                 </thead>
                 <tbody>
