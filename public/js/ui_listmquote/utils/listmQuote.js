@@ -475,6 +475,8 @@ $(document).ready(function(){
                 //service items
                 ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idmQuoteToEdit, RelatedList: "Notes", page: 1, per_page: 200 })
                     .then(function(response) {
+                        console.log("Notes", response)
+                        //$
                     })
 
                 $("#mquoteModal").modal("show")

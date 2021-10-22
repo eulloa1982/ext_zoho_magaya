@@ -904,6 +904,15 @@ a {
                                             </table>
 
                                             <table id="notes">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:25%"></th>
+                                                        <th style="width:40%"></th>
+                                                        <th style="width:20%"></th>
+                                                        <th style="width:15%"></th>
+
+                                                    </tr>
+                                            </thead>
                                                 <tbody></tbody>
                                             </table>
 
