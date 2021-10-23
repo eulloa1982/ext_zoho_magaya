@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////
     ///////////////////  div edit records ///////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    $('.edit-record').bind("DOMSubtreeModified", function(e) {
+    //$('.edit-record').bind("DOMSubtreeModified", function(e) {
         $('.close').click(function(e){
             e.preventDefault()
             e.stopImmediatePropagation()
@@ -104,7 +104,7 @@
         })
 
 
-        $("#new-charge > .no-border-charge").focus(function(e) {
+        /*$("#new-charge > .no-border-charge").focus(function(e) {
             $(this).addClass("editable");
 
             oldValue = $(this).val()
@@ -138,7 +138,7 @@
                 }
             }
 
-        })
+        })*/
 
         //////////////////////////////////////////////////////////////////
             ///////// data in situ editable
@@ -262,7 +262,7 @@
             })*/
 
 
-    })
+    //})
 
 
 
