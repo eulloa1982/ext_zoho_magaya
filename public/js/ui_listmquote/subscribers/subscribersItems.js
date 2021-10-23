@@ -22,10 +22,6 @@ storeItem.subscribe(() => {
         let no_border = data_module_flag_item ? "no-border-item-new" : "no-border-item"
         let button_type = data_module_flag_item ? "updateItemNew" : "updateItem"
 
-        let arrows = `
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
-            <span class="material-icons cursor-hand btn-slide" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
-        `
 
         if ($("#table-items").is(':hidden')) {
 
@@ -34,16 +30,27 @@ storeItem.subscribe(() => {
                 $("#arrows-item").empty()
                 $("#title_legend2").html("New Item")
                 no_border = 'new-item'
+
                 $("#sendItem").hide()
                 $("#newItem").show()
                 $("#updateItemss").hide()
                 $("#updateItemNew").hide()
             } else {
                 $("#title_legend2").html("Editing Item")
-                let arrows = `
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
-        `
+                let arrow_prev = ``
+                let arrow_next = ``
+                let size = _.size(storeItem.getState().itemsOnNew)
+                let index_prev = Number(k) - 1
+                let index_next = Number(k) + 1
+
+                if (index_prev >= 0) {
+                    arrow_prev = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_prev}">arrow_back_ios_new</span>`
+                }
+                if (index_next < size) {
+                    arrow_next = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_next}">arrow_forward_ios</span>`
+                }
+
+                let arrows = `${arrow_prev} ${arrow_next}`
 
                 $("#arrows-item").html(arrows)
                 $("#sendItem").hide()
@@ -62,10 +69,21 @@ storeItem.subscribe(() => {
                 $("#updateItemNew").hide()
             } else {
                 $("#title_legend2").html("Editing Item")
-                let arrows = `
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
-        `
+                let arrow_prev = ``
+                let arrow_next = ``
+                let size = _.size(storeItem.getState().items)
+                let index_prev = Number(k) - 1
+                let index_next = Number(k) + 1
+
+                if (index_prev >= 0) {
+                    arrow_prev = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_prev}">arrow_back_ios_new</span>`
+                }
+                if (index_next < size) {
+                    arrow_next = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_next}">arrow_forward_ios</span>`
+                }
+
+                let arrows = `${arrow_prev} ${arrow_next}`
+
                 $("#arrows-item").html(arrows)
                 $("#sendItem").hide()
                 $("#newItem").hide()

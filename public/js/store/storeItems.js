@@ -133,15 +133,14 @@ function reducerItem (state = initialStateIntems, actions)  {
             state.singleItem = initialStateIntems.singleItem
 
             if (byId < 0) {
-                byId = 0
-                state.itemsOnNew[byId]["id"] = 0
+                //state.itemsOnNew[0]["id"] = 0
+                newArray = state.itemEmpty
             } else {
                 if (!_.isEmpty(state.itemsOnNew[byId])) {
                     state.itemsOnNew[byId]["id"] = byId
                 }
                 else {
-                    byId = 0
-                    state.itemsOnNew[byId]["id"] = 0
+                    newArray = state.itemEmpty
                 }
             }
 

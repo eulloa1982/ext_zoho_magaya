@@ -42,8 +42,8 @@ storeCharge.subscribe(() => {
                 let arrow_prev = ``
                 let arrow_next = ``
                 let size = _.size(storeCharge.getState().chargesOnNew)
-                let index_prev = k - 1
-                let index_next = k + 1
+                let index_prev = Number(k) - 1
+                let index_next = Number(k) + 1
 
                 if (index_prev >= 0) {
                     arrow_prev = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_prev}">arrow_back_ios_new</span>`
@@ -74,8 +74,8 @@ storeCharge.subscribe(() => {
                 let arrow_prev = ``
                 let arrow_next = ``
                 let size = _.size(storeCharge.getState().charges)
-                let index_prev = k - 1
-                let index_next = k + 1
+                let index_prev = Number(k) - 1
+                let index_next = Number(k) + 1
 
                 if (index_prev >= 0) {
                     arrow_prev = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_prev}">arrow_back_ios_new</span>`
