@@ -63,7 +63,7 @@ $(document).ready(function(){
 
         return false;
 
-      });
+    });
 
     $("#search-by-name").click(function(e) {
         e.preventDefault()
@@ -315,6 +315,7 @@ $(document).ready(function(){
         let accountId = $("select[name=Account]").val()
 
         Object.assign(charge, {'magaya__ApplyToAccounts': accountId})
+        Object.assign(charge, {'magaya__Tax': $("select[name=magaya__Tax]").val()})
 
         console.log("new charge", charge)
         storeCharge.dispatch(addChargeOnNew({...charge}))
