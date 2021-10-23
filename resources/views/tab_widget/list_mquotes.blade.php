@@ -54,16 +54,26 @@ a {
 
 <div class="panel-search" id="panel-search">
     <div class="panel">
-        <span class="material-icons close cursor-hand" data-close="panel-search">close</span>
-
-
+    <fieldset class="fieldset">
+        <legend class="legend"><span>Search Results</span>
+            <span class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel-search">close</span>
+        </legend>
         <div id="search">
 
-            <table id="quote-search"><tr><th></th><th>Number</th><th>Cient</th><th>Amount</th><th>Modified Time</th></tr>
+            <table id="quote-search" class="table table-bordred table-striped">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Number</th>
+                    <th>Customer</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
                 <tbody>
                 </tbody>
             </table>
         </div>
+    </fieldset>
     </div>
 </div>
 
@@ -117,7 +127,7 @@ a {
 												<th>Number</th>
 												<th>Customer</th>
 												<th>Stage</th>
-												<th>Amoumt</th>
+												<th>Amount</th>
 												<th>Modify Time</th>
 											</tr>
 										</thead>
@@ -156,7 +166,7 @@ a {
 				<div class="modal-content">
 
 					<div class="modal-header" style="background: #0b3355;color: white;">
-						<h4 class="modal-title custom_align" style="font-weight: bold;" id="Title">Edit mQuote</h4>
+						<h4 class="modal-title custom_align" style="font-weight: bold;" id="Title">Edit mQuote</h4><span class="arrows-quote" class="float-right"></span>
 
 						<button type="button" class="close" aria-hidden="true"><span class="material-icons btn btn-primary cerrar-modal">highlight_off</span></button>
 
@@ -630,7 +640,7 @@ a {
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-3">Tax Code</div>
+                                                    <div class="col-md-3">Tax</div>
                                                     <div class="col-md-8"><select class="form-control new-charge" name="magaya__Tax"><option value=0></option></select></div>
                                                 </div>
 
@@ -904,6 +914,15 @@ a {
                                             </table>
 
                                             <table id="notes">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:25%"></th>
+                                                        <th style="width:40%"></th>
+                                                        <th style="width:20%"></th>
+                                                        <th style="width:15%"></th>
+
+                                                    </tr>
+                                            </thead>
                                                 <tbody></tbody>
                                             </table>
 

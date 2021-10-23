@@ -388,6 +388,7 @@ function buildStringMainCarrier(idCarrier) {
 //send quote
 async function buildStringXML(idSQuote) {
     //check magaya updated
+    Utils.blockUI()
     storeQuote.dispatch(findById({ id: idSQuote }))
     let quote = quoteXML[0]
     console.log("XAML", quote)
@@ -1395,6 +1396,20 @@ function buildPdfItems(items) {
     data += `</table></div>`
 
     return data
+}
+
+
+function move_quote(idQuote) {
+    console.log("moving quote", idQuote)
+    //drop the state temporal items and charges
+    storeItem.dispatch(emptyItems())
+    storeCharge.dispatch(emptyCharges())
+    storeAccounts.dispatch(emptyAllAccounts())
+    storeQuote.dispatch(clearQuoteToEdit())
+    quoteToEdit = [];
+    limpiar_form()
+    //dispatch
+    storeQuote.dispatch(findQuote({id: idQuote}))
 }
 
 

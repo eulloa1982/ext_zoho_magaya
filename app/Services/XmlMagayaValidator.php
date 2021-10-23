@@ -16,7 +16,7 @@ class XmlMagayaValidator
 
     const TYPES_STATUS_QT = array('Open', 'Posted', 'Empty');
 
-    const TYPES_STATUS_ITEM = array('SoQuote');
+    const TYPES_STATUS_ITEM = array('InQuote');
 
     const TYPES_STATUS_CARGO = array('Open', 'Closed');
 
@@ -45,16 +45,17 @@ class XmlMagayaValidator
         }*/
 
         //items
-        /*$items = $xml->Items;
-
-        if ($xml->Items->Item == null){
-            //foreach ($xml->Items->Item as $value) {
-                //if (!in_array($value, $this::TYPES_STATUS_ITEM))
-            $message['error'] = $this::ERROR_CODES['no_status_item_quotation'];
-            //}
+        $items = $xml->Items;
+        //print_r($items);
+        if (!empty($xml->Items)){
+            foreach ($xml->Items->Item as $value) {
+                if (!in_array($value->Status, $this::TYPES_STATUS_ITEM)) {
+                    $message['error'] = $this::ERROR_CODES['no_status_item_quotation'];
+                }
+            }
 
             return $message;
-        }*/
+        }
         //cargos
         /*$charges = $xml->Charges;
         if ($charges && @count ($charges->children()) < 0) {

@@ -1,7 +1,9 @@
 const initialStateQuote = {
     quotes: [],
     quoteToEdit: [],
-    singleQuote: []
+    singleQuote: [],
+    nextQuote: [],
+    prevQuote: []
     //currentAccount: 0
 
   };
@@ -28,14 +30,27 @@ function reducerQuote (state = initialStateQuote, actions)  {
         case FIND: {
             let byId = actions.payload.id;
             var quoteToEdit = {}
-            state.quotes.map(quote => {
+
+            state.quotes.map(function(quote, k) {
                 if (quote.id === byId) {
+                    let indiceNext = k + 1;
+                    let indicePrev = k - 1
                     quoteToEdit = quote;
+                    nexQuote = [];
+                    prevQuote = []
+
+                    if (state.quotes[indiceNext])
+                        nextQuote = state.quotes[indiceNext]
+                    if (state.quotes[indicePrev])
+                        prevQuote = state.quotes[indicePrev]
                     //currentAccount = quote.Account
                 }
             })
             return {
-                ...state, quoteToEdit
+                ...state,
+                quoteToEdit,
+                nextQuote,
+                prevQuote
             }
         }
 
@@ -79,10 +94,9 @@ function reducerQuote (state = initialStateQuote, actions)  {
 
         case FIND_BY_NAME: {
             charSeeker = actions.payload.char;
-
             return {
                 ...state,
-                quotes2: state.quotes.filter(quote => quote.magaya__Number === actions.payload.char)
+                quotes2: state.quotes.filter(quote => quote.Name === actions.payload.char)
             }
         }
 

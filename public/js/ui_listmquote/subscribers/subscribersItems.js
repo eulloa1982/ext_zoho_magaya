@@ -22,10 +22,6 @@ storeItem.subscribe(() => {
         let no_border = data_module_flag_item ? "no-border-item-new" : "no-border-item"
         let button_type = data_module_flag_item ? "updateItemNew" : "updateItem"
 
-        let arrows = `
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
-            <span class="material-icons cursor-hand btn-slide" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
-        `
 
         if ($("#table-items").is(':hidden')) {
 
@@ -34,16 +30,27 @@ storeItem.subscribe(() => {
                 $("#arrows-item").empty()
                 $("#title_legend2").html("New Item")
                 no_border = 'new-item'
+
                 $("#sendItem").hide()
                 $("#newItem").show()
                 $("#updateItemss").hide()
                 $("#updateItemNew").hide()
             } else {
                 $("#title_legend2").html("Editing Item")
-                let arrows = `
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
-        `
+                let arrow_prev = ``
+                let arrow_next = ``
+                let size = _.size(storeItem.getState().itemsOnNew)
+                let index_prev = Number(k) - 1
+                let index_next = Number(k) + 1
+
+                if (index_prev >= 0) {
+                    arrow_prev = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_prev}">arrow_back_ios_new</span>`
+                }
+                if (index_next < size) {
+                    arrow_next = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_next}">arrow_forward_ios</span>`
+                }
+
+                let arrows = `${arrow_prev} ${arrow_next}`
 
                 $("#arrows-item").html(arrows)
                 $("#sendItem").hide()
@@ -62,10 +69,21 @@ storeItem.subscribe(() => {
                 $("#updateItemNew").hide()
             } else {
                 $("#title_legend2").html("Editing Item")
-                let arrows = `
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
-        `
+                let arrow_prev = ``
+                let arrow_next = ``
+                let size = _.size(storeItem.getState().items)
+                let index_prev = Number(k) - 1
+                let index_next = Number(k) + 1
+
+                if (index_prev >= 0) {
+                    arrow_prev = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_prev}">arrow_back_ios_new</span>`
+                }
+                if (index_next < size) {
+                    arrow_next = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_next}">arrow_forward_ios</span>`
+                }
+
+                let arrows = `${arrow_prev} ${arrow_next}`
+
                 $("#arrows-item").html(arrows)
                 $("#sendItem").hide()
                 $("#newItem").hide()
@@ -113,9 +131,9 @@ storeItem.subscribe(() => {
 
 
     if (!_.isEmpty(y) && showEmpty) {
-        $.map(y, function(k, v) {
-            console.log("Show empty", `${k}, ${v}`)
-                //s$(`input[name=${v}`).val(k)
+        $.map(y, function (k, v) {
+            //console.log("Show empty", `${k}, ${v}`)
+            //s$(`input[name=${v}`).val(k)
         })
     }
 
@@ -151,7 +169,7 @@ storeItem.subscribe(() => {
 
                     total_volume_international += roundDec(k.magaya__Volume * k.magaya__Pieces)
                     total_weight_international += roundDec(k.magaya__Weigth * k.magaya__Pieces)
-                        //it suposes it is English
+                //it suposes it is English
                 } else {
                     //pulgadas y libras
                     total_volume_english += roundDec(k.magaya__Volume * k.magaya__Pieces)
@@ -165,7 +183,7 @@ storeItem.subscribe(() => {
                     <span class="material-icons oculto btn-slide" data-module="table-items-new" data-id="${i}">create</span>
                     <span class="material-icons oculto del-item-warehouse-new" data-id=${i}>clear</span>
                 </td>
-                <td class='magaya__Package_Description'>${sanitize(k.magaya__Package_Description)}</td>
+                <td class='Name'>${sanitize(k.Name)}</td>
                 <td align="right" class="magaya__Pieces">${k.magaya__Pieces}</td>
                 <td align="right" class="magaya__Length">${roundDec(k.magaya__Length).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 <td class="NoData" align="left">${measure_length}</td>
@@ -180,7 +198,7 @@ storeItem.subscribe(() => {
 
                 <td class="magaya__Status" style="display: none;">InQuote</td>
                 <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
-                <td class='magaya__Package_Type' style="display: none;">${k.magaya__Package_Type}</td>
+                <td class='magaya__Package_Type' style="display: none;">${k.magaya__Package_Type.id}</td>
                 </tr>`);
 
             })
@@ -222,35 +240,35 @@ storeItem.subscribe(() => {
         $("#table-items tbody").empty();
         $("#table-items tfoot").empty();
         $.each(u, function(i, k) {
-                let measure_length = "in";
-                let measure_volume = "ft3";
-                let measure_weigth = "lb";
+            let measure_length = "in";
+            let measure_volume = "ft3";
+            let measure_weigth = "lb";
 
-                if (k.magaya__Measure_System === "International") {
-                    measure_length = "m";
-                    measure_volume = "m3";
-                    measure_weigth = "kg";
+            if (k.magaya__Measure_System === "International") {
+                measure_length = "m";
+                measure_volume = "m3";
+                measure_weigth = "kg";
 
-                    total_volume_international += roundDec(k.magaya__Volume * k.magaya__Pieces)
-                    total_weight_international += roundDec(k.magaya__Weigth * k.magaya__Pieces)
-                        //it suposes it is English
-                } else {
-                    //pulgadas y libras
-                    total_volume_english += roundDec(k.magaya__Volume * k.magaya__Pieces)
-                    total_weight_english += roundDec(k.magaya__Weigth * k.magaya__Pieces)
-                }
+                total_volume_international += roundDec(k.magaya__Volume * k.magaya__Pieces)
+                total_weight_international += roundDec(k.magaya__Weigth * k.magaya__Pieces)
+            //it suposes it is English
+            } else {
+                //pulgadas y libras
+                total_volume_english += roundDec(k.magaya__Volume * k.magaya__Pieces)
+                total_weight_english += roundDec(k.magaya__Weigth * k.magaya__Pieces)
+            }
 
-                totalPieces += parseInt(k.magaya__Pieces)
-                totalVolume += roundDec(k.magaya__Volume)
-                totalWeight += roundDec(k.magaya__Weigth)
-                k.Name = sanitize(k.Name);
-                let appendData = `<tr>
+            totalPieces += parseInt(k.magaya__Pieces)
+            totalVolume += roundDec(k.magaya__Volume)
+            totalWeight += roundDec(k.magaya__Weigth)
+            k.Name = sanitize(k.Name);
+            let appendData = `<tr>
             <td class="Delete">
                 <span class="material-icons oculto btn-slide" data-module="table-items" data-id="${i}">create</span>
                 <span class="material-icons oculto del-item-warehouse" data-id=${k.id}>clear</span>
             </td>
 
-            <td class='magaya__Package_Description'>${sanitize(k.magaya__Package_Description)}</td>
+            <td class='Name'>${sanitize(k.Name)}</td>
             <td align="right" class="magaya__Pieces">${k.magaya__Pieces}</td>
             <td align="right" class="magaya__Length" style="border-right: none;">${roundDec(k.magaya__Length).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
             <td align="left" class="NoData"style="border-left: none;">${measure_length}</td>
@@ -264,12 +282,12 @@ storeItem.subscribe(() => {
             <td align="left" class="NoData" style="border-left: none;">${measure_volume}</td>
 
             <td class="magaya__Status" style="display: none;">InQuote</td>
-            <td class='Name' style="display: none;">${k.Name}</td>
+            <td class='magaya__Package_Type' style="display: none;">${k.magaya__Package_Type}</td>
             <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
             </tr>`
-                $("#table-items tbody").append(appendData);
+            $("#table-items tbody").append(appendData);
 
-            }) //each
+        }) //each
 
         totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
