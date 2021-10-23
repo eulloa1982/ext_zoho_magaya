@@ -35,7 +35,6 @@ $(document).ready(function(){
         e.preventDefault()
         e.stopImmediatePropagation()
         let panel = $(this).attr("data-panel");
-        //$('form').toggleClass('show');
         $("#"+panel).show("fast");
         $("#new-charge select").val("")
         $("#new-charge textarea").val(" ")
@@ -84,7 +83,6 @@ $(document).ready(function(){
         let div_close = $(this).attr("data-close");
         $(`#${div_close}`).animate({width:'toggle'},150);
         storeCharge.dispatch(emptyCharge())
-        //$("#" + div_close).hide()
     })
 
 
@@ -95,11 +93,9 @@ $(document).ready(function(){
 
     $("#updateItemss").click(function(e) {
         e.preventDefault();
-        //e.stopImmediatePropagation();
 
         let idItem = $(this).attr('data-id')
         //add a change counter
-        //store.dispatch(addActionEdited())
         Utils.blockUI();
         let a = $("#new-item").serializeArray();
         let item = {}
@@ -163,15 +159,9 @@ $(document).ready(function(){
         e.preventDefault();
         e.stopImmediatePropagation();
 
-        //store.dispatch(addActionEdited())
-        //rowIndex = $("#select-package").val();
-        //let $form = $("#new-item");
-        //let item = getFormData($form);
         let item = storeItem.getState().singleItem[1]
-        //Object.assign(item, {"Name": $('#new-item select[name=Name] option:selected').text()})
         Object.assign(item, {'magaya__SQuote_Name': idmQuoteToEdit})
         Object.assign(item, {"magaya__Package_Type": $("select[name=magaya__Package_Type]").val()})
-        //item = JSON.parse(item)
         console.log("Send Item", item)
 
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: item, Trigger: [] })
@@ -203,14 +193,11 @@ $(document).ready(function(){
         .catch(function(error){
             console.log(error)
             dataError = error.data[0];
-            //$.map(dataError, function(k, v) {
-                codeError = `${dataError.code} on field ${dataError.details.api_name}. Error Type: ${dataError.message}`;
-                field = dataError.details.api_name;
-                show = false;
-                module = 'Items'
-                storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-            //})
+            codeError = `${dataError.code} on field ${dataError.details.api_name}. Error Type: ${dataError.message}`;
+            field = dataError.details.api_name;
+            show = false;
+            module = 'Items'
+            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
         })
     })
 
@@ -220,7 +207,6 @@ $(document).ready(function(){
         //button add package
         e.preventDefault();
         e.stopImmediatePropagation();
-        //store.dispatch(addActionEdited())
 
         let $form = $("#new-item");
         let item = getFormData($form);
@@ -350,8 +336,6 @@ $(document).ready(function(){
         $("#nav-items-tab").removeClass("active");
         $("#nav-terms-tab").removeClass("active");
         $("#nav-notes-tab").removeClass("active");
-        //$("#nav-charges-tab").removeClass("active");
-        //$("#nav-items-tab").removeClass("active");
         $("#menu1").removeClass("show active");
         $("#menu2").removeClass("show active");
         $("#menu3").removeClass("show active");
@@ -401,7 +385,6 @@ $(document).ready(function(){
         <td style="width:25%" class="Note_Title">${subject}</td>
         </tr>`
         $(noteall).appendTo("#notes-new tbody")
-        //$("#notes-new tbody").append(`<tr><td>${subject}</td><td>${note}</td><td>${now}</td><td>${user}</td></tr>`)
     })
 
 
@@ -486,7 +469,6 @@ $(document).ready(function(){
             let id = 0;
             $.each(data, function(key, valor) {
                 id = valor['details']['id'];
-                //console.log(key, valor)
                 if (valor.code !== "SUCCESS") {
                     codeError = valor.code;
                     field = valor.details.api_name;
@@ -565,16 +547,7 @@ $(document).ready(function(){
 
             })
         })
-
-
-
-
     })
-
-
-
-
-
 
 
     //boton send new mquote
@@ -662,12 +635,7 @@ $(document).ready(function(){
         }
 
         console.log("RecordData", recordData)
-        //insertMquoteInt(recordData)
 
-        //jsonCharges = $(this).tableToJson('table-charges-new', 992929292929229);
-        //jsonData = JSON.parse(`[${jsonCharges}]`)
-       // Object.assign(jsonData, {"magaya__ApplyToAccounts": accountId})
-        //console.log("Chrges json", jsonData)
         //insertind data, get the id and insert items and charges
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__Routing", APIData: routingData, Trigger: [] })
             .then(function(response) {
@@ -716,9 +684,6 @@ $(document).ready(function(){
                                         storeQuote.dispatch(addQuote(record))
 
                                     })
-
-                                //message = `A new mQuote inserted!!`
-                                //storeSuccess.dispatch(addSuccess({message: message}))
                                 $("#mquoteModal").modal("hide")
 
                             }
@@ -850,8 +815,6 @@ $(document).ready(function(){
     })
 
 
-
-
     //////////////////boton cerrar modal////////////////
     $(".cerrar-modal").click(function(e) {
         //verifico si hay acciones de edicion
@@ -866,10 +829,12 @@ $(document).ready(function(){
                 cancelButtonText: "Cancel",
                 cancelButtonColor: '#d33',
                 allowOutsideClick: false
-            }).then((result) => {
+            })
+            .then((result) => {
 
                 if (result.isConfirmed) {
-                    location.reload()
+                    //location.reload()
+                    $("#mquoteModal").modal("hide")
                 }
             })
 
@@ -888,7 +853,4 @@ function cleanDataString(arrayData) {
         if (!_.isEmpty(arrayData[v]))
             arrayData[v] = k.replace(/[^a-zA-Z0-9]\.\#/g, ' ')
     })
-
-    //console.log(" Data clean ", arrayData)
-
 }

@@ -31,8 +31,6 @@ $(document).ready(function(){
         }
         //si los valores son iguales, no actualizar nada
         if (oldValue.toString() !== value.toString()) {
-            //storeCharge.dispatch(updateCharge({id:idItem, field: field, value: value}))
-            //storeCharge.dispatch(setAmountOnNew({id:idItem, field: field, value: value}))
             storeCharge.dispatch(updateChargeOnNew({field: field, value: value}))
         }
 
@@ -54,13 +52,7 @@ $(document).ready(function(){
         let value = $(this).val();
         let field = $(this).attr('name');
 
-        //let idItem = $(this).attr("data-id")
         value = sanitize(value);
-        /*if (field === "magaya__Package_Description" || field === "magaya__Package_Type") {
-            value = sanitize(value)
-        } else {
-            value = parseFloat(value);
-        }*/
         //si los valores son iguales, no actualizar nada
         console.log(`${field}  val  ${value}`)
         if (sanitize(oldValue) !== sanitize(value)) {
@@ -121,7 +113,6 @@ $(document).ready(function(){
 
                             ZOHO.CRM.API.deleteRecord({Entity:"magaya__SQuotes",RecordID: idQuote})
                                 .then(function(data){
-                                    //storeCheckBox.dispatch(addCheckBox({checkbox: idQuote}))
                                     storeQuote.dispatch(deleteQuote({id: idQuote}))
                                 })
 
@@ -192,9 +183,7 @@ $(document).ready(function(){
             e.stopImmediatePropagation()
 
             storeQuote.dispatch(clearQuoteToEdit())
-
             idmQuoteToEdit = $(this).attr('data-id')
-
             limpiar_form()
             //dispatch
             storeQuote.dispatch(findQuote({id: idmQuoteToEdit}))
@@ -212,58 +201,55 @@ $(document).ready(function(){
 
     })
 
-        //////////////////////////////////////////////////////////////////////////
-        //table items
-        //////////////////////////////////////////////////////////////////////////
-        $('#table-items').bind("DOMSubtreeModified", function(e) {
-            let oldValue = '';
+    //////////////////////////////////////////////////////////////////////////
+    //table items
+    //////////////////////////////////////////////////////////////////////////
+    $('#table-items').bind("DOMSubtreeModified", function(e) {
+        let oldValue = '';
+
+        $('.btn-slide').click(function(e) {
+            e.preventDefault()
+            e.stopImmediatePropagation()
+            let data_id = $(this).attr("data-id");
+            let module = $(this).attr("data-module")
+            $(this).dataShow(module, data_id)
+            $("#sendCharges").hide()
+            $("#newCharges").hide()
+            $("#updateCharge").show()
+
+            $("#panel-item").show("fast");
+
+            $(this).toggleClass("active"); return false;
+
+        });
 
 
-           $('.btn-slide').click(function(e) {
-                e.preventDefault()
-                e.stopImmediatePropagation()
-                //$('form').toggleClass('show');
-                let data_id = $(this).attr("data-id");
-                let module = $(this).attr("data-module")
-                $(this).dataShow(module, data_id)
-                $("#sendCharges").hide()
-                $("#newCharges").hide()
-                $("#updateCharge").show()
+        //////////////////////////////////////////////end editable////////////////////
+        //del item while editing record
+        $(".del-item-warehouse").click (function () {
+            let tr = $(this).parent().parent();
+            let idItem = $(this).attr('data-id');
 
+            //add a change counter
+            store.dispatch(addActionEdited())
 
-                $("#panel-item").show("fast");
+            Swal.fire({
+                title: "Confirm",
+                text: "You are about to delete record from CRM, you sure?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "Cancel",
+                cancelButtonColor: '#d33'
 
-                $(this).toggleClass("active"); return false;
-
-              });
-
-
-            //////////////////////////////////////////////end editable////////////////////
-            //del item while editing record
-            $(".del-item-warehouse").click (function () {
-                let tr = $(this).parent().parent();
-                let idItem = $(this).attr('data-id');
-
-                //add a change counter
-                store.dispatch(addActionEdited())
-
-                Swal.fire({
-                    title: "Confirm",
-                    text: "You are about to delete record from CRM, you sure?",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes",
-                    cancelButtonText: "Cancel",
-                    cancelButtonColor: '#d33'
-
-                }).then((result) => {
-                    Utils.blockUI()
-                    if (result.isConfirmed) {
-                        ZOHO.CRM.API.deleteRecord({Entity:"magaya__ItemQuotes",RecordID: idItem})
-                            .then(function(data){
-                                Utils.unblockUI()
-                                res = data.data;
-                                $.map(res, function(k, v) {
+            }).then((result) => {
+                Utils.blockUI()
+                if (result.isConfirmed) {
+                    ZOHO.CRM.API.deleteRecord({Entity:"magaya__ItemQuotes",RecordID: idItem})
+                        .then(function(data){
+                            Utils.unblockUI()
+                            res = data.data;
+                            $.map(res, function(k, v) {
                                 if (k.code !== "SUCCESS") {
                                     codeError = k.code;
                                     field = k.details.api_name;
@@ -279,73 +265,64 @@ $(document).ready(function(){
 
                                 }
 
-                                })
                             })
-                            .catch(function(error){
-                                Utils.unblockUI()
-                                dataError = error.data;
-                                codeError = error.code
-                                show = true;
-                                field = '';
-                                module = 'Cargo Items'
-                                storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+                        })
+                        .catch(function(error){
+                            Utils.unblockUI()
+                            dataError = error.data;
+                            codeError = error.code
+                            show = true;
+                            field = '';
+                            module = 'Cargo Items'
+                            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
-                            })
+                        })
                     }
-                });
-            })
+            });
         })
+    })
 
-        ////////////////////////table charge ////////////////////////////
-        $('#table-charges').bind("DOMSubtreeModified", function() {
-            let oldValue = ''
+    ////////////////////////table charge ////////////////////////////
+    $('#table-charges').bind("DOMSubtreeModified", function() {
+        let oldValue = ''
 
-            $('.btn-slide').click(function(e) {
-                e.preventDefault()
-                e.stopImmediatePropagation()
-                let data_id = $(this).attr("data-id");
-                let module = $(this).attr("data-module")
-                $("select[name=magaya__Tax]").val("").change()
-                $(this).dataShow(module, data_id)
-                $("#panel-charge").show("fast");
+        $('.btn-slide').click(function(e) {
+            e.preventDefault()
+            e.stopImmediatePropagation()
+            let data_id = $(this).attr("data-id");
+            let module = $(this).attr("data-module")
+            $("select[name=magaya__Tax]").val("").change()
+            $(this).dataShow(module, data_id)
+            $("#panel-charge").show("fast");
 
-                $(this).toggleClass("active"); return false;
+            $(this).toggleClass("active"); return false;
 
-              });
+        });
 
+        //del item while editing record
+        $(".del-item-charge").click (function (e) {
+            let idCharge = $(this).attr('data-id');
+            let tr = $(this).parent().parent();
+            let idQuote = quoteToEdit.id
+            //add a change counter
+            store.dispatch(addActionEdited())
 
+            Swal.fire({
+                title: "Confirm",
+                text: "You are about to delete record from CRM, you sure?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "Cancel",
+                cancelButtonColor: '#d33'
 
-            /////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////
-            ///////////////////////////////////////////////////////////////////////////////
-
-            //del item while editing record
-            $(".del-item-charge").click (function (e) {
-                let idCharge = $(this).attr('data-id');
-                let tr = $(this).parent().parent();
-                let idQuote = quoteToEdit.id
-                //add a change counter
-                store.dispatch(addActionEdited())
-
-                Swal.fire({
-                    title: "Confirm",
-                    text: "You are about to delete record from CRM, you sure?",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes",
-                    cancelButtonText: "Cancel",
-                    cancelButtonColor: '#d33'
-
-                }).then((result) => {
-
-                    if (result.isConfirmed) {
-
-                        Utils.blockUI()
-                        ZOHO.CRM.API.deleteRecord({Entity:"magaya__ChargeQuote",RecordID: idCharge})
-                            .then(function(data){
-
-                                res = data.data;
-                                $.map(res, function(k, v) {
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Utils.blockUI()
+                    ZOHO.CRM.API.deleteRecord({Entity:"magaya__ChargeQuote",RecordID: idCharge})
+                        .then(function(data){
+                            res = data.data;
+                            $.map(res, function(k, v) {
                                 if (k.code !== "SUCCESS") {
                                     codeError = k.code;
                                     field = k.details.api_name;
@@ -371,113 +348,100 @@ $(document).ready(function(){
                                     storeSuccess.dispatch(addSuccess({message: message}))
                                 }
 
-                                })
+                            })
+                        })
+                        .catch(function(error){
+                            Utils.unblockUI()
+                            dataError = error.data;
+                            $.map(dataError, function(k, v) {
+                                codeError = 'Error on field';
+                                show = true;
+                                field = oldValue;
+                                module = 'Service Items'
+                                storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
                             })
-                            .catch(function(error){
-                                Utils.unblockUI()
-                                dataError = error.data;
-                                $.map(dataError, function(k, v) {
-                                    codeError = 'Error on field';
-                                    show = true;
-                                    field = oldValue;
-                                    module = 'Service Items'
-                                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                                })
-                            })
+                        })
                     }
-                });
-
             });
-        })
+
+        });
+    })
 
 
-         ////////////////////////table charge new, form new mquote////////////////////////////
-         $('#table-charges-new').bind("DOMSubtreeModified", function() {
-            let oldValue = '';
+    ////////////////////////table charge new, form new mquote////////////////////////////
+    $('#table-charges-new').bind("DOMSubtreeModified", function() {
+        let oldValue = '';
 
-            $('.btn-slide').click(function(e) {
-                e.preventDefault()
-                e.stopImmediatePropagation()
-                //$('form').toggleClass('show');
-                let data_id = $(this).attr("data-id");
-                let module = $(this).attr("data-module")
-                $(this).dataShow(module, data_id)
-                //$("#panel").show("fast");
-                $("#panel-charge").show("fast");
-                $(this).toggleClass("active"); return false;
+        $('.btn-slide').click(function(e) {
+            e.preventDefault()
+            e.stopImmediatePropagation()
+            let data_id = $(this).attr("data-id");
+            let module = $(this).attr("data-module")
+            $(this).dataShow(module, data_id)
+            $("#panel-charge").show("fast");
+            $(this).toggleClass("active"); return false;
 
-              });
+        });
 
+        //del item while inserting record
+        $(".del-item-charge-new").click(function(e){
+            let idArr = $(this).attr("data-id");
+            Swal.fire({
+                title: "Confirm",
+                text: "You are about to delete record from CRM, you sure?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "Cancel",
+                cancelButtonColor: '#d33'
 
-            //del item while inserting record
-            $(".del-item-charge-new").click(function(e){
-                let idArr = $(this).attr("data-id");
-                Swal.fire({
-                    title: "Confirm",
-                    text: "You are about to delete record from CRM, you sure?",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes",
-                    cancelButtonText: "Cancel",
-                    cancelButtonColor: '#d33'
-
-                }).then((result) => {
-
-                    if (result.isConfirmed) {
-                        storeCharge.dispatch(deleteChargeOnNew({id: idArr}))
-                        $(this).parent().parent().remove()
-                    }
-                })
-            })
-         })
-
-
-         //////////////////////////////////////////////////////////////////////////
-        //table items new
-        //////////////////////////////////////////////////////////////////////////
-        $('#table-items-new').bind("DOMSubtreeModified", function(e) {
-            let oldValue = '';
-
-            $('.btn-slide').click(function(e) {
-                e.preventDefault()
-                e.stopImmediatePropagation()
-                //$('form').toggleClass('show');
-                let data_id = $(this).attr("data-id");
-                let module = $(this).attr("data-module")
-                $(this).dataShow(module, data_id)
-                $("#panel-item").show("fast");
-                $(this).toggleClass("active"); return false;
-
-              });
-
-
-
-            //del item while inserting record
-            $(".del-item-warehouse-new").click(function(e){
-                let idArr = $(this).attr("data-id");
-
-                Swal.fire({
-                    title: "Confirm",
-                    text: "You are about to delete record from CRM, you sure?",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes",
-                    cancelButtonText: "Cancel",
-                    cancelButtonColor: '#d33'
-
-                }).then((result) => {
-
-                    if (result.isConfirmed) {
-                        storeItem.dispatch(deleteItemOnNew({id: idArr}))
-                        $(this).parent().parent().remove()
-                    }
-                })
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    storeCharge.dispatch(deleteChargeOnNew({id: idArr}))
+                }
             })
         })
+    })
+
+
+    //////////////////////////////////////////////////////////////////////////
+    //table items new
+    //////////////////////////////////////////////////////////////////////////
+    $('#table-items-new').bind("DOMSubtreeModified", function(e) {
+        let oldValue = '';
+
+        $('.btn-slide').click(function(e) {
+            e.preventDefault()
+            e.stopImmediatePropagation()
+            let data_id = $(this).attr("data-id");
+            let module = $(this).attr("data-module")
+            $(this).dataShow(module, data_id)
+            $("#panel-item").show("fast");
+            $(this).toggleClass("active"); return false;
+
+        });
 
 
 
+        //del item while inserting record
+        $(".del-item-warehouse-new").click(function(e){
+            let idArr = $(this).attr("data-id");
 
+            Swal.fire({
+                title: "Confirm",
+                text: "You are about to delete record from CRM, you sure?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "Cancel",
+                cancelButtonColor: '#d33'
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    storeItem.dispatch(deleteItemOnNew({id: idArr}))
+                }
+            })
+        })
+    })
 })
