@@ -24,22 +24,12 @@ const initialStateIntems = {
 function reducerItem (state = initialStateIntems, actions)  {
 
     switch (actions.type) {
+
         case ADD_ITEM: {
             return Object.assign({}, state, {
                 items: state.items.concat(actions.payload)
             });
 
-        }
-
-
-        case ADD_ITEM_EMPTY_NEW: {
-            state.singleItem = initialStateIntems.itemEmpty
-
-            return {
-                ...state,
-                singleItem: [0, state.singleItem],
-                showEmptyItem: true
-            }
         }
 
         case ADD_ITEM_EMPTY: {
@@ -69,7 +59,6 @@ function reducerItem (state = initialStateIntems, actions)  {
                 itemsOnNew: state.itemsOnNew.concat(actions.payload),
                 });
         }
-
 
         case DELETE_ITEM:
             const index = actions.payload.id
@@ -210,66 +199,6 @@ function reducerItem (state = initialStateIntems, actions)  {
             }
         }
 
-
-        /*case CALCULATE_VOLUME: {
-            //const idItem = actions.payload.id;
-            console.log("CALCULATE VOLUME")
-            const field = actions.payload.field;
-            const value = actions.payload.value;
-            //const index = state.items.findIndex(item => item.id === idItem)
-            newArray = { ...state.singleItem};
-            newArray[1][field] = value
-
-            let height = newArray[1]["magaya__Height"];
-            let length = newArray[1]["magaya__Length"];
-            let width = newArray[1]["magaya__Width"];
-            //calculate volume
-            let volume = roundDec(height) * roundDec(length) * roundDec(width);
-            newArray[1]['magaya__Volume'] = roundDec(volume)
-
-            newArray[1]["magaya__Height"] = height.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]["magaya__Length"] = length.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]["magaya__Width"] = width.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]["magaya__Weigth"] = newArray[1]["magaya__Weigth"].toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            console.log(newArray[1])
-
-            return {
-                ...state,
-                singleItem: newArray
-            }
-
-
-        }*/
-
-
-        /*case CALCULATE_VOLUME_ON_NEW: {
-            //const index = actions.payload.id;
-            const field = actions.payload.field;
-            const value = actions.payload.value;
-            const index = state.singleItem[0]
-
-            state.singleItem = initialStateIntems.singleItem
-
-            newArray = state.itemsOnNew[index];
-            newArray[field] = value
-            //calculate volume
-            let volume = newArray['magaya__Height'] * newArray['magaya__Length'] * newArray['magaya__Width'];
-            newArray['magaya__Volume'] = roundDec(volume)
-            //calculate weigth
-            //let system = newArray['magaya__Measure_System']
-            //let factor = 166;
-            //if (system === "International")
-            //    factor = 1000
-
-            //newArray["magaya__Weigth"] = roundDec(volume / factor)
-
-            return {
-                ...state,
-                singleItem: [index, newArray]
-            }
-        }*/
-
-
         case EMPTY_ITEMS : {
             state.items = initialStateIntems.items
             state.itemsQuote = initialStateIntems.itemsQuote
@@ -292,13 +221,6 @@ function reducerItem (state = initialStateIntems, actions)  {
 //REDUX Store
 /////////////////////////////////////////////////////
 const storeItem = Redux.createStore(reducerItem)
-
-
-/*storeItem.subscribe(() => {
-    let u = storeItem.getState()
-    //console.log("State items now", u)
-})
-*/
 
 ////////////////////////////////////////////////////
 //REDUX Actions
@@ -338,16 +260,6 @@ function getItemQuoteOnNew(payload) {
     return { type: GET_ITEM_QUOTE_ON_NEW, payload };
 }
 
-//set volume while editing mquote
-function setVolume(payload) {
-    return {type: CALCULATE_VOLUME, payload}
-}
-
-//set volume on new mquote form
-/*function setVolumeOnNew(payload) {
-    return {type: CALCULATE_VOLUME_ON_NEW, payload}
-}*/
-
 //empty store, ready to fill it again
 //when edit an item or add new one
 function emptyItems() {
@@ -360,10 +272,6 @@ function updateItemOnNew(payload) {
 
 function updateItem(payload) {
     return { type: UPDATE_ITEM, payload }
-}
-
-function addItemEmptyNew() {
-    return { type: ADD_ITEM_EMPTY_NEW }
 }
 
 function updateAllItemNew(payload){
