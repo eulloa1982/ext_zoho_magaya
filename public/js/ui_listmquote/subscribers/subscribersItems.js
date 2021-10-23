@@ -114,7 +114,7 @@ storeItem.subscribe(() => {
 
     if (!_.isEmpty(y) && showEmpty) {
         $.map(y, function (k, v) {
-            console.log("Show empty", `${k}, ${v}`)
+            //console.log("Show empty", `${k}, ${v}`)
             //s$(`input[name=${v}`).val(k)
         })
     }

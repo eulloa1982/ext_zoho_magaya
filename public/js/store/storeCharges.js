@@ -99,32 +99,6 @@ function reducerCharge (state = initialStateCharge, actions)  {
             }
 
 
-
-        case GET_CHARGE_QUOTE: {
-            const byId = actions.payload.id;
-            //always get just 1 item on the state
-            state.singleCharge = initialStateCharge.singleCharge;
-
-            if (byId < 0) {
-                byId = 0
-                newArray = state.singleCharge
-            } else {
-                if (!_.isEmpty (state.charges[byId])) {
-                    newArray = {...state.charges[byId]}
-                }
-                else {
-                    byId = 0
-                    newArray = state.singleCharge
-                }
-            }
-
-            return {
-                ...state,
-                singleCharge: [byId, newArray],
-                showEmptyCharge: false
-            }
-        }
-
         case EMPTY_CHARGES : {
             state.charges = initialStateCharge.charges
             state.chargesOnNew = initialStateCharge.chargesOnNew
@@ -281,6 +255,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
             let amount_tax = roundDec(newArray[1]['magaya__Tax_Amount'])
             let amount_total = roundDec(newArray[1]['magaya__Amount_Total'])
             let tax_rate = roundDec(newArray[1]['magaya__TaxRate'])
+            let tax = newArray[1]['magaya__Tax']
 
             price = price > 0 ? price : 0;
             quantity = quantity > 0 ? quantity : 0
@@ -295,14 +270,14 @@ function reducerCharge (state = initialStateCharge, actions)  {
             amount_total = roundDec(amount + amount_tax)
 
             //back to field
-            newArray[1]['magaya__Price'] = price.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]['magaya__Tax'] = tax_rate.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]['magaya__Amount'] = amount.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]['magaya__Tax_Amount'] = amount_tax.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]['magaya__Amount_Total'] = amount_total.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]['magaya__Price'] = price
+            newArray[1]['magaya__Tax'] = tax
+            newArray[1]['magaya__Amount'] = amount
+            newArray[1]['magaya__Tax_Amount'] = amount_tax
+            newArray[1]['magaya__Amount_Total'] = amount_total
 
-            if (_.size(tax_rate) <= 0)
-                newArray[1]['magaya__Tax'] = ''
+            //if (tax_rate <= 0)
+            //    newArray[1]['magaya__Tax'] = ''
 
             if (!_.isEmpty(state.chargesOnNew[index]))
                 state.chargesOnNew[index] = {...newArray[1]}
@@ -337,18 +312,40 @@ function reducerCharge (state = initialStateCharge, actions)  {
             state.singleCharge = initialStateCharge.singleCharge;
 
             if (byId < 0) {
-                byId = 0
-                newArray = {...state.chargesOnNew[0]}
+                newArray = state.emptyCharge
             } else {
                 if (!_.isEmpty(state.chargesOnNew[byId]))
                     newArray = {...state.chargesOnNew[byId]}
                 else {
-                    byId = 0
-                    newArray = {...state.chargesOnNew[0]}
+                    newArray = state.emptyCharge
                 }
             }
             //newArray = {...state.chargesOnNew[byId]}
             //state.chargesOnNew[byId]["id"] = byId
+            return {
+                ...state,
+                singleCharge: [byId, newArray],
+                showEmptyCharge: false
+            }
+        }
+
+
+        case GET_CHARGE_QUOTE: {
+            const byId = actions.payload.id;
+            //always get just 1 item on the state
+            state.singleCharge = initialStateCharge.singleCharge;
+
+            if (byId < 0) {
+                newArray = state.emptyCharge
+            } else {
+                if (!_.isEmpty (state.charges[byId])) {
+                    newArray = {...state.charges[byId]}
+                }
+                else {
+                    newArray = state.emptyCharge
+                }
+            }
+
             return {
                 ...state,
                 singleCharge: [byId, newArray],
@@ -402,13 +399,13 @@ function emptyCharges() {
     return { type: EMPTY_CHARGES}
 }
 
-function setAmount(payload) {
+/*function setAmount(payload) {
     return { type: SET_AMOUNT, payload }
-}
+}*/
 
-function setAmountOnNew(payload) {
+/*function setAmountOnNew(payload) {
     return { type: SET_AMOUNT_ON_NEW, payload }
-}
+}*/
 
 
 function updateCharge(payload) {
@@ -431,9 +428,9 @@ function updateChargeOnNew(payload) {
     return {type: UPDATE_CHARGE_ON_NEW, payload}
 }
 
-function updateChargeOnNew2(payload) {
+/*function updateChargeOnNew2(payload) {
     return {type: UPDATE_CHARGE_ON_NEW2, payload}
-}
+}*/
 
 
 function emptyCharge() {

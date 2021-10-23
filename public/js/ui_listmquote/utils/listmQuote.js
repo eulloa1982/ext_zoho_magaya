@@ -26,8 +26,9 @@ $(document).ready(function(){
         let idItem = $(this).attr("data-id")
         value = sanitize(value);
 
+        //console.log(`${field} ${value}`)
         if (field === "magaya__CQuantity" || field === "magaya__Price") {
-            value = parseFloat(value);
+            value = parseFloat(value.replace(/[,]/g, ''));
         }
         //si los valores son iguales, no actualizar nada
         if (oldValue.toString() !== value.toString()) {

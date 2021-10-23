@@ -127,7 +127,7 @@ a {
 												<th>Number</th>
 												<th>Customer</th>
 												<th>Stage</th>
-												<th>Amoumt</th>
+												<th>Amount</th>
 												<th>Modify Time</th>
 											</tr>
 										</thead>

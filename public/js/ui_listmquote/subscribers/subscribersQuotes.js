@@ -156,7 +156,6 @@ storeQuote.subscribe(() => {
 
         //relleno los campos
         //campos q no son objetos
-        console.log("Quote to edit from subscriber", quoteToEdit)
         $("#magaya__Description").val(quoteToEdit.magaya__Description)
         let idAccount = !_.isEmpty(quoteToEdit.Account) ? quoteToEdit.Account.id : 0
             storeAccounts.dispatch(addQuoteAccount({id: idAccount}))

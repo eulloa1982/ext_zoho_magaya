@@ -39,10 +39,20 @@ storeCharge.subscribe(() => {
                 $("#updateChargeNew").hide()
             } else {
                 $("#title_legend").html("Editing Charge")
-                let arrows = `
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
-        `
+                let arrow_prev = ``
+                let arrow_next = ``
+                let size = _.size(storeCharge.getState().chargesOnNew)
+                let index_prev = k - 1
+                let index_next = k + 1
+
+                if (index_prev >= 0) {
+                    arrow_prev = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_prev}">arrow_back_ios_new</span>`
+                }
+                if (index_next < size) {
+                    arrow_next = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_next}">arrow_forward_ios</span>`
+                }
+
+                let arrows = `${arrow_prev} ${arrow_next}`
 
                 $("#arrows-charge").html(arrows)
                 $("#sendCharges").hide()
@@ -61,10 +71,21 @@ storeCharge.subscribe(() => {
                 $("#updateChargeNew").hide()
             } else {
                 $("#title_legend").html("Editing Charge")
-                let arrows = `
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
-        `
+                let arrow_prev = ``
+                let arrow_next = ``
+                let size = _.size(storeCharge.getState().charges)
+                let index_prev = k - 1
+                let index_next = k + 1
+
+                if (index_prev >= 0) {
+                    arrow_prev = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_prev}">arrow_back_ios_new</span>`
+                }
+                if (index_next < size) {
+                    arrow_next = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_next}">arrow_forward_ios</span>`
+                }
+
+                let arrows = `${arrow_prev} ${arrow_next}`
+
                 $("#arrows-charge").html(arrows)
                 $("#sendCharges").hide()
                 $("#newCharges").hide()
@@ -81,10 +102,12 @@ storeCharge.subscribe(() => {
                 k = ''
             if (_.isObject(k) && !v.includes("$")) {
                 let id = k.id
-                $(`select[name=${v}]`).removeClass('new-charge no-border-charge-new no-border-charge').addClass(no_border)
                 $(`select[name=${v}]`).attr('data-id', id)
                 if (id > 0)
                     $(`select[name=${v}]`).val(k.id)
+
+                $(`select[name=${v}]`).removeClass('no-border-charge-new no-border-charge').addClass('new-charge')
+
             }
 
             if (!_.isObject(v) && !v.includes("$")) {
@@ -182,9 +205,10 @@ storeCharge.subscribe(() => {
                     <td style="display: none;" class="magaya__Paid_As">${k.magaya__Paid_As}</td>
                     <td style="display: none;" class="magaya__ChargeCurrency">${k.magaya__ChargeCurrency}</td>
                     <td style="display: none;" class="magaya__ApplyToAccounts">${accountId}</td>
-                    <td class="magaya__TaxCode" style="display: none;">${k.magaya__TaxCode}</td>
 
                 </tr>`);
+                //<td class="magaya__TaxCode" style="display: none;">${k.magaya__TaxCode}</td>
+
             })
             //totalIncome = roundDec(totalIncome)
             //incorporando data de totales
@@ -249,8 +273,9 @@ storeCharge.subscribe(() => {
                 <td class="magaya__Unit" style="display: none;">${k.magaya__Unit}</td>
                 <td class="magaya__Paid_As" style="display: none;">${k.magaya__Paid_As}</td>
                 <td class="magaya__ChargeCurrency" style="display: none;">${k.magaya__ChargeCurrency}</td>
-                <td class="magaya__TaxCode" style="display: none;">${k.magaya__TaxCode}</td>
                 </tr>`);
+                //<td class="magaya__TaxCode" style="display: none;">${k.magaya__TaxCode}</td>
+
             })
 
 

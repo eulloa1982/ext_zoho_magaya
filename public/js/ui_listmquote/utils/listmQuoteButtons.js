@@ -224,14 +224,16 @@ $(document).ready(function(){
         Utils.blockUI();
         store.dispatch(addActionEdited())
 
-        let charge = storeCharge.getState().emptyCharge[1]
+        let charge = storeCharge.getState().singleCharge[1]
         Object.assign(charge, {"magaya__SQuote_Name": idmQuoteToEdit})
         Object.assign(charge, {'magaya__ApplyToAccounts': accountId})
+        //Object
 
         //quitarles las comas a los numeros grandes
-        charge.magaya__Amount = charge.magaya__Amount.replace(/[,]/g, '')
-        charge.magaya__Amount_Total = charge.magaya__Amount_Total.replace(/[,]/g, '')
-        charge.magaya__Tax_Amount = charge.magaya__Tax_Amount.replace(/[,]/g, '')
+        charge.magaya__Price = (charge.magaya__Price.toString()).replace(/[,]/g, '')
+        charge.magaya__Amount = (charge.magaya__Amount.toString()).replace(/[,]/g, '')
+        charge.magaya__Amount_Total = charge.magaya__Amount_Total.toString().replace(/[,]/g, '')
+        charge.magaya__Tax_Amount = charge.magaya__Tax_Amount.toString().replace(/[,]/g, '')
 
         console.log("Charge send", charge)
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: charge, Trigger: [] })
