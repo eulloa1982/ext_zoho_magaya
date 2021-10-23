@@ -303,12 +303,12 @@ $(document).ready(function(){
             $('.btn-slide').click(function(e) {
                 e.preventDefault()
                 e.stopImmediatePropagation()
-                //$('form').toggleClass('show');
                 let data_id = $(this).attr("data-id");
                 let module = $(this).attr("data-module")
+                $("select[name=magaya__Tax]").val("").change()
                 $(this).dataShow(module, data_id)
-                //$("#panel").show("fast");
                 $("#panel-charge").show("fast");
+
                 $(this).toggleClass("active"); return false;
 
               });
