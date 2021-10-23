@@ -180,7 +180,7 @@ storeItem.subscribe(() => {
 
                 <td class="magaya__Status" style="display: none;">InQuote</td>
                 <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
-                <td class='magaya__Package_Type' style="display: none;">${k.magaya__Package_Type}</td>
+                <td class='magaya__Package_Type' style="display: none;">${k.magaya__Package_Type.id}</td>
                 </tr>`);
 
             })
