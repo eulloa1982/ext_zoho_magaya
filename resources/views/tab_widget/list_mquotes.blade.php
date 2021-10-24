@@ -174,7 +174,7 @@ a {
 					<div class="modal-body">
                         <!--------------------------->
                         <!-- panel editing----------->
-                        <div id="panel">
+                        <!--div id="panel">
                             <div class="panel">
                             <fieldset class="fieldset"><legend class="legend"><span id="panel-legend"></span><span class="float-right" id="arrows"></span></legend>
                                 <form class="edit-record" action="https://zm">
@@ -183,7 +183,7 @@ a {
                             </fieldset>
 
                             </div>
-                        </div>
+                        </div-->
                         <!-- end panel editing ------>
                         <!---------------------------->
 
@@ -813,7 +813,7 @@ a {
                                                     <div class="row">
                                                         <div class="col-md-3">Volume</div>
                                                         <div class="col-md-8">
-                                                            <input type="text" class="form-control number new-item" name="magaya__Volume"style="text-align-last:right;">
+                                                            <input type="text" class="form-control number new-item" name="magaya__Volume"style="text-align-last:right;" readonly>
                                                         </div>
                                                     </div>
 

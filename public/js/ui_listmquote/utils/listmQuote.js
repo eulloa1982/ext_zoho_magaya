@@ -31,7 +31,7 @@ $(document).ready(function(){
             value = parseFloat(value.replace(/[,]/g, ''));
         }
         //si los valores son iguales, no actualizar nada
-        if (oldValue.toString() !== value.toString()) {
+        if (oldValue !== null && oldValue.toString() !== value.toString()) {
             storeCharge.dispatch(updateChargeOnNew({field: field, value: value}))
         }
 
@@ -55,8 +55,13 @@ $(document).ready(function(){
 
         value = sanitize(value);
         //si los valores son iguales, no actualizar nada
-        console.log(`${field}  val  ${value}`)
-        if (sanitize(oldValue) !== sanitize(value)) {
+
+        if (oldValue !== null && sanitize(oldValue) !== sanitize(value)) {
+            if (field !== 'magaya__Package_Type' && field !== 'magaya__Package_Description' && field !== 'magaya__Measure_System') {
+                value = parseFloat(value.replace(/[,]/g, ''));
+                console.log(`${field}  val  ${value}`)
+            }
+
             storeItem.dispatch(updateItemOnNew({field: field, value: value}))
         }
 

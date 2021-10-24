@@ -1360,7 +1360,7 @@ function buildPdfItems(items) {
 
 
 function move_quote(idQuote) {
-    console.log("moving quote", idQuote)
+    //console.log("moving quote", idQuote)
     //drop the state temporal items and charges
     storeItem.dispatch(emptyItems())
     storeCharge.dispatch(emptyCharges())

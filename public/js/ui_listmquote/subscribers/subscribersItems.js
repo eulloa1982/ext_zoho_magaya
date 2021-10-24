@@ -3,7 +3,7 @@ let data_module_flag_item = true
 
 //get an item, draw the data view
 storeItem.subscribe(() => {
-    //console.log("State items", storeItem.getState())
+    console.log("State items", storeItem.getState())
     let u = storeItem.getState().singleItem;
     //empty charge
     let y = storeItem.getState().itemNew;
