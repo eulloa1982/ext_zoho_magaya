@@ -6,11 +6,12 @@ $(document).ready(function(){
 ///////////////////////////////////////////////////////////
 storeQuote.subscribe(() => {
     let u = storeQuote.getState()
-    console.log("State quote now", u)
+    //console.log("State quote now", u)
     quoteXML = u.singleQuote
+    $(".arrows-quote").html(``)
     let arrow_content = '';
-    let arrow_next = '';
-    let arrow_prev = ''
+    let arrow_next = `<span class="material-icons cursor-hand oculto2">arrow_forward_ios</span>`;
+    let arrow_prev = `<span class="material-icons cursor-hand oculto2">arrow_back_ios_new</span>`
     if (!_.isEmpty(u.nextQuote)) {
         arrow_next = `<span class="material-icons cursor-hand" onClick="move_quote('${u.nextQuote.id}')">arrow_forward_ios</span>`
     }
@@ -19,7 +20,7 @@ storeQuote.subscribe(() => {
         arrow_prev = `<span class="material-icons cursor-hand" onClick="move_quote('${u.prevQuote.id}')">arrow_back_ios_new</span>`
     }
 
-    $(".arrows-quote").html(`${arrow_prev} ${arrow_next}`)
+
     //search quote by id
     if (!_.isEmpty(u.quotes2)) {
         let append = ''
@@ -100,6 +101,7 @@ storeQuote.subscribe(() => {
 
     //quote to edit
     if (!_.isEmpty(u.quoteToEdit)) {
+        $(".arrows-quote").html(`${arrow_prev} ${arrow_next}`)
         $("#Title").html("Edit mQuote");
         quoteToEdit = u.quoteToEdit
         //drop the state temporal items and charges

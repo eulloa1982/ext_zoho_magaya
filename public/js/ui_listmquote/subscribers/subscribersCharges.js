@@ -39,8 +39,8 @@ storeCharge.subscribe(() => {
                 $("#updateChargeNew").hide()
             } else {
                 $("#title_legend").html("Editing Charge")
-                let arrow_prev = ``
-                let arrow_next = ``
+                let arrow_prev = `<span class="material-icons cursor-hand oculto2">arrow_back_ios_new</span>`
+                let arrow_next = `<span class="material-icons cursor-hand oculto2">arrow_forward_ios</span>`
                 let size = _.size(storeCharge.getState().chargesOnNew)
                 let index_prev = Number(k) - 1
                 let index_next = Number(k) + 1
@@ -71,8 +71,8 @@ storeCharge.subscribe(() => {
                 $("#updateChargeNew").hide()
             } else {
                 $("#title_legend").html("Editing Charge")
-                let arrow_prev = ``
-                let arrow_next = ``
+                let arrow_prev = `<span class="material-icons cursor-hand oculto2">arrow_back_ios_new</span>`
+                let arrow_next = `<span class="material-icons cursor-hand oculto2">arrow_forward_ios</span>`
                 let size = _.size(storeCharge.getState().charges)
                 let index_prev = Number(k) - 1
                 let index_next = Number(k) + 1

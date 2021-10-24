@@ -36,6 +36,13 @@ input:active {
     margin-left: 15px;
     color: #0b3355;
 }
+
+
+.oculto2 {
+    opacity: 0.35;
+    color: #808385;
+}
+
 .oculto:hover {
     opacity: 0.9;
 }

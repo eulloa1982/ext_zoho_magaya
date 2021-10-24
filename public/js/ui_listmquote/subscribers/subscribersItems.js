@@ -37,8 +37,8 @@ storeItem.subscribe(() => {
                 $("#updateItemNew").hide()
             } else {
                 $("#title_legend2").html("Editing Item")
-                let arrow_prev = ``
-                let arrow_next = ``
+                let arrow_prev = `<span class="material-icons cursor-hand oculto2">arrow_back_ios_new</span>`
+                let arrow_next = `<span class="material-icons cursor-hand oculto2">arrow_forward_ios</span>`
                 let size = _.size(storeItem.getState().itemsOnNew)
                 let index_prev = Number(k) - 1
                 let index_next = Number(k) + 1
@@ -69,8 +69,8 @@ storeItem.subscribe(() => {
                 $("#updateItemNew").hide()
             } else {
                 $("#title_legend2").html("Editing Item")
-                let arrow_prev = ``
-                let arrow_next = ``
+                let arrow_prev = `<span class="material-icons cursor-hand oculto2">arrow_back_ios_new</span>`
+                let arrow_next = `<span class="material-icons cursor-hand oculto2">arrow_forward_ios</span>`
                 let size = _.size(storeItem.getState().items)
                 let index_prev = Number(k) - 1
                 let index_next = Number(k) + 1
