@@ -81,7 +81,7 @@ $(document).ready(function(){
         e.stopImmediatePropagation()
 
         let div_close = $(this).attr("data-close");
-        $(`#${div_close}`).animate({width:'toggle'},150);
+        $(`#${div_close}`).fadeOut("slow");
         storeCharge.dispatch(emptyCharge())
     })
 
@@ -299,11 +299,17 @@ $(document).ready(function(){
         e.stopImmediatePropagation();
         store.dispatch(addActionEdited())
 
+        let accountId = ''
+        let magayaTax = ''
         let charge = storeCharge.getState().emptyCharge[1]
-        let accountId = $("select[name=Account]").val()
-
-        Object.assign(charge, {'magaya__ApplyToAccounts': accountId})
-        Object.assign(charge, {'magaya__Tax': $("select[name=magaya__Tax]").val()})
+        accountId = $("select[name=Account]").val()
+        magayaTax = $("select[name=magaya__Tax]").val()
+        if (accountId > 0) {
+            Object.assign(charge, {'magaya__ApplyToAccounts': accountId})
+        }
+        if (magayaTax > 0) {
+            Object.assign(charge, {'magaya__Tax': magayaTax})
+        }
 
         console.log("new charge", charge)
         storeCharge.dispatch(addChargeOnNew({...charge}))

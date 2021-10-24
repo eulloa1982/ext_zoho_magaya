@@ -57,10 +57,35 @@ input:active {
     color: white;
 }
 
+/****webkit entrada ventana de info***/
+@-webkit-keyframes slideInDown {
+    0% {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+    visibility: visible;
+    }
+    100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    }
+    }
+    @keyframes slideInDown {
+    0% {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+    visibility: visible;
+    }
+    100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    }
+    }
+
+
 #quote-info, #quote-alert {
     position: absolute;
     top: 0;
-    bottom: 70%;
+    bottom: 80%;
     left: 30%;
     right: 30%;
     color: #333;
@@ -69,9 +94,16 @@ input:active {
     font-size: 14px;
     /*border:rgb(55, 65, 56);
     box-shadow: 10px 15px 15px 15px black;*/
-    background-color: #f5f5f5;
+    background-color: #eee;
     border-color: grey;
     border: solid 0.1px;
+    border-radius: 5px;
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
 }
 
 
