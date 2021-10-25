@@ -1,3 +1,6 @@
+const ACTION_EDITED_COUNTER = "ACTION_EDITED_COUNTER"
+const CLEAN_ACTIONS_EDITED = "CLEAN_ACTIONS_EDITED"
+
 const ADD_ITEM = 'ADD_ITEM'
 const ADD_ITEM_ON_NEW = 'ADD_ITEM_ON_NEW'
 const DELETE_ITEM = 'DELETE_ITEM'
@@ -74,7 +77,7 @@ const ADD_DEAL = "ADD_DEAL"
 const GET_DEAL = "GET_DEAL"
 
 //campos a mostrar en formularios de Charges
-const CHARGES_FIELDS = {"magaya__ChargeCode": {"field": "Type", "editable":"readonly", "place": 1}, "Name": {"field": "Description", "type": "textarea", "editable":"", "place": 2},
+/*const CHARGES_FIELDS = {"magaya__ChargeCode": {"field": "Type", "editable":"readonly", "place": 1}, "Name": {"field": "Description", "type": "textarea", "editable":"", "place": 2},
                 "magaya__CQuantity": {"field": "Quantity", "type": "number", "editable":"", "place": 3}, "magaya__Unit": {"field": "Unit", "values": ["U", "Lb"], "editable":"", "place": 4},
                 "magaya__Price": {"field": "Price", "type": "number", "editable":"", "place": 5}, "magaya__Amount": {"field": "Amount", "type": "number", "editable":"readonly", "place": 6},
                 "magaya__Tax": {"field": "Tax Code", "editable": "readonly", "place": 7}, "magaya__Tax_Amount":{"field": "Tax Amount", "type": "number", "editable":"readonly", "place": 9}, "magaya__Amount_Total":{"field": "Amount + Tax", "type": "number", "editable":"readonly", "place": 10},
@@ -90,7 +93,7 @@ const ITEMS_FIELDS = {
     "magaya__Weigth": {"field": "Weigth", "type": "number", "place": 7}, "magaya__Height": {"field": "Height", "type": "number", "place": 5},
     "magaya__Pieces": {"field": "Pieces", "type": "number", "place": 3}, "magaya__Measure_System": {"field": "Measure System", "values": ["International", "English"], "place": 9},
     "magaya__Volume": {"field": "Volume", "type": "number", "place": 8}
-}
+}*/
 
 const ITEMS_CRM = {
     "Name": {"field": "Name"}, "magaya__AccountDefinitionType":{"field": "Account Definition"},

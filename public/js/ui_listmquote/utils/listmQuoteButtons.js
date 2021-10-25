@@ -842,6 +842,7 @@ $(document).ready(function(){
 
                 if (result.isConfirmed) {
                     //location.reload()
+                    store.dispatch(cleanActionEdited())
                     $("#mquoteModal").modal("hide")
                 }
             })
