@@ -158,6 +158,7 @@ $(document).ready(function(){
     $("#sendItem").click(function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
+        Utils.blockUI()
 
         let item = storeItem.getState().singleItem[1]
         Object.assign(item, {'magaya__SQuote_Name': idmQuoteToEdit})
@@ -167,7 +168,7 @@ $(document).ready(function(){
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: item, Trigger: [] })
         .then(function(data) {
             res = data.data;
-            console.log("Item insert result", res)
+            Utils.unblockUI()
             $.map(res, function(k, v) {
 
                 if (k.code !== "SUCCESS") {
@@ -191,7 +192,7 @@ $(document).ready(function(){
             })
         })
         .catch(function(error){
-            console.log(error)
+            Utils.unblockUI()
             dataError = error.data[0];
             codeError = `${dataError.code} on field ${dataError.details.api_name}. Error Type: ${dataError.message}`;
             field = dataError.details.api_name;
