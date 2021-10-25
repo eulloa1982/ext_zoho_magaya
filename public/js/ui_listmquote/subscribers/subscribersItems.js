@@ -118,10 +118,10 @@ storeItem.subscribe(() => {
 
                     $(`input[name=${v}]`).val(k)
                     $(`select[name=${v}]`).val(k)
-                    $(`#${v}`).val(k)
 
-                    if (v === "Name")
+                    if (v === "Name") {
                         $(`#magaya__Package_Description`).val(k)
+                    }
 
                 }
             }

@@ -15,6 +15,7 @@ const initialStateIntems = {
         magaya__Width: 0,
         magaya__Measure_System: "",
         magaya__Volume: 0,
+        magaya__Package_Description: ""
 
     },
     showEmptyItem: false,
@@ -159,7 +160,6 @@ function reducerItem (state = initialStateIntems, actions)  {
             const length = actions.payload.length
             const package = actions.payload.package
 
-            console.log("Package id", package)
             let newArray = {...state.singleItem}
             newArray[1]["magaya__Package_Type"] = package
             newArray[1]["magaya__Length"] = length
@@ -185,6 +185,8 @@ function reducerItem (state = initialStateIntems, actions)  {
             let length = roundDec(newArray[1]["magaya__Length"]);
             let width = roundDec(newArray[1]["magaya__Width"]);
             let weigth = roundDec(newArray[1]["magaya__Weigth"]);
+            let name = sanitize(newArray[1]["Name"])
+            let measure_system = sanitize(newArray[1]["magaya__Measure_System"])
             //calculate volume
             let volume = height * length * width
             newArray[1]["magaya__Height"] = height.toString().replace(/[,]/g, '').toLocaleString('en-US', {  minimumFractionDigits: 2  } )
@@ -193,6 +195,8 @@ function reducerItem (state = initialStateIntems, actions)  {
             newArray[1]["magaya__Weigth"] = weigth.toString().replace(/[,]/g, '').toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
             newArray[1]["magaya__Volume"] = roundDec(volume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["Name"] = name
+            newArray[1]["magaya__Measure_System"] = measure_system !== null ? measure_system : "International"
 
             return {
                 ...state,

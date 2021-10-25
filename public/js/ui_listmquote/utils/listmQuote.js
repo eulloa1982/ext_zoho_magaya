@@ -53,17 +53,16 @@ $(document).ready(function(){
         let value = $(this).val();
         let field = $(this).attr('name');
 
-        value = sanitize(value);
+        //if (field === "Name")
+        //    value = $("#magaya__Package_Description").val()
+
         //si los valores son iguales, no actualizar nada
+        if (field !== 'magaya__Package_Type' && field !== 'Name' && field !== 'magaya__Measure_System') {
+            value = parseFloat(value.replace(/[,]/g, ''));
 
-        if (oldValue !== null && sanitize(oldValue) !== sanitize(value)) {
-            if (field !== 'magaya__Package_Type' && field !== 'magaya__Package_Description' && field !== 'magaya__Measure_System') {
-                value = parseFloat(value.replace(/[,]/g, ''));
-                console.log(`${field}  val  ${value}`)
-            }
-
-            storeItem.dispatch(updateItemOnNew({field: field, value: value}))
         }
+        console.log(`${field}  val  ${value}`)
+        storeItem.dispatch(updateItemOnNew({field: field, value: value}))
 
     })
 
