@@ -116,8 +116,8 @@ input:active {
   background: white;
   color: #333;
   overflow: auto;
-  margin: 5px 0px 5px 5px;
-  padding: 5px 0px 5px 5px;
+  margin: 5px 5px 5px 5px;
+  padding: 5px 10px 5px 5px;
 
 }
 
@@ -143,6 +143,67 @@ input:active {
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+/**********panel editing*************/
+#panel-preview {
+    background: #f8f8f5;
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 65em;
+    z-index: 1000;
+    box-shadow: 10px 15px 15px 15px black;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/****tables preview ***/
+table #table-charges-preview #table-items-preview {
+    font-family: "Helvetica Neue", Helvetica, sans-serif
+  }
+
+  #table-items-preview caption, #table-charges-preview caption {
+    text-align: left;
+    color: silver;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 5px;
+  }
+
+  #table-items-preview thead, #table-charges-preview thead {
+    background: SteelBlue;
+    color: white;
+  }
+
+  #table-charges-preview th,
+  #table-charges-preview td,
+  #table-items-preview th,
+  #table-items-preview td {
+    padding: 5px 10px;
+  }
+
+  #table-charges-preview tbody tr:nth-child(even),
+  #table-items-preview tbody tr:nth-child(even) {
+    background: WhiteSmoke;
+  }
+
+
+  #table-charges-preview tfoot,
+  #table-items-preview tfoot {
+    background: rgb(158, 158, 160);
+    color: white;
+    text-align: right;
+  }
+
+  #table-charges-preview tfoot tr th:last-child,
+  #table-items-preview tfoot tr th:last-child {
+    font-family: monospace;
+  }
+
+
+
 .active {
     background-position: right 12px;
 }
@@ -233,9 +294,10 @@ table td .numeric {
 }
 
 .headerTable {
-    background-color: rgb(220, 237, 245);
+    background: SteelBlue;
     font-weight: bolder;
-    font-size: 11px;
+    font-size: 12px;
+    color: white;
 }
 
 .session-first {
@@ -248,6 +310,10 @@ table td .numeric {
 
 .HtmltoPdf .col {
     font-size: 12px;
+}
+
+.bordered {
+    border: 0.5px solid #38312b;
 }
 /*.toPdf {
     font-size: 12px;

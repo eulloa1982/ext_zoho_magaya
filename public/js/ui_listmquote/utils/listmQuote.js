@@ -78,11 +78,43 @@ $(document).ready(function(){
         })
     })
 
+    $(".toPdf").click(function(e) {
+        e.stopImmediatePropagation()
+
+        storeItem.dispatch(emptyItems())
+        storeCharge.dispatch(emptyCharges())
+        storeAccounts.dispatch(emptyAllAccounts())
+        storeQuote.dispatch(clearQuoteToEdit())
+
+        let idmQuote = $(this).attr('data-id')
+        let pdf = make_pdf(idmQuote);
+
+    })
+
     ///////////////////////////////////////////////////////////////////////////////////
     /////////table quotes, main table
     ///////////////////////////////////////////////////////////////////////////////////
     $('#table-quotes').bind("DOMSubtreeModified", function(e) {
         e.preventDefault()
+
+        $('.btn-slide').click(function(e) {
+            e.preventDefault()
+            e.stopImmediatePropagation()
+            let data_id = $(this).attr("data-id");
+            let module = $(this).attr("data-module")
+
+            storeQuote.dispatch(clearQuoteToEdit())
+            idmQuoteToEdit = $(this).attr('data-id')
+            limpiar_form()
+
+            //dispatch
+            //make_pdf(idmQuoteToEdit);
+            storeQuote.dispatch(findQuote({id: idmQuoteToEdit}))
+            $("#panel-preview").show("fast");
+            $(this).toggleClass("active"); return false;
+
+        });
+
 
         $(".toPdf").click(function(e) {
             e.stopImmediatePropagation()

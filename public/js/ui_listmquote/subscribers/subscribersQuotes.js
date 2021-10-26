@@ -1,12 +1,13 @@
+var quoteToEdit = []
+var quoteXML = []
 $(document).ready(function(){
-    var quoteToEdit = []
-    var quoteXML = []
+
 //////////////////////////////////////////////////////////
 ////////SUSCRIPTORES
 ///////////////////////////////////////////////////////////
 storeQuote.subscribe(() => {
     let u = storeQuote.getState()
-    //console.log("State quote now", u)
+    console.log("State quote now", u)
     quoteXML = u.singleQuote
     $(".arrows-quote").html(``)
     let arrow_content = '';
@@ -75,10 +76,10 @@ storeQuote.subscribe(() => {
                 { type: "control",  title:"Options", width: 'auto', editButton: false, deleteButton: false, title: "Action",
                 itemTemplate: function(value, item) {
                     let $iconPencil = $(`<a><span class="material-icons oculto edit" data-id="${item.id}">create</span></a>`);
-                    let $iconTrash = $(`<a><span class="material-icons oculto delete" data-id="${item.id}">clear</span></a>`);
+                    let $iconTrash = $(`<a><span class="material-icons oculto delete" data-id="${item.id}">delete_forever</span></a>`);
                     let $sendMagaya = $(`<a><span class="material-icons oculto send" data-id="${item.id}">send</span></a>`);
                     let $checkbox = $(`<a><input type="checkbox" class="quoteCheckBox" data-id="${item.id}" /></a>`);
-                    let $iconPdf = $(`<a><span class="material-icons toPdf oculto" data-id="${item.id}">picture_as_pdf</span></a>`)
+                    let $iconPdf = $(`<a><span class="material-icons oculto btn-slide" data-id="${item.id}">visibility</span></a>`)
                     return $("<div>").attr({class: "btn-toolbar"})
                                 .append($checkbox)
                                 .append($sendMagaya)
@@ -103,6 +104,18 @@ storeQuote.subscribe(() => {
     if (!_.isEmpty(u.quoteToEdit)) {
         $(".arrows-quote").html(`${arrow_prev} ${arrow_next}`)
         $("#Title").html("Edit mQuote");
+        $("#table-charges-preview tbody").empty()
+        $("#table-items-preview tbody").empty()
+        $("#table-charges-preview tfoot").empty()
+        $("#table-items-preview tfoot").empty()
+        //.preview empty
+        $(".preview").html("")
+        $("#toPdf").attr('data-id', u.quoteToEdit.id)
+        $("#sendToMagaya").attr('data-id', u.quoteToEdit.id)
+        $("#deleteQuote").attr('data-id', u.quoteToEdit.id)
+        let modifiedBy = u.quoteToEdit.Modified_By.name
+        $("#Modified_By").html(modifiedBy)
+
         quoteToEdit = u.quoteToEdit
         //drop the state temporal items and charges
         storeItem.dispatch(emptyItems())
@@ -165,9 +178,13 @@ storeQuote.subscribe(() => {
                 if (!_.isObject(v) && !v.includes("$") && !_.isEmpty(k)) {
                     $(`input[name=${v}]`).val(k)
                     $(`select[name=${v}]`).val(k)
+                    //preview
+                    let preview = `${v}Preview`
+                    $(`#${preview}`).html(k)
                 }
             })
             $("input[name=NameQuote]").val(quoteToEdit.Name)
+            //$("#NamePreview").html(quoteToEdit.Name)
 
             let owner = quoteToEdit.Owner.id
             let ownerName = quoteToEdit.Owner.name
@@ -187,6 +204,7 @@ storeQuote.subscribe(() => {
                 const client = sanitize(quoteToEdit["Account"]["name"]);
                 $("<option value='" + id + "' selected>" + client + "</option>").appendTo("select[name=Account]");
                 storeAccounts.dispatch(findContactOfAccount({id: id}))
+                $("#AccountPreview").html(client)
                 //$("select[name=Account]").val(id)
             }
 
@@ -207,6 +225,9 @@ storeQuote.subscribe(() => {
 
                     }
                 })
+
+                $("#RepresentativePreview").html(nameContact)
+
                 //$(`<option value="${idContact}" selected>${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
             }
 
@@ -218,6 +239,7 @@ storeQuote.subscribe(() => {
                 storeDeal.dispatch(getDeal({id: idDeal}))
                 //$(`<option value="${idDeal}" selected>${nameDeal}</option>`).appendTo("select[name=Deal]");
                 $("select[name=Deal]").val(idDeal)
+                $("#DealPreview").html(nameDeal)
             }
 
             //is hazardous
@@ -233,8 +255,10 @@ storeQuote.subscribe(() => {
             let sent_to_magaya = quoteToEdit["Magaya_updated"]
             if (sent_to_magaya === true) {
                 $("input[name=Magaya_updated]").prop("checked", true)
+                $("#In_Magaya").html('yes')
             } else {
                 $("input[name=Magaya_updated]").prop("checked", false)
+                $("#In_Magaya").html('no')
             }
 
             //is sent to magaya
@@ -286,7 +310,6 @@ storeQuote.subscribe(() => {
                 }
             })
             $("select[name=magaya__Incoterm_rule").val(incoterms).change()
-
 
             //other modules related
             if (!_.isEmpty(quoteToEdit.magaya__Routing)) {
@@ -392,6 +415,8 @@ storeQuote.subscribe(() => {
                         console.log("Notes", response)
                         //$
                     })*/
+
+                    //$("#DealPreview").html("aaaaaa")
     }
 })
 })

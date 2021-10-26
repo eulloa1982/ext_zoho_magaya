@@ -181,7 +181,7 @@ storeItem.subscribe(() => {
                 $("#table-items-new tbody").append(`<tr>
                 <td class='Delete'>
                     <span class="material-icons oculto btn-slide" data-module="table-items-new" data-id="${i}">create</span>
-                    <span class="material-icons oculto del-item-warehouse-new" data-id=${i}>clear</span>
+                    <span class="material-icons oculto del-item-warehouse-new" data-id=${i}>delete_forever</span>
                 </td>
                 <td class='Name'>${sanitize(k.Name)}</td>
                 <td align="right" class="magaya__Pieces">${k.magaya__Pieces}</td>
@@ -239,6 +239,9 @@ storeItem.subscribe(() => {
 
         $("#table-items tbody").empty();
         $("#table-items tfoot").empty();
+        $("#table-items-preview tbody").empty();
+        $("#table-items-preview tfoot").empty();
+
         $.each(u, function(i, k) {
             let measure_length = "in";
             let measure_volume = "ft3";
@@ -265,7 +268,7 @@ storeItem.subscribe(() => {
             let appendData = `<tr>
             <td class="Delete">
                 <span class="material-icons oculto btn-slide" data-module="table-items" data-id="${i}">create</span>
-                <span class="material-icons oculto del-item-warehouse" data-id=${k.id}>clear</span>
+                <span class="material-icons oculto del-item-warehouse" data-id=${k.id}>delete_forever</span>
             </td>
 
             <td class='Name'>${sanitize(k.Name)}</td>
@@ -287,6 +290,24 @@ storeItem.subscribe(() => {
             </tr>`
             $("#table-items tbody").append(appendData);
 
+            //preview
+            let appendPreview = `<tr>
+            <td class='Name'>${sanitize(k.Name)}</td>
+            <td align="right" class="magaya__Pieces">${k.magaya__Pieces}</td>
+            <td align="right" class="magaya__Dimensions" style="border-right: none;">
+                ${roundDec(k.magaya__Length).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}
+                *
+                ${roundDec(k.magaya__Height).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}
+                *
+                ${roundDec(k.magaya__Width).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}
+                (${measure_length})
+            </td>
+            <td align="right" class="magaya__Weigth" style="border-right: none;">${roundDec(k.magaya__Weigth * k.magaya__Pieces).toLocaleString('en-US', {  minimumFractionDigits: 2  } )} ${measure_weigth}</td>
+            <td align="right" class="magaya__Volume" style="border-right: none;">${roundDec(k.magaya__Volume * k.magaya__Pieces).toLocaleString('en-US', {  minimumFractionDigits: 2  } )} ${measure_volume}</td>
+            </tr>`
+
+            $("#table-items-preview").append(appendPreview)
+
         }) //each
 
         totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
@@ -297,8 +318,19 @@ storeItem.subscribe(() => {
                                                 <td colspan="6"></td>
                                                 <td align="right" class="Delete" style="border-right: none;"><strong>${roundDec(totalWeight).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td><td style="border-left: none;"><strong> kg</strong></td>
                                                 <td align="right" class="Delete" style="border-right: none;"><strong>${roundDec(totalVolume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td><td style="border-left: none;"><strong> m3</strong></td></tr>`)
+
+        $("#table-items-preview tfoot").append(`<tr><td><strong>Totals</td>
+                                                <td align="right" class="Delete"><strong style="margin-right: 4px;">${totalPieces}</strong></td>
+                                                <td></td>
+                                                <td align="right" style="border-right: none;"><strong>${roundDec(totalWeight).toLocaleString('en-US', {  minimumFractionDigits: 2  } )} kg</td>
+                                                <td align="right" style="border-right: none;"><strong>${roundDec(totalVolume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )} m3</td></tr>`)
+
+
+
     } else {
         $("#table-items tbody").empty()
         $("#table-items tfoot").empty();
+        $("#table-items-preview tbody").empty();
+        $("#table-items-preview tfoot").empty();
     }
 })

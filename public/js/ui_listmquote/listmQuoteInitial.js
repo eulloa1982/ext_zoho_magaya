@@ -29,7 +29,7 @@ $(document).ready(function(){
         ZOHO.CRM.API.getAllRecords({Entity:"magaya__SQuotes",sort_order:"desc"})
             .then(function(data){
                 let quotes = data.data;
-                console.log("Quotes", quotes)
+                //console.log("Quotes", quotes)
                 if (_.isEmpty(quotes)) {
                     let now = moment().format("YYYY-MM-DD T HH:mm:ss");
                     quotes = { "id": 1, "Name": "Quote Test", "magaya__Status": "Draft", "magaya__Description": "Do a new mquote, i'll gone", "Modified_Time": now }

@@ -111,7 +111,8 @@ $(document).ready(function(){
         });
 
 
-        Object.assign(item, { id: idItem, magaya__SQuote_Name: idmQuoteToEdit});
+        let quoteToEdit = storeQuote.getState().quoteToEdit
+        Object.assign(item, { id: idItem, magaya__SQuote_Name: quoteToEdit.id});
         let config = { APIData: item }
         Object.assign(config, { Entity: "magaya__ItemQuotes" });
 
@@ -130,7 +131,6 @@ $(document).ready(function(){
                     } else {
                         ZOHO.CRM.API.getRecord({Entity:"magaya__ItemQuotes",RecordID:idItem})
                         .then(function(data){
-                            console.log("response get item", data)
                             record = data.data[0];
                             storeItem.dispatch(updateItem({...record}))
                         })
@@ -161,7 +161,8 @@ $(document).ready(function(){
         Utils.blockUI()
 
         let item = storeItem.getState().singleItem[1]
-        Object.assign(item, {'magaya__SQuote_Name': idmQuoteToEdit})
+        let quoteToEdit = storeQuote.getState().quoteToEdit
+        Object.assign(item, {'magaya__SQuote_Name': quoteToEdit.id})
         Object.assign(item, {"magaya__Package_Type": $("select[name=magaya__Package_Type]").val()})
         console.log("Send Item", item)
 
@@ -226,7 +227,8 @@ $(document).ready(function(){
         store.dispatch(addActionEdited())
 
         let charge = storeCharge.getState().singleCharge[1]
-        Object.assign(charge, {"magaya__SQuote_Name": idmQuoteToEdit})
+        let quoteToEdit = storeQuote.getState().quoteToEdit
+        Object.assign(charge, {"magaya__SQuote_Name": quoteToEdit.id})
         Object.assign(charge, {'magaya__ApplyToAccounts': accountId})
         //Object
 
@@ -262,7 +264,7 @@ $(document).ready(function(){
 
                             var func_name = "magaya__setQuoteTotalAmount";
                             var req_data ={
-                                "quote_id" : idmQuoteToEdit
+                                "quote_id" : quoteToEdit.id
                             };
                             ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
                                 console.log("Update quote amount", data)
