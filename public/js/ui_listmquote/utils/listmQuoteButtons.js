@@ -81,7 +81,7 @@ $(document).ready(function(){
         e.stopImmediatePropagation()
 
         let div_close = $(this).attr("data-close");
-        $(`#${div_close}`).animate({width:'toggle'},150);
+        $(`#${div_close}`).fadeOut("slow");
         storeCharge.dispatch(emptyCharge())
     })
 
@@ -111,7 +111,8 @@ $(document).ready(function(){
         });
 
 
-        Object.assign(item, { id: idItem, magaya__SQuote_Name: idmQuoteToEdit});
+        let quoteToEdit = storeQuote.getState().quoteToEdit
+        Object.assign(item, { id: idItem, magaya__SQuote_Name: quoteToEdit.id});
         let config = { APIData: item }
         Object.assign(config, { Entity: "magaya__ItemQuotes" });
 
@@ -130,7 +131,6 @@ $(document).ready(function(){
                     } else {
                         ZOHO.CRM.API.getRecord({Entity:"magaya__ItemQuotes",RecordID:idItem})
                         .then(function(data){
-                            console.log("response get item", data)
                             record = data.data[0];
                             storeItem.dispatch(updateItem({...record}))
                         })
@@ -158,16 +158,18 @@ $(document).ready(function(){
     $("#sendItem").click(function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
+        Utils.blockUI()
 
         let item = storeItem.getState().singleItem[1]
-        Object.assign(item, {'magaya__SQuote_Name': idmQuoteToEdit})
+        let quoteToEdit = storeQuote.getState().quoteToEdit
+        Object.assign(item, {'magaya__SQuote_Name': quoteToEdit.id})
         Object.assign(item, {"magaya__Package_Type": $("select[name=magaya__Package_Type]").val()})
         console.log("Send Item", item)
 
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: item, Trigger: [] })
         .then(function(data) {
             res = data.data;
-            console.log("Item insert result", res)
+            Utils.unblockUI()
             $.map(res, function(k, v) {
 
                 if (k.code !== "SUCCESS") {
@@ -191,7 +193,7 @@ $(document).ready(function(){
             })
         })
         .catch(function(error){
-            console.log(error)
+            Utils.unblockUI()
             dataError = error.data[0];
             codeError = `${dataError.code} on field ${dataError.details.api_name}. Error Type: ${dataError.message}`;
             field = dataError.details.api_name;
@@ -225,7 +227,8 @@ $(document).ready(function(){
         store.dispatch(addActionEdited())
 
         let charge = storeCharge.getState().singleCharge[1]
-        Object.assign(charge, {"magaya__SQuote_Name": idmQuoteToEdit})
+        let quoteToEdit = storeQuote.getState().quoteToEdit
+        Object.assign(charge, {"magaya__SQuote_Name": quoteToEdit.id})
         Object.assign(charge, {'magaya__ApplyToAccounts': accountId})
         //Object
 
@@ -261,7 +264,7 @@ $(document).ready(function(){
 
                             var func_name = "magaya__setQuoteTotalAmount";
                             var req_data ={
-                                "quote_id" : idmQuoteToEdit
+                                "quote_id" : quoteToEdit.id
                             };
                             ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
                                 console.log("Update quote amount", data)
@@ -299,11 +302,17 @@ $(document).ready(function(){
         e.stopImmediatePropagation();
         store.dispatch(addActionEdited())
 
+        let accountId = ''
+        let magayaTax = ''
         let charge = storeCharge.getState().emptyCharge[1]
-        let accountId = $("select[name=Account]").val()
-
-        Object.assign(charge, {'magaya__ApplyToAccounts': accountId})
-        Object.assign(charge, {'magaya__Tax': $("select[name=magaya__Tax]").val()})
+        accountId = $("select[name=Account]").val()
+        magayaTax = $("select[name=magaya__Tax]").val()
+        if (accountId > 0) {
+            Object.assign(charge, {'magaya__ApplyToAccounts': accountId})
+        }
+        if (magayaTax > 0) {
+            Object.assign(charge, {'magaya__Tax': magayaTax})
+        }
 
         console.log("new charge", charge)
         storeCharge.dispatch(addChargeOnNew({...charge}))
@@ -836,6 +845,7 @@ $(document).ready(function(){
 
                 if (result.isConfirmed) {
                     //location.reload()
+                    store.dispatch(cleanActionEdited())
                     $("#mquoteModal").modal("hide")
                 }
             })

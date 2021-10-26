@@ -108,7 +108,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
             }
         }
 
-        case "EMPTY_CHARGE" : {
+        case EMPTY_CHARGE : {
             state.emptyCharge = initialStateCharge.emptyCharge
             return {
                 ...state,
@@ -129,50 +129,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
 
         }
 
-        //set amount on charge editing
-        /*case SET_AMOUNT: {
-            const field = actions.payload.field;
-            const value = actions.payload.value;
-
-            newArray = {...state.singleCharge};
-            newArray[1][field] = value
-            //get values
-            let price = roundDec(newArray[1]['magaya__Price'])
-            let quantity = roundDec (newArray[1]['magaya__CQuantity'])
-            let amount = roundDec(newArray[1]['magaya__Amount'])
-            let amount_tax = roundDec(newArray[1]['magaya__Tax_Amount'])
-            let amount_total = roundDec(newArray[1]['magaya__Amount_Total'])
-            let tax_rate = roundDec(newArray[1]['magaya__TaxRate'])
-
-            price = price > 0 ? price : 0;
-            quantity = quantity > 0 ? quantity : 0
-            amount = amount > 0 ? amount : 0
-            amount_tax = amount_tax > 0 ? amount_tax : 0
-            amount_total = amount_total > 0 ? amount_total : 0
-            tax_rate = tax_rate > 0 ? tax_rate : 0
-
-            //calculos
-            amount = price * quantity;
-            amount_tax = (roundDec(amount) / 100) * roundDec(tax_rate)
-            amount_total = roundDec(amount + amount_tax)
-
-            //back to field
-            newArray[1]['magaya__Amount'] = roundDec(amount)
-            newArray[1]['magaya__Tax_Amount'] = roundDec(amount_tax)
-            newArray[1]['magaya__Amount_Total'] = roundDec(amount_total);
-
-            if (_.isEmpty(newArray['Name']))
-                newArray['Name'] = "No Description"
-            if (_.isEmpty(newArray['magaya__Tax']) || newArray['magaya__Tax'] == 'null')
-                newArray['magaya__Tax'] = ''
-
-            return {
-                ...state,
-                singleCharge: newArray
-            }
-        }*/
-
-
+        //add new charge on table-charge-new to store
         case ADD_CHARGE_ON_NEW: {
             if (_.isEmpty(actions.payload.magaya__ApplyToAccounts))
                 throw new UserException('Mandatory data not found: eigther Charge Name or Client are mandatory');
@@ -191,55 +148,6 @@ function reducerCharge (state = initialStateCharge, actions)  {
             });
         }
 
-        //Updating new charge
-        /*case UPDATE_CHARGE_ON_NEW2 : {
-            const field = actions.payload.field;
-            const value = actions.payload.value;
-
-            const index = state.singleCharge[0]
-
-            newArray = {...state.singleCharge};
-            newArray[1][field] = value
-
-            let price = roundDec(newArray[1]['magaya__Price'])
-            let quantity = roundDec (newArray[1]['magaya__CQuantity'])
-            let amount = roundDec(newArray[1]['magaya__Amount'])
-            let amount_tax = roundDec(newArray[1]['magaya__Tax_Amount'])
-            let amount_total = roundDec(newArray[1]['magaya__Amount_Total'])
-            let tax_rate = roundDec(newArray[1]['magaya__TaxRate'])
-
-            price = price > 0 ? price : 0;
-            quantity = quantity > 0 ? quantity : 0
-            amount = amount > 0 ? amount : 0
-            amount_tax = amount_tax > 0 ? amount_tax : 0
-            amount_total = amount_total > 0 ? amount_total : 0
-            tax_rate = tax_rate > 0 ? tax_rate : 0
-
-            //calculos
-            amount = price * quantity;
-            amount_tax = (roundDec(amount) / 100) * roundDec(tax_rate)
-            amount_total = roundDec(amount + amount_tax)
-
-            //back to field
-            newArray[1]['magaya__Amount'] = amount.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]['magaya__Tax_Amount'] = amount_tax.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]['magaya__Amount_Total'] = amount_total.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-
-            /*if (_.size(newArray['Name']) <= 0) {
-                console.log("Name size", _.size(newArray['Name']))
-                newArray['Name'] = "No Description"
-
-            }*
-            if (_.size(newArray['magaya__Tax']) <= 0)
-                newArray['magaya__Tax'] = ''
-            state.chargesOnNew[index] = {...newArray[1]}
-
-            return {
-                ...state,
-                singleCharge: newArray
-
-            }
-        }*/
 
         //new charge form, sendCharge form updateCharge form, updateChargeNew form
         case UPDATE_CHARGE_ON_NEW : {
@@ -305,6 +213,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
 
         }
 
+        //get a charge on table-charge-new table
         case GET_CHARGE_QUOTE_ON_NEW: {
             const byId = actions.payload.id;
 
@@ -330,6 +239,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
         }
 
 
+        //get a charge on a table-charge table
         case GET_CHARGE_QUOTE: {
             const byId = actions.payload.id;
             //always get just 1 item on the state
@@ -378,14 +288,6 @@ function addChargeOnNew(payload) {
     return { type: ADD_CHARGE_ON_NEW, payload }
 }
 
-function getCharge(payload) {
-    return { type: GET_CHARGE_QUOTE, payload }
-}
-
-function getChargeOnNew(payload) {
-    return { type: GET_CHARGE_QUOTE_ON_NEW, payload }
-}
-
 function deleteCharge(payload) {
     return { type: DELETE_CHARGE, payload };
 }
@@ -394,26 +296,28 @@ function deleteChargeOnNew(payload) {
     return { type: DELETE_CHARGE_ON_NEW, payload };
 }
 
+function getCharge(payload) {
+    return { type: GET_CHARGE_QUOTE, payload }
+}
+
+function getChargeOnNew(payload) {
+    return { type: GET_CHARGE_QUOTE_ON_NEW, payload }
+}
 
 function emptyCharges() {
     return { type: EMPTY_CHARGES}
 }
 
-/*function setAmount(payload) {
-    return { type: SET_AMOUNT, payload }
-}*/
+function addChargesXML(payload) {
+    return { type: ADD_CHARGES_XML, payload }
+}
 
-/*function setAmountOnNew(payload) {
-    return { type: SET_AMOUNT_ON_NEW, payload }
-}*/
-
+function updateChargeOnNew(payload) {
+    return {type: UPDATE_CHARGE_ON_NEW, payload}
+}
 
 function updateCharge(payload) {
     return { type: UPDATE_CHARGE, payload }
-}
-
-function addChargesXML(payload) {
-    return { type: ADD_CHARGES_XML, payload }
 }
 
 function addChargeEmpty() {
@@ -424,15 +328,6 @@ function addChargeEmptyNew() {
     return {type: ADD_CHARGE_EMPTY_NEW}
 }
 
-function updateChargeOnNew(payload) {
-    return {type: UPDATE_CHARGE_ON_NEW, payload}
-}
-
-/*function updateChargeOnNew2(payload) {
-    return {type: UPDATE_CHARGE_ON_NEW2, payload}
-}*/
-
-
 function emptyCharge() {
-    return { type: "EMPTY_CHARGE" }
+    return { type: EMPTY_CHARGE }
 }

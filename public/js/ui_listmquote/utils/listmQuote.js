@@ -31,7 +31,7 @@ $(document).ready(function(){
             value = parseFloat(value.replace(/[,]/g, ''));
         }
         //si los valores son iguales, no actualizar nada
-        if (oldValue.toString() !== value.toString()) {
+        if (oldValue !== null && oldValue.toString() !== value.toString()) {
             storeCharge.dispatch(updateChargeOnNew({field: field, value: value}))
         }
 
@@ -53,12 +53,16 @@ $(document).ready(function(){
         let value = $(this).val();
         let field = $(this).attr('name');
 
-        value = sanitize(value);
+        //if (field === "Name")
+        //    value = $("#magaya__Package_Description").val()
+
         //si los valores son iguales, no actualizar nada
-        console.log(`${field}  val  ${value}`)
-        if (sanitize(oldValue) !== sanitize(value)) {
-            storeItem.dispatch(updateItemOnNew({field: field, value: value}))
+        if (field !== 'magaya__Package_Type' && field !== 'Name' && field !== 'magaya__Measure_System') {
+            value = parseFloat(value.replace(/[,]/g, ''));
+
         }
+        console.log(`${field}  val  ${value}`)
+        storeItem.dispatch(updateItemOnNew({field: field, value: value}))
 
     })
 
@@ -74,11 +78,43 @@ $(document).ready(function(){
         })
     })
 
+    $(".toPdf").click(function(e) {
+        e.stopImmediatePropagation()
+
+        storeItem.dispatch(emptyItems())
+        storeCharge.dispatch(emptyCharges())
+        storeAccounts.dispatch(emptyAllAccounts())
+        storeQuote.dispatch(clearQuoteToEdit())
+
+        let idmQuote = $(this).attr('data-id')
+        let pdf = make_pdf(idmQuote);
+
+    })
+
     ///////////////////////////////////////////////////////////////////////////////////
     /////////table quotes, main table
     ///////////////////////////////////////////////////////////////////////////////////
     $('#table-quotes').bind("DOMSubtreeModified", function(e) {
         e.preventDefault()
+
+        $('.btn-slide').click(function(e) {
+            e.preventDefault()
+            e.stopImmediatePropagation()
+            let data_id = $(this).attr("data-id");
+            let module = $(this).attr("data-module")
+
+            storeQuote.dispatch(clearQuoteToEdit())
+            idmQuoteToEdit = $(this).attr('data-id')
+            limpiar_form()
+
+            //dispatch
+            //make_pdf(idmQuoteToEdit);
+            storeQuote.dispatch(findQuote({id: idmQuoteToEdit}))
+            $("#panel-preview").show("fast");
+            $(this).toggleClass("active"); return false;
+
+        });
+
 
         $(".toPdf").click(function(e) {
             e.stopImmediatePropagation()

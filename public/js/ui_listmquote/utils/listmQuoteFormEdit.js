@@ -30,7 +30,8 @@ $("#updateCharge").click(function(e) {
     });
 
     //get textarea
-    Object.assign(charge, { id: idCharge, magaya__SQuote_Name: idmQuoteToEdit, Name: sanitize($("#Name").val())});
+    let quoteToEdit = storeQuote.getState().quoteToEdit
+    Object.assign(charge, { id: idCharge, magaya__SQuote_Name: quoteToEdit.id, Name: sanitize($("#Name").val())});
     let config = { APIData: charge }
     Object.assign(config, { Entity: "magaya__ChargeQuote" });
     Object.assign(config, {Trigger:[]})
@@ -51,7 +52,7 @@ $("#updateCharge").click(function(e) {
                 } else {
                     var func_name = "magaya__setQuoteTotalAmount";
                     var req_data ={
-                        "quote_id" : idmQuoteToEdit
+                        "quote_id" : quoteToEdit.id
                     };
 
                     ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){

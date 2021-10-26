@@ -35,6 +35,12 @@ input:active {
     margin-left: 15px;
 }
 
+
+.oculto2 {
+    opacity: 0.35;
+    color: #808385;
+}
+
 .oculto:hover {
     opacity: 0.9;
 }
@@ -49,11 +55,35 @@ input:active {
     color: white;
 }
 
-#quote-info,
-#quote-alert {
+/****webkit entrada ventana de info***/
+@-webkit-keyframes slideInDown {
+    0% {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+    visibility: visible;
+    }
+    100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    }
+    }
+    @keyframes slideInDown {
+    0% {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+    visibility: visible;
+    }
+    100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    }
+    }
+
+
+#quote-info, #quote-alert {
     position: absolute;
     top: 0;
-    bottom: 70%;
+    bottom: 80%;
     left: 30%;
     right: 30%;
     color: #333;
@@ -62,21 +92,30 @@ input:active {
     font-size: 14px;
     /*border:rgb(55, 65, 56);
     box-shadow: 10px 15px 15px 15px black;*/
-    background-color: #f5f5f5;
+    background-color: #eee;
     border-color: grey;
     border: solid 0.1px;
+    border-radius: 5px;
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
 }
 
 .panel {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    background: white;
-    color: #333;
-    overflow: auto;
-    margin: 5px 0px 5px 5px;
-    padding: 5px 0px 5px 5px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+
+  background: white;
+  color: #333;
+  overflow: auto;
+  margin: 5px 5px 5px 5px;
+  padding: 5px 10px 5px 5px;
+
 }
 
 .message-data {
@@ -105,6 +144,66 @@ input:active {
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+/**********panel editing*************/
+#panel-preview {
+    background: #f8f8f5;
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 65em;
+    z-index: 1000;
+    box-shadow: 10px 15px 15px 15px black;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/****tables preview ***/
+table #table-charges-preview #table-items-preview {
+    font-family: "Helvetica Neue", Helvetica, sans-serif
+  }
+
+  #table-items-preview caption, #table-charges-preview caption {
+    text-align: left;
+    color: silver;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 5px;
+  }
+
+  #table-items-preview thead, #table-charges-preview thead {
+    background: SteelBlue;
+    color: white;
+  }
+
+  #table-charges-preview th,
+  #table-charges-preview td,
+  #table-items-preview th,
+  #table-items-preview td {
+    padding: 5px 10px;
+  }
+
+  #table-charges-preview tbody tr:nth-child(even),
+  #table-items-preview tbody tr:nth-child(even) {
+    background: WhiteSmoke;
+  }
+
+
+  #table-charges-preview tfoot,
+  #table-items-preview tfoot {
+    background: rgb(158, 158, 160);
+    color: white;
+    text-align: right;
+  }
+
+  #table-charges-preview tfoot tr th:last-child,
+  #table-items-preview tfoot tr th:last-child {
+    font-family: monospace;
+  }
+
+
 
 .active {
     background-position: right 12px;
@@ -242,9 +341,10 @@ table td .numeric {
 }
 
 .headerTable {
-    background-color: rgb(220, 237, 245);
+    background: SteelBlue;
     font-weight: bolder;
-    font-size: 11px;
+    font-size: 12px;
+    color: white;
 }
 
 .session-first {
@@ -265,7 +365,9 @@ table td .numeric {
     font-size: 12px;
 }
 
-
+.bordered {
+    border: 0.5px solid #38312b;
+}
 /*.toPdf {
     font-size: 12px;
 }*/

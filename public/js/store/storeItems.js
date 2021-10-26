@@ -15,6 +15,7 @@ const initialStateIntems = {
         magaya__Width: 0,
         magaya__Measure_System: "",
         magaya__Volume: 0,
+        magaya__Package_Description: ""
 
     },
     showEmptyItem: false,
@@ -24,22 +25,12 @@ const initialStateIntems = {
 function reducerItem (state = initialStateIntems, actions)  {
 
     switch (actions.type) {
+
         case ADD_ITEM: {
             return Object.assign({}, state, {
                 items: state.items.concat(actions.payload)
             });
 
-        }
-
-
-        case ADD_ITEM_EMPTY_NEW: {
-            state.singleItem = initialStateIntems.itemEmpty
-
-            return {
-                ...state,
-                singleItem: [0, state.singleItem],
-                showEmptyItem: true
-            }
         }
 
         case ADD_ITEM_EMPTY: {
@@ -69,7 +60,6 @@ function reducerItem (state = initialStateIntems, actions)  {
                 itemsOnNew: state.itemsOnNew.concat(actions.payload),
                 });
         }
-
 
         case DELETE_ITEM:
             const index = actions.payload.id
@@ -170,7 +160,6 @@ function reducerItem (state = initialStateIntems, actions)  {
             const length = actions.payload.length
             const package = actions.payload.package
 
-            console.log("Package id", package)
             let newArray = {...state.singleItem}
             newArray[1]["magaya__Package_Type"] = package
             newArray[1]["magaya__Length"] = length
@@ -192,83 +181,28 @@ function reducerItem (state = initialStateIntems, actions)  {
             let newArray ={...state.singleItem}
             newArray[1][field] = value
 
-            let height = newArray[1]["magaya__Height"];
-            let length = newArray[1]["magaya__Length"];
-            let width = newArray[1]["magaya__Width"];
+            let height = roundDec(newArray[1]["magaya__Height"]);
+            let length = roundDec(newArray[1]["magaya__Length"]);
+            let width = roundDec(newArray[1]["magaya__Width"]);
+            let weigth = roundDec(newArray[1]["magaya__Weigth"]);
+            let name = sanitize(newArray[1]["Name"])
+            let measure_system = sanitize(newArray[1]["magaya__Measure_System"])
             //calculate volume
-            let volume = roundDec(height) * roundDec(length) * roundDec(width)
-            newArray[1]["magaya__Height"] = height.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]["magaya__Length"] = length.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]["magaya__Width"] = width.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]["magaya__Weigth"] = newArray[1]["magaya__Weigth"].toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            let volume = height * length * width
+            newArray[1]["magaya__Height"] = height.toString().replace(/[,]/g, '').toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["magaya__Length"] = length.toString().replace(/[,]/g, '').toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["magaya__Width"] = width.toString().replace(/[,]/g, '').toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["magaya__Weigth"] = weigth.toString().replace(/[,]/g, '').toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
             newArray[1]["magaya__Volume"] = roundDec(volume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["Name"] = name
+            newArray[1]["magaya__Measure_System"] = measure_system !== null ? measure_system : "International"
 
             return {
                 ...state,
                 itemNew: newArray
             }
         }
-
-
-        /*case CALCULATE_VOLUME: {
-            //const idItem = actions.payload.id;
-            console.log("CALCULATE VOLUME")
-            const field = actions.payload.field;
-            const value = actions.payload.value;
-            //const index = state.items.findIndex(item => item.id === idItem)
-            newArray = { ...state.singleItem};
-            newArray[1][field] = value
-
-            let height = newArray[1]["magaya__Height"];
-            let length = newArray[1]["magaya__Length"];
-            let width = newArray[1]["magaya__Width"];
-            //calculate volume
-            let volume = roundDec(height) * roundDec(length) * roundDec(width);
-            newArray[1]['magaya__Volume'] = roundDec(volume)
-
-            newArray[1]["magaya__Height"] = height.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]["magaya__Length"] = length.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]["magaya__Width"] = width.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]["magaya__Weigth"] = newArray[1]["magaya__Weigth"].toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            console.log(newArray[1])
-
-            return {
-                ...state,
-                singleItem: newArray
-            }
-
-
-        }*/
-
-
-        /*case CALCULATE_VOLUME_ON_NEW: {
-            //const index = actions.payload.id;
-            const field = actions.payload.field;
-            const value = actions.payload.value;
-            const index = state.singleItem[0]
-
-            state.singleItem = initialStateIntems.singleItem
-
-            newArray = state.itemsOnNew[index];
-            newArray[field] = value
-            //calculate volume
-            let volume = newArray['magaya__Height'] * newArray['magaya__Length'] * newArray['magaya__Width'];
-            newArray['magaya__Volume'] = roundDec(volume)
-            //calculate weigth
-            //let system = newArray['magaya__Measure_System']
-            //let factor = 166;
-            //if (system === "International")
-            //    factor = 1000
-
-            //newArray["magaya__Weigth"] = roundDec(volume / factor)
-
-            return {
-                ...state,
-                singleItem: [index, newArray]
-            }
-        }*/
-
 
         case EMPTY_ITEMS : {
             state.items = initialStateIntems.items
@@ -292,13 +226,6 @@ function reducerItem (state = initialStateIntems, actions)  {
 //REDUX Store
 /////////////////////////////////////////////////////
 const storeItem = Redux.createStore(reducerItem)
-
-
-/*storeItem.subscribe(() => {
-    let u = storeItem.getState()
-    //console.log("State items now", u)
-})
-*/
 
 ////////////////////////////////////////////////////
 //REDUX Actions
@@ -338,16 +265,6 @@ function getItemQuoteOnNew(payload) {
     return { type: GET_ITEM_QUOTE_ON_NEW, payload };
 }
 
-//set volume while editing mquote
-function setVolume(payload) {
-    return {type: CALCULATE_VOLUME, payload}
-}
-
-//set volume on new mquote form
-/*function setVolumeOnNew(payload) {
-    return {type: CALCULATE_VOLUME_ON_NEW, payload}
-}*/
-
 //empty store, ready to fill it again
 //when edit an item or add new one
 function emptyItems() {
@@ -360,10 +277,6 @@ function updateItemOnNew(payload) {
 
 function updateItem(payload) {
     return { type: UPDATE_ITEM, payload }
-}
-
-function addItemEmptyNew() {
-    return { type: ADD_ITEM_EMPTY_NEW }
 }
 
 function updateAllItemNew(payload){
