@@ -171,6 +171,8 @@ a {
                 <span id="toPdf" class="material-icons btn btn-primary float-right toPdf" style="background: none;border: none;">picture_as_pdf</span>
                 <span id="sendToMagaya" class="material-icons btn btn-primary float-right send" style="background: none;border: none;">send</span>
                 <span id="deleteQuote" class="material-icons btn btn-primary float-right delete" style="background: none;border: none;">delete_forever</span>
+                <span id="duplicateQuote" class="material-icons btn btn-primary float-right duplicate" style="background: none;border: none;">content_copy</span>
+
             </legend>
 
             <div class="container">

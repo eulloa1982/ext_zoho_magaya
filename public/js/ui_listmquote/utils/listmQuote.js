@@ -236,6 +236,51 @@ $(document).ready(function(){
             buildStringXML(idQuote);
         })
 
+        $(".duplicate").click(function(e) {
+            e.preventDefault()
+            e.stopImmediatePropagation()
+
+            let quote = storeQuote.getState().quoteToEdit
+            let idQuote = quote.id
+
+            Utils.blockUI()
+            var func_name = "magaya__duplicatemQuote";
+                            var req_data ={
+                                "quote_id" : idQuote
+                            };
+            ZOHO.CRM.FUNCTIONS.execute(func_name, req_data)
+                .then(function(data){
+                    if (data.code === "success") {
+                        let string_data = data.details.userMessage[2]
+                        string_data = string_data.split(" quote ")
+                        let message = ": Successfully duplicate mQuote"
+                        storeSuccess.dispatch(addSuccess({message: message}))
+                        //location.reload()
+                        //actualizar el store
+                        ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:string_data[1]})
+                            .then(function(data){
+                                console.log(data)
+                                storeQuote.dispatch(addStarting(data.data[0]))
+                            })
+                    } else {
+                        codeError = 'Error duplicating mQuote';
+                        field = '';
+                        show = false;
+                        module = 'Cargo Items'
+                        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+                    }
+                    Utils.unblockUI()
+                    //actualizar el store
+                })
+                .catch(function(error) {
+                    console.log("Error message", error)
+                    Utils.unblockUI()
+                })
+
+
+
+        })
+
     })
 
     //////////////////////////////////////////////////////////////////////////
