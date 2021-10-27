@@ -250,14 +250,14 @@ $(document).ready(function(){
                             };
             ZOHO.CRM.FUNCTIONS.execute(func_name, req_data)
                 .then(function(data){
+                    console.log(data.details.output)
                     if (data.code === "success") {
-                        let string_data = data.details.userMessage[2]
-                        string_data = string_data.split(" quote ")
+                        let id_new_mquote = data.details.output
                         let message = ": Successfully duplicate mQuote"
                         storeSuccess.dispatch(addSuccess({message: message}))
                         //location.reload()
                         //actualizar el store
-                        ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:string_data[1]})
+                        ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id_new_mquote})
                             .then(function(data){
                                 console.log(data)
                                 storeQuote.dispatch(addStarting(data.data[0]))
@@ -272,8 +272,13 @@ $(document).ready(function(){
                     Utils.unblockUI()
                     //actualizar el store
                 })
-                .catch(function(error) {
-                    console.log("Error message", error)
+                .catch(function(error1) {
+                    codeError = 'Error duplicating mQuote';
+                    field = '';
+                    show = false;
+                    module = 'Cargo Items'
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+                    console.log(error1)
                     Utils.unblockUI()
                 })
 
