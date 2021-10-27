@@ -19,6 +19,14 @@ function reducerQuote (state = initialStateQuote, actions)  {
             });
         }
 
+        case "ADD_STARTING": {
+            let quote = actions.payload
+            return {
+                ...state,
+                quotes: [quote, ...state.quotes]
+            }
+        }
+
 
         case REST: {
             return {
@@ -166,5 +174,9 @@ function findByName(payload) {
 
 function findById(payload) {
     return { type: FIND_BY_ID, payload };
+}
+
+function addStarting(payload) {
+    return { type: "ADD_STARTING", payload }
 }
 

@@ -7,7 +7,7 @@ $(document).ready(function(){
 ///////////////////////////////////////////////////////////
 storeQuote.subscribe(() => {
     let u = storeQuote.getState()
-    //console.log("State quote now", u)
+    console.log("State quote now", u)
     quoteXML = u.singleQuote
     $(".arrows-quote").html(``)
     let arrow_content = '';
@@ -32,8 +32,8 @@ storeQuote.subscribe(() => {
 
         append += `<tr>
             <td>
-                <a><span class="material-icons oculto edit" data-id="${quote[0]['id']}">create</span></a>
-                <a><span class="material-icons oculto delete" data-id=${quote[0]['id']}>clear</span></a>
+                <a><span class="material-icons oculto edit" data-id="${quote[0]['id']}">visibility</span></a>
+                <a><span class="material-icons oculto delete" data-id=${quote[0]['id']}>delete_forever</span></a>
             </td>
             <td>${quote[0]['magaya__Number']}</td>
             <td>${accountName}</td>
@@ -47,7 +47,7 @@ storeQuote.subscribe(() => {
     quoteToEdit = u.quoteToEdit;
     dataQuotes = u.quotes
     data = []
-
+ //dataQuotes = _.sortBy({dataQuotes}, {v['Modified_Time']})
     if (_.size(dataQuotes) == 0) {
         dataQuotes = {id: 1, Name:"Quote Test"}
     } else {
@@ -65,13 +65,15 @@ storeQuote.subscribe(() => {
 
         })
 
+        let gfg = _.sortBy(data, ['Name', 'Modified_Time']);
+
         $("#table-quotes").jsGrid({
             width: "100%",
             sorting: true,
             paging: true,
             pageSize: 10,
 
-            data: data,
+            data: gfg,
             fields: [
                 { type: "control",  title:"Options", width: 'auto', editButton: false, deleteButton: false, title: "Action",
                 itemTemplate: function(value, item) {
@@ -113,6 +115,7 @@ storeQuote.subscribe(() => {
         $("#toPdf").attr('data-id', u.quoteToEdit.id)
         $("#sendToMagaya").attr('data-id', u.quoteToEdit.id)
         $("#deleteQuote").attr('data-id', u.quoteToEdit.id)
+        $("#duplicateQuote").attr('data-id', u.quoteToEdit.id)
         let modifiedBy = u.quoteToEdit.Modified_By.name
         $("#Modified_By").html(modifiedBy)
 

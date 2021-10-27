@@ -587,7 +587,10 @@ $(document).ready(function(){
         }
 
         //let accountId = $(":input[name=Account] option:selected").val()
-        let accountId = dataAccount.quoteAccount.id
+        let accountId = 0
+        if (!_.isEmpty(dataAccount.quoteAccount))
+            accountId = dataAccount.quoteAccount.id
+
         let contact = $(":input[name=magaya__Representative] option:selected").val()
         //receipt fields
         if (accountId <= 0 || accountId === undefined || accountId === "undefined")
@@ -677,22 +680,23 @@ $(document).ready(function(){
 
                             } else {
                                 //get the record from zoho
-                                let data_return = {}
+                                //let data_return = {}
                                 ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id})
                                     .then(function(data){
-                                        record = data.data;
+                                        record = data.data[0];
                                         let func_name = "magaya__setQuoteTotalAmount";
                                         let req_data ={
                                             "quote_id" : id
                                         };
-                                        data_return = {
+                                        /*data_return = {
                                             "idQuote": id,
                                             "name": record.Name
-                                        }
+                                        }*/
                                         ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
                                             console.log("Update quote amount", data)
                                         })
-                                        storeQuote.dispatch(addQuote(record))
+                                        //storeQuote.dispatch(addQuote(record))
+                                        storeQuote.dispatch(addStarting(record))
 
                                     })
                                 $("#mquoteModal").modal("hide")
@@ -802,12 +806,13 @@ $(document).ready(function(){
                             confirmButtonText: "Yes",
                             allowOutsideClick: false
 
-                        }).then((result) => {
+                        })/*.then((result) => {
 
                             if (result.isConfirmed) {
-                                location.reload()
+                                storeQuote.dispatch(addStarting(data.data[0]))
+                                //location.reload()
                             }
-                        })
+                        })*/
 
                     })
                     .catch(function(error) {

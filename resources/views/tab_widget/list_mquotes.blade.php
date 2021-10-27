@@ -89,7 +89,7 @@ a {
 						    <p style="color: white; font-weight: bold; font-size: 20px;padding-left: 20px;margin:0px">List mQuote</p>
 						</div>
 							<div class="col-md-7" style="padding: 5px 0px;">
-								<form class="form-inline my-2 my-lg-0">
+								<form action="https://zm" class="form-inline my-2 my-lg-0">
 									<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="margin-left:-100px;">
                                     <span class="input-group-btn"><span class="btn btn-primary" id="search-by-name" style="padding-top: 10px; padding-bottom: 3px;height: 38px;"><span class="material-icons">search</span></span></span>
 								</form>
@@ -171,6 +171,8 @@ a {
                 <span id="toPdf" class="material-icons btn btn-primary float-right toPdf" style="background: none;border: none;">picture_as_pdf</span>
                 <span id="sendToMagaya" class="material-icons btn btn-primary float-right send" style="background: none;border: none;">send</span>
                 <span id="deleteQuote" class="material-icons btn btn-primary float-right delete" style="background: none;border: none;">delete_forever</span>
+                <span id="duplicateQuote" class="material-icons btn btn-primary float-right duplicate" style="background: none;border: none;">content_copy</span>
+
             </legend>
 
             <div class="container">

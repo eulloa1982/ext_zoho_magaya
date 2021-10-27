@@ -38,7 +38,9 @@ function reducerItem (state = initialStateIntems, actions)  {
             const index = length + 1
 
             $.map(state.itemEmpty, function(k, v) {
-                state.itemEmpty[v] = 0
+                if (v !== "Name")
+                    state.itemEmpty[v] = 0
+                else state.itemEmpty["Name"] = ""
             })
             let newArray = state.itemEmpty;
             Object.assign(newArray, {"id": index})
@@ -181,11 +183,12 @@ function reducerItem (state = initialStateIntems, actions)  {
             let newArray ={...state.singleItem}
             newArray[1][field] = value
 
+            let pieces = parseInt(newArray[1]["magaya__Pieces"])
             let height = roundDec(newArray[1]["magaya__Height"]);
             let length = roundDec(newArray[1]["magaya__Length"]);
             let width = roundDec(newArray[1]["magaya__Width"]);
             let weigth = roundDec(newArray[1]["magaya__Weigth"]);
-            let name = sanitize(newArray[1]["Name"])
+            newArray[1]['Name'] = (newArray[1]['Name']).length > 0 ?  sanitize(newArray[1]['Name']) : 'No description'
             let measure_system = sanitize(newArray[1]["magaya__Measure_System"])
             //calculate volume
             let volume = height * length * width
@@ -193,9 +196,9 @@ function reducerItem (state = initialStateIntems, actions)  {
             newArray[1]["magaya__Length"] = length.toString().replace(/[,]/g, '').toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             newArray[1]["magaya__Width"] = width.toString().replace(/[,]/g, '').toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             newArray[1]["magaya__Weigth"] = weigth.toString().replace(/[,]/g, '').toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-
+            newArray[1]["magaya__Pieces"] = pieces
             newArray[1]["magaya__Volume"] = roundDec(volume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]["Name"] = name
+
             newArray[1]["magaya__Measure_System"] = measure_system !== null ? measure_system : "International"
 
             return {

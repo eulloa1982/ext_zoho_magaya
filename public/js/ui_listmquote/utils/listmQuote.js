@@ -135,7 +135,7 @@ $(document).ready(function(){
             e.preventDefault();
             Swal.fire({
                     title: "Confirm",
-                    text: "You are about to delete record from CRM, you sure?",
+                    text: "You are about to delete record from CRM, are you sure?",
                     icon: "question",
                     showCancelButton: true,
                     confirmButtonText: "Yes",
@@ -192,7 +192,7 @@ $(document).ready(function(){
 
             Swal.fire({
                 title: "Confirm",
-                text: "You are about to delete record from CRM, you sure?",
+                text: "You are about to delete record from CRM, are you sure?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes",
@@ -236,6 +236,56 @@ $(document).ready(function(){
             buildStringXML(idQuote);
         })
 
+        $(".duplicate").click(function(e) {
+            e.preventDefault()
+            e.stopImmediatePropagation()
+
+            let quote = storeQuote.getState().quoteToEdit
+            let idQuote = quote.id
+
+            Utils.blockUI()
+            var func_name = "magaya__duplicatemQuote";
+                            var req_data ={
+                                "quote_id" : idQuote
+                            };
+            ZOHO.CRM.FUNCTIONS.execute(func_name, req_data)
+                .then(function(data){
+                    console.log(data.details.output)
+                    if (data.code === "success") {
+                        let id_new_mquote = data.details.output
+                        let message = ": Successfully duplicate mQuote"
+                        storeSuccess.dispatch(addSuccess({message: message}))
+                        //location.reload()
+                        //actualizar el store
+                        ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id_new_mquote})
+                            .then(function(data){
+                                console.log(data)
+                                storeQuote.dispatch(addStarting(data.data[0]))
+                            })
+                    } else {
+                        codeError = 'Error duplicating mQuote';
+                        field = '';
+                        show = false;
+                        module = 'Cargo Items'
+                        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+                    }
+                    Utils.unblockUI()
+                    //actualizar el store
+                })
+                .catch(function(error1) {
+                    codeError = 'Error duplicating mQuote';
+                    field = '';
+                    show = false;
+                    module = 'Cargo Items'
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+                    console.log(error1)
+                    Utils.unblockUI()
+                })
+
+
+
+        })
+
     })
 
     //////////////////////////////////////////////////////////////////////////
@@ -272,7 +322,7 @@ $(document).ready(function(){
 
             Swal.fire({
                 title: "Confirm",
-                text: "You are about to delete record from CRM, you sure?",
+                text: "You are about to delete record from CRM, are you sure?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes",
@@ -346,7 +396,7 @@ $(document).ready(function(){
 
             Swal.fire({
                 title: "Confirm",
-                text: "You are about to delete record from CRM, you sure?",
+                text: "You are about to delete record from CRM, are you sure?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes",
@@ -426,7 +476,7 @@ $(document).ready(function(){
             let idArr = $(this).attr("data-id");
             Swal.fire({
                 title: "Confirm",
-                text: "You are about to delete record from CRM, you sure?",
+                text: "You are about to delete record from CRM, are you sure?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes",
@@ -467,7 +517,7 @@ $(document).ready(function(){
 
             Swal.fire({
                 title: "Confirm",
-                text: "You are about to delete record from CRM, you sure?",
+                text: "You are about to delete record from CRM, are you sure?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes",
