@@ -587,7 +587,10 @@ $(document).ready(function(){
         }
 
         //let accountId = $(":input[name=Account] option:selected").val()
-        let accountId = dataAccount.quoteAccount.id
+        let accountId = 0
+        if (!_.isEmpty(dataAccount.quoteAccount))
+            accountId = dataAccount.quoteAccount.id
+
         let contact = $(":input[name=magaya__Representative] option:selected").val()
         //receipt fields
         if (accountId <= 0 || accountId === undefined || accountId === "undefined")

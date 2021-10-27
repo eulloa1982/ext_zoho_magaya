@@ -135,7 +135,7 @@ $(document).ready(function(){
             e.preventDefault();
             Swal.fire({
                     title: "Confirm",
-                    text: "You are about to delete record from CRM, you sure?",
+                    text: "You are about to delete record from CRM, are you sure?",
                     icon: "question",
                     showCancelButton: true,
                     confirmButtonText: "Yes",
@@ -192,7 +192,7 @@ $(document).ready(function(){
 
             Swal.fire({
                 title: "Confirm",
-                text: "You are about to delete record from CRM, you sure?",
+                text: "You are about to delete record from CRM, are you sure?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes",
@@ -317,7 +317,7 @@ $(document).ready(function(){
 
             Swal.fire({
                 title: "Confirm",
-                text: "You are about to delete record from CRM, you sure?",
+                text: "You are about to delete record from CRM, are you sure?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes",
@@ -391,7 +391,7 @@ $(document).ready(function(){
 
             Swal.fire({
                 title: "Confirm",
-                text: "You are about to delete record from CRM, you sure?",
+                text: "You are about to delete record from CRM, are you sure?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes",
@@ -471,7 +471,7 @@ $(document).ready(function(){
             let idArr = $(this).attr("data-id");
             Swal.fire({
                 title: "Confirm",
-                text: "You are about to delete record from CRM, you sure?",
+                text: "You are about to delete record from CRM, are you sure?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes",
@@ -512,7 +512,7 @@ $(document).ready(function(){
 
             Swal.fire({
                 title: "Confirm",
-                text: "You are about to delete record from CRM, you sure?",
+                text: "You are about to delete record from CRM, are you sure?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes",
