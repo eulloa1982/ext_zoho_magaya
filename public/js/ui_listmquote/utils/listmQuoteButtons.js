@@ -674,31 +674,29 @@ $(document).ready(function(){
                                 codeError = valor.code;
                                 field = valor.details.api_name;
                                 show = true;
-                                module = 'Service Items'
+                                module = 'SQuotes'
 
                                 storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
                             } else {
                                 //get the record from zoho
                                 //let data_return = {}
-                                ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id})
+                                let func_name = "magaya__setQuoteTotalAmount";
+                                let req_data ={
+                                    "quote_id" : id
+                                };
+                                ZOHO.CRM.FUNCTIONS.execute(func_name, req_data)
                                     .then(function(data){
-                                        record = data.data[0];
-                                        let func_name = "magaya__setQuoteTotalAmount";
-                                        let req_data ={
-                                            "quote_id" : id
-                                        };
-                                        /*data_return = {
-                                            "idQuote": id,
-                                            "name": record.Name
-                                        }*/
-                                        ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
-                                            console.log("Update quote amount", data)
-                                        })
-                                        //storeQuote.dispatch(addQuote(record))
-                                        storeQuote.dispatch(addStarting(record))
-
+                                        console.log("Update quote amount", data)
                                     })
+                                    .then(function() {
+                                        ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id})
+                                            .then(function(data){
+                                                record = data.data[0];
+                                                storeQuote.dispatch(addStarting(record))
+                                            })
+                                    })
+
                                 $("#mquoteModal").modal("hide")
 
                             }
@@ -870,4 +868,8 @@ function cleanDataString(arrayData) {
         if (!_.isEmpty(arrayData[v]))
             arrayData[v] = k.replace(/[^a-zA-Z0-9]\.\#/g, ' ')
     })
+}
+
+function gettingTiming() {
+    console.log("Timing events")
 }
