@@ -151,10 +151,6 @@ session_first{
                     </table>
 
                 </td>
-                <?php 
-                    create_date = new Date();
-                    expire_date = new Date();
-                ?>
                 <td width="40%">
                     <table id="info2" cellspacing="0px" cellpadding="2px" style="text-align:left;border: none; float: right;margin-left: 45px;">
                         <tr>
@@ -167,13 +163,13 @@ session_first{
                             <th class="headerFont" style="text-align: right;">
                                 Creation Date:</th>
                             <td class="dataFont">
-                                {{$create_date}}</td>
+                                {{$quoteAccount['Created_Time'].split('T')[0]}}</td>
                         </tr>
                         <tr>
                             <th class="headerFont" style="text-align: right;">
                                 Expiration Date:</th>
                             <td class="dataFont">
-                                {{$expire_date}}</td>
+                                {{$quoteAccount['Expired_Date'].split('T')[0]}}</td>
                         </tr>
                         <tr>
                             <th class="headerFont" style="text-align: right;">
