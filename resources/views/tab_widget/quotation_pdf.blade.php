@@ -65,7 +65,7 @@ session_first{
                     <table>
                         <tr>
                             <th>
-                                {{$organization['orgData']['logo']}}
+                                {{$organization['orgData']['company_logo']}}
                                 <img class="headerIMG" width="100px" height="100px" src="{{$organization['orgData']['logo']}}" style="text-align: left;float: left; padding: 5px;" />
                             </th>
                             <th>
