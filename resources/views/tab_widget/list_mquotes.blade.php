@@ -248,11 +248,28 @@ a {
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-4">
-                                <label>In Magaya</label>
-                            </div>
                             <div class="col-sm-6">
-                                <span class="preview" id="In_Magaya"></span>
+                                <!-- Checked -->
+                                <div class="pretty p-icon p-jelly p-round p-bigger p-locked">
+                                    <input type="checkbox" name="In_Magaya"/>
+                                    <div class="state p-info">
+                                        <i class="icon material-icons">done</i>
+                                        <label>Sent to Magaya</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- Checked -->
+                                <div class="pretty p-icon p-jelly p-round p-bigger p-locked">
+                                    <input type="checkbox" name="From_Magaya"/>
+                                    <div class="state p-info">
+                                        <i class="icon material-icons">done</i>
+                                        <label>Imported from Magaya</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
