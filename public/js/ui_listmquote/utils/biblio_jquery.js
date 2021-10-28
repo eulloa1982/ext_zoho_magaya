@@ -331,19 +331,39 @@ async function buildStringRouting() {
         if (!_.isEmpty(routing[0].magaya__MainCarrier)) {
             let mainCarrier = await buildStringMainCarrier(routing[0].magaya__MainCarrier.id)
             console.log(" Main Carrier returned", mainCarrier)
-            stringRouting += `<Carrier><Type>Carrier</Type><Name>${mainCarrier[0].Name}</Name></Carrier>`
+            stringRouting += `<Carrier GUID="${mainCarrier[0].magaya__Magaya_GUID}"><Type>Carrier</Type><Name>${mainCarrier[0].Name}</Name></Carrier>`
 
         }
 
         if (!(_.isEmpty(routing[0].magaya__Consignee))) {
 
             stringRouting += `<ConsigneeName>${routing[0].magaya__Consignee}</ConsigneeName>
-                            <Consignee><Type>Client</Type><Name>${routing[0].magaya__Consignee}</Name></Consignee>`
+                            <Consignee>
+                                <Type>Client</Type>
+                                <Name>${routing[0].magaya__Consignee}</Name>
+                                <Address>
+                                    <Street>${routing[0].magaya__ConsigneeStreet}</Street>
+                                    <City>${routing[0].magaya__ConsigneeCity}</City>
+                                    <State>${routing[0].magaya__ConsigneeState}</State>
+                                    <ZipCode>${routing[0].magaya__ConsigneeCode}</ZipCode>
+                                    <Country>${routing[0].magaya__ConsigneeCountry}</Country>
+                                </Address>
+                            </Consignee>`
         }
 
         if (!(_.isEmpty(routing[0].magaya__Shipper))) {
             stringRouting += `<ShipperName>${routing[0].magaya__Shipper}</ShipperName>
-                            <Shipper><Type>Client</Type><Name>${routing[0].magaya__Shipper}</Name></Shipper>`
+                            <Shipper>
+                                <Type>Client</Type>
+                                <Name>${routing[0].magaya__Shipper}</Name>
+                                <Address>
+                                    <Street>${routing[0].magaya__ShipperStreet}</Street>
+                                    <City>${routing[0].magaya__ShipperCity}</City>
+                                    <State>${routing[0].magaya__ShipperState}</State>
+                                    <ZipCode>${routing[0].magaya__ShipperCode}</ZipCode>
+                                    <Country>${routing[0].magaya__ShipperCountry}</Country>
+                                </Address>
+                            </Shipper>`
         }
 
         return stringRouting;
@@ -593,7 +613,7 @@ else k.magaya__TaxRate = k.magaya__TaxRate.toLocaleString('en-US', { minimumFrac
                     <Enforce3rdPartyBilling>false</Enforce3rdPartyBilling>
                 </ChargeDefinition>
                 <Status>Open</Status>
-                <Description>${k.magaya__Charge_Description}</Description>
+                <Description>${k.Name}</Description>
                 <PriceInCurrency Currency="USD">${k.magaya__Price}</PriceInCurrency>
                 <AmountInCurrency Currency="USD">${k.magaya__Amount_Total}</AmountInCurrency>
 
