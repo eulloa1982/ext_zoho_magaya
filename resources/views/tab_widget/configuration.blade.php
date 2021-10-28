@@ -170,7 +170,7 @@ $(document).ready(function(){
                         //set cookie magaya url
 
                     }
-                    setCookie("access_key", magayaResponseAccessKey, 1);
+                    //setCookie("access_key", magayaResponseAccessKey, 1);
                     Swal.fire({
                         title: 'Success',
                         html: message,
