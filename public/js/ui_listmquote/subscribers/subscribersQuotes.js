@@ -199,6 +199,7 @@ storeQuote.subscribe(() => {
                 } else {
                     $(`select[name=Owner]`).prop('selected', false)
                 }
+
             })
 
             //account, cliente de la cotizacion
@@ -231,7 +232,6 @@ storeQuote.subscribe(() => {
 
                 $("#RepresentativePreview").html(nameContact)
 
-                //$(`<option value="${idContact}" selected>${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
             }
 
             //deal en la cotizacion
