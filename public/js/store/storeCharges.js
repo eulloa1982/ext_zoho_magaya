@@ -140,8 +140,8 @@ function reducerCharge (state = initialStateCharge, actions)  {
                 actions.payload.Name = 'No description';
 
                 $.map(state.emptyCharge, function(k, v) {
-                state.emptyCharge[v] = 0
-            })
+                    state.emptyCharge[v] = 0
+                })
 
             return Object.assign({}, state, {
                 chargesOnNew: state.chargesOnNew.concat(actions.payload)
@@ -158,7 +158,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray[1][field] = value
 
             let price = roundDec(newArray[1]['magaya__Price'])
-            let quantity = roundDec (newArray[1]['magaya__CQuantity'])
+            let quantity = roundDec(newArray[1]['magaya__CQuantity'])
             let amount = roundDec(newArray[1]['magaya__Amount'])
             let amount_tax = roundDec(newArray[1]['magaya__Tax_Amount'])
             let amount_total = roundDec(newArray[1]['magaya__Amount_Total'])
@@ -185,6 +185,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray[1]['magaya__Amount'] = amount
             newArray[1]['magaya__Tax_Amount'] = amount_tax
             newArray[1]['magaya__Amount_Total'] = amount_total
+            newArray[1]['magaya__CQuantity'] = quantity
 
             //if (tax_rate <= 0)
             //    newArray[1]['magaya__Tax'] = ''
