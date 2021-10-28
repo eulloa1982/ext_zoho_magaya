@@ -62,7 +62,7 @@ class APIController extends Controller
 
         print_r($XML);
         //return $XML;
-        //$result = $this->magayaApi->SetEntity($access_key, 524288, $XML);
+        $result = $this->magayaApi->SetEntity($access_key, 524288, $XML);
         $customer_data = '';
 
         //print_r($XML);
