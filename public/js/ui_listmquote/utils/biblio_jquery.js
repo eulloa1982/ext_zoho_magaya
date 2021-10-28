@@ -112,6 +112,7 @@ function limpiar_form() {
     //limpiar Account, remove selected
     //$("select[name=Account]").removeAttr("selected")
     $("select[name=Deal]").val("")
+    $("select[name=Account]").val("")
     $("#magaya__Description").val("")
         //$("select[name=magaya__PortofUnloading]").val("")
         //$("select[name=magaya__PortofLoading]").val("")
