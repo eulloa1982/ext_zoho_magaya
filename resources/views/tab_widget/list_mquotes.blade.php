@@ -494,7 +494,7 @@ a {
 									</div>
 
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
 											<label class="col-md-12" style="font-weight: bold;">Stage</label>
                                             <select name="magaya__mQuoteStatus" class="form-control no-border">
                                                 <option value="Draft">Draft</option>
@@ -507,19 +507,31 @@ a {
                                             </select>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <label class="col-md-12" style="font-weight: bold;">Magaya Status</label>
                                             <input name="magaya__Magaya_Status" class="form-control" readonly/>
                                         </div>
 
                                         <div class="col-md-3">
-                                            <label class="col-md-12" style="font-weight: bold;">Sent to Magaya</label>
-                                            <input type="checkbox" name="Magaya_updated"/>
+                                            <!-- Checked -->
+                                            <div class="pretty p-icon p-jelly p-round p-bigger p-locked">
+                                                <input type="checkbox" name="Magaya_updated"/>
+                                                <div class="state p-info">
+                                                    <i class="icon material-icons">done</i>
+                                                    <label>Sent to Magaya</label>
+                                                </div>
+                                            </div>
+
                                         </div>
 
                                         <div class="col-md-3">
-                                            <label class="col-md-12" style="font-weight: bold;">Imported from Magaya</label>
-                                            <input type="checkbox" name="magaya__QuoteInMagaya"/>
+                                            <div class="pretty p-icon p-jelly p-round p-bigger p-locked">
+                                                <input type="checkbox" name="magaya__QuoteInMagaya"/>
+                                                <div class="state p-info">
+                                                    <i class="icon material-icons">done</i>
+                                                    <label>Imported from Magaya</label>
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </div>

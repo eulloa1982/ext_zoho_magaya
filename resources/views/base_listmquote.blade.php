@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="{{ url('css/table_listmquote.css', $extra = [], $secure = 1) }}"/>
     <!--link rel="stylesheet" href="{{ url('css/form_listmquote.css') }}"/-->
     <link rel="stylesheet" href="{{ url('css/font_css_material-design-iconic-font.min.css', $extra = [], $secure = 1) }}"/>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css" />
 </head>
 <body style="margin-top:40px">
 
