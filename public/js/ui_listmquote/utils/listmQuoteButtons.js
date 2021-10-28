@@ -81,10 +81,37 @@ $(document).ready(function(){
         e.stopImmediatePropagation()
 
         let div_close = $(this).attr("data-close");
-        $(`#${div_close}`).animate({width:'toggle'},150);
+        $(`#${div_close}`).fadeOut("slow");
         storeCharge.dispatch(emptyCharge())
     })
 
+    //mass delete
+    $("#deleteMquote").click(function(e) {
+        e.preventDefault();
+        Swal.fire({
+                title: "Confirm",
+                text: "You are about to delete record from CRM, are you sure?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "Cancel",
+                cancelButtonColor: '#d33'
+
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    $("input[class=quoteCheckBox]:checked").each(function() {
+                        let idQuote = $(this).attr('data-id')
+
+                        ZOHO.CRM.API.deleteRecord({Entity:"magaya__SQuotes",RecordID: idQuote})
+                            .then(function(data){
+                                storeQuote.dispatch(deleteQuote({id: idQuote}))
+                            })
+
+                    })
+                }
+            })
+    })
 
     ////////////////////ITEMS//////////////////////////////
     $("#updateItemNew").click(function(e) {
@@ -111,7 +138,8 @@ $(document).ready(function(){
         });
 
 
-        Object.assign(item, { id: idItem, magaya__SQuote_Name: idmQuoteToEdit});
+        let quoteToEdit = storeQuote.getState().quoteToEdit
+        Object.assign(item, { id: idItem, magaya__SQuote_Name: quoteToEdit.id});
         let config = { APIData: item }
         Object.assign(config, { Entity: "magaya__ItemQuotes" });
 
@@ -130,7 +158,6 @@ $(document).ready(function(){
                     } else {
                         ZOHO.CRM.API.getRecord({Entity:"magaya__ItemQuotes",RecordID:idItem})
                         .then(function(data){
-                            console.log("response get item", data)
                             record = data.data[0];
                             storeItem.dispatch(updateItem({...record}))
                         })
@@ -158,16 +185,18 @@ $(document).ready(function(){
     $("#sendItem").click(function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
+        Utils.blockUI()
 
         let item = storeItem.getState().singleItem[1]
-        Object.assign(item, {'magaya__SQuote_Name': idmQuoteToEdit})
+        let quoteToEdit = storeQuote.getState().quoteToEdit
+        Object.assign(item, {'magaya__SQuote_Name': quoteToEdit.id})
         Object.assign(item, {"magaya__Package_Type": $("select[name=magaya__Package_Type]").val()})
         console.log("Send Item", item)
 
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: item, Trigger: [] })
         .then(function(data) {
             res = data.data;
-            console.log("Item insert result", res)
+            Utils.unblockUI()
             $.map(res, function(k, v) {
 
                 if (k.code !== "SUCCESS") {
@@ -191,7 +220,7 @@ $(document).ready(function(){
             })
         })
         .catch(function(error){
-            console.log(error)
+            Utils.unblockUI()
             dataError = error.data[0];
             codeError = `${dataError.code} on field ${dataError.details.api_name}. Error Type: ${dataError.message}`;
             field = dataError.details.api_name;
@@ -224,14 +253,17 @@ $(document).ready(function(){
         Utils.blockUI();
         store.dispatch(addActionEdited())
 
-        let charge = storeCharge.getState().emptyCharge[1]
-        Object.assign(charge, {"magaya__SQuote_Name": idmQuoteToEdit})
+        let charge = storeCharge.getState().singleCharge[1]
+        let quoteToEdit = storeQuote.getState().quoteToEdit
+        Object.assign(charge, {"magaya__SQuote_Name": quoteToEdit.id})
         Object.assign(charge, {'magaya__ApplyToAccounts': accountId})
+        //Object
 
         //quitarles las comas a los numeros grandes
-        charge.magaya__Amount = charge.magaya__Amount.replace(/[,]/g, '')
-        charge.magaya__Amount_Total = charge.magaya__Amount_Total.replace(/[,]/g, '')
-        charge.magaya__Tax_Amount = charge.magaya__Tax_Amount.replace(/[,]/g, '')
+        charge.magaya__Price = (charge.magaya__Price.toString()).replace(/[,]/g, '')
+        charge.magaya__Amount = (charge.magaya__Amount.toString()).replace(/[,]/g, '')
+        charge.magaya__Amount_Total = charge.magaya__Amount_Total.toString().replace(/[,]/g, '')
+        charge.magaya__Tax_Amount = charge.magaya__Tax_Amount.toString().replace(/[,]/g, '')
 
         console.log("Charge send", charge)
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: charge, Trigger: [] })
@@ -259,7 +291,7 @@ $(document).ready(function(){
 
                             var func_name = "magaya__setQuoteTotalAmount";
                             var req_data ={
-                                "quote_id" : idmQuoteToEdit
+                                "quote_id" : quoteToEdit.id
                             };
                             ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
                                 console.log("Update quote amount", data)
@@ -297,11 +329,17 @@ $(document).ready(function(){
         e.stopImmediatePropagation();
         store.dispatch(addActionEdited())
 
+        let accountId = ''
+        let magayaTax = ''
         let charge = storeCharge.getState().emptyCharge[1]
-        let accountId = $("select[name=Account]").val()
-
-        Object.assign(charge, {'magaya__ApplyToAccounts': accountId})
-        Object.assign(charge, {'magaya__Tax': $("select[name=magaya__Tax]").val()})
+        accountId = $("select[name=Account]").val()
+        magayaTax = $("select[name=magaya__Tax]").val()
+        if (accountId > 0) {
+            Object.assign(charge, {'magaya__ApplyToAccounts': accountId})
+        }
+        if (magayaTax > 0) {
+            Object.assign(charge, {'magaya__Tax': magayaTax})
+        }
 
         console.log("new charge", charge)
         storeCharge.dispatch(addChargeOnNew({...charge}))
@@ -576,7 +614,10 @@ $(document).ready(function(){
         }
 
         //let accountId = $(":input[name=Account] option:selected").val()
-        let accountId = dataAccount.quoteAccount.id
+        let accountId = 0
+        if (!_.isEmpty(dataAccount.quoteAccount))
+            accountId = dataAccount.quoteAccount.id
+
         let contact = $(":input[name=magaya__Representative] option:selected").val()
         //receipt fields
         if (accountId <= 0 || accountId === undefined || accountId === "undefined")
@@ -660,30 +701,29 @@ $(document).ready(function(){
                                 codeError = valor.code;
                                 field = valor.details.api_name;
                                 show = true;
-                                module = 'Service Items'
+                                module = 'SQuotes'
 
                                 storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
                             } else {
                                 //get the record from zoho
-                                let data_return = {}
-                                ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id})
+                                //let data_return = {}
+                                let func_name = "magaya__setQuoteTotalAmount";
+                                let req_data ={
+                                    "quote_id" : id
+                                };
+                                ZOHO.CRM.FUNCTIONS.execute(func_name, req_data)
                                     .then(function(data){
-                                        record = data.data;
-                                        let func_name = "magaya__setQuoteTotalAmount";
-                                        let req_data ={
-                                            "quote_id" : id
-                                        };
-                                        data_return = {
-                                            "idQuote": id,
-                                            "name": record.Name
-                                        }
-                                        ZOHO.CRM.FUNCTIONS.execute(func_name, req_data).then(function(data){
-                                            console.log("Update quote amount", data)
-                                        })
-                                        storeQuote.dispatch(addQuote(record))
-
+                                        console.log("Update quote amount", data)
                                     })
+                                    .then(function() {
+                                        ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id})
+                                            .then(function(data){
+                                                record = data.data[0];
+                                                storeQuote.dispatch(addStarting(record))
+                                            })
+                                    })
+
                                 $("#mquoteModal").modal("hide")
 
                             }
@@ -791,12 +831,13 @@ $(document).ready(function(){
                             confirmButtonText: "Yes",
                             allowOutsideClick: false
 
-                        }).then((result) => {
+                        })/*.then((result) => {
 
                             if (result.isConfirmed) {
-                                location.reload()
+                                storeQuote.dispatch(addStarting(data.data[0]))
+                                //location.reload()
                             }
-                        })
+                        })*/
 
                     })
                     .catch(function(error) {
@@ -834,6 +875,7 @@ $(document).ready(function(){
 
                 if (result.isConfirmed) {
                     //location.reload()
+                    store.dispatch(cleanActionEdited())
                     $("#mquoteModal").modal("hide")
                 }
             })
@@ -853,4 +895,8 @@ function cleanDataString(arrayData) {
         if (!_.isEmpty(arrayData[v]))
             arrayData[v] = k.replace(/[^a-zA-Z0-9]\.\#/g, ' ')
     })
+}
+
+function gettingTiming() {
+    console.log("Timing events")
 }

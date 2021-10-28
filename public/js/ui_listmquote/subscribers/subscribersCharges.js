@@ -39,10 +39,20 @@ storeCharge.subscribe(() => {
                 $("#updateChargeNew").hide()
             } else {
                 $("#title_legend").html("Editing Charge")
-                let arrows = `
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
-        `
+                let arrow_prev = `<span class="material-icons cursor-hand oculto2">arrow_back_ios_new</span>`
+                let arrow_next = `<span class="material-icons cursor-hand oculto2">arrow_forward_ios</span>`
+                let size = _.size(storeCharge.getState().chargesOnNew)
+                let index_prev = Number(k) - 1
+                let index_next = Number(k) + 1
+
+                if (index_prev >= 0) {
+                    arrow_prev = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_prev}">arrow_back_ios_new</span>`
+                }
+                if (index_next < size) {
+                    arrow_next = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_next}">arrow_forward_ios</span>`
+                }
+
+                let arrows = `${arrow_prev} ${arrow_next}`
 
                 $("#arrows-charge").html(arrows)
                 $("#sendCharges").hide()
@@ -61,10 +71,21 @@ storeCharge.subscribe(() => {
                 $("#updateChargeNew").hide()
             } else {
                 $("#title_legend").html("Editing Charge")
-                let arrows = `
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)-1}">arrow_back_ios_new</span>
-            <span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${parseInt(k)+1}">arrow_forward_ios</span>
-        `
+                let arrow_prev = `<span class="material-icons cursor-hand oculto2">arrow_back_ios_new</span>`
+                let arrow_next = `<span class="material-icons cursor-hand oculto2">arrow_forward_ios</span>`
+                let size = _.size(storeCharge.getState().charges)
+                let index_prev = Number(k) - 1
+                let index_next = Number(k) + 1
+
+                if (index_prev >= 0) {
+                    arrow_prev = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_prev}">arrow_back_ios_new</span>`
+                }
+                if (index_next < size) {
+                    arrow_next = `<span class="material-icons cursor-hand btn-slide ${no_border}" data-module="${data_module}" data-id="${index_next}">arrow_forward_ios</span>`
+                }
+
+                let arrows = `${arrow_prev} ${arrow_next}`
+
                 $("#arrows-charge").html(arrows)
                 $("#sendCharges").hide()
                 $("#newCharges").hide()
@@ -81,10 +102,12 @@ storeCharge.subscribe(() => {
                 k = ''
             if (_.isObject(k) && !v.includes("$")) {
                 let id = k.id
-                $(`select[name=${v}]`).removeClass('new-charge no-border-charge-new no-border-charge').addClass(no_border)
                 $(`select[name=${v}]`).attr('data-id', id)
                 if (id > 0)
                     $(`select[name=${v}]`).val(k.id)
+
+                $(`select[name=${v}]`).removeClass('no-border-charge-new no-border-charge').addClass('new-charge')
+
             }
 
             if (!_.isObject(v) && !v.includes("$")) {
@@ -143,6 +166,9 @@ storeCharge.subscribe(() => {
         //let totalIncome = 0
         $("#table-charges tbody").empty();
         $("#table-charges tfoot").empty();
+        $("#table-charges-preview tbody").empty();
+        $("#table-charges-preview tfoot").empty();
+
 
         let amount_ = 0
         let tax_amount_total = 0
@@ -167,7 +193,7 @@ storeCharge.subscribe(() => {
             $("#table-charges tbody").append(`<tr>
                     <td class="Delete">
                         <span class="material-icons oculto btn-slide" data-module="table-charges" data-id="${i}">create</span>
-                        <span class="material-icons oculto del-item-charge" data-id=${k.id}>clear</span>
+                        <span class="material-icons oculto del-item-charge" data-id=${k.id}>delete_forever</span>
                     </td>
                     <td class="magaya__Status">${k.magaya__Status}</td>
                     <td class="Name" id="first">${k.Name}</td>
@@ -182,14 +208,31 @@ storeCharge.subscribe(() => {
                     <td style="display: none;" class="magaya__Paid_As">${k.magaya__Paid_As}</td>
                     <td style="display: none;" class="magaya__ChargeCurrency">${k.magaya__ChargeCurrency}</td>
                     <td style="display: none;" class="magaya__ApplyToAccounts">${accountId}</td>
-                    <td class="magaya__TaxCode" style="display: none;">${k.magaya__TaxCode}</td>
 
                 </tr>`);
+
+
+                $("#table-charges-preview tbody").append(`<tr>
+
+                    <td class="Name" id="first">${k.Name}</td>
+                    <td align="right" class="magaya__Price">$ ${roundDec(k.magaya__Price).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                    <td align="right" class="magaya__CQuantity">${k.magaya__CQuantity}</td>
+                    <td align="right" class="magaya__Tax_Amount">${roundDec(k.magaya__Tax_Amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                    <td align="right" class="magaya__Amount_Total">${roundDec(k.magaya__Amount_Total).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                </tr>`);
+
             })
             //totalIncome = roundDec(totalIncome)
             //incorporando data de totales
             $("#table-charges tfoot").append(`<tr><td align="right" colspan="5"><strong>Totals USD</strong></td>
                                         <td align="right"><strong>${amount_.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
+                                        <td align="right"><strong>${tax_amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
+                                        <td align="right"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
+                                        </tr>`);
+
+            $("#table-charges-preview tfoot").append(`<tr><td align="right"><strong>Totals USD</strong></td>
+                                        <td></td>
+                                        <td></td>
                                         <td align="right"><strong>${tax_amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         <td align="right"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         </tr>`);
@@ -235,7 +278,7 @@ storeCharge.subscribe(() => {
                 $("#table-charges-new tbody").append(`<tr>
                 <td class="Delete">
                     <span class="material-icons oculto btn-slide" data-module="table-charges-new" data-id="${i}">create</span>
-                    <span class="material-icons oculto del-item-charge-new" data-id=${i}>clear</span>
+                    <span class="material-icons oculto del-item-charge-new" data-id=${i}>delete_forever</span>
                 </td>
                 <td class="magaya__Status">${k.magaya__Status}</td>
                 <td class="Name" id="first">${k.Name}</td>
@@ -249,8 +292,9 @@ storeCharge.subscribe(() => {
                 <td class="magaya__Unit" style="display: none;">${k.magaya__Unit}</td>
                 <td class="magaya__Paid_As" style="display: none;">${k.magaya__Paid_As}</td>
                 <td class="magaya__ChargeCurrency" style="display: none;">${k.magaya__ChargeCurrency}</td>
-                <td class="magaya__TaxCode" style="display: none;">${k.magaya__TaxCode}</td>
                 </tr>`);
+                //<td class="magaya__TaxCode" style="display: none;">${k.magaya__TaxCode}</td>
+
             })
 
 

@@ -112,6 +112,7 @@ function limpiar_form() {
     //limpiar Account, remove selected
     //$("select[name=Account]").removeAttr("selected")
     $("select[name=Deal]").val("")
+    $("select[name=Account]").val("")
     $("#magaya__Description").val("")
         //$("select[name=magaya__PortofUnloading]").val("")
         //$("select[name=magaya__PortofLoading]").val("")
@@ -315,7 +316,7 @@ async function buildStringQuote2(idSQuote) {
 async function buildStringRouting() {
     //routing
     if (!_.isEmpty(quoteXML.magaya__Routing)) {
-        console.log("Building routing")
+       //console.log("Building routing")
         let idRouting = quoteXML.magaya__Routing.id
         let routing = await getRecordCRM("magaya__Routing", idRouting)
         let stringRouting = ``
@@ -330,20 +331,40 @@ async function buildStringRouting() {
 
         if (!_.isEmpty(routing[0].magaya__MainCarrier)) {
             let mainCarrier = await buildStringMainCarrier(routing[0].magaya__MainCarrier.id)
-            console.log(" Main Carrier returned", mainCarrier)
-            stringRouting += `<Carrier><Type>Carrier</Type><Name>${mainCarrier[0].Name}</Name></Carrier>`
+            //console.log(" Main Carrier returned", mainCarrier)
+            stringRouting += `<Carrier GUID="${mainCarrier[0].magaya__Magaya_GUID}"><Type>Carrier</Type><Name>${mainCarrier[0].Name}</Name></Carrier>`
 
         }
 
         if (!(_.isEmpty(routing[0].magaya__Consignee))) {
 
             stringRouting += `<ConsigneeName>${routing[0].magaya__Consignee}</ConsigneeName>
-                            <Consignee><Type>Client</Type><Name>${routing[0].magaya__Consignee}</Name></Consignee>`
+                            <Consignee>
+                                <Type>Client</Type>
+                                <Name>${routing[0].magaya__Consignee}</Name>
+                                <Address>
+                                    <Street>${routing[0].magaya__ConsigneeStreet}</Street>
+                                    <City>${routing[0].magaya__ConsigneeCity}</City>
+                                    <State>${routing[0].magaya__ConsigneeState}</State>
+                                    <ZipCode>${routing[0].magaya__ConsigneeCode}</ZipCode>
+                                    <Country>${routing[0].magaya__ConsigneeCountry}</Country>
+                                </Address>
+                            </Consignee>`
         }
 
         if (!(_.isEmpty(routing[0].magaya__Shipper))) {
             stringRouting += `<ShipperName>${routing[0].magaya__Shipper}</ShipperName>
-                            <Shipper><Type>Client</Type><Name>${routing[0].magaya__Shipper}</Name></Shipper>`
+                            <Shipper>
+                                <Type>Client</Type>
+                                <Name>${routing[0].magaya__Shipper}</Name>
+                                <Address>
+                                    <Street>${routing[0].magaya__ShipperStreet}</Street>
+                                    <City>${routing[0].magaya__ShipperCity}</City>
+                                    <State>${routing[0].magaya__ShipperState}</State>
+                                    <ZipCode>${routing[0].magaya__ShipperCode}</ZipCode>
+                                    <Country>${routing[0].magaya__ShipperCountry}</Country>
+                                </Address>
+                            </Shipper>`
         }
 
         return stringRouting;
@@ -355,10 +376,10 @@ function buildStringTransport(dataRouting) {
 
     return new Promise(function(resolve, reject) {
         if (!_.isEmpty(dataRouting[0].magaya__ModeofTransportation)) {
-            console.log("Building transport")
+            //console.log("Building transport")
             getTranspMethod(dataRouting[0].magaya__ModeofTransportation.id)
                 .then(r => {
-                    console.log("transport m", r)
+                    //console.log("transport m", r)
                     resolve(r)
                 })
                 .catch(function() {
@@ -376,7 +397,7 @@ function buildStringMainCarrier(idCarrier) {
     return new Promise(function(resolve, reject) {
         getRecordCRM("magaya__Providers", idCarrier)
             .then(r => {
-                console.log("carrier", r)
+                //console.log("carrier", r)
                 resolve(r)
             })
             .catch(function() {
@@ -419,7 +440,7 @@ async function buildStringXML(idSQuote) {
             .then(resp => {
                 //if its here, charges exists, so get the account data
                 account_id = resp[0].magaya__ApplyToAccounts.id
-                console.log(account_id)
+                //console.log(account_id)
                 charges = resp;
             })
             .catch(() => {
@@ -443,7 +464,7 @@ async function buildStringXML(idSQuote) {
         let items = {}
         stringItem = await $(this).buildStringItems(idSQuote)
             .then(resp => {
-                console.log("Items", resp)
+                //console.log("Items", resp)
                 items = resp
             })
             .catch(() => {
@@ -534,12 +555,63 @@ function buildSimpleCharge(k, data_account) {
             <Name>${data_account.Account_Name}</Name>
             <IsPrepaid>true</IsPrepaid>
         </Entity>`;
+        chargesString += `
+        <Quantity>${k.magaya__CQuantity}</Quantity>
+        <Price Currency="USD">${k.magaya__Price}</Price>
+        <HomeCurrency Code="USD">
+            <Name>United States Dollar</Name>
+            <ExchangeRate>1.00</ExchangeRate>
+            <DecimalPlaces>2</DecimalPlaces>
+            <IsHomeCurrency>true</IsHomeCurrency>
+        </HomeCurrency>
+        <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
+        <IsPrepaid>true</IsPrepaid>
+        <IsThirdPartyCharge>false</IsThirdPartyCharge>
+        <ChargeDefinition>
+            <Type>Other</Type>
+            <Description>${k.Name}</Description>
+            <Code>${k.magaya__ChargeCode}</Code>
+            <AccountDefinition>
+                <Type>Income</Type>
+                <Name>Servicios</Name>
+                <Currency Code="USD">
+                    <Name>United States Dollar</Name>
+                    <ExchangeRate>1.00</ExchangeRate>
+                    <DecimalPlaces>2</DecimalPlaces>
+                    <IsHomeCurrency>true</IsHomeCurrency>
+                </Currency>
+            </AccountDefinition>
+            <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
+            <Currency Code="USD">
+                <Name>United States Dollar</Name>
+                <ExchangeRate>1.00</ExchangeRate>
+                <DecimalPlaces>2</DecimalPlaces>
+                <IsHomeCurrency>true</IsHomeCurrency>
+            </Currency>
+            <Enforce3rdPartyBilling>false</Enforce3rdPartyBilling>
+        </ChargeDefinition>
+        <Status>${k.magaya__Status}</Status>
+        <Description>${k.Name}</Description>
+        <PriceInCurrency Currency="USD">${k.magaya__Price}</PriceInCurrency>
+        <AmountInCurrency Currency="USD">${k.magaya__Amount_Total}</AmountInCurrency>
+
+        <ExchangeRate>1.00</ExchangeRate>
+        <Currency Code="USD">
+            <Name>United States Dollar</Name>
+            <ExchangeRate>1.00</ExchangeRate>
+            <DecimalPlaces>2</DecimalPlaces>
+            <IsHomeCurrency>true</IsHomeCurrency>
+        </Currency>
+        <ShowInDocuments>true</ShowInDocuments>
+        <IsCredit>false</IsCredit>
+        <IsFromSegment>false</IsFromSegment>
+    </Charge>`;
 
     /*if (!_.isEmpty(k.magaya__Tax)) {
+
         idTax = k.magaya__Tax.id
-        let dataTax = await getRecordCRM("magaya__Taxes", idTax)
+        let dataTax = getRecordCRM("magaya__Taxes", idTax)
                     .then((rec) => {
-                        console.log("Tax record", rec)
                         chargesString += `<TaxDefinition>
                                 <Code>${rec.magaya__TaxCode}</Code>
                                 <Name>Impuesto</Name>
@@ -552,62 +624,18 @@ function buildSimpleCharge(k, data_account) {
                                 </TaxAuthority>
 
                             </TaxDefinition>`
+
+                            console.log("Tax record", chargesString)
+                            return chargesString;
+
                     })
-    }*/
+                }*/
+        return chargesString
+
 /*if (k.magaya__TaxRate === null || k.magaya__TaxRate === "null")
     k.magaya__TaxRate = 0.00
 else k.magaya__TaxRate = k.magaya__TaxRate.toLocaleString('en-US', { minimumFractionDigits: 2 })*/
-    chargesString += `
-                <Quantity>${k.magaya__CQuantity}</Quantity>
-                <Price Currency="USD">${k.magaya__Price}</Price>
-                <HomeCurrency Code="USD">
-                    <Name>United States Dollar</Name>
-                    <ExchangeRate>1.00</ExchangeRate>
-                    <DecimalPlaces>2</DecimalPlaces>
-                    <IsHomeCurrency>true</IsHomeCurrency>
-                </HomeCurrency>
-                <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
-                <IsPrepaid>true</IsPrepaid>
-                <IsThirdPartyCharge>false</IsThirdPartyCharge>
-                <ChargeDefinition>
-                    <Type>Other</Type>
-                    <Description>${k.Name}</Description>
-                    <Code>${k.magaya__ChargeCode}</Code>
-                    <AccountDefinition>
-                        <Type>Income</Type>
-                        <Name>Servicios</Name>
-                        <Currency Code="USD">
-                            <Name>United States Dollar</Name>
-                            <ExchangeRate>1.00</ExchangeRate>
-                            <DecimalPlaces>2</DecimalPlaces>
-                            <IsHomeCurrency>true</IsHomeCurrency>
-                        </Currency>
-                    </AccountDefinition>
-                    <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
-                    <Currency Code="USD">
-                        <Name>United States Dollar</Name>
-                        <ExchangeRate>1.00</ExchangeRate>
-                        <DecimalPlaces>2</DecimalPlaces>
-                        <IsHomeCurrency>true</IsHomeCurrency>
-                    </Currency>
-                    <Enforce3rdPartyBilling>false</Enforce3rdPartyBilling>
-                </ChargeDefinition>
-                <Status>Open</Status>
-                <Description>${k.magaya__Charge_Description}</Description>
-                <PriceInCurrency Currency="USD">${k.magaya__Price}</PriceInCurrency>
-                <AmountInCurrency Currency="USD">${k.magaya__Amount_Total}</AmountInCurrency>
 
-                <ExchangeRate>1.00</ExchangeRate>
-                <Currency Code="USD">
-                    <Name>United States Dollar</Name>
-                    <ExchangeRate>1.00</ExchangeRate>
-                    <DecimalPlaces>2</DecimalPlaces>
-                    <IsHomeCurrency>true</IsHomeCurrency>
-                </Currency>
-                <ShowInDocuments>true</ShowInDocuments>
-                <IsCredit>false</IsCredit>
-                <IsFromSegment>false</IsFromSegment>
-            </Charge>`;
 
 
     /*if (idTax > 0) {
@@ -626,7 +654,7 @@ else k.magaya__TaxRate = k.magaya__TaxRate.toLocaleString('en-US', { minimumFrac
                                 </Currency>
                             </LiabilityAccount>
         */
-    return chargesString
+
 }
 
 /*
@@ -1393,7 +1421,7 @@ function buildPdfItems(items) {
 
 
 function move_quote(idQuote) {
-    console.log("moving quote", idQuote)
+    //console.log("moving quote", idQuote)
     //drop the state temporal items and charges
     storeItem.dispatch(emptyItems())
     storeCharge.dispatch(emptyCharges())

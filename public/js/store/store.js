@@ -33,17 +33,17 @@ const reducer = (state = initialState, actions) => {
                 actual_page
             }
 
-        case "ACTION_EDITED_COUNTER": {
+        case ACTION_EDITED_COUNTER: {
             return {
                 ...state,
                 actionsCounter: state.actionsCounter += 1
             }
         }
 
-        case "CLEAN_ACTIONS_EDITED": {
+        case CLEAN_ACTIONS_EDITED: {
             return {
                 ...state,
-                actionsCounter: initialState.actionsCounter
+                actionsCounter: 0
             }
         }
 
@@ -105,5 +105,9 @@ function addPage() {
 }
 
 function addActionEdited() {
-    return { type: "ACTION_EDITED_COUNTER"}
+    return { type: ACTION_EDITED_COUNTER }
+}
+
+function cleanActionEdited() {
+    return { type: CLEAN_ACTIONS_EDITED }
 }

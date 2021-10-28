@@ -26,11 +26,12 @@ $(document).ready(function(){
         let idItem = $(this).attr("data-id")
         value = sanitize(value);
 
+        //console.log(`${field} ${value}`)
         if (field === "magaya__CQuantity" || field === "magaya__Price") {
-            value = parseFloat(value);
+            value = parseFloat(value.replace(/[,]/g, ''));
         }
         //si los valores son iguales, no actualizar nada
-        if (oldValue.toString() !== value.toString()) {
+        if (oldValue !== null && oldValue.toString() !== value.toString()) {
             storeCharge.dispatch(updateChargeOnNew({field: field, value: value}))
         }
 
@@ -52,12 +53,16 @@ $(document).ready(function(){
         let value = $(this).val();
         let field = $(this).attr('name');
 
-        value = sanitize(value);
+        //if (field === "Name")
+        //    value = $("#magaya__Package_Description").val()
+
         //si los valores son iguales, no actualizar nada
-        console.log(`${field}  val  ${value}`)
-        if (sanitize(oldValue) !== sanitize(value)) {
-            storeItem.dispatch(updateItemOnNew({field: field, value: value}))
+        if (field !== 'magaya__Package_Type' && field !== 'Name' && field !== 'magaya__Measure_System') {
+            value = parseFloat(value.replace(/[,]/g, ''));
+
         }
+        console.log(`${field}  val  ${value}`)
+        storeItem.dispatch(updateItemOnNew({field: field, value: value}))
 
     })
 
@@ -73,11 +78,43 @@ $(document).ready(function(){
         })
     })
 
+    $(".toPdf").click(function(e) {
+        e.stopImmediatePropagation()
+
+        storeItem.dispatch(emptyItems())
+        storeCharge.dispatch(emptyCharges())
+        storeAccounts.dispatch(emptyAllAccounts())
+        storeQuote.dispatch(clearQuoteToEdit())
+
+        let idmQuote = $(this).attr('data-id')
+        let pdf = make_pdf(idmQuote);
+
+    })
+
     ///////////////////////////////////////////////////////////////////////////////////
     /////////table quotes, main table
     ///////////////////////////////////////////////////////////////////////////////////
     $('#table-quotes').bind("DOMSubtreeModified", function(e) {
         e.preventDefault()
+
+        $('.btn-slide').click(function(e) {
+            e.preventDefault()
+            e.stopImmediatePropagation()
+            let data_id = $(this).attr("data-id");
+            let module = $(this).attr("data-module")
+
+            storeQuote.dispatch(clearQuoteToEdit())
+            idmQuoteToEdit = $(this).attr('data-id')
+            limpiar_form()
+
+            //dispatch
+            //make_pdf(idmQuoteToEdit);
+            storeQuote.dispatch(findQuote({id: idmQuoteToEdit}))
+            $("#panel-preview").show("fast");
+            $(this).toggleClass("active"); return false;
+
+        });
+
 
         $(".toPdf").click(function(e) {
             e.stopImmediatePropagation()
@@ -92,34 +129,6 @@ $(document).ready(function(){
 
         })
 
-
-        //mass delete
-        $("#deleteMquote").click(function(e) {
-            e.preventDefault();
-            Swal.fire({
-                    title: "Confirm",
-                    text: "You are about to delete record from CRM, you sure?",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes",
-                    cancelButtonText: "Cancel",
-                    cancelButtonColor: '#d33'
-
-                }).then((result) => {
-
-                    if (result.isConfirmed) {
-                        $("input[class=quoteCheckBox]:checked").each(function() {
-                            let idQuote = $(this).attr('data-id')
-
-                            ZOHO.CRM.API.deleteRecord({Entity:"magaya__SQuotes",RecordID: idQuote})
-                                .then(function(data){
-                                    storeQuote.dispatch(deleteQuote({id: idQuote}))
-                                })
-
-                        })
-                    }
-                })
-         })
 
 
         // Activate tooltip
@@ -155,7 +164,7 @@ $(document).ready(function(){
 
             Swal.fire({
                 title: "Confirm",
-                text: "You are about to delete record from CRM, you sure?",
+                text: "You are about to delete record from CRM, are you sure?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes",
@@ -199,6 +208,56 @@ $(document).ready(function(){
             buildStringXML(idQuote);
         })
 
+        $(".duplicate").click(function(e) {
+            e.preventDefault()
+            e.stopImmediatePropagation()
+
+            let quote = storeQuote.getState().quoteToEdit
+            let idQuote = quote.id
+
+            Utils.blockUI()
+            var func_name = "magaya__duplicatemQuote";
+                            var req_data ={
+                                "quote_id" : idQuote
+                            };
+            ZOHO.CRM.FUNCTIONS.execute(func_name, req_data)
+                .then(function(data){
+                    console.log(data.details.output)
+                    if (data.code === "success") {
+                        let id_new_mquote = data.details.output
+                        let message = ": Successfully duplicate mQuote"
+                        storeSuccess.dispatch(addSuccess({message: message}))
+                        //location.reload()
+                        //actualizar el store
+                        ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id_new_mquote})
+                            .then(function(data){
+                                console.log(data)
+                                storeQuote.dispatch(addStarting(data.data[0]))
+                            })
+                    } else {
+                        codeError = 'Error duplicating mQuote';
+                        field = '';
+                        show = false;
+                        module = 'Cargo Items'
+                        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+                    }
+                    Utils.unblockUI()
+                    //actualizar el store
+                })
+                .catch(function(error1) {
+                    codeError = 'Error duplicating mQuote';
+                    field = '';
+                    show = false;
+                    module = 'Cargo Items'
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+                    console.log(error1)
+                    Utils.unblockUI()
+                })
+
+
+
+        })
+
     })
 
     //////////////////////////////////////////////////////////////////////////
@@ -235,7 +294,7 @@ $(document).ready(function(){
 
             Swal.fire({
                 title: "Confirm",
-                text: "You are about to delete record from CRM, you sure?",
+                text: "You are about to delete record from CRM, are you sure?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes",
@@ -309,7 +368,7 @@ $(document).ready(function(){
 
             Swal.fire({
                 title: "Confirm",
-                text: "You are about to delete record from CRM, you sure?",
+                text: "You are about to delete record from CRM, are you sure?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes",
@@ -389,7 +448,7 @@ $(document).ready(function(){
             let idArr = $(this).attr("data-id");
             Swal.fire({
                 title: "Confirm",
-                text: "You are about to delete record from CRM, you sure?",
+                text: "You are about to delete record from CRM, are you sure?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes",
@@ -430,7 +489,7 @@ $(document).ready(function(){
 
             Swal.fire({
                 title: "Confirm",
-                text: "You are about to delete record from CRM, you sure?",
+                text: "You are about to delete record from CRM, are you sure?",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonText: "Yes",
