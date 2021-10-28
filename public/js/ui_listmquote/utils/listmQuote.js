@@ -222,7 +222,6 @@ $(document).ready(function(){
                             };
             ZOHO.CRM.FUNCTIONS.execute(func_name, req_data)
                 .then(function(data){
-                    console.log(data)
                     if (data.code === "success") {
                         let id_new_mquote = data.details.output
                         if (id_new_mquote.length <= 0) {
