@@ -130,34 +130,6 @@ $(document).ready(function(){
         })
 
 
-        //mass delete
-        $("#deleteMquote").click(function(e) {
-            e.preventDefault();
-            Swal.fire({
-                    title: "Confirm",
-                    text: "You are about to delete record from CRM, are you sure?",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes",
-                    cancelButtonText: "Cancel",
-                    cancelButtonColor: '#d33'
-
-                }).then((result) => {
-
-                    if (result.isConfirmed) {
-                        $("input[class=quoteCheckBox]:checked").each(function() {
-                            let idQuote = $(this).attr('data-id')
-
-                            ZOHO.CRM.API.deleteRecord({Entity:"magaya__SQuotes",RecordID: idQuote})
-                                .then(function(data){
-                                    storeQuote.dispatch(deleteQuote({id: idQuote}))
-                                })
-
-                        })
-                    }
-                })
-         })
-
 
         // Activate tooltip
         $('[data-toggle="tooltip"]').tooltip();
