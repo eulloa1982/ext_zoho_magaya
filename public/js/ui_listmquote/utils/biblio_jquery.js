@@ -1145,6 +1145,12 @@ function buildPdfHeader(orgData, quoteToEdit) {
         let nameAccount = !_.isEmpty(quoteToEdit["Account"]) ? quoteToEdit["Account"]["name"] : ""
         let representative = !_.isEmpty(quoteToEdit["magaya__Representative"]) ? quoteToEdit["magaya__Representative"]["name"] : ""
         let contact = !_.isEmpty(quoteToEdit["magaya__Employee"]) ? quoteToEdit["magaya__Employee"]["name"] : ""
+        let address = !_.isEmpty(quoteToEdit["street"]) ? quoteToEdit["street"] : ""
+        address += !_.isEmpty(quoteToEdit["city"]) ? ", " + quoteToEdit["city"] : ""
+        address += !_.isEmpty(quoteToEdit["state"]) ? ", " + quoteToEdit["state"] : ""
+        address += !_.isEmpty(quoteToEdit["country"]) ? ", " + quoteToEdit["country"] : ""
+        phone = !_.isEmpty(quoteToEdit["phone"]) ? ", " + quoteToEdit["phone"] : ""
+        email = !_.isEmpty(quoteToEdit["primary_email"]) ? ", " + quoteToEdit["primary_email"] : ""
         console.log(orgData)
         data = `
         <div class="container" style="margin-top: 0px;">
@@ -1175,17 +1181,17 @@ function buildPdfHeader(orgData, quoteToEdit) {
                         <tr>
                             <td colspan="12" class="col headerFont">
                                 <span class="material-icons">phone</span>
-                                ${orgData["phone"]}</td>
+                                ${phone}</td>
                         </tr>
                         <tr>
                             <td colspan="12" class="headerFont">
                                 <span class="material-icons">alternate_email</span>
-                                ${orgData["primary_email"]}</td>
+                                ${email}</td>
                         </tr>
                         <tr>
                             <td colspan="12" class="headerFont">
                                 <span class="material-icons">home</span>
-                                ${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</td>
+                                ${address}</td>
                         </tr>
                     </table>
                 </th>
@@ -1307,7 +1313,7 @@ function buildPdfCharges(charges) {
     data += `<div class="container" style="margin-top: 10px;">
                 <table width="100%" cellspacing="0px" cellpadding="0px">
                     <tr>
-                        <th colspan="5" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid">
+                        <th class="headerFont" colspan="5" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid">
                             Charges</th>
                     </tr>
                     <tr style="font-weight: bold;">
@@ -1374,7 +1380,7 @@ function buildPdfItems(items) {
     data += `<div class="container" style="margin-top: 10px;">
                 <table width="100%">
                     <tr>
-                        <th colspan="5" style="background-color: lightblue; text-align: start;text-transform:uppercase; border: 1px #000 solid;"> Items</th>
+                        <th class="headerFont" colspan="5" style="background-color: lightblue; text-align: start;text-transform:uppercase; border: 1px #000 solid;"> Items</th>
                     </tr>
                     <tr>
                         <th style="border-left: 1px #000 solid; border-bottom: 1px #000 solid; border-right: 1px #000 solid; text-align: center;">Description </th>
