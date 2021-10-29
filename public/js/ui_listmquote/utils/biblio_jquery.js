@@ -1149,7 +1149,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
         address += ", " + !_.isEmpty(orgData["state"]) ? orgData["state"] : ""
         address += ", " + !_.isEmpty(orgData["country"]) ? orgData["country"] : ""
         phone = !_.isEmpty(orgData["phone"]) ? orgData["phone"] : ""
-        email = !_.isEmpty(orgData["primary_email"]) ? ", " + orgData["primary_email"] : ""
+        email = !_.isEmpty(orgData["primary_email"]) ? orgData["primary_email"] : ""
         
         let create_date = quoteToEdit["Created_Time"] !== null ? new Date(quoteToEdit["Created_Time"]).toISOString().split('T')[0] : "";
         let expire_date = quoteToEdit["magaya__ExpirationDate"] !== null ? new Date(quoteToEdit["magaya__ExpirationDate"]).toISOString().split('T')[0] : "";
