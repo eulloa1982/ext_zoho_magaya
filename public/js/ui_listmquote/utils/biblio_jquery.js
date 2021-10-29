@@ -1144,6 +1144,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
             none = orgData["website"];
         let nameAccount = !_.isEmpty(quoteToEdit["Account"]) ? quoteToEdit["Account"]["name"] : ""
         let representative = !_.isEmpty(quoteToEdit["magaya__Representative"]) ? quoteToEdit["magaya__Representative"]["name"] : ""
+        let contact = !_.isEmpty(quoteToEdit["magaya__Employee"]) ? quoteToEdit["magaya__Employee"]["name"] : ""
         console.log(orgData)
         data = `
         <div class="container" style="margin-top: 0px;">
@@ -1259,7 +1260,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                             <th class="headerFont" style="text-align: right;">
                                 Contact To:</th>
                             <td class="dataFont">
-                                ${quoteToEdit["magaya__Employee"] !== null ? quoteToEdit["magaya__Employee"]["name"] : ""}</td>
+                                ${contact}</td>
                         </tr>
                     </table>
                 </td>
