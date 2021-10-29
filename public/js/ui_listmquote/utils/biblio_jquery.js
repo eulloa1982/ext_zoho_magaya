@@ -1142,10 +1142,10 @@ function buildPdfHeader(orgData, quoteToEdit) {
         let phone = ``;
         let email = ``;
         none = !_.isEmpty(orgData["website"]) ? orgData["website"] : ""
-        let street = !_.isEmpty(orgData["street"]) ? orgData["street"] : "";
-        let city = !_.isEmpty(orgData["city"]) ? orgData["city"] : "";
-        let state = !_.isEmpty(orgData["state"]) ? orgData["state"] : "";
-        let country = !_.isEmpty(orgData["country"]) ? orgData["country"] : "";
+        let address = !_.isEmpty(orgData["street"]) ? orgData["street"] : "street";
+        let city = !_.isEmpty(orgData["city"]) ? orgData["city"] : "city";
+        let state = !_.isEmpty(orgData["state"]) ? orgData["state"] : "state";
+        let country = !_.isEmpty(orgData["country"]) ? orgData["country"] : "country";
         phone = !_.isEmpty(orgData["phone"]) ? orgData["phone"] : ""
         email = !_.isEmpty(orgData["primary_email"]) ? orgData["primary_email"] : ""
         
@@ -1154,10 +1154,10 @@ function buildPdfHeader(orgData, quoteToEdit) {
         let nameAccount = !_.isEmpty(quoteToEdit["Account"]) ? quoteToEdit["Account"]["name"] : "";
         let representative = !_.isEmpty(quoteToEdit["magaya__Representative"]) ? quoteToEdit["magaya__Representative"]["name"] : "";
         contact = !_.isEmpty(quoteToEdit["magaya__Employee"]) ? quoteToEdit["magaya__Employee"]["name"] : ""
-        let customer_street = !_.isEmpty(quoteToEdit["magaya__ContactStreet"]) ? quoteToEdit["magaya__ContactStreet"] : "" 
-        let customer_city = !_.isEmpty(quoteToEdit["magaya__ContactCity"]) ? quoteToEdit["magaya__ContactCity"] : "" 
-        let customer_state = !_.isEmpty(quoteToEdit["magaya__ContactState"]) ? quoteToEdit["magaya__ContactState"] : ""
-        let customer_country = !_.isEmpty(quoteToEdit["magaya__ContactCountry"]) ? quoteToEdit["magaya__ContactCountry"] : ""
+        let customer_street = !_.isEmpty(quoteToEdit["magaya__ContactStreet"]) ? quoteToEdit["magaya__ContactStreet"] : "street" 
+        let customer_city = !_.isEmpty(quoteToEdit["magaya__ContactCity"]) ? quoteToEdit["magaya__ContactCity"] : "city" 
+        let customer_state = !_.isEmpty(quoteToEdit["magaya__ContactState"]) ? quoteToEdit["magaya__ContactState"] : "state"
+        let customer_country = !_.isEmpty(quoteToEdit["magaya__ContactCountry"]) ? quoteToEdit["magaya__ContactCountry"] : "country"
 
         //console.log(orgData)
         data = `
@@ -1168,7 +1168,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                     <table>
                         <tr>
                             <th rowspan="2">
-                                <img class="headerIMG" width="100px" height="100px" src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: center; margin-left:15px;" />
+                                <img class="headerIMG" width="100px" height="100px" src="https://zohomagayab.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: center; margin-left:15px;" />
                             </th>
                             <th style="text-align: start; vertical-align: top;">
                                 <div class="session-first" style="float: left; font-size: 28px;">
