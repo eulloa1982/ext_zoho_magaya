@@ -1087,7 +1087,7 @@ async function buildPdf(mquote_id) {
     data += buildPdfItems(items)
     data += `</div>`
 
-    data += `<div class="container" style="margin-top: 5px;">
+    data += `<div class="container" style="margin-top: 10px;">
                 <table width="100%" cellpadding="0px" cellspacing="0px">
                     <tr>
                         <th colspan="12" class="session-fourth headerFont" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">
@@ -1146,25 +1146,26 @@ function buildPdfHeader(orgData, quoteToEdit) {
         let representative = !_.isEmpty(quoteToEdit["magaya__Representative"]) ? quoteToEdit["magaya__Representative"]["name"] : ""
         console.log(orgData)
         data = `
-        <div class="container">
+        <div class="container" style="margin-top: 0px;">
         <table cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
             <tr>
                 <th rowspan="2">
                     <table>
                         <tr>
-                            <th>
+                            <th rowspan="2">
                                 <img class="headerIMG" width="100px" height="100px" src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: center; margin-left:15px;" />
                             </th>
-                            <th style="text-align:start;">
+                            <th style="text-align: start; vertical-align: top;">
                                 <div class="session-first" style="float: left; font-size: 28px;">
                                     ${orgData["company_name"]}
                                 </div>
                             </th>
                         </tr>
+                        <tr></tr>
                     </table>
                 </th>
-                <th>
-                    <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right;float: right;">
+                <th style="vertical-align: top;">
+                    <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right;float: right; font-size: 12px">
                         <tr>
                             <td colspan="12" class="headerFont">
                                 <span class="material-icons">language</span>
@@ -1192,7 +1193,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
             <tr></tr>
         </table>
     </div>
-    <div class="container">
+    <div class="container" style="margin-top:10px;">
         <table cellspacing="0px" cellpadding="0px" width="100%">
             <tr>
                 <td width="40%">
@@ -1258,7 +1259,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                             <th class="headerFont" style="text-align: right;">
                                 Contact To:</th>
                             <td class="dataFont">
-                                ${quoteToEdit["magaya__Employee"]}</td>
+                                ${quoteToEdit["magaya__Employee"]["name"]}</td>
                         </tr>
                     </table>
                 </td>
@@ -1272,17 +1273,17 @@ function buildPdfHeader(orgData, quoteToEdit) {
                             </th>
                         </tr>
                         <tr>
-                            <th colspan="2" class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: start;display:inline;">
+                            <th colspan="2" class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: start;">
                                 <span>Description of Goods:</span>
                                 <div class="dataFont">${quoteToEdit["magaya__Description"]}</div>
                             </th>
                         </tr>
                         <tr>
-                            <th class="headerFont" style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: start;display:inline;">
+                            <th class="headerFont" style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: start;">
                                 <span>Origin:</span>
                                 <div class="dataFont" style="text-align: start;">${quoteToEdit["magaya__Origin"] !== null ? quoteToEdit["magaya__Origin"] : ""}</div>
                             </th>
-                            <th class="headerFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: start;display:inline;">
+                            <th class="headerFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: start;">
                                 <span>Destination:</span>
                                 <div class="dataFont" style="text-align: start;">${quoteToEdit["magaya__Destination"] !== null ? quoteToEdit["magaya__Destination"] : ""}</div>
                             </th>
