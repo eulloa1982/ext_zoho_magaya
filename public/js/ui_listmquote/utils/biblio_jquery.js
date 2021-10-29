@@ -1095,7 +1095,7 @@ async function buildPdf(mquote_id) {
                     </tr>
                     <tr>
                         <td colspan="12" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                            ${quoteToEdit["magaya__Terms"] !== null ? quoteToEdit["magaya__Terms"] : ""}</td>
+                            ${quoteToEdit["magaya__Terms"] !== null ? quoteToEdit["magaya__Terms"] : ""}<br></td>
                     </tr>
                 </table>
             </div>`
@@ -1339,7 +1339,7 @@ function buildPdfCharges(charges) {
             amount_total += roundDec(k["magaya__Amount_Total"]);
             amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<tr>
-                    <td style="border-bottom: 1px #000 solid;border-left: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: left;">
+                    <td style="padding-left: 3px;border-bottom: 1px #000 solid;border-left: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: left;">
                         ${k["Name"]}</td>
                     <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">
                         ${k["magaya__Price"]}</td>
@@ -1418,7 +1418,7 @@ function buildPdfItems(items) {
                     total_weight_english += roundDec(k.magaya__Weigth * k.magaya__Pieces)
                 }
                 data += `<tr>
-                <td width="40%" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: left;">
+                <td width="40%" style="padding-left: 3px;border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: left;">
                     ${k["Name"]}</td>
                 <td width="15%" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
                     ${k["magaya__Pieces"]}</td>
