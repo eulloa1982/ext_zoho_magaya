@@ -130,34 +130,6 @@ $(document).ready(function(){
         })
 
 
-        //mass delete
-        $("#deleteMquote").click(function(e) {
-            e.preventDefault();
-            Swal.fire({
-                    title: "Confirm",
-                    text: "You are about to delete record from CRM, are you sure?",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes",
-                    cancelButtonText: "Cancel",
-                    cancelButtonColor: '#d33'
-
-                }).then((result) => {
-
-                    if (result.isConfirmed) {
-                        $("input[class=quoteCheckBox]:checked").each(function() {
-                            let idQuote = $(this).attr('data-id')
-
-                            ZOHO.CRM.API.deleteRecord({Entity:"magaya__SQuotes",RecordID: idQuote})
-                                .then(function(data){
-                                    storeQuote.dispatch(deleteQuote({id: idQuote}))
-                                })
-
-                        })
-                    }
-                })
-         })
-
 
         // Activate tooltip
         $('[data-toggle="tooltip"]').tooltip();
@@ -250,18 +222,27 @@ $(document).ready(function(){
                             };
             ZOHO.CRM.FUNCTIONS.execute(func_name, req_data)
                 .then(function(data){
-                    console.log(data.details.output)
                     if (data.code === "success") {
                         let id_new_mquote = data.details.output
-                        let message = ": Successfully duplicate mQuote"
-                        storeSuccess.dispatch(addSuccess({message: message}))
-                        //location.reload()
-                        //actualizar el store
-                        ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id_new_mquote})
-                            .then(function(data){
-                                console.log(data)
-                                storeQuote.dispatch(addStarting(data.data[0]))
-                            })
+                        if (id_new_mquote.length <= 0) {
+                            codeError = 'Error duplicating mQuote';
+                            field = '';
+                            show = false;
+                            module = 'Cargo Items'
+                            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                        } else {
+
+                            let message = ": Successfully duplicate mQuote"
+                            storeSuccess.dispatch(addSuccess({message: message}))
+                            //location.reload()
+                            //actualizar el store
+                            ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id_new_mquote})
+                                .then(function(data){
+                                    console.log(data)
+                                    storeQuote.dispatch(addStarting(data.data[0]))
+                                })
+                        }
                     } else {
                         codeError = 'Error duplicating mQuote';
                         field = '';

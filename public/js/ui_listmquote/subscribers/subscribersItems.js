@@ -184,7 +184,7 @@ storeItem.subscribe(() => {
                     <span class="material-icons oculto del-item-warehouse-new" data-id=${i}>delete_forever</span>
                 </td>
                 <td class='Name'>${sanitize(k.Name)}</td>
-                <td align="right" class="magaya__Pieces">${k.magaya__Pieces}</td>
+                <td align="center" class="magaya__Pieces">${k.magaya__Pieces}</td>
                 <td align="right" class="magaya__Length">${roundDec(k.magaya__Length).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 <td class="NoData" align="left">${measure_length}</td>
                 <td align="right" class="magaya__Height">${roundDec(k.magaya__Height).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
@@ -210,7 +210,7 @@ storeItem.subscribe(() => {
             totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
             $("#table-items-new tfoot").append(`<tr><td align="right" colspan="2" class="Delete">Totals</td>
-            <td align="right" class="Delete"><strong>${totalPieces}</strong></td>
+            <td align="center" class="Delete"><strong>${totalPieces}</strong></td>
             <td colspan="6"></td>
             <td align="right" class="Delete"><strong>${roundDec(totalWeight).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td><td><strong> kg</strong></td>
             <td align="right" class="Delete"><strong>${roundDec(totalVolume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td><td><strong> m3</strong></td></tr>`)
@@ -272,7 +272,7 @@ storeItem.subscribe(() => {
             </td>
 
             <td class='Name'>${sanitize(k.Name)}</td>
-            <td align="right" class="magaya__Pieces">${k.magaya__Pieces}</td>
+            <td align="center" class="magaya__Pieces">${k.magaya__Pieces}</td>
             <td align="right" class="magaya__Length" style="border-right: none;">${roundDec(k.magaya__Length).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
             <td align="left" class="NoData"style="border-left: none;">${measure_length}</td>
             <td align="right" class="magaya__Height" style="border-right: none;">${roundDec(k.magaya__Height).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
@@ -314,7 +314,7 @@ storeItem.subscribe(() => {
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
 
         $("#table-items tfoot").append(`<tr><td align="right" colspan="2" class="Delete"><strong>Totals</td>
-                                                <td align="right" class="Delete"><strong style="margin-right: 4px;">${totalPieces}</strong></td>
+                                                <td align="center" class="Delete"><strong style="margin-right: 4px;">${totalPieces}</strong></td>
                                                 <td colspan="6"></td>
                                                 <td align="right" class="Delete" style="border-right: none;"><strong>${roundDec(totalWeight).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td><td style="border-left: none;"><strong> kg</strong></td>
                                                 <td align="right" class="Delete" style="border-right: none;"><strong>${roundDec(totalVolume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td><td style="border-left: none;"><strong> m3</strong></td></tr>`)

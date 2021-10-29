@@ -92,13 +92,14 @@ var MagayaAPI = function() {
 
             $.ajax({
                 type: 'POST',
-                url: 'https://zohomagaya.herokuapp.com/api',
+                //url: 'https://zohomagaya.herokuapp.com/api',
+                //url: "http://localhost/zoho_magaya/blog/public/api",
+                url: "api",
                 data: data,
                 beforeSend: function() {
                     Utils.blockUI()
                 },
                 success: function(resp) {
-                    console.log("Response", resp)
                     if (resp.data !== "Access denied.") {
                         success(resp)
                     }
