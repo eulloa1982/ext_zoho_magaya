@@ -13,11 +13,12 @@ class XmlMagayaValidator
         'no_quotation_type'           =>    "Quotation must be No Commerce Type",
         'no_quotation_item_cargo'     =>    "Quotation must have Item or Charge",
         'no_guid_consignee'           =>    "Consignee has no GUID Attribute",
-        'no_guid_contact'           =>    "Contact has no GUID Attribute",
+        'no_guid_contact'           =>    "Probably mquote contact is not a Magaya Customer",
         'no_guid_shipper'           =>    "Shipper has no GUID Attribute",
         'no_guid_carrier'           =>    "Probably mquote carrier is not a Magaya Carrier",
         'no_code_transport'           =>    "No code transport detected",
         'no_transport_method'           =>    "No transport method detected",
+        'item_quantity_not_valid'    => "Item quantity must to be greather than 0"
         ];
 
     const TYPES_STATUS_QT = array('Open', 'Posted', 'Empty');
@@ -66,18 +67,6 @@ class XmlMagayaValidator
             $message['error'][] = $this::ERROR_CODES['no_code_transport'];
         }
 
-        //Check Shipper and Consignee
-        /*if (empty($xml->Consignee[0]['GUID']) || $xml->Consignee[0]['GUID'] == null) {
-            $message['error'] = $this::ERROR_CODES['no_guid_consignee'];
-            return $message;
-        }
-
-        if (empty($xml->Shipper[0]['GUID']) || $xml->Shipper[0]['GUID'] == null) {
-            $message['error'] = $this::ERROR_CODES['no_shipper_consignee'];
-            return $message;
-        }*/
-
-
         /*if (!in_array ($xml->Status, $this::TYPES_STATUS_QT)) {
             $message['error'] = $this::ERROR_CODES['no_status_quotation'];
             return $message;
@@ -93,6 +82,10 @@ class XmlMagayaValidator
             foreach ($xml->Items->Item as $value) {
                 if (!in_array($value->Status, $this::TYPES_STATUS_ITEM)) {
                     $message['error'][] = $this::ERROR_CODES['no_status_item_quotation'];
+                }
+                if ($value->Pieces <= 0) {
+                    $message['error'][] = $this::ERROR_CODES['item_quantity_not_valid'];
+
                 }
             }
 
