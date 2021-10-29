@@ -1019,8 +1019,8 @@ async function buildPdf(mquote_id) {
         'first_name': "Name from post",
         'last_name': "Apellido from posdt"
     }
-    const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
-    /*$.ajax({
+    const endpoint = `https://zohomagayab.herokuapp.com/pdf`;
+    $.ajax({
         type: 'POST',
         url: endpoint,
         data: dataPost,
@@ -1054,8 +1054,8 @@ async function buildPdf(mquote_id) {
             Utils.unblockUI()
         }
 
-    })*/
-    /*fetch(endpoint, {
+    })
+    fetch(endpoint, {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -1075,8 +1075,8 @@ async function buildPdf(mquote_id) {
         })
         .catch((err) => {
             console.warn("error", err)
-        })*/
-    let data = `<div class="HtmltoPdf">`
+        })
+   /* let data = `<div class="HtmltoPdf">`
     data += buildPdfHeader(orgData, quoteToEdit)
 
     data += buildPdfCharges(charges)
@@ -1100,7 +1100,7 @@ async function buildPdf(mquote_id) {
             </div>`
 
     $("#htmlToPdf").html(data)
-    getPdf("htmlToPdf")
+    getPdf("htmlToPdf")*/
         //$("#pdfModal").modal("show")
 }
 
