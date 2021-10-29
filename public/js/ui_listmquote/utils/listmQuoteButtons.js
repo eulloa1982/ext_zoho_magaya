@@ -656,7 +656,7 @@ $(document).ready(function(){
             "magaya__Magaya_Status": "Open",
             "magaya__AddedTime": $("input[name=magaya__AddedTime]").val(),
             "magaya__CreatedByName": sanitize($("input[name=magaya__CreatedByName]").val()),
-            "magaya__Seller": $("select[name=magaya__Seller]").val(),
+            "magaya__Seller": $(":input[name=magaya__Seller]").val(),
             "magaya__Terms": sanitize($("#magaya__Terms").val()),
             "magaya__IssuedBy": $(":input[name=magaya__IssuedByName]").val(),
             "magaya__Incoterms": $("select[name=magaya__Incoterms]").val(),
