@@ -1289,8 +1289,9 @@ function buildPdfHeader(orgData, quoteToEdit) {
                         </tr>
                         <tr>
                             <th colspan="2" class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: start;">
-                                <span>Description of Goods:</span>
-                                <div class="dataFont">${quoteToEdit["magaya__Description"]}</div>
+                                <div class="dataFont">
+                                    <span>Description of Goods:</span>
+                                    ${quoteToEdit["magaya__Description"]}</div>
                             </th>
                         </tr>
                         <tr>
