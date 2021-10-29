@@ -18,7 +18,8 @@ class XmlMagayaValidator
         'no_guid_carrier'           =>    "Probably mquote carrier is not a Magaya Carrier",
         'no_code_transport'           =>    "No code transport detected",
         'no_transport_method'           =>    "No transport method detected",
-        'item_quantity_not_valid'    => "Item quantity must to be greather than 0"
+        'item_quantity_not_valid'    => "Item quantity must to be greather than 0",
+        'item_required'             => "This mquote need an Item Package"
         ];
 
     const TYPES_STATUS_QT = array('Open', 'Posted', 'Empty');
@@ -93,6 +94,10 @@ class XmlMagayaValidator
         }
 
         if (!empty($xml->Charges)){
+            if (empty($xml->Items)) {
+                $message['error'][] = $this::ERROR_CODES['item_required'];
+            }
+
             if (empty($xml->ModeOfTransportation)) {
                 $message['error'][] = $this::ERROR_CODES['no_transport_method'];
             }
