@@ -771,8 +771,8 @@ async function sendmQuote(mquote, idQuote) {
                 let error_title = 'Error'
                 if (!$.isEmptyObject(result.data)) {
                     error_title = `mQuote couldn't be sended.`
-                    $.map(result.data, function(k, v) {
-                        console.log(k, v)
+                    $.map(result.data['error'], function(k) {
+                        error_string += `${k}<br />`
                     })
                 } else {
                     error_string = result.data
