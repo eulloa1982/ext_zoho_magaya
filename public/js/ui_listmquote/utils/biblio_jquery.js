@@ -1259,7 +1259,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                             <th class="headerFont" style="text-align: right;">
                                 Contact To:</th>
                             <td class="dataFont">
-                                ${quoteToEdit["magaya__Employee"]["name"]}</td>
+                                ${quoteToEdit["magaya__Employee"] !== null ? quoteToEdit["magaya__Employee"]["name"] : ""}</td>
                         </tr>
                     </table>
                 </td>
