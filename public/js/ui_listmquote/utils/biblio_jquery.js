@@ -742,13 +742,13 @@ async function startSession() {
                 })
             } else {
 
-                Swal.fire({
-                    title: 'Success',
-                    text: 'Operation success',
-                    icon: 'success',
-                    allowOutsideClick: false
-                })
-                $("#no-configuration-alert").hide();
+            Swal.fire({
+                title: 'Success',
+                text: 'Operation success',
+                icon: 'success',
+                allowOutsideClick: false
+            })
+            $("#no-configuration-alert").hide();
 
 
             } //else
@@ -781,8 +781,8 @@ async function sendmQuote(mquote, idQuote) {
                 let error_title = 'Error'
                 if (!$.isEmptyObject(result.data)) {
                     error_title = `mQuote couldn't be sended.`
-                    $.map(result.data, function(k, v) {
-                        console.log(k, v)
+                    $.map(result.data['error'], function(k) {
+                        error_string += `${k}<br />`
                     })
                 } else {
                     error_string = result.data
@@ -1151,15 +1151,47 @@ function buildPdfHeader(orgData, quoteToEdit) {
                 <th>
                     <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: left;">
                         <tr>
-                            <td colspan="12">
-                                <div class="col headerFont p-2"><span class="material-icons">
-                                language</span>${none}</div>
-                            </td>
+                            <th><img width="200px" height="150px" src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: center; margin-left:15px;" /></th>
+
+                            <th>
+                                <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right;">
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="session-first">
+                                                ${orgData["company_name"]}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            language</span>${none}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            phone</span>${orgData["phone"]}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            alternate_email</span>${orgData["primary_email"]}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="col headerPDF p-2"><span class="material-icons">
+                                            home</span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </th>
                         </tr>
                         <tr>
-                            <td colspan="12">
-                                <div class="col headerFont p-2"><span class="material-icons">
-                                phone</span>${orgData["phone"]}</div>
+                            <td colspan="12" class="col dataFont p-2"><span class="material-icons">
+                                phone</span>${orgData["phone"]}
                             </td>
                         </tr>
                         <tr>
@@ -1314,17 +1346,17 @@ function buildPdfCharges(charges) {
             amount_total += roundDec(k["magaya__Amount_Total"]);
             amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<tr>
-                <td style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: left;">
-                    ${k["Name"]}</td>
-                <td style="border-right: 1px #000 solid; text-align: right;">
-                    ${k["magaya__Price"] !== null ? k["magaya__Price"] : 1}</td>
-                <td style="border-right: 1px #000 solid; text-align: right;">
-                    ${k["magaya__CQuantity"]}</td>
-                <td style="border-right: 1px #000 solid; text-align: right;">
-                    ${k["magaya__Tax_Amount"]}</td>
-                <td style="border-right: 1px #000 solid; text-align: right; font-weight: bold;">
-                    ${k["magaya__Amount_Total"]}</td>
-            </tr>`
+                        <td class="dataFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: left;">
+                            ${k["Name"]}</td>
+                        <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
+                            ${k["magaya__Price"]}</td>
+                        <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
+                            ${k["magaya__CQuantity"]}</td>
+                        <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
+                            ${k["magaya__Tax_Amount"]}</td>
+                        <td style="border-right: 1px #000 solid; text-align: right; font-weight: bold;">
+                            ${k["magaya__Amount_Total"]}</td>
+                    </tr>`
         })
         data += `<tr style="font-weight: bold;">
                     <td style="border-left: 1px #000 solid; border-top: 1px #000 solid;" colspan="3">

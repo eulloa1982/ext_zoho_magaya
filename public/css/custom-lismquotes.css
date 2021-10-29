@@ -80,7 +80,8 @@ input:active {
     }
 
 
-#quote-info, #quote-alert {
+#quote-info,
+#quote-alert {
     position: absolute;
     top: 0;
     bottom: 80%;
@@ -115,7 +116,6 @@ input:active {
   overflow: auto;
   margin: 5px 5px 5px 5px;
   padding: 5px 10px 5px 5px;
-
 }
 
 .message-data {
@@ -202,8 +202,6 @@ table #table-charges-preview #table-items-preview {
   #table-items-preview tfoot tr th:last-child {
     font-family: monospace;
   }
-
-
 
 .active {
     background-position: right 12px;
@@ -368,6 +366,9 @@ table td .numeric {
 .bordered {
     border: 0.5px solid #38312b;
 }
+
+
+
 /*.toPdf {
     font-size: 12px;
 }*/
