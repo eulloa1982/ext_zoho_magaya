@@ -1154,7 +1154,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                             <th>
                                 <img class="headerIMG" width="100px" height="100px" src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: center; margin-left:15px;" />
                             </th>
-                            <th>
+                            <th style="text-align:start;">
                                 <div class="session-first" style="float: left; font-size: 28px;">
                                     ${orgData["company_name"]}
                                 </div>
@@ -1165,28 +1165,24 @@ function buildPdfHeader(orgData, quoteToEdit) {
                 <th>
                     <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right;float: right;">
                         <tr>
-                            <td colspan="12">
-                                <div class="col headerFont p-2"><span class="material-icons">
-                            language</span>${none}</div>
-                            </td>
+                            <td colspan="12" class="headerFont">
+                                <span class="material-icons">language</span>
+                                ${none}</td>
                         </tr>
                         <tr>
-                            <td colspan="12">
-                                <div class="col headerFont p-2"><span class="material-icons">
-                            phone</span>${orgData["phone"]}</div>
-                            </td>
+                            <td colspan="12" class="col headerFont">
+                                <span class="material-icons">phone</span>
+                                ${orgData["phone"]}</td>
                         </tr>
                         <tr>
-                            <td colspan="12">
-                                <div class="col headerFont p-2"><span class="material-icons">
-                            alternate_email</span>${orgData["primary_email"]}</div>
-                            </td>
+                            <td colspan="12" class="headerFont">
+                                <span class="material-icons">alternate_email</span>
+                                ${orgData["primary_email"]}</td>
                         </tr>
                         <tr>
-                            <td colspan="12">
-                                <div class="col headerFont p-2"><span class="material-icons">
-                            home</span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
-                            </td>
+                            <td colspan="12" class="headerFont">
+                                <span class="material-icons">home</span>
+                                ${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</td>
                         </tr>
                     </table>
                 </th>
@@ -1196,7 +1192,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
         </table>
     </div>
     <div class="container">
-        <table>
+        <table cellspacing="0px" cellpadding="0px" width="100%">
             <tr>
                 <td width="40%">
                     <table id="info1" cellspacing="0px" cellpadding="0px" width="100%" style="text-align: left;">
@@ -1275,17 +1271,18 @@ function buildPdfHeader(orgData, quoteToEdit) {
                             </th>
                         </tr>
                         <tr>
-                            <th colspan="2" class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: start;">
+                            <th colspan="2" class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: start;display:inline;">
                                 <span>Description of Goods:</span>
                                 <div class="dataFont">${quoteToEdit["magaya__Description"]}</div>
                             </th>
                         </tr>
                         <tr>
-                            <th class="headerFont" style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: start;">
+                            <th class="headerFont" style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: start;display:inline;">
                                 <span>Origin:</span>
                                 <div class="dataFont" style="text-align: start;">${quoteToEdit["magaya__Origin"] !== null ? quoteToEdit["magaya__Origin"] : ""}</div>
                             </th>
-                            <th class="headerFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: start;"><span>Destination:</span>
+                            <th class="headerFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: start;display:inline;">
+                                <span>Destination:</span>
                                 <div class="dataFont" style="text-align: start;">${quoteToEdit["magaya__Destination"] !== null ? quoteToEdit["magaya__Destination"] : ""}</div>
                             </th>
                         </tr>
@@ -1304,7 +1301,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
  */
 function buildPdfCharges(charges) {
     let data = ``
-    data += `<div class="container">
+    data += `<div class="container" style="padding: 10px;">
                 <table width="100%" cellspacing="0px" cellpadding="0px">
                     <tr>
                         <th colspan="5" style="background-color: lightgrey; text-align: start;text-transform:uppercase ;border: 1px #000 solid">
@@ -1312,15 +1309,15 @@ function buildPdfCharges(charges) {
                     </tr>
                     <tr style="font-weight: bold;">
                         <th style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                            Charge Description</th>
+                            Description</th>
                         <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
                             Price</th>
                         <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
                             Quantity</th>
                         <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                            Tax Amount</th>
+                            Tax</th>
                         <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                            Final Amount</th>
+                            Amount</th>
                     </tr>`
     if (!_.isEmpty(charges)) {
         let amount_total = 0;
@@ -1371,10 +1368,10 @@ function buildPdfCharges(charges) {
  */
 function buildPdfItems(items) {
     let data = ``
-    data += `<div class="container">
+    data += `<div class="container" style="padding: 10px;">
                 <table width="100%">
                     <tr>
-                        <th colspan="5" style="background-color: lightgrey; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">Items</th>
+                        <th colspan="5" style="background-color: lightgrey; text-align: start;text-transform:uppercase; border: 1px #000 solid;"> Items</th>
                     </tr>
                     <tr>
                         <th style="border-left: 1px #000 solid; border-bottom: 1px #000 solid; border-right: 1px #000 solid; text-align: center;">Description </th>
