@@ -42,6 +42,7 @@ class APIController extends Controller
         $access_key = $data[0];
         $contactData = $request->get('contactData');
         $emailCustomer = $contactData['Email'];
+        //EntityContact or Client
         $typeEntity = $contactData['Type'];
         $contactData['Email'] = $randomEmail = $this->generateRandomEmail();
         //check magaya guid, if it null drop it from the array
@@ -59,8 +60,10 @@ class APIController extends Controller
         $XML = str_replace('<Client',"<Entity xmlns=\"http://www.magaya.com/XMLSchema/V1\"", $XML);
         $XML = str_replace('</Client>', "</Entity>", $XML);
 
-
+        //print_r($XML);
+        //return $XML;
         $result = $this->magayaApi->SetEntity($access_key, 524288, $XML);
+        //print_r($result);
         $customer_data = '';
 
         //print_r($XML);
@@ -79,6 +82,7 @@ class APIController extends Controller
             else {
                 //no method
             }*/
+
             $magaya_customers = $this->magayaApi->GetEntitiesOfType($access_key, 524288, '', 2);
             foreach ($magaya_customers['data'] as $key => $value) {
                 if ($value->Email == $randomEmail) {

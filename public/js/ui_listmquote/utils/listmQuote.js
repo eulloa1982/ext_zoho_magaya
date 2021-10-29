@@ -222,18 +222,27 @@ $(document).ready(function(){
                             };
             ZOHO.CRM.FUNCTIONS.execute(func_name, req_data)
                 .then(function(data){
-                    console.log(data.details.output)
                     if (data.code === "success") {
                         let id_new_mquote = data.details.output
-                        let message = ": Successfully duplicate mQuote"
-                        storeSuccess.dispatch(addSuccess({message: message}))
-                        //location.reload()
-                        //actualizar el store
-                        ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id_new_mquote})
-                            .then(function(data){
-                                console.log(data)
-                                storeQuote.dispatch(addStarting(data.data[0]))
-                            })
+                        if (id_new_mquote.length <= 0) {
+                            codeError = 'Error duplicating mQuote';
+                            field = '';
+                            show = false;
+                            module = 'Cargo Items'
+                            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                        } else {
+
+                            let message = ": Successfully duplicate mQuote"
+                            storeSuccess.dispatch(addSuccess({message: message}))
+                            //location.reload()
+                            //actualizar el store
+                            ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id_new_mquote})
+                                .then(function(data){
+                                    console.log(data)
+                                    storeQuote.dispatch(addStarting(data.data[0]))
+                                })
+                        }
                     } else {
                         codeError = 'Error duplicating mQuote';
                         field = '';
