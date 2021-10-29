@@ -1382,14 +1382,14 @@ function buildPdfItems(items) {
                         <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Weight</th>
                         <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Volume</th>
                     </tr>`
-    if (!_.isEmpty(items)) {
-        let totalPieces = 0
-        let totalVolume = 0
-        let totalWeight = 0
-        let total_weight_international = 0
-        let total_volume_international = 0
-        let total_weight_english = 0
-        let total_volume_english = 0
+    let totalPieces = 0
+    let totalVolume = 0
+    let totalWeight = 0
+    let total_weight_international = 0
+    let total_volume_international = 0
+    let total_weight_english = 0
+    let total_volume_english = 0
+    if (!_.isEmpty(items)) {        
         $.map(items, function(k, v) {
                 totalPieces += parseInt(k.magaya__Pieces)
                 let measure_length = "in";
@@ -1435,15 +1435,15 @@ function buildPdfItems(items) {
     } else {
         data += `<tr>
                     <td width="40%" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: left;">
-                        ${k["Name"]}</td>
+                        </td>
                     <td width="15%" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                        ${k["magaya__Pieces"]}</td>
+                        </td>
                     <td width="15%" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                        ${k["magaya__Length"]} X ${k["magaya__Height"]} X ${k["magaya__Width"]} (${measure_length})</td>
+                        </td>
                     <td width="15%" style="border-right: 1px #000 solid; text-align: right;border-bottom: 1px #000 solid;">
-                        ${k["magaya__Weigth"]} (${measure_weigth})</td>
+                        </td>
                     <td width="15%" style="border-right: 1px #000 solid; text-align: right;border-bottom: 1px #000 solid;">
-                        ${k["magaya__Volume"]} (${measure_volume})</td>
+                        </td>
                 </tr>
                 <tr style="font-weight: bold;">
                     <td style="border:none; text-align: center;" colspan="2">
