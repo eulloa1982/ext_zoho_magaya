@@ -1151,6 +1151,10 @@ function buildPdfHeader(orgData, quoteToEdit) {
         address += !_.isEmpty(quoteToEdit["country"]) ? ", " + quoteToEdit["country"] : ""
         phone = !_.isEmpty(quoteToEdit["phone"]) ? ", " + quoteToEdit["phone"] : ""
         email = !_.isEmpty(quoteToEdit["primary_email"]) ? ", " + quoteToEdit["primary_email"] : ""
+        let customer_address = !_.isEmpty(quoteToEdit["magaya__ContactStreet"]) ? quoteToEdit["magaya__ContactStreet"] : "" 
+        customer_address += !_.isEmpty(quoteToEdit["magaya__ContactCity"]) ? quoteToEdit["magaya__ContactCity"] : "" 
+        customer_address += !_.isEmpty(quoteToEdit["magaya__ContactState"]) ? quoteToEdit["magaya__ContactState"] : ""
+        customer_address += !_.isEmpty(quoteToEdit["magaya__ContactCountry"]) ? quoteToEdit["magaya__ContactCountry"] : ""
         console.log(orgData)
         data = `
         <div class="container" style="margin-top: 0px;">
@@ -1224,19 +1228,19 @@ function buildPdfHeader(orgData, quoteToEdit) {
                             <th class="headerFont" style="text-align: right; padding: 3px; border: 1px #000 solid;">
                                 Phone</th>
                             <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                                ${quoteToEdit["magaya__ContactMobile"]}</td>
+                                ${!_.isEmpty(quoteToEdit["magaya__ContactMobile"]) ? quoteToEdit["magaya__ContactMobile"]:""}</td>
                         </tr>
                         <tr>
                             <th class="headerFont" style="text-align: right; padding: 3px;border-left: 1px #000 solid;border-right: 1px #000 solid;">
                                 Email</th>
                             <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                                ${quoteToEdit["magaya__ContactEmail"]}</td>
+                                ${!_.isEmpty(quoteToEdit["magaya__ContactEmail"]) ? quoteToEdit["magaya__ContactEmail"] : "" }</td>
                         </tr>
                         <tr>
                             <th class="headerFont" style="text-align: right;border: 1px #000 solid;">
                                 Address</th>
                             <td class="dataFont" style="text-align: start;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                                ${quoteToEdit["magaya__ContactStreet"]}, ${quoteToEdit["magaya__ContactCity"]}, ${quoteToEdit["magaya__ContactState"]}, ${quoteToEdit["magaya__ContactCountry"]}
+                                ${customer_address}
                             </td>
                         </tr>
                     </table>
