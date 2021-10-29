@@ -764,10 +764,20 @@ async function sendmQuote(mquote, idQuote) {
     MagayaAPI.sendRequest(data, function(result) {
             //console.log(result)
             if (result.error) {
+                let error_string = ''
+                let error_title = 'Error'
+                if (!$.isEmptyObject(result.data)) {
+                    error_title = `mQuote couldn't be sended.`
+                    $.map(result.data['error'], function(k) {
+                        error_string += `${k}<br />`
+                    })
+                } else {
+                    error_string = result.data
+                }
 
                 Swal.fire({
-                    title: result.error,
-                    text: result.data,
+                    title: error_title,
+                    html: error_string,
                     icon: 'error'
                 })
                 stringCharge = stringItem = stringQuote = stringXML = '';

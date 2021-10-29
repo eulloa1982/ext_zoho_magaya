@@ -162,7 +162,10 @@ class MagayaAPI extends \SoapClient implements MagayaAPIInterface
         $message = new XmlMagayaValidator();
         $message_array = $message->checkXMLSetTransaction($dataXML);
         if (array_key_exists ('error', $message_array)) {
-            return $message_array;
+            return [
+                'error' => true,
+                'data' => $message_array
+            ];
         }
 
         $result = $this->parseResponse(parent::{__FUNCTION__}($access_key, $type, $flags, $data));
