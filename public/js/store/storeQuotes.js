@@ -68,9 +68,11 @@ function reducerQuote (state = initialStateQuote, actions)  {
 
             const index = state.quotes.findIndex(quote => quote.id === byId)
             state.quotes[index] = body
+            quoteToEdit = body
             return {
                 ...state,
-                quotes: state.quotes
+                quotes: state.quotes,
+                quoteToEdit
             }
         }
 

@@ -437,7 +437,7 @@ $(document).ready(function(){
     let dealQuoteData = storeDeal.getState().dealQuote[0]
     let accountQuote = accountQuoteData['id']
     let dealQuote = ""
-    if (!_.isEmpty(dealQuote))
+    if (!_.isEmpty(dealQuoteData))
         dealQuote = dealQuoteData.id
     //receipt fields
     if (accountId <= 0)
@@ -474,7 +474,10 @@ $(document).ready(function(){
         "magaya__ContactName": sanitize($("select[name=magaya__Representative] option:selected").text()),
         "magaya__Terms": sanitize($("#magaya__Terms").val()),
         "magaya__Incoterm_rule": $("select[name=magaya__Incoterm_rule]").val(),
-        "Owner": $("select[name=Owner]").val()
+        "Owner": $("select[name=Owner]").val(),
+        "magaya__Origin": sanitize($(":input[name=magaya__Origin]").val()),
+        "magaya__Destination": sanitize($(":input[name=magaya__Destination]").val()),
+
     }
 
 
@@ -482,6 +485,8 @@ $(document).ready(function(){
         Entity:"magaya__SQuotes",
         APIData: recordData
     }
+
+    console.log("Updating mquote", recordData)
 
     routingData = {
         "Name": $(":input[name=NameQuote]").val() !== "" ? $(":input[name=NameQuote]").val() : "Routing Data",
