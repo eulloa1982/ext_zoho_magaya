@@ -437,7 +437,7 @@ $(document).ready(function(){
     let dealQuoteData = storeDeal.getState().dealQuote[0]
     let accountQuote = accountQuoteData['id']
     let dealQuote = ""
-    if (!_.isEmpty(dealQuote))
+    if (!_.isEmpty(dealQuoteData))
         dealQuote = dealQuoteData.id
     //receipt fields
     if (accountId <= 0)
@@ -482,6 +482,8 @@ $(document).ready(function(){
         Entity:"magaya__SQuotes",
         APIData: recordData
     }
+
+    console.log("Updating mquote", recordData)
 
     routingData = {
         "Name": $(":input[name=NameQuote]").val() !== "" ? $(":input[name=NameQuote]").val() : "Routing Data",
