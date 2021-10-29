@@ -192,8 +192,9 @@ $("select[name=magaya__Package_Type]").change(function(e) {
         let length = pck[0]["magaya__PackageLength"]
         let height = pck[0]["magaya__PackageHeight"]
         let width = pck[0]["magaya__PackageWidth"]
+        let measure_system = $("select[name=magaya__Measure_System]").val()
 
-        storeItem.dispatch(updateAllItemNew({length: length, width: width, height: height, package: pck[0]["id"]}))
+        storeItem.dispatch(updateAllItemNew({length: length, width: width, height: height, package: pck[0]["id"], measure_system: measure_system}))
     }
 })
 

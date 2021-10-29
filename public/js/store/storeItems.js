@@ -161,6 +161,10 @@ function reducerItem (state = initialStateIntems, actions)  {
             const width = actions.payload.width
             const length = actions.payload.length
             const package = actions.payload.package
+            let measure_system = actions.payload.measure_system
+
+            if (measure_system === null || measure_system === 'null')
+                measure_system = 'International'
 
             let newArray = {...state.singleItem}
             newArray[1]["magaya__Package_Type"] = package
@@ -168,10 +172,11 @@ function reducerItem (state = initialStateIntems, actions)  {
             newArray[1]["magaya__Height"] = height
             newArray[1]["magaya__Width"] = width
             newArray[1]["magaya__Volume"] = roundDec(width * length * height)
+            newArray[1]["magaya__Measure_System"] = measure_system
 
             return {
                 ...state,
-                singleItem: newArray
+                itemNew: newArray
             }
         }
 
@@ -188,8 +193,8 @@ function reducerItem (state = initialStateIntems, actions)  {
             let length = roundDec(newArray[1]["magaya__Length"]);
             let width = roundDec(newArray[1]["magaya__Width"]);
             let weigth = roundDec(newArray[1]["magaya__Weigth"]);
-            newArray[1]['Name'] = (newArray[1]['Name']).length > 0 ?  sanitize(newArray[1]['Name']) : 'No description'
-            let measure_system = sanitize(newArray[1]["magaya__Measure_System"])
+            newArray[1]['Name'] = (newArray[1]['Name']).length > 0 ?  sanitize(newArray[1]['Name']) : $("select[name=magaya__Package_Type] option:selected").text()
+            let measure_system = newArray[1]["magaya__Measure_System"]
             //calculate volume
             let volume = height * length * width
             newArray[1]["magaya__Height"] = height.toString().replace(/[,]/g, '').toLocaleString('en-US', {  minimumFractionDigits: 2  } )
@@ -199,7 +204,7 @@ function reducerItem (state = initialStateIntems, actions)  {
             newArray[1]["magaya__Pieces"] = pieces
             newArray[1]["magaya__Volume"] = roundDec(volume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
-            newArray[1]["magaya__Measure_System"] = measure_system !== null ? measure_system : "International"
+            newArray[1]["magaya__Measure_System"] = measure_system.length > 0 ? measure_system : "International"
 
             return {
                 ...state,
