@@ -1137,7 +1137,7 @@ function getPdf(domElement) {
 function buildPdfHeader(orgData, quoteToEdit) {
     let data = ``;
     if (!_.isEmpty(orgData) && !_.isEmpty(quoteToEdit)) {
-        var none = "";
+        let none = ``;
         create_date = quoteToEdit["Created_Time"] !== null ? new Date(quoteToEdit["Created_Time"]).toISOString().split('T')[0] : "";
         expire_date = quoteToEdit["magaya__ExpirationDate"] !== null ? new Date(quoteToEdit["magaya__ExpirationDate"]).toISOString().split('T')[0] : "";
         if (!_.isEmpty(orgData["website"]))
