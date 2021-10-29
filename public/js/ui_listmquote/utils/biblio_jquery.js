@@ -1140,28 +1140,26 @@ function buildPdfHeader(orgData, quoteToEdit) {
         let none = ``;
         let address = ``;
         let contact = ``;
+        let phone = ``;
+        let email = ``;
         let customer_address = ``;
+        none = !_.isEmpty(orgData["website"]) ? orgData["website"] : ""
         address = !_.isEmpty(orgData["street"]) ? orgData["street"] : ""
-        address += !_.isEmpty(orgData["city"]) ? ", " + orgData["city"] : ""
-        address += !_.isEmpty(orgData["state"]) ? ", " + orgData["state"] : ""
-        address += !_.isEmpty(orgData["country"]) ? ", " + orgData["country"] : ""
-
+        address += ", " + !_.isEmpty(orgData["city"]) ? orgData["city"] : ""
+        address += ", " + !_.isEmpty(orgData["state"]) ? orgData["state"] : ""
+        address += ", " + !_.isEmpty(orgData["country"]) ? orgData["country"] : ""
         phone = !_.isEmpty(orgData["phone"]) ? orgData["phone"] : ""
-
         email = !_.isEmpty(orgData["primary_email"]) ? ", " + orgData["primary_email"] : ""
         
-        create_date = quoteToEdit["Created_Time"] !== null ? new Date(quoteToEdit["Created_Time"]).toISOString().split('T')[0] : "";
-        expire_date = quoteToEdit["magaya__ExpirationDate"] !== null ? new Date(quoteToEdit["magaya__ExpirationDate"]).toISOString().split('T')[0] : "";
-        if (!_.isEmpty(orgData["website"]))
-            none = orgData["website"];
-        let nameAccount = !_.isEmpty(quoteToEdit["Account"]) ? quoteToEdit["Account"]["name"] : ""
-        let representative = !_.isEmpty(quoteToEdit["magaya__Representative"]) ? quoteToEdit["magaya__Representative"]["name"] : ""
+        let create_date = quoteToEdit["Created_Time"] !== null ? new Date(quoteToEdit["Created_Time"]).toISOString().split('T')[0] : "";
+        let expire_date = quoteToEdit["magaya__ExpirationDate"] !== null ? new Date(quoteToEdit["magaya__ExpirationDate"]).toISOString().split('T')[0] : "";
+        let nameAccount = !_.isEmpty(quoteToEdit["Account"]) ? quoteToEdit["Account"]["name"] : "";
+        let representative = !_.isEmpty(quoteToEdit["magaya__Representative"]) ? quoteToEdit["magaya__Representative"]["name"] : "";
         contact = !_.isEmpty(quoteToEdit["magaya__Employee"]) ? quoteToEdit["magaya__Employee"]["name"] : ""
-
         customer_address = !_.isEmpty(quoteToEdit["magaya__ContactStreet"]) ? quoteToEdit["magaya__ContactStreet"] : "" 
-        customer_address += !_.isEmpty(quoteToEdit["magaya__ContactCity"]) ? quoteToEdit["magaya__ContactCity"] : "" 
-        customer_address += !_.isEmpty(quoteToEdit["magaya__ContactState"]) ? quoteToEdit["magaya__ContactState"] : ""
-        customer_address += !_.isEmpty(quoteToEdit["magaya__ContactCountry"]) ? quoteToEdit["magaya__ContactCountry"] : ""
+        customer_address += ", " + !_.isEmpty(quoteToEdit["magaya__ContactCity"]) ? quoteToEdit["magaya__ContactCity"] : "" 
+        customer_address += ", " + !_.isEmpty(quoteToEdit["magaya__ContactState"]) ? quoteToEdit["magaya__ContactState"] : ""
+        customer_address += ", " + !_.isEmpty(quoteToEdit["magaya__ContactCountry"]) ? quoteToEdit["magaya__ContactCountry"] : ""
 
         //console.log(orgData)
         data = `
