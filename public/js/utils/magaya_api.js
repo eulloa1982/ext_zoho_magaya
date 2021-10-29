@@ -89,12 +89,13 @@ var MagayaAPI = function() {
 
             //data.url = getCookie('url');
             data.url = "http://98.211.167.16:3691";
-
+            //data.url = "http://localhost/zoho_magaya/blog/api"
             $.ajax({
                 type: 'POST',
                 url: 'https://zohomagaya.herokuapp.com/api',
                 //url: "http://localhost/zoho_magaya/blog/public/api",
                 //url: "api",
+
                 data: data,
                 beforeSend: function() {
                     Utils.blockUI()
