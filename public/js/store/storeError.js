@@ -45,12 +45,12 @@ storeError.subscribe(() => {
         errorCode = _.get(ERRORS_TYPES, [errorCode])
     }
     if(showInfo) {
-        $("#quote-alert").css("display", "block").show("slow");
+        $("#quote-alert").css("display", "block").delay(3200).fadeOut("slow");
         $("#message-alert").html(`Upss!!! There is an error: ${errorCode}, please check the field "${field}"`);
 
     }
     else {
-        $("#quote-alert").css("display", "block").show("slow");
+        $("#quote-alert").css("display", "block").delay(3200).fadeOut("slow");;
         $("#message-alert").html(`<p>That's an error: ${errorCode}</p>`)
     }
 

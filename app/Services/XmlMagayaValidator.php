@@ -15,7 +15,7 @@ class XmlMagayaValidator
         'no_guid_consignee'           =>    "Consignee has no GUID Attribute",
         'no_guid_contact'           =>    "Contact has no GUID Attribute",
         'no_guid_shipper'           =>    "Shipper has no GUID Attribute",
-        'no_guid_carrier'           =>    "Carrier has no GUID Attribute",
+        'no_guid_carrier'           =>    "Probably mquote carrier is not a Magaya Carrier",
         'no_code_transport'           =>    "No code transport detected",
         'no_transport_method'           =>    "No transport method detected",
         ];
