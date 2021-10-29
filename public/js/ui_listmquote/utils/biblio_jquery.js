@@ -1006,6 +1006,7 @@ async function buildPdf(mquote_id) {
     //general data
     let orgData = localStorage.getItem('organization')
     orgData = JSON.parse(orgData)
+    console.log(orgData)
     let charges = []
     let items = []
 
@@ -1089,7 +1090,7 @@ async function buildPdf(mquote_id) {
     data += `<div class="container" style="margin-top: 5px;">
                 <table width="100%" cellpadding="0px" cellspacing="0px">
                     <tr>
-                        <th colspan="12" class="session-fourth headerFont" style="background-color: lightgrey; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">
+                        <th colspan="12" class="session-fourth headerFont" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">
                             Terms & Conditions</th>
                     </tr>
                     <tr>
@@ -1266,7 +1267,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                 <td colspan="2">
                     <table width="100%" cellspacing="0px" cellpadding="2px" style="border: none; margin-top: 5px;">
                         <tr>
-                            <th class="headerFont" colspan="2" style="background-color: lightgrey; text-align: start;text-transform:uppercase ;border-left: 1px #000 solid;border-right: 1px #000 solid;border-top: 1px #000 solid;">
+                            <th class="headerFont" colspan="2" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border-left: 1px #000 solid;border-right: 1px #000 solid;border-top: 1px #000 solid;">
                                 Quotation Info
                             </th>
                         </tr>
@@ -1304,7 +1305,7 @@ function buildPdfCharges(charges) {
     data += `<div class="container" style="padding: 10px;">
                 <table width="100%" cellspacing="0px" cellpadding="0px">
                     <tr>
-                        <th colspan="5" style="background-color: lightgrey; text-align: start;text-transform:uppercase ;border: 1px #000 solid">
+                        <th colspan="5" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid">
                             Charges</th>
                     </tr>
                     <tr style="font-weight: bold;">
@@ -1371,7 +1372,7 @@ function buildPdfItems(items) {
     data += `<div class="container" style="padding: 10px;">
                 <table width="100%">
                     <tr>
-                        <th colspan="5" style="background-color: lightgrey; text-align: start;text-transform:uppercase; border: 1px #000 solid;"> Items</th>
+                        <th colspan="5" style="background-color: lightblue; text-align: start;text-transform:uppercase; border: 1px #000 solid;"> Items</th>
                     </tr>
                     <tr>
                         <th style="border-left: 1px #000 solid; border-bottom: 1px #000 solid; border-right: 1px #000 solid; text-align: center;">Description </th>
