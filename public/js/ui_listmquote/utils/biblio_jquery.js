@@ -1019,8 +1019,8 @@ async function buildPdf(mquote_id) {
         'first_name': "Name from post",
         'last_name': "Apellido from posdt"
     }
-    const endpoint = `https://zohomagayab.herokuapp.com/pdf`;
-    $.ajax({
+    const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
+    /*$.ajax({
         type: 'POST',
         url: endpoint,
         data: dataPost,
@@ -1054,8 +1054,8 @@ async function buildPdf(mquote_id) {
             Utils.unblockUI()
         }
 
-    })
-    fetch(endpoint, {
+    })*/
+    /*fetch(endpoint, {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -1075,8 +1075,8 @@ async function buildPdf(mquote_id) {
         })
         .catch((err) => {
             console.warn("error", err)
-        })
-   /* let data = `<div class="HtmltoPdf">`
+        })*/
+    let data = `<div class="HtmltoPdf">`
     data += buildPdfHeader(orgData, quoteToEdit)
 
     data += buildPdfCharges(charges)
@@ -1089,18 +1089,18 @@ async function buildPdf(mquote_id) {
     data += `<div class="container" style="margin-top: 5px;">
                 <table width="100%" cellpadding="0px" cellspacing="0px">
                     <tr>
-                        <th colspan="12" class="session-fourth headerFont" style="border:1px #000 solid;background-color: lightskyblue; text-align:center;font-weight:bold;">
-                            Terms</th>
+                        <th colspan="12" class="session-fourth headerFont" style="background-color: lightgrey; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">
+                            Terms & Conditions</th>
                     </tr>
                     <tr>
-                        <td colspan="12">
+                        <td colspan="12" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
                             ${quoteToEdit["magaya__Terms"] !== null ? quoteToEdit["magaya__Terms"] : ""}</td>
                     </tr>
                 </table>
             </div>`
 
     $("#htmlToPdf").html(data)
-    getPdf("htmlToPdf")*/
+    getPdf("htmlToPdf")
         //$("#pdfModal").modal("show")
 }
 
@@ -1147,164 +1147,146 @@ function buildPdfHeader(orgData, quoteToEdit) {
         data = `<div class="container">
         <table cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
             <tr>
-                <th><img width="200px" height="150px" src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: center; margin-left:15px;" /></th>
-                <th>
-                    <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: left;">
+                <th rowspan="2">
+                    <table>
                         <tr>
-                            <th><img width="200px" height="150px" src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: center; margin-left:15px;" /></th>
-
                             <th>
-                                <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right;">
-                                    <tr>
-                                        <td colspan="12">
-                                            <div class="session-first">
-                                                ${orgData["company_name"]}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="12">
-                                            <div class="col headerPDF p-2"><span class="material-icons">
-                                            language</span>${none}</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="12">
-                                            <div class="col headerPDF p-2"><span class="material-icons">
-                                            phone</span>${orgData["phone"]}</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="12">
-                                            <div class="col headerPDF p-2"><span class="material-icons">
-                                            alternate_email</span>${orgData["primary_email"]}</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="12">
-                                            <div class="col headerPDF p-2"><span class="material-icons">
-                                            home</span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
-                                        </td>
-                                    </tr>
-                                </table>
+                                <img class="headerIMG" width="100px" height="100px" src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: center; margin-left:15px;" />
+                            </th>
+                            <th>
+                                <div class="session-first" style="float: left; font-size: 28px;">
+                                    ${orgData["company_name"]}
+                                </div>
                             </th>
                         </tr>
+                    </table>
+                </th>
+                <th>
+                    <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right;float: right;">
                         <tr>
-                            <td colspan="12" class="col dataFont p-2"><span class="material-icons">
-                                phone</span>${orgData["phone"]}
+                            <td colspan="12">
+                                <div class="col headerFont p-2"><span class="material-icons">
+                            language</span>${none}</div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="12">
                                 <div class="col headerFont p-2"><span class="material-icons">
-                                alternate_email</span>${orgData["primary_email"]}</div>
+                            phone</span>${orgData["phone"]}</div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="12">
                                 <div class="col headerFont p-2"><span class="material-icons">
-                                home</span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
+                            alternate_email</span>${orgData["primary_email"]}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="12">
+                                <div class="col headerFont p-2"><span class="material-icons">
+                            home</span>${orgData["street"]}, ${orgData["city"]}, ${orgData["state"]}, ${orgData["country"]}</div>
                             </td>
                         </tr>
                     </table>
                 </th>
             </tr>
+            <tr></tr>
+            <tr></tr>
+        </table>
+    </div>
+    <div class="container">
+        <table>
             <tr>
-                <td width="50%">
-                    <div style="float: left;">
-                        <table id="info1" cellspacing="0px" cellpadding="0px" width="100%" style="text-align: left;">
-                            <tr>
-                                <th class="headerFont" colspan="2" style="text-align: center;">Contact Info</th>
-                            </tr>
-                            <tr>
-                                <td class="headerFont" style="background-color: lightskyblue; border: 1px #000 solid; padding: 3px;">
-                                    Customer</td>
-                                <td class="dataFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                                    ${nameAccount}</td>
-                            </tr>
-                            <tr>
-                                <td class="headerFont" style="background-color: lightskyblue;border-left: 1px #000 solid;border-right: 1px #000 solid;">
-                                    Representative</td>
-                                <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                                    ${representative}</td>
-                            </tr>
-                            <tr>
-                                <td class="headerFont" style="background-color: lightskyblue; border: 1px #000 solid;">
-                                    Phone</td>
-                                <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                                    ${quoteToEdit["magaya__ContactMobile"]}</td>
-                            </tr>
-                            <tr>
-                                <td class="headerFont" style="background-color: lightskyblue;border-left: 1px #000 solid;border-right: 1px #000 solid;">
-                                    Email</td>
-                                <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                                    ${quoteToEdit["magaya__ContactEmail"]}</td>
-                            </tr>
-                            <tr>
-                                <td class="headerFont" style="background-color: lightskyblue;border: 1px #000 solid;">
-                                    Address</td>
-                                <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                                    ${quoteToEdit["magaya__ContactStreet"]}, ${quoteToEdit["magaya__ContactCity"]}, ${quoteToEdit["magaya__ContactState"]}, ${quoteToEdit["magaya__ContactCountry"]}
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                <td width="40%">
+                    <table id="info1" cellspacing="0px" cellpadding="0px" width="100%" style="text-align: left;">
+                        <tr>
+                            <th class="headerFont" colspan="2" style="border: 1px #000 solid; padding: 3px;text-align: center;">Customer Info</th>
+                        </tr>
+                        <tr>
+                            <th class="headerFont" style="text-align: right; padding: 3px; border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                                Customer</th>
+                            <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                                ${nameAccount}</td>
+                        </tr>
+                        <tr>
+                            <th class="headerFont" style="text-align: right; padding: 3px; border-left: 1px #000 solid;border-right: 1px #000 solid;">
+                                Representative</th>
+                            <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                                ${representative}</td>
+                        </tr>
+                        <tr>
+                            <th class="headerFont" style="text-align: right; padding: 3px; border: 1px #000 solid;">
+                                Phone</th>
+                            <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                                ${quoteToEdit["magaya__ContactMobile"]}</td>
+                        </tr>
+                        <tr>
+                            <th class="headerFont" style="text-align: right; padding: 3px;border-left: 1px #000 solid;border-right: 1px #000 solid;">
+                                Email</th>
+                            <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                                ${quoteToEdit["magaya__ContactEmail"]}</td>
+                        </tr>
+                        <tr>
+                            <th class="headerFont" style="text-align: right;border: 1px #000 solid;">
+                                Address</th>
+                            <td class="dataFont" style="text-align: start;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                                ${quoteToEdit["magaya__ContactStreet"]}, ${quoteToEdit["magaya__ContactCity"]}, ${quoteToEdit["magaya__ContactState"]}, ${quoteToEdit["magaya__ContactCountry"]}
+                            </td>
+                        </tr>
+                    </table>
+    
                 </td>
-                <td width="50%">
-                    <div style="float: right;">
-                        <table id="info2" cellspacing="0px" cellpadding="2px" style="text-align:left;border: none;">
-                            <tr>
-                                <th colspan="2" class="headerFont" style="text-align:right;border: none;">Quotation</th>
-                            </tr>
-                            <tr>
-                                <th class="headerFont" style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;">
-                                    Quote Number:</th>
-                                <td class="dataFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;">
-                                    ${quoteToEdit["magaya__Number"]}</td>
-                            </tr>
-                            <tr>
-                                <th class="headerFont" style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;">
-                                    Creation Date:</th>
-                                <td class="dataFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;">
-                                    ${create_date}</td>
-                            </tr>
-                            <tr>
-                                <th class="headerFont" style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;">
-                                    Expiration Date:</th>
-                                <td class="dataFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;">
-                                    ${expire_date}</td>
-                            </tr>
-                            <tr>
-                                <th class="headerFont" style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                                    Contact To:</th>
-                                <td class="dataFont" style="border-bottom: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;">
-                                    ${quoteToEdit["magaya__Employee"]}</td>
-                            </tr>
-                        </table>
-                    </div>
+                <td width="40%">
+                    <table id="info2" cellspacing="0px" cellpadding="2px" style="text-align:left;border: none; float: right;margin-left: 45px;">
+                        <tr>
+                            <th class="headerFont" style="text-align: right;">
+                                Quote Number:</th>
+                            <td class="dataFont">
+                                ${quoteToEdit["magaya__Number"]}</td>
+                        </tr>
+                        <tr>
+                            <th class="headerFont" style="text-align: right;">
+                                Creation Date:</th>
+                            <td class="dataFont">
+                                ${create_date}</td>
+                        </tr>
+                        <tr>
+                            <th class="headerFont" style="text-align: right;">
+                                Expiration Date:</th>
+                            <td class="dataFont">
+                                ${expire_date}</td>
+                        </tr>
+                        <tr>
+                            <th class="headerFont" style="text-align: right;">
+                                Contact To:</th>
+                            <td class="dataFont">
+                                ${quoteToEdit["magaya__Employee"]}</td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
                     <table width="100%" cellspacing="0px" cellpadding="2px" style="border: none; margin-top: 5px;">
                         <tr>
-                            <th class="headerFont" colspan="2" style="text-align: center;">
+                            <th class="headerFont" colspan="2" style="background-color: lightgrey; text-align: start;text-transform:uppercase ;border-left: 1px #000 solid;border-right: 1px #000 solid;border-top: 1px #000 solid;">
                                 Quotation Info
                             </th>
                         </tr>
                         <tr>
-                            <th class="headerFont" style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: center;background-color: lightskyblue;"><span>Origin:</span></th>
-                            <th class="headerFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: center;background-color: lightskyblue;"><span>Destination:</span></th>
+                            <th colspan="2" class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: start;">
+                                <span>Description of Goods:</span>
+                                <div class="dataFont">${quoteToEdit["magaya__Description"]}</div>
+                            </th>
                         </tr>
                         <tr>
-                            <td class="dataFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">${quoteToEdit["magaya__Origin"] !== null ? quoteToEdit["magaya__Origin"] : ""}</td>
-                            <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid;">${quoteToEdit["magaya__Destination"] !== null ? quoteToEdit["magaya__Destination"] : ""}</td>
-                        </tr>
-                        <tr>
-                            <th colspan="2" class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;background-color: lightskyblue;"><span>Description of Goods:</span></th>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="dataFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">${quoteToEdit["magaya__Description"]}</td>
+                            <th class="headerFont" style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: start;">
+                                <span>Origin:</span>
+                                <div class="dataFont" style="text-align: start;">${quoteToEdit["magaya__Origin"] !== null ? quoteToEdit["magaya__Origin"] : ""}</div>
+                            </th>
+                            <th class="headerFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: start;"><span>Destination:</span>
+                                <div class="dataFont" style="text-align: start;">${quoteToEdit["magaya__Destination"] !== null ? quoteToEdit["magaya__Destination"] : ""}</div>
+                            </th>
                         </tr>
                     </table>
                 </td>
@@ -1322,23 +1304,23 @@ function buildPdfHeader(orgData, quoteToEdit) {
 function buildPdfCharges(charges) {
     let data = ``
     data += `<div class="container">
-    <table width="100%" cellspacing="0px" cellpadding="0px">
-        <tr style="background-color: lightskyblue;">
-            <th colspan="5" style="border: 1px #000 solid; text-align: center;">
-                Charges</th>
-        </tr>
-        <tr style="background-color: lightskyblue; font-weight: bold;">
-            <th style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                Charge Description</th>
-            <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                Price</th>
-            <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                Quantity</th>
-            <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                Tax Amount</th>
-            <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                Final Amount</th>
-        </tr>`
+                <table width="100%" cellspacing="0px" cellpadding="0px">
+                    <tr>
+                        <th colspan="5" style="background-color: lightgrey; text-align: start;text-transform:uppercase ;border: 1px #000 solid">
+                            Charges</th>
+                    </tr>
+                    <tr style="font-weight: bold;">
+                        <th style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                            Charge Description</th>
+                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                            Price</th>
+                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                            Quantity</th>
+                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                            Tax Amount</th>
+                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                            Final Amount</th>
+                    </tr>`
     if (!_.isEmpty(charges)) {
         let amount_total = 0;
         let amount_tax = 0;
@@ -1346,43 +1328,40 @@ function buildPdfCharges(charges) {
             amount_total += roundDec(k["magaya__Amount_Total"]);
             amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<tr>
-                        <td class="dataFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: left;">
-                            ${k["Name"]}</td>
-                        <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
-                            ${k["magaya__Price"]}</td>
-                        <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
-                            ${k["magaya__CQuantity"]}</td>
-                        <td class="dataFont" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
-                            ${k["magaya__Tax_Amount"]}</td>
-                        <td style="border-right: 1px #000 solid; text-align: right; font-weight: bold;">
-                            ${k["magaya__Amount_Total"]}</td>
-                    </tr>`
+                    <td style="border-bottom: 1px #000 solid;border-left: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: left;">
+                        ${k["Name"]}</td>
+                    <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">
+                        ${k["magaya__Price"]}</td>
+                    <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">
+                        ${k["magaya__CQuantity"]}</td>
+                    <td style="border-right: 1px #000 solid; text-align: right;">
+                        ${k["magaya__Tax_Amount"]}</td>
+                    <td style="border-right: 1px #000 solid; text-align: right; font-weight: bold;">
+                        ${k["magaya__Amount_Total"]}</td>
+                </tr>`
         })
-        data += `<tr style="font-weight: bold;">
-                    <td style="border-left: 1px #000 solid; border-top: 1px #000 solid;" colspan="3">
-                        Totals</td>
-                    <td style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: right;">
-                        ${roundDec(amount_tax)}</td>
-                    <td style="border-top: 1px #000 solid;border-right: 1px #000 solid; text-align: right;">${roundDec(amount_total)}</td>
-                </tr>
-            </table>
-        </div>`
+        data += `<tr style="font-weight: bolder;">
+                    <td style="border:none" colspan="3">
+                    </td>
+                    <td style="border-left: 1px #000 solid; border-top: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                        TOTAL</td>
+                    <td style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">${roundDec(amount_total)}</td>
+                </tr>`
     } else {
         data += `<tr>
-                        <td style="border-right: 1px #000 solid; text-align: left;"></td>
-                        <td style="border-right: 1px #000 solid; text-align: right;"></td>
-                        <td style="border-right: 1px #000 solid; text-align: right;"></td>
-                        <td style="border-right: 1px #000 solid; text-align: right;"></td>
-                        <td style="border-right: 1px #000 solid; text-align: right; font-weight: bold;"></td>
-                    </tr>
-                    <tr style="font-weight: bold;">
-                    <td style="border-right: 1px #000 solid; text-align: right;" colspan="4"></td>
-                    <td style="border-right: 1px #000 solid;"></td>
-                </tr>
-            </table>
-        </div>`
+                    <td style="border-bottom: 1px #000 solid;border-left: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: left;">
+                     </td>
+                    <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">
+                     </td>
+                    <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">
+                     </td>
+                    <td style="border-right: 1px #000 solid; text-align: right;">
+                     </td>
+                    <td style="border-right: 1px #000 solid; text-align: right; font-weight: bold;">
+                     </td>
+                </tr>`
     }
-
+    data += `</table></div>`
     return data
 }
 
@@ -1393,15 +1372,15 @@ function buildPdfItems(items) {
     let data = ``
     data += `<div class="container">
                 <table width="100%">
-                    <tr style="background-color: lightskyblue;">
-                        <th colspan="5" style="text-align: center; font-weight: bold; border: 1px #000 solid;">Items</th>
+                    <tr>
+                        <th colspan="5" style="background-color: lightgrey; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">Items</th>
                     </tr>
-                    <tr style="background-color: lightskyblue;">
-                        <th style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Description </th>
-                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Quantity</th>
-                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Dimensions</th>
-                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Weight</th>
-                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Volume</th>
+                    <tr>
+                        <th style="border-left: 1px #000 solid; border-bottom: 1px #000 solid; border-right: 1px #000 solid; text-align: center;">Description </th>
+                        <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Quantity</th>
+                        <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Dimensions</th>
+                        <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Weight</th>
+                        <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Volume</th>
                     </tr>`
     if (!_.isEmpty(items)) {
         let totalPieces = 0
@@ -1428,52 +1407,53 @@ function buildPdfItems(items) {
                     total_weight_english += roundDec(k.magaya__Weigth * k.magaya__Pieces)
                 }
                 data += `<tr>
-            <td style="border-left: 1px #000 solid;border-right: 1px #000 solid; text-align: left;">
-                ${k["Name"]}</td>
-            <td style="border-right: 1px #000 solid; text-align: center;">
-                ${k["magaya__Pieces"]}</td>
-            <td style="border-right: 1px #000 solid; text-align: center;">
-                ${k["magaya__Length"]}*${k["magaya__Height"]}*${k["magaya__Width"]} (${measure_length})</td>
-            <td style="border-right: 1px #000 solid; text-align: right;">
-                ${k["magaya__Weigth"]} (${measure_weigth})</td>
-            <td style="border-right: 1px #000 solid; text-align: right;">
-                ${k["magaya__Volume"]} (${measure_volume})</td>
-        </tr>`
+                <td width="40%" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: left;">
+                    ${k["Name"]}</td>
+                <td width="15%" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                    ${k["magaya__Pieces"]}</td>
+                <td width="15%" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                    ${k["magaya__Length"]} X ${k["magaya__Height"]} X ${k["magaya__Width"]} (${measure_length})</td>
+                <td width="15%" style="border-right: 1px #000 solid; text-align: right;border-bottom: 1px #000 solid;">
+                    ${k["magaya__Weigth"]} (${measure_weigth})</td>
+                <td width="15%" style="border-right: 1px #000 solid; text-align: right;border-bottom: 1px #000 solid;">
+                    ${k["magaya__Volume"]} (${measure_volume})</td>
+                </tr>`
             })
             //get all to international system
         totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
         data += `<tr style="font-weight: bold;">
-                    <td style="border-left: 1px #000 solid;border-top: 1px #000 solid;">
-                        Totals</td>
-                    <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: center;">
-                        ${totalPieces}</td>
-                    <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
-                    <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
+                    <td style="border:none; text-align: center;" colspan="2">
+                    </td>
+                    <td style="border-left: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                        TOTAL</td>
+                    <td style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
                         ${roundDec(totalWeight)} kg</td>
-                    <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;">
+                    <td style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
                         ${roundDec(totalVolume)} m<sup>3</sup></td>
                 </tr>`
     } else {
         data += `<tr>
-                    <td style="border-right: 1px #000 solid; text-align: left;">
-                    </td>
-                    <td style="border-right: 1px #000 solid; text-align: center;">
-                    </td>
-                    <td style="border-right: 1px #000 solid; text-align: center;">
-                    </td>
-                    <td style="border-right: 1px #000 solid; text-align: right;">
-                    </td>
-                    <td style="border-right: 1px #000 solid; text-align: right;">
-                    </td>
+                    <td width="40%" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: left;">
+                        ${k["Name"]}</td>
+                    <td width="15%" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                        ${k["magaya__Pieces"]}</td>
+                    <td width="15%" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                        ${k["magaya__Length"]} X ${k["magaya__Height"]} X ${k["magaya__Width"]} (${measure_length})</td>
+                    <td width="15%" style="border-right: 1px #000 solid; text-align: right;border-bottom: 1px #000 solid;">
+                        ${k["magaya__Weigth"]} (${measure_weigth})</td>
+                    <td width="15%" style="border-right: 1px #000 solid; text-align: right;border-bottom: 1px #000 solid;">
+                        ${k["magaya__Volume"]} (${measure_volume})</td>
                 </tr>
                 <tr style="font-weight: bold;">
-                    <td style="border-right: 1px #000 solid;border-top: 1px #000 solid;">
-                        Totals</td>
-                    <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
-                        <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
-                    <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
-                    <td style="border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: right;"></td>
+                    <td style="border:none; text-align: center;" colspan="2">
+                    </td>
+                    <td style="border-left: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                        TOTAL</td>
+                    <td style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
+                        ${roundDec(totalWeight)} kg</td>
+                    <td style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
+                        ${roundDec(totalVolume)} m<sup>3</sup></td>
                 </tr>`
     }
     data += `</table></div>`
