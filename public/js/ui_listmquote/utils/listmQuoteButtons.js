@@ -436,7 +436,7 @@ $(document).ready(function(){
     let accountQuoteData = storeAccounts.getState().quoteAccount
     let dealQuoteData = storeDeal.getState().dealQuote[0]
     let accountQuote = accountQuoteData['id']
-    let dealQuote = 0
+    let dealQuote = ""
     if (!_.isEmpty(dealQuoteData))
         dealQuote = dealQuoteData.id
     //receipt fields

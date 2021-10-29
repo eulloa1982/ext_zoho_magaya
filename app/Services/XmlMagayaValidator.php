@@ -68,14 +68,17 @@ class XmlMagayaValidator
             $message['error'][] = $this::ERROR_CODES['no_code_transport'];
         }
 
-        /*if (!in_array ($xml->Status, $this::TYPES_STATUS_QT)) {
-            $message['error'] = $this::ERROR_CODES['no_status_quotation'];
-            return $message;
-        }*/
+        //estado de la cotizacion
+        //open, empty y posted
+        if (!in_array ($xml->Status, $this::TYPES_STATUS_QT)) {
+            $message['error'][] = $this::ERROR_CODES['no_status_quotation'];
+        }
 
         //items
         $items = $xml->Items;
-        //print_r($items);
+        //si existe Item, debe existir metodo de transporte
+        //el status debe ser valido
+        //el item debe enviarse con cantidad > 0
         if (!empty($xml->Items)){
             if (empty($xml->ModeOfTransportation)) {
                 $message['error'][] = $this::ERROR_CODES['no_transport_method'];
@@ -93,6 +96,8 @@ class XmlMagayaValidator
             //return $message;
         }
 
+        //si existe charge debe existir item
+        //si existe charge, debe existir metodo de transporte
         if (!empty($xml->Charges)){
             if (empty($xml->Items)) {
                 $message['error'][] = $this::ERROR_CODES['item_required'];
