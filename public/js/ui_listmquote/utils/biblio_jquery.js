@@ -1288,20 +1288,22 @@ function buildPdfHeader(orgData, quoteToEdit) {
                             </th>
                         </tr>
                         <tr>
-                            <th colspan="2" class="headerFont" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: start;">
+                            <th colspan="2" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: start;">
                                 <div class="dataFont">
-                                    <span>Description of Goods:</span>
+                                    <span class="headerFont">Description of Goods:</span>
                                     ${quoteToEdit["magaya__Description"]}</div>
                             </th>
                         </tr>
                         <tr>
-                            <th class="headerFont" style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: start;">
-                                <span>Origin:</span>
-                                <div class="dataFont" style="text-align: start;">${quoteToEdit["magaya__Origin"] !== null ? quoteToEdit["magaya__Origin"] : ""}</div>
+                            <th style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: start;">
+                                <div class="dataFont" style="text-align: start;">
+                                    <span class="headerFont">Origin:</span>
+                                    ${quoteToEdit["magaya__Origin"] !== null ? quoteToEdit["magaya__Origin"] : ""}</div>
                             </th>
-                            <th class="headerFont" style="border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: start;">
-                                <span>Destination:</span>
-                                <div class="dataFont" style="text-align: start;">${quoteToEdit["magaya__Destination"] !== null ? quoteToEdit["magaya__Destination"] : ""}</div>
+                            <th style="border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: start;">
+                                <div class="dataFont" style="text-align: start;">
+                                    <span class="headerFont">Destination:</span>
+                                    ${quoteToEdit["magaya__Destination"] !== null ? quoteToEdit["magaya__Destination"] : ""}</div>
                             </th>
                         </tr>
                     </table>
