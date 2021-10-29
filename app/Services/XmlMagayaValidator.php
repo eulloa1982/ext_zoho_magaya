@@ -17,6 +17,7 @@ class XmlMagayaValidator
         'no_guid_shipper'           =>    "Shipper has no GUID Attribute",
         'no_guid_carrier'           =>    "Carrier has no GUID Attribute",
         'no_code_transport'           =>    "No code transport detected",
+        'no_transport_method'           =>    "No transport method detected",
         ];
 
     const TYPES_STATUS_QT = array('Open', 'Posted', 'Empty');
@@ -86,11 +87,27 @@ class XmlMagayaValidator
         $items = $xml->Items;
         //print_r($items);
         if (!empty($xml->Items)){
+            if (empty($xml->ModeOfTransportation)) {
+                $message['error'][] = $this::ERROR_CODES['no_transport_method'];
+            }
             foreach ($xml->Items->Item as $value) {
                 if (!in_array($value->Status, $this::TYPES_STATUS_ITEM)) {
                     $message['error'][] = $this::ERROR_CODES['no_status_item_quotation'];
                 }
             }
+
+            //return $message;
+        }
+
+        if (!empty($xml->Charges)){
+            if (empty($xml->ModeOfTransportation)) {
+                $message['error'][] = $this::ERROR_CODES['no_transport_method'];
+            }
+            /*foreach ($xml->Items->Item as $value) {
+                if (!in_array($value->Status, $this::TYPES_STATUS_ITEM)) {
+                    $message['error'][] = $this::ERROR_CODES['no_status_item_quotation'];
+                }
+            }*/
 
             //return $message;
         }
