@@ -1143,8 +1143,10 @@ function buildPdfHeader(orgData, quoteToEdit) {
             none = orgData["website"];
         let nameAccount = !_.isEmpty(quoteToEdit["Account"]) ? quoteToEdit["Account"]["name"] : ""
         let representative = !_.isEmpty(quoteToEdit["magaya__Representative"]) ? quoteToEdit["magaya__Representative"]["name"] : ""
-
-        data = `<div class="container">
+        let quote_json = JSON.parse(quoteToEdit)
+        data = `
+        <div>${quote_json}</div>
+        <div class="container">
         <table cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
             <tr>
                 <th rowspan="2">
