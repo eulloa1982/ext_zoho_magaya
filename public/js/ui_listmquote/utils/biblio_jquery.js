@@ -1142,7 +1142,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
         let phone = ``;
         let email = ``;
         none = !_.isEmpty(orgData["website"]) ? orgData["website"] : ""
-        let address = !_.isEmpty(orgData["street"]) ? orgData["street"] : "street";
+        let street = !_.isEmpty(orgData["street"]) ? orgData["street"] : "street";
         let city = !_.isEmpty(orgData["city"]) ? orgData["city"] : "city";
         let state = !_.isEmpty(orgData["state"]) ? orgData["state"] : "state";
         let country = !_.isEmpty(orgData["country"]) ? orgData["country"] : "country";
