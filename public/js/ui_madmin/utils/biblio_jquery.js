@@ -1,9 +1,10 @@
 //magaya loguin variables
 //get charges definition
 let data = []
+
 async function getChargesDefinition() {
    //get login magaya variables
-    data = await getMagayaVariables()
+   data = await getMagayaVariables()
 
     flags = MagayaAPI.TRANSACTIONS_FLAGS.BasicFields
     entity_type = MagayaAPI.ENTITY_TYPES.Customer
@@ -33,6 +34,31 @@ async function getWorkingPorts() {
     MagayaAPI.sendRequest(dataPorts, function(result) {
         if (!_.isEmpty(result.data)) {
             storePortsDef.dispatch(addPorts(result.data.Port))
+            //storeChargesDef.dispatch(addChargesDef(result.data.ChargeDefinition))
+        };
+    })
+
+}
+
+async function getCarriers() {
+    data = await getMagayaVariables()
+
+    flags = MagayaAPI.TRANSACTIONS_FLAGS.BasicFields
+    entity_type = MagayaAPI.ENTITY_TYPES.Carrier
+    dataCarriers = {
+        method: 'GetEntitiesOfType',
+        data: [
+            data["network_id"],
+            flags,
+            '',
+            entity_type
+        ]
+    }
+
+    MagayaAPI.sendRequest(dataCarriers, function(result) {
+        if (!_.isEmpty(result.data)) {
+            console.log("Carriers", result.data)
+            storeProvidersDef.dispatch(addProvidersDef(result.data.Carrier))
             //storeChargesDef.dispatch(addChargesDef(result.data.ChargeDefinition))
         };
     })
@@ -152,6 +178,34 @@ function chargeMagayaToCRM(data) {
 
 
 //return json object ready to insert to Charges CRM
+function providerMagayaToCRM(data) {
+    //code
+    let name = data["Name"];
+    let type = data["CarrierInfo"]["CarrierTypeCode"];
+    let magayaGuid = data["@attributes"]["GUID"];
+
+    dataProviderSend = {
+        "Name": name,
+        "magaya__Carrier_Type": type,
+        "magaya__Magaya_GUID": magayaGuid,
+    }
+
+    if (_.isObject(data["BillingAddress"]) && !_.isEmpty(data["BillingAddress"])) {
+        Object.assign(dataProviderSend, {
+            "magaya__BillingAddress_City": data["BillingAddress"]["City"],
+            "magaya__BillingAddress_Country": data["BillingAddress"]["Country"],
+            "magaya__BillingAddress_State": data["BillingAddress"]["State"],
+            "magaya__BillingAddress_Street": data["BillingAddress"]["Street"],
+            "magaya__BillingAddress_ZipCode": data["BillingAddress"]["ZipCode"],
+        })
+    }
+
+    return (dataProviderSend);
+
+}
+
+
+//return json object ready to insert to Charges CRM
 function portMagayaToCRM(data) {
     //code
     let airway = false
@@ -213,7 +267,7 @@ function portMagayaToCRM(data) {
 
 
 //insertar el charge en el CRM mediante una funcion privada
-async function insertChargeTypeCRM(chargeTypeJSON) {
+/*async function insertChargeTypeCRM(chargeTypeJSON) {
     if (!_.isEmpty(chargeTypeJSON)) {
         let req_data = {}
         $.map(chargeTypeJSON, function(k, v) {
@@ -265,6 +319,37 @@ async function insertPortCRM(portJSON) {
                         })
                     } else {
                         codeError = "Error inserting new charge"
+                        show = false;
+                        module = 'Charge Type Items'
+                        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                    }
+                })
+
+        })
+    }
+}*/
+
+//function to insert all record from magaya to crm
+async function insertMagayaRecordToCrm(recordJSON) {
+    if (!_.isEmpty(recordJSON)) {
+        //get active module
+        let currentModule = storeCurrentModule.getState().currentModule;
+        let req_data = {}
+        $.map(recordJSON, function(k, v) {
+            insertRecordCRM(currentModule, k)
+                .then(function(response) {
+                    if (response[0].code === "SUCCESS") {
+                        let idRecord = response[0].details.id
+                        ZOHO.CRM.API.getRecord({Entity:currentModule,RecordID:idRecord})
+                        .then(function(data) {
+                            let record = data.data
+                            message = " : New record added";
+                            storeCrm.dispatch(addItemCrm(record))
+                            storeSuccess.dispatch(addSuccess({message: message}))
+                        })
+                    } else {
+                        codeError = "Error inserting new record"
                         show = false;
                         module = 'Charge Type Items'
                         storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
