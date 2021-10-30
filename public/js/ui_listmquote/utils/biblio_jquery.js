@@ -1153,7 +1153,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
         let expire_date = quoteToEdit["magaya__ExpirationDate"] !== null ? new Date(quoteToEdit["magaya__ExpirationDate"]).toISOString().split('T')[0] : "";
         let nameAccount = !_.isEmpty(quoteToEdit["Account"]) ? quoteToEdit["Account"]["name"] : "";
         let representative = !_.isEmpty(quoteToEdit["magaya__Representative"]) ? quoteToEdit["magaya__Representative"]["name"] : "";
-        contact = !_.isEmpty(quoteToEdit["Owner"]) ? quoteToEdit["Owner"]["name"] + ", " + quoteToEdit["Owner"]["email"] : ""
+        contact = !_.isEmpty(quoteToEdit["Owner"]) ? quoteToEdit["Owner"]["name"] + ",<br> " + quoteToEdit["Owner"]["email"] : ""
         let customer_street = !_.isEmpty(quoteToEdit["magaya__BillingStreet"]) ? quoteToEdit["magaya__BillingStreet"] : "street" 
         let customer_city = !_.isEmpty(quoteToEdit["magaya__BillingCity"]) ? quoteToEdit["magaya__BillingCity"] : "city" 
         let customer_state = !_.isEmpty(quoteToEdit["magaya__BillingState"]) ? quoteToEdit["magaya__BillingState"] : "state"
