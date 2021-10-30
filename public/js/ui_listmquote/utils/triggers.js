@@ -152,6 +152,8 @@ function rolShipper(){
     $("input[name=magaya__ConsigneeState").val("")
     $("input[name=magaya__ConsigneeCountry]").val("")
     $("input[name=magaya__ConsigneeStreet]").val("")
+    $("input[name=magaya__ConsigneeCode]").val("")
+
 }
 
 function rolConsignee() {
@@ -162,6 +164,8 @@ function rolConsignee() {
     $("input[name=magaya__ShipperState").val("")
     $("input[name=magaya__ShipperCountry]").val("")
     $("input[name=magaya__ShipperStreet]").val("")
+    $("input[name=magaya__ShipperCode]").val("")
+
 }
 
 function rolOther() {
@@ -175,6 +179,8 @@ function rolOther() {
     $("input[name=magaya__ShipperState").val("")
     $("input[name=magaya__ShipperCountry]").val("")
     $("input[name=magaya__ShipperStreet]").val("")
+    $("input[name=magaya__ShipperCode]").val("")
+    $("input[name=magaya__ConsigneeCode]").val("")
 }
 
 

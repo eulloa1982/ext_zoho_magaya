@@ -669,6 +669,12 @@ a {
 																<input type="text" name="magaya__ShipperStreet" class="form-control">
 															</div>
 														</div>
+                                                        <div class="row" style="margin-bottom:20px;">
+                                                            <div class="col-md-6">
+																<label class="col-md-12" style="font-weight: bold;">Zip Code</label>
+																<input type="text" name="magaya__ShipperCode" class="form-control"/>
+															</div>
+                                                        </div>
 										</div>
 										<div class="col-md-6">
 													<label class="col-md-12" style="font-weight: bold;">Address</label>
@@ -692,6 +698,12 @@ a {
 																<input type="text" name="magaya__ConsigneeStreet" class="form-control">
 															</div>
 														</div>
+                                                        <div class="row" style="margin-bottom:20px;">
+                                                            <div class="col-md-6">
+																<label class="col-md-12" style="font-weight: bold;">Zip Code</label>
+																<input type="text" name="magaya__ConsigneeCode" class="form-control"/>
+															</div>
+                                                        </div>
 										</div>
 									</div>
 								</div>
