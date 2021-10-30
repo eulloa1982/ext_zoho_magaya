@@ -52,7 +52,10 @@ function reducerItem (state = initialStateIntems, actions)  {
         }
 
         case ADD_ITEM_ON_NEW: {
-            //calculate totales
+
+            if (_.isEmpty(actions.payload.magaya__Package_Type) || parseInt(actions.payload.magaya__Package_Type.id) < 0 )
+                throw new UserException('Mandatory data not found: You need to select a Package Type')
+
             newArray = state.itemsOnNew;
             $.map(state.itemNew, function(k, v) {
                 state.itemNew[v] = 0
