@@ -1197,7 +1197,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                                 ${email}</td>
                         </tr>
                         <tr>
-                            <td colspan="12" class="headerFont">
+                            <td colspan="12" class="headerFont" style="font-size: 11px;">
                                 <span class="material-icons">home</span>
                                 ${street}, ${city}, ${state}, ${country}</td>
                         </tr>
@@ -1243,7 +1243,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                         <tr>
                             <th class="headerFont" style="text-align: right;border: 1px #000 solid;">
                                 Address</th>
-                            <td class="dataFont" style="text-align: start;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                            <td class="dataFont" style="text-align: start;border-right: 1px #000 solid;border-bottom: 1px #000 solid; font-size: 11px;">
                             ${customer_street}, ${customer_city}, ${customer_state}, ${customer_country}
                             </td>
                         </tr>
@@ -1273,7 +1273,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                         <tr>
                             <th class="headerFont" style="text-align: right;">
                                 Contact To:</th>
-                            <td class="dataFont">
+                            <td class="dataFont" style="font-size: 11px;">
                                 ${contact}</td>
                         </tr>
                     </table>
@@ -1391,7 +1391,7 @@ function buildPdfItems(items) {
     data += `<div class="container" style="margin-top: 10px;">
                 <table width="100%">
                     <tr>
-                        <th class="headerFont" colspan="5" style="background-color: #4682b4; text-align: start;text-transform:uppercase; border: 1px #000 solid;"> Items</th>
+                        <th class="headerFont" colspan="6" style="background-color: #4682b4; text-align: start;text-transform:uppercase; border: 1px #000 solid;"> Items</th>
                     </tr>
                     <tr>
                         <th style="border-left: 1px #000 solid; border-bottom: 1px #000 solid; border-right: 1px #000 solid; text-align: center;">Description </th>
@@ -1429,7 +1429,7 @@ function buildPdfItems(items) {
                 <td width="40%" style="padding-left: 3px;border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
                     ${k["Name"]}</td>
                 <td width="40%" style="padding-left: 3px;border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                    ${k["magaya__Package_Type"]["Name"]}</td>
+                    ${!_.isEmpty(k["magaya__Package_Type"]) && k["magaya__Package_Type"] !== null ? k["magaya__Package_Type"]["Name"] : ""}</td>
                 <td width="15%" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
                     ${k["magaya__Pieces"]}</td>
                 <td width="15%" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
