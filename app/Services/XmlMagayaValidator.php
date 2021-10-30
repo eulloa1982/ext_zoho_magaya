@@ -19,7 +19,7 @@ class XmlMagayaValidator
         'no_code_transport'           =>    "No code transport detected",
         'no_transport_method'           =>    "No transport method detected",
         'item_quantity_not_valid'    => "Item quantity must to be greather than 0",
-        'item_required'             => "This mquote need a Package Package",
+        'item_required'             => "This mquote need a Package Item",
         'charge_required'             => "This mquote need a Charge Item"
 
         ];
