@@ -1347,7 +1347,7 @@ function buildPdfCharges(charges) {
             amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<tr>
                     <td style="padding-left: 3px;border-bottom: 1px #000 solid;border-left: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">
-                        ${!_.isEmpty(k["magaya__Charge_Type"]) ? k["magaya__Charge_Type"]["Name"] : k["Name"]}</td>
+                        ${!_.isEmpty(k["magaya__Charge_Type"]) && k["magaya__Charge_Type"] !== null ? k["magaya__Charge_Type"]["Name"] : k["Name"]}</td>
                     <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">
                         ${k["magaya__Price"]}</td>
                     <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">
