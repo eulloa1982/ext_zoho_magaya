@@ -221,6 +221,11 @@ $(document).ready(function(){
                     }
                     data[this.name].push(this.value || '');
                 } else {
+                    if (this.value === "true")
+                        this.value = true
+                    if (this.value === "false")
+                        this.value = false
+
                     data[this.name] = this.value || '';
                 }
             });
@@ -232,6 +237,8 @@ $(document).ready(function(){
                 Trigger:[]
               }
 
+              console.log("Data send", config)
+              //storeCrm.dispatch(updateItemCrm({id: idRecord, item: data}))
               ZOHO.CRM.API.updateRecord(config)
                 .then(function(data){
                     res = data.data;
@@ -255,6 +262,13 @@ $(document).ready(function(){
                         }
 
                     })
+                })
+                .catch(function(error) {
+                    codeError = 'Error updating the record';
+                    field = '';
+                    show = false;
+                    module = 'Items CRM'
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
                 })
 
 

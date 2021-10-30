@@ -22,13 +22,11 @@ const reducerCrm = (state = initialStateCrm, actions) => {
         case UPDATE_ITEM_CRM: {
             const byId = actions.payload.id
             const item = actions.payload.item
-
-            const newArray = {...state.itemsCrm}
-            let item_1 = state.itemsCrm.filter(i => i.id === byId )
             const index = state.itemsCrm.findIndex(quote => quote.id === byId)
 
-            item_1 = item
-            state.itemsCrm[index] = item[index]
+            let item_1 = item
+            state.itemsCrm[index] = item[0]
+
             return {
                 ...state,
                 itemCrm: item_1,

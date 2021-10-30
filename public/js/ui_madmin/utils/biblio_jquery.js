@@ -12,7 +12,8 @@ async function getChargesDefinition() {
         method: "GetChargeDefinitions",
         data: [
             data["network_id"]
-        ]
+        ],
+        url: data['magaya_url']
     }
 
     MagayaAPI.sendRequest(dataCharge, function(result) {
@@ -24,11 +25,13 @@ async function getChargesDefinition() {
 }
 
 async function getWorkingPorts() {
+    data = await getMagayaVariables()
     dataPorts = {
         method: "GetWorkingPorts",
         data: [
             "network_id"
-        ]
+        ],
+        url: data['magaya_url']
     }
 
     MagayaAPI.sendRequest(dataPorts, function(result) {
@@ -52,7 +55,8 @@ async function getCarriers() {
             flags,
             '',
             entity_type
-        ]
+        ],
+        url: data['magaya_url']
     }
 
     MagayaAPI.sendRequest(dataCarriers, function(result) {
