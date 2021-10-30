@@ -1153,11 +1153,11 @@ function buildPdfHeader(orgData, quoteToEdit) {
         let expire_date = quoteToEdit["magaya__ExpirationDate"] !== null ? new Date(quoteToEdit["magaya__ExpirationDate"]).toISOString().split('T')[0] : "";
         let nameAccount = !_.isEmpty(quoteToEdit["Account"]) ? quoteToEdit["Account"]["name"] : "";
         let representative = !_.isEmpty(quoteToEdit["magaya__Representative"]) ? quoteToEdit["magaya__Representative"]["name"] : "";
-        contact = !_.isEmpty(quoteToEdit["magaya__Employee"]) ? quoteToEdit["magaya__Employee"]["name"] : ""
-        let customer_street = !_.isEmpty(quoteToEdit["magaya__ContactStreet"]) ? quoteToEdit["magaya__ContactStreet"] : "street" 
-        let customer_city = !_.isEmpty(quoteToEdit["magaya__ContactCity"]) ? quoteToEdit["magaya__ContactCity"] : "city" 
-        let customer_state = !_.isEmpty(quoteToEdit["magaya__ContactState"]) ? quoteToEdit["magaya__ContactState"] : "state"
-        let customer_country = !_.isEmpty(quoteToEdit["magaya__ContactCountry"]) ? quoteToEdit["magaya__ContactCountry"] : "country"
+        contact = !_.isEmpty(quoteToEdit["Owner"]) ? quoteToEdit["Owner"]["name"] + ", " + quoteToEdit["Owner"]["email"] : ""
+        let customer_street = !_.isEmpty(quoteToEdit["magaya__BillingStreet"]) ? quoteToEdit["magaya__BillingStreet"] : "street" 
+        let customer_city = !_.isEmpty(quoteToEdit["magaya__BillingCity"]) ? quoteToEdit["magaya__BillingCity"] : "city" 
+        let customer_state = !_.isEmpty(quoteToEdit["magaya__BillingState"]) ? quoteToEdit["magaya__BillingState"] : "state"
+        let customer_country = !_.isEmpty(quoteToEdit["magaya__BillingCountry"]) ? quoteToEdit["magaya__BillingCountry"] : "country"
 
         //console.log(orgData)
         data = `
@@ -1346,8 +1346,8 @@ function buildPdfCharges(charges) {
             amount_total += roundDec(k["magaya__Amount_Total"]);
             amount_tax += roundDec(k["magaya__Tax_Amount"])
             data += `<tr>
-                    <td style="padding-left: 3px;border-bottom: 1px #000 solid;border-left: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: left;">
-                        ${k["Name"]}</td>
+                    <td style="padding-left: 3px;border-bottom: 1px #000 solid;border-left: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">
+                        ${k["magaya__Charge_Type"]["Name"]}</td>
                     <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">
                         ${k["magaya__Price"]}</td>
                     <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">
@@ -1395,6 +1395,7 @@ function buildPdfItems(items) {
                     </tr>
                     <tr>
                         <th style="border-left: 1px #000 solid; border-bottom: 1px #000 solid; border-right: 1px #000 solid; text-align: center;">Description </th>
+                        <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Package Type</th>
                         <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Quantity</th>
                         <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Dimensions</th>
                         <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Weight</th>
@@ -1425,8 +1426,10 @@ function buildPdfItems(items) {
                     total_weight_english += roundDec(k.magaya__Weigth * k.magaya__Pieces)
                 }
                 data += `<tr>
-                <td width="40%" style="padding-left: 3px;border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: left;">
+                <td width="40%" style="padding-left: 3px;border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
                     ${k["Name"]}</td>
+                <td width="40%" style="padding-left: 3px;border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
+                    ${k["magaya__Package_Type"]["Name"]}</td>
                 <td width="15%" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
                     ${k["magaya__Pieces"]}</td>
                 <td width="15%" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
@@ -1441,7 +1444,7 @@ function buildPdfItems(items) {
         totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
         totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
         data += `<tr style="font-weight: bold;">
-                    <td style="border:none; text-align: center;" colspan="2">
+                    <td style="border:none; text-align: center;" colspan="3">
                     </td>
                     <td style="border-left: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
                         TOTAL</td>
