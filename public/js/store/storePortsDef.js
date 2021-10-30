@@ -1,5 +1,6 @@
 const initialStatePorts = {
     ports:[],
+    singlePortDef: [],
     active: false
     //charges def in crm
 }
@@ -24,6 +25,15 @@ const reducerPorts = (state = initialStatePorts, actions) => {
                 ...state,
                 ports: state.ports
             }
+        }
+
+        case GET_PORT_DEF: {
+            const byId = actions.payload.id
+            const newArray = state.ports[byId]
+            return {
+                ...state,
+                singlePortDef:newArray
+            };
         }
 
         case MAKE_ACTIVE_PORT: {
@@ -104,4 +114,9 @@ function makeActivePort() {
 function makeInactivePort() {
     return {type: MAKE_INACTIVE_PORT};
 }
+
+function getPortDef(payload){
+    return {type: GET_PORT_DEF, payload}
+}
+
 

@@ -87,7 +87,7 @@
 
         <div class="col-md-6">
             <div class="delete-from-crm">
-            <span class="material-icons">clear</span>
+            <span class="material-icons delete-from-crm">clear</span>
             </div>
             <label><h5 class="list-group-item active">CRM</h5></label>
             <ul id="sortable-crm" class="list-group connectedSortable">
@@ -95,13 +95,14 @@
         </div>
         <div class="col-md-6" id="magaya-content">
             <div class="send-to-crm">
-                <span class="material-icons">arrow_back</span>
+                <span class="material-icons send-to-crm">arrow_back</span>
             </div>
             <label><h5 class="list-group-item active">Magaya</h5></label>
             <!--div class="import-all-charges" style="display: inline" data-bs-toggle="tooltip" data-bs-placement="right" title="Export all charges"><i class="fa fa-database" aria-hidden="true"></i></div-->
             <ul id="sortable-magaya-charges" class="list-group connectedSortable"></ul>
-            <ul id="sortable-magaya-ports" class="list-group connectedSortable">
-            </ul>
+            <ul id="sortable-magaya-ports" class="list-group connectedSortable"></ul>
+            <ul id="sortable-magaya-providers" class="list-group connectedSortable"></ul>
+
         </div>
     </div>
 </div>
@@ -138,13 +139,13 @@
 
 @stop
  @section('js')
- <script src="{{ url('js/ui_madmin/utils/biblio_jquery.js', $extra = [], $secure = 1) }}"></script>
-
  <script src="{{ url('js/ui_madmin/subscribers/subscribersChargeDef.js', $extra = [], $secure = 1) }}"></script>
  <script src="{{ url('js/ui_madmin/subscribers/subscribersPortsDef.js', $extra = [], $secure = 1) }}"></script>
+ <script src="{{ url('js/ui_madmin/subscribers/subscribersProvidersDef.js', $extra = [], $secure = 1) }}"></script>
 
  <script src="{{ url('js/ui_madmin/subscribers/subscribersItemsCrm.js', $extra = [], $secure = 1) }}"></script>
  <script src="{{ url('js/ui_madmin/subscribers/subscribersCurrentModule.js', $extra = [], $secure = 1) }}"></script>
+ <script src="{{ url('js/ui_madmin/utils/biblio_jquery.js', $extra = [], $secure = 1) }}"></script>
 
 
 <script>
@@ -185,13 +186,22 @@ $(document).ready(function(){
                         case "magaya__Ports": {
                             storePortsDef.dispatch(makeActivePort())
                             storeChargesDef.dispatch(makeInactiveChargeDef())
+                            storeProvidersDef.dispatch(makeInactiveProviderDef())
                             break
                         }
 
                         case "magaya__Charges_Type": {
                             storePortsDef.dispatch(makeInactivePort())
                             storeChargesDef.dispatch(makeActiveChargeDef())
+                            storeProvidersDef.dispatch(makeInactiveProviderDef())
                             break;
+                        }
+
+                        case "magaya__Providers": {
+                            storeProvidersDef.dispatch(makeActiveProviderDef())
+                            storeChargesDef.dispatch(makeInactiveChargeDef())
+                            storePortsDef.dispatch(makeInactivePort())
+                          break;
                         }
 
                         default:
@@ -202,6 +212,7 @@ $(document).ready(function(){
         })
         getChargesDefinition()
         getWorkingPorts()
+        getCarriers()
 
     })
 

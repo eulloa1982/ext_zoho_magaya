@@ -84,9 +84,9 @@ storeQuote.subscribe(() => {
                     let $iconView = $(`<a><span class="material-icons oculto btn-slide" data-id="${item.id}">visibility</span></a>`)
                     return $("<div>").attr({class: "btn-toolbar"})
                                 .append($checkbox)
-                                //.append($sendMagaya)
-                                //.append($iconPencil)
-                                //.append($iconTrash)
+                                .append($sendMagaya)
+                                .append($iconPencil)
+                                .append($iconTrash)
                                 .append($iconView)
                     }
                 },
