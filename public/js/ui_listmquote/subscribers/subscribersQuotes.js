@@ -84,9 +84,9 @@ storeQuote.subscribe(() => {
                     let $iconView = $(`<a><span class="material-icons oculto btn-slide" data-id="${item.id}">visibility</span></a>`)
                     return $("<div>").attr({class: "btn-toolbar"})
                                 .append($checkbox)
-                                //.append($sendMagaya)
-                                //.append($iconPencil)
-                                //.append($iconTrash)
+                                .append($sendMagaya)
+                                .append($iconPencil)
+                                .append($iconTrash)
                                 .append($iconView)
                     }
                 },
@@ -303,18 +303,18 @@ storeQuote.subscribe(() => {
 
             //Incoterms
             let incoterms = quoteToEdit.magaya__Incoterm_rule
-            let incotermsValues = $("select[name=magaya__Incoterm_rule] option")
+            let incotermsValues = $("select[name=magaya__Incoterms] option")
             $.map(incotermsValues, function(k, v) {
                 //console.log(k.text === incoterms, k.text)
                 if (k.text === incoterms) {
-                    $(`select[name=magaya__Incoterm_rule] option:contains(${incoterms})`).prop('selected', true);
-                    $(`select[name=magaya__Incoterm_rule]`).change()
+                    $(`select[name=magaya__Incoterms] option:contains(${incoterms})`).prop('selected', true);
+                    $(`select[name=magaya__Incoterms]`).change()
                 } else {
-                    $(`select[name=magaya__Incoterm_rule]`).prop('selected', false);
+                    $(`select[name=magaya__Incoterms]`).prop('selected', false);
 
                 }
             })
-            $("select[name=magaya__Incoterm_rule").val(incoterms).change()
+            //$("select[name=magaya__Incoterms]").val(incoterms).change()
 
             //other modules related
             if (!_.isEmpty(quoteToEdit.magaya__Routing)) {

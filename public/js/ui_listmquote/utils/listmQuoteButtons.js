@@ -237,8 +237,9 @@ $(document).ready(function(){
         e.preventDefault();
         e.stopImmediatePropagation();
 
-        let $form = $("#new-item");
-        let item = getFormData($form);
+        let item = storeItem.getState().itemEmpty
+        //let $form = $("#new-item");
+        //let item = getFormData($form);
         Object.assign(item, {"magaya__Package_Type": {'id': $("select[name=magaya__Package_Type]").val(), 'name':$("select[name=magaya__Package_Type] option:selected").text()}})
 
         console.log("new item", item)
@@ -473,8 +474,11 @@ $(document).ready(function(){
         "magaya__ContactHomePhone": sanitize($("input[name=Phone]").val()),
         "magaya__ContactName": sanitize($("select[name=magaya__Representative] option:selected").text()),
         "magaya__Terms": sanitize($("#magaya__Terms").val()),
-        "magaya__Incoterm_rule": $("select[name=magaya__Incoterm_rule]").val(),
-        "Owner": $("select[name=Owner]").val()
+        "magaya__Incoterms": $("select[name=magaya__Incoterms]").val(),
+        "Owner": $("select[name=Owner]").val(),
+        "magaya__Origin": sanitize($(":input[name=magaya__Origin]").val()),
+        "magaya__Destination": sanitize($(":input[name=magaya__Destination]").val()),
+
     }
 
 
@@ -492,11 +496,13 @@ $(document).ready(function(){
         "magaya__ShipperState": sanitize($("input[name=magaya__ShipperState]").val()),
         "magaya__ShipperCountry": sanitize($("input[name=magaya__ShipperCountry]").val()),
         "magaya__ShipperStreet": sanitize($("input[name=magaya__ShipperStreet]").val()),
+        "magaya__ShipperCode": sanitize($("input[name=magaya__ShipperCode]").val()),
         "magaya__Consignee": sanitize($("select[name=magaya__Consignee] option:selected").text()),
         "magaya__ConsigneeCity": sanitize($("input[name=magaya__ConsigneeCity]").val()),
         "magaya__ConsigneeCountry": sanitize($("input[name=magaya__ConsigneeCountry]").val()),
         "magaya__ConsigneeState": sanitize($("input[name=magaya__ConsigneeState]").val()),
         "magaya__ConsigneeStreet": sanitize($("input[name=magaya__ConsigneeStreet]").val()),
+        "magaya__ConsigneeCode": sanitize($("input[name=magaya__ConsigneeCode]").val()),
         "magaya__MainCarrier": $("select[name=magaya__MainCarrier] option:selected").val(),
         "magaya__ModeofTransportation": $("select[name=magaya__TransportationMode] option:selected").val(),
     }
@@ -653,10 +659,10 @@ $(document).ready(function(){
             "magaya__Magaya_Status": "Open",
             "magaya__AddedTime": $("input[name=magaya__AddedTime]").val(),
             "magaya__CreatedByName": sanitize($("input[name=magaya__CreatedByName]").val()),
-            "magaya__Seller": $("select[name=magaya__Seller]").val(),
+            "magaya__Seller": $(":input[name=magaya__Seller]").val(),
             "magaya__Terms": sanitize($("#magaya__Terms").val()),
             "magaya__IssuedBy": $(":input[name=magaya__IssuedByName]").val(),
-            "magaya__Incoterm_rule": $("select[name=magaya__Incoterm_rule]").val(),
+            "magaya__Incoterms": $("select[name=magaya__Incoterms]").val(),
             "Owner": $("select[name=Owner]").val()
         }
 
@@ -668,11 +674,13 @@ $(document).ready(function(){
             "magaya__ShipperState": sanitize($("input[name=magaya__ShipperState]").val()),
             "magaya__ShipperCountry": sanitize($("input[name=magaya__ShipperCountry]").val()),
             "magaya__ShipperStreet": sanitize($("input[name=magaya__ShipperStreet]").val()),
+            "magaya__ShipperCode": sanitize($("input[name=magaya__ShipperCode]").val()),
             "magaya__Consignee": sanitize($("select[name=magaya__Consignee] option:selected").text()),
             "magaya__ConsigneeCity": sanitize($("input[name=magaya__ConsigneeCity]").val()),
             "magaya__ConsigneeCountry": sanitize($("input[name=magaya__ConsigneeCountry]").val()),
             "magaya__ConsigneeState": sanitize($("input[name=magaya__ConsigneeState]").val()),
             "magaya__ConsigneeStreet": sanitize($("input[name=magaya__ConsigneeStreet]").val()),
+            "magaya__ConsigneeCode": sanitize($("input[name=magaya__ConsigneeCode]").val()),
             "magaya__MainCarrier": $("select[name=magaya__MainCarrier] option:selected").val(),
             "magaya__ModeofTransportation": $("select[name=magaya__TransportationMode] option:selected").val(),
         }

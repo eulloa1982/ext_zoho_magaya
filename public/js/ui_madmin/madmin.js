@@ -5,78 +5,152 @@ $(document).ready(function(){
         currentModule = u.currentModule
     })
 
-    //botton enviar al CRM
-    $(".send-to-crm").click(function(e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        var message = '';
-        var i = 0;
-        let chargesToSend = []
-        $("input[class=form-check-magaya]:checked").each(function() {
-            id = $(this).attr("data-id");
 
-            storeChargesDef.dispatch(getChargeDef({id: id}))
-            chargesToSend.push(chargeMagayaToCRM({...chargeDef}))
+    //sortable crm
+    let obs = new MutationObserver(function(mutations, observer) {
+        //delete item in CRM
+        $(".delete-from-crm").click(function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            Swal.fire({
+                title: "Confirm",
+                text: "You are about to delete record from CRM, you sure?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "Cancel",
+                cancelButtonColor: '#d33'
 
-            //
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    moduleName = "magaya__Charges_Type";
+                    message = ''
+                    $("input[class=form-check-crm]:checked").each(function(k) {
+
+                        let idItem = $(this).attr("data-id");
+                        deleteDataCRM(currentModule, idItem).then(r => {
+                            let d = r.data[0]
+                            if (d.code === "SUCCESS") {
+                                message = " : Item Deleted!!";
+                                //actualizar el volumen
+                                storeCrm.dispatch(deleteItemCrm({id: idItem}))
+                                storeSuccess.dispatch(addSuccess({message: message}))
+                            } else {
+                                dataError = "error.data";
+                                codeError = "error.code"
+                                show = true;
+                                field = '';
+                                module = 'Charge Type Items'
+                                storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                            }
+                        })
+                    })
+
+
+                }
+            });
+        });
+
+
+        $(".view-crm").click(function(e) {
+            e.preventDefault()
+            e.stopImmediatePropagation()
+
+            let idItem = $(this).attr("data-id")
+            let append = ``
+            let idRecord = 0;
+            $("#form").empty()
+            storeCrm.dispatch(getItemCrm({id: idItem}))
+            $("#new-record").modal("show")
 
         })
-        insertChargeTypeCRM(chargesToSend)
-
-    })
-
-
-    //delete item in CRM
-    $(".delete-from-crm").click(function(e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        Swal.fire({
-            title: "Confirm",
-            text: "You are about to delete record from CRM, you sure?",
-            icon: "question",
-            showCancelButton: true,
-            confirmButtonText: "Yes",
-            cancelButtonText: "Cancel",
-            cancelButtonColor: '#d33'
-
-        }).then((result) => {
-            if (result.isConfirmed) {
-                moduleName = "magaya__Charges_Type";
-                message = ''
-                $("input[class=form-check-crm]:checked").each(function(k) {
-
-                    let idItem = $(this).attr("data-id");
-                    console.log("Getting id for delete in " + currentModule, idItem)
-                    deleteDataCRM(currentModule, idItem).then(r => {
-                        let d = r.data[0]
-                        console.log("Delete result", r)
-                        if (d.code === "SUCCESS") {
-                            message = " : Item Deleted!!";
-                            //actualizar el volumen
-                            storeCrm.dispatch(deleteItemCrm({id: idItem}))
-                            storeSuccess.dispatch(addSuccess({message: message}))
-                        } else {
-                            dataError = "error.data";
-                            codeError = "error.code"
-                            show = true;
-                            field = '';
-                            module = 'Charge Type Items'
-                            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                        }
-                    })
-                })
-
-
-            }
-        });
     });
+    let crm = $("#sortable-crm")[0];
+    obs.observe(crm, {childList: true, subtree: true});
+
+
+    //magaya charges types
+    let obs2 = new MutationObserver(function(mutations, observer) {
+        //botton enviar al CRM
+        $(".send-to-crm").click(function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var message = '';
+            var i = 0;
+            let chargesToSend = []
+            let portsToSend = []
+            let providersToSend = []
+            $("input[class=form-check-magaya]:checked").each(function() {
+                id = $(this).attr("data-id");
+                console.log(currentModule)
+                //determinar la funcion a llamar dependiendo del currentModule
+                switch (currentModule) {
+                    case 'magaya__Charges_Type': {
+                        storeChargesDef.dispatch(getChargeDef({id: id}))
+                        let chargeDef = storeChargesDef.getState().singleChargeDef;
+                        if (!_.isEmpty(chargeDef)) {
+                            chargesToSend.push(chargeMagayaToCRM({...chargeDef}))
+                        }
+
+                        break;
+                    }
+
+                    case 'magaya__Ports' : {
+                        storePortsDef.dispatch(getPortDef({id: id}))
+                        let portDef = storePortsDef.getState().singlePortDef;
+                        if (!_.isEmpty(portDef)) {
+                            portsToSend.push(portMagayaToCRM({...portDef}))
+                        }
+
+                        break;
+                    }
+
+                    case 'magaya__Providers' : {
+                        storeProvidersDef.dispatch(getProviderDef({id: id}))
+                        let providers = storeProvidersDef.getState().singleProviderDef;
+                        if (!_.isEmpty(providers)) {
+                            providersToSend.push(providerMagayaToCRM({...providers}))
+                        }
+
+                        break;
+                    }
+
+
+                }
+
+
+            })
+
+            if (!_.isEmpty(chargesToSend)) {
+                insertMagayaRecordToCrm(chargesToSend)
+                chargesToSend = []
+            }
+            if (!_.isEmpty(portsToSend)) {
+                insertMagayaRecordToCrm(portsToSend)
+                portsToSend = []
+            }
+            if (!_.isEmpty(providersToSend)) {
+                insertMagayaRecordToCrm(providersToSend)
+                providersToSend = []
+            }
+
+        })
+    });
+    let chargesMag = $("#sortable-magaya-charges")[0];
+    obs2.observe(chargesMag, {childList: true, subtree: true});
+
+
+
+
+
+
 
 
     ////////////////////////////////////////////////////////////////
     //////////////////SORTABLE CRM
     ////////////////////////////////////////////////////////////////
-    $('#sortable-crm').bind("DOMSubtreeModified", function(){
+    /*$('#sortable-crm').bind("DOMSubtreeModified", function(){
 
         $(".material-icons").click(function(e) {
             e.preventDefault()
@@ -126,7 +200,7 @@ $(document).ready(function(){
             $("#new-record").modal("show")
 
         })
-    })
+    })*/
 
 
     ////////////////////////////////////////////////////////////////
@@ -134,6 +208,7 @@ $(document).ready(function(){
     ////////////////////////////////////////////////////////////////
     $('#form').bind("DOMSubtreeModified", function(){
         $("#save-record").click(function(e) {
+            Utils.blockUI()
             e.preventDefault()
             e.stopImmediatePropagation()
 
@@ -147,6 +222,11 @@ $(document).ready(function(){
                     }
                     data[this.name].push(this.value || '');
                 } else {
+                    if (this.value === "true")
+                        this.value = true
+                    if (this.value === "false")
+                        this.value = false
+
                     data[this.name] = this.value || '';
                 }
             });
@@ -168,12 +248,13 @@ $(document).ready(function(){
                             show = true;
                             module = 'Cargo Items'
                             storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
+                            Utils.unblockUI()
                         } else {
                             message = " : Item Updated!!";
                             //get record again
                             ZOHO.CRM.API.getRecord({Entity: currentModule, RecordID: idRecord})
                                 .then(function(data) {
+                                    Utils.unblockUI()
                                     storeCrm.dispatch(updateItemCrm({id: idRecord, item: data.data}))
                                 })
 
@@ -182,24 +263,19 @@ $(document).ready(function(){
 
                     })
                 })
+                .catch(function(error) {
+                    Utils.unblockUI()
+                    codeError = 'Error updating the record';
+                    field = '';
+                    show = false;
+                    module = 'Items CRM'
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+                })
 
 
         })
 
 
     })
-        //Packages Types
-        /*ZOHO.CRM.API.getAllRecords({Entity:"magaya__Package_Types",sort_order:"asc",per_page:20,page:1})
-            .then(function(data){
-                $("#select-package").empty();
-                $.map (data.data, function (k, i){
-                    k.Name = sanitize(k.Name)
-                    $("<option value='"+i+"'>"+k.Name+"</option>").appendTo("#select-package");
-                    packageType.push(k);
-                })
-            })*/
-
-
-
 
 })
