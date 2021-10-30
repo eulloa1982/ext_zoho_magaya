@@ -9,7 +9,7 @@ storeCrm.subscribe(() => {
                 content += ` <label class="list-group-item">
                 <input data-id="${k.id}" class="form-check-crm" type="checkbox" value="">
 
-                <span class="material-icons" data-id="${k.id}">visibility</span>${k.Name}</label>`
+                <span class="material-icons view-crm" data-id="${k.id}">visibility</span>${k.Name}</label>`
 
             }
 

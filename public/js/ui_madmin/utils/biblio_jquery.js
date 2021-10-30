@@ -132,11 +132,11 @@ function sanitize(input) {
 //return json object ready to insert to Charges CRM
 function chargeMagayaToCRM(data) {
     //code
-    var code = data["Code"];
-    var name = data["AccountDefinition"]["Name"];
-    var accountDeftype = data["AccountDefinition"]["Type"];
-    var description = data["Description"];
-    var type = data["Type"];
+    let code = data["Code"];
+    let name = data["AccountDefinition"]["Name"];
+    let accountDeftype = data["AccountDefinition"]["Type"];
+    let description = data["Description"];
+    let type = data["Type"];
 
     dataChargeSend = {
         "Name": description,
@@ -147,6 +147,67 @@ function chargeMagayaToCRM(data) {
     }
 
     return (dataChargeSend);
+
+}
+
+
+//return json object ready to insert to Charges CRM
+function portMagayaToCRM(data) {
+    //code
+    let airway = false
+    let railway = false
+    let roadway = false
+    let waterway = false
+
+    if (!_.isObject(data['Method'])) {
+        switch (data["Method"]) {
+            case "Ground":
+                roadway = true;
+                break;
+            case "Air":
+                airway = true;
+                break;
+            case "Ocean":
+                waterway = true;
+                break;
+            case "Rail":
+                railway = true;
+                break;
+            case "Mail":
+                roadway = true;
+                break;
+            default:
+                break;
+        }
+    }
+    //else (!_.isEmpty(data['Method']) && _.isObject(data['Method'])) {
+    else {
+        $.map(data["Method"], function(k, v) {
+            if (k === "Air")
+                airway = true
+            if (k === "Ocean")
+                waterway = true
+            if (k === "Mail" || k === "Ground")
+                roadway = true
+            if (k === "Rail")
+                railway = true
+        })
+    }
+    let country = data["Country"];
+    let name = data["Name"]
+    let code = data["@attributes"]["Code"]
+
+    dataPortSend = {
+        "Name": name,
+        "magaya__Country": country,
+        "magaya__Port_Code": code,
+        "magaya__Airway": airway,
+        "magaya__Railway": railway,
+        "magaya__Roadway": roadway,
+        "magaya__Waterway": waterway
+    }
+
+    return (dataPortSend);
 
 }
 
@@ -166,7 +227,8 @@ async function insertChargeTypeCRM(chargeTypeJSON) {
                             console.log("Record to added " , record)
                             message = " : New charge type added";
                             //actualizar el volumen
-                            storeChargesCrm.dispatch(addChargesType(record))
+                            storeCrm.dispatch(addItemCrm(record))
+                            //storeChargesCrm.dispatch(addChargesType(record))
                             storeSuccess.dispatch(addSuccess({message: message}))
                         })
                     } else {
@@ -182,6 +244,37 @@ async function insertChargeTypeCRM(chargeTypeJSON) {
     }
 }
 
+//insertar el charge en el CRM mediante una funcion privada
+async function insertPortCRM(portJSON) {
+    if (!_.isEmpty(portJSON)) {
+        let req_data = {}
+        $.map(portJSON, function(k, v) {
+            insertRecordCRM("magaya__Ports", k)
+                .then(function(response) {
+                    if (response[0].code === "SUCCESS") {
+                        let idPort = response[0].details.id
+                        ZOHO.CRM.API.getRecord({Entity:"magaya__Ports",RecordID:idPort})
+                        .then(function(data) {
+                            let record = data.data
+                            console.log("Record to added " , record)
+                            message = " : New port added";
+                            //actualizar el volumen
+                            storeCrm.dispatch(addItemCrm(record))
+                            //storeChargesCrm.dispatch(addChargesType(record))
+                            storeSuccess.dispatch(addSuccess({message: message}))
+                        })
+                    } else {
+                        codeError = "Error inserting new charge"
+                        show = false;
+                        module = 'Charge Type Items'
+                        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                    }
+                })
+
+        })
+    }
+}
 
 //get record by id
 function getRecordById(moduleName, recordId) {
