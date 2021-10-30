@@ -69,6 +69,7 @@ storeAccounts.subscribe(() => {
         $("input[name=magaya__ShipperState").val(accountShipper[0].Shipping_State)
         $("input[name=magaya__ShipperCountry]").val(accountShipper[0].Shipping_Country)
         $("input[name=magaya__ShipperStreet]").val(accountShipper[0].Shipping_Street)
+        $("input[name=magaya__ShipperCode]").val(accountShipper[0].Shipping_Code)
     }
 
     let accountConsignee = u.accountConsignee;
@@ -78,6 +79,7 @@ storeAccounts.subscribe(() => {
         $("input[name=magaya__ConsigneeState").val(accountConsignee[0].Shipping_State)
         $("input[name=magaya__ConsigneeCountry]").val(accountConsignee[0].Shipping_Country)
         $("input[name=magaya__ConsigneeStreet]").val(accountConsignee[0].Shipping_Street)
+        $("input[name=magaya__ConsigneeCode]").val(accountConsignee[0].Shipping_Code)
     }
 
 

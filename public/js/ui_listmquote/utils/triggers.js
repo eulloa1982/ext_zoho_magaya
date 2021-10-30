@@ -152,6 +152,8 @@ function rolShipper(){
     $("input[name=magaya__ConsigneeState").val("")
     $("input[name=magaya__ConsigneeCountry]").val("")
     $("input[name=magaya__ConsigneeStreet]").val("")
+    $("input[name=magaya__ConsigneeCode]").val("")
+
 }
 
 function rolConsignee() {
@@ -162,6 +164,8 @@ function rolConsignee() {
     $("input[name=magaya__ShipperState").val("")
     $("input[name=magaya__ShipperCountry]").val("")
     $("input[name=magaya__ShipperStreet]").val("")
+    $("input[name=magaya__ShipperCode]").val("")
+
 }
 
 function rolOther() {
@@ -175,6 +179,8 @@ function rolOther() {
     $("input[name=magaya__ShipperState").val("")
     $("input[name=magaya__ShipperCountry]").val("")
     $("input[name=magaya__ShipperStreet]").val("")
+    $("input[name=magaya__ShipperCode]").val("")
+    $("input[name=magaya__ConsigneeCode]").val("")
 }
 
 
@@ -192,8 +198,9 @@ $("select[name=magaya__Package_Type]").change(function(e) {
         let length = pck[0]["magaya__PackageLength"]
         let height = pck[0]["magaya__PackageHeight"]
         let width = pck[0]["magaya__PackageWidth"]
+        let measure_system = $("select[name=magaya__Measure_System]").val()
 
-        storeItem.dispatch(updateAllItemNew({length: length, width: width, height: height, package: pck[0]["id"]}))
+        storeItem.dispatch(updateAllItemNew({length: length, width: width, height: height, package: pck[0]["id"], measure_system: measure_system}))
     }
 })
 
