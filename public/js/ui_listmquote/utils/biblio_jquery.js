@@ -1273,7 +1273,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                         <tr>
                             <th class="headerFont" style="text-align: right;font-size: 12px;">
                                 Contact To:</th>
-                            <td class="dataFont" style="font-size: 11px;">
+                            <td class="dataFont" style="font-size: 10px;">
                                 ${contact}</td>
                         </tr>
                     </table>
