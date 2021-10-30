@@ -208,6 +208,7 @@ $(document).ready(function(){
     ////////////////////////////////////////////////////////////////
     $('#form').bind("DOMSubtreeModified", function(){
         $("#save-record").click(function(e) {
+            Utils.blockUI()
             e.preventDefault()
             e.stopImmediatePropagation()
 
@@ -237,8 +238,6 @@ $(document).ready(function(){
                 Trigger:[]
               }
 
-              console.log("Data send", config)
-              //storeCrm.dispatch(updateItemCrm({id: idRecord, item: data}))
               ZOHO.CRM.API.updateRecord(config)
                 .then(function(data){
                     res = data.data;
@@ -249,12 +248,13 @@ $(document).ready(function(){
                             show = true;
                             module = 'Cargo Items'
                             storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
+                            Utils.unblockUI()
                         } else {
                             message = " : Item Updated!!";
                             //get record again
                             ZOHO.CRM.API.getRecord({Entity: currentModule, RecordID: idRecord})
                                 .then(function(data) {
+                                    Utils.unblockUI()
                                     storeCrm.dispatch(updateItemCrm({id: idRecord, item: data.data}))
                                 })
 
@@ -264,6 +264,7 @@ $(document).ready(function(){
                     })
                 })
                 .catch(function(error) {
+                    Utils.unblockUI()
                     codeError = 'Error updating the record';
                     field = '';
                     show = false;

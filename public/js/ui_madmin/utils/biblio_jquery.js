@@ -337,6 +337,7 @@ async function insertPortCRM(portJSON) {
 //function to insert all record from magaya to crm
 async function insertMagayaRecordToCrm(recordJSON) {
     if (!_.isEmpty(recordJSON)) {
+        Utils.blockUI()
         //get active module
         let currentModule = storeCurrentModule.getState().currentModule;
         let req_data = {}
@@ -347,12 +348,14 @@ async function insertMagayaRecordToCrm(recordJSON) {
                         let idRecord = response[0].details.id
                         ZOHO.CRM.API.getRecord({Entity:currentModule,RecordID:idRecord})
                         .then(function(data) {
+                            Utils.unblockUI()
                             let record = data.data
                             message = " : New record added";
                             storeCrm.dispatch(addItemCrm(record))
                             storeSuccess.dispatch(addSuccess({message: message}))
                         })
                     } else {
+                        Utils.unblockUI()
                         codeError = "Error inserting new record"
                         show = false;
                         module = 'Charge Type Items'
@@ -360,6 +363,15 @@ async function insertMagayaRecordToCrm(recordJSON) {
 
                     }
                 })
+                .catch(function(error) {
+                    Utils.unblockUI()
+                    codeError = 'Error inserting the record';
+                    field = '';
+                    show = false;
+                    module = 'Items CRM'
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+                })
+
 
         })
     }
