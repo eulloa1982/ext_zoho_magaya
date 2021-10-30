@@ -1253,9 +1253,9 @@ function buildPdfHeader(orgData, quoteToEdit) {
                 <td width="60%">
                     <table id="info2" cellspacing="0px" cellpadding="2px" style="text-align:left;border: none; float: right;margin-left: 45px;">
                         <tr>
-                            <th class="headerFont" style="text-align: right;font-size: 11px;">
+                            <th class="headerFont" style="text-align: right;">
                                 Quote Number:</th>
-                            <td class="dataFont" style="font-size: 10px;">
+                            <td class="dataFont" style="font-size: 11px;">
                                 ${quoteToEdit["magaya__Number"]}</td>
                         </tr>
                         <tr>
