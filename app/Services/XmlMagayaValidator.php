@@ -19,7 +19,9 @@ class XmlMagayaValidator
         'no_code_transport'           =>    "No code transport detected",
         'no_transport_method'           =>    "No transport method detected",
         'item_quantity_not_valid'    => "Item quantity must to be greather than 0",
-        'item_required'             => "This mquote need an Item Package"
+        'item_required'             => "This mquote need a Package Package",
+        'charge_required'             => "This mquote need a Charge Item"
+
         ];
 
     const TYPES_STATUS_QT = array('Open', 'Posted', 'Empty');
@@ -113,6 +115,18 @@ class XmlMagayaValidator
             }*/
 
             //return $message;
+        }
+
+        //metodo de transporte
+        //si existe metodo de transporte deben existir item o charges
+        if (!empty($xml->ModeOfTransportation)) {
+            if (empty($xml->Items)) {
+                $message['error'][] = $this::ERROR_CODES['item_required'];
+            }
+
+            if (empty($xml->Charges)) {
+                $message['error'][] = $this::ERROR_CODES['charge_required'];
+            }
         }
         //cargos
         /*$charges = $xml->Charges;
