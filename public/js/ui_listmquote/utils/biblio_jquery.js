@@ -1250,7 +1250,7 @@ function buildPdfHeader(orgData, quoteToEdit) {
                     </table>
     
                 </td>
-                <td width="40%">
+                <td width="60%">
                     <table id="info2" cellspacing="0px" cellpadding="2px" style="text-align:left;border: none; float: right;margin-left: 45px;">
                         <tr>
                             <th class="headerFont" style="text-align: right;font-size: 11px;">
