@@ -1253,25 +1253,25 @@ function buildPdfHeader(orgData, quoteToEdit) {
                 <td width="40%">
                     <table id="info2" cellspacing="0px" cellpadding="2px" style="text-align:left;border: none; float: right;margin-left: 45px;">
                         <tr>
-                            <th class="headerFont" style="text-align: right;">
+                            <th class="headerFont" style="text-align: right;font-size: 12px;">
                                 Quote Number:</th>
                             <td class="dataFont">
                                 ${quoteToEdit["magaya__Number"]}</td>
                         </tr>
                         <tr>
-                            <th class="headerFont" style="text-align: right;">
+                            <th class="headerFont" style="text-align: right;font-size: 12px;">
                                 Creation Date:</th>
                             <td class="dataFont">
                                 ${create_date}</td>
                         </tr>
                         <tr>
-                            <th class="headerFont" style="text-align: right;">
+                            <th class="headerFont" style="text-align: right;font-size: 12px;">
                                 Expiration Date:</th>
                             <td class="dataFont">
                                 ${expire_date}</td>
                         </tr>
                         <tr>
-                            <th class="headerFont" style="text-align: right;">
+                            <th class="headerFont" style="text-align: right;font-size: 12px;">
                                 Contact To:</th>
                             <td class="dataFont" style="font-size: 11px;">
                                 ${contact}</td>
