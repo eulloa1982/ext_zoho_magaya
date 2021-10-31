@@ -1,3 +1,5 @@
+$(document).ready(function(){
+
     /*SHIPMENTS*/
     function showShipmentDetails (dataShipment) {
         $('#charges-shipment tbody').html("")
@@ -230,23 +232,21 @@
 
 
     function search_shipment_by_date(startDate, endDate) {
-        config = Utils.getConfig()
-        //if(!config.url){
-            //$("#no-configuration-alert").show();
-        //}else{
-            flags = MagayaAPI.TRANSACTIONS_FLAGS.BasicFields
-            type = MagayaAPI.TRANSACTION_TYPES.Shipment
+        data = await getMagayaVariables()
+        flags = MagayaAPI.TRANSACTIONS_FLAGS.BasicFields
+        type = MagayaAPI.TRANSACTION_TYPES.Shipment
 
-            data = {
-                method: 'GetTransRangeByDate',
-                data: [
-                    Utils.getAccessKey(),
-                    type,
-                    moment(startDate).format('Y-MM-DD'),
-                    moment(endDate).format('Y-MM-DD'),
-                    flags
-                ]
-            }
+        data = {
+            method: 'GetTransRangeByDate',
+            data: [
+                data["network_id"],
+                type,
+                moment(startDate).format('Y-MM-DD'),
+                moment(endDate).format('Y-MM-DD'),
+                flags
+            ],
+            url: data['magaya_url']
+        }
             MagayaAPI.sendRequest(data, function(result){
                 if(result.error){
                     Swal.fire({
@@ -341,9 +341,10 @@
 
 
     //date_range button search
-    $("#search_shipment").click(function(e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
+    $("#date_range").change(function(e) {
+        //e.preventDefault();
+        //e.stopImmediatePropagation();
+        alert("Click")
          //comprobar las fechas primero
          let val =  $("#date_range").val()
          //validaFechas(val);
@@ -356,7 +357,8 @@
          now = new Date();
          let compareNow = compareTimeDate(date[1], now)
          if (compareRange && compareNow) {
-            search_shipment_by_date(date[0], date[1]);
+             alert("Gettinf fechas")
+            //search_shipment_by_date(date[0], date[1]);
          } else {
              message = "Existen problemas con las fechas";
              swalMessage(message);
@@ -368,3 +370,4 @@
          //search_shipment_by_date(date[0], date[1]);
 
     })
+})
