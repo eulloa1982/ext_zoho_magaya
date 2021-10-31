@@ -15,57 +15,53 @@
 </table>*/
 ?>
 <div class="container">
-        <table cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
-            <tr>
-                <th rowspan="2">
-                    <table>
-                        <tr>
-                            <th>
-                                <div class="session-first" style="float: left; font-size: 28px;">
-                                    {{$organization['orgData']['company_name']}}
-                                </div>
-                            </th>
-                        </tr>
-                    </table>
-                </th>
-                <th>
-                    <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right;float: right;">
-                        <tr>
-                            <td colspan="12">
-                                <div class="col headerFont p-2"><span class="material-icons">
-                            language</span>{{$organization['orgData']['website']}}</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="12">
-                                <div class="col headerFont p-2"><span class="material-icons">
-                            phone</span>{{$organization['orgData']['phone']}}</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="12">
-                                <div class="col headerFont p-2"><span class="material-icons">
-                            alternate_email</span>{{$organization['orgData']['primary_email']}}</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="12">
-                                <div class="col headerFont p-2"><span class="material-icons">
-                            home</span>{{$organization['orgData']['country']}}, {{$organization['orgData']['city']}}, {{$organization['orgData']['state']}}</div>
-                            </td>
-                        </tr>
-                    </table>
-                </th>
-            </tr>
-            <tr></tr>
-            <tr></tr>
-        </table>
-    </div>
-
-<br /><br /><br /><br /><br /><br />
-    @include('tab_widget.partials.mquote')
-
-<br /><br />
+    <table cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
+        <tr>
+            <th rowspan="2">
+                <table>
+                    <tr>
+                        <th>
+                            <div class="session-first" style="float: left; font-size: 28px;">
+                                {{$organization['orgData']['company_name']}}
+                            </div>
+                        </th>
+                    </tr>
+                </table>
+            </th>
+            <th>
+                <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right;float: right;">
+                    <tr>
+                        <td colspan="12">
+                            <div class="col headerFont p-2"><span class="material-icons">
+                        language</span>{{$organization['orgData']['website']}}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="12">
+                            <div class="col headerFont p-2"><span class="material-icons">
+                        phone</span>{{$organization['orgData']['phone']}}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="12">
+                            <div class="col headerFont p-2"><span class="material-icons">
+                        alternate_email</span>{{$organization['orgData']['primary_email']}}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="12">
+                            <div class="col headerFont p-2"><span class="material-icons">
+                        home</span>{{$organization['orgData']['country']}}, {{$organization['orgData']['city']}}, {{$organization['orgData']['state']}}</div>
+                        </td>
+                    </tr>
+                </table>
+            </th>
+        </tr>
+        <tr></tr>
+        <tr></tr>
+    </table>
+</div>
+@include('tab_widget.partials.mquote')
 <div class="container">
 
     <table width="100%" cellspacing="0px" cellpadding="0px">
@@ -83,8 +79,6 @@
 
     </table>
 </div>
-
-<br /><br />*/
 <div class="container">
     <table width="100%">
         <tr>
