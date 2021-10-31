@@ -1005,8 +1005,8 @@ async function buildPdf(mquote_id) {
     //dataPost = {}
 
     /*console.log("passing organization", dataPost)*/
-    //const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
-    const endpoint = `https://zohomagaya.herokuapp.com/pdf`
+    const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
+    //const endpoint = `https://zohomagaya.herokuapp.com/pdf`
 
     fetch(endpoint, {
         method: 'POST',
