@@ -986,23 +986,27 @@ async function buildPdf(mquote_id) {
     //orgData = orgData)
     let charges = []
     let items = []
+    let mquote = storeQuote.getState().quoteToEdit
 
 
-    items = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
-    charges = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id)
+
+    //items = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
+    //charges = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id)
 
     dataPost = {
         'organization': {
             "orgData" :orgData,
-            //'dataQuote': buildPdfHeader(orgData, quoteToEdit),
+            'mQuote': mquote,
             'charges': await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id),
             'items': await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
         }
     }
+
     //dataPost = {}
 
     /*console.log("passing organization", dataPost)*/
-    const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
+    //const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
+    const endpoint = `https://zohomagaya.herokuapp.com/pdf`
 
     fetch(endpoint, {
         method: 'POST',
