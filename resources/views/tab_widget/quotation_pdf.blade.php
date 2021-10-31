@@ -76,7 +76,6 @@
             <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Final Amount</th>
         </tr>
         @include('tab_widget.partials.charges')
-
     </table>
 </div>
 <div class="container">
