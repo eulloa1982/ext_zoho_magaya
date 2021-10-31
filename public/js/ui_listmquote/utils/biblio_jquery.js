@@ -1009,478 +1009,68 @@ async function buildPdf(mquote_id) {
     console.log(orgData)
     let charges = []
     let items = []
+    let mquote = storeQuote.getState().quoteToEdit
 
 
-    items = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
-    charges = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id)
-        //Utils.unblockUI();
-        //let dataPost = bipdf(items)
+
+    //items = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
+    //charges = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id)
 
     dataPost = {
-        'first_name': "Name from post",
-        'last_name': "Apellido from posdt"
-    }
-    const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
-    /*$.ajax({
-        type: 'POST',
-        url: endpoint,
-        data: dataPost,
-        beforeSend: function() {
-            Utils.blockUI()
-        },
-        success: function(resp) {
-            blob = resp.blob
-            var file = window.URL.createObjectURL(blob);
-        //img.src = file;
-        //img.target = "_blank"
-        //document.body.appendChild(img);
-        window.location.assign(file);
-        },
-        error: function(resp) {
-            console.log(resp)
-            if (error) {
-                error(resp)
-            } else {
-                message_error = 'Unknown error during operation, please try again';
-                //error(message_error)
-                Swal.fire({
-                    title: 'Unknown Error',
-                    html: "Unknown error during operation, please try to <a class='startSession'>Login again</a>",
-                    icon: 'error'
-                })
-                $("#no-configuration-alert").show();
-            }
-        },
-        complete: function() {
-            Utils.unblockUI()
+        'organization': {
+            "orgData" :orgData,
+            'mQuote': mquote,
+            'charges': await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id),
+            'items': await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
         }
-
-    })*/
-    /*fetch(endpoint, {
-            method: 'POST',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                //'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-            }),
-            body: JSON.stringify(dataPost)
-        })
-        .then((response) => response.blob())
-        .then((blob) => {
-            //var img = document.createElement('img');
-            var file = window.URL.createObjectURL(blob);
-            //img.src = file;
-            //img.target = "_blank"
-            //document.body.appendChild(img);
-            window.location.assign(file);
-        })
-        .catch((err) => {
-            console.warn("error", err)
-        })*/
-    let data = `<div class="HtmltoPdf">`
-    data += buildPdfHeader(orgData, quoteToEdit)
-
-    data += buildPdfCharges(charges)
-
-    data += `</div>`
-
-    data += buildPdfItems(items)
-    data += `</div>`
-
-    data += `<div class="container" style="margin-top: 10px;">
-                <table width="100%" cellpadding="0px" cellspacing="0px">
-                    <tr>
-                        <th colspan="12" class="session-fourth headerFont" style="background-color: #4682b4; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">
-                            Terms & Conditions</th>
-                    </tr>
-                    <tr>
-                        <td colspan="12" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                            ${quoteToEdit["magaya__Terms"] !== null ? quoteToEdit["magaya__Terms"] : ""}<br></td>
-                    </tr>
-                </table>
-            </div>`
-
-    $("#htmlToPdf").html(data)
-    getPdf("htmlToPdf")
-        //$("#pdfModal").modal("show")
-}
-
-
-function getPdf(domElement) {
-    var element = document.getElementById(domElement);
-    var opt = {
-        margin: [30, 10, 30, 10], //top, left, buttom, right
-        //filename: this.auth_user,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: {
-            scale: 1,
-            bottom: 10
-        },
-        pagebreak: { mode: ['css'] },
-        jsPDF: {
-            unit: 'mm',
-            orientation: 'portrait'
-        }
-    };
-    html2pdf().set(opt).from(element).then(function() {
-        $("#inner").css({ "font-size": "11px", "background-color": "#F5F5F5" });
-        $("#message-pdf").html("Successfully created PDF")
-            .css("display", "inline").fadeIn("slow").delay(2000).fadeOut("slow");
-
-    }).save();
-}
-
-/****build the header
- * @orgData organization data
- * @quote data
- */
-function buildPdfHeader(orgData, quoteToEdit) {
-    let data = ``;
-    if (!_.isEmpty(orgData) && !_.isEmpty(quoteToEdit)) {
-        let none = ``;
-        let contact = ``;
-        let phone = ``;
-        let email = ``;
-        none = !_.isEmpty(orgData["website"]) ? orgData["website"] : ""
-        let street = !_.isEmpty(orgData["street"]) ? orgData["street"] : "street";
-        let city = !_.isEmpty(orgData["city"]) ? orgData["city"] : "city";
-        let state = !_.isEmpty(orgData["state"]) ? orgData["state"] : "state";
-        let country = !_.isEmpty(orgData["country"]) ? orgData["country"] : "country";
-        phone = !_.isEmpty(orgData["phone"]) ? orgData["phone"] : ""
-        email = !_.isEmpty(orgData["primary_email"]) ? orgData["primary_email"] : ""
-        
-        let create_date = quoteToEdit["Created_Time"] !== null ? new Date(quoteToEdit["Created_Time"]).toISOString().split('T')[0] : "";
-        let expire_date = quoteToEdit["magaya__ExpirationDate"] !== null ? new Date(quoteToEdit["magaya__ExpirationDate"]).toISOString().split('T')[0] : "";
-        let nameAccount = !_.isEmpty(quoteToEdit["Account"]) ? quoteToEdit["Account"]["name"] : "";
-        let representative = !_.isEmpty(quoteToEdit["magaya__Representative"]) ? quoteToEdit["magaya__Representative"]["name"] : "";
-        contact = !_.isEmpty(quoteToEdit["Owner"]) ? quoteToEdit["Owner"]["name"] + ",<br> " + quoteToEdit["Owner"]["email"] : ""
-        let customer_street = !_.isEmpty(quoteToEdit["magaya__BillingStreet"]) ? quoteToEdit["magaya__BillingStreet"] : "street" 
-        let customer_city = !_.isEmpty(quoteToEdit["magaya__BillingCity"]) ? quoteToEdit["magaya__BillingCity"] : "city" 
-        let customer_state = !_.isEmpty(quoteToEdit["magaya__BillingState"]) ? quoteToEdit["magaya__BillingState"] : "state"
-        let customer_country = !_.isEmpty(quoteToEdit["magaya__BillingCountry"]) ? quoteToEdit["magaya__BillingCountry"] : "country"
-
-        //console.log(orgData)
-        data = `
-        <div class="container" style="margin-top: 0px;">
-        <table cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
-            <tr>
-                <th rowspan="2">
-                    <table>
-                        <tr>
-                            <th rowspan="2">
-                                <img class="headerIMG" width="100px" height="100px" src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: center; margin-left:15px;" />
-                            </th>
-                            <th style="text-align: start; vertical-align: top;">
-                                <div class="session-first" style="float: left; font-size: 28px;">
-                                    ${orgData["company_name"]}
-                                </div>
-                            </th>
-                        </tr>
-                        <tr></tr>
-                    </table>
-                </th>
-                <th style="vertical-align: top;">
-                    <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right;float: right; font-size: 12px">
-                        <tr>
-                            <td colspan="12" class="headerFont">
-                                <span class="material-icons">language</span>
-                                ${none}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="12" class="col headerFont">
-                                <span class="material-icons">phone</span>
-                                ${phone}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="12" class="headerFont">
-                                <span class="material-icons">alternate_email</span>
-                                ${email}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="12" class="headerFont" style="font-size: 11px;">
-                                <span class="material-icons">home</span>
-                                ${street}, ${city}, ${state}, ${country}</td>
-                        </tr>
-                    </table>
-                </th>
-            </tr>
-            <tr></tr>
-            <tr></tr>
-        </table>
-    </div>
-    <div class="container" style="margin-top:10px;">
-        <table cellspacing="0px" cellpadding="0px" width="100%">
-            <tr>
-                <td width="40%">
-                    <table id="info1" cellspacing="0px" cellpadding="0px" width="100%" style="text-align: left;">
-                        <tr>
-                            <th class="headerFont" colspan="2" style="border: 1px #000 solid; padding: 3px;text-align: center;">Customer Info</th>
-                        </tr>
-                        <tr>
-                            <th class="headerFont" style="text-align: right; padding: 3px; border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                                Customer</th>
-                            <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                                ${nameAccount}</td>
-                        </tr>
-                        <tr>
-                            <th class="headerFont" style="text-align: right; padding: 3px; border-left: 1px #000 solid;border-right: 1px #000 solid;">
-                                Representative</th>
-                            <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                                ${representative}</td>
-                        </tr>
-                        <tr>
-                            <th class="headerFont" style="text-align: right; padding: 3px; border: 1px #000 solid;">
-                                Phone</th>
-                            <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                                ${!_.isEmpty(quoteToEdit["magaya__ContactMobile"]) ? quoteToEdit["magaya__ContactMobile"]:""}</td>
-                        </tr>
-                        <tr>
-                            <th class="headerFont" style="text-align: right; padding: 3px;border-left: 1px #000 solid;border-right: 1px #000 solid;">
-                                Email</th>
-                            <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                                ${!_.isEmpty(quoteToEdit["magaya__ContactEmail"]) ? quoteToEdit["magaya__ContactEmail"] : "" }</td>
-                        </tr>
-                        <tr>
-                            <th class="headerFont" style="text-align: right;border: 1px #000 solid;">
-                                Address</th>
-                            <td class="dataFont" style="text-align: start;border-right: 1px #000 solid;border-bottom: 1px #000 solid; font-size: 11px;">
-                            ${customer_street}, ${customer_city}, ${customer_state}, ${customer_country}
-                            </td>
-                        </tr>
-                    </table>
-    
-                </td>
-                <td width="60%">
-                    <table id="info2" cellspacing="0px" cellpadding="2px" style="text-align:left;border: none; float: right;margin-left: 45px;">
-                        <tr>
-                            <th class="headerFont" style="text-align: right;">
-                                Quote Number:</th>
-                            <td class="dataFont" style="font-size: 11px;">
-                                ${quoteToEdit["magaya__Number"]}</td>
-                        </tr>
-                        <tr>
-                            <th class="headerFont" style="text-align: right;font-size: 11px;">
-                                Creation Date:</th>
-                            <td class="dataFont" style="font-size: 10px;">
-                                ${create_date}</td>
-                        </tr>
-                        <tr>
-                            <th class="headerFont" style="text-align: right;font-size: 11px;">
-                                Expiration Date:</th>
-                            <td class="dataFont" style="font-size: 10px;">
-                                ${expire_date}</td>
-                        </tr>
-                        <tr>
-                            <th class="headerFont" style="text-align: right;font-size: 11px;">
-                                Contact To:</th>
-                            <td class="dataFont" style="font-size: 10px;">
-                                ${contact}</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <table width="100%" cellspacing="0px" cellpadding="2px" style="border: none; margin-top: 5px;">
-                        <tr>
-                            <th class="headerFont" colspan="2" style="background-color: #4682b4; text-align: start;text-transform:uppercase ;border-left: 1px #000 solid;border-right: 1px #000 solid;border-top: 1px #000 solid;">
-                                Quotation Info
-                            </th>
-                        </tr>
-                        <tr>
-                            <th colspan="2" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-top: 1px #000 solid; text-align: start;">
-                                <div class="dataFont">
-                                    <span class="headerFont">Description of Goods:</span>
-                                    ${quoteToEdit["magaya__Description"]}</div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: start;">
-                                <div class="dataFont" style="text-align: start;">
-                                    <span class="headerFont">Origin:</span>
-                                    ${quoteToEdit["magaya__Origin"] !== null ? quoteToEdit["magaya__Origin"] : ""}</div>
-                            </th>
-                            <th style="border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;text-align: start;">
-                                <div class="dataFont" style="text-align: start;">
-                                    <span class="headerFont">Destination:</span>
-                                    ${quoteToEdit["magaya__Destination"] !== null ? quoteToEdit["magaya__Destination"] : ""}</div>
-                            </th>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </div>`
     }
 
-    return data;
+    //dataPost = {}
+
+    /*console.log("passing organization", dataPost)*/
+    //const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
+    const endpoint = `https://zohomagaya.herokuapp.com/pdf`
+
+    fetch(endpoint, {
+        method: 'POST',
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            //'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        }),
+        body: JSON.stringify(dataPost)
+    })
+    .then((response) => response.blob())
+    .then((blob) => {
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+            window.navigator.msSaveOrOpenBlob(blob);
+            return;
+          }
+
+          // For other browsers: create a link pointing to the ObjectURL containing the blob.
+          const objUrl = window.URL.createObjectURL(blob);
+
+          let link = document.createElement('a');
+          link.href = objUrl;
+          link.download = 'fileName';
+          link.click();
+
+          // For Firefox it is necessary to delay revoking the ObjectURL.
+          setTimeout(() => {
+            window.URL.revokeObjectURL(objUrl);
+          }, 250);
+
+          Utils.unblockUI();
+
+    })
+    .catch((err) => {
+        console.warn("error", err)
+        Utils.unblockUI();
+
+    })
+
 }
 
-/****build charges styles for PDF
- * @charges charges object
- */
-function buildPdfCharges(charges) {
-    let data = ``
-    data += `<div class="container" style="margin-top: 10px;">
-                <table width="100%" cellspacing="0px" cellpadding="0px">
-                    <tr>
-                        <th class="headerFont" colspan="5" style="background-color: #4682b4; text-align: start;text-transform:uppercase ;border: 1px #000 solid">
-                            Charges</th>
-                    </tr>
-                    <tr style="font-weight: bold;">
-                        <th style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                            Description</th>
-                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                            Price</th>
-                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                            Quantity</th>
-                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                            Tax</th>
-                        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                            Amount</th>
-                    </tr>`
-    if (!_.isEmpty(charges)) {
-        let amount_total = 0;
-        let amount_tax = 0;
-        $.map(charges, function(k, v) {
-            amount_total += roundDec(k["magaya__Amount_Total"]);
-            amount_tax += roundDec(k["magaya__Tax_Amount"])
-            data += `<tr>
-                    <td style="padding-left: 3px;border-bottom: 1px #000 solid;border-left: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">
-                        ${!_.isEmpty(k["magaya__Charge_Type"]) && k["magaya__Charge_Type"] !== null ? k["magaya__Charge_Type"]["Name"] : k["Name"]}</td>
-                    <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">
-                        ${k["magaya__Price"]}</td>
-                    <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">
-                        ${k["magaya__CQuantity"]}</td>
-                    <td style="border-right: 1px #000 solid; text-align: right;">
-                        ${k["magaya__Tax_Amount"]}</td>
-                    <td style="border-right: 1px #000 solid; text-align: right; font-weight: bold;">
-                        ${k["magaya__Amount_Total"]}</td>
-                </tr>`
-        })
-        data += `<tr style="font-weight: bolder;">
-                    <td style="border:none" colspan="3">
-                    </td>
-                    <td style="border-left: 1px #000 solid; border-top: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                        TOTAL</td>
-                    <td style="border-left: 1px #000 solid;border-top: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">${roundDec(amount_total)}</td>
-                </tr>`
-    } else {
-        data += `<tr>
-                    <td style="border-bottom: 1px #000 solid;border-left: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: left;">
-                     </td>
-                    <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">
-                     </td>
-                    <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">
-                     </td>
-                    <td style="border-right: 1px #000 solid; text-align: right;">
-                     </td>
-                    <td style="border-right: 1px #000 solid; text-align: right; font-weight: bold;">
-                     </td>
-                </tr>`
-    }
-    data += `</table></div>`
-    return data
-}
-
-/****build items styles for PDF
- * @items items object
- */
-function buildPdfItems(items) {
-    let data = ``
-    data += `<div class="container" style="margin-top: 10px;">
-                <table width="100%">
-                    <tr>
-                        <th class="headerFont" colspan="6" style="background-color: #4682b4; text-align: start;text-transform:uppercase; border: 1px #000 solid;"> Items</th>
-                    </tr>
-                    <tr>
-                        <th style="border-left: 1px #000 solid; border-bottom: 1px #000 solid; border-right: 1px #000 solid; text-align: center;">Description </th>
-                        <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Package Type</th>
-                        <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Quantity</th>
-                        <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Dimensions</th>
-                        <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Weight</th>
-                        <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Volume</th>
-                    </tr>`
-    let totalPieces = 0
-    let totalVolume = 0
-    let totalWeight = 0
-    let total_weight_international = 0
-    let total_volume_international = 0
-    let total_weight_english = 0
-    let total_volume_english = 0
-    if (!_.isEmpty(items)) {        
-        $.map(items, function(k, v) {
-                totalPieces += parseInt(k.magaya__Pieces)
-                let measure_length = "in";
-                let measure_weigth = "lb";
-                let measure_volume = "ft<sup>3</sup>"
-                if (k.magaya__Measure_System === "International") {
-                    measure_length = "m";
-                    measure_volume = "m<sup>3</sup>";
-                    measure_weigth = "kg"
-                    total_volume_international += roundDec(k.magaya__Volume * k.magaya__Pieces)
-                    total_weight_international += roundDec(k.magaya__Weigth * k.magaya__Pieces)
-                } else {
-                    //pulgadas y libras
-                    total_volume_english += roundDec(k.magaya__Volume * k.magaya__Pieces)
-                    total_weight_english += roundDec(k.magaya__Weigth * k.magaya__Pieces)
-                }
-                data += `<tr>
-                <td width="40%" style="padding-left: 3px;border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                    ${k["Name"]}</td>
-                <td width="40%" style="padding-left: 3px;border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                    ${!_.isEmpty(k["magaya__Package_Type"]) && k["magaya__Package_Type"] !== null ? k["magaya__Package_Type"]["Name"] : ""}</td>
-                <td width="15%" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                    ${k["magaya__Pieces"]}</td>
-                <td width="15%" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                    ${k["magaya__Length"]} X ${k["magaya__Height"]} X ${k["magaya__Width"]} (${measure_length})</td>
-                <td width="15%" style="border-right: 1px #000 solid; text-align: right;border-bottom: 1px #000 solid;">
-                    ${k["magaya__Weigth"]} (${measure_weigth})</td>
-                <td width="15%" style="border-right: 1px #000 solid; text-align: right;border-bottom: 1px #000 solid;">
-                    ${k["magaya__Volume"]} (${measure_volume})</td>
-                </tr>`
-            })
-            //get all to international system
-        totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
-        totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
-        data += `<tr style="font-weight: bold;">
-                    <td style="border:none; text-align: center;" colspan="3">
-                    </td>
-                    <td style="border-left: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                        TOTAL</td>
-                    <td style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
-                        ${roundDec(totalWeight)} kg</td>
-                    <td style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
-                        ${roundDec(totalVolume)} m<sup>3</sup></td>
-                </tr>`
-    } else {
-        data += `<tr>
-                    <td width="40%" style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: left;">
-                        </td>
-                    <td width="15%" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                        </td>
-                    <td width="15%" style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                        </td>
-                    <td width="15%" style="border-right: 1px #000 solid; text-align: right;border-bottom: 1px #000 solid;">
-                        </td>
-                    <td width="15%" style="border-right: 1px #000 solid; text-align: right;border-bottom: 1px #000 solid;">
-                        </td>
-                </tr>
-                <tr style="font-weight: bold;">
-                    <td style="border:none; text-align: center;" colspan="2">
-                    </td>
-                    <td style="border-left: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">
-                        TOTAL</td>
-                    <td style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
-                        ${roundDec(totalWeight)} kg</td>
-                    <td style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: right;">
-                        ${roundDec(totalVolume)} m<sup>3</sup></td>
-                </tr>`
-    }
-    data += `</table></div>`
-
-    return data
-}
 
 
 function move_quote(idQuote) {
@@ -1497,17 +1087,13 @@ function move_quote(idQuote) {
 }
 
 
-/*async function getRelatedCharges(idQuote) {
-    ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idQuote, RelatedList: "magaya__SQuote_Name1", page: 1, per_page: 200 })
-        .then(function(response) {
-            if (!_.isEmpty(response.data)) {
-                idemItems = response.data
-                $.each(idemItems, function(i, k) {
-                //dispatch items to store
-                    storeItem.dispatch(addItem({...k}))
-
-                    }) //each
-
-            }
-        })
-}*/
+$(function () {
+    $("body").keypress(function (e) {
+        var key;
+        if (window.event)
+            key = window.event.keyCode; //IE
+        else
+            key = e.which; //firefox
+        return (key != 13);
+    });
+});
