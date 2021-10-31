@@ -68,7 +68,6 @@
     <!--SDK CDN-->
     <script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"></script>
 
-    <script src="{{ url('js/ui_madmin/madmin.js', $extra = [], $secure = 1) }}"></script>
 
 
     @yield('js')
