@@ -115,7 +115,8 @@ $(document).ready(function(){
                 data: [
                     magaya_user,
                     magaya_password
-                ]
+                ],
+                url: magaya_url
         }
         MagayaAPI.sendRequest(data, function(result){
             if(result.error){
