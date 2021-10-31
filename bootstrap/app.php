@@ -115,8 +115,8 @@ $app->middleware([
 | can respond to, as well as the controllers that may handle them.
 |
 */
-$app->register(Barryvdh\DomPDF\ServiceProvider::class);
-$app->configure('dompdf');
+//$app->register(Barryvdh\DomPDF\ServiceProvider::class);
+//$app->configure('dompdf');
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
