@@ -47,8 +47,6 @@ $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
     App\Console\Kernel::class
 );
-$app->register(Barryvdh\DomPDF\ServiceProvider::class);
-$app->configure('dompdf');
 
 /*
 |--------------------------------------------------------------------------
@@ -117,6 +115,9 @@ $app->middleware([
 | can respond to, as well as the controllers that may handle them.
 |
 */
+$app->register(Barryvdh\DomPDF\ServiceProvider::class);
+$app->configure('dompdf');
+
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
