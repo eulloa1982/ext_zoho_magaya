@@ -1444,17 +1444,13 @@ function move_quote(idQuote) {
 }
 
 
-/*async function getRelatedCharges(idQuote) {
-    ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idQuote, RelatedList: "magaya__SQuote_Name1", page: 1, per_page: 200 })
-        .then(function(response) {
-            if (!_.isEmpty(response.data)) {
-                idemItems = response.data
-                $.each(idemItems, function(i, k) {
-                //dispatch items to store
-                    storeItem.dispatch(addItem({...k}))
-
-                    }) //each
-
-            }
-        })
-}*/
+$(function () {
+    $("body").keypress(function (e) {
+        var key;
+        if (window.event)
+            key = window.event.keyCode; //IE
+        else
+            key = e.which; //firefox
+        return (key != 13);
+    });
+});

@@ -65,15 +65,14 @@ storeQuote.subscribe(() => {
 
         })
 
-        let gfg = _.sortBy(data, ['Created_Time', 'Name']);
+        //let gfg = _.sortBy(dataQuotes, ['Created_Time', 'Name']);
 
         $("#table-quotes").jsGrid({
             width: "100%",
             sorting: true,
             paging: true,
             pageSize: 10,
-
-            data: gfg,
+            data: data,
             fields: [
                 { type: "control",  title:"Options", width: 'auto', editButton: false, deleteButton: false, title: "Action",
                 itemTemplate: function(value, item) {
@@ -97,10 +96,9 @@ storeQuote.subscribe(() => {
                 { name: "magaya__Status", type: "text", width: 120, title: "STAGE" },
                 { name: "magaya__QuoteTotalAmount", title: "AMOUNT", width: 145, type: "number", formatter: "number", classes: 'number'},
                 { name: "Modified_Time", type: "text", width: 300, title: "MODIFIED TIME"},
-            ]
-
-            });
-        }
+            ],
+        });
+    }
 
     //quote to edit
     if (!_.isEmpty(u.quoteToEdit)) {
