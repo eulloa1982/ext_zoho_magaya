@@ -139,6 +139,8 @@
 
 @stop
  @section('js')
+ <script src="{{ url('js/ui_madmin/madmin.js', $extra = [], $secure = 1) }}"></script>
+
  <script src="{{ url('js/ui_madmin/subscribers/subscribersChargeDef.js', $extra = [], $secure = 1) }}"></script>
  <script src="{{ url('js/ui_madmin/subscribers/subscribersPortsDef.js', $extra = [], $secure = 1) }}"></script>
  <script src="{{ url('js/ui_madmin/subscribers/subscribersProvidersDef.js', $extra = [], $secure = 1) }}"></script>
