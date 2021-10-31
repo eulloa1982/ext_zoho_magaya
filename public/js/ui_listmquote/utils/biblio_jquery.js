@@ -990,20 +990,18 @@ async function buildPdf(mquote_id) {
 
     items = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
     charges = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id)
-    Utils.unblockUI();
-    //let dataPost = bipdf(items)
-
 
     dataPost = {
-        'organization': {"orgData" :orgData,
-        //'dataQuote': buildPdfHeader(orgData, quoteToEdit),
-        'charges': await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id),
-        'items': await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
+        'organization': {
+            "orgData" :orgData,
+            //'dataQuote': buildPdfHeader(orgData, quoteToEdit),
+            'charges': await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id),
+            'items': await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
         }
     }
     //dataPost = {}
 
-    /*console.log("passing organization", dataPost)
+    /*console.log("passing organization", dataPost)*/
     const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
 
     fetch(endpoint, {
@@ -1017,27 +1015,44 @@ async function buildPdf(mquote_id) {
     })
     .then((response) => response.blob())
     .then((blob) => {
-        //var img = document.createElement('img');
-        var file = window.URL.createObjectURL(blob);
-        //img.src = file;
-        //img.target = "_blank"
-        //document.body.appendChild(img);
-        window.location.assign(file);
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+            window.navigator.msSaveOrOpenBlob(blob);
+            return;
+          }
+
+          // For other browsers: create a link pointing to the ObjectURL containing the blob.
+          const objUrl = window.URL.createObjectURL(blob);
+
+          let link = document.createElement('a');
+          link.href = objUrl;
+          link.download = 'fileName';
+          link.click();
+
+          // For Firefox it is necessary to delay revoking the ObjectURL.
+          setTimeout(() => {
+            window.URL.revokeObjectURL(objUrl);
+          }, 250);
+
+          Utils.unblockUI();
+
     })
     .catch((err) => {
         console.warn("error", err)
-    })*/
-    let data = `<div class="HtmltoPdf">`
-    data += buildPdfHeader(orgData, quoteToEdit)
+        Utils.unblockUI();
 
-    data += buildPdfCharges(charges)
+    })
 
-    data += `</div>`
+    //let data = `<div class="HtmltoPdf">`
+    //data += buildPdfHeader(orgData, quoteToEdit)
 
-    data += buildPdfItems(items)
-    data += `</div>`
+    //data += buildPdfCharges(charges)
 
-    data += `<div class="container mt-3">
+    //data += `</div>`
+
+    //data += buildPdfItems(items)
+    //data += `</div>`
+
+    /*data += `<div class="container mt-3">
             <div class="row session-fourth" style="background-color: lightskyblue; margin-top:15px;">
                 <div class="col-sm headerFont" style="background-color: lightskyblue; text-align:center;">
                     Terms
@@ -1045,10 +1060,10 @@ async function buildPdf(mquote_id) {
             </div>`
     data += `<div class="row">
         <div class="col headerMquote p-2">${quoteToEdit["magaya__Terms"] !== null ? quoteToEdit["magaya__Terms"] : ""}</div>`
-    data += `</div></div>`
+    data += `</div></div>`*/
 
-    $("#htmlToPdf").html(data)
-    getPdf("htmlToPdf")
+    //$("#htmlToPdf").html(data)
+    //getPdf("htmlToPdf")
         //$("#pdfModal").modal("show")
 }
 

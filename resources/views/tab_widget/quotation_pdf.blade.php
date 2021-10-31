@@ -23,29 +23,17 @@
 
 <br /><br />
 <table><thead><tr><th>Charge Description</th><th>Price</th><th>Quantity</th><th>Amount</th><th>Final Amount</th></tr></thead>
-@foreach ($organization['charges'] as $dat=>$v)
-    <tr>
-        <td>{{$v['Name']}}</td>
-        <td>{{$v['magaya__Price']}}</td>
-        <td>{{$v['magaya__CQuantity']}}</td>
-        <td>{{$v['magaya__Amount']}}</td>
-        <td>{{$v['magaya__Amount_Total']}}</td>
-    </tr>
-    @endforeach
+
+    @include('tab_widget.partials.charges')
+
 </table>
 
 
 <br /><br />
 <table><thead><tr><th>Package Type</th><th>Quantity</th><th>Dimensions</th><th>Weigth</th><th>Volume</th></tr></thead>
-@foreach ($organization['items'] as $dat=>$v)
-    <tr>
-        <td>{{$v['magaya__Package_Type']['name']}}</td>
-        <td>{{$v['magaya__Pieces']}}</td>
-        <td>{{$v['magaya__Length']}} X {{$v['magaya__Width']}} X {{$v['magaya__Height']}}</td>
-        <td>{{$v['magaya__Weigth']}}</td>
-        <td>{{$v['magaya__Volume']}}</td>
-    </tr>
-    @endforeach
+
+    @include('tab_widget.partials.items')
+
 </table>
 
 
