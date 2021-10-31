@@ -46,6 +46,7 @@
     <script src="{{ url('js/store/storeItemsCrm.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('js/store/storeCurrentModule.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('js/store/storePortsDef.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/store/storeProvidersDef.js', $extra = [], $secure = 1) }}"></script>
 
     <script src="{{ url('html2pdf/html2canvas.min.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('html2pdf/html2pdf.bundle.min.js', $extra = [], $secure = 1) }}"></script>
@@ -67,7 +68,6 @@
     <!--SDK CDN-->
     <script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"></script>
 
-    <script src="{{ url('js/ui_madmin/madmin.js', $extra = [], $secure = 1) }}"></script>
 
 
     @yield('js')

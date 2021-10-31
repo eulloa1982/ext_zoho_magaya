@@ -1399,7 +1399,8 @@ function drawQuotationCRM() {
             flags,
             '',
             type
-        ]
+        ],
+        url: dataVar.magaya_url
     }
 
 
@@ -1521,7 +1522,8 @@ async function drawQuotationMagaya() {
             moment('1970-01-01').format('Y-MM-DD'),
             moment().format('Y-MM-DD'), //today
             flags
-        ]
+        ],
+        url: dataVar.magaya_url
     }
 
     MagayaAPI.sendRequest(data, function(result) {
