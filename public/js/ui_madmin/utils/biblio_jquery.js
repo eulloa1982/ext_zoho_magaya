@@ -61,7 +61,6 @@ async function getCarriers() {
 
     MagayaAPI.sendRequest(dataCarriers, function(result) {
         if (!_.isEmpty(result.data)) {
-            console.log("Carriers", result.data)
             storeProvidersDef.dispatch(addProvidersDef(result.data.Carrier))
             //storeChargesDef.dispatch(addChargesDef(result.data.ChargeDefinition))
         };
