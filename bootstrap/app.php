@@ -47,6 +47,8 @@ $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
     App\Console\Kernel::class
 );
+$app->register(Barryvdh\DomPDF\ServiceProvider::class);
+$app->configure('dompdf');
 
 /*
 |--------------------------------------------------------------------------
@@ -121,7 +123,5 @@ $app->router->group([
     require __DIR__.'/../routes/api.php';
     require __DIR__.'/../routes/web.php';
 });
-$app->register(Barryvdh\DomPDF\ServiceProvider::class);
-$app->configure('dompdf');
 
 return $app;
