@@ -7,16 +7,22 @@
                         <th class="headerFont" colspan="2" style="border: 1px #000 solid; padding: 3px;text-align: center;">Customer Info</th>
                     </tr>
                         <tr>
-                            <th class="headerFont" style="text-align: right; padding: 3px; border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                                Customer</th>
+                            <th class="headerFont" style="text-align: right; padding: 3px; border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">Customer</th>
                             <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                                {{$organization['mQuote']['magaya__ContactName']}}</td>
+                                @if(isset($organization['mQuote']['Account']))
+                                    {{$organization['mQuote']['Account']['name']}}
+                                @endif
+                            </td>
                         </tr>
                         <tr>
-                            <th class="headerFont" style="text-align: right; padding: 3px; border-left: 1px #000 solid;border-right: 1px #000 solid;">
-                                Representative</th>
-                            <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
-                                {{$organization['mQuote']['magaya__Representative']['name']}}</td>
+                            <th class="headerFont" style="text-align: right; padding: 3px; border-left: 1px #000 solid;border-right: 1px #000 solid;">Representative</th>
+                                <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+
+                                @if(isset($organization['mQuote']['magaya__Representative']))
+                                    {{$organization['mQuote']['magaya__Representative']['name']}}
+                                @endif
+
+                                </td>
                         </tr>
                         <tr>
                             <th class="headerFont" style="text-align: right; padding: 3px; border: 1px #000 solid;">
