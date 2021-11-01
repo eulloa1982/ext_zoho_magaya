@@ -1,14 +1,14 @@
-<table cellspacing="0px" cellpadding="0px" width="100%">
+<table cellspacing="0px" cellpadding="0px" width="100%" style="margin-top: 10px">
     <tr>
         <th colspan="6" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">Items</th>
     </tr>
     <tr>
-        <th style="border-left: 1px #000 solid; border-bottom: 1px #000 solid; border-right: 1px #000 solid; text-align: center;">Description </th>
-        <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Package Type</th>
-        <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Quantity</th>
-        <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Dimensions</th>
-        <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Weight</th>
-        <th style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Volume</th>
+        <th width="20%" style="border-left: 1px #000 solid; border-bottom: 1px #000 solid; border-right: 1px #000 solid; text-align: center;">Description </th>
+        <th width="15%" style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Package Type</th>
+        <th width="10%" style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Quantity</th>
+        <th width="25%" style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Dimensions</th>
+        <th width="10%" style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Weight</th>
+        <th width="20%" style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Volume</th>
     </tr>
     @if (@isset($organization['items']))
         {{$total_weight = 0}}

@@ -5,7 +5,7 @@
             <table>
                 <tr>
                     <th rowspan="2">
-                        <img class="headerIMG" width="100px" height="100px" src="{{ url('images/logo2.png', $extra = [], $secure = 1) }}" style="text-align: center; margin-left:15px;" />
+                        <img class="headerIMG" width="100px" height="100px" src="{{ url('images/logo2.png', $extra = [], $secure = 1) }}" style="text-align: center;" />
                     </th>
                     <th>
                         <div class="session-first" style="float: left; font-size: 28px; vertical-align:top">
@@ -17,7 +17,7 @@
             </table>
         </th>
         <th width="60%">
-            <table id="header" cellspacing="0px" cellpadding="0px" style="border: none; text-align: right; vertical-align:top; float:right;">
+            <table id="header" width="100%" cellspacing="0px" cellpadding="0px" style="border: none; text-align: right; vertical-align:top;">
                 <tr>
                     <td colspan="12"class="headerFont">
                         <span><img src="{{ url('images/pdfv1/language.png', $extra = [], $secure = 1) }}" width="24px" height="24px"/>                            

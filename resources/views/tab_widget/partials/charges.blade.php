@@ -1,4 +1,4 @@
-<table cellspacing="0px" cellpadding="0px" width="100%">
+<table cellspacing="0px" cellpadding="0px" width="100%" style="margin-top: 10px">
     <tr>
         <th colspan="5" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid">Charges</th>
     </tr>

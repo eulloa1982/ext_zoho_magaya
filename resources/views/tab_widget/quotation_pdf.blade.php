@@ -13,25 +13,13 @@
 
 </table>*/
 ?>
-<div class="container" style="clear: both;">
+
     @include('tab_widget.partials.organization')       
-</div>
-
-<div class="container" style="margin-top: 10px">
     @include('tab_widget.partials.mquote')    
-</div>
-
-<div class="container" style="margin-top: 10px">
     @include('tab_widget.partials.charges')
-</div>
-
-<div class="container" style="margin-top: 10px">
     @include('tab_widget.partials.items')
-</div>
-
-<div class="container" style="margin-top: 10px">
     @include('tab_widget.partials.terms')
-</div>
+
 
 
 
