@@ -105,9 +105,16 @@
     </table>
 </div>
 
+<br /><br />
 
+    <table width="100%">
+        <tr>
+            <th style="background-color: lightgrey; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">Terms</th>
+        </tr>
 
+        @include('tab_widget.partials.terms')
 
+    </table>
 
 
 
