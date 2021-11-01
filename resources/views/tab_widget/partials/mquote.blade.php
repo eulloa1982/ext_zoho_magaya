@@ -46,20 +46,20 @@
                         <th class="headerFont" style="text-align: right;">
                             Quote Number:</th>
                         <td class="dataFont">
-                            {{$organization['mQuote']['magaya__Number']}}</td>
+                            {{$organization['mQuote']['Name']}}</td>
                     </tr>
                     <tr>
                         <th class="headerFont" style="text-align: right;">
                             Creation Date:</th>
                         <td class="dataFont">
-                            {{$organization['mQuote']['Created_Time']}}
+                            <?php echo explode('T',$organization['mQuote']['Created_Time'])[0]; ?>
                         </td>
                     </tr>
                     <tr>
                         <th class="headerFont" style="text-align: right;">
                             Expiration Date:</th>
                         <td class="dataFont">
-                            {{$organization['mQuote']['magaya__ExpirationDate']}}
+                            <?php echo explode('T',$organization['mQuote']['magaya__ExpirationDate'])[0]; ?>
                         </td>
                     </tr>
                     <tr>

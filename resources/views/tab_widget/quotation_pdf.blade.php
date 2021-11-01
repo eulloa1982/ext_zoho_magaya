@@ -35,24 +35,28 @@
                 <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right;float: right;">
                     <tr>
                         <td colspan="12"class="headerFont">
-                            <span class="material-icons">language</span>
+                            <img src="https://zohomagayab.herokuapp.com/images/pdfv1/language.png" width="24px" height="24px"/>                            
                             {{$organization['orgData']['website']}}
                         </td>
                     </tr>
                     <tr>
                         <td colspan="12" class="headerFont">
+                            <img src="https://zohomagayab.herokuapp.com/images/pdfv1/phone.png" width="24px" height="24px"/>
                             <span class="material-icons">phone</span>
                             {{$organization['orgData']['phone']}}
                         </td>
                     </tr>
                     <tr>
                         <td colspan="12" class="headerFont">
+                            <img src="https://zohomagayab.herokuapp.com/images/pdfv1/email.png" width="24px" height="24px"/>
                             <span class="material-icons">alternate_email</span>
                             {{$organization['orgData']['primary_email']}}
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="12" class="headerFont"><span class="material-icons">home</span>
+                        <td colspan="12" class="headerFont">
+                            <img src="https://zohomagayab.herokuapp.com/images/pdfv1/home.png" width="24px" height="24px"/>
+                            <span class="material-icons">home</span>
                             {{$organization['orgData']['country']}}, {{$organization['orgData']['city']}}, {{$organization['orgData']['state']}}
                         </td>
                     </tr>
@@ -104,19 +108,6 @@
         @include('tab_widget.partials.terms')
     </table>
 </div>
-
-<br /><br />
-
-    <table width="100%">
-        <tr>
-            <th style="background-color: lightgrey; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">Terms</th>
-        </tr>
-
-        @include('tab_widget.partials.terms')
-
-    </table>
-
-
 
 
 
