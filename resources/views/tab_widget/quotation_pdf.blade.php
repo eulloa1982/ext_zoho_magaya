@@ -8,14 +8,14 @@ th, td {
 <img src="{{ url('images/pdfv1/magaya.png') }}" width="60px" height="60px" alt="Quote" />
     @include('tab_widget.partials.organization')
 
-<br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br />
     @include('tab_widget.partials.mquote')
 
 <br /><br />
 
     <table width="100%" cellspacing="0px" cellpadding="0px">
         <tr>
-            <th colspan="5" style="background-color: lightgrey; text-align: start;text-transform:uppercase ;border: 1px #000 solid">Charges</th>
+            <th colspan="5" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid">Charges</th>
         </tr>
         <tr style="font-weight: bold;">
             <th style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Charge Description</th>
@@ -31,7 +31,7 @@ th, td {
 <br /><br />
     <table width="100%">
         <tr>
-            <th colspan="5" style="background-color: lightgrey; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">Items</th>
+            <th colspan="5" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">Items</th>
         </tr>
         <tr>
             <th style="border-left: 1px #000 solid; border-bottom: 1px #000 solid; border-right: 1px #000 solid; text-align: center;">Description </th>
@@ -48,7 +48,7 @@ th, td {
 
     <table width="100%">
         <tr>
-            <th style="background-color: lightgrey; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">Terms</th>
+            <th style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">TERMS & CONDITIONS</th>
         </tr>
 
         @include('tab_widget.partials.terms')
