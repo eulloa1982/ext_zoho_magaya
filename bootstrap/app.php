@@ -71,12 +71,12 @@ $app->configure('app');
 | route or middleware that'll be assigned to some specific routes.
 |
 */
-
+/*
 $app->middleware([
         App\Http\Middleware\CorsMiddleware::class,
         //App\Http\Middleware\HttpsProtocol::class
         //App\Http\Middleware\IpMiddleware::class
-]);
+]);//*/
 
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
