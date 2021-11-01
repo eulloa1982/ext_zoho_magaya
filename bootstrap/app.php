@@ -71,12 +71,12 @@ $app->configure('app');
 | route or middleware that'll be assigned to some specific routes.
 |
 */
-
-//$app->middleware([
-        //App\Http\Middleware\CorsMiddleware::class,
+/*
+$app->middleware([
+        App\Http\Middleware\CorsMiddleware::class,
         //App\Http\Middleware\HttpsProtocol::class
         //App\Http\Middleware\IpMiddleware::class
-//]);
+]);//*/
 
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
@@ -92,7 +92,6 @@ $app->configure('app');
 | totally optional, so you are not required to uncomment this line.
 |
 */
-
 
 //$app->register(App\Providers\AppServiceProvider::class);
 $app->register(Barryvdh\DomPDF\ServiceProvider::class);
@@ -116,6 +115,7 @@ $app->configure('dompdf');
 | can respond to, as well as the controllers that may handle them.
 |
 */
+
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {

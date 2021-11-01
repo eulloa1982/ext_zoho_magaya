@@ -987,14 +987,14 @@ a {
                                                     <div class="row">
                                                         <div class="col-md-3">Type</div>
                                                         <div class="col-md-8">
-                                                            <select class="form-control text" name="magaya__Package_Type"><option value='-1'></option></select>
+                                                            <select class="form-control text" name="Name"><option value='-1'></option></select>
                                                         </div>
                                                     </div>
 
                                                     <div class="row">
                                                         <div class="col-md-3">Description</div>
                                                         <div class="col-md-8">
-                                                            <textarea class="form-control new-item text" id="magaya__Package_Description" name="Name" aria-label="With textarea"></textarea>
+                                                            <textarea class="form-control new-item text" id="magaya__Package_Description" name="magaya__Package_Description" aria-label="With textarea"></textarea>
                                                         </div>
                                                     </div>
 
