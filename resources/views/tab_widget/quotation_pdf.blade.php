@@ -14,14 +14,14 @@
 
 </table>*/
 ?>
-<div class="container">
+<div class="container" style="clear: both;">
     <table cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
         <tr>
-            <th rowspan="2">
+            <th width="40%">
                 <table>
                     <tr>
                         <th rowspan="2">
-                            <img class="headerIMG" width="100px" height="100px" src="https://zohomagaya.herokuapp.com/js/ui_listmquote/utils/logo2.png" style="text-align: center; margin-left:15px;" />
+                            <img class="headerIMG" width="100px" height="100px" src="{{ url('images/logo2.png', $extra = [], $secure = 1) }}" style="text-align: center; margin-left:15px;" />
                         </th>
                         <th>
                             <div class="session-first" style="float: left; font-size: 28px; vertical-align:top">
@@ -29,41 +29,38 @@
                             </div>
                         </th>
                     </tr>
+                    <tr></tr>
                 </table>
             </th>
-            <th>
-                <table id="header" cellspacing="0px" cellpadding="2px" style="border: none; text-align: right;float: right;">
+            <th width="60%">
+                <table id="header" cellspacing="0px" cellpadding="0px" style="border: none; text-align: right; vertical-align:top; float:right;">
                     <tr>
                         <td colspan="12"class="headerFont">
-                            <img src="https://zohomagayab.herokuapp.com/images/pdfv1/language.png" width="24px" height="24px"/>                            
-                            {{$organization['orgData']['website']}}
+                            <span><img src="{{ url('images/pdfv1/language.png', $extra = [], $secure = 1) }}" width="24px" height="24px"/>                            
+                            </span>{{$organization['orgData']['website']}}
                         </td>
                     </tr>
                     <tr>
                         <td colspan="12" class="headerFont">
-                            <img src="https://zohomagayab.herokuapp.com/images/pdfv1/phone.png" width="24px" height="24px"/>
-                            <span class="material-icons">phone</span>
-                            {{$organization['orgData']['phone']}}
+                            <span><img src="{{ url('images/pdfv1/phone.png', $extra = [], $secure = 1) }}" width="24px" height="24px"/>
+                            </span>{{$organization['orgData']['phone']}}
                         </td>
                     </tr>
                     <tr>
                         <td colspan="12" class="headerFont">
-                            <img src="https://zohomagayab.herokuapp.com/images/pdfv1/email.png" width="24px" height="24px"/>
-                            <span class="material-icons">alternate_email</span>
-                            {{$organization['orgData']['primary_email']}}
+                            <span><img src="{{ url('images/pdfv1/email.png', $extra = [], $secure = 1) }}" width="24px" height="24px"/>
+                            </span>{{$organization['orgData']['primary_email']}}
                         </td>
                     </tr>
                     <tr>
                         <td colspan="12" class="headerFont">
-                            <img src="https://zohomagayab.herokuapp.com/images/pdfv1/home.png" width="24px" height="24px"/>
-                            <span class="material-icons">home</span>
-                            {{$organization['orgData']['country']}}, {{$organization['orgData']['city']}}, {{$organization['orgData']['state']}}
+                            <span><img src="{{ url('images/pdfv1/home.png', $extra = [], $secure = 1) }}" width="24px" height="24px"/>
+                            </span>{{$organization['orgData']['country']}}, {{$organization['orgData']['city']}}, {{$organization['orgData']['state']}}
                         </td>
                     </tr>
                 </table>
             </th>
         </tr>
-        <tr></tr>
         <tr></tr>
     </table>
 </div>

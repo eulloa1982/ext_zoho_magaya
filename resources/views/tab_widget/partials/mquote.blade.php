@@ -74,7 +74,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <table width="100%" cellspacing="0px" cellpadding="0px" style="border: none; margin-top: 5px;">
+                <table width="100%" cellspacing="0px" cellpadding="0px" style="border: none; margin-top: 10px;">
                     <tr>
                         <th class="headerFont" colspan="2" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border-left: 1px #000 solid;border-right: 1px #000 solid;border-top: 1px #000 solid;">
                             Quotation Info
