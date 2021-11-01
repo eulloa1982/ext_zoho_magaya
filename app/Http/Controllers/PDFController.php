@@ -33,7 +33,7 @@ class PDFController extends Controller
         //$charges = ['charges' => $a['charges']];
 
         //return PDF::loadView('tab_widget.quotation_pdf', $dataPdf)->setOptions(['defaultFont' => 'sans-serif', 'isRemoteEnabled' => TRUE])->stream('invoice.pdf');
-        return PDF::loadView('tab_widget.quotation_pdf', $dataPdf)->setOptions(['defaultFont' => 'sans-serif', 'isRemoteEnabled' => TRUE])->stream('invoice.pdf');
+        return PDF::loadView('tab_widget.quotation_pdf', $dataPdf)->setOptions(['defaultFont' => 'sans-serif'])->stream('invoice.pdf');
 
 
         //return view ('tab_widget.quotation_pdf')->with($dataPdf);
