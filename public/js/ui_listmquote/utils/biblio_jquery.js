@@ -1011,11 +1011,6 @@ async function buildPdf(mquote_id) {
     let items = []
     let mquote = storeQuote.getState().quoteToEdit
 
-
-
-    //items = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
-    //charges = await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id)
-
     dataPost = {
         'organization': {
             "orgData" :orgData,
@@ -1025,9 +1020,6 @@ async function buildPdf(mquote_id) {
         }
     }
 
-    //dataPost = {}
-
-    /*console.log("passing organization", dataPost)*/
     //const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
     const endpoint = `https://zohomagayab.herokuapp.com/pdf`
 
@@ -1052,7 +1044,7 @@ async function buildPdf(mquote_id) {
 
           let link = document.createElement('a');
           link.href = objUrl;
-          link.download = 'fileName';
+          link.download = mquote.magaya__Number;
           link.click();
 
           // For Firefox it is necessary to delay revoking the ObjectURL.
