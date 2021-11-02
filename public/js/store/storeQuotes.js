@@ -104,9 +104,13 @@ function reducerQuote (state = initialStateQuote, actions)  {
 
         case FIND_BY_NAME: {
             charSeeker = actions.payload.char;
+            charSeeker = charSeeker.replace(/[ ]/g, '')
+            console.log(charSeeker)
+            state.quotes2 = []
+
             return {
                 ...state,
-                quotes2: state.quotes.filter(quote => quote.Name === actions.payload.char)
+                quotes2: state.quotes.filter(quote => quote.Name === charSeeker)
             }
         }
 

@@ -1,19 +1,10 @@
 @extends('base_listmquote')
 @section('main')
 
-<?php
-//print_r($organization['orgData']['city']);
-
-/*
-<table><tr><td>Name</td></tr>
-@foreach ($organization as $dat)
-        <li>{{ $dat->city }}</li>
-
-        @endforeach
+<br /><br /><br /><br />
+    @include('tab_widget.partials.mquote')
 
 
-</table>*/
-?>
 <div class="container" style="clear: both;">
     <table cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
         <tr>
@@ -36,7 +27,7 @@
                 <table id="header" cellspacing="0px" cellpadding="0px" style="border: none; text-align: right; vertical-align:top; float:right;">
                     <tr>
                         <td colspan="12"class="headerFont">
-                            <span><img src="{{ url('images/pdfv1/language.png', $extra = [], $secure = 1) }}" width="24px" height="24px"/>                            
+                            <span><img src="{{ url('images/pdfv1/language.png', $extra = [], $secure = 1) }}" width="24px" height="24px"/>
                             </span>{{$organization['orgData']['website']}}
                         </td>
                     </tr>
@@ -100,7 +91,7 @@
 <div class="container" style="margin-top: 10px">
     <table width="100%">
         <tr>
-            <th colspan="5" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">TERMS & CONDITIONS</th>
+            <th style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">TERMS & CONDITIONS</th>
         </tr>
         @include('tab_widget.partials.terms')
     </table>

@@ -3,13 +3,12 @@
     {{$total_volume = 0}}
     {{$measure_length = "in"}}
     {{$measure_weigth = "lb"}}
-    {{$measure_volume = "ft"}}        
+    {{$measure_volume = "ft"}}
     {{$total_weight_international = 0}}
     {{$total_volume_international = 0}}
     {{$total_weight_english = 0}}
     {{$total_volume_english = 0}}
     {{$measure_system = ''}}
-        
     @foreach ($organization['items'] as $dat=>$v)
         @if ($v['magaya__Measure_System'] === "International") {
             {{$measure_length = "m"}}
@@ -17,7 +16,7 @@
             {{$measure_weigth = "kg"}}
             {{$total_volume_international += ($v['magaya__Volume'] * $v['magaya__Pieces'])}}
             {{$total_weight_international += ($v['magaya__Weigth'] * $v['magaya__Pieces'])}}
-         @else 
+         @else
             {{/*/pulgadas y libras*/}}
             {{$total_volume_english += ($v['magaya__Volume'] * $v['magaya__Pieces'])}}
             {{$total_weight_english += ($v['magaya__Weigth'] * $v['magaya__Pieces'])}}
@@ -40,3 +39,4 @@
         <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;"><?php echo round($total_volume, 2); ?> ({{$measure_volume}}<sup>3</sup>)</td>
     </tr>
 @endif
+
