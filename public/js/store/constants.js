@@ -94,7 +94,7 @@ const GET_DEAL = "GET_DEAL"
 
 
 const ITEMS_FIELDS = {
-    "magaya__Package_Type": {"field": "Type", "place": 1, "editable":"readonly"}, "Name": {"field": "Description", "place": 2, "type": "textarea"},
+    "Name": {"field": "Description", "place": 1, "editable":"readonly"}, "magaya__Package_Description": {"field": "Description", "place": 2, "type": "textarea"},
     "magaya__Length": {"field": "Length", "type": "number", "place": 4}, "magaya__Width": {"field": "Width", "type": "number", "place": 6},
     "magaya__Weigth": {"field": "Weigth", "type": "number", "place": 7}, "magaya__Height": {"field": "Height", "type": "number", "place": 5},
     "magaya__Pieces": {"field": "Pieces", "type": "number", "place": 3}, "magaya__Measure_System": {"field": "Measure System", "values": ["International", "English"], "place": 9},
@@ -123,15 +123,8 @@ const MQUOTE_XML = {
     "magaya__ContactName": "RepresentativeName"
 }
 
-const MAP_ITEMS = {"Name":"Name", "magaya__Height":"magaya__Height", "magaya__Length":"magaya__Length",
-                    "magaya__Measure_System":"magaya__Measure_System","magaya__Package_Type":"magaya__Package_Type",
-                    "magaya__Pieces":"magaya__Pieces", "magaya__Status":"magaya__Status",
-                    "magaya__Volume":"magaya__Volume","magaya__Weigth":"magaya__Weigth",
-                    "magaya__Width":"magaya__Width"}
-
 
 const ERRORS_TYPES = {
     'MANDATORY_NOT_FOUND': "Required Field Missing",
-    "INVALID_DATA": "Some data are invalid",
     "Client Quote not found": 'Mandatory data not found: Client Quote is not defined'
 }

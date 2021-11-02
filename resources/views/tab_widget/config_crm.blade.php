@@ -167,9 +167,6 @@ $(document).ready(function(){
 
             let value = $(this).attr("data-module")
             storeCurrentModule.dispatch(addCurrentModule(value))
-            //console.log("Currentmodule", currentModule)
-            //if (!currentModule)
-            //    currentModule = "magaya__Charges_Type";
 
             //storeChargesDef.dispatch(getCurrentItemDef({module: value}))
             ZOHO.CRM.API.getAllRecords({Entity:currentModule,sort_order:"desc",per_page:250,page:1})
