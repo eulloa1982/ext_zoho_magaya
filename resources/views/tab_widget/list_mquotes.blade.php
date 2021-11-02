@@ -367,7 +367,7 @@ a {
 					<div class="modal-header" style="background: #0b3355;color: white;">
 						<h4 class="modal-title custom_align" style="font-weight: bold;" id="Title">Edit mQuote</h4><span class="arrows-quote" class="float-right"></span>
 
-						<button type="button" class="close" aria-hidden="true"><span class="material-icons btn btn-primary cerrar-modal">highlight_off</span></button>
+						<span class="material-icons btn btn-primary cerrar-modal">close</span>
 
 					</div>
 					<div class="modal-body">
