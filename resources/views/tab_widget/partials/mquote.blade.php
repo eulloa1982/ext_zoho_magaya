@@ -9,61 +9,61 @@
                 <tr>
                     <th class="headerFont" style="text-align: right; padding: 3px; border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
                         Customer</th>
-                    <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                    <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid; font-size: 12px">
                         {{$organization['mQuote']['magaya__ContactName']}}</td>
                 </tr>
                 <tr>
                     <th class="headerFont" style="text-align: right; padding: 3px; border-left: 1px #000 solid;border-right: 1px #000 solid;">
                         Representative</th>
-                    <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                    <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid; font-size: 12px">
                         {{$organization['mQuote']['magaya__Representative']['name']}}</td>
                 </tr>
                 <tr>
                     <th class="headerFont" style="text-align: right; padding: 3px; border: 1px #000 solid;">
                         Phone</th>
-                    <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                    <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid; font-size: 12px">
                         {{$organization['mQuote']['magaya__ContactMobile']}}</td>
                 </tr>
                 <tr>
                     <th class="headerFont" style="text-align: right; padding: 3px;border-left: 1px #000 solid;border-right: 1px #000 solid;">
                         Email</th>
-                    <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                    <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid; font-size: 12px">
                         {{$organization['mQuote']['magaya__ContactEmail']}}</td>
                 </tr>
                 <tr>
                     <th class="headerFont" style="text-align: right;border: 1px #000 solid;">
                         Address</th>
-                    <td class="dataFont" style="text-align: start;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                    <td class="dataFont" style="text-align: start;border-right: 1px #000 solid;border-bottom: 1px #000 solid; font-size: 12px">
                     </td>
                 </tr>
             </table>
         </td>
         <td width="60%">
-            <table id="info2" cellspacing="0px" cellpadding="0px" width="100%" style="text-align:left;border: none; float: right;">
+            <table id="info2" cellspacing="0px" cellpadding="2px" width="90%" style="text-align:left;border: none; margin-left: 20%;">
                 <tr>
                     <th class="headerFont" style="text-align: right;">
                         Quote Number:</th>
-                    <td class="dataFont">
+                    <td class="dataFont" style=" font-size: 12px">
                         {{$organization['mQuote']['Name']}}</td>
                 </tr>
                 <tr>
                     <th class="headerFont" style="text-align: right;">
                         Creation Date:</th>
-                    <td class="dataFont">
+                    <td class="dataFont" style=" font-size: 12px">
                         <?php echo explode('T',$organization['mQuote']['Created_Time'])[0]; ?>
                     </td>
                 </tr>
                 <tr>
                     <th class="headerFont" style="text-align: right;">
                         Expiration Date:</th>
-                    <td class="dataFont">
+                    <td class="dataFont" style=" font-size: 12px">
                         <?php echo explode('T',$organization['mQuote']['magaya__ExpirationDate'])[0]; ?>
                     </td>
                 </tr>
                 <tr>
                     <th class="headerFont" style="text-align: right;">
                         Contact To:</th>
-                    <td class="dataFont">
+                    <td class="dataFont" style=" font-size: 12px">
                         {{$organization['mQuote']['Owner']['name']}},<br> {{$organization['mQuote']['Owner']['email']}}
                     </td>
                 </tr>
