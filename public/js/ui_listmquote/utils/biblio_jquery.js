@@ -413,17 +413,17 @@ async function buildStringXML(idSQuote) {
     storeQuote.dispatch(findById({ id: idSQuote }))
     let quote = quoteXML[0]
     console.log("XAML", quote)
-    //if (quote.Magaya_updated) {
-    /*    codeError = 'It seems like this mQuote is already in Magaya. Please contact with your administrator';
+        //if (quote.Magaya_updated) {
+        /*    codeError = 'It seems like this mQuote is already in Magaya. Please contact with your administrator';
         show = false;
         field = ``;
         module = 'mQuote'
         storeError.dispatch(addError({ errorCode: codeError, showInfo: show, field: field, module: module }))
 
 */
-    //} else {
+        //} else {
 
-        xml = await buildStringQuote2(idSQuote);
+    xml = await buildStringQuote2(idSQuote);
 
         stringXML = '<Quotation xmlns="http://www.magaya.com/XMLSchema/V1" xsi:schemaLocation="http://www.magaya.com/XMLSchema/V1 schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
         stringXML += stringQuote;
@@ -460,30 +460,43 @@ async function buildStringXML(idSQuote) {
             }
         }
 
-        //items
-        let items = {}
-        stringItem = await $(this).buildStringItems(idSQuote)
+    //do not send charges without an apply to
+    if (account_id > 0) {
+        let data = await getRecordCRM("Accounts", account_id)
             .then(resp => {
                 //console.log("Items", resp)
                 items = resp
             })
-            .catch(() => {
-                //distpath an error
-                charges = '';
-            });
-
-        if (items !== undefined && !_.isEmpty(items)) {
-            let stringItems = buildXmlItem(items)
-            stringXML += '<Items>' + stringItems + "</Items>";
+        if (charges !== undefined && !_.isEmpty(charges)) {
+            let stringCharges = buildXmlCharge(charges, data_account)
+            stringXML += '<Charges UseSequenceOrder="false">' + stringCharges + "</Charges>";
         }
+    }
 
-        stringXML += '</Quotation>'
+    //items
+    let items = {}
+    stringItem = await $(this).buildStringItems(idSQuote)
+        .then(resp => {
+            console.log("Items", resp)
+            items = resp
+        })
+        .catch(() => {
+            //distpath an error
+            charges = '';
+        });
 
-        console.log(stringXML);
+    if (items !== undefined && !_.isEmpty(items)) {
+        let stringItems = buildXmlItem(items)
+        stringXML += '<Items>' + stringItems + "</Items>";
+    }
 
-        //Utils.blockUI();
+    stringXML += '</Quotation>'
 
-       let result = await sendmQuote(stringXML, idSQuote)
+    console.log(stringXML);
+
+    //Utils.blockUI();
+
+    let result = await sendmQuote(stringXML, idSQuote)
 
     //}
 } //.send-quote
@@ -974,16 +987,26 @@ async function make_pdf(id) {
 }
 
 
+
+function bipdf(items) {
+    let data_items = {}
+    if (!_.isEmpty(items)) {
+        $.map(items, function(k, v) {
+
+        })
+    }
+}
+
 async function buildPdf(mquote_id) {
     quoteToEdit = [];
-    Utils.blockUI()
-        //dispatch
+    //Utils.blockUI()
+    //dispatch
     storeQuote.dispatch(findQuote({ id: mquote_id }))
 
     //general data
     let orgData = localStorage.getItem('organization')
     orgData = JSON.parse(orgData)
-    //orgData = orgData)
+    console.log(orgData)
     let charges = []
     let items = []
     let mquote = storeQuote.getState().quoteToEdit
@@ -998,7 +1021,7 @@ async function buildPdf(mquote_id) {
     }
 
     //const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
-    const endpoint = `https://zohomagaya.herokuapp.com/pdf`
+    const endpoint = `https://zohomagayab.herokuapp.com/pdf`
 
     fetch(endpoint, {
         method: 'POST',

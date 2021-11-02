@@ -6,9 +6,9 @@
     "type": "project",
     "require": {
         "php": "^7.3|^8.0",
+        "laravel/lumen-framework": "^8.0",
         "ext-soap": "*",
         "barryvdh/laravel-dompdf": "^0.9.0",
-        "laravel/lumen-framework": "^8.0",
         "ext-gd": "*"
     },
     "require-dev": {

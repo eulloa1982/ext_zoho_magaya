@@ -9,7 +9,6 @@
     {{$total_weight_english = 0}}
     {{$total_volume_english = 0}}
     {{$measure_system = ''}}
-
     @foreach ($organization['items'] as $dat=>$v)
         @if ($v['magaya__Measure_System'] === "International") {
             {{$measure_length = "m"}}

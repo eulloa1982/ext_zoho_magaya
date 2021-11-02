@@ -57,7 +57,7 @@ input:active {
     color: white;
 }
 
-/****webkit entrada ventana de info***/
+/*webkit entrada ventana de info**/
 @-webkit-keyframes slideInDown {
     0% {
     -webkit-transform: translateY(-100%);
@@ -128,7 +128,7 @@ input:active {
 }
 
 
-/**********panel editing*************/
+/***panel editing****/
 
 #panel,
 #panel-charge,
@@ -148,7 +148,7 @@ input:active {
 }
 
 
-/**********panel editing*************/
+/***panel editing****/
 #panel-preview {
     background: #f8f8f5;
     display: none;
@@ -163,7 +163,7 @@ input:active {
     overflow-x: hidden;
 }
 
-/****tables preview ***/
+/*tables preview **/
 table #table-charges-preview #table-items-preview {
     font-family: "Helvetica Neue", Helvetica, sans-serif
   }
@@ -234,7 +234,7 @@ table #table-charges-preview #table-items-preview {
 */
 
 
-/******** labels on panel **********/
+/*** labels on panel *****/
 
 .fieldset {
     border: 1px solid #38312b;
@@ -283,7 +283,7 @@ table td .numeric {
 }
 
 
-/**** pdf styles ***/
+/** pdf styles */
 
 #htmlToPdf {
     font-family: Arial, Helvetica, sans-serif;
