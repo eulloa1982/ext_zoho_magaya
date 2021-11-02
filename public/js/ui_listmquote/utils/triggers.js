@@ -1,13 +1,3 @@
-/*$("input[name=magaya__Amount_Total]").change(function(e) {
-    //get final amount
-    let final_amount = $("input[name=magaya__Final_Amount]").val()
-    final_amount = roundDec(final_amount)
-    if (_.isEmpty(final_amount) || final_amount == 0) {
-        let val = $(this).val()
-        $("input[name=magaya__Final_Amount]").val(val)
-    }
-})*/
-
 $("select[name=magaya__TransportationMode]").change(function(e) {
     //$("select[name=ModeOfTransportation]").empty()
     let value = $("select[name=magaya__TransportationMode] option:selected").text()

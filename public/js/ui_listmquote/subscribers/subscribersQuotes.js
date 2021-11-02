@@ -192,6 +192,7 @@ storeQuote.subscribe(() => {
             let ownerValues = $("select[name=Owner] option")
             $.map(ownerValues, function(k, v) {
                 if (k.value === owner) {
+                    console.log("Öwner", owner)
                     $(`select[name=Owner] option:contains(${k.text})`).prop('selected', true);
                     $(`select[name=Owner]`).change()
                 } else {
@@ -227,7 +228,6 @@ storeQuote.subscribe(() => {
 
                     }
                 })
-                console.log(quoteToEdit.magaya__BillingCity)
 
                 $("#RepresentativePreview").html(nameContact)
 
@@ -314,15 +314,6 @@ storeQuote.subscribe(() => {
                 }
             })
 
-            //si existen valores en el mquote, sobreescribirlos
-            $("input[name=Mailing_City]").val(quoteToEdit.magaya__BillingCity)
-            $("input[name=Mailing_Country]").val(quoteToEdit.magaya__BillingCountry)
-            $("input[name=Mailing_State]").val(quoteToEdit.magaya__BillingState)
-            $("input[name=Mailing_Street]").val(quoteToEdit.magaya__BillingStreet)
-            $("input[name=Mailing_Zip]").val(quoteToEdit.magaya__Billing_Zip)
-            $("input[name=Email]").val(quoteToEdit.magaya__ContactEmail)
-            $("input[name=Mobile]").val(quoteToEdit.magaya__ContactMobile)
-            $("input[name=Phone]").val(quoteToEdit.magaya__ContactPhone)
 
             //other modules related
             if (!_.isEmpty(quoteToEdit.magaya__Routing)) {
@@ -421,6 +412,16 @@ storeQuote.subscribe(() => {
                         })
                     } //IF
                 }) //then*/
+
+                //si existen valores en el mquote, sobreescribirlos
+                $("input[name=Mailing_City]").val(quoteToEdit.magaya__BillingCity)
+                $("input[name=Mailing_Country]").val(quoteToEdit.magaya__BillingCountry)
+                $("input[name=Mailing_State]").val(quoteToEdit.magaya__BillingState)
+                $("input[name=Mailing_Street]").val(quoteToEdit.magaya__BillingStreet)
+                $("input[name=Mailing_Zip]").val(quoteToEdit.magaya__Billing_Zip)
+                $("input[name=Email]").val(quoteToEdit.magaya__ContactEmail)
+                $("input[name=Mobile]").val(quoteToEdit.magaya__ContactMobile)
+                $("input[name=Phone]").val(quoteToEdit.magaya__ContactPhone)
 
                 //service items
                 /*ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idmQuoteToEdit, RelatedList: "Notes", page: 1, per_page: 200 })

@@ -470,8 +470,6 @@ $(document).ready(function(){
         "magaya__Is_Hazardous": is_hazardous,
         "magaya__Terms": sanitize($(":input[name=magaya__Terms]").val()),
         "magaya__Representative": contact,
-        "magaya__ContactMobile": sanitize($("input[name=Mobile]").val()),
-        "magaya__ContactHomePhone": sanitize($("input[name=Phone]").val()),
         "magaya__ContactName": sanitize($("select[name=magaya__Representative] option:selected").text()),
         "magaya__Terms": sanitize($("#magaya__Terms").val()),
         "magaya__Incoterms": $("select[name=magaya__Incoterms]").val(),
@@ -479,6 +477,14 @@ $(document).ready(function(){
         "magaya__Origin": sanitize($(":input[name=magaya__Origin]").val()),
         "magaya__Destination": sanitize($(":input[name=magaya__Destination]").val()),
         "magaya__Seller": sanitize($(":input[name=magaya__Seller]").val()),
+        "magaya__BillingCity": sanitize($("input[name=Mailing_City]").val()),
+        "magaya__BillingCountry": sanitize($("input[name=Mailing_Country]").val()),
+        "magaya__BillingState": sanitize($("input[name=Mailing_State]").val()),
+        "magaya__BillingStreet": sanitize($("input[name=Mailing_Street]").val()),
+        "magaya__BillingCode": sanitize($("input[name=Mailing_Zip]").val()),
+        "magaya__ContactEmail": sanitize($("input[name=Email]").val()),
+        "magaya__ContactMobile": sanitize($("input[name=Mobile]").val()),
+        "magaya__ContactHomePhone": sanitize($("input[name=Phone]").val()),
 
     }
 
