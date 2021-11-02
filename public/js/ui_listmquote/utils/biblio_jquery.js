@@ -1001,6 +1001,7 @@ async function buildPdf(mquote_id) {
     quoteToEdit = [];
     //Utils.blockUI()
     //dispatch
+    Utils.blockUI()
     storeQuote.dispatch(findQuote({ id: mquote_id }))
 
     //general data
@@ -1021,7 +1022,7 @@ async function buildPdf(mquote_id) {
     }
 
     //const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
-    const endpoint = `https://zohomagayab.herokuapp.com/pdf`
+    const endpoint = `https://zohomagaya.herokuapp.com/pdf`
 
     fetch(endpoint, {
         method: 'POST',
@@ -1056,7 +1057,6 @@ async function buildPdf(mquote_id) {
 
     })
     .catch((err) => {
-        console.warn("error", err)
         Utils.unblockUI();
 
     })

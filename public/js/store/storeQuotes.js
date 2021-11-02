@@ -37,15 +37,15 @@ function reducerQuote (state = initialStateQuote, actions)  {
 
         case FIND: {
             let byId = actions.payload.id;
-            var quoteToEdit = {}
+            let quoteToEdit = {}
+            let nextQuote = []
+            let prevQuote = []
 
             state.quotes.map(function(quote, k) {
                 if (quote.id === byId) {
                     let indiceNext = k + 1;
                     let indicePrev = k - 1
                     quoteToEdit = quote;
-                    nexQuote = [];
-                    prevQuote = []
 
                     if (state.quotes[indiceNext])
                         nextQuote = state.quotes[indiceNext]

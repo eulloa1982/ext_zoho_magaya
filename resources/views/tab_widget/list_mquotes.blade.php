@@ -1,16 +1,6 @@
 @extends('base_listmquote')
 @section('main')
 <style>
-    /*table{
-        /*table-layout: fixed;**
-        width: 100%;
-    }
-    th, td {
-        border: 1px solid blue;
-        /*max-width: 200px;
-        word-wrap: break-word;
-        /*width: 1% !important;**
-    }*/
 .number
 {
     text-align-last:right;
