@@ -478,6 +478,7 @@ $(document).ready(function(){
         "Owner": $("select[name=Owner]").val(),
         "magaya__Origin": sanitize($(":input[name=magaya__Origin]").val()),
         "magaya__Destination": sanitize($(":input[name=magaya__Destination]").val()),
+        "magaya__Seller": sanitize($(":input[name=magaya__Seller]").val()),
 
     }
 

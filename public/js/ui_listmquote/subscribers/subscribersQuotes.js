@@ -6,8 +6,9 @@ $(document).ready(function(){
 ////////SUSCRIPTORES
 ///////////////////////////////////////////////////////////
 storeQuote.subscribe(() => {
+    $("#quote-search tbody").empty()
     let u = storeQuote.getState()
-    //console.log("State quote now", u)
+    console.log("State quote now", u)
     quoteXML = u.singleQuote
     $(".arrows-quote").html(``)
     let arrow_content = '';
@@ -42,7 +43,6 @@ storeQuote.subscribe(() => {
 
         $("#quote-search tbody").append(append)
     }
-
     //editing a quote
     quoteToEdit = u.quoteToEdit;
     dataQuotes = u.quotes
@@ -215,7 +215,7 @@ storeQuote.subscribe(() => {
                 //$("select[name=magaya__Representative]").empty()
                 let idContact = quoteToEdit["magaya__Representative"]["id"];
                 let nameContact = sanitize(quoteToEdit["magaya__Representative"]["name"]);
-                storeAccounts.dispatch(findContact({id: idContact}));
+                //storeAccounts.dispatch(findContact({id: idContact}));
                 //get values
                 let contactValues = $("select[name=magaya__Representative] option")
                 $.map(contactValues, function(k, v) {
@@ -227,6 +227,7 @@ storeQuote.subscribe(() => {
 
                     }
                 })
+                console.log(quoteToEdit.magaya__BillingCity)
 
                 $("#RepresentativePreview").html(nameContact)
 
@@ -312,7 +313,16 @@ storeQuote.subscribe(() => {
 
                 }
             })
-            //$("select[name=magaya__Incoterms]").val(incoterms).change()
+
+            //si existen valores en el mquote, sobreescribirlos
+            $("input[name=Mailing_City]").val(quoteToEdit.magaya__BillingCity)
+            $("input[name=Mailing_Country]").val(quoteToEdit.magaya__BillingCountry)
+            $("input[name=Mailing_State]").val(quoteToEdit.magaya__BillingState)
+            $("input[name=Mailing_Street]").val(quoteToEdit.magaya__BillingStreet)
+            $("input[name=Mailing_Zip]").val(quoteToEdit.magaya__Billing_Zip)
+            $("input[name=Email]").val(quoteToEdit.magaya__ContactEmail)
+            $("input[name=Mobile]").val(quoteToEdit.magaya__ContactMobile)
+            $("input[name=Phone]").val(quoteToEdit.magaya__ContactPhone)
 
             //other modules related
             if (!_.isEmpty(quoteToEdit.magaya__Routing)) {

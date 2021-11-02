@@ -1731,10 +1731,12 @@ async function sendQuoteMagaya2CRM(dataArray) {
         "magaya__CreatedByName": dataArray['CreatedByName']
     };
 
+
     if (!_.isEmpty(dataArray["Incoterm"])) {
         let incoterm = `${dataArray["Incoterm"]["Code"]} - ${dataArray["Incoterm"]["Description"]}`
         Object.assign(recordData, {"magaya__Incoterms": incoterm})
     }
+
 
     if (idAccount > 0)
         Object.assign(recordData, {"Account": idAccount})
@@ -1797,11 +1799,25 @@ async function sendQuoteMagaya2CRM(dataArray) {
                     if (cantElem > 1) {
 
                         $.map(dataArray["Charges"]["Charge"], function(k) {
+                            if (!_.isEmpty(k.Entity)) {
+                                guid = k.Entity["@attributes"]["GUID"];
+                                guidChecking = accounts.findIndex(i => i["magaya__MagayaGUID"] === guid);
+                                //si el usuario existe en el CRM, agregar el ApplyTo
+                                if (guidChecking >= 0) {
+                                    idAccount = accounts[guidChecking]['id'];
+                                } else {
+                                    $("#no-configuration-alert").html(`User ${k.Entity.Name} with Magaya GUID ${guid} not found in CRM`)
+                                        .css("display", "inline").fadeIn("slow").delay(6000).fadeOut("slow");
+                                }
 
+                            }
                             dataCharges = {
+                                "magaya__ApplyToAccounts": idAccount,
                                 "magaya__SQuote_Name": idQuote,
+                                "magaya__Tax_Amount": k.TaxAmount,
+
                                 "magaya__Amount": k.Amount,
-                                "magaya__Amount_Total": k.Amount,
+                                "magaya__Amount_Total": parseFloat(k.Amount) + parseFloat(k.TaxAmount),
                                 "magaya__Charge_Description": k.ChargeDefinition.Description,
                                 "magaya__ChargeCode": k.ChargeDefinition.Code,
                                 "magaya__Price": k.Price,
@@ -1812,21 +1828,7 @@ async function sendQuoteMagaya2CRM(dataArray) {
                             }
 
                             console.log("Data charges", dataCharges)
-                            if (!_.isEmpty(k.Entity)) {
-                                guid = k.Entity["@attributes"]["GUID"];
-                                guidChecking = accounts.findIndex(i => i["magaya__MagayaGUID"] === guid);
-                                //si el usuario existe en el CRM, agregar el ApplyTo
-                                if (guidChecking >= 0) {
-                                    crmId = accounts[guidChecking]['id'];
-                                    dataPlus = { "magaya__ApplyToAccounts": crmId }
 
-                                    Object.assign(dataCharges, dataPlus)
-                                } else {
-                                    $("#no-configuration-alert").html(`User ${k.Entity.Name} with Magaya GUID ${guid} not found in CRM`)
-                                        .css("display", "inline").fadeIn("slow").delay(6000).fadeOut("slow");
-                                }
-
-                            }
                             ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: dataCharges, Trigger: ["workflow"] })
                                 .then(function(response) {
                                     /*var func_name = "magaya__setQuoteTotalAmount";
@@ -1849,11 +1851,20 @@ async function sendQuoteMagaya2CRM(dataArray) {
                         if (!_.isEmpty(charge.Entity)) {
                             guid = charge.Entity["@attributes"]["GUID"];
                             guidChecking = accounts.findIndex(i => i["magaya__MagayaGUID"] === guid);
+                            //si el usuario existe en el CRM, agregar el ApplyTo
+                            if (guidChecking >= 0) {
+                                idAccount = accounts[guidChecking]['id'];
+                            } else {
+                                $("#no-configuration-alert").html(`User ${k.Entity.Name} with Magaya GUID ${guid} not found in CRM`)
+                                    .css("display", "inline").fadeIn("slow").delay(6000).fadeOut("slow");
+                            }
                             //si guidChecking < 0, crear el usuario
                             dataCharges = {
+                                "magaya__ApplyToAccounts": idAccount,
+                                "magaya__Tax_Amount": charge.TaxAmount,
                                 "magaya__SQuote_Name": idQuote,
                                 "magaya__Amount": charge.Amount,
-                                "magaya__Amount_Total": charge.Amount,
+                                "magaya__Amount_Total": parseFloat(charge.Amount) + parseFloat(charge.TaxAmount),
                                 "magaya__Charge_Description": charge.ChargeDefinition.Description,
                                 "magaya__ChargeCode": charge.ChargeDefinition.Code,
                                 "magaya__Price": charge.Price,
