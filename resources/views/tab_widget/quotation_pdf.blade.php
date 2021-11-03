@@ -2,15 +2,15 @@
 @section('main')
 
 
-@include('tab_widget.partials.organization')
+@include('tab_widget.partials.pdf.organization')
 
-@include('tab_widget.partials.mquote')
+@include('tab_widget.partials.pdf.mquote')
 
-@include('tab_widget.partials.charges')
+@include('tab_widget.partials.pdf.charges')
 
-@include('tab_widget.partials.items')
+@include('tab_widget.partials.pdf.items')
 
-@include('tab_widget.partials.terms')
+@include('tab_widget.partials.pdf.terms')
 
 
 
