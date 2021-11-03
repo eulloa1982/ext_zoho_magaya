@@ -1,6 +1,5 @@
 @if (@isset($organization['mQuote']))
-<div class="container" style="margin-top: 10px"></div>
-<table cellspacing="0px" cellpadding="0px" width="100%">
+<table cellspacing="0px" cellpadding="0px" width="100%" style="margin-top: 10px">
     <tr>
         <td width="50%">
             <table id="info1" cellspacing="0px" cellpadding="3px" width="100%" style="text-align: left;">
