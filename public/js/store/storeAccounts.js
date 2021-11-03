@@ -88,12 +88,15 @@ function reducerAccounts (state = initialStateAccount, actions)  {
             const accountId = actions.payload.id;
             newR = state.contacts
             ass = []
-            $.map(newR, function(k, v) {
-                let a = (_.isEmpty (k.Account_Name) ? '0' : k)
-                if (a !== '0')
-                    ass.push(a)
 
-            })
+            if (!_.size(newR) > 1) {
+                $.map(newR, function(k, v) {
+                    let a = (_.isEmpty (k.Account_Name) ? '0' : k)
+                    if (a !== '0')
+                        ass.push(a)
+
+                })
+            }
 
             //solo los que tengan account definido
             state.contacts = [...ass]

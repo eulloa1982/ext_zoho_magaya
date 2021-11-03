@@ -8,7 +8,7 @@ $(document).ready(function(){
 storeQuote.subscribe(() => {
     $("#quote-search tbody").empty()
     let u = storeQuote.getState()
-    console.log("State quote now", u)
+    //console.log("State quote now", u)
     quoteXML = u.singleQuote
     $(".arrows-quote").html(``)
     let arrow_content = '';
