@@ -1,6 +1,6 @@
 @extends('base_listmquote')
 @section('main')
-<table cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
+<table cellspacing="0px" cellpadding="0px" style="border: none; background-color: none" width="100%">
     <tr>
         <td>
             @include('tab_widget.partials.pdf.organization')
