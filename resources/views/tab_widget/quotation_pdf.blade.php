@@ -1,5 +1,8 @@
 @extends('base_listmquote')
 @section('main')
+
+
+
 <table cellspacing="0px" cellpadding="0px" style="border: none; background-color: none" width="100%">
     <tr>
         <td>
