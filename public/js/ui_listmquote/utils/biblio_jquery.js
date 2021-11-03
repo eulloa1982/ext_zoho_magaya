@@ -1009,7 +1009,7 @@ async function buildPdf(mquote_id) {
     }
 
     //const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
-    const endpoint = `https://zohomagaya.herokuapp.com/pdf`
+    const endpoint = `https://zohomagayab.herokuapp.com/pdf`
 
     fetch(endpoint, {
         method: 'POST',
