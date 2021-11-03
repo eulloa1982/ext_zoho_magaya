@@ -46,7 +46,7 @@ a {
 
 
 <!-- preview mquotes -->
-@include('tab_widget.partials.panel_search')
+@include('tab_widget.partials.listmquote.panel_search')
 
 
 
@@ -118,11 +118,11 @@ a {
 </div>
 
 <!-- preview mquotes -->
-@include('tab_widget.partials.panel_preview')
+@include('tab_widget.partials.listmquote.panel_preview')
 
 
 <!-- modal to edit and insert mquotes -->
-@include('tab_widget.partials.form_modal')
+@include('tab_widget.partials.listmquote.form_modal')
 
 
 @stop
