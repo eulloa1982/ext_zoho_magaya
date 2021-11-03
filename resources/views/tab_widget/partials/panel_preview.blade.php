@@ -77,11 +77,19 @@
 
                 <div class="row">
                     <div class="col-sm">
-                        <div class="col-sm-12 shadow-sm p-3 mb-1 bg-white rounded">
-                            <h5>Quotation Info</h5>
+                        <div class="col-sm shadow-sm p-3 bg-white rounded">
+                            <h5 class="text-monospace">Quotation Info</h5>
                             <p>Description of Goods:<span class="preview" id="magaya__DescriptionPreview"></span></p>
                             <p>Origin: <span class="preview" id="magaya__OriginPreview"></span></p>
                             <p>Destination: <span class="preview" id="magaya__DestinationPreview"></span></p>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="col-sm shadow-sm p-3 bg-white rounded">
+                            <h5></h5>
+                            <p>Incoterms:<span class="preview" id="magaya__IncotermsPreview"></span></p>
+                            <p>Service: <span class="preview" id="magaya__ServicePreview"></span></p>
+                            <p>Direction: <span class="preview" id="magaya__DirectionPreview"></span></p>
                         </div>
                     </div>
                 </div>
