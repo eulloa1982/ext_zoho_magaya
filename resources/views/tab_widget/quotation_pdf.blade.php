@@ -1,17 +1,32 @@
 @extends('base_listmquote')
 @section('main')
-
-
-@include('tab_widget.partials.pdf.organization')
-
-@include('tab_widget.partials.pdf.mquote')
-
-@include('tab_widget.partials.pdf.charges')
-
-@include('tab_widget.partials.pdf.items')
-
-@include('tab_widget.partials.pdf.terms')
-
+<table cellspacing="0px" cellpadding="2px" style="border: none;" width="100%">
+    <tr>
+        <td>
+            @include('tab_widget.partials.pdf.organization')
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @include('tab_widget.partials.pdf.mquote')
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @include('tab_widget.partials.pdf.charges')
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @include('tab_widget.partials.pdf.items')
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @include('tab_widget.partials.pdf.terms')
+        </td>
+    </tr>
+</table>
 
 
 
