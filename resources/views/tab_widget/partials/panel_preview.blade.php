@@ -16,181 +16,130 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm">
-                        <div class="row border border-secondary">
-                            <div class="col-sm-6">
-                                <label>Deal</label>
-                            </div>
-                            <div class="col-sm-4">
-                                <span class="preview" id="DealPreview"></span>
-                            </div>
-                        </div>
-                        <div class="row border border-secondary">
-                            <div class="col-sm-6">
-                                <label>Customer</label>
-                            </div>
-                            <div class="col-sm-4">
-                                <span class="preview" id="AccountPreview"></span>
-                            </div>
-                        </div>
-                        <div class="row border border-secondary">
-                            <div class="col-sm-6">
-                                <label>Representative</label>
-                            </div>
-                            <div class="col-sm-4">
-                                <span class="preview" id="RepresentativePreview"></span>
-                            </div>
+                        <div class="col-sm-12 shadow p-3 border border-secondary mb-2 bg-white rounded">
+                            <h5 class="text-monospace">Customer</h5>
+                            <p>Name: <span class="preview" id="AccountPreview"></span></p>
+                            <h5 class="text-monospace">Representative</h5>
+                            <p>Name: <span class="preview" id="RepresentativeNamePreview"></span></p>
+                            <p>Email: <span class="preview" id="magaya__ContactEmailPreview"></span></p>
+                            <p>Phone: <span class="preview" id="magaya__ContactPhonePreview"></span></p>
+                            <p>Movile: <span class="preview" id="magaya__ContactMobilePreview"></span></p>
+                            <h5 class="text-monospace">Deal</h5>
+                            <p>Deal: <span class="preview" id="DealPreview"></span></p>
                         </div>
                     </div>
 
                     <div class="col-sm">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label>Quote Number</label>
-                            </div>
-                            <div class="col-sm-4">
-                                <span class="preview" id="NamePreview"></span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label>Creation</label>
-                            </div>
-                            <div class="col-sm-4">
-                                <span class="preview" id="magaya__AddedTimePreview"></span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label>Expiration</label>
-                            </div>
-                            <div class="col-sm-6">
-                                <span class="preview" id="magaya__ExpirationDatePreview"></span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label>Modified</label>
-                            </div>
-                            <div class="col-sm-6">
-                                <span class="preview" id="Modified_TimePreview"></span>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label>Modified By</label>
-                            </div>
-                            <div class="col-sm-6">
-                                <span class="preview" id="Modified_By"></span>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <!-- Checked -->
-                                <div class="pretty p-icon p-jelly p-round p-bigger p-locked">
-                                    <input type="checkbox" name="In_Magaya"/>
-                                    <div class="state p-info">
-                                        <i class="icon material-icons">done</i>
-                                        <label>Sent to Magaya</label>
+                        <div class="col-sm-12 shadow-sm p-1 mb-2 bg-white rounded">
+                            <p>Quote Number: <span class="preview" id="NamePreview"></span></p>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <!-- Checked -->
+                                    <div class="pretty p-icon p-jelly p-round p-bigger p-locked">
+                                        <input type="checkbox" name="In_Magaya"/>
+                                        <div class="state p-info">
+                                            <i class="icon material-icons">done</i>
+                                            <label>Sent to Magaya</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <!-- Checked -->
-                                <div class="pretty p-icon p-jelly p-round p-bigger p-locked">
-                                    <input type="checkbox" name="From_Magaya"/>
-                                    <div class="state p-info">
-                                        <i class="icon material-icons">done</i>
-                                        <label>Imported from Magaya</label>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <!-- Checked -->
+                                    <div class="pretty p-icon p-jelly p-round p-bigger p-locked">
+                                        <input type="checkbox" name="From_Magaya"/>
+                                        <div class="state p-info">
+                                            <i class="icon material-icons">done</i>
+                                            <label>Imported from Magaya</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                </div>
+                        </div>
 
+                        <div class="col-sm-12 shadow-sm p-1 mb-2 bg-white rounded">
+                            <p>Sales Person: <span class="preview" id="magaya__SellerPreview"></span></p>
+                            <p>Issued By: <span class="preview" id="magaya__IssuedByPreview"></span></p>
+                            <p>Created By: <span class="preview" id="magaya__CreatedByNamePreview"></span></p>
+                            <p>Creation: <span class="preview" id="magaya__AddedTimePreview"></span></p>
+                       </div>
 
-                <div class="row headerTable mr-5">
-                    <div class="col-sm-6">
-                        <label>Quotation Info</label>
-                    </div>
-                </div>
-                <div class="row bordered mr-2">
-                    <div class="col-sm-12">
-                        <div class="col-sm-6">
-                            <label>Description of Goods</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <span class="preview" id="magaya__DescriptionPreview"></span>
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="col-sm-6">
-                            <label>Origin</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <span class="preview" id="magaya__OriginPreview"></span>
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="col-sm-6">
-                            <label>Destination</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <span class="preview" id="magaya__DestinationPreview"></span>
+                        <div class="col-sm-12 p-1 mb-1">
+                            <p>Expire Date: <span class="preview" id="magaya__ExpirationDatePreview"></span></p>
+                            <p>Modified Date: <span class="preview" id="Modified_TimePreview"></span></p>
+                            <p>Modified By: <span class="preview" id="Modified_By"></span></p>
                         </div>
                     </div>
                 </div>
 
-                <div class="row" style="margin-top: 10px;">
-                    <table id="table-charges-preview" class="table table-sm table-bordered border-secondary">
-                        <caption>Charges</caption>
-                        <thead style="text-align:center;">
-
-                            <tr>
-                                <th style="width:26%">Charge Description</th>
-                                <th style="width:8%">Price</th>
-                                <th style="width:9%">Quantity</th>
-                                <th style="width:10%">Tax Amount</th>
-                                <th style="width:10%">Final Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                        <tfoot></tfoot>
-                    </table>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="col-sm-12 shadow-sm p-3 mb-1 bg-white rounded">
+                            <h5>Quotation Info</h5>
+                            <p>Description of Goods:<span class="preview" id="magaya__DescriptionPreview"></span></p>
+                            <p>Origin: <span class="preview" id="magaya__OriginPreview"></span></p>
+                            <p>Destination: <span class="preview" id="magaya__DestinationPreview"></span></p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="row" style="margin-top: 10px;">
-                    <table id="table-items-preview" class="table table-bordered border-secondary table-striped">
-                        <caption>Items</caption>
-                        <thead style="text-align:center;">
-                            <tr>
-                                <th style="width:23%">Package Type</th>
-                                <th style="width:6%">Quantity</th>
-                                <th style="width:14%">Dimensions</th>
-                                <th style="width:10%">Weigth</th>
-                                <th style="width:10%">Volume</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                        <tfoot></tfoot>
-                    </table>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="col-sm-12 shadow-sm p-3 mb-1 bg-white rounded">
+                            <h5>Charges</h5>
+                            <table id="table-charges-preview" class="table table-sm table-bordered border-secondary">
+                                <thead style="text-align:center;">
+
+                                    <tr>
+                                        <th style="width:26%">Charge Description</th>
+                                        <th style="width:8%">Price</th>
+                                        <th style="width:9%">Quantity</th>
+                                        <th style="width:10%">Tax Amount</th>
+                                        <th style="width:10%">Final Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                                <tfoot></tfoot>
+                            </table>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="row border headerTable mr-5">
-                    <label>Terms</label>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="col-sm-12 shadow-sm p-3 mb-1 bg-white rounded">
+                            <h5>Items</h5>
+                                <table id="table-items-preview" class="table table-bordered border-secondary table-striped">
+                                    <thead style="text-align:center;">
+                                        <tr>
+                                            <th style="width:23%">Package Type</th>
+                                            <th style="width:6%">Quantity</th>
+                                            <th style="width:14%">Dimensions</th>
+                                            <th style="width:10%">Weigth</th>
+                                            <th style="width:10%">Volume</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                    <tfoot></tfoot>
+                                </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="row border border-secondary mr-2">
-                        <span class="preview" id="magaya__TermsPreview"></span>
+
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="col-sm-12 shadow-sm p-3 mb-1 bg-white rounded">
+                            <h5>Terms</h5>
+                            <span class="preview" id="magaya__TermsPreview"></span>
+                        </div>
                     </div>
                 </div>
 
 
+            </div>
         </fieldset>
     </div>
 </div>

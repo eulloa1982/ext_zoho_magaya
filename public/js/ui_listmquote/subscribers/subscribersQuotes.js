@@ -192,7 +192,6 @@ storeQuote.subscribe(() => {
             let ownerValues = $("select[name=Owner] option")
             $.map(ownerValues, function(k, v) {
                 if (k.value === owner) {
-                    console.log("Öwner", owner)
                     $(`select[name=Owner] option:contains(${k.text})`).prop('selected', true);
                     $(`select[name=Owner]`).change()
                 } else {
@@ -229,11 +228,10 @@ storeQuote.subscribe(() => {
                     }
                 })
 
-                $("#RepresentativePreview").html(nameContact)
-
+                $("#RepresentativeNamePreview").html(nameContact)
             }
 
-            //deal en la cotizacion
+           //deal en la cotizacion
             if (!_.isEmpty(quoteToEdit['magaya__Deal'])) {
                 //$("select[name=Deal]").empty()
                 let idDeal = quoteToEdit["magaya__Deal"]["id"];
