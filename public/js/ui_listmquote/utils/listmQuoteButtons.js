@@ -204,7 +204,7 @@ $(document).ready(function(){
                     field = k.details.api_name;
                     show = true;
                     module = 'Cargo Items'
-
+                    console.log(codeError)
                     storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
                 } else {
