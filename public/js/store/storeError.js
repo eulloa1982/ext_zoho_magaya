@@ -47,13 +47,9 @@ storeError.subscribe(() => {
     if(showInfo) {
         $("#quote-alert").css("display", "block").css("height","100px").delay(3000).fadeOut("slow");
         $("#message-alert").html(`Upss!!! There is an error: ${errorCode},<br> please check the field "${field}"`);
-        /*codeError = errorCode;
-        show = true;
-        module = ''
-        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))*/
     }
     else {
-        $("#quote-alert").css("display", "block").delay(3000).fadeOut("slow");;
+        $("#quote-alert").css("display", "block").css("height","100px").delay(3000).fadeOut("slow");;
         $("#message-alert").html(`<p>That's an error: ${errorCode}</p>`)
     }
 
