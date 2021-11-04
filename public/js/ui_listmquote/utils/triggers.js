@@ -37,8 +37,6 @@ $("select[name=Account]").change(function(e) {
     $("input[name=Mailing_Country]").val("")
     $("input[name=Mailing_Zip]").val("")
 
-    $(".add_contact_link").attr("id", "add_contact")
-
 })
 
 ////////// change representative, find contact data //////////////////

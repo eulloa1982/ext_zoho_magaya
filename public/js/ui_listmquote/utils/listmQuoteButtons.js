@@ -24,17 +24,9 @@ $(document).ready(function(){
 
 
 
-    $('.add_contact_link').bind("DOMSubtreeModified", function(e) {
-        $("#add_contact").click(function(e) {
-            $("#contact_form")[0].reset()
-            //$("select[name=Account_Name]").empty()
-
-            let account_id = $("select[name=Account]").val()
-            let account_name = $("select[name=Account] option:selected").text()
-            $(`<option value="${account_id}">${account_name}</option>`).appendTo("select[name=Account_Name]")
-
-            $("#modalContact").modal("show")
-        })
+    $("#add_contact").click(function(e) {
+        $("#contact_form")[0].reset()
+        $("#modalContact").modal("show")
     })
 
     $("#NewContact").click(function(e) {
@@ -58,7 +50,6 @@ $(document).ready(function(){
 
                 } else {
                     let idContact = data.data[0].details.id
-                    console.log("Contact id", idContact)
                     ZOHO.CRM.API.getRecord({Entity:"Contacts",RecordID:idContact})
                         .then(function(data){
                             //record = data.data[0];
@@ -71,6 +62,16 @@ $(document).ready(function(){
                         storeSuccess.dispatch(addSuccess({message: message}))
                     }
             })
+        })
+        .catch(function(error) {
+            Utils.unblockUI()
+            console.log("error", error)
+            codeError = error.data[0].message
+            show = true;
+            field = error.data[0].details.api_name;
+            module = 'Contacts'
+            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
         });
 
     })

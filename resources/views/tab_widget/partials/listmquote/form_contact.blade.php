@@ -4,7 +4,7 @@
 		<div class="modal-content">
 
 			<div class="modal-header" style="background: #006494;color: white;">
-				<h4 class="modal-title custom_align" style="font-weight: bold;" id="Title">Add Contact</h4><span class="arrows-quote" class="float-right"></span>
+				<h4 class="modal-title custom_align" style="font-weight: bold;" id="Title">Add Contact</h4>
 			    <span class="material-icons btn btn-primary" data-dismiss="modal">close</span>
 			</div>
 			<div class="modal-body">
@@ -106,7 +106,7 @@
 		    </div><!-- modal-body -->
 
 			<div class="modal-footer" >
-				<div class="col-md-3">
+				<div class="col-md-12">
                     <button type="button" id="NewContact" class="btn btn-primary" style="width:80px;margin-right: 20px; background-color: #0b3355">Save</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
