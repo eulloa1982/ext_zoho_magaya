@@ -45,7 +45,7 @@ $(document).ready(function(){
                     codeError = k.code;
                     field = k.details.api_name;
                     show = true;
-                    module = 'Cargo Items'
+                    module = 'Contacts'
                     storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
                 } else {
@@ -65,7 +65,6 @@ $(document).ready(function(){
         })
         .catch(function(error) {
             Utils.unblockUI()
-            console.log("error", error)
             codeError = error.data[0].message
             show = true;
             field = error.data[0].details.api_name;

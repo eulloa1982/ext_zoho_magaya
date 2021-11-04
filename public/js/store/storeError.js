@@ -40,6 +40,17 @@ storeError.subscribe(() => {
     let errorData = _.last(error.errors)
     let {errorCode, showInfo, field, module} = errorData
 
+    if (field) {
+        console.log("Field error", field)
+        //show the field that its involve in error
+        $(`:input[name=${field}]`).addClass("invalid")
+        $(`select[name=${field}]`).addClass("invalid")
+        setTimeout(function() {
+            $(`:input[name=${field}]`).removeClass('invalid');
+            $(`select[name=${field}]`).removeClass('invalid');
+        }, 5000);
+    }
+
     if(_.has(ERRORS_TYPES, [errorCode])) {
         console.log("Type error encountered", _.get(ERRORS_TYPES, [errorCode]))
         errorCode = _.get(ERRORS_TYPES, [errorCode])

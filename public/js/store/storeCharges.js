@@ -29,18 +29,22 @@ function reducerCharge (state = initialStateCharge, actions)  {
 
     switch (actions.type) {
 
+        //add charge to an existing mquote
         case ADD_CHARGE: {
-            if (_.isEmpty(actions.payload.magaya__ApplyToAccounts))
-                throw new UserException('Mandatory data not found: eigther Charge Name or Client are mandatory');
-            //if (_.isEmpty(actions.payload.magaya__ChargeCode) || actions.payload.magaya__ChargeCode === "select")
-            //    throw new UserException('You need to select a Charge Type')
+            if (_.isEmpty(actions.payload.magaya__ApplyToAccounts)) {
+                codeError = 'required field not found'
+                show = true;
+                field = 'applyToName';
+                module = 'Charges'
+                storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+            }
 
-                if (_.size(actions.payload.Name) <= 0)
-                    actions.payload.Name = 'No Description';
+            if (_.size(actions.payload.Name) <= 0)
+                actions.payload.Name = 'No Description';
 
-                return Object.assign({}, state, {
-                    charges: state.charges.concat(actions.payload)
-                });
+            return Object.assign({}, state, {
+                charges: state.charges.concat(actions.payload)
+            });
         }
 
         case ADD_CHARGES_XML: {
@@ -131,11 +135,14 @@ function reducerCharge (state = initialStateCharge, actions)  {
 
         //add new charge on table-charge-new to store
         case ADD_CHARGE_ON_NEW: {
-            if (_.isEmpty(actions.payload.magaya__ApplyToAccounts))
-                throw new UserException('Mandatory data not found: eigther Charge Name or Client are mandatory');
-            if (_.isEmpty(actions.payload.magaya__ChargeCode) || actions.payload.magaya__ChargeCode === "select")
-                throw new UserException('You need to select a Charge Type')
+            if (_.isEmpty(actions.payload.magaya__ApplyToAccounts)) {
+                codeError = 'required field not found'
+                show = true;
+                field = 'applyToName';
+                module = 'Charges'
+                storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
+            }
             if (_.size(actions.payload.Name) <= 0)
                 actions.payload.Name = 'No description';
 
