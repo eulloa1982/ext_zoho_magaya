@@ -171,7 +171,7 @@ $(document).ready(function(){
             Utils.unblockUI()
         });
 
-        //checkConnect()
+        checkConnect()
 
 
     });

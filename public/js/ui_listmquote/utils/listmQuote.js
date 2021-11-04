@@ -8,6 +8,21 @@ $(document).ready(function(){
         format: 'Y-m-d H:m:s'
     });
 
+    let obs = new MutationObserver(function(mutations, observer) {
+        $(".startSession").click(function(e) {
+            e.preventDefault()
+            e.stopImmediatePropagation()
+
+            let a = startSession()
+        })
+
+    });
+    let magaya_link = $("#magaya_link")[0];
+    obs.observe(magaya_link, {childList: true, subtree: true});
+
+
+
+
     $(".new-charge").focus(function(e) {
         $(this).addClass("editable");
 

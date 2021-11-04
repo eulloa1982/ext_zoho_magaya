@@ -75,12 +75,6 @@ $(document).ready(function(){
 
     })
 
-    $(".startSession").click(function(e) {
-        e.preventDefault()
-        e.stopImmediatePropagation()
-
-        let a = startSession()
-    })
 
 
     $('.open-panel').click(function(e) {

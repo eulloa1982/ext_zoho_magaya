@@ -680,6 +680,7 @@ async function checkConnect() {
     config = await getMagayaVariables()
 
     const endpoint = `https://zohomagaya.herokuapp.com/ping?url=${config.magaya_url}`;
+    //const endpoint = `http://localhost/zoho_magaya/blog/public/ping?url=${config.magaya_url}`
     fetch(endpoint, {
             method: 'POST',
             headers: new Headers({
@@ -697,10 +698,11 @@ async function checkConnect() {
                 $("#magaya_link").html(`<span class="material-icons md-24 startSession btn btn-primary float-right">link_off</span>`)
 
             }
-            console.log("From endpoint", data)
         })
         .catch(err => {
             console.warn("error", err)
+            $("#magaya_link").html(`<span class="material-icons md-24 startSession btn btn-primary float-right" style="background: none;border: none;">link_off</span>`)
+
         })
 
 }
@@ -728,14 +730,15 @@ async function startSession() {
                     icon: 'error'
                 })
             } else {
+                $("#magaya_link").html(`<span class="material-icons md-24 btn btn-success float-right" style="background: none;border: none;">link</span>`)
 
-            Swal.fire({
-                title: 'Success',
-                text: 'Operation success',
-                icon: 'success',
-                allowOutsideClick: false
-            })
-            $("#no-configuration-alert").hide();
+                Swal.fire({
+                    title: 'Success',
+                    text: 'Operation success',
+                    icon: 'success',
+                    allowOutsideClick: false
+                })
+                $("#no-configuration-alert").hide();
 
 
             } //else
