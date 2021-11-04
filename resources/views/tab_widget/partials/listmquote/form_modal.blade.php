@@ -412,7 +412,7 @@
                                             <label class="col-md-12" style="font-weight: bold;"> Street</label>
                                             <input type="text" name="Mailing_Street" class="form-control no-border">
                                             <div class="row" style="margin-bottom:10px;"></div>
-                                            <div class="row" style="margin-bottom:20px;">
+                                            <div class="row" style="margin-bottom:10px;">
                                                 <div class="col-md-6" >
                                                     <label class="col-md-12" style="width: 100%; font-weight: bold;">City</label>
                                                     <input type="text" name="Mailing_City" class="form-control">
@@ -424,9 +424,9 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row" style="margin-bottom:20px;">
+                                            <div class="row" style="margin-bottom:10px;">
                                                 <div class="col-md-6">
-                                                    <label class="col-md-12" style="font-weight: bold;">Country</label>
+                                                    <label class="col-md-12" style="width: 100%; font-weight: bold;">Country</label>
                                                     <input type="text" name="Mailing_Country" class="form-control">
                                                 </div>
                                                 <div class="col-md-6">
