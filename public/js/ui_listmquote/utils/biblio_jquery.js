@@ -460,19 +460,6 @@ async function buildStringXML(idSQuote) {
             }
         }
 
-    //do not send charges without an apply to
-    if (account_id > 0) {
-        let data = await getRecordCRM("Accounts", account_id)
-            .then(resp => {
-                //console.log("Items", resp)
-                items = resp
-            })
-        if (charges !== undefined && !_.isEmpty(charges)) {
-            let stringCharges = buildXmlCharge(charges, data_account)
-            stringXML += '<Charges UseSequenceOrder="false">' + stringCharges + "</Charges>";
-        }
-    }
-
     //items
     let items = {}
     stringItem = await $(this).buildStringItems(idSQuote)

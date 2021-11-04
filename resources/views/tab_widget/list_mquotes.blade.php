@@ -46,9 +46,11 @@ a {
 
 
 <!-- preview mquotes -->
-@include('tab_widget.partials.panel_search')
+@include('tab_widget.partials.listmquote.panel_search')
 
 
+<!--span id="more_page">More</span>
+<span id="less_page">Minus</span-->
 
 <!-- table list mquote -->
 <div class="row">
@@ -118,18 +120,30 @@ a {
 </div>
 
 <!-- preview mquotes -->
-@include('tab_widget.partials.panel_preview')
+@include('tab_widget.partials.listmquote.panel_preview')
 
 
 <!-- modal to edit and insert mquotes -->
-@include('tab_widget.partials.form_modal')
+@include('tab_widget.partials.listmquote.form_modal')
 
 
 @stop
 @section('js')
+<script src="{{ url('js/ui_listmquote/listmPagination.js', $extra = [], $secure = 1) }}"></script>
+<script src="{{ url('js/store/storePagination.js', $extra = [], $secure = 1) }}"></script>
+
     <script>
         Utils.blockUI();
         $(document).ready(function(){
+            //Pagination from backend
+            //add page
+            $("#more_page").click(function(e) {
+                storePagination.dispatch(addPage())
+            })
+            //minus page
+            $("#less_page").click(function(e) {
+                storePagination.dispatch(lessPage())
+            })
             $(".material-icons").tooltip();
         });
    </script>

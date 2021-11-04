@@ -93,6 +93,7 @@
     <script src="{{ url('js/store/storeOrganization.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('js/store/storeDeal.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('js/store/storePorts.js', $extra = [], $secure = 1) }}"></script>
+    <script src="{{ url('js/store/storeChargesType.js', $extra = [], $secure = 1) }}"></script>
 
 
     <script src="{{ url('js/ui_listmquote/subscribers/subscribersAccounts.js', $extra = [], $secure = 1) }}"></script>

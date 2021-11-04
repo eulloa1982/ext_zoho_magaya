@@ -1,24 +1,16 @@
 @extends('base_listmquote')
 @section('main')
 
-<?php
-//print_r($organization['orgData']['city']);
 
-/*
-<table><tr><td>Name</td></tr>
-@foreach ($organization as $dat)
-        <li>{{ $dat->city }}</li>
+@include('tab_widget.partials.pdf.organization')
 
-        @endforeach
+@include('tab_widget.partials.pdf.mquote')
 
-</table>*/
-?>
+@include('tab_widget.partials.pdf.charges')
 
-    @include('tab_widget.partials.organization')
-    @include('tab_widget.partials.mquote')
-    @include('tab_widget.partials.charges')
-    @include('tab_widget.partials.items')
-    @include('tab_widget.partials.terms')
+@include('tab_widget.partials.pdf.items')
+
+@include('tab_widget.partials.pdf.terms')
 
 
 
