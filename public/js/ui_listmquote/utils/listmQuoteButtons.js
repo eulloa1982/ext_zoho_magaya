@@ -201,7 +201,6 @@ $(document).ready(function(){
 
                 if (k.code !== "SUCCESS") {
                     codeError = k.code;
-                    console.log('name ' + k.details.api_name)
                     field = k.details.api_name;
                     show = true;
                     module = 'Cargo Items'
