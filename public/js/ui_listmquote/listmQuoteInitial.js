@@ -6,6 +6,7 @@ $(document).ready(function(){
     idmQuoteToEdit = 0;
     let page = 1;
 
+    Utils.blockUI()
 
     //try {
     ZOHO.embeddedApp.on("PageLoad",function(data)
@@ -48,7 +49,6 @@ $(document).ready(function(){
                     }
                 })
                 storeQuote.dispatch(addQuote(quotes))
-                Utils.unblockUI()
             })
         //Packages Types
         ZOHO.CRM.API.getAllRecords({Entity:"magaya__Package_Types",sort_order:"asc",per_page:120,page:1})
@@ -72,7 +72,7 @@ $(document).ready(function(){
 
         ZOHO.CRM.API.getAllRecords({Entity: "Accounts", sort_order: "asc"})
             .then(function(response){
-                Utils.unblockUI()
+
                 $.map (response.data, function (k, i) {
                     k.Account_Name = sanitize(k.Account_Name)
                     $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
@@ -81,6 +81,9 @@ $(document).ready(function(){
 
                 })
                 storeAccounts.dispatch(addAccount(response.data))
+            })
+            .then(function(e) {
+                Utils.unblockUI()
             })
 
         ZOHO.CRM.API.getAllRecords({Entity: "magaya__Providers", sort_order: "asc"})
