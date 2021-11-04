@@ -126,6 +126,10 @@ a {
 <!-- modal to edit and insert mquotes -->
 @include('tab_widget.partials.listmquote.form_modal')
 
+<!-- modal contact -->
+@include('tab_widget.partials.listmquote.form_contact')
+
+
 
 @stop
 @section('js')
