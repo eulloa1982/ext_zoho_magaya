@@ -23,7 +23,7 @@
                             <p>Name: <span class="preview" id="RepresentativeNamePreview"></span></p>
                             <p>Email: <span class="preview" id="magaya__ContactEmailPreview"></span></p>
                             <p>Phone: <span class="preview" id="magaya__ContactPhonePreview"></span></p>
-                            <p>Movile: <span class="preview" id="magaya__ContactMobilePreview"></span></p>
+                            <p>Mobile: <span class="preview" id="magaya__ContactMobilePreview"></span></p>
                             <h5 class="text-monospace">Deal</h5>
                             <p>Deal: <span class="preview" id="DealPreview"></span></p>
                         </div>
