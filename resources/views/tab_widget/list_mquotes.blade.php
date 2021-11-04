@@ -49,6 +49,8 @@ a {
 @include('tab_widget.partials.listmquote.panel_search')
 
 
+<!--span id="more_page">More</span>
+<span id="less_page">Minus</span-->
 
 <!-- table list mquote -->
 <div class="row">
@@ -127,9 +129,21 @@ a {
 
 @stop
 @section('js')
+<script src="{{ url('js/ui_listmquote/listmPagination.js', $extra = [], $secure = 1) }}"></script>
+<script src="{{ url('js/store/storePagination.js', $extra = [], $secure = 1) }}"></script>
+
     <script>
         Utils.blockUI();
         $(document).ready(function(){
+            //Pagination from backend
+            //add page
+            $("#more_page").click(function(e) {
+                storePagination.dispatch(addPage())
+            })
+            //minus page
+            $("#less_page").click(function(e) {
+                storePagination.dispatch(lessPage())
+            })
             $(".material-icons").tooltip();
         });
    </script>

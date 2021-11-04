@@ -11,6 +11,7 @@ $(document).ready(function(){
     //try {
     ZOHO.embeddedApp.on("PageLoad",function(data)
     {
+        k()
         //current user
         //get current user
         ZOHO.CRM.CONFIG.getCurrentUser().then(function(data){
@@ -82,9 +83,7 @@ $(document).ready(function(){
                 })
                 storeAccounts.dispatch(addAccount(response.data))
             })
-            .then(function(e) {
-                Utils.unblockUI()
-            })
+
 
         ZOHO.CRM.API.getAllRecords({Entity: "magaya__Providers", sort_order: "asc"})
             .then(function(response){
@@ -168,6 +167,8 @@ $(document).ready(function(){
         ZOHO.CRM.CONFIG.getOrgInfo().then(function(data){
             let orgData = data.org[0]
             localStorage.setItem('organization', JSON.stringify(orgData))
+        }).then(function(e) {
+            Utils.unblockUI()
         });
 
         //checkConnect()
