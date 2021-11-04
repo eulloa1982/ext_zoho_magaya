@@ -23,6 +23,58 @@ $(document).ready(function(){
     })
 
 
+
+    $('.add_contact_link').bind("DOMSubtreeModified", function(e) {
+        $("#add_contact").click(function(e) {
+            $("#contact_form")[0].reset()
+            //$("select[name=Account_Name]").empty()
+
+            let account_id = $("select[name=Account]").val()
+            let account_name = $("select[name=Account] option:selected").text()
+            $(`<option value="${account_id}">${account_name}</option>`).appendTo("select[name=Account_Name]")
+
+            $("#modalContact").modal("show")
+        })
+    })
+
+    $("#NewContact").click(function(e) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+
+        let $form = $("#contact_form");
+        let item = getFormData($form);
+        Object.assign(item, {'Account_Name': $("select[name=Account]").val()})
+        console.log(item)
+        ZOHO.CRM.API.insertRecord({Entity:"Contacts",APIData:item,Trigger:[]})
+        .then(function(data){
+            res = data.data;
+            $.map(res, function(k, v) {
+                if (k.code !== "SUCCESS") {
+                    codeError = k.code;
+                    field = k.details.api_name;
+                    show = true;
+                    module = 'Cargo Items'
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                } else {
+                    let idContact = data.data[0].details.id
+                    console.log("Contact id", idContact)
+                    ZOHO.CRM.API.getRecord({Entity:"Contacts",RecordID:idContact})
+                        .then(function(data){
+                            //record = data.data[0];
+                            let nameContact = `${item.First_Name} ${item.Last_Name}`
+                            storeAccounts.dispatch(addContact(data.data))
+                            $(`<option value="${idContact}">${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
+                            $("#modalContact").modal("hide")
+                        })
+                        message = " : Item Updated!!";
+                        storeSuccess.dispatch(addSuccess({message: message}))
+                    }
+            })
+        });
+
+    })
+
     $(".startSession").click(function(e) {
         e.preventDefault()
         e.stopImmediatePropagation()

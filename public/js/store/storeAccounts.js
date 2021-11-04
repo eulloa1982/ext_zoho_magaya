@@ -89,7 +89,7 @@ function reducerAccounts (state = initialStateAccount, actions)  {
             newR = state.contacts
             ass = []
 
-            if (!_.size(newR) > 1) {
+            if (_.size(newR) > 1) {
                 $.map(newR, function(k, v) {
                     let a = (_.isEmpty (k.Account_Name) ? '0' : k)
                     if (a !== '0')
