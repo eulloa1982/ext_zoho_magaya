@@ -171,7 +171,7 @@ function roundDec(num) {
 
 
 
-//get items cargo table, return xml charge
+/*//get items cargo table, return xml charge
 (function($) {
     $.fn.buildStringCharge = function(idSQuote) {
         //async function buildStringCharge(idSQuote) {
@@ -183,10 +183,10 @@ function roundDec(num) {
                 })
         });
     }
-})(jQuery);
+})(jQuery);*/
 
 //get items package table, return xml string items
-(function($) {
+/*(function($) {
     $.fn.buildStringItems = function(idSQuote) {
         stringItems = '';
         return new Promise(function(resolve, reject) {
@@ -200,7 +200,7 @@ function roundDec(num) {
         });
     }
 
-})(jQuery);
+})(jQuery);*/
 
 
 
@@ -441,22 +441,10 @@ async function buildStringXML(idSQuote) {
                             stringXML  += resp.details.output
                         })
 
-    //items
-    let items = {}
-    stringItem = await $(this).buildStringItems(idSQuote)
-        .then(resp => {
-            console.log("Items", resp)
-            items = resp
-        })
-        .catch(() => {
-            //distpath an error
-            charges = '';
-        });
-
-    if (items !== undefined && !_.isEmpty(items)) {
-        let stringItems = buildXmlItem(items)
-        stringXML += '<Items>' + stringItems + "</Items>";
-    }
+        stringItem = await $(this).getRelatedItem(idSQuote)
+                        .then(resp => {
+                            stringXML  += resp.details.output
+                        })
 
     stringXML += '</Quotation>'
 
@@ -473,8 +461,6 @@ async function buildStringXML(idSQuote) {
 //get items cargo table, return xml charge
 (function($) {
     $.fn.getRelatedCharge = function(idSQuote) {
-        //async function buildStringCharge(idSQuote) {
-        stringCharges = '';
         return new Promise(function(resolve, reject) {
             var func_name = "magaya__getChargesMquote";
             var req_data ={
@@ -488,11 +474,25 @@ async function buildStringXML(idSQuote) {
     }
 })(jQuery);
 
+(function($) {
+    $.fn.getRelatedItem = function(idSQuote) {
+        return new Promise(function(resolve, reject) {
+            var func_name = "magaya__getItemMquote";
+            var req_data ={
+                "quote_id" : idSQuote
+            };
+            ZOHO.CRM.FUNCTIONS.execute(func_name, req_data)
+                .then(function(data){
+                    resolve(data)
+                })
+        });
+    }
+})(jQuery);
 
 /*
 @items object
 */
-function buildXmlItem(items) {
+/*function buildXmlItem(items) {
     let stringItems = ``;
     if (!_.isEmpty(items)) {
 
@@ -536,7 +536,7 @@ function buildXmlItem(items) {
 
     return stringItems;
 
-}
+}*/
 
 
 
@@ -978,15 +978,6 @@ async function make_pdf(id) {
 
 
 
-function bipdf(items) {
-    let data_items = {}
-    if (!_.isEmpty(items)) {
-        $.map(items, function(k, v) {
-
-        })
-    }
-}
-
 async function buildPdf(mquote_id) {
     quoteToEdit = [];
     //Utils.blockUI()
@@ -1057,7 +1048,6 @@ async function buildPdf(mquote_id) {
 
 
 function move_quote(idQuote) {
-    //console.log("moving quote", idQuote)
     //drop the state temporal items and charges
     storeItem.dispatch(emptyItems())
     storeCharge.dispatch(emptyCharges())
@@ -1069,7 +1059,7 @@ function move_quote(idQuote) {
     storeQuote.dispatch(findQuote({id: idQuote}))
 }
 
-
+//disable enter key in app
 $(function () {
     $("body").keypress(function (e) {
         var key;
