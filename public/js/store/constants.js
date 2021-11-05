@@ -76,11 +76,17 @@ const CLEAR_QUOTE_TO_EDIT = "CLEAR_QUOTE_TO_EDIT"
 const FIND_ALL = "FIND_ALL"
 const FIND_BY_NAME = "FIND_BY_NAME"
 const FIND_BY_ID = "FIND_BY_ID"
+const CLEAR_ALL_QUOTES = "CLEAR_ALL_QUOTES"
+const ADD_STARTING = "ADD_STARTING"
 
 const ADD_ORG = "ADD_ORG"
 
 const ADD_DEAL = "ADD_DEAL"
 const GET_DEAL = "GET_DEAL"
+
+//mquotes pagination
+const ADD_PAGE = "ADD_PAGE"
+const LESS_PAGE = "LESS_PAGE"
 
 //campos a mostrar en formularios de Charges
 /*const CHARGES_FIELDS = {"magaya__ChargeCode": {"field": "Type", "editable":"readonly", "place": 1}, "Name": {"field": "Description", "type": "textarea", "editable":"", "place": 2},
@@ -126,5 +132,6 @@ const MQUOTE_XML = {
 
 const ERRORS_TYPES = {
     'MANDATORY_NOT_FOUND': "Required Field Missing",
+    'required field not found': "Required Field Missing",
     "Client Quote not found": 'Mandatory data not found: Client Quote is not defined'
 }

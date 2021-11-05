@@ -19,7 +19,7 @@ function reducerQuote (state = initialStateQuote, actions)  {
             });
         }
 
-        case "ADD_STARTING": {
+        case ADD_STARTING: {
             let quote = actions.payload
             return {
                 ...state,
@@ -121,6 +121,15 @@ function reducerQuote (state = initialStateQuote, actions)  {
                 singleQuote: state.quotes.filter(quote => quote.id === actions.payload.id)
             }
         }
+
+        case CLEAR_ALL_QUOTES: {
+            state.quotes = initialStateQuote.quotes
+            return {
+                ...state,
+                quotes: state.quotes
+            }
+        }
+
         default:
             //currentAccount = 0;
             return state;
@@ -141,6 +150,10 @@ const storeQuote = Redux.createStore(reducerQuote);
 ////////////////////////////////////////////////////
 //REDUX Actions
 /////////////////////////////////////////////////////
+function clearQuotes() {
+    return { type: CLEAR_ALL_QUOTES };
+
+}
 
 function addQuote(payload) {
     return { type: ADD, payload };
@@ -183,6 +196,6 @@ function findById(payload) {
 }
 
 function addStarting(payload) {
-    return { type: "ADD_STARTING", payload }
+    return { type: ADD_STARTING, payload }
 }
 

@@ -1,5 +1,3 @@
-$(document).ready(function(){
-
     /*SHIPMENTS*/
     function showShipmentDetails (dataShipment) {
         $('#charges-shipment tbody').html("")
@@ -231,7 +229,8 @@ $(document).ready(function(){
         //}*/
 
 
-    function search_shipment_by_date(startDate, endDate) {
+    async function search_shipment_by_date(startDate, endDate) {
+        Utils.blockUI()
         data = await getMagayaVariables()
         flags = MagayaAPI.TRANSACTIONS_FLAGS.BasicFields
         type = MagayaAPI.TRANSACTION_TYPES.Shipment
@@ -247,8 +246,11 @@ $(document).ready(function(){
             ],
             url: data['magaya_url']
         }
+
             MagayaAPI.sendRequest(data, function(result){
+                Utils.unblockUI()
                 if(result.error){
+
                     Swal.fire({
                         title: result.error,
                         text: result.data,
@@ -257,7 +259,8 @@ $(document).ready(function(){
                 }else{
                     content = '';
                     if($.isEmptyObject(result.data)){
-                        content = '<tr><td rowspan=10>Not records exists</td></tr>';
+                        content = '<tr><td colspan=11>Not records exists</td></tr>';
+                        $('#air-shipments tbody').html(content)
                     }else{
                         data = result.data
                         drawDataShipment(data)
@@ -280,11 +283,11 @@ $(document).ready(function(){
 
                 if (_.isObject(va)) {
                     if (valor === "AirShipment")
-                        icon = `<i class="fa fa-plane" aria-hidden="true"></i>`
+                        icon = `<span class="material-icons">local_airport</span>`
                     else if (valor === "OceanShipment")
-                        icon = `<i class="fa fa-ship" aria-hidden="true"></i>`
+                        icon = `<span class="material-icons">directions_boat_filled</span>`
                     else if (valor === "GroundShipment")
-                        icon = `<i class="fa fa-truck" aria-hidden="true"></i>`
+                        icon = `<span class="material-icons">local_shipping</span>`
                     else
                         icon = ""
 
@@ -306,7 +309,10 @@ $(document).ready(function(){
                                 <td>${v.Service}</td><td>${v.Status}</td>
                                 <td>${v.Direction}</td>
                                 <td>${icon}</td>`;
-                                content += `<td><button class="btn btn-primary btn-sm view-shipment" data-guid="${v["@attributes"]['GUID']}"><i class="fa fa-eye"></i></button></td>`;
+                                content += `<td><span class="material-icons view-shipment" data-guid="${v["@attributes"]['GUID']}">info</span>
+
+
+                                </td>`;
                                 content += `</tr>`;
 
                                 $('#air-shipments tbody').html(content)
@@ -315,6 +321,10 @@ $(document).ready(function(){
 
                 }
             });
+
+        } else {
+            content = '<tr><td rowspan=10>Not records exists</td></tr>';
+            $('#air-shipments tbody').html(content)
         }
     }
 
@@ -341,15 +351,11 @@ $(document).ready(function(){
 
 
     //date_range button search
-    $("#date_range").change(function(e) {
-        //e.preventDefault();
-        //e.stopImmediatePropagation();
-        alert("Click")
+    $("#shipment_search").click(function(e) {
          //comprobar las fechas primero
          let val =  $("#date_range").val()
          //validaFechas(val);
          date = val.split(" - ");
-
          //compararlos
          //startDate < endDate
          let compareRange = compareTimeDate(date[0], date[1]);
@@ -357,17 +363,9 @@ $(document).ready(function(){
          now = new Date();
          let compareNow = compareTimeDate(date[1], now)
          if (compareRange && compareNow) {
-             alert("Gettinf fechas")
-            //search_shipment_by_date(date[0], date[1]);
+            search_shipment_by_date(date[0], date[1]);
          } else {
-             message = "Existen problemas con las fechas";
+             message = "You need to check yor date data";
              swalMessage(message);
-             console.log ("Problemas con las fechas")
          }
-
-
-
-         //search_shipment_by_date(date[0], date[1]);
-
     })
-})

@@ -10,13 +10,11 @@ storeAccounts.subscribe(() => {
     if (!_.isEmpty(accountQuote)) {
         $("select[name=Account]").val(accountQuote.id)
         $("input[name=applyToName]").val(accountQuote.Account_Name)
+        $("input[name=Account_Name]").val(accountQuote.id)
     }
-
     //select rigth one on list
-   // console.log("Id account in quote edit", accountQuote.id)
    let contacts = u.contactList;
    let contact = u.singleContact
-
 
     if (!_.isEmpty(contacts)) {
         $("select[name=magaya__Representative]").empty();
