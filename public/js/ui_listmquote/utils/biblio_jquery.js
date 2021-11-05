@@ -681,6 +681,7 @@ async function checkConnect() {
     const endpoint = `https://zohomagaya.herokuapp.com/ping?url=${config.magaya_url}`;
     //const endpoint = `http://localhost/zoho_magaya/blog/public/ping?url=${config.magaya_url}`
     fetch(endpoint, {
+            mode: 'cors',
             method: 'POST',
             headers: new Headers({
                 //'Content-Type': 'application/json',
@@ -1014,6 +1015,7 @@ async function buildPdf(mquote_id) {
     const endpoint = `https://zohomagaya.herokuapp.com/pdf`
 
     fetch(endpoint, {
+        mode: 'cors',
         method: 'POST',
         headers: new Headers({
             'Content-Type': 'application/json',
