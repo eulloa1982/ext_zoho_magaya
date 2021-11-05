@@ -545,6 +545,7 @@ $("#sendQuotation").click(function(e) {
  ************  **********************************************************************/
 //sortable1 dinamic interfaz
 $('#sortable1').bind("DOMSubtreeModified", function() {
+    let dataVar = await getMagayaVariables()
     $(".delete-quote-from-magaya").show();
     $(".send-quote-to-crm").show();
     let message = '';
@@ -584,7 +585,8 @@ $('#sortable1').bind("DOMSubtreeModified", function() {
                                 '96101',
                                 type,
                                 guid
-                            ]
+                            ],
+                            url: dataVar.magaya_url
                         }
                         //call async function
                     let result = getMagayaRequest(data);
