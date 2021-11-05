@@ -204,7 +204,7 @@ storeQuote.subscribe(() => {
             if (!_.isEmpty(quoteToEdit["Account"])) {
                 const id = quoteToEdit["Account"]["id"];
                 const client = sanitize(quoteToEdit["Account"]["name"]);
-                $("<option value='" + id + "' selected>" + client + "</option>").appendTo("select[name=Account]");
+                $(`<option value='${id} selected>${client}</option>`).appendTo("select[name=Account]");
                 storeAccounts.dispatch(findContactOfAccount({id: id}))
                 $("#AccountPreview").html(client)
                 //$("select[name=Account]").val(id)

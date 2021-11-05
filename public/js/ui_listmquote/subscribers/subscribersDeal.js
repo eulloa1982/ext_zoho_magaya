@@ -1,7 +1,7 @@
 //get deals
 storeDeal.subscribe(() => {
     let u = storeDeal.getState()
-
+    console.log("State deals", u)
     if (!_.isEmpty(u.dealQuote)) {
         $("select[name=Account]").prop('disabled', true);
         let dealQuote = u.dealQuote;
@@ -14,7 +14,6 @@ storeDeal.subscribe(() => {
             $("input[name=magaya__Origin]").val(sanitize(k["Origin"]))
             $("input[name=magaya__Destination]").val(sanitize(k['Destination']))
             $("input[name=applyToName]").val(sanitize(k['Account_Name']["name"]))
-
         })
 
 

@@ -17,11 +17,18 @@ storeAccounts.subscribe(() => {
    let contact = u.singleContact
 
     if (!_.isEmpty(contacts)) {
+        let deal_quote = storeDeal.getState().dealQuote
         $("select[name=magaya__Representative]").empty();
         $("<option></option>").appendTo("select[name=magaya__Representative]");
         $.map(contacts, function(k, v) {
             $(`<option value="${k.id}">${k.Full_Name}</option>`).appendTo("select[name=magaya__Representative]")
         })
+        if (!_.isEmpty(deal_quote)) {
+            contactId = deal_quote[0]['Contact_Name']['id']
+            contactName = deal_quote[0]['Contact_Name']['name']
+            $(`<option value="${contactId}" selected>${contactName}</option>`).appendTo("select[name=magaya__Representative]");
+
+        }
     } else {
         $("select[name=magaya__Representative]").empty();
     }
