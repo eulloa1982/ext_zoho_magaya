@@ -1,5 +1,51 @@
+<style>
+#contact_form form{
+    width:90vw;
+    max-width:768px;
+    border:1px solid #ddd;
+    padding:3vw;
+    display:flex;
+    flex-direction:column;
+    border-radius:5px;
+}
+
+#contact_form label{
+    margin-bottom:15px;
+    position:relative;
+    border-bottom:1px solid #ddd;
+}
+#contact_form input{
+    width:100%;
+    padding:10px 0px;
+    margin-top:20px;
+    border:none;
+    outline:none;
+}
+#contact_form input::placeholder{
+    opacity:0;
+}
+#contact_form span{
+    position:absolute;
+    top:0;
+    left:0;
+    transform:translateY(30px);
+    font-size:0.825em;
+    transition-duration:300ms;
+}
+
+#contact_form label:focus-within > span,
+#contact_form input:not(:placeholder-shown) + span{
+    color:purple;
+    transform:translateY(0px);
+}
+
+.modal.fade:not(.in).right .modal-dialog {
+    -webkit-transform: translate3d(25%, 0, 0);
+    transform: translate3d(25%, 0, 0);
+}
+</style>
 <!-- Edit Modal HTML -->
-<div id="modalContact" class="modal fade" tabindex="-10" aria-labelledby="modalContactLabel" aria-hidden="true">
+<div id="modalContact" class="modal fade right" tabindex="-10" aria-labelledby="modalContactLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 
@@ -10,95 +56,86 @@
 			<div class="modal-body">
                 <form id="contact_form">
                     <div class="container" >
-                        <div class="w-25 p-1 bg-light">Account Name</div>
+                        <div class="w-45 p-1 bg-light">Contact Data</div>
                         <div class="row shadow p-3 border border-secondary mb-2 bg-white rounded">
-                            <div class="col-md-12">
-                                <label class="col-md-12" style="font-weight: bold;">Account</label>
-                                <select name="Account_Name" class="form-control" ></select>
-                            </div>
-                        </div>
+                            <input type="hidden" name="Account_Name" />
 
-                        <div class="w-25 p-1 bg-light">Contact Name</div>
-                        <div class="row shadow p-3 border border-secondary mb-2 bg-white rounded">
                             <div class="col-md-6">
-                                <label class="col-md-12" style="font-weight: bold;">First Name</label>
-                                <input type="text" name='First_Name' class='form-control' />
+                                <label for="First Name">
+                                    <input type="text" name='First_Name' placeholder="First Name" />
+                                    <span>First Name</span>
+                                </label>
                             </div>
                             <div class="col-md-6">
-                                <label class="col-md-12" style="font-weight: bold;">Last Name</label>
-                                <input type="text" name='Last_Name' class='form-control' />
+                                <label for="Last_Name">
+                                    <input type="text" name='Last_Name' placeholder="Last Name"/>
+                                    <span>Last Name</span>
+                                </label>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="Email">
+                                    <input type="text" name='Email' placeholder="Email" />
+                                    <span>Email</span>
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="Phone">
+                                    <input type="text" name='Phone' placeholder="Phone" />
+                                    <span>Phone</span>
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="Home Phone">
+                                    <input type="text" name='Home_Phone' placeholder="Home_Phone" />
+                                    <span>Home Phone</span>
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="Mobile">
+                                    <input type="text" name='Mobile' placeholder="Mobile" />
+                                    <span>Mobile</span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="Fax">
+                                    <input type="text" name='Fax' placeholder="Fax" />
+                                    <span>Fax</span>
+                                </label>
                             </div>
                         </div>
 
-                        <div class="w-25 p-1 bg-light">Contact Data</div>
-                        <div class="row shadow p-3 border border-secondary mt-10 mb-2 bg-white rounded" style="margin-bottom:20px">
-                            <div class="col-md-4">
-                                <label class="col-md-12" style="font-weight: bold;"><span class="material-icons">alternate_email</span>Email</label>
-                                <input type="text" name='Email' class='form-control' />
-                            </div>
-                            <div class="col-md-2">
-                                <label class="col-md-12" style="font-weight: bold;"><span class="material-icons">phone</span>Personal</label>
-                                <input type="text" name='Phone' class='form-control' />
-                            </div>
-                            <div class="col-md-2">
-                                <label class="col-md-12" style="font-weight: bold;"><span class="material-icons">phone</span>Home</label>
-                                <input type="text" name='Home_Phone' class='form-control' />
-                            </div>
-                            <div class="col-md-2">
-                                <label class="col-md-12" style="font-weight: bold;"><span class="material-icons">phone_iphone</span>Mobile</label>
-                                <input type="text" name='Mobile' class='form-control' />
-                            </div>
-                            <div class="col-md-2">
-                                <label class="col-md-12" style="font-weight: bold;"><span class="material-icons">fax</span>Fax</label>
-                                <input type="text" name='Fax' class='form-control' />
-                            </div>
-                        </div>
-
-                        <div class="w-25 p-1 bg-light">Mailing Address</div>
-                        <div class="row shadow p-3 border border-secondary mb-2 bg-white rounded">
-                            <div class="col-md-4">
-                                <label class="col-md-12" style="font-weight: bold;">Mailing City</label>
-                                <input type="text" name='Mailing_City' class='form-control' />
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-md-12" style="font-weight: bold;">Mailing Country</label>
-                                <input type="text" name='Mailing_Country' class='form-control' />
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-md-12" style="font-weight: bold;">Mailing State</label>
-                                <input type="text" name='Mailing_State' class='form-control' />
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-md-12" style="font-weight: bold;">Mailing Street</label>
-                                <input type="text" name='Mailing_Street' class='form-control' />
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-md-12" style="font-weight: bold;">Mailing Zip</label>
-                                <input type="text" name='Mailing_Zip' class='form-control' />
-                            </div>
-                        </div>
-
-                        <div class="w-25 p-1 bg-light">Other Address</div>
+                        <div class="w-25 p-1 bg-light">Billing Address</div>
                         <div class="p-3 row border border-secondary bg-white rounded">
                             <div class="col-md-4">
-                                <label class="col-md-12" style="font-weight: bold;">Other City</label>
-                                <input type="text" name='Other_City' class='form-control' />
+                                <label for="Other_City">
+                                    <input type="text" name='Other_City' placeholder="Other_City" />
+                                    <span>Other City</span>
+                                </label>
                             </div>
                             <div class="col-md-4">
-                                <label class="col-md-12" style="font-weight: bold;">Other Country</label>
-                                <input type="text" name='Other_Country' class='form-control' />
+                                <label for="Other_Country">
+                                    <input type="text" name='Other_Country' placeholder="Other_Country" />
+                                    <span>Other Country</span>
+                                </label>
                             </div>
                             <div class="col-md-4">
-                                <label class="col-md-12" style="font-weight: bold;">Other State</label>
-                                <input type="text" name='Other_State' class='form-control' />
+                                <label for="Other_State">
+                                    <input type="text" name='Other_State' placeholder="Other_State" />
+                                    <span>Other State</span>
+                                </label>
                             </div>
                             <div class="col-md-4">
-                                <label class="col-md-12" style="font-weight: bold;">Other Street</label>
-                                <input type="text" name='Other_Street' class='form-control' />
+                                <label for="Other_Street">
+                                    <input type="text" name='Other_Street' placeholder="Other_Street" />
+                                    <span>Other Street</span>
+                                </label>
                             </div>
                             <div class="col-md-4">
-                                <label class="col-md-12" style="font-weight: bold;">Other Zip</label>
-                                <input type="text" name='Other_Zip' class='form-control' />
+                                <label for="Other_Zip">
+                                    <input type="text" name='Other_Zip' placeholder="Other_Zip" />
+                                    <span>Other_Zip</span>
+                                </label>
                             </div>
                         </div>
                     </form>
