@@ -436,29 +436,10 @@ async function buildStringXML(idSQuote) {
         let data_account = {}
         let charges = ``
         let stringCharge = ``
-        stringCharge = await $(this).buildStringCharge(idSQuote)
-            .then(resp => {
-                //if its here, charges exists, so get the account data
-                account_id = resp[0].magaya__ApplyToAccounts.id
-                //console.log(account_id)
-                charges = resp;
-            })
-            .catch(() => {
-                //distpath an error
-                charges = '';
-            });
-
-        //do not send charges without an apply to
-        if (account_id > 0) {
-            let data = await getRecordCRM("Accounts", account_id)
-                .then(resp => {
-                    data_account = resp[0]
-                })
-            if (charges !== undefined && !_.isEmpty(charges)) {
-                let stringCharges = buildXmlCharge(charges, data_account)
-                stringXML += '<Charges UseSequenceOrder="false">' + stringCharges + "</Charges>";
-            }
-        }
+        stringCharge = await $(this).getRelatedCharge(idSQuote)
+                        .then(resp => {
+                            stringXML  += resp.details.output
+                        })
 
     //items
     let items = {}
@@ -488,6 +469,24 @@ async function buildStringXML(idSQuote) {
     //}
 } //.send-quote
 
+
+//get items cargo table, return xml charge
+(function($) {
+    $.fn.getRelatedCharge = function(idSQuote) {
+        //async function buildStringCharge(idSQuote) {
+        stringCharges = '';
+        return new Promise(function(resolve, reject) {
+            var func_name = "magaya__getChargesMquote";
+            var req_data ={
+                "quote_id" : idSQuote
+            };
+            ZOHO.CRM.FUNCTIONS.execute(func_name, req_data)
+                .then(function(data){
+                    resolve(data)
+                })
+        });
+    }
+})(jQuery);
 
 
 /*
@@ -542,7 +541,7 @@ function buildXmlItem(items) {
 
 
 
-function buildSimpleCharge(k, data_account) {
+/*function buildSimpleCharge(k, data_account) {
     chargesString = `<Charge>
     <Type>Standard</Type>`
 
@@ -630,7 +629,7 @@ function buildSimpleCharge(k, data_account) {
 
                     })
                 }*/
-        return chargesString
+        //return chargesString
 
 /*if (k.magaya__TaxRate === null || k.magaya__TaxRate === "null")
     k.magaya__TaxRate = 0.00
@@ -653,15 +652,15 @@ else k.magaya__TaxRate = k.magaya__TaxRate.toLocaleString('en-US', { minimumFrac
                                 <IsHomeCurrency>true</IsHomeCurrency>
                                 </Currency>
                             </LiabilityAccount>
-        */
+        *
 
-}
+}*/
 
 /*
 @charges object
 @data_account object (apply to)
 */
-function buildXmlCharge(charges, data_account) {
+/*function buildXmlCharge(charges, data_account) {
 
     let chargesString = ``
     let idTax = 0
@@ -672,7 +671,7 @@ function buildXmlCharge(charges, data_account) {
     }
 
     return chargesString;
-}
+}*/
 
 
 
