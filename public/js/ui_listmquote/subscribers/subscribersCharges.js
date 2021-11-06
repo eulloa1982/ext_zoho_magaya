@@ -294,6 +294,7 @@ storeCharge.subscribe(() => {
                 <td class="magaya__ChargeCurrency" style="display: none;">${k.magaya__ChargeCurrency}</td>
                 </tr>`);
 
+
             })
 
 
