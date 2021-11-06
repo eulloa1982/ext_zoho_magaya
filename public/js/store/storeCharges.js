@@ -11,6 +11,8 @@ const initialStateCharge = {
         magaya__Amount_Total: 0,
         magaya__CQuantity: 0,
         magaya__ChargeCode: 0,
+        magaya__Charge_Type: 0,
+        magaya__Charge_Name: "",
         magaya__ChargeCurrency: "",
         magaya__Charge_Description: "",
         magaya__Paid_As: "",
@@ -164,6 +166,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray = {...state.singleCharge};
             newArray[1][field] = value
 
+            charge_name = $("select[name=magaya__Charge_Type] option:selected").text()
             //numeros de 12 digitos
             let price = roundDec(newArray[1]['magaya__Price'])
             price = digitCount2(price) > 12 ? 0 : price
@@ -177,11 +180,12 @@ function reducerCharge (state = initialStateCharge, actions)  {
             amount_total = digitCount2(amount_total) > 12 ? 0 : amount_total
             let tax_rate = roundDec(newArray[1]['magaya__TaxRate'])
             tax_rate = digitCount2(tax_rate) > 12 ? 0 : tax_rate
-            let tax = newArray[1]['magaya__Tax']
-            let name = (newArray[1]['Name'] && newArray[1]['Name'].length > 0) ?  sanitize(newArray[1]['Name']) : $("select[name=magaya__Charge_Type] option:selected").text()
+            let tax = newArray[1]['magaya__Tax'] === "0" ? "" : newArray[1]['magaya__Tax']
+            let name = (newArray[1]['Name'] && newArray[1]['Name'].length > 0) ?  sanitize(newArray[1]['Name']) : charge_name
             newArray[1]['Name'] = name.slice(0, 50)
             newArray[1]['magaya__Status']  = (newArray[1]['magaya__Status']).length > 0 ?  sanitize(newArray[1]['magaya__Status']) : 'Open'
             newArray[1]['magaya__Charge_Type'] = newArray[1]['magaya__Charge_Type']
+            newArray[1]['magaya__Charge_Name'] = charge_name
 
             price = price > 0 ? price : 0;
             quantity = quantity > 0 ? quantity : 0
@@ -205,8 +209,11 @@ function reducerCharge (state = initialStateCharge, actions)  {
 
             //if (tax_rate <= 0)
             //    newArray[1]['magaya__Tax'] = ''
-            if (!_.isEmpty(state.chargesOnNew[index]))
+            if (!_.isEmpty(state.chargesOnNew[index])) {
+
+
                 state.chargesOnNew[index] = {...newArray[1]}
+            }
 
             return {
                 ...state,
