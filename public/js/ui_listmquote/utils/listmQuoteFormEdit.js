@@ -19,7 +19,7 @@ $("#updateCharge").click(function(e) {
             }
             charge[this.name].push(sanitize(this.value) || '');
         } else {
-            if (this.name !== "magaya__Tax" && $.isNumeric(this.value)) {
+            if (this.name !== "magaya__Tax" && this.name !== "magaya__Charge_Type" && $.isNumeric(this.value)) {
                 charge[this.name] = Number(this.value)
             }
             else {

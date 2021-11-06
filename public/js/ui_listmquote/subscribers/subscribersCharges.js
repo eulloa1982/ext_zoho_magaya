@@ -6,7 +6,7 @@ storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
     let y = storeCharge.getState().emptyCharge[1];
     let showEmpty = storeCharge.getState().showEmptyCharge;
-    //console.log("State charges now", storeCharge.getState())
+    console.log("State charges now", storeCharge.getState())
     if (!_.isEmpty(u)) {
         let k = parseInt(u[0])
         //construir los campos y la data
@@ -120,11 +120,14 @@ storeCharge.subscribe(() => {
                     $(`#${v}`).attr('data-id', idCharge)
                     $("#updateCharge").attr('data-id', idCharge)
 
-                    if (k) {
+                    if (!k)
+                        k = 0
+                    //if (k) {
+                        //console.log(v, k)
                         $(`input[name=${v}]`).val(k.toLocaleString('en-US', {  minimumFractionDigits: 2  } ))
                         $(`select[name=${v}]`).val(k)
                         $(`#${v}`).val(k)
-                    }
+                    //}
 
                 }
             }
@@ -202,8 +205,8 @@ storeCharge.subscribe(() => {
                     <td align="right" class="magaya__Amount">${roundDec(k.magaya__Amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                     <td align="right" class="magaya__Tax_Amount">${roundDec(k.magaya__Tax_Amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                     <td align="right" class="magaya__Amount_Total">${roundDec(k.magaya__Amount_Total).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-                    <td class="magaya__ChargeCode" style="display: none;">${k.magaya__ChargeCode}</td>
-                    <td style="display: none;" class="magaya__TaxRate">${k.magaya__TaxRate}</td>
+                    <td class="magaya__Charge_Type" style="display: none;">${k.magaya__Charge_Type}</td>
+                    <td style="display: none;" class="magaya__Tax">${k.magaya__Tax}</td>
                     <td style="display: none;" clss="magaya__Unit">${k.magaya__Unit}</td>
                     <td style="display: none;" class="magaya__Paid_As">${k.magaya__Paid_As}</td>
                     <td style="display: none;" class="magaya__ChargeCurrency">${k.magaya__ChargeCurrency}</td>
@@ -267,7 +270,7 @@ storeCharge.subscribe(() => {
 
                 k.magaya__Status = sanitize(k.magaya__Status);
                 k.Name = sanitize(k.Name);
-                k.magaya__ChargeCode = sanitize(k.magaya__ChargeCode);
+                //k.magaya__ChargeCode = sanitize(k.magaya__ChargeCode);
                 k.magaya__Paid_As = sanitize(k.magaya__Paid_As);
                 k.magaya__ChargeCurrency = sanitize(k.magaya__ChargeCurrency);
 
@@ -287,13 +290,13 @@ storeCharge.subscribe(() => {
                 <td align="right" data-type="number" class="magaya__Amount">${k.magaya__Amount.toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 <td align="right" data-type="number" class="magaya__Tax_Amount">${k.magaya__Tax_Amount.toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 <td align="right" data-type="number" class="magaya__Amount_Total">${k.magaya__Amount_Total.toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-                <td class="magaya__ChargeCode" style="display: none;">${k.magaya__ChargeCode}</td>
+                <td class="magaya__Charge_Type" style="display: none;">${k.magaya__Charge_Type}</td>
                 <td class="magaya__Tax" style="display: none;">${k.magaya__Tax}</td>
+                <td class="magaya__TaxRate" style="display: none;">${k.magaya__TaxRate}</td>
                 <td class="magaya__Unit" style="display: none;">${k.magaya__Unit}</td>
                 <td class="magaya__Paid_As" style="display: none;">${k.magaya__Paid_As}</td>
                 <td class="magaya__ChargeCurrency" style="display: none;">${k.magaya__ChargeCurrency}</td>
                 </tr>`);
-                //<td class="magaya__TaxCode" style="display: none;">${k.magaya__TaxCode}</td>
 
             })
 
