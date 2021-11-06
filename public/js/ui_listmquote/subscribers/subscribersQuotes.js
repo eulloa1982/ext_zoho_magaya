@@ -35,7 +35,7 @@ storeQuote.subscribe(() => {
 
             append += `<tr>
                 <td>
-                    <a><span class="material-icons oculto edit" data-id="${k['id']}">visibility</span></a>
+                    <a><span class="material-icons oculto btn-slide" data-id="${k['id']}">visibility</span></a>
                     <a><span class="material-icons oculto delete" data-id=${k['id']}>delete_forever</span></a>
                 </td>
                 <td>${k['magaya__Number']}</td>
