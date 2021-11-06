@@ -250,7 +250,7 @@ $(document).ready(function(){
                     field = k.details.api_name;
                     show = true;
                     module = 'Cargo Items'
-                    
+
                     storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
                 } else {
@@ -832,7 +832,6 @@ $(document).ready(function(){
                                             show = true;
                                             module = 'Cargo Items'
                                             storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
                                         }
                                     })
                                 })
@@ -844,7 +843,6 @@ $(document).ready(function(){
                                         show = true;
                                         module = 'mQuote'
                                         storeError.dispatch(addError({errorCode: errorCode, showInfo: show, field: field, module: module}))
-
                                     })
                                 })
                         }
