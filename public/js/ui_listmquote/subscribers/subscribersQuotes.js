@@ -8,7 +8,7 @@ $(document).ready(function(){
 storeQuote.subscribe(() => {
     $("#quote-search tbody").empty()
     let u = storeQuote.getState()
-    //console.log("State quote now", u)
+    console.log("State quote now", u)
     quoteXML = u.singleQuote
     $(".arrows-quote").html(``)
     let arrow_content = '';
@@ -27,21 +27,25 @@ storeQuote.subscribe(() => {
     if (!_.isEmpty(u.quotes2)) {
         let append = ''
         let quote = u.quotes2
-        let accountName = !_.isEmpty(quote[0]['Account']) ? quote[0]['Account']['name'] : ''
 
-        $("#quote-search tbody").empty()
+        $.map(quote, function(k, v) {
+            let accountName = !_.isEmpty(k['Account']) ? k['Account']['name'] : ''
 
-        append += `<tr>
-            <td>
-                <a><span class="material-icons oculto edit" data-id="${quote[0]['id']}">visibility</span></a>
-                <a><span class="material-icons oculto delete" data-id=${quote[0]['id']}>delete_forever</span></a>
-            </td>
-            <td>${quote[0]['magaya__Number']}</td>
-            <td>${accountName}</td>
-            <td>${quote[0]['magaya__QuoteTotalAmount']}</td>
-            </tr>`
+            $("#quote-search tbody").empty()
 
-        $("#quote-search tbody").append(append)
+            append += `<tr>
+                <td>
+                    <a><span class="material-icons oculto edit" data-id="${k['id']}">visibility</span></a>
+                    <a><span class="material-icons oculto delete" data-id=${k['id']}>delete_forever</span></a>
+                </td>
+                <td>${k['magaya__Number']}</td>
+                <td>${accountName}</td>
+                <td>${k['magaya__QuoteTotalAmount']}</td>
+                </tr>`
+
+            $("#quote-search tbody").append(append)
+        })
+
     }
     //editing a quote
     quoteToEdit = u.quoteToEdit;

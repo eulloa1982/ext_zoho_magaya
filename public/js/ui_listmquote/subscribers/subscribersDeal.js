@@ -1,7 +1,7 @@
 //get deals
 storeDeal.subscribe(() => {
     let u = storeDeal.getState()
-    console.log("State deals", u)
+    //console.log("State deals", u)
     if (!_.isEmpty(u.dealQuote)) {
         $("select[name=Account]").prop('disabled', true);
         let dealQuote = u.dealQuote;

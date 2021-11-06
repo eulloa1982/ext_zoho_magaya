@@ -27,7 +27,8 @@ storeAccounts.subscribe(() => {
             contactId = deal_quote[0]['Contact_Name']['id']
             contactName = deal_quote[0]['Contact_Name']['name']
             $(`<option value="${contactId}" selected>${contactName}</option>`).appendTo("select[name=magaya__Representative]");
-
+            //$("select[name=magaya__Representative]").change()
+            //storeAccounts.dispatch(findContact({id: contactId}))
         }
     } else {
         $("select[name=magaya__Representative]").empty();
