@@ -461,7 +461,7 @@
                                         <form id="new-charge" action="https://zm">
                                             <div class="row">
                                                 <div class="col-md-3">Type</div>
-                                                <div class="col-md-8"><select name="magaya__ChargeCode" class="form-control new-charge"><option value=""></option></select></div>
+                                                <div class="col-md-8"><select name="magaya__Charge_Type" class="form-control new-charge"><option value=""></option></select></div>
                                             </div>
 
                                             <div class="row">

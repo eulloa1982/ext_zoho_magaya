@@ -782,3 +782,7 @@ $(function () {
         return (key != 13);
     });
 });
+
+//checa cantidad de digitos
+//https://www.it-swarm-es.com/es/javascript/obtener-numero-de-digitos-con-javascript/1071038179/
+const digitCount2 = num => String( Math.floor( Math.abs(num) ) ).length;

@@ -194,15 +194,24 @@ function reducerItem (state = initialStateIntems, actions)  {
             let newArray ={...state.singleItem}
             newArray[1][field] = value
 
+            //numeros con hasta 16 digitos
             let pieces = parseInt(newArray[1]["magaya__Pieces"])
+            pieces = digitCount2(pieces) > 16 ? 1 : pieces
             let height = roundDec(newArray[1]["magaya__Height"]);
+            height = digitCount2(height) > 16 ? 1 : height
             let length = roundDec(newArray[1]["magaya__Length"]);
+            length = digitCount2(length) > 16 ? 1 : length
             let width = roundDec(newArray[1]["magaya__Width"]);
+            width = digitCount2(width) > 16 ? 1 : width
             let weigth = roundDec(newArray[1]["magaya__Weigth"]);
-            newArray[1]['Name'] = (newArray[1]['Name']).length > 0 ?  sanitize(newArray[1]['Name']) : $("select[name=magaya__Package_Type] option:selected").text()
+            weigth = digitCount2(weigth) > 16 ? 1 : weigth
+            //Name hasta 120 caracteres
+            let name = (newArray[1]['Name']).length > 0 ?  sanitize(newArray[1]['Name']) : $("select[name=magaya__Package_Type] option:selected").text()
+            newArray[1]['Name'] = name.slice(0, 120)
             let measure_system = newArray[1]["magaya__Measure_System"]
             //calculate volume
             let volume = height * length * width
+            volume = digitCount2(volume) > 16 ? 0 : volume
             newArray[1]["magaya__Height"] = height.toString().replace(/[,]/g, '').toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             newArray[1]["magaya__Length"] = length.toString().replace(/[,]/g, '').toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             newArray[1]["magaya__Width"] = width.toString().replace(/[,]/g, '').toLocaleString('en-US', {  minimumFractionDigits: 2  } )

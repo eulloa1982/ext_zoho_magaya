@@ -45,10 +45,7 @@ $(document).ready(function(){
         if (field === "magaya__CQuantity" || field === "magaya__Price") {
             value = parseFloat(value.replace(/[,]/g, ''));
         }
-        //si los valores son iguales, no actualizar nada
-        if (oldValue !== null && oldValue.toString() !== value.toString()) {
-            storeCharge.dispatch(updateChargeOnNew({field: field, value: value}))
-        }
+        storeCharge.dispatch(updateChargeOnNew({field: field, value: value}))
 
     })
 
@@ -76,7 +73,7 @@ $(document).ready(function(){
             value = parseFloat(value.replace(/[,]/g, ''));
 
         }
-        console.log(`${field}  val  ${value}`)
+        //console.log(`${field}  val  ${value}`)
         storeItem.dispatch(updateItemOnNew({field: field, value: value}))
 
     })
