@@ -191,10 +191,16 @@ table.table .avatar {
 	background: #ddd;
 }
 /* Modal styles*/
-.modal .modal-dialog {
+#mquoteModal .modal-dialog {
 	max-width: 90%;
     min-height: 600px;
 }
+
+#modalContact .modal-dialog {
+	max-width: 50%;
+    min-height: 600px;
+}
+
 
 table{
     table-layout: fixed;

@@ -132,5 +132,6 @@ const MQUOTE_XML = {
 
 const ERRORS_TYPES = {
     'MANDATORY_NOT_FOUND': "Required Field Missing",
+    'required field not found': "Required Field Missing",
     "Client Quote not found": 'Mandatory data not found: Client Quote is not defined'
 }

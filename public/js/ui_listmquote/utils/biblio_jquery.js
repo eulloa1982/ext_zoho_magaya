@@ -171,39 +171,6 @@ function roundDec(num) {
 
 
 
-//get items cargo table, return xml charge
-(function($) {
-    $.fn.buildStringCharge = function(idSQuote) {
-        //async function buildStringCharge(idSQuote) {
-        stringCharges = '';
-        return new Promise(function(resolve, reject) {
-            ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idSQuote, RelatedList: "magaya__SQuote_Name0", page: 1, per_page: 200 })
-                .then(function(response) {
-                    resolve(response.data)
-                })
-        });
-    }
-})(jQuery);
-
-//get items package table, return xml string items
-(function($) {
-    $.fn.buildStringItems = function(idSQuote) {
-        stringItems = '';
-        return new Promise(function(resolve, reject) {
-            ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idSQuote, RelatedList: "magaya__SQuote_Name1", page: 1, per_page: 200 })
-                .then(function(response) {
-                    resolve(response.data)
-                })
-                .catch(err => {
-                    //dispatch an error
-                })
-        });
-    }
-
-})(jQuery);
-
-
-
 /**build the field if value is not empty
  * @field XML node
  * @value XML node value
@@ -313,99 +280,6 @@ async function buildStringQuote2(idSQuote) {
 }
 
 
-async function buildStringRouting() {
-    //routing
-    if (!_.isEmpty(quoteXML.magaya__Routing)) {
-       //console.log("Building routing")
-        let idRouting = quoteXML.magaya__Routing.id
-        let routing = await getRecordCRM("magaya__Routing", idRouting)
-        let stringRouting = ``
-        if (!_.isEmpty(routing[0].magaya__ModeofTransportation)) {
-            let transporMethod = await buildStringTransport(routing)
-            stringRouting += `<ModeOfTransportation Code="${transporMethod[0].magaya__TransportationMethodCode}">
-                <Description>${transporMethod[0].Name}</Description>
-                <Method>${transporMethod[0].magaya__ParentMethod}</Method>
-                </ModeOfTransportation>
-                <ModeOfTransportCode>${transporMethod[0].magaya__TransportationMethodCode}</ModeOfTransportCode>`
-        }
-
-        if (!_.isEmpty(routing[0].magaya__MainCarrier)) {
-            let mainCarrier = await buildStringMainCarrier(routing[0].magaya__MainCarrier.id)
-            //console.log(" Main Carrier returned", mainCarrier)
-            stringRouting += `<Carrier GUID="${mainCarrier[0].magaya__Magaya_GUID}"><Type>Carrier</Type><Name>${mainCarrier[0].Name}</Name></Carrier>`
-
-        }
-
-        if (!(_.isEmpty(routing[0].magaya__Consignee))) {
-
-            stringRouting += `<ConsigneeName>${routing[0].magaya__Consignee}</ConsigneeName>
-                            <Consignee>
-                                <Type>Client</Type>
-                                <Name>${routing[0].magaya__Consignee}</Name>
-                                <Address>
-                                    <Street>${routing[0].magaya__ConsigneeStreet}</Street>
-                                    <City>${routing[0].magaya__ConsigneeCity}</City>
-                                    <State>${routing[0].magaya__ConsigneeState}</State>
-                                    <ZipCode>${routing[0].magaya__ConsigneeCode}</ZipCode>
-                                    <Country>${routing[0].magaya__ConsigneeCountry}</Country>
-                                </Address>
-                            </Consignee>`
-        }
-
-        if (!(_.isEmpty(routing[0].magaya__Shipper))) {
-            stringRouting += `<ShipperName>${routing[0].magaya__Shipper}</ShipperName>
-                            <Shipper>
-                                <Type>Client</Type>
-                                <Name>${routing[0].magaya__Shipper}</Name>
-                                <Address>
-                                    <Street>${routing[0].magaya__ShipperStreet}</Street>
-                                    <City>${routing[0].magaya__ShipperCity}</City>
-                                    <State>${routing[0].magaya__ShipperState}</State>
-                                    <ZipCode>${routing[0].magaya__ShipperCode}</ZipCode>
-                                    <Country>${routing[0].magaya__ShipperCountry}</Country>
-                                </Address>
-                            </Shipper>`
-        }
-
-        return stringRouting;
-    }
-
-}
-
-function buildStringTransport(dataRouting) {
-
-    return new Promise(function(resolve, reject) {
-        if (!_.isEmpty(dataRouting[0].magaya__ModeofTransportation)) {
-            //console.log("Building transport")
-            getTranspMethod(dataRouting[0].magaya__ModeofTransportation.id)
-                .then(r => {
-                    //console.log("transport m", r)
-                    resolve(r)
-                })
-                .catch(function() {
-                    reject()
-                })
-
-        } else {
-            reject()
-        }
-
-    })
-}
-
-function buildStringMainCarrier(idCarrier) {
-    return new Promise(function(resolve, reject) {
-        getRecordCRM("magaya__Providers", idCarrier)
-            .then(r => {
-                //console.log("carrier", r)
-                resolve(r)
-            })
-            .catch(function() {
-                reject()
-            })
-    })
-}
-
 //send quote
 async function buildStringXML(idSQuote) {
     //check magaya updated
@@ -427,55 +301,29 @@ async function buildStringXML(idSQuote) {
 
         stringXML = '<Quotation xmlns="http://www.magaya.com/XMLSchema/V1" xsi:schemaLocation="http://www.magaya.com/XMLSchema/V1 schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">';
         stringXML += stringQuote;
-        let routing = await buildStringRouting()
-        if (_.size(routing) > 0) {
-            stringXML += routing
-        }
+        //let routing = await buildStringRouting()
+        //if (_.size(routing) > 0) {
+            //stringXML += routing
+        //}
             //charges
         let account_id = 0;
         let data_account = {}
         let charges = ``
         let stringCharge = ``
-        stringCharge = await $(this).buildStringCharge(idSQuote)
-            .then(resp => {
-                //if its here, charges exists, so get the account data
-                account_id = resp[0].magaya__ApplyToAccounts.id
-                //console.log(account_id)
-                charges = resp;
-            })
-            .catch(() => {
-                //distpath an error
-                charges = '';
-            });
+        stringRouting = await $(this).getRelatedRouting(idSQuote)
+                        .then(resp => {
+                            stringXML  += resp.details.output
+                        })
 
-        //do not send charges without an apply to
-        if (account_id > 0) {
-            let data = await getRecordCRM("Accounts", account_id)
-                .then(resp => {
-                    data_account = resp[0]
-                })
-            if (charges !== undefined && !_.isEmpty(charges)) {
-                let stringCharges = buildXmlCharge(charges, data_account)
-                stringXML += '<Charges UseSequenceOrder="false">' + stringCharges + "</Charges>";
-            }
-        }
+        stringCharge = await $(this).getRelatedCharge(idSQuote)
+                        .then(resp => {
+                            stringXML  += resp.details.output
+                        })
 
-    //items
-    let items = {}
-    stringItem = await $(this).buildStringItems(idSQuote)
-        .then(resp => {
-            console.log("Items", resp)
-            items = resp
-        })
-        .catch(() => {
-            //distpath an error
-            charges = '';
-        });
-
-    if (items !== undefined && !_.isEmpty(items)) {
-        let stringItems = buildXmlItem(items)
-        stringXML += '<Items>' + stringItems + "</Items>";
-    }
+        stringItem = await $(this).getRelatedItem(idSQuote)
+                        .then(resp => {
+                            stringXML  += resp.details.output
+                        })
 
     stringXML += '</Quotation>'
 
@@ -489,190 +337,53 @@ async function buildStringXML(idSQuote) {
 } //.send-quote
 
 
-
-/*
-@items object
-*/
-function buildXmlItem(items) {
-    let stringItems = ``;
-    if (!_.isEmpty(items)) {
-
-        $.map(items, function(k, i) {
-            let measure_length = "in";
-            let measure_volume = "ft3";
-            let measure_weigth = "lb";
-
-            if (k.magaya__Measure_System === "International") {
-                measure_length = "m";
-                measure_volume = "m3";
-                measure_weigth = "kg";
-            }
-            //set name
-            let name_item = k.Name
-            if (!_.isEmpty(k.magaya__Package_Type))
-                name_item = k.magaya__Package_Type.name;
-
-            stringItems += `<Item><Version>105</Version>`
-            stringItems += `<Status>InQuote</Status>`
-            stringItems += `<Pieces>${k.magaya__Pieces}</Pieces>`
-            stringItems += `<PackageName>${name_item}</PackageName>`
-            stringItems += `<Length Unit="${measure_length}">${k.magaya__Length}</Length>`
-            stringItems += `<Height Unit="${measure_length}">${k.magaya__Height}</Height>`
-            stringItems += `<Width Unit="${measure_length}">${k.magaya__Width}</Width>`
-            stringItems += `<Weight Unit="${measure_weigth}">${k.magaya__Weigth * k.magaya__Pieces}</Weight>
-                            <Volume Unit="${measure_volume}">${k.magaya__Volume * k.magaya__Pieces}</Volume>`
-            stringItems += `<Package>`
-            stringItems += `<Type>Container</Type>
-                            <Name>${k.Name}</Name>
-                            </Package>
-                            <ContainerInfo>
-                                <GeneratorSetup>false</GeneratorSetup>
-                                <IsNonOperatingReefer>false</IsNonOperatingReefer>
-                            </ContainerInfo>
-                            </Item>`
-
-        })
-
+//get items cargo table, return xml charge
+(function($) {
+    $.fn.getRelatedCharge = function(idSQuote) {
+        return new Promise(function(resolve, reject) {
+            var func_name = "magaya__getChargesMquote";
+            var req_data ={
+                "quote_id" : idSQuote
+            };
+            ZOHO.CRM.FUNCTIONS.execute(func_name, req_data)
+                .then(function(data){
+                    resolve(data)
+                })
+        });
     }
+})(jQuery);
 
-    return stringItems;
-
-}
-
-
-
-
-function buildSimpleCharge(k, data_account) {
-    chargesString = `<Charge>
-    <Type>Standard</Type>`
-
-    if (data_account.magaya__MagayaGUID !== null && data_account.magaya__MagayaGUID !== undefined && data_account.magaya__MagayaGUID !== "null" && data_account.magaya__MagayaGUID !== "undefined")
-        chargesString += `<Entity GUID="${data_account.magaya__MagayaGUID}">`
-    else
-        chargesString += `<Entity>`
-
-    chargesString += `<Type>Client</Type>
-            <Name>${data_account.Account_Name}</Name>
-            <IsPrepaid>true</IsPrepaid>
-        </Entity>`;
-        chargesString += `
-        <Quantity>${k.magaya__CQuantity}</Quantity>
-        <Price Currency="USD">${k.magaya__Price}</Price>
-        <HomeCurrency Code="USD">
-            <Name>United States Dollar</Name>
-            <ExchangeRate>1.00</ExchangeRate>
-            <DecimalPlaces>2</DecimalPlaces>
-            <IsHomeCurrency>true</IsHomeCurrency>
-        </HomeCurrency>
-        <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
-        <IsPrepaid>true</IsPrepaid>
-        <IsThirdPartyCharge>false</IsThirdPartyCharge>
-        <ChargeDefinition>
-            <Type>Other</Type>
-            <Description>${k.Name}</Description>
-            <Code>${k.magaya__ChargeCode}</Code>
-            <AccountDefinition>
-                <Type>Income</Type>
-                <Name>Servicios</Name>
-                <Currency Code="USD">
-                    <Name>United States Dollar</Name>
-                    <ExchangeRate>1.00</ExchangeRate>
-                    <DecimalPlaces>2</DecimalPlaces>
-                    <IsHomeCurrency>true</IsHomeCurrency>
-                </Currency>
-            </AccountDefinition>
-            <Amount Currency="USD">${k.magaya__Amount_Total}</Amount>
-            <Currency Code="USD">
-                <Name>United States Dollar</Name>
-                <ExchangeRate>1.00</ExchangeRate>
-                <DecimalPlaces>2</DecimalPlaces>
-                <IsHomeCurrency>true</IsHomeCurrency>
-            </Currency>
-            <Enforce3rdPartyBilling>false</Enforce3rdPartyBilling>
-        </ChargeDefinition>
-        <Status>${k.magaya__Status}</Status>
-        <Description>${k.Name}</Description>
-        <PriceInCurrency Currency="USD">${k.magaya__Price}</PriceInCurrency>
-        <AmountInCurrency Currency="USD">${k.magaya__Amount_Total}</AmountInCurrency>
-
-        <ExchangeRate>1.00</ExchangeRate>
-        <Currency Code="USD">
-            <Name>United States Dollar</Name>
-            <ExchangeRate>1.00</ExchangeRate>
-            <DecimalPlaces>2</DecimalPlaces>
-            <IsHomeCurrency>true</IsHomeCurrency>
-        </Currency>
-        <ShowInDocuments>true</ShowInDocuments>
-        <IsCredit>false</IsCredit>
-        <IsFromSegment>false</IsFromSegment>
-    </Charge>`;
-
-    /*if (!_.isEmpty(k.magaya__Tax)) {
-
-        idTax = k.magaya__Tax.id
-        let dataTax = getRecordCRM("magaya__Taxes", idTax)
-                    .then((rec) => {
-                        chargesString += `<TaxDefinition>
-                                <Code>${rec.magaya__TaxCode}</Code>
-                                <Name>Impuesto</Name>
-                                <Rate>${rec.magaya__TaxRate}</Rate>
-                                <Layout>Simple</Layout>
-                                <Type>Tax</Type>
-                                <TaxAuthority>
-                                    <Type>Vendor</Type>
-                                    <Name>Autoridad Impositiva Predeterminada</Name>
-                                </TaxAuthority>
-
-                            </TaxDefinition>`
-
-                            console.log("Tax record", chargesString)
-                            return chargesString;
-
-                    })
-                }*/
-        return chargesString
-
-/*if (k.magaya__TaxRate === null || k.magaya__TaxRate === "null")
-    k.magaya__TaxRate = 0.00
-else k.magaya__TaxRate = k.magaya__TaxRate.toLocaleString('en-US', { minimumFractionDigits: 2 })*/
-
-
-
-    /*if (idTax > 0) {
-        console.log("Tax", idTax)
-    }*/
-
-        /*
-        <LiabilityAccount>
-                                <Type>OtherCurrentLiability</Type>
-                                <Name>Pagos de Impuestos</Name>
-                                <Currency Code="USD">
-                                <Name>Euro</Name>
-                                <ExchangeRate>1.00</ExchangeRate>
-                                <DecimalPlaces>2</DecimalPlaces>
-                                <IsHomeCurrency>true</IsHomeCurrency>
-                                </Currency>
-                            </LiabilityAccount>
-        */
-
-}
-
-/*
-@charges object
-@data_account object (apply to)
-*/
-function buildXmlCharge(charges, data_account) {
-
-    let chargesString = ``
-    let idTax = 0
-    if (!_.isEmpty(charges)) {
-        $.map(charges, function(k, v) {
-            chargesString += buildSimpleCharge(k, data_account)
-        })
+//get items service table, return xml items
+(function($) {
+    $.fn.getRelatedItem = function(idSQuote) {
+        return new Promise(function(resolve, reject) {
+            var func_name = "magaya__getItemMquote";
+            var req_data ={
+                "quote_id" : idSQuote
+            };
+            ZOHO.CRM.FUNCTIONS.execute(func_name, req_data)
+                .then(function(data){
+                    resolve(data)
+                })
+        });
     }
+})(jQuery);
 
-    return chargesString;
-}
+//get items service table, return xml items
+(function($) {
+    $.fn.getRelatedRouting = function(idSQuote) {
+        return new Promise(function(resolve, reject) {
+            var func_name = "magaya__getRoutingMquote";
+            var req_data ={
+                "quote_id" : idSQuote
+            };
+            ZOHO.CRM.FUNCTIONS.execute(func_name, req_data)
+                .then(function(data){
+                    resolve(data)
+                })
+        });
+    }
+})(jQuery);
 
 
 
@@ -680,7 +391,9 @@ async function checkConnect() {
     config = await getMagayaVariables()
 
     const endpoint = `https://zohomagaya.herokuapp.com/ping?url=${config.magaya_url}`;
+    //const endpoint = `http://localhost/zoho_magaya/blog/public/ping?url=${config.magaya_url}`
     fetch(endpoint, {
+            mode: 'cors',
             method: 'POST',
             headers: new Headers({
                 //'Content-Type': 'application/json',
@@ -697,10 +410,11 @@ async function checkConnect() {
                 $("#magaya_link").html(`<span class="material-icons md-24 startSession btn btn-primary float-right">link_off</span>`)
 
             }
-            console.log("From endpoint", data)
         })
         .catch(err => {
             console.warn("error", err)
+            $("#magaya_link").html(`<span class="material-icons md-24 startSession btn btn-primary float-right" style="background: none;border: none;">link_off</span>`)
+
         })
 
 }
@@ -728,14 +442,15 @@ async function startSession() {
                     icon: 'error'
                 })
             } else {
+                $("#magaya_link").html(`<span class="material-icons md-24 btn btn-success float-right" style="background: none;border: none;">link</span>`)
 
-            Swal.fire({
-                title: 'Success',
-                text: 'Operation success',
-                icon: 'success',
-                allowOutsideClick: false
-            })
-            $("#no-configuration-alert").hide();
+                Swal.fire({
+                    title: 'Success',
+                    text: 'Operation success',
+                    icon: 'success',
+                    allowOutsideClick: false
+                })
+                $("#no-configuration-alert").hide();
 
 
             } //else
@@ -975,15 +690,6 @@ async function make_pdf(id) {
 
 
 
-function bipdf(items) {
-    let data_items = {}
-    if (!_.isEmpty(items)) {
-        $.map(items, function(k, v) {
-
-        })
-    }
-}
-
 async function buildPdf(mquote_id) {
     quoteToEdit = [];
     //Utils.blockUI()
@@ -1012,6 +718,7 @@ async function buildPdf(mquote_id) {
     const endpoint = `https://zohomagaya.herokuapp.com/pdf`
 
     fetch(endpoint, {
+        mode: 'cors',
         method: 'POST',
         headers: new Headers({
             'Content-Type': 'application/json',
@@ -1053,7 +760,6 @@ async function buildPdf(mquote_id) {
 
 
 function move_quote(idQuote) {
-    //console.log("moving quote", idQuote)
     //drop the state temporal items and charges
     storeItem.dispatch(emptyItems())
     storeCharge.dispatch(emptyCharges())
@@ -1065,7 +771,7 @@ function move_quote(idQuote) {
     storeQuote.dispatch(findQuote({id: idQuote}))
 }
 
-
+//disable enter key in app
 $(function () {
     $("body").keypress(function (e) {
         var key;

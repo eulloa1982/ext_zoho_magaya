@@ -290,7 +290,7 @@ table td .numeric {
     letter-spacing: 2px;
     color: #000;
     word-wrap: break-word;
-    background-color: #f8f6f6;
+    background-color: #fff;
 }
 
 .border-right {
@@ -375,6 +375,8 @@ table td .numeric {
     border: 0.5px solid #38312b;
 }
 
-/*.toPdf {
-    font-size: 12px;
-}*/
+.invalid {
+    border: 3px solid #e95050;
+    padding: 10px;
+    box-shadow: 5px 10px #b8b4b4;
+}

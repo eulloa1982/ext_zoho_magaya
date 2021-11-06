@@ -545,6 +545,7 @@ $("#sendQuotation").click(function(e) {
  ************  **********************************************************************/
 //sortable1 dinamic interfaz
 $('#sortable1').bind("DOMSubtreeModified", function() {
+
     $(".delete-quote-from-magaya").show();
     $(".send-quote-to-crm").show();
     let message = '';
@@ -577,21 +578,9 @@ $('#sortable1').bind("DOMSubtreeModified", function() {
                 $("input[class=form-check-input-quote-magaya]:checked").each(function(k) {
                     parent = $(this).closest('li');
                     guid = parent.attr("data-id");
-                    type = MagayaAPI.TRANSACTION_TYPES.Quotation
-                    data = {
-                            method: 'DeleteTransaction',
-                            data: [
-                                '96101',
-                                type,
-                                guid
-                            ]
-                        }
-                        //call async function
-                    let result = getMagayaRequest(data);
-                    if (result)
-                        message += `Operation SUCCESS with Quote Magaya GUID ${guid} <br />`
-                    else
-                        message += `Operation error with Quote GUID ${guid} <br />`
+
+                    deletemquote(guid)
+
                 });
 
                 $("#no-configuration-alert").html(message)
@@ -618,6 +607,26 @@ $('#sortable1').bind("DOMSubtreeModified", function() {
     }
     })
 
+    async function deletemquote(guid) {
+        let dataVar = await getMagayaVariables()
+        type = MagayaAPI.TRANSACTION_TYPES.Quotation
+        data = {
+            method: 'DeleteTransaction',
+            data: [
+                dataVar.network_id,
+                type,
+                guid
+            ],
+            url: dataVar.magaya_url
+        }
+                        //call async function
+                    let result = getMagayaRequest(data);
+                    if (result)
+                        message += `Operation SUCCESS with Quote Magaya GUID ${guid} <br />`
+                    else
+                        message += `Operation error with Quote GUID ${guid} <br />`
+
+    }
 
     $(".send-quote-to-crm").click(function(e) {
         e.preventDefault();

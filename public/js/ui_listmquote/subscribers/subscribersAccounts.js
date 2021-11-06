@@ -10,20 +10,26 @@ storeAccounts.subscribe(() => {
     if (!_.isEmpty(accountQuote)) {
         $("select[name=Account]").val(accountQuote.id)
         $("input[name=applyToName]").val(accountQuote.Account_Name)
+        $("input[name=Account_Name]").val(accountQuote.id)
     }
-
     //select rigth one on list
-   // console.log("Id account in quote edit", accountQuote.id)
    let contacts = u.contactList;
    let contact = u.singleContact
 
-
     if (!_.isEmpty(contacts)) {
+        let deal_quote = storeDeal.getState().dealQuote
         $("select[name=magaya__Representative]").empty();
         $("<option></option>").appendTo("select[name=magaya__Representative]");
         $.map(contacts, function(k, v) {
             $(`<option value="${k.id}">${k.Full_Name}</option>`).appendTo("select[name=magaya__Representative]")
         })
+        if (!_.isEmpty(deal_quote)) {
+            contactId = deal_quote[0]['Contact_Name']['id']
+            contactName = deal_quote[0]['Contact_Name']['name']
+            $(`<option value="${contactId}" selected>${contactName}</option>`).appendTo("select[name=magaya__Representative]");
+            //$("select[name=magaya__Representative]").change()
+            //storeAccounts.dispatch(findContact({id: contactId}))
+        }
     } else {
         $("select[name=magaya__Representative]").empty();
     }

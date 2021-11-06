@@ -44,7 +44,7 @@ $("select[name=magaya__Representative]").change(function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
 
-    let contact = $("select[name=magaya__Representative]").val();
+    let contact = $(this).val();
     storeAccounts.dispatch(findContact({id: contact}))
 })
 

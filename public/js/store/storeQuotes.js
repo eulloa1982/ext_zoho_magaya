@@ -105,12 +105,19 @@ function reducerQuote (state = initialStateQuote, actions)  {
         case FIND_BY_NAME: {
             charSeeker = actions.payload.char;
             charSeeker = charSeeker.replace(/[ ]/g, '')
-            console.log(charSeeker)
             state.quotes2 = []
+
+            let matching_quotes = []
+            quotes = state.quotes
+            $.map(quotes, function(k, v) {
+                let name_quote = k['Name']
+                if (name_quote.includes(charSeeker))
+                    matching_quotes.push(k)
+            })
 
             return {
                 ...state,
-                quotes2: state.quotes.filter(quote => quote.Name === charSeeker)
+                quotes2: matching_quotes
             }
         }
 

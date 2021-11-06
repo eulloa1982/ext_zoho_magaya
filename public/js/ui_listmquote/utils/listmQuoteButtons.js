@@ -23,12 +23,58 @@ $(document).ready(function(){
     })
 
 
-    $(".startSession").click(function(e) {
+
+    $("#add_contact").click(function(e) {
+        $("#contact_form")[0].reset()
+        $("#modalContact").modal("show")
+    })
+
+    $("#NewContact").click(function(e) {
         e.preventDefault()
         e.stopImmediatePropagation()
 
-        let a = startSession()
+        let $form = $("#contact_form");
+        let item = getFormData($form);
+        Object.assign(item, {'Account_Name': $("select[name=Account]").val()})
+        console.log(item)
+        ZOHO.CRM.API.insertRecord({Entity:"Contacts",APIData:item,Trigger:[]})
+        .then(function(data){
+            res = data.data;
+            $.map(res, function(k, v) {
+                if (k.code !== "SUCCESS") {
+                    codeError = k.code;
+                    field = k.details.api_name;
+                    show = true;
+                    module = 'Contacts'
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                } else {
+                    let idContact = data.data[0].details.id
+                    ZOHO.CRM.API.getRecord({Entity:"Contacts",RecordID:idContact})
+                        .then(function(data){
+                            //record = data.data[0];
+                            let nameContact = `${item.First_Name} ${item.Last_Name}`
+                            storeAccounts.dispatch(addContact(data.data))
+                            $(`<option value="${idContact}">${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
+                            $("#modalContact").modal("hide")
+                        })
+                        message = " : Item Updated!!";
+                        storeSuccess.dispatch(addSuccess({message: message}))
+                    }
+            })
+        })
+        .catch(function(error) {
+            Utils.unblockUI()
+            codeError = error.data[0].message
+            show = true;
+            field = error.data[0].details.api_name;
+            module = 'Contacts'
+            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+        });
+
     })
+
 
 
     $('.open-panel').click(function(e) {
@@ -204,7 +250,7 @@ $(document).ready(function(){
                     field = k.details.api_name;
                     show = true;
                     module = 'Cargo Items'
-
+                    
                     storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
                 } else {
