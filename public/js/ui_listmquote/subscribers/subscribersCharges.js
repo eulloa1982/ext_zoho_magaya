@@ -6,7 +6,7 @@ storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
     let y = storeCharge.getState().emptyCharge[1];
     let showEmpty = storeCharge.getState().showEmptyCharge;
-    console.log("State charges now", storeCharge.getState())
+    //console.log("State charges now", storeCharge.getState())
     if (!_.isEmpty(u)) {
         let k = parseInt(u[0])
         //construir los campos y la data
@@ -192,6 +192,11 @@ storeCharge.subscribe(() => {
             tax_amount_total += roundDec(k.magaya__Tax_Amount)
             amount_total += roundDec(k.magaya__Amount_Total)
 
+            //check if charge type name exists
+            let name_charge = k.Name
+            if (!_.isEmpty(k.magaya__Charge_Type)) {
+                name_charge = k.magaya__Charge_Type.name
+            }
 
             $("#table-charges tbody").append(`<tr>
                     <td class="Delete">
@@ -199,7 +204,7 @@ storeCharge.subscribe(() => {
                         <span class="material-icons oculto del-item-charge" data-id=${k.id}>delete_forever</span>
                     </td>
                     <td class="magaya__Status">${k.magaya__Status}</td>
-                    <td class="Name" id="first">${k.Name}</td>
+                    <td class="Name" id="first">${name_charge}</td>
                     <td align="right" class="magaya__CQuantity">${k.magaya__CQuantity}</td>
                     <td align="right" class="magaya__Price">${roundDec(k.magaya__Price).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                     <td align="right" class="magaya__Amount">${roundDec(k.magaya__Amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
@@ -210,6 +215,7 @@ storeCharge.subscribe(() => {
                     <td style="display: none;" clss="magaya__Unit">${k.magaya__Unit}</td>
                     <td style="display: none;" class="magaya__Paid_As">${k.magaya__Paid_As}</td>
                     <td style="display: none;" class="magaya__ChargeCurrency">${k.magaya__ChargeCurrency}</td>
+                    <td style="display: none;" class="Name">${k.Name}</td>
                     <td style="display: none;" class="magaya__ApplyToAccounts">${accountId}</td>
 
                 </tr>`);
@@ -284,7 +290,7 @@ storeCharge.subscribe(() => {
                     <span class="material-icons oculto del-item-charge-new" data-id=${i}>delete_forever</span>
                 </td>
                 <td class="magaya__Status">${k.magaya__Status}</td>
-                <td class="Name" id="first">${k.Name}</td>
+                <td align="right" data-type="number" class="NoData">${k.magaya__Charge_Name}</td>
                 <td align="right" data-type="number" class="magaya__CQuantity">${k.magaya__CQuantity}</td>
                 <td align="right" data-type="number" class="magaya__Price">${k.magaya__Price.toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 <td align="right" data-type="number" class="magaya__Amount">${k.magaya__Amount.toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
@@ -296,6 +302,7 @@ storeCharge.subscribe(() => {
                 <td class="magaya__Unit" style="display: none;">${k.magaya__Unit}</td>
                 <td class="magaya__Paid_As" style="display: none;">${k.magaya__Paid_As}</td>
                 <td class="magaya__ChargeCurrency" style="display: none;">${k.magaya__ChargeCurrency}</td>
+                <td class="Name" style="display: none;">${k.Name}</td>
                 </tr>`);
 
             })
