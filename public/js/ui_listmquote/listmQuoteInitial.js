@@ -141,8 +141,8 @@ $(document).ready(function(){
 
                         k.magaya__ChargesCode = sanitize(k.magaya__ChargesCode)
                         k.Name = sanitize(k.Name)
-                        $(`<option value="${k.magaya__ChargesCode}">${k.Name}</option>`).appendTo("select[name=magaya__ChargeCode]");
-
+                        //$(`<option value="${k.magaya__ChargesCode}">${k.Name}</option>`).appendTo("select[name=magaya__ChargeCode]");
+                        $(`<option value="${k.id}">${k.Name}</option>`).appendTo("select[name=magaya__Charge_Type]");
                     })
                 }
 

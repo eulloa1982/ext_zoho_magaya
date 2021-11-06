@@ -164,15 +164,24 @@ function reducerCharge (state = initialStateCharge, actions)  {
             newArray = {...state.singleCharge};
             newArray[1][field] = value
 
+            //numeros de 12 digitos
             let price = roundDec(newArray[1]['magaya__Price'])
+            price = digitCount2(price) > 12 ? 0 : price
             let quantity = roundDec(newArray[1]['magaya__CQuantity'])
+            quantity = digitCount2(quantity) > 12 ? 0 : quantity
             let amount = roundDec(newArray[1]['magaya__Amount'])
+            amount = digitCount2(amount) > 12 ? 0 : amount
             let amount_tax = roundDec(newArray[1]['magaya__Tax_Amount'])
+            amount_tax = digitCount2(amount_tax) > 12 ? 0 : amount_tax
             let amount_total = roundDec(newArray[1]['magaya__Amount_Total'])
+            amount_total = digitCount2(amount_total) > 12 ? 0 : amount_total
             let tax_rate = roundDec(newArray[1]['magaya__TaxRate'])
+            tax_rate = digitCount2(tax_rate) > 12 ? 0 : tax_rate
             let tax = newArray[1]['magaya__Tax']
-            newArray[1]['Name'] = (newArray[1]['Name']).length > 0 ?  sanitize(newArray[1]['Name']) : $("select[name=magaya__ChargeCode] option:selected").text()
+            let name = (newArray[1]['Name'] && newArray[1]['Name'].length > 0) ?  sanitize(newArray[1]['Name']) : $("select[name=magaya__Charge_Type] option:selected").text()
+            newArray[1]['Name'] = name.slice(0, 50)
             newArray[1]['magaya__Status']  = (newArray[1]['magaya__Status']).length > 0 ?  sanitize(newArray[1]['magaya__Status']) : 'Open'
+            newArray[1]['magaya__Charge_Type'] = newArray[1]['magaya__Charge_Type']
 
             price = price > 0 ? price : 0;
             quantity = quantity > 0 ? quantity : 0
@@ -201,7 +210,8 @@ function reducerCharge (state = initialStateCharge, actions)  {
 
             return {
                 ...state,
-                emptyCharge: newArray
+                emptyCharge: newArray,
+                singleCharge: newArray
 
             }
         }
