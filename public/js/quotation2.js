@@ -1836,6 +1836,16 @@ async function sendQuoteMagaya2CRM(dataArray) {
                                 "Name": k.ChargeDefinition.Description
                             }
 
+                            if (!_.isEmpty(k.TaxDefinition)) {
+                                let code = k.TaxDefinition.Code
+                                //seleccionar el posible tax, buscando en el modulo
+                                let tax = getTaxData(code)
+                                dataTax = {
+
+                                }
+                            }
+
+
                             console.log("Data charges", dataCharges)
 
                             ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: dataCharges, Trigger: ["workflow"] })
@@ -1921,7 +1931,7 @@ async function sendQuoteMagaya2CRM(dataArray) {
                                 "magaya__Volume": roundDec(k.Volume),
                                 "magaya__Weigth": roundDec(k.Weight),
                                 "Name": k.Package.Name,
-                                "magaya__Width": k.Width,
+                                "magaya__Width": roundDec(k.Width),
                                 "magaya__Measure_System": measurementUnit
                             }
 
@@ -1974,6 +1984,12 @@ async function sendQuoteMagaya2CRM(dataArray) {
 
 
 
+}
+
+
+async function getTaxData(code) {
+    let data = await getAllRecordCRM("magaya__Taxes")
+    return data;
 }
 
 //redondear decimales
