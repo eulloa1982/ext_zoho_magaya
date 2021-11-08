@@ -1,7 +1,8 @@
 const initialStateCrm = {
     //
     itemsCrm: [],
-    itemCrm: []
+    itemCrm: [],
+    newItem: false
 }
 
 ////////////////////////////////////////////////////
@@ -51,14 +52,27 @@ const reducerCrm = (state = initialStateCrm, actions) => {
             }
         }
 
-        case "GET_ITEM_CRM": {
+        case GET_ITEM_CRM: {
             const byId = actions.payload.id
-            console.log("Searching ", byId)
+            let item = state.itemsCrm.filter(item => item.id == byId)
             return {
                     ...state,
                     itemCrm: state.itemsCrm.filter(item => item.id == byId),
+                    newItem: false
                 }
 
+        }
+
+        case GET_ITEM_EMPTY_CRM: {
+            let item = {...state.itemsCrm[0]}
+            $.map(item, function(k, v) {
+                item[v] = ""
+            })
+            return {
+                    ...state,
+                    itemCrm: [item],
+                    newItem: true
+                }
         }
 
 
@@ -82,7 +96,6 @@ function addItemCrm(payload){
     return {type: ADD_ITEMS_CRM, payload}
 }
 
-
 function deleteItemCrm(payload) {
     return { type: DELETE_ITEM_CRM, payload}
 }
@@ -96,6 +109,10 @@ function updateItemCrm(payload) {
 }
 
 function getItemCrm(payload) {
-    return { type: "GET_ITEM_CRM", payload }
+    return { type: GET_ITEM_CRM, payload }
+}
+
+function getItemEmptyCrm() {
+    return { type: GET_ITEM_EMPTY_CRM }
 }
 

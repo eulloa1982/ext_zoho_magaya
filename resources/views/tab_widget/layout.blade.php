@@ -24,7 +24,8 @@
                 <span data-module="magaya__Charges_Type" class="module_search btn btn-success btn-sm">Charges Type</span>
                 <span data-module="magaya__Ports" class="module_search btn btn-success btn-sm">Working Ports</span>
                 <span data-module="magaya__Providers" class="module_search btn btn-success btn-sm">Carriers</span>
-                <!--span class="show-form btn btn-success btn-sm">New Record</span>
+                <span data-module="magaya__Package_Types" class="module_search btn btn-success btn-sm">Packages Types</span>
+             <!--span class="show-form btn btn-success btn-sm">New Record</span>
                 <span class="module_search btn btn-success btn-sm">magaya__Package_Types</span-->
             @endif
             @if(request()->segment(2) == 'quotations')
