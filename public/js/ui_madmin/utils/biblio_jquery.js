@@ -408,7 +408,7 @@ function insertRecordCRM(module, data, trigger = '') {
 }
 
 
-function getMagayaContent(content = 1) {
+/*function getMagayaContent(content = 1) {
     switch (content) {
         case "getChargesDefinition": {
             getChargesDefinition()
@@ -428,4 +428,4 @@ function getMagayaContent(content = 1) {
 
     }
 
-}
+}*/

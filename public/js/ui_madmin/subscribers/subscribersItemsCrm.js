@@ -31,6 +31,8 @@ storeCrm.subscribe(() => {
             idRecord = u.itemCrm[0].id
             if ( _.has(ITEMS_CRM, v)) {
 
+                if (!k)
+                    k = ""
                 let field = _.get(ITEMS_CRM, [v, 'field'])
                 let values = _.has(ITEMS_CRM, [v, "values"]) ? _.get(ITEMS_CRM, [v, 'values']) : ''
                 input = `<input type="text" class="form-control" name="${v}" value="${k}"/>`
@@ -53,7 +55,12 @@ storeCrm.subscribe(() => {
                     </div>`
             }
         })
-        append += `<span data-id="${idRecord}" class="btn btn-primary float-right" id="save-record">Save</span><br /><br />`
+
+        //tipo de boton
+        if (!u.newItem)
+            append += `<span data-id="${idRecord}" class="btn btn-primary float-right" id="save-record">Save</span><br /><br />`
+        else
+            append += `<span class="btn btn-primary float-right" id="add-record">Save</span><br /><br />`
 
         $("#form").append(append)
 

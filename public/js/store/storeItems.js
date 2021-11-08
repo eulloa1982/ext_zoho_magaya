@@ -166,6 +166,7 @@ function reducerItem (state = initialStateIntems, actions)  {
             const height = actions.payload.height
             const width = actions.payload.width
             const length = actions.payload.length
+            const weigth = actions.payload.weigth
             const package = actions.payload.package
             let measure_system = actions.payload.measure_system
 
@@ -177,6 +178,7 @@ function reducerItem (state = initialStateIntems, actions)  {
             newArray[1]["magaya__Length"] = length
             newArray[1]["magaya__Height"] = height
             newArray[1]["magaya__Width"] = width
+            newArray[1]["magaya__Weigth"] = weigth
             newArray[1]["magaya__Volume"] = roundDec(width * length * height)
             newArray[1]["magaya__Measure_System"] = measure_system
 
