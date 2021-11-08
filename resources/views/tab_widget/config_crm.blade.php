@@ -86,10 +86,13 @@
 
 
         <div class="col-md-6">
-            <div class="delete-from-crm">
-            <span class="material-icons delete-from-crm">clear</span>
-            </div>
+
             <label><h5 class="list-group-item active">CRM</h5></label>
+            <div class="delete-from-crm">
+            <span class="material-icons delete-from-crm">delete_forever</span>
+            </div>
+
+            <span class="material-icons add-on-crm">data_saver_on</span>
             <ul id="sortable-crm" class="list-group connectedSortable">
             </ul>
         </div>
@@ -164,7 +167,7 @@ $(document).ready(function(){
     ZOHO.embeddedApp.on("PageLoad",function(data)
     {
         $(".module_search").click(function(e) {
-
+            Utils.blockUI()
             let value = $(this).attr("data-module")
             storeCurrentModule.dispatch(addCurrentModule(value))
 
@@ -172,13 +175,14 @@ $(document).ready(function(){
             ZOHO.CRM.API.getAllRecords({Entity:currentModule,sort_order:"desc",per_page:250,page:1})
                 .then(function(data){
                     let charges_type = data.data;
+                    storeCrm.dispatch(addItemCrm(data.data))
                     return charges_type;
                 })
                 .then(function(charges_type) {
                     //sanitizer
                     $.map(charges_type, function(k, v) {
                         k.Name = sanitize(k.Name)
-                        storeCrm.dispatch(addItemCrm(k))
+
                     })
 
                     switch(currentModule) {
@@ -186,6 +190,7 @@ $(document).ready(function(){
                             storePortsDef.dispatch(makeActivePort())
                             storeChargesDef.dispatch(makeInactiveChargeDef())
                             storeProvidersDef.dispatch(makeInactiveProviderDef())
+                            //storePackages.dispatch(makeInactivePackages())
                             break
                         }
 
@@ -193,6 +198,8 @@ $(document).ready(function(){
                             storePortsDef.dispatch(makeInactivePort())
                             storeChargesDef.dispatch(makeActiveChargeDef())
                             storeProvidersDef.dispatch(makeInactiveProviderDef())
+                            //storePackages.dispatch(makeInactivePackages())
+
                             break;
                         }
 
@@ -200,12 +207,23 @@ $(document).ready(function(){
                             storeProvidersDef.dispatch(makeActiveProviderDef())
                             storeChargesDef.dispatch(makeInactiveChargeDef())
                             storePortsDef.dispatch(makeInactivePort())
-                          break;
+                            //storePackages.dispatch(makeInactivePackages())
+                            break;
+                        }
+
+                        case "magaya__Package_Types": {
+                            storeProvidersDef.dispatch(makeInactiveProviderDef())
+                            storeChargesDef.dispatch(makeInactiveChargeDef())
+                            storePortsDef.dispatch(makeInactivePort())
+                            //storePackages.dispatch(makeActivePackages())
+                            break;
                         }
 
                         default:
                             break;
                     }
+
+                    Utils.unblockUI()
 
                 })
         })

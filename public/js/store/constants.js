@@ -54,6 +54,8 @@ const MAKE_ACTIVE_CHARGEDEF = "MAKE_ACTIVE_CHARGEDEF"
 const MAKE_INACTIVE_CHARGEDEF = "MAKE_INACTIVE_CHARGEDEF"
 
 const ADD_CHARGE_TYPE = "ADD_CHARGE_TYPE"
+const GET_ITEM_CRM = "GET_ITEM_CRM"
+const GET_ITEM_EMPTY_CRM = "GET_ITEM_EMPTY_CRM"
 
 const ADD_PORTS = "ADD_PORTS"
 const GET_PORTS = "GET_PORTS"
@@ -120,6 +122,9 @@ const ITEMS_CRM = {
     "magaya__Carrier_Type":{"field": "Type"}, "magaya__BillingAddress_City": {"field": "City"},
     "magaya__BillingAddress_Country": {"field": "Country"}, "magaya__BillingAddress_State": {"field": "State"},
     "magaya__BillingAddress_Street": {"field": "Street"}, "magaya__BillingAddress_ZipCode": {"field": "Zip Code"},
+
+    "magaya__PackageHeight": {"field": "Height"}, "magaya__PackageLength": {"field": "Length"},
+    "magaya__PackageWeigth": {"field": "Weigth"}, "magaya__PackageWidth": {"field": "Width"}
 }
 
 

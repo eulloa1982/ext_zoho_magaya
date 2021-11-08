@@ -53,6 +53,21 @@ $(document).ready(function(){
         });
 
 
+        $(".add-on-crm").click(function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            //get an id from sortable
+            let idItem = $('#sortable-crm li:nth-child(1)')
+            console.log("Data io", idItem)
+            let append = ``
+            let idRecord = 0;
+            $("#form").empty()
+            storeCrm.dispatch(getItemEmptyCrm({id: idItem}))
+            $("#new-record").modal("show")
+        })
+
+
         $(".view-crm").click(function(e) {
             e.preventDefault()
             e.stopImmediatePropagation()
@@ -273,6 +288,61 @@ $(document).ready(function(){
                 })
 
 
+        })
+
+
+        $("#add-record").click(function(e) {
+            Utils.blockUI()
+            e.preventDefault()
+            e.stopImmediatePropagation()
+
+            var data = {};
+            var a = $("#generic-form").serializeArray();
+            $.each(a, function() {
+                if (data[this.name]) {
+                    if (!data[this.name].push) {
+                        data[this.name] = [data[this.name]];
+                    }
+                    data[this.name].push(this.value || '');
+                } else {
+                    if (this.value === "true")
+                        this.value = true
+                    if (this.value === "false")
+                        this.value = false
+
+                    data[this.name] = this.value || '';
+                }
+            });
+
+
+            ZOHO.CRM.API.insertRecord({Entity:currentModule,APIData:data,Trigger:[""]})
+                .then(function(data){
+                    Utils.unblockUI();
+                    res = data.data;
+                    if (res[0].code !== "SUCCESS") {
+                        codeError = res[0].code;
+                        field = res[0].details.api_name;
+                        show = true;
+                        module = 'Cargo Items'
+                        storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+                    }else {
+
+                        message = " : Item Updated!!";
+                        //get record again
+                        ZOHO.CRM.API.getRecord({Entity: currentModule, RecordID: res[0].details.id})
+                            .then(function(data) {
+                                Utils.unblockUI()
+                                storeCrm.dispatch(addItemCrm(data.data))
+                            })
+
+                        storeSuccess.dispatch(addSuccess({message: message}))
+                    }
+                    console.log(data);
+                })
+                .catch(function(e) {
+                    console.log("Error", e)
+                    Utils.unblockUI()
+                })
         })
 
 
