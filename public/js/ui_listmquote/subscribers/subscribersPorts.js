@@ -1,14 +1,14 @@
 storePorts.subscribe(() => {
     let u = storePorts.getState();
-    //console.log("Ports state nowi", u)
+    //console.log("Ports state now", u)
     //fill data address in quote
     $("select[name=magaya__PortofLoading]").empty()
     $("select[name=magaya__PortofUnloading]").empty()
-    $(".existingPorts").html("(No ports by type found)")
+    //$(".existingPorts").html("(No ports by type found)")
 
     if (!_.isEmpty(u.portsByType)) {
 
-        $(".existingPorts").html("")
+        //$(".existingPorts").html("")
         $.map(u.portsByType, function (k, v) {
             k.Name = sanitize(k.Name)
             k.Country = sanitize(k.magaya__Country)
@@ -19,9 +19,9 @@ storePorts.subscribe(() => {
         })
 
 
-   } else {
+   } /*else {
 
-        $(".existingPorts").html("(No ports by type found)")
+        //$(".existingPorts").html("(No ports by type found)")
 
         $.map(u.ports, function (k, v) {
             k.Name = sanitize(k.Name)
@@ -31,7 +31,7 @@ storePorts.subscribe(() => {
             $(`<option value='${k.magaya__Port_Code}, ${k.Name}, ${k.magaya__Country}'>${k.magaya__Port_Code}, ${k.Name}, ${k.magaya__Country}</option>`).appendTo("select[name=magaya__PortofUnloading]");
 
         })
-   }
+   }*/
 
     })
 
