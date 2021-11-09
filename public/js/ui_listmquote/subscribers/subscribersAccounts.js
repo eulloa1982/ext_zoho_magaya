@@ -26,7 +26,11 @@ storeAccounts.subscribe(() => {
         if (!_.isEmpty(deal_quote)) {
             contactId = deal_quote[0]['Contact_Name']['id']
             contactName = deal_quote[0]['Contact_Name']['name']
-            $(`<option value="${contactId}" selected>${contactName}</option>`).appendTo("select[name=magaya__Representative]");
+            //check if contact is deal contact
+            let d = contacts.filter(item => item.id === contactId )
+            //draw the contact if not exists
+            if (_.isEmpty(d))
+                $(`<option value="${contactId}">${contactName}</option>`).appendTo("select[name=magaya__Representative]");
             //$("select[name=magaya__Representative]").change()
             //storeAccounts.dispatch(findContact({id: contactId}))
         }
