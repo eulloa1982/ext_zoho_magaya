@@ -78,18 +78,24 @@ storeQuote.subscribe(() => {
 
         })
 
-        console.log(data)
 
         var table = $('#table-quotes').DataTable( {
+            'destroy': true,
             retrieve: true,
             responsive: true,
             "scrollX": true,
+            "order": [[ 1, "desc" ]], //order by name by default
             data: data,
         columns: [
             { "data": "create"},
             { "data": "Name" },
-            { "data": "magaya__Deal.name"},
-            { "data": "Account.name"},
+            { "data": "magaya__Deal.name",
+                "defaultContent": "No set"
+            },
+            { "data": "Account.name",
+                "defaultContent": "No set"
+            },
+
             { "data": "magaya__Status" },
             { "data": "magaya__QuoteTotalAmount"},
             { "data": "Modified_Time", "visible": false},
@@ -97,7 +103,10 @@ storeQuote.subscribe(() => {
             { "data": "Magaya_updated", "visible": false},
             { "data": "magaya__Description", "visible": false},
             { "data": "magaya__Destination", "visible": false},
-
+            { "data": "magaya__Origin", "visible": false},
+            { "data": "magaya__Seller", "visible": false},
+            { "data": "magaya__Service", "visible": false},
+            { "data": "magaya__Terms", "visible": false},
             //{ title: "magaya__Status" },
 
         ]

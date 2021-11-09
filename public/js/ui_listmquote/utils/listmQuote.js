@@ -171,8 +171,9 @@ $(document).ready(function(){
             e.preventDefault();
             e.stopImmediatePropagation()
 
-            let tr = $(this).parent().parent();
-            let td = tr.children()[0].firstChild;
+            let table = $('#table-quotes').DataTable();
+            let $tr = $(this).parent().parent();
+            //let td = tr.children()[0].firstChild;
             let idQuote = $(this).attr("data-id");
 
             Swal.fire({
@@ -189,6 +190,10 @@ $(document).ready(function(){
                 if (result.isConfirmed) {
                     ZOHO.CRM.API.deleteRecord({Entity:"magaya__SQuotes",RecordID: idQuote})
                         .then(function(data){
+                            table
+                            .row( $tr )
+                            .remove()
+                            .draw();
                             storeQuote.dispatch(deleteQuote({id: idQuote}))
                             message = `Record ${idQuote} has been removed`
                             storeSuccess.dispatch(addSuccess({message: message}))

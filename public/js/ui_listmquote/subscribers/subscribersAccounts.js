@@ -71,11 +71,11 @@ storeAccounts.subscribe(() => {
     let accountShipper = u.accountShipper;
     if (!_.isEmpty(accountShipper)) {
         $("select[name=magaya__Shipper]").val(accountShipper[0].id)
-        $("input[name=magaya__ShipperCity]").val(accountShipper[0].Shipping_City)
-        $("input[name=magaya__ShipperState").val(accountShipper[0].Shipping_State)
-        $("input[name=magaya__ShipperCountry]").val(accountShipper[0].Shipping_Country)
-        $("input[name=magaya__ShipperStreet]").val(accountShipper[0].Shipping_Street)
-        $("input[name=magaya__ShipperCode]").val(accountShipper[0].Shipping_Code)
+        $("input[name=magaya__ShipperCity]").val(accountShipper[0].Billing_City)
+        $("input[name=magaya__ShipperState").val(accountShipper[0].Billing_State)
+        $("input[name=magaya__ShipperCountry]").val(accountShipper[0].Billing_Country)
+        $("input[name=magaya__ShipperStreet]").val(accountShipper[0].Billing_Street)
+        $("input[name=magaya__ShipperCode]").val(accountShipper[0].Billing_Code)
     }
 
     let accountConsignee = u.accountConsignee;
