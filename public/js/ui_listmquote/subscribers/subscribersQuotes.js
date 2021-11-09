@@ -96,7 +96,7 @@ storeQuote.subscribe(() => {
                 },
 
                 //{ type: "checkbox",width: 5 },
-                { name: "Name", title: "NUMBER", width: 220, formatter:'number'},
+                { name: "Name", title: "NUMBER", width: 220, formatter:'number', margin: "0 0 0 5"},
                 { name: "Account.name", title: "CUSTOMER", type: "text", width: 300},
                 { name: "magaya__Status", type: "text", width: 120, title: "STAGE" },
                 { name: "magaya__QuoteTotalAmount", title: "AMOUNT", width: 145, type: "number", formatter: "number", classes: 'number'},
