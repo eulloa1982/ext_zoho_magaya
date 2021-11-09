@@ -96,10 +96,6 @@ a {
                                     <a class="toggle-vis dropdown-item" data-column="14">Terms</a>
                                 </div>
 					        </div>
-							<!--form action="https://zm" class="form-inline my-2 my-lg-0">
-								<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="margin-left:-100px;">
-                                <span class="input-group-btn"><span class="btn btn-primary" id="search-by-name" style="padding-top: 10px; padding-bottom: 3px;height: 38px;"><span class="material-icons">search</span></span></span>
-							</form-->
 						</div>
 
 

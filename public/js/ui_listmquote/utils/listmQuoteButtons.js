@@ -151,13 +151,13 @@ $(document).ready(function(){
                     $("input[class=quoteCheckBox]:checked").each(function() {
                         let idQuote = $(this).attr('data-id')
                         let $tr = $(this).parent().parent();
-
+                        table
+                        .row( $tr )
+                        .remove()
+                        .draw();
                         ZOHO.CRM.API.deleteRecord({Entity:"magaya__SQuotes",RecordID: idQuote})
                             .then(function(data){
-                                table
-                                .row( $tr )
-                                .remove()
-                                .draw();
+
                                 storeQuote.dispatch(deleteQuote({id: idQuote}))
                             })
 
