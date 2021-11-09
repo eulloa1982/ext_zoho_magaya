@@ -40,8 +40,6 @@ a {
 
 /**************************************** */
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
-
-
 </style>
 
 
@@ -54,11 +52,12 @@ a {
 	<div class="col-md-12">
 		<div class="container-fluid" style="margin-top: 20px; padding: 0px;">
 			<div class="card">
-				<div class="card-header" style="padding: 0px;background-color: #0b3355;border-color:#0b3355;">
+            	<div class="card-header" style="padding: 0px;background-color: #0b3355;border-color:#0b3355;">
 
                     <div class="row">
                         <div class="col-md-3" style="padding-top: 12px;">
-						    <p style="color: white; font-weight: bold; font-size: 16px;padding-left: 20px;margin:0px">List mQuote</p>
+
+                            <p style="color: white; font-weight: bold; font-size: 16px;padding-left: 20px;margin:0px">List mQuote</p>
 						</div>
 						<div class="col-md-4" style="padding: 5px 0px;">
 							<form action="https://zm" class="form-inline my-2 my-lg-0">
@@ -96,19 +95,7 @@ a {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-								    <td>
-									    <p data-placement="top" data-toggle="tooltip" title="Edit" style="padding:0px;margin:0px">
-                                            <button class="btn btn-primary btn-xs btn-prin" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button>
-                                            <button class="btn btn-danger btn-xs btn-prin" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-remove"></span></button>
-										</p>
-									</td>
-									<td style="vertical-align: middle;"></td>
-									<td style="vertical-align: middle;"></td>
-									<td style="vertical-align: middle;"></td>
-									<td style="vertical-align: middle;"></td>
-									<td style="vertical-align: middle;"></td>
-								</tr>
+
 						    </tbody>
 						</table>
 		            </div>
