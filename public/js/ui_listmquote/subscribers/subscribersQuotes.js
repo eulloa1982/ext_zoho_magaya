@@ -86,7 +86,7 @@ storeQuote.subscribe(() => {
                     let $checkbox = $(`<a><input type="checkbox" class="quoteCheckBox" data-id="${item.id}" /></a>`);
                     let $iconView = $(`<a><span class="material-icons oculto btn-slide" data-id="${item.id}">visibility</span></a>`)
                     //.attr({class: "btn-toolbar"})
-                    return $("<div>").attr({display: "inline", margin: "0 5px 0 0"})
+                    return $("<div>").attr({display: "inline"})
                                 .append($checkbox)
                                 .append($sendMagaya)
                                 .append($iconPencil)
