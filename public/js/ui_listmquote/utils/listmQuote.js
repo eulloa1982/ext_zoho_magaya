@@ -109,6 +109,7 @@ $(document).ready(function(){
     $('#table-quotes').bind("DOMSubtreeModified", function(e) {
         e.preventDefault()
 
+
         $('.btn-slide').click(function(e) {
             e.preventDefault()
             e.stopImmediatePropagation()
