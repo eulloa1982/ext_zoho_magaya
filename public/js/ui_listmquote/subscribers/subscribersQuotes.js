@@ -102,14 +102,15 @@ storeQuote.subscribe(() => {
             pageSize: 10,
             data: data,
             fields: [
-                { type: "control",  title:"Options", width: 'auto', editButton: false, deleteButton: false, title: "Action",
+                { type: "control",  title:"Options", width: 300, editButton: false, deleteButton: false, title: "Action",
                 itemTemplate: function(value, item) {
                     let $iconPencil = $(`<a><span class="material-icons oculto edit" data-id="${item.id}">create</span></a>`);
                     let $iconTrash = $(`<a><span class="material-icons oculto delete" data-id="${item.id}">delete_forever</span></a>`);
                     let $sendMagaya = $(`<a><span class="material-icons oculto send" data-id="${item.id}">send</span></a>`);
                     let $checkbox = $(`<a><input type="checkbox" class="quoteCheckBox" data-id="${item.id}" /></a>`);
                     let $iconView = $(`<a><span class="material-icons oculto btn-slide" data-id="${item.id}">visibility</span></a>`)
-                    return $("<div>").attr({class: "btn-toolbar"})
+                    //.attr({class: "btn-toolbar"})
+                    return $("<div>").attr({display: "inline"})
                                 .append($checkbox)
                                 .append($sendMagaya)
                                 .append($iconPencil)
@@ -119,7 +120,7 @@ storeQuote.subscribe(() => {
                 },
 
                 //{ type: "checkbox",width: 5 },
-                { name: "Name", title: "NUMBER", width: 220, formatter:'number'},
+                { name: "Name", title: "NUMBER", width: 220, formatter:'number', margin: "0 0 0 5"},
                 { name: "Account.name", title: "CUSTOMER", type: "text", width: 300},
                 { name: "magaya__Status", type: "text", width: 120, title: "STAGE" },
                 { name: "magaya__QuoteTotalAmount", title: "AMOUNT", width: 145, type: "number", formatter: "number", classes: 'number'},

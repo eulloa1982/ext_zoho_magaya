@@ -9,8 +9,8 @@
         <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Tax Amount</th>
         <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Final Amount</th>
     </tr>
-    @if (@isset($organization['charges']))
-        {{$amount_total = 0;}}
+    {{$amount_total = 0;}}
+    @if (@isset($organization['charges']))        
         @foreach ($organization['charges'] as $dat=>$v)
             {{ $amount_total += $v['magaya__Amount_Total'] }}
         <tr>
@@ -21,10 +21,18 @@
             <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;">{{$v['magaya__Amount_Total']}}</td>
         </tr>
         @endforeach
+    @else 
         <tr>
-            <td colspan="3"></td>
-            <td style="border-left:1px #000 solid; border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">TOTAL</td>
-            <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;">{{$amount_total}}</td>
+            <td style="border-bottom: 1px #000 solid;border-left: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;"><br><br><br></td>
+            <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;"><br><br><br></td>
+            <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;"><br><br><br></td>
+            <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right;"><br><br><br></td>
+            <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;"><br><br><br></td>
         </tr>
     @endif
+    <tr>
+        <td colspan="3"></td>
+        <td style="border-left:1px #000 solid; border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">TOTAL</td>
+        <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;">{{$amount_total}}</td>
+    </tr>
 </table>
