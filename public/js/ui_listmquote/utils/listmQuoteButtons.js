@@ -134,6 +134,8 @@ $(document).ready(function(){
     //mass delete
     $("#deleteMquote").click(function(e) {
         e.preventDefault();
+        let table = $('#example').DataTable();
+
         Swal.fire({
                 title: "Confirm",
                 text: "You are about to delete record from CRM, are you sure?",
@@ -148,9 +150,14 @@ $(document).ready(function(){
                 if (result.isConfirmed) {
                     $("input[class=quoteCheckBox]:checked").each(function() {
                         let idQuote = $(this).attr('data-id')
+                        let $tr = $(this).parent().parent();
 
                         ZOHO.CRM.API.deleteRecord({Entity:"magaya__SQuotes",RecordID: idQuote})
                             .then(function(data){
+                                table
+                                .row( $tr )
+                                .remove()
+                                .draw();
                                 storeQuote.dispatch(deleteQuote({id: idQuote}))
                             })
 
@@ -780,9 +787,21 @@ $(document).ready(function(){
                                         console.log("Update quote amount", data)
                                     })
                                     .then(function() {
+                                        let table = $('#table-quotes').DataTable();
+
+
                                         ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id})
                                             .then(function(data){
                                                 record = data.data[0];
+                                                console.log(record)
+                                                record.create = `
+                                                    <a><input type="checkbox" class="quoteCheckBox" data-id="${record.id}" /></a>
+                                                    <a><span class="material-icons oculto edit" data-id="${record.id}">create</span></a>
+                                                    <a><span class="material-icons oculto delete" data-id="${record.id}">delete_forever</span></a>
+                                                    <a><span class="material-icons oculto send" data-id="${record.id}">send</span></a>
+                                                    <a><span class="material-icons oculto btn-slide" data-id="${record.id}">visibility</span></a>
+                                                    `
+                                                table.rows.add([{...record}]).draw();
                                                 storeQuote.dispatch(addStarting(record))
                                             })
                                     })

@@ -478,7 +478,7 @@
 
                                             <div class="row">
                                                 <div class="col-md-3">Unit</div>
-                                                <div class="col-md-8"><select name="magaya__Unit" class="form-control new-charge"><option></option><option value="U">U</option><option value="Lb">Lb</option></select></div>
+                                                <div class="col-md-8"><select name="magaya__Unit" class="form-control new-charge"><option></option><option value="U">U</option><option value="Lb">Lb</option><option value="Kg">Kg</option></select></div>
                                             </div>
 
                                             <div class="row">
