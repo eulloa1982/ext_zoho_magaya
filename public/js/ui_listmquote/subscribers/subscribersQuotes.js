@@ -8,7 +8,7 @@ $(document).ready(function(){
 storeQuote.subscribe(() => {
     $("#quote-search tbody").empty()
     let u = storeQuote.getState()
-    //console.log("State quote now", u)
+    console.log("State quote now", u)
     quoteXML = u.singleQuote
     $(".arrows-quote").html(``)
     let arrow_content = '';
@@ -55,7 +55,6 @@ storeQuote.subscribe(() => {
     if (_.size(dataQuotes) == 0) {
         dataQuotes = {id: 1, Name:"Quote Test"}
     } else {
-
         $.map(dataQuotes, function(v) {
             let mt =  v["Modified_Time"]
             //primera porcion
@@ -69,7 +68,32 @@ storeQuote.subscribe(() => {
 
         })
 
-        //let gfg = _.sortBy(dataQuotes, ['Created_Time', 'Name']);
+        /*let gfg = _.sortBy(dataQuotes, ['Created_Time', 'Name']);
+
+        $.map (gfg, function(k, v) {
+            let account_name = ''
+            if (!_.isEmpty(k.Account))
+                account_name = k.Account.name
+            let quote = `
+            <tr>
+                <td>
+                    <a><span class="material-icons oculto edit" data-id="${k.id}">create</span></a>
+                    <a><span class="material-icons oculto delete" data-id="${k.id}">delete_forever</span></a>
+                    <a><span class="material-icons oculto send" data-id="${k.id}">send</span></a>
+                    <a><input type="checkbox" class="quoteCheckBox" data-id="${k.id}" /></a>
+                    <a><span class="material-icons oculto btn-slide" data-id="${k.id}">visibility</span></a>
+                </td>
+                <td>${k.Name}</td>
+                <td>${account_name}</td>
+                <td>${k.magaya__Status}</td>
+                <td>${k.magaya__QuoteTotalAmount}</td>
+                <td>${k.Modified_Time}</td>
+
+            </tr>`
+
+            $("#table-quotes tbody").append(quote)
+        })*/
+
 
         $("#table-quotes").jsGrid({
             width: "100%",

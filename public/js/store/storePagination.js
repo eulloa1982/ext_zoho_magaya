@@ -11,7 +11,6 @@ const reducerPagination = (state = initialStatePagination, actions) => {
 
         case ADD_PAGE: {
             paginate = state.page + 1
-            console.log("+ page", paginate)
             return {
                 ...state,
                 page: paginate
@@ -20,7 +19,6 @@ const reducerPagination = (state = initialStatePagination, actions) => {
 
         case LESS_PAGE: {
             paginate = state.page - 1
-            console.log("- page", paginate)
 
             return {
                 ...state,

@@ -11,7 +11,8 @@ $(document).ready(function(){
     //try {
     ZOHO.embeddedApp.on("PageLoad",function(data)
     {
-        k()
+        //paginacion desde el back
+        paginate()
         //current user
         //get current user
         ZOHO.CRM.CONFIG.getCurrentUser().then(function(data){
@@ -28,7 +29,7 @@ $(document).ready(function(){
                 })
             })
         //Las 100 primeras mQuotes
-        ZOHO.CRM.API.getAllRecords({Entity:"magaya__SQuotes",sort_order:"desc"})
+        ZOHO.CRM.API.getAllRecords({Entity:"magaya__SQuotes",sort_order:"desc",per_page:200,page:1})
             .then(function(data){
                 let quotes = data.data;
                 //console.log("Quotes", quotes)

@@ -49,9 +49,6 @@ a {
 @include('tab_widget.partials.listmquote.panel_search')
 
 
-<!--span id="more_page">More</span>
-<span id="less_page">Minus</span-->
-
 <!-- table list mquote -->
 <div class="row">
 	<div class="col-md-12">
@@ -115,6 +112,11 @@ a {
 						    </tbody>
 						</table>
 		            </div>
+
+                    <!-- get mquotes from CRM --
+                    <span class="material-icons" id="less_page">arrow_back_ios</span-->
+                    <span class="material-icons cursor-hand" id="more_page">arrow_forward_ios</span>
+
 				</div>
 			</div>
 		</div>
