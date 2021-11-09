@@ -110,7 +110,7 @@ storeQuote.subscribe(() => {
                     let $checkbox = $(`<a><input type="checkbox" class="quoteCheckBox" data-id="${item.id}" /></a>`);
                     let $iconView = $(`<a><span class="material-icons oculto btn-slide" data-id="${item.id}">visibility</span></a>`)
                     let $tools = $(`<div class="btn-group" style="margin-left: 10px;">
-                    <span class="material-icons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">summarize</span>
+                    <span class="material-icons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">more_horiz</span>
                     <div class="dropdown-menu" style="padding: 10px 5px 5px 10px;">
                     <a><span class="material-icons oculto edit" data-id="${item.id}" style="margin-left: 8px">create</span></a>
                     <a><span class="material-icons oculto delete" data-id="${item.id}" style="margin-left: 8px">delete_forever</span></a>
@@ -123,10 +123,11 @@ storeQuote.subscribe(() => {
                     //.attr({class: "btn-toolbar"})
                     return $("<div>").attr({display: "inline"})
                                 .append($checkbox)
-                                //.append($iconPencil)
-                                //.append($iconTrash)
-                                //.append($iconView)
-                                .append($tools)
+                                .append($iconPencil)
+                                .append($iconTrash)
+                                .append($sendMagaya)
+                                .append($iconView)
+                                //.append($tools)
                     }
                 },
 
