@@ -583,7 +583,7 @@
                         <!------------------------------------------------------------->
 						<div class="tab-pane fade" id="menu4" role="tabpanel" aria-labelledby="menu4-tab" style="min-height: 600px;">
 
-                            <label class="btn btn-sm btn-primary float-right open-panel" data-panel="panel-item" for="btnControl2" style="background-color: #0b3355; float: rigth;">Add Item</label>
+                            <label class="btn btn-sm btn-primary float-right open-panel" data-panel="panel-item" for="btnControl2" style="background-color: #0b3355; float: rigth;">Add Item</label> <br /> <br />
                                 <div class="panel-item" id="panel-item">
                                     <div class="panel">
 										<fieldset class="fieldset">
@@ -662,39 +662,44 @@
                                     </div>
                                 </div>
 
-								<table id="table-items" class="table table-striped" style="width:100%;border: 1px solid #dee2e6;">
-									<thead style="text-align:center;">
-										<tr>
-                                            <th style="width:9%"></th>
-                                            <th style="width:23%">Description</th>
-											<th style="width:8%">Pieces</th>
-											<th colspan="2" style="width:12%">Length</th>
-                                            <th colspan="2" style="width:12%">Heigth</th>
-											<th colspan="2" style="width:12%">Width</th>
-											<th colspan="2" style="width:13%">Weigth</th>
-											<th colspan="2" style="width:13%">Volume</th>
-										</tr>
-									</thead>
-									<tbody></tbody>
-                                    <tfoot></tfoot>
-								</table>
 
-                                <table id="table-items-new" class="table table-striped" style="width:100%;border: 1px solid #dee2e6;">
-									<thead>
-										<tr>
-                                            <th style="width:9%"></th>
-                                            <th style="width:23%">Description</th>
-											<th style="width:8%">Pieces</th>
-											<th colspan="2" style="width:12%">Length</th>
-                                            <th colspan="2" style="width:12%">Heigth</th>
-											<th colspan="2" style="width:12%">Width</th>
-											<th colspan="2" style="width:13%">Weigth</th>
-											<th colspan="2" style="width:13%">Volume</th>
-										</tr>
-									</thead>
-									<tbody></tbody>
-                                    <tfoot></tfoot>
-								</table>
+                                <div class="scrollme col-12">
+                                    <table id="table-items" class="table table-responsive table-striped">
+                                        <thead style="text-align:center;">
+                                            <tr>
+                                                <th style="width:9%"></th>
+                                                <th style="width:23%">Description</th>
+                                                <th style="width:8%">Pieces</th>
+                                                <th colspan="2" style="width:12%">Length</th>
+                                                <th colspan="2" style="width:12%">Heigth</th>
+                                                <th colspan="2" style="width:12%">Width</th>
+                                                <th colspan="2" style="width:13%">Weigth</th>
+                                                <th colspan="2" style="width:13%">Volume</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                        <tfoot></tfoot>
+                                    </table>
+                                </div>
+
+                                <div class="scrollme col-12">
+                                    <table id="table-items-new" class="table table-responsive table-striped" style="width:100%;border: 1px solid #dee2e6;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:9%"></th>
+                                                    <th style="width:23%">Description</th>
+                                                    <th style="width:8%">Pieces</th>
+                                                    <th colspan="2" style="width:12%">Length</th>
+                                                    <th colspan="2" style="width:12%">Heigth</th>
+                                                    <th colspan="2" style="width:12%">Width</th>
+                                                    <th colspan="2" style="width:13%">Weigth</th>
+                                                    <th colspan="2" style="width:13%">Volume</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                            <tfoot></tfoot>
+                                        </table>
+                                </div>
 						</div>
                         <!------------------------------------------------------------->
                         <!-- end tab items -->
