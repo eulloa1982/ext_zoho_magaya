@@ -59,13 +59,10 @@ a {
                         <div class="col-md-3" style="padding-top: 12px;">
                             <p style="color: white; font-weight: bold; font-size: 16px;padding-left: 20px;margin:0px">List mQuote</p>
 						</div>
-						<div class="col-md-4" style="padding: 5px 0px;">
-							<form action="https://zm" class="form-inline my-2 my-lg-0">
-								<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="margin-left:-100px;">
-                                <span class="input-group-btn"><span class="btn btn-primary" id="search-by-name" style="padding-top: 10px; padding-bottom: 3px;height: 38px;"><span class="material-icons">search</span></span></span>
-							</form>
+
+                        <div class="col-md-3" style="padding-top: 12px;">
 						</div>
-                        <div class="col-md-3" style="padding: 5px 5px;">
+                        <div class="col-md-2" style="padding: 5px 5px;">
                             <span id="magaya_link"></span>
                         </div>
                         <div class="col-md-2" style="padding: 5px 0px;">
@@ -80,14 +77,8 @@ a {
                             </div>
 						</div>
                         <div class="col-md-2" style="padding: 5px 0px;">
-
-                        </div>
-
-					</div>
-				</div>
-				<div class="card-body">
-                    <div class="btn-group" style="margin-left: 10px;">
-                                <span class="material-icons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">more_horiz</span>
+                            <div class="btn-group">
+                                <span class="material-icons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">view_week</span>
                                 <div class="dropdown-menu" style="padding: 10px 5px 5px 10px;">
                                     <a class="toggle-vis dropdown-item" data-column="1">Number</a>
                                     <a class="toggle-vis dropdown-item" data-column="2">Deal</a>
@@ -99,8 +90,19 @@ a {
                                     <a class="toggle-vis dropdown-item" data-column="8">Magaya updated</a>
                                     <a class="toggle-vis dropdown-item" data-column="9">Description</a>
                                     <a class="toggle-vis dropdown-item" data-column="10">Destination</a>
+                                    <a class="toggle-vis dropdown-item" data-column="11">Origin</a>
+                                    <a class="toggle-vis dropdown-item" data-column="12">Seller</a>
+                                    <a class="toggle-vis dropdown-item" data-column="13">Service</a>
+                                    <a class="toggle-vis dropdown-item" data-column="14">Terms</a>
                                 </div>
 					        </div>
+						</div>
+
+
+					</div>
+				</div>
+				<div class="card-body">
+
 
 						<table class="display responsive nowrap" width="100%" id="table-quotes">
 							<thead>
@@ -116,6 +118,10 @@ a {
                                 <th>Magaya updated</th>
                                 <th>Description</th>
                                 <th>Destination</th>
+                                <th>Origin</th>
+                                <th>Seller</th>
+                                <th>Service</th>
+                                <th>Terms</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -164,6 +170,13 @@ a {
             })
             $(".material-icons").tooltip()
 
+            /*let table = $('#table-quotes').DataTable({})
+            $('a.toggle-vis').on( 'click', function (e) {
+                e.preventDefault();
+                let column = table.column( $(this).attr('data-column') );
+                // Toggle the visibility
+                column.visible( ! column.visible() );
+            } );*/
 
 
        });

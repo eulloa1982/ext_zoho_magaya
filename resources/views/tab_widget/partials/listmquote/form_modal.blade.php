@@ -56,7 +56,7 @@
 
 								<div class="col-md-3">
 									<label class="col-md-12" style="font-weight: bold;">Expiration Date</label>
-                                    <input type="text" name="magaya__ExpirationDate" class="form-control no-border" />
+                                    <input type="text" autocomplete="autocomplete_off_hack_xfr4!k" name="magaya__ExpirationDate" class="form-control no-border" />
 								</div>
 								<div class="col-md-3">
 									<label class="col-md-12" style="font-weight: bold;">Sales Person</label>
@@ -478,7 +478,7 @@
 
                                             <div class="row">
                                                 <div class="col-md-3">Unit</div>
-                                                <div class="col-md-8"><select name="magaya__Unit" class="form-control new-charge"><option></option><option value="U">U</option><option value="Lb">Lb</option></select></div>
+                                                <div class="col-md-8"><select name="magaya__Unit" class="form-control new-charge"><option></option><option value="U">U</option><option value="Lb">Lb</option><option value="Kg">Kg</option></select></div>
                                             </div>
 
                                             <div class="row">
