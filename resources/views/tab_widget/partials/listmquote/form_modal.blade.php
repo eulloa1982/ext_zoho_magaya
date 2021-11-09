@@ -535,9 +535,9 @@
                                 </div>
                             </div>
 
-                            <div class="table-responsive">
+                            <div class="scrollme col-12">
                                 <div id="info-charge"></div>
-                                <table id="table-charges" class="table table-bordered table-striped">
+                                <table id="table-charges" class="table table-responsive table-bordered table-striped">
 									<thead style="text-align:center;">
                                         <tr>
                                             <th style="width:10%"></th>
@@ -555,8 +555,8 @@
 								</table>
                             </div>
 
-                            <div class="table-responsive">
-                                <table id="table-charges-new" class="table table-bordered table-striped">
+                            <div class="scrollme col-12">
+                                <table id="table-charges-new" class="table table-responsive table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th style="width:10%"></th>
