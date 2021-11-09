@@ -78,7 +78,7 @@ storeQuote.subscribe(() => {
             pageSize: 10,
             data: data,
             fields: [
-                { type: "control",  title:"Options", width: 90, editButton: false, deleteButton: false, title: "Action",
+                { type: "control",  title:"Options", width: 220, editButton: false, deleteButton: false, title: "Action",
                 itemTemplate: function(value, item) {
                     let $iconPencil = $(`<a><span class="material-icons oculto edit" data-id="${item.id}">create</span></a>`);
                     let $iconTrash = $(`<a><span class="material-icons oculto delete" data-id="${item.id}">delete_forever</span></a>`);
