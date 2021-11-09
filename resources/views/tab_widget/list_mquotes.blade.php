@@ -49,9 +49,6 @@ a {
 @include('tab_widget.partials.listmquote.panel_search')
 
 
-<!--span id="more_page">More</span>
-<span id="less_page">Minus</span-->
-
 <!-- table list mquote -->
 <div class="row">
 	<div class="col-md-12">
@@ -61,7 +58,7 @@ a {
 
                     <div class="row">
                         <div class="col-md-3" style="padding-top: 12px;">
-						    <p style="color: white; font-weight: bold; font-size: 20px;padding-left: 20px;margin:0px">List mQuote</p>
+						    <p style="color: white; font-weight: bold; font-size: 16px;padding-left: 20px;margin:0px">List mQuote</p>
 						</div>
 						<div class="col-md-4" style="padding: 5px 0px;">
 							<form action="https://zm" class="form-inline my-2 my-lg-0">
@@ -115,6 +112,11 @@ a {
 						    </tbody>
 						</table>
 		            </div>
+
+                    <!-- get mquotes from CRM --
+                    <span class="material-icons" id="less_page">arrow_back_ios</span-->
+                    <span class="material-icons cursor-hand" id="more_page">arrow_forward_ios</span>
+
 				</div>
 			</div>
 		</div>
