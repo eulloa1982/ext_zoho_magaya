@@ -78,7 +78,7 @@ storeQuote.subscribe(() => {
             pageSize: 10,
             data: data,
             fields: [
-                { type: "control",  title:"Options", width: 600, editButton: false, deleteButton: false, title: "Action",
+                { type: "control",  title:"Options", width: 300, editButton: false, deleteButton: false, title: "Action",
                 itemTemplate: function(value, item) {
                     let $iconPencil = $(`<a><span class="material-icons oculto edit" data-id="${item.id}">create</span></a>`);
                     let $iconTrash = $(`<a><span class="material-icons oculto delete" data-id="${item.id}">delete_forever</span></a>`);
@@ -86,7 +86,7 @@ storeQuote.subscribe(() => {
                     let $checkbox = $(`<a><input type="checkbox" class="quoteCheckBox" data-id="${item.id}" /></a>`);
                     let $iconView = $(`<a><span class="material-icons oculto btn-slide" data-id="${item.id}">visibility</span></a>`)
                     //.attr({class: "btn-toolbar"})
-                    return $("<div>").attr({style: "display: inline-flex;"})
+                    return $("<div>").attr({display: "inline-flex"})
                                 .append($checkbox)
                                 .append($sendMagaya)
                                 .append($iconPencil)
