@@ -61,7 +61,7 @@ a {
 
                     <div class="row">
                         <div class="col-md-3" style="padding-top: 12px;">
-						    <p style="color: white; font-weight: bold; font-size: 20px;padding-left: 20px;margin:0px">List mQuote</p>
+						    <p style="color: white; font-weight: bold; font-size: 16px;padding-left: 20px;margin:0px">List mQuote</p>
 						</div>
 						<div class="col-md-4" style="padding: 5px 0px;">
 							<form action="https://zm" class="form-inline my-2 my-lg-0">
