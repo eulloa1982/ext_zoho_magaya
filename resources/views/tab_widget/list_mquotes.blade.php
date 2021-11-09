@@ -40,6 +40,7 @@ a {
 
 /**************************************** */
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
+
 </style>
 
 
@@ -56,7 +57,6 @@ a {
 
                     <div class="row">
                         <div class="col-md-3" style="padding-top: 12px;">
-
                             <p style="color: white; font-weight: bold; font-size: 16px;padding-left: 20px;margin:0px">List mQuote</p>
 						</div>
 						<div class="col-md-4" style="padding: 5px 0px;">
@@ -79,26 +79,49 @@ a {
 								</div>
                             </div>
 						</div>
+                        <div class="col-md-2" style="padding: 5px 0px;">
+
+                        </div>
+
 					</div>
 				</div>
 				<div class="card-body">
-					<div class="table-responsive">
-						<table class="table table-bordred table-striped" id="table-quotes" width="100%" cellspacing="0">
+                    <div class="btn-group" style="margin-left: 10px;">
+                                <span class="material-icons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">more_horiz</span>
+                                <div class="dropdown-menu" style="padding: 10px 5px 5px 10px;">
+                                    <a class="toggle-vis dropdown-item" data-column="1">Number</a>
+                                    <a class="toggle-vis dropdown-item" data-column="2">Deal</a>
+                                    <a class="toggle-vis dropdown-item" data-column="3">Customer</a>
+                                    <a class="toggle-vis dropdown-item" data-column="4">Stage</a>
+                                    <a class="toggle-vis dropdown-item" data-column="5">Amount</a>
+                                    <a class="toggle-vis dropdown-item" data-column="6">Modified Time</a>
+                                    <a class="toggle-vis dropdown-item" data-column="7">Created Time</a>
+                                    <a class="toggle-vis dropdown-item" data-column="8">Magaya updated</a>
+                                    <a class="toggle-vis dropdown-item" data-column="9">Description</a>
+                                    <a class="toggle-vis dropdown-item" data-column="10">Destination</a>
+                                </div>
+					        </div>
+
+						<table class="display responsive nowrap" width="100%" id="table-quotes">
 							<thead>
 								<tr style="text-transform:uppercase;font-weight: bold;">
 								<th>Edit</th>
 								<th>Number</th>
+                                <th>Deal</th>
 								<th>Customer</th>
 								<th>Stage</th>
 								<th>Amount</th>
 								<th>Modify Time</th>
+                                <th>Created Time</th>
+                                <th>Magaya updated</th>
+                                <th>Description</th>
+                                <th>Destination</th>
 								</tr>
 							</thead>
 							<tbody>
 
 						    </tbody>
 						</table>
-		            </div>
 
                     <!-- get mquotes from CRM --
                     <span class="material-icons" id="less_page">arrow_back_ios</span-->
@@ -139,7 +162,10 @@ a {
             $("#less_page").click(function(e) {
                 storePagination.dispatch(lessPage())
             })
-            $(".material-icons").tooltip();
-        });
+            $(".material-icons").tooltip()
+
+
+
+       });
    </script>
 @stop

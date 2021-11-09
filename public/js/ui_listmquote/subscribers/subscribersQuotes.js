@@ -8,7 +8,7 @@ $(document).ready(function(){
 storeQuote.subscribe(() => {
     $("#quote-search tbody").empty()
     let u = storeQuote.getState()
-    console.log("State quote now", u)
+    //console.log("State quote now", u)
     quoteXML = u.singleQuote
     $(".arrows-quote").html(``)
     let arrow_content = '';
@@ -47,6 +47,8 @@ storeQuote.subscribe(() => {
         })
 
     }
+
+
     //editing a quote
     quoteToEdit = u.quoteToEdit;
     dataQuotes = u.quotes
@@ -55,6 +57,7 @@ storeQuote.subscribe(() => {
     if (_.size(dataQuotes) == 0) {
         dataQuotes = {id: 1, Name:"Quote Test"}
     } else {
+        //alert (dataQuotes)
         $.map(dataQuotes, function(v) {
             let mt =  v["Modified_Time"]
             //primera porcion
@@ -64,9 +67,49 @@ storeQuote.subscribe(() => {
                 mt[1] = mt[1].slice(0, -6)
                 v["Modified_Time"] += ` ${mt[1]}`
             }
+            v["create"] = `
+                    <a><input type="checkbox" class="quoteCheckBox" data-id="${v.id}" /></a>
+                    <a><span class="material-icons oculto edit" data-id="${v.id}">create</span></a>
+                    <a><span class="material-icons oculto delete" data-id="${v.id}">delete_forever</span></a>
+                    <a><span class="material-icons oculto send" data-id="${v.id}">send</span></a>
+                    <a><span class="material-icons oculto btn-slide" data-id="${v.id}">visibility</span></a>
+                    `
             data.push(v)
 
         })
+
+        console.log(data)
+
+        var table = $('#table-quotes').DataTable( {
+            retrieve: true,
+            responsive: true,
+            "scrollX": true,
+            data: data,
+        columns: [
+            { "data": "create"},
+            { "data": "Name" },
+            { "data": "magaya__Deal.name"},
+            { "data": "Account.name"},
+            { "data": "magaya__Status" },
+            { "data": "magaya__QuoteTotalAmount"},
+            { "data": "Modified_Time", "visible": false},
+            { "data": "Created_Time", "visible": false},
+            { "data": "Magaya_updated", "visible": false},
+            { "data": "magaya__Description", "visible": false},
+            { "data": "magaya__Destination", "visible": false},
+
+            //{ title: "magaya__Status" },
+
+        ]
+        } );
+
+        //show and hide columns
+        $('a.toggle-vis').on( 'click', function (e) {
+            e.preventDefault();
+            let column = table.column( $(this).attr('data-column') );
+            // Toggle the visibility
+            column.visible( ! column.visible() );
+        } );
 
         /*let gfg = _.sortBy(dataQuotes, ['Created_Time', 'Name']);
 
@@ -95,23 +138,23 @@ storeQuote.subscribe(() => {
         })*/
 
 
-        $("#table-quotes").jsGrid({
+        /*$("#table-quotes").jsGrid({
             width: "100%",
             sorting: true,
             paging: true,
             pageSize: 10,
             data: data,
             fields: [
-                { name:"Options", width: 200, editButton: false, deleteButton: false, title: "Action",
+                { name:"", width: 180, editButton: false, deleteButton: false,
                 itemTemplate: function(value, item) {
-                    let $iconPencil = $(`<a><span class="material-icons oculto edit" data-id="${item.id}">create</span></a>`);
-                    let $iconTrash = $(`<a><span class="material-icons oculto delete" data-id="${item.id}">delete_forever</span></a>`);
-                    let $sendMagaya = $(`<a><span class="material-icons oculto send" data-id="${item.id}">send</span></a>`);
+                    let $iconPencil = $(`<a><span class="material-icons oculto edit" data-id="${item.id}" style="font-size: 14px">create</span></a>`);
+                    let $iconTrash = $(`<a><span class="material-icons oculto delete" data-id="${item.id}" style="font-size: 14px">delete_forever</span></a>`);
+                    let $sendMagaya = $(`<a><span class="material-icons oculto send" data-id="${item.id}" style="font-size: 14px">send</span></a>`);
                     let $checkbox = $(`<a><input type="checkbox" class="quoteCheckBox" data-id="${item.id}" /></a>`);
-                    let $iconView = $(`<a><span class="material-icons oculto btn-slide" data-id="${item.id}">visibility</span></a>`)
-                    let $tools = $(`<div class="btn-group" style="margin-left: 10px;">
-                    <span class="material-icons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">summarize</span>
-                    <div class="dropdown-menu" style="padding: 5px 5px 5px 10px;">
+                    let $iconView = $(`<a><span class="material-icons oculto btn-slide" data-id="${item.id}" style="font-size: 14px">visibility</span></a>`)
+                    /*let $tools = $(`<div class="btn-group" style="margin-left: 10px;">
+                    <span class="material-icons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">more_horiz</span>
+                    <div class="dropdown-menu" style="padding: 10px 5px 5px 10px;">
                     <a><span class="material-icons oculto edit" data-id="${item.id}" style="margin-left: 8px">create</span></a>
                     <a><span class="material-icons oculto delete" data-id="${item.id}" style="margin-left: 8px">delete_forever</span></a>
                     <a><span class="material-icons oculto send" data-id="${item.id}" style="margin-left: 8px">send</span></a>
@@ -119,35 +162,28 @@ storeQuote.subscribe(() => {
                     <a><span title="Get PDF mQuote" id="toPdf" class="material-icons oculto float-right toPdf" data-id="${item.id}" style="margin-left: 8px">picture_as_pdf</span></a>
 
                     </div>
-                  </div>`)
+                  </div>`)*//*
                     //.attr({class: "btn-toolbar"})
                     return $("<div>").attr({display: "inline"})
                                 .append($checkbox)
-                                //.append($iconPencil)
-                                //.append($iconTrash)
-                                //.append($iconView)
-                                .append($tools)
+                                .append($iconPencil)
+                                .append($iconTrash)
+                                .append($sendMagaya)
+                                .append($iconView)
+                                //.append($tools)
                     }
                 },
 
-                /*{ name: "Menu", itemTemplate: function(value) {
-                    return $(`<div class="btn-group">
-                    <span class="material-icons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">summarize</span>
-                    <div class="dropdown-menu">
-                    <a><span class="material-icons oculto edit" data-id="${item.id}">create</span></a>
-                    <a><span class="material-icons oculto delete" data-id="${item.id}">delete_forever</span></a>
-                    <a><span class="material-icons oculto send" data-id="${item.id}">send</span></a>
-                    <a><span class="material-icons oculto btn-slide" data-id="${item.id}">visibility</span></a>
-                    </div>
-                  </div>`);
-                } , width: 200, filtering: true },*/
-                { name: "Name", title: "NUMBER", width: 200, formatter:'number', margin: "0 0 0 5"},
-                { name: "Account.name", title: "CUSTOMER", type: "text", width: 300},
-                { name: "magaya__Status", type: "text", width: 120, title: "STAGE" },
-                { name: "magaya__QuoteTotalAmount", title: "AMOUNT", width: 145, type: "number", formatter: "number", classes: 'number'},
+
+                { name: "Name", index: "Name", title: "NUMBER", width: 150, formatter:'number'},
+                { name: "magaya__Deal.name", index: "amount", title: "DEAL", type: "text", width: 200},
+                { name: "Account.name", title: "CUSTOMER", type: "text", width: 200},
+                { name: "magaya__Status", type: "text", width: 100, title: "STAGE" },
+                { name: "magaya__QuoteTotalAmount", title: "AMOUNT", width: 125, type: "number", formatter: "number", classes: 'number'},
                 { name: "Modified_Time", type: "text", width: 'auto', title: "MODIFIED TIME"},
+
             ],
-        });
+        });*/
     }
 
     //quote to edit
@@ -481,4 +517,8 @@ storeQuote.subscribe(() => {
                     //$("#DealPreview").html("aaaaaa")
     }
 })
+
+
+
 })
+
