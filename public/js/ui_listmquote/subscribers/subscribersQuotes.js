@@ -102,7 +102,7 @@ storeQuote.subscribe(() => {
             pageSize: 10,
             data: data,
             fields: [
-                { name:"Options", width: 200, editButton: false, deleteButton: false, title: "Action",
+                { name:"Options", width: 180, editButton: false, deleteButton: false, title: "Action",
                 itemTemplate: function(value, item) {
                     let $iconPencil = $(`<a><span class="material-icons oculto edit" data-id="${item.id}">create</span></a>`);
                     let $iconTrash = $(`<a><span class="material-icons oculto delete" data-id="${item.id}">delete_forever</span></a>`);
@@ -111,7 +111,7 @@ storeQuote.subscribe(() => {
                     let $iconView = $(`<a><span class="material-icons oculto btn-slide" data-id="${item.id}">visibility</span></a>`)
                     let $tools = $(`<div class="btn-group" style="margin-left: 10px;">
                     <span class="material-icons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">summarize</span>
-                    <div class="dropdown-menu" style="padding: 5px 5px 5px 10px;">
+                    <div class="dropdown-menu" style="padding: 10px 5px 5px 10px;">
                     <a><span class="material-icons oculto edit" data-id="${item.id}" style="margin-left: 8px">create</span></a>
                     <a><span class="material-icons oculto delete" data-id="${item.id}" style="margin-left: 8px">delete_forever</span></a>
                     <a><span class="material-icons oculto send" data-id="${item.id}" style="margin-left: 8px">send</span></a>
@@ -130,20 +130,11 @@ storeQuote.subscribe(() => {
                     }
                 },
 
-                /*{ name: "Menu", itemTemplate: function(value) {
-                    return $(`<div class="btn-group">
-                    <span class="material-icons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">summarize</span>
-                    <div class="dropdown-menu">
-                    <a><span class="material-icons oculto edit" data-id="${item.id}">create</span></a>
-                    <a><span class="material-icons oculto delete" data-id="${item.id}">delete_forever</span></a>
-                    <a><span class="material-icons oculto send" data-id="${item.id}">send</span></a>
-                    <a><span class="material-icons oculto btn-slide" data-id="${item.id}">visibility</span></a>
-                    </div>
-                  </div>`);
-                } , width: 200, filtering: true },*/
-                { name: "Name", title: "NUMBER", width: 200, formatter:'number', margin: "0 0 0 5"},
-                { name: "Account.name", title: "CUSTOMER", type: "text", width: 300},
-                { name: "magaya__Status", type: "text", width: 120, title: "STAGE" },
+                
+                { name: "Name", title: "NUMBER", width: 150, formatter:'number', margin: "0 0 0 5"},
+                { name: "magaya__Deal.name", title: "DEAL", type: "text", width: 200},
+                { name: "Account.name", title: "CUSTOMER", type: "text", width: 200},
+                { name: "magaya__Status", type: "text", width: 130, title: "STAGE" },
                 { name: "magaya__QuoteTotalAmount", title: "AMOUNT", width: 145, type: "number", formatter: "number", classes: 'number'},
                 { name: "Modified_Time", type: "text", width: 'auto', title: "MODIFIED TIME"},
             ],
