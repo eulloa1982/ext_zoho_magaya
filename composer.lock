@@ -320,6 +320,7 @@
             "require": {
                 "ext-dom": "*",
                 "ext-mbstring": "*",
+                "ext-exif": "*",
                 "phenx/php-font-lib": "^0.5.2",
                 "phenx/php-svg-lib": "^0.3.3",
                 "php": "^7.1 || ^8.0"
