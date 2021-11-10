@@ -16,6 +16,11 @@
     </tr>
     <tr>
         <td>
+            @include('tab_widget.partials.pdf.mquote_info')
+        </td>
+    </tr>
+    <tr>
+        <td>
             @include('tab_widget.partials.pdf.charges')
         </td>
     </tr>
