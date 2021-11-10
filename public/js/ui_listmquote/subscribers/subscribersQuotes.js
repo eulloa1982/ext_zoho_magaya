@@ -118,6 +118,15 @@ storeQuote.subscribe(() => {
             let column = table.column( $(this).attr('data-column') );
             // Toggle the visibility
             column.visible( ! column.visible() );
+            if (!column.visible()) {
+                console.log($(this).children())
+                $(this).children().remove()
+                $(this).prepend(`<span class="material-icons mr-2 oculto">visibility_off</span>`)
+            }
+            else {
+                $(this).children().remove()
+                $(this).prepend(`<span class="material-icons mr-2 oculto">visibility</span>`)
+            }
         } );
 
         /*let gfg = _.sortBy(dataQuotes, ['Created_Time', 'Name']);
