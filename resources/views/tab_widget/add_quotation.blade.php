@@ -59,7 +59,7 @@ a {
     <script>
         Utils.blockUI();
         $(document).ready(function(){
-            $("#Title").html("Add mQuote");
+            $("#Title").html("Add mQuote").css("font-size","14px");
 
             //drop the state temporal items and charges
             storeItem.dispatch(emptyItems())

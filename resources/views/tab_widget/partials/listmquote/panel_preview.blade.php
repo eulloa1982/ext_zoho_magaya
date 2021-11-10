@@ -138,7 +138,7 @@
                                             <th style="width:23%">Description</th>
                                             <th style="width:10%">Quantity</th>
                                             <th style="width:20%">Dimensions</th>
-                                            <th style="width:12%">Weigth</th>
+                                            <th style="width:12%">Weight</th>
                                             <th style="width:12%">Volume</th>
                                         </tr>
                                     </thead>
