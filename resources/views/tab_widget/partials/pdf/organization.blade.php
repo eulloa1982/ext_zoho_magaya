@@ -23,7 +23,7 @@
             <table width="100%" cellspacing="0px" cellpadding="0px" style="border: none; text-align: right; vertical-align:center;">
                 <tr>
                     <td colspan="12"class="headerFont">
-                        <span><img src="{{ url('images/pdfv1/language.png') }}" alt="Language" width="24px" height="24px"/></span>
+                        <span><img src="{{ url('/images/pdfv1/language.png') }}" alt="Language" width="24px" height="24px"/></span>
                         @if (@isset($organization['orgData']['website']))                            
                             {{$organization['orgData']['website']}}                            
                         @endif 
