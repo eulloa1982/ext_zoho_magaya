@@ -1,15 +1,3 @@
-$("select[name=magaya__TransportationMode]").change(function(e) {
-    //$("select[name=ModeOfTransportation]").empty()
-    let value = $("select[name=magaya__TransportationMode] option:selected").text()
-    $("input[name=ModeOfTransportation]").val(value)
-    //$("#new-item")[0].reset()
-    /*let elementos = document.querySelectorAll("input[type=text], input[id=magaya__Description], select[name=magaya__TransportationMode], select[name=magaya__Direction]")
-    elementos.forEach((elemento) => {
-        elemento.value = ''
-    })*/
-
-})
-
 /////////////////////////////////////////////////////////////////////////
 //////// subscribers UI
 ////////////////////////////////////////////////////////////////////////
@@ -82,6 +70,8 @@ $("select[name=magaya__TransportationMode]").change(function(e) {
     e.preventDefault()
     e.stopImmediatePropagation()
     /*store.dispatch(addActionEdited())*/
+    let value = $("select[name=magaya__TransportationMode] option:selected").text()
+    $("input[name=ModeOfTransportation]").val(value)
 
     let idT = $(this).val()
 

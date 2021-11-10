@@ -3,6 +3,7 @@ storeDeal.subscribe(() => {
     let u = storeDeal.getState()
     //console.log("State deals", u)
     if (!_.isEmpty(u.dealQuote)) {
+        $("select[name=magaya__Representative]").empty()
         $("select[name=Account]").prop('disabled', true);
         let dealQuote = u.dealQuote;
         let accountId = 0;

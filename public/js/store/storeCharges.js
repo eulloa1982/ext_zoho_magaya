@@ -181,13 +181,12 @@ function reducerCharge (state = initialStateCharge, actions)  {
             let tax_rate = roundDec(newArray[1]['magaya__TaxRate'])
             tax_rate = digitCount2(tax_rate) > 12 ? 0 : tax_rate
             let tax = newArray[1]['magaya__Tax'] === "0" ? "" : newArray[1]['magaya__Tax']
-            let currency = (newArray[1]['magaya__ChargeCurrency']).length > 0 ? newArray[1]['magaya__Currency'] : "USD"
             let name = (newArray[1]['Name'] && newArray[1]['Name'].length > 0) ?  sanitize(newArray[1]['Name']) : charge_name
             newArray[1]['Name'] = name.slice(0, 50)
             newArray[1]['magaya__Status']  = (newArray[1]['magaya__Status']).length > 0 ?  sanitize(newArray[1]['magaya__Status']) : 'Open'
+            newArray[1]['magaya__ChargeCurrency']  = (newArray[1]['magaya__ChargeCurrency']).length > 0 ?  sanitize(newArray[1]['magaya__ChargeCurrency']) : 'USD'
             newArray[1]['magaya__Charge_Type'] = newArray[1]['magaya__Charge_Type']
             newArray[1]['magaya__Charge_Name'] = charge_name
-            newArray[1]['magaya__ChargeCurrency'] = currency
 
             price = price > 0 ? price : 0;
             quantity = quantity > 0 ? quantity : 0

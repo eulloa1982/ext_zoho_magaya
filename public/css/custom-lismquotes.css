@@ -163,8 +163,14 @@ input:active {
     overflow-x: hidden;
 }
 
+.scrollme {
+    display: block;
+    overflow-x: auto;
+}
+
 /*tables preview **/
 table #table-charges-preview #table-items-preview {
+
     font-family: "Helvetica Neue", Helvetica, sans-serif
   }
 

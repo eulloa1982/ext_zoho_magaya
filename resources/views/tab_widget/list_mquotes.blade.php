@@ -80,20 +80,20 @@ a {
                             <div class="btn-group">
                                 <span class="material-icons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">view_week</span>
                                 <div class="dropdown-menu" style="padding: 10px 5px 5px 10px;">
-                                    <a class="toggle-vis dropdown-item" data-column="1">Number</a>
-                                    <a class="toggle-vis dropdown-item" data-column="2">Deal</a>
-                                    <a class="toggle-vis dropdown-item" data-column="3">Customer</a>
-                                    <a class="toggle-vis dropdown-item" data-column="4">Stage</a>
-                                    <a class="toggle-vis dropdown-item" data-column="5">Amount</a>
-                                    <a class="toggle-vis dropdown-item" data-column="6">Modified Time</a>
-                                    <a class="toggle-vis dropdown-item" data-column="7">Created Time</a>
-                                    <a class="toggle-vis dropdown-item" data-column="8">Magaya updated</a>
-                                    <a class="toggle-vis dropdown-item" data-column="9">Description</a>
-                                    <a class="toggle-vis dropdown-item" data-column="10">Destination</a>
-                                    <a class="toggle-vis dropdown-item" data-column="11">Origin</a>
-                                    <a class="toggle-vis dropdown-item" data-column="12">Seller</a>
-                                    <a class="toggle-vis dropdown-item" data-column="13">Service</a>
-                                    <a class="toggle-vis dropdown-item" data-column="14">Terms</a>
+                                    <a class="toggle-vis dropdown-item"  data-column="1" ><span class="material-icons mr-2 oculto">visibility</span>Number</a>
+                                    <a class="toggle-vis dropdown-item"  data-column="2"><span class="material-icons mr-2 oculto">visibility</span>Deal</a>
+                                    <a class="toggle-vis dropdown-item" data-column="3"><span class="material-icons mr-2 oculto">visibility</span>Customer</a>
+                                    <a class="toggle-vis dropdown-item" data-column="4"><span class="material-icons mr-2 oculto">visibility</span>Stage</a>
+                                    <a class="toggle-vis dropdown-item" data-column="5"><span class="material-icons mr-2 oculto">visibility</span>Amount</a>
+                                    <a class="toggle-vis dropdown-item" data-column="6"><span class="material-icons mr-2 oculto">visibility_off</span>Modified Time</a>
+                                    <a class="toggle-vis dropdown-item" data-column="7"><span class="material-icons mr-2 oculto">visibility_off</span>Created Time</a>
+                                    <a class="toggle-vis dropdown-item" data-column="8"><span class="material-icons mr-2 oculto">visibility_off</span>Magaya updated</a>
+                                    <a class="toggle-vis dropdown-item" data-column="9"><span class="material-icons mr-2 oculto">visibility_off</span>Description</a>
+                                    <a class="toggle-vis dropdown-item" data-column="10"><span class="material-icons mr-2 oculto">visibility_off</span>Destination</a>
+                                    <a class="toggle-vis dropdown-item" data-column="11"><span class="material-icons mr-2 oculto">visibility_off</span>Origin</a>
+                                    <a class="toggle-vis dropdown-item" data-column="12"><span class="material-icons mr-2 oculto">visibility_off</span>Seller</a>
+                                    <a class="toggle-vis dropdown-item" data-column="13"><span class="material-icons mr-2 oculto">visibility_off</span>Service</a>
+                                    <a class="toggle-vis dropdown-item" data-column="14"><span class="material-icons mr-2 oculto">visibility_off</span>Terms</a>
                                 </div>
 					        </div>
 						</div>
@@ -156,27 +156,24 @@ a {
 <script src="{{ url('js/ui_listmquote/listmPagination.js', $extra = [], $secure = 1) }}"></script>
 <script src="{{ url('js/store/storePagination.js', $extra = [], $secure = 1) }}"></script>
 
-    <script>
-        Utils.blockUI();
-        $(document).ready(function(){
-            //Pagination from backend
-            //add page
-            $("#more_page").click(function(e) {
-                storePagination.dispatch(addPage())
-            })
-            //minus page
-            $("#less_page").click(function(e) {
-                storePagination.dispatch(lessPage())
-            })
-            $(".material-icons").tooltip()
+<script>
+    Utils.blockUI();
+    $(document).ready(function(){
+        //Pagination from backend
+        //add page
+        $("#more_page").click(function(e) {
+            storePagination.dispatch(addPage())
+        })
+        //minus page
+        $("#less_page").click(function(e) {
+            storePagination.dispatch(lessPage())
+        })
+        $(".material-icons").tooltip()
 
-            /*let table = $('#table-quotes').DataTable({})
-            $('a.toggle-vis').on( 'click', function (e) {
-                e.preventDefault();
-                let column = table.column( $(this).attr('data-column') );
-                // Toggle the visibility
-                column.visible( ! column.visible() );
-            } );*/
+        //drop down menu fijo
+        $('.dropdown-menu').on('click', function (e) {
+            e.stopPropagation();
+        });
 
 
        });
