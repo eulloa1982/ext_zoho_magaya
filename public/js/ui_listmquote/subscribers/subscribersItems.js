@@ -160,11 +160,11 @@ storeItem.subscribe(() => {
             $.each(u, function(i, k) {
                 let measure_length = "in";
                 let measure_weigth = "lb";
-                let measure_volume = "ft3"
+                let measure_volume = "ft"
 
                 if (k.magaya__Measure_System === "International") {
                     measure_length = "m";
-                    measure_volume = "m3";
+                    measure_volume = "m";
                     measure_weigth = "kg"
 
                     total_volume_international += roundDec(k.magaya__Volume * k.magaya__Pieces)
@@ -194,7 +194,7 @@ storeItem.subscribe(() => {
                 <td align="right" class="magaya__Weigth">${roundDec(k.magaya__Weigth * k.magaya__Pieces).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 <td class="NoData" align="left">${measure_weigth}</td>
                 <td align="right" class="magaya__Volume">${roundDec(k.magaya__Volume * k.magaya__Pieces).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-                <td class="NoData" align="left">${measure_volume}</td>
+                <td class="NoData" align="left">${measure_volume}<sup>3</sup></td>
 
                 <td class="magaya__Status" style="display: none;">InQuote</td>
                 <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
@@ -206,14 +206,16 @@ storeItem.subscribe(() => {
 
 
             //get all to international system
-            totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
-            totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
+            //totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
+            //totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
+            totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english)
+            totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english)
 
             $("#table-items-new tfoot").append(`<tr><td align="right" colspan="2" class="Delete">Totals</td>
             <td align="center" class="Delete"><strong>${totalPieces}</strong></td>
             <td colspan="6"></td>
             <td align="right" class="Delete"><strong>${roundDec(totalWeight).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td><td><strong> kg</strong></td>
-            <td align="right" class="Delete"><strong>${roundDec(totalVolume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td><td><strong> m3</strong></td></tr>`)
+            <td align="right" class="Delete"><strong>${roundDec(totalVolume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}<sup>3</sup></td><td><strong> m3</strong></td></tr>`)
         }
 
     } else {
@@ -314,8 +316,8 @@ storeItem.subscribe(() => {
 
         }) //each
 
-        totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english) * 0.453562
-        totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english) * 0.0283168
+        totalWeight = roundDec(total_weight_international) + roundDec(total_weight_english)
+        totalVolume = roundDec(total_volume_international) + roundDec(total_volume_english)
 
         $("#table-items tfoot").append(`<tr><td align="right" colspan="2" class="Delete"><strong>Totals</td>
                                                 <td align="center" class="Delete"><strong style="margin-right: 4px;">${totalPieces}</strong></td>

@@ -43,8 +43,8 @@
             <td width="15%" style="border-right: 1px #000 solid; text-align: right;border-bottom: 1px #000 solid;">{{$v['magaya__Volume']}} ({{$measure_volume}}<sup>3</sup>)</td>
         </tr>
         @endforeach
-        {{$total_weight = ($total_weight_international + $total_weight_english) * 0.453562}}
-        {{$total_volume = ($total_volume_international + $total_volume_english) * 0.0283168}}
+        {{$total_weight = ($total_weight_international + $total_weight_english)}}
+        {{$total_volume = ($total_volume_international + $total_volume_english)}}
         <tr>
             <td colspan="3"></td>
             <td style="border-left:1px #000 solid; border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">TOTAL</td>
