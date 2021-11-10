@@ -2,7 +2,7 @@
 <table cellspacing="0px" cellpadding="0px" width="100%" style="margin-top: 10px;">
     <tr>
         <td width="40%">
-            <table id="info1" cellspacing="0px" cellpadding="0px" width="100%" style="text-align: left;">
+            <table id="info1" cellspacing="0px" cellpadding="1px" width="100%" style="text-align: left;">
                 <tr>
                     <th class="headerFont" colspan="2" style="border: 1px #000 solid; padding: 3px;text-align: center;">Customer Info</th>
                 </tr>
@@ -28,7 +28,7 @@
                 <tr>
                     <th class="headerFont" style="text-align: right; border: 1px #000 solid;font-size:14px">
                         Phone</th>
-                    <td class="dataFont" style="text-align: start; padding: 3px;border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                    <td class="dataFont" style="text-align: start; border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
                         @if (@isset($organization['mQuote']['magaya__ContactMobile']))
                             {{$organization['mQuote']['magaya__ContactMobile']}}
                         @endif
@@ -64,8 +64,8 @@
             </table>
 
         </td>
-        <td width="60%">
-            <table id="info2" cellspacing="0px" cellpadding="1px" style="text-align:left;border: none; float: right;margin-left: 45px;">
+        <td width="40%" align="right">
+            <table id="info2" cellspacing="0px" cellpadding="1px" style="border: none; float: right;">
                 <tr>
                     <th class="headerFont" style="text-align: right;font-size:14px">
                         Quote Number:</th>

@@ -45,7 +45,7 @@
         @endforeach
         {{$total_weight = ($total_weight_international + $total_weight_english)}}
         {{$total_volume = ($total_volume_international + $total_volume_english)}}
-        <tr>
+        <tr style="font-weight: bolder">
             <td colspan="3"></td>
             <td style="border-left:1px #000 solid; border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">TOTAL</td>
             <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;"><?php echo round($total_weight, 2); ?> ({{$measure_weigth}})</td>

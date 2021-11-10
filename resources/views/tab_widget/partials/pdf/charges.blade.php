@@ -30,7 +30,7 @@
             <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;"><br><br><br></td>
         </tr>
     @endif
-    <tr>
+    <tr style="font-weight: bolder">
         <td colspan="3"></td>
         <td style="border-left:1px #000 solid; border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">TOTAL</td>
         <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;">{{$amount_total}}</td>
