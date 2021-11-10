@@ -25,6 +25,20 @@ function reducerAccounts (state = initialStateAccount, actions)  {
             });
         }
 
+        case UPDATE_CONTACT: {
+            const id = actions.payload.id
+            let data = actions.payload[0]
+
+            const index = state.contacts.findIndex(contact => contact.id === id)
+            state.contacts[index] = data
+            state.singleContact[0] = data
+            return {
+                ...state,
+                contacts: state.contacts,
+                singleContact: state.singleContact
+            }
+        }
+
         case FIND_ACCOUNT: {
             let byId = actions.payload.id;
             let accountA = {}
@@ -187,6 +201,10 @@ function addContact(payload) {
     return { type: ADD_CONTACT, payload};
 }
 
+function updateContact(payload) {
+    return { type: UPDATE_CONTACT, payload};
+}
+
 function findAccount(payload) {
     return { type: FIND_ACCOUNT, payload };
 }
@@ -211,16 +229,13 @@ function getAccount(payload) {
     return { type: FIND_ACCOUNT, payload }
 }
 
-
 function addQuoteAccount(payload) {
     return { type: ADD_QUOTE_ACCOUNT, payload };
 }
 
-
 function emptyAccounts() {
     return { type: EMPTY_ACCOUNTS };
 }
-
 
 function getAllAccounts() {
     return { type: ALL_ACCOUNTS };

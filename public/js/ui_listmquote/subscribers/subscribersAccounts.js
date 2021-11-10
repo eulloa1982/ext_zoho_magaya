@@ -2,7 +2,7 @@ var singleAccount = []
 //get one charge
 storeAccounts.subscribe(() => {
     let u = storeAccounts.getState();
-    //console.log("State account now", u)
+    console.log("State account now", u)
     singleAccount = u.singleAccount
 
     let accountQuote = u.quoteAccount
@@ -40,11 +40,7 @@ storeAccounts.subscribe(() => {
 
 
    if (!_.isEmpty(contact)) {
-       //console.log("Contact single", contact)
-       //let contactValues = $("select[name=magaya__Representative] option")
-
-        //$("select[name=magaya__Representative]").empty();
-        //$("<option></option>").appendTo("select[name=magaya__Representative]");
+       console.log("Contact state", contact)
        let idContact = contact[0]["id"];
        $("select[name=magaya__Representative]").val(idContact)
 

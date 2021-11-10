@@ -25,7 +25,18 @@ $(document).ready(function(){
 
 
     $("#add_contact").click(function(e) {
-        $("#contact_form")[0].reset()
+
+        let contact = $("select[name=magaya__Representative]").val()
+        console.log("Contact", contact)
+        if (contact === null || contact === "null" || contact.length <= 0) {
+            $("#contact_form")[0].reset()
+            $("#NewContact").show()
+            $("#SaveContact").hide()
+        } else {
+            $("#NewContact").hide()
+            $("#SaveContact").show()
+        }
+
         $("#modalContact").modal("show")
     })
 
@@ -36,7 +47,12 @@ $(document).ready(function(){
         let $form = $("#contact_form");
         let item = getFormData($form);
         Object.assign(item, {'Account_Name': $("select[name=Account]").val()})
-        console.log(item)
+
+        $.map(item, function (k, v) {
+            if (k)
+                item[v] = k.toString()
+        })
+
         ZOHO.CRM.API.insertRecord({Entity:"Contacts",APIData:item,Trigger:[]})
         .then(function(data){
             res = data.data;
@@ -56,6 +72,69 @@ $(document).ready(function(){
                             let nameContact = `${item.First_Name} ${item.Last_Name}`
                             storeAccounts.dispatch(addContact(data.data))
                             $(`<option value="${idContact}">${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
+                            $("#modalContact").modal("hide")
+                        })
+                        message = " : Item Updated!!";
+                        storeSuccess.dispatch(addSuccess({message: message}))
+                    }
+            })
+        })
+        .catch(function(error) {
+            Utils.unblockUI()
+            codeError = error.data[0].message
+            show = true;
+            field = error.data[0].details.api_name;
+            module = 'Contacts'
+            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+        });
+
+    })
+
+    $("#SaveContact").click(function(e) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+
+        let contact = storeAccounts.getState().singleContact
+
+        let contact_id = 0
+        if (!_.isEmpty(contact)) {
+            contact_id = contact[0].id
+        }
+
+        let $form = $("#contact_form");
+        let item = getFormData($form);
+        Object.assign(item, {'Account_Name': $("select[name=Account]").val()})
+        Object.assign(item, {'id': contact_id})
+        $.map(item, function (k, v) {
+            if (k)
+                item[v] = k.toString()
+        })
+
+        var config={
+            Entity:"Contacts",
+            APIData: item,
+            Trigger:[""]
+          }
+
+        ZOHO.CRM.API.updateRecord(config)
+        .then(function(data){
+            res = data.data;
+            $.map(res, function(k, v) {
+                if (k.code !== "SUCCESS") {
+                    codeError = k.code;
+                    field = k.details.api_name;
+                    show = true;
+                    module = 'Contacts'
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                } else {
+                    ZOHO.CRM.API.getRecord({Entity:"Contacts",RecordID:contact_id})
+                        .then(function(data){
+                            //record = data.data[0];
+                            let nameContact = `${item.First_Name} ${item.Last_Name}`
+                            storeAccounts.dispatch(updateContact({id: contact_id, ...data.data}))
+                            //$(`<option value="${idContact}">${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
                             $("#modalContact").modal("hide")
                         })
                         message = " : Item Updated!!";
