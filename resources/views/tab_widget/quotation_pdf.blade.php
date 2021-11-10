@@ -3,7 +3,7 @@
 
 
 
-<table cellspacing="0px" cellpadding="0px" style="border: none; background-color: none" width="100%">
+<table cellspacing="0px" cellpadding="0px" style="border: none; background-color: white" width="100%">
     <tr>
         <td>
             @include('tab_widget.partials.pdf.organization')

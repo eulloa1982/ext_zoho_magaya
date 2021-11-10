@@ -246,12 +246,12 @@ storeItem.subscribe(() => {
 
         $.each(u, function(i, k) {
             let measure_length = "in";
-            let measure_volume = "ft3";
+            let measure_volume = "ft";
             let measure_weigth = "lb";
 
             if (k.magaya__Measure_System === "International") {
                 measure_length = "m";
-                measure_volume = "m3";
+                measure_volume = "m";
                 measure_weigth = "kg";
 
                 total_volume_international += roundDec(k.magaya__Volume * k.magaya__Pieces)
@@ -284,7 +284,7 @@ storeItem.subscribe(() => {
             <td align="right" class="magaya__Weigth" style="border-right: none;">${roundDec(k.magaya__Weigth * k.magaya__Pieces).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
             <td align="left" class="NoData" style="border-left: none;">${measure_weigth}</td>
             <td align="right" class="magaya__Volume" style="border-right: none;">${roundDec(k.magaya__Volume * k.magaya__Pieces).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-            <td align="left" class="NoData" style="border-left: none;">${measure_volume}</td>
+            <td align="left" class="NoData" style="border-left: none;">${measure_volume}<sup>3</sup></td>
 
             <td class="magaya__Status" style="display: none;">InQuote</td>
             <td class='magaya__Package_Type' style="display: none;">${k.magaya__Package_Type}</td>
@@ -309,7 +309,7 @@ storeItem.subscribe(() => {
                 (${measure_length})
             </td>
             <td align="right" class="magaya__Weigth" style="border-right: none;">${roundDec(k.magaya__Weigth * k.magaya__Pieces).toLocaleString('en-US', {  minimumFractionDigits: 2  } )} ${measure_weigth}</td>
-            <td align="right" class="magaya__Volume" style="border-right: none;">${roundDec(k.magaya__Volume * k.magaya__Pieces).toLocaleString('en-US', {  minimumFractionDigits: 2  } )} ${measure_volume}</td>
+            <td align="right" class="magaya__Volume" style="border-right: none;">${roundDec(k.magaya__Volume * k.magaya__Pieces).toLocaleString('en-US', {  minimumFractionDigits: 2  } )} ${measure_volume}<sup>3</sup></td>
             </tr>`
 
             $("#table-items-preview").append(appendPreview)
