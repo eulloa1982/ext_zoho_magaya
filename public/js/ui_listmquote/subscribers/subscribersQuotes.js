@@ -198,7 +198,7 @@ storeQuote.subscribe(() => {
     //quote to edit
     if (!_.isEmpty(u.quoteToEdit)) {
         $(".arrows-quote").html(`${arrow_prev} ${arrow_next}`)
-        $("#Title").html("Edit mQuote").css("font.size","14px");
+        $("#Title").html("Edit mQuote").css("font-size","14px");
         $("#table-charges-preview tbody").empty()
         $("#table-items-preview tbody").empty()
         $("#table-charges-preview tfoot").empty()
