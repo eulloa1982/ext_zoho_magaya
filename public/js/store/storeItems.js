@@ -212,12 +212,12 @@ function reducerItem (state = initialStateIntems, actions)  {
             newArray[1]['Name'] = name.slice(0, 120)
             let measure_system = newArray[1]["magaya__Measure_System"]
             //calculate volume
-            let volume = height * length * width
+            let volume = parseFloat(height) * parseFloat(length) * parseFloat(width)
             volume = digitCount2(volume) > 16 ? 0 : volume
-            newArray[1]["magaya__Height"] = height.toString().replace(/[,]/g, '').toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]["magaya__Length"] = length.toString().replace(/[,]/g, '').toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]["magaya__Width"] = width.toString().replace(/[,]/g, '').toLocaleString('en-US', {  minimumFractionDigits: 2  } )
-            newArray[1]["magaya__Weigth"] = weigth.toString().replace(/[,]/g, '').toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["magaya__Height"] = height.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["magaya__Length"] = length.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["magaya__Width"] = width.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["magaya__Weigth"] = weigth.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             newArray[1]["magaya__Pieces"] = pieces
             newArray[1]["magaya__Volume"] = roundDec(volume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 

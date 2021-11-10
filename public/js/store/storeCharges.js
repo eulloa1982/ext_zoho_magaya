@@ -184,6 +184,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
             let name = (newArray[1]['Name'] && newArray[1]['Name'].length > 0) ?  sanitize(newArray[1]['Name']) : charge_name
             newArray[1]['Name'] = name.slice(0, 50)
             newArray[1]['magaya__Status']  = (newArray[1]['magaya__Status']).length > 0 ?  sanitize(newArray[1]['magaya__Status']) : 'Open'
+            newArray[1]['magaya__ChargeCurrency']  = (newArray[1]['magaya__ChargeCurrency']).length > 0 ?  sanitize(newArray[1]['magaya__ChargeCurrency']) : 'USD'
             newArray[1]['magaya__Charge_Type'] = newArray[1]['magaya__Charge_Type']
             newArray[1]['magaya__Charge_Name'] = charge_name
 
@@ -210,8 +211,6 @@ function reducerCharge (state = initialStateCharge, actions)  {
             //if (tax_rate <= 0)
             //    newArray[1]['magaya__Tax'] = ''
             if (!_.isEmpty(state.chargesOnNew[index])) {
-
-
                 state.chargesOnNew[index] = {...newArray[1]}
             }
 

@@ -31,7 +31,7 @@ input:active {
 }
 
 .oculto {
-    opacity: 0.18;
+    opacity: 0.35;
     margin-left: 15px;
     color: #0b3355;
 }
@@ -163,8 +163,14 @@ input:active {
     overflow-x: hidden;
 }
 
+.scrollme {
+    display: block;
+    overflow-x: auto;
+}
+
 /*tables preview **/
 table #table-charges-preview #table-items-preview {
+
     font-family: "Helvetica Neue", Helvetica, sans-serif
   }
 
