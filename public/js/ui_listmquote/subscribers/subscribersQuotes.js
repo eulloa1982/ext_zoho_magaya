@@ -96,13 +96,30 @@ storeQuote.subscribe(() => {
                 "defaultContent": "No set"
             },
 
-            { "data": "magaya__Status" },
-            { "data": "magaya__QuoteTotalAmount"},
-            { "data": "Modified_Time", "visible": false},
+            { "data": "magaya__Status" ,
+            "defaultContent": "No set"
+            },
+            { "data": "magaya__QuoteTotalAmount",
+            "defaultContent": "No set"
+            },
+            { "data": "Modified_Time",
+            "defaultContent": "No set",
+            "visible": false
+            },
+
             { "data": "Created_Time", "visible": false},
-            { "data": "Magaya_updated", "visible": false},
-            { "data": "magaya__Description", "visible": false},
-            { "data": "magaya__Destination", "visible": false},
+            { "data": "Magaya_updated",
+            "defaultContent": "No set",
+             "visible": false
+            },
+            { "data": "magaya__Description",
+            "defaultContent": "No set",
+            "visible": false
+            },
+            { "data": "magaya__Destination",
+            "defaultContent": "No set",
+            "visible": false
+            },
             { "data": "magaya__Origin", "visible": false},
             { "data": "magaya__Seller", "visible": false},
             { "data": "magaya__Service", "visible": false},

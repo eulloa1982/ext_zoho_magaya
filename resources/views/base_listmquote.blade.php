@@ -17,10 +17,9 @@
     <link rel="stylesheet" href="{{ url('css/table_listmquote.css', $extra = [], $secure = 1) }}"/>
     <link rel="stylesheet" href="{{ url('css/font_css_material-design-iconic-font.min.css', $extra = [], $secure = 1) }}"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css" />
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
+    <!--link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" /-->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css"/>
-
 
 </head>
 <body style="margin-top:40px">
@@ -64,8 +63,6 @@
 
     <script src="{{ url('js/utils/moment.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('sweetalert/sweetalert.js', $extra = [], $secure = 1) }}"></script>
-    <script src="{{ url('select2/js/select2.full.js', $extra = [], $secure = 1) }}"></script>
-    <script src="{{ url('datetimepicker/build/jquery.datetimepicker.full.min.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('underscore-master/underscore-min.js', $extra = [], $secure = 1) }}"></script>
     <!--script src="{{ url('decimal/decimal.js') }}"></script>
     <SDK CDN-->
@@ -76,6 +73,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>    <script src="{{ url('datetimepicker/build/jquery.datetimepicker.full.min.js', $extra = [], $secure = 1) }}"></script>
 
 
     <script src="{{ url('js/ui_listmquote/utils/biblio_jquery.js', $extra = [], $secure = 1) }}"></script>
