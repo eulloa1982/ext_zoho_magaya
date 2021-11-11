@@ -1,8 +1,8 @@
-<table cellspacing="0px" cellpadding="0px" width="100%" style="margin-top: 10px">
+<table cellspacing="0px" cellpadding="2px" width="100%" style="margin-top: 10px">
     <tr>
-        <th colspan="6" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">Items</th>
+        <th colspan="6" style="text-align: start;text-transform:uppercase ;border: 1px #000 solid;">Items</th>
     </tr>
-    <tr>
+    <tr style="background-color: lightblue;">
         <th width="20%" style="border-left: 1px #000 solid; border-bottom: 1px #000 solid; border-right: 1px #000 solid; text-align: center;">Description </th>
         <th width="15%" style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Package Type</th>
         <th width="10%" style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Quantity</th>
@@ -43,9 +43,9 @@
             <td width="15%" style="border-right: 1px #000 solid; text-align: right;border-bottom: 1px #000 solid;">{{$v['magaya__Volume']}} ({{$measure_volume}}<sup>3</sup>)</td>
         </tr>
         @endforeach
-        {{$total_weight = ($total_weight_international + $total_weight_english) * 0.453562}}
-        {{$total_volume = ($total_volume_international + $total_volume_english) * 0.0283168}}
-        <tr>
+        {{$total_weight = ($total_weight_international + $total_weight_english)}}
+        {{$total_volume = ($total_volume_international + $total_volume_english)}}
+        <tr style="font-weight: bolder">
             <td colspan="3"></td>
             <td style="border-left:1px #000 solid; border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">TOTAL</td>
             <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;"><?php echo round($total_weight, 2); ?> ({{$measure_weigth}})</td>
