@@ -188,7 +188,8 @@ function reducerItem (state = initialStateIntems, actions)  {
             }
         }
 
-        //item empty on new on inserting
+        //controller form new and editing item
+        //on table-items-new and table-item
         case UPDATE_ITEM_ON_NEW: {
             const field = actions.payload.field;
             const value = actions.payload.value;
@@ -221,7 +222,6 @@ function reducerItem (state = initialStateIntems, actions)  {
             newArray[1]["magaya__Volume"] = roundDec(volume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
             newArray[1]["magaya__Measure_System"] = measure_system.length > 0 ? measure_system : "International"
-
             return {
                 ...state,
                 itemNew: newArray

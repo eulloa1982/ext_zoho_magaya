@@ -150,6 +150,7 @@ storeItem.subscribe(() => {
         $("#table-items-new tfoot").empty();
 
         if (!_.isEmpty(u)) {
+            console.log(u)
             let totalPieces = 0
             let totalVolume = 0
             let totalWeight = 0
@@ -158,30 +159,38 @@ storeItem.subscribe(() => {
             let total_weight_english = 0
             let total_volume_english = 0
             $.each(u, function(i, k) {
+                //quitar las , separadoras de miles
+                item_volume = k.magaya__Volume.replace(/[,]/g, '')
+                item_height = k.magaya__Height.replace(/[,]/g, '')
+                item_width = k.magaya__Width.replace(/[,]/g, '')
+                item_length = k.magaya__Length.replace(/[,]/g, '')
+                item_weigth = k.magaya__Weigth.replace(/[,]/g, '')
+                item_pieces = parseInt(k.magaya__Pieces)
+
                 let measure_length = "in";
                 let measure_weigth = "lb";
                 let measure_volume = "ft"
                 let factor_weight = 0.0283168;
-                let factor_volume = 0.453562;                
+                let factor_volume = 0.453562;
                 if(!(k.magaya__Weigth != 0))
                     k.magaya__Weigth = k.magaya__Width * k.magaya__Height * k.magaya__Length * factor_weight
                 if(!(k.magaya__Volume >= 0))
-                    k.magaya__Volume = k.magaya__Width * k.magaya__Height * k.magaya__Length * factor_volume                
+                    k.magaya__Volume = k.magaya__Width * k.magaya__Height * k.magaya__Length * factor_volume
                 if (k.magaya__Measure_System === "International") {
                     measure_length = "m";
                     measure_volume = "m";
                     measure_weigth = "kg"
 
-                    total_volume_international += roundDec(k.magaya__Volume * k.magaya__Pieces)
-                    total_weight_international += roundDec(k.magaya__Weigth * k.magaya__Pieces)
+                    total_volume_international += roundDec(item_volume * item_pieces)
+                    total_weight_international += roundDec(item_weigth * item_pieces)
                 //it suposes it is English
                 } else {
                     //pulgadas y libras
-                    total_volume_english += roundDec(k.magaya__Volume * k.magaya__Pieces)
-                    total_weight_english += roundDec(k.magaya__Weigth * k.magaya__Pieces)
+                    total_volume_english += roundDec(item_volume * item_pieces)
+                    total_weight_english += roundDec(item_weigth * item_pieces)
                 }
                 //get totales
-                totalPieces += parseInt(k.magaya__Pieces)
+                totalPieces += item_pieces
 
                 $("#table-items-new tbody").append(`<tr>
                 <td class='Delete'>
@@ -190,16 +199,16 @@ storeItem.subscribe(() => {
                 </td>
                 <td class='Name'>${sanitize(k.Name)}</td>
                 <td align="center" class="magaya__Pieces">${k.magaya__Pieces}</td>
-                <td align="right" class="magaya__Length">${roundDec(k.magaya__Length).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                <td align="right" class="magaya__Length">${roundDec(item_length).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 <td class="NoData" align="left">${measure_length}</td>
-                <td align="right" class="magaya__Height">${roundDec(k.magaya__Height).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                <td align="right" class="magaya__Height">${roundDec(item_height).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 <td class="NoData" align="left">${measure_length}</td>
-                <td align="right" class="magaya__Width">${roundDec(k.magaya__Width).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                <td align="right" class="magaya__Width">${roundDec(item_width).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 <td class="NoData" align="left">${measure_length}</td>
-                <td align="right" class="magaya__Weigth">${roundDec(k.magaya__Weigth * k.magaya__Pieces).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                <td align="right" class="magaya__Weigth">${roundDec(item_weigth * item_pieces).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 <td class="NoData" align="left">${measure_weigth}</td>
-                <td align="right" class="magaya__Volume">${roundDec(k.magaya__Volume * k.magaya__Pieces).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-                <td class="NoData" align="left">${measure_volume}<sup>3</sup></td>
+                <td align="right" class="magaya__Volume">${roundDec(item_volume * item_pieces).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                <td class="NoData" align="left">${measure_volume}</td>
 
                 <td class="magaya__Status" style="display: none;">InQuote</td>
                 <td class='magaya__Measure_System' style="display: none;">${k.magaya__Measure_System}</td>
