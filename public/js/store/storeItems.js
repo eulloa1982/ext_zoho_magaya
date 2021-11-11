@@ -208,17 +208,10 @@ function reducerItem (state = initialStateIntems, actions)  {
             //Name hasta 120 caracteres
             let name = (newArray[1]['Name']).length > 0 ?  sanitize(newArray[1]['Name']) : $("select[name=magaya__Package_Type] option:selected").text()
             newArray[1]['Name'] = name.slice(0, 120)
-            let measure_system = newArray[1]["magaya__Measure_System"];
-            let factor_volume = 1;
-            let factor_weight = 1;
-            if (measure_system === "International") {
-                factor_volume = 0.453562
-                factor_weight = 0.0283168
-            }
-            let weigth = roundDec(newArray[1]["magaya__Weigth"]) * factor_weight;
+            let weigth = roundDec(newArray[1]["magaya__Weigth"]) * 0.0283168;
             weigth = digitCount2(weigth) > 16 ? 1 : weigth
             //calculate volume
-            let volume = height * length * width * factor;
+            let volume = height * length * width * 0.453562;
             volume = digitCount2(volume) > 16 ? 0 : volume
             newArray[1]["magaya__Height"] = height.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             newArray[1]["magaya__Length"] = length.toLocaleString('en-US', {  minimumFractionDigits: 2  } )

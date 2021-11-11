@@ -418,7 +418,7 @@ li {
                     <td>Length</td>
                     <td>Height</td>
                     <td>Width</td>
-                    <td>Weigth</td>
+                    <td>Weight</td>
                     <td>Volume</td>
                     </tr></thead>
                     <tbody></tbody>
