@@ -10,21 +10,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
-    <!--link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" /-->
-
     <link href="{{ url('datetimepicker/jquery.datetimepicker.css', $extra = [], $secure = 1) }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ url('css/preloader.css', $extra = [], $secure = 1) }}"/>
     <link rel="stylesheet" href="{{ url('css/custom-lismquotes.css', $extra = [], $secure = 1) }}"/>
-    <!--link rel="stylesheet" href="{{ url('css/dataTables/dataTables.bootstrap.css') }}"/-->
     <link rel="stylesheet" href="{{ url('css/table_listmquote.css', $extra = [], $secure = 1) }}"/>
-    <!--link rel="stylesheet" href="{{ url('css/form_listmquote.css') }}"/-->
     <link rel="stylesheet" href="{{ url('css/font_css_material-design-iconic-font.min.css', $extra = [], $secure = 1) }}"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css" />
-
-
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css"/>
 
 
