@@ -10,21 +10,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
-    <!--link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" /-->
-
     <link href="{{ url('datetimepicker/jquery.datetimepicker.css', $extra = [], $secure = 1) }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ url('css/preloader.css', $extra = [], $secure = 1) }}"/>
     <link rel="stylesheet" href="{{ url('css/custom-lismquotes.css', $extra = [], $secure = 1) }}"/>
-    <!--link rel="stylesheet" href="{{ url('css/dataTables/dataTables.bootstrap.css') }}"/-->
     <link rel="stylesheet" href="{{ url('css/table_listmquote.css', $extra = [], $secure = 1) }}"/>
-    <!--link rel="stylesheet" href="{{ url('css/form_listmquote.css') }}"/-->
     <link rel="stylesheet" href="{{ url('css/font_css_material-design-iconic-font.min.css', $extra = [], $secure = 1) }}"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css" />
-
-
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css"/>
 
 
@@ -76,26 +70,18 @@
     <!--script src="{{ url('decimal/decimal.js') }}"></script>
     <SDK CDN-->
     <script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"></script>
-    <!--script src="{{ url('js/utils.js') }}"></script-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.1.1/redux.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
-    <!--script src="https://cdn.rawgit.com/lexich/redux-api/0.9.8/dist/redux-api.js"></script->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script-->
 
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js"></script>
-    <!--script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script-->
-
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 
     <script src="{{ url('js/ui_listmquote/utils/biblio_jquery.js', $extra = [], $secure = 1) }}"></script>
-    <!--script src="{{ url('js/quotation3.js') }}"></script>
-    <script src="{{ url('js/quotation_utils3.js') }}"></script-->
     <script src="{{ url('js/utils/magaya_api.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('js/utils/utils.js', $extra = [], $secure = 1) }}"></script>
 
-    <!--script type="text/javascript" src="{{ url('js/ui_listmquote/listToolsInitial.js', $extra = [], $secure = 1) }}"></script-->
     <script type="text/javascript" src="{{ url('js/ui_listmquote/listmQuoteInitial.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('js/errors_handlers/errors.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('js/store/constants.js', $extra = [], $secure = 1) }}"></script>
@@ -126,11 +112,8 @@
     <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/triggers.js', $extra = [], $secure = 1) }}"></script>
 
     <script src="{{ url('js/ui_listmquote/validators/validators.js', $extra = [], $secure = 1) }}"></script>
-
-
     <script src="{{ url('html2pdf/html2canvas.min.js', $extra = [], $secure = 1) }}"></script>
     <script src="{{ url('html2pdf/html2pdf.bundle.min.js', $extra = [], $secure = 1) }}"></script>
-    <!--script src="{{ url('js/store/storeForms.js') }}"></script-->
 
     @yield('js')
 
