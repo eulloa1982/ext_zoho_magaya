@@ -93,7 +93,7 @@ storeItem.subscribe(() => {
         }
 
         let append = ``
-        $("#panel-legend").html(`Editing Item`)
+        $("#panel-legend").html(`Editing Item`).css("font-size","14px")
         let arr = {}
         $.map(u[1], function(k, v) {
 
@@ -161,7 +161,12 @@ storeItem.subscribe(() => {
                 let measure_length = "in";
                 let measure_weigth = "lb";
                 let measure_volume = "ft"
-
+                let factor_weight = 0.0283168;
+                let factor_volume = 0.453562;                
+                if(!(k.magaya__Weigth != 0))
+                    k.magaya__Weigth = k.magaya__Width * k.magaya__Height * k.magaya__Length * factor_weight
+                if(!(k.magaya__Volume >= 0))
+                    k.magaya__Volume = k.magaya__Width * k.magaya__Height * k.magaya__Length * factor_volume                
                 if (k.magaya__Measure_System === "International") {
                     measure_length = "m";
                     measure_volume = "m";
@@ -254,13 +259,13 @@ storeItem.subscribe(() => {
                 measure_volume = "m";
                 measure_weigth = "kg";
 
-                total_volume_international += roundDec(k.magaya__Volume * k.magaya__Pieces)
-                total_weight_international += roundDec(k.magaya__Weigth * k.magaya__Pieces)
+                total_volume_international += roundDec(k.magaya__Volume)
+                total_weight_international += roundDec(k.magaya__Weigth)
             //it suposes it is English
             } else {
                 //pulgadas y libras
-                total_volume_english += roundDec(k.magaya__Volume * k.magaya__Pieces)
-                total_weight_english += roundDec(k.magaya__Weigth * k.magaya__Pieces)
+                total_volume_english += roundDec(k.magaya__Volume)
+                total_weight_english += roundDec(k.magaya__Weigth)
             }
 
             totalPieces += parseInt(k.magaya__Pieces)

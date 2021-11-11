@@ -12,7 +12,7 @@
     {{$amount_total = 0;}}
     @if (@isset($organization['charges']))        
         @foreach ($organization['charges'] as $dat=>$v)
-            {{ $amount_total += $v['magaya__Amount_Total'] }}
+            {{ $amount_total += float.Parse($v['magaya__Amount_Total']) }}
         <tr>
             <td style="border-bottom: 1px #000 solid;border-left: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">{{$v['Name']}}</td>
             <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">{{$v['magaya__Price']}}</td>
