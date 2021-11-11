@@ -205,6 +205,10 @@ function reducerItem (state = initialStateIntems, actions)  {
             length = digitCount2(length) > 16 ? 1 : length
             let width = roundDec(newArray[1]["magaya__Width"]);
             width = digitCount2(width) > 16 ? 1 : width
+            //Name hasta 120 caracteres
+            let name = (newArray[1]['Name']).length > 0 ?  sanitize(newArray[1]['Name']) : $("select[name=magaya__Package_Type] option:selected").text()
+            newArray[1]['Name'] = name.slice(0, 120)
+            let measure_system = newArray[1]["magaya__Measure_System"];
             let factor_volume = 1;
             let factor_weight = 1;
             if (measure_system === "International") {
@@ -213,10 +217,6 @@ function reducerItem (state = initialStateIntems, actions)  {
             }
             let weigth = roundDec(newArray[1]["magaya__Weigth"]) * factor_weight;
             weigth = digitCount2(weigth) > 16 ? 1 : weigth
-            //Name hasta 120 caracteres
-            let name = (newArray[1]['Name']).length > 0 ?  sanitize(newArray[1]['Name']) : $("select[name=magaya__Package_Type] option:selected").text()
-            newArray[1]['Name'] = name.slice(0, 120)
-            let measure_system = newArray[1]["magaya__Measure_System"]
             //calculate volume
             let volume = height * length * width * factor;
             volume = digitCount2(volume) > 16 ? 0 : volume
