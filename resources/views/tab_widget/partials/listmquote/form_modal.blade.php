@@ -355,7 +355,7 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label class="col-md-12" style="font-weight: bold;">Customer</label>
+                                    <label class="col-md-12" style="font-weight: bold;">Customer <span class="material-icons add_contact_link" id="add_account">person_add</span></label>
                                     <select name="Account" class="form-control no-border">
                                         <option></option>
                                     </select>

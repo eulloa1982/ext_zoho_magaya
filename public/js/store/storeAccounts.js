@@ -25,6 +25,12 @@ function reducerAccounts (state = initialStateAccount, actions)  {
             });
         }
 
+        case "ADD_CONTACT_LIST": {
+            return Object.assign({}, state, {
+                contactList: state.contactList.concat(actions.payload)
+            });
+        }
+
         case UPDATE_CONTACT: {
             const id = actions.payload.id
             let data = actions.payload[0]
@@ -128,7 +134,7 @@ function reducerAccounts (state = initialStateAccount, actions)  {
             newArray[index] = actions.payload
             return {
                 ...state,
-                accounts: newArray
+                quoteAccount: newArray
             }
         }
 
@@ -199,6 +205,10 @@ function addAccount(payload) {
 
 function addContact(payload) {
     return { type: ADD_CONTACT, payload};
+}
+
+function addContactList(payload) {
+    return { type: "ADD_CONTACT_LIST", payload};
 }
 
 function updateContact(payload) {

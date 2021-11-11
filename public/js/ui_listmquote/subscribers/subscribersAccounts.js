@@ -11,6 +11,13 @@ storeAccounts.subscribe(() => {
         $("select[name=Account]").val(accountQuote.id)
         $("input[name=applyToName]").val(accountQuote.Account_Name)
         $("input[name=Account_Name]").val(accountQuote.id)
+
+        $.map(accountQuote, function (k, v) {
+            if (!_.isObject(v) && !v.includes("$")) {
+               $(`#account_form input[name=${v}]`).val(k)
+               $(`#account_form select[name=${v}]`).val(k)
+            }
+        })
     }
     //select rigth one on list
    let contacts = u.contactList;
@@ -40,7 +47,6 @@ storeAccounts.subscribe(() => {
 
 
    if (!_.isEmpty(contact)) {
-       console.log("Contact state", contact)
        let idContact = contact[0]["id"];
        $("select[name=magaya__Representative]").val(idContact)
 

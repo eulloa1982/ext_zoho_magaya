@@ -24,10 +24,24 @@ $(document).ready(function(){
 
 
 
+    $("#add_account").click(function(e) {
+
+        let account = $("select[name=Account]").val()
+        if (account === null || account === "null" || account.length <= 0) {
+            $("#account_form")[0].reset()
+            $("#NewAccount").show()
+            $("#SaveAccount").hide()
+        } else {
+            $("#NewAccount").hide()
+            $("#SaveAccount").show()
+        }
+
+        $("#modalAccount").modal("show")
+    })
+
     $("#add_contact").click(function(e) {
 
         let contact = $("select[name=magaya__Representative]").val()
-        console.log("Contact", contact)
         if (contact === null || contact === "null" || contact.length <= 0) {
             $("#contact_form")[0].reset()
             $("#NewContact").show()
@@ -69,9 +83,18 @@ $(document).ready(function(){
                     ZOHO.CRM.API.getRecord({Entity:"Contacts",RecordID:idContact})
                         .then(function(data){
                             //record = data.data[0];
-                            let nameContact = `${item.First_Name} ${item.Last_Name}`
                             storeAccounts.dispatch(addContact(data.data))
-                            $(`<option value="${idContact}">${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
+
+                            let nameContact = `${item.First_Name} ${item.Last_Name}`
+                            let contactsOfAccount = storeAccounts.getState().contactList
+
+                            if (_.isEmpty(contactsOfAccount))
+                                $(`<option></option>`).appendTo("select[name=magaya__Representative]")
+
+                            storeAccounts.dispatch(addContactList(data.data))
+                            //$(`<option value="${idContact}">${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
+
+
                             $("#modalContact").modal("hide")
                         })
                         message = " : Item Updated!!";
@@ -90,6 +113,59 @@ $(document).ready(function(){
         });
 
     })
+
+
+    $("#NewAccount").click(function(e) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+
+        let $form = $("#account_form");
+        let item = getFormData($form);
+
+        $.map(item, function (k, v) {
+            if (k)
+                item[v] = k.toString()
+        })
+
+        ZOHO.CRM.API.insertRecord({Entity:"Accounts",APIData:item,Trigger:[]})
+        .then(function(data){
+            res = data.data;
+            $.map(res, function(k, v) {
+                if (k.code !== "SUCCESS") {
+                    codeError = k.code;
+                    field = k.details.api_name;
+                    show = true;
+                    module = 'Accounts'
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                } else {
+                    let idAccount = data.data[0].details.id
+                    let nameAccount = item.Account_Name
+                    ZOHO.CRM.API.getRecord({Entity:"Accounts",RecordID:idAccount})
+                        .then(function(data){
+                            //record = data.data[0];
+                            storeAccounts.dispatch(addAccount(data.data))
+                            $(`<option value="${idAccount}">${nameAccount}</option>`).appendTo("select[name=Account]")
+
+                            $("#modalAccount").modal("hide")
+                        })
+                        message = " : Item Updated!!";
+                        storeSuccess.dispatch(addSuccess({message: message}))
+                    }
+            })
+        })
+        .catch(function(error) {
+            Utils.unblockUI()
+            codeError = error.data[0].message
+            show = true;
+            field = error.data[0].details.api_name;
+            module = 'Accounts'
+            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+        });
+
+    })
+
 
     $("#SaveContact").click(function(e) {
         e.preventDefault()
@@ -153,6 +229,69 @@ $(document).ready(function(){
         });
 
     })
+
+
+    $("#SaveAccount").click(function(e) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+
+        let account = storeAccounts.getState().quoteAccount
+
+        let account_id = 0
+        if (!_.isEmpty(account)) {
+            account_id = account.id
+        }
+
+        let $form = $("#account_form");
+        let item = getFormData($form);
+        Object.assign(item, {'id': account_id})
+        $.map(item, function (k, v) {
+            if (k)
+                item[v] = k.toString()
+        })
+
+        var config={
+            Entity:"Accounts",
+            APIData: item,
+            Trigger:["workflow"]
+          }
+
+        ZOHO.CRM.API.updateRecord(config)
+        .then(function(data){
+            res = data.data;
+            $.map(res, function(k, v) {
+                if (k.code !== "SUCCESS") {
+                    codeError = k.code;
+                    field = k.details.api_name;
+                    show = true;
+                    module = 'Accounts'
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                } else {
+                    ZOHO.CRM.API.getRecord({Entity:"Accounts",RecordID:account_id})
+                        .then(function(data){
+                            //record = data.data[0];
+                            storeAccounts.dispatch(updateAccount({id: account_id, ...data.data}))
+                            //$(`<option value="${idContact}">${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
+                            $("#modalAccount").modal("hide")
+                        })
+                        message = " : Item Updated!!";
+                        storeSuccess.dispatch(addSuccess({message: message}))
+                    }
+            })
+        })
+        .catch(function(error) {
+            Utils.unblockUI()
+            codeError = error.data[0].message
+            show = true;
+            field = error.data[0].details.api_name;
+            module = 'Accounts'
+            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+        });
+
+    })
+
 
 
 

@@ -50,7 +50,7 @@
 		<div class="modal-content">
 
 			<div class="modal-header" style="background: #006494;color: white;">
-				<h4 class="modal-title custom_align" style="font-weight: bold;" id="Title">Add Contact</h4>
+				<h4 class="modal-title custom_align" style="font-weight: bold;" id="Title">Contact</h4>
 			    <span class="material-icons btn btn-primary" data-dismiss="modal">close</span>
 			</div>
 			<div class="modal-body">
