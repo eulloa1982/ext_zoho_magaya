@@ -1,8 +1,8 @@
-<table cellspacing="0px" cellpadding="0px" width="100%" style="margin-top: 10px">
+<table cellspacing="0px" cellpadding="2px" width="100%" style="margin-top: 10px">
     <tr>
-        <th colspan="5" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid">Charges</th>
+        <th colspan="5" style="text-align: start;text-transform:uppercase ;border: 1px #000 solid">Charges</th>
     </tr>
-    <tr style="font-weight: bold;">
+    <tr style="font-weight: bold;background-color: lightblue;">
         <th style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Charge Description</th>
         <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Price</th>
         <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Quantity</th>
@@ -30,7 +30,7 @@
             <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;"><br><br><br></td>
         </tr>
     @endif
-    <tr>
+    <tr style="font-weight: bolder">
         <td colspan="3"></td>
         <td style="border-left:1px #000 solid; border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">TOTAL</td>
         <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;">{{$amount_total}}</td>
