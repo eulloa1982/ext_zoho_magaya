@@ -128,13 +128,13 @@ function reducerAccounts (state = initialStateAccount, actions)  {
 
         case UPDATE_ACCOUNT: {
             let byId = actions.payload.id
-            let body = actions.payload
+            let body = actions.payload.account
             const index = state.accounts.findIndex(account => account.id === byId)
             const newArray = [...state.accounts];
-            newArray[index] = actions.payload
+            newArray[index] = body
             return {
                 ...state,
-                quoteAccount: newArray
+                quoteAccount: newArray[index][0]
             }
         }
 

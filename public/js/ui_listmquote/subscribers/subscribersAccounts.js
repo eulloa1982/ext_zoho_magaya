@@ -13,9 +13,13 @@ storeAccounts.subscribe(() => {
         $("input[name=Account_Name]").val(accountQuote.id)
 
         $.map(accountQuote, function (k, v) {
-            if (!_.isObject(v) && !v.includes("$")) {
-               $(`#account_form input[name=${v}]`).val(k)
-               $(`#account_form select[name=${v}]`).val(k)
+            //console.log(k, v)
+            if (v && !_.isObject(v) && !v.includes("$")) {
+
+                if (!_.isObject(k)) {
+                    $(`#account_form input[name=${v}]`).val(k)
+                    $(`#account_form select[name=${v}]`).val(k)
+                }
             }
         })
     }
@@ -52,8 +56,10 @@ storeAccounts.subscribe(() => {
 
        $.map(contact[0], function (k, v) {
             if (!_.isObject(v) && !v.includes("$")) {
-               $(`input[name=${v}]`).val(k)
-               $(`select[name=${v}]`).val(k)
+               $(`#contact_form input[name=${v}]`).val(k)
+               $(`#contact_form select[name=${v}]`).val(k)
+               $(`#customer_form input[name=${v}]`).val(k)
+               $(`#customer_form select[name=${v}]`).val(k)
             }
         })
     } else {

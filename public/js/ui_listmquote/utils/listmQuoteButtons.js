@@ -23,7 +23,9 @@ $(document).ready(function(){
     })
 
 
-
+    /*********************************************************** */
+    /***********buttons add/edit contact and account ************/
+    /********************************************************** */
     $("#add_account").click(function(e) {
 
         let account = $("select[name=Account]").val()
@@ -39,6 +41,7 @@ $(document).ready(function(){
         $("#modalAccount").modal("show")
     })
 
+
     $("#add_contact").click(function(e) {
 
         let contact = $("select[name=magaya__Representative]").val()
@@ -53,6 +56,7 @@ $(document).ready(function(){
 
         $("#modalContact").modal("show")
     })
+
 
     $("#NewContact").click(function(e) {
         e.preventDefault()
@@ -271,7 +275,7 @@ $(document).ready(function(){
                     ZOHO.CRM.API.getRecord({Entity:"Accounts",RecordID:account_id})
                         .then(function(data){
                             //record = data.data[0];
-                            storeAccounts.dispatch(updateAccount({id: account_id, ...data.data}))
+                            storeAccounts.dispatch(updateAccount({id: account_id, account: data.data}))
                             //$(`<option value="${idContact}">${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
                             $("#modalAccount").modal("hide")
                         })
@@ -292,6 +296,8 @@ $(document).ready(function(){
 
     })
 
+    /********************************************************************** */
+    /********************************************************************** */
 
 
 
