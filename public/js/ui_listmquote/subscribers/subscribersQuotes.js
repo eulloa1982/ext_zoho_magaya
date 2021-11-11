@@ -107,6 +107,7 @@ storeQuote.subscribe(() => {
             { "data": "magaya__Seller", "visible": false},
             { "data": "magaya__Service", "visible": false},
             { "data": "magaya__Terms", "visible": false},
+            { "data": "magaya__MagayaGUID", "visible": false},
             //{ title: "magaya__Status" },
 
         ]
