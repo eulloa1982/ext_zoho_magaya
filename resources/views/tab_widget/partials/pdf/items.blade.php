@@ -11,27 +11,27 @@
         <th width="20%" style="border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">Volume</th>
     </tr>
     @if (@isset($organization['items']))
-        {{$total_weight = 0}}
-        {{$total_volume = 0}}
-        {{$measure_length = "in"}}
-        {{$measure_weigth = "lb"}}
-        {{$measure_volume = "ft"}}        
-        {{$total_weight_international = 0}}
-        {{$total_volume_international = 0}}
-        {{$total_weight_english = 0}}
-        {{$total_volume_english = 0}}
-        {{$measure_system = ''}}
+        {{ $total_weight = 0 }}
+        {{ $total_volume = 0 }}
+        {{ $measure_length = "in" }}
+        {{ $measure_weigth = "lb" }}
+        {{ $measure_volume = "ft" }}        
+        {{ $total_weight_international = 0 }}
+        {{ $total_volume_international = 0 }}
+        {{ $total_weight_english = 0 }}
+        {{ $total_volume_english = 0 }}
+        {{ $measure_system = '' }}
         @foreach ($organization['items'] as $dat=>$v)
         @if ($v['magaya__Measure_System'] === "International") {
             {{$measure_length = "m"}}
             {{$measure_volume = "m"}}
             {{$measure_weigth = "kg"}}
-            {{$total_volume_international += ($v['magaya__Volume'] * $v['magaya__Pieces'])}}
-            {{$total_weight_international += ($v['magaya__Weigth'] * $v['magaya__Pieces'])}}
+            {{$total_volume_international += ($v['magaya__Volume'])}}
+            {{$total_weight_international += ($v['magaya__Weigth'])}}
          @else 
             {{/*/pulgadas y libras*/}}
-            {{$total_volume_english += ($v['magaya__Volume'] * $v['magaya__Pieces'])}}
-            {{$total_weight_english += ($v['magaya__Weigth'] * $v['magaya__Pieces'])}}
+            {{$total_volume_english += ($v['magaya__Volume'])}}
+            {{$total_weight_english += ($v['magaya__Weigth'])}}
         @endif
         {{$measure_system = $v['magaya__Measure_System']}}
         <tr>

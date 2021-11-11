@@ -259,13 +259,13 @@ storeItem.subscribe(() => {
                 measure_volume = "m";
                 measure_weigth = "kg";
 
-                total_volume_international += roundDec(k.magaya__Volume * k.magaya__Pieces)
-                total_weight_international += roundDec(k.magaya__Weigth * k.magaya__Pieces)
+                total_volume_international += roundDec(k.magaya__Volume)
+                total_weight_international += roundDec(k.magaya__Weigth)
             //it suposes it is English
             } else {
                 //pulgadas y libras
-                total_volume_english += roundDec(k.magaya__Volume * k.magaya__Pieces)
-                total_weight_english += roundDec(k.magaya__Weigth * k.magaya__Pieces)
+                total_volume_english += roundDec(k.magaya__Volume)
+                total_weight_english += roundDec(k.magaya__Weigth)
             }
 
             totalPieces += parseInt(k.magaya__Pieces)
