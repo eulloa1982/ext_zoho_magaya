@@ -146,10 +146,11 @@ a {
 <!-- modal to edit and insert mquotes -->
 @include('tab_widget.partials.listmquote.form_modal')
 
-<!-- modal contact -->
+<!-- modal contact form -->
 @include('tab_widget.partials.listmquote.form_contact')
 
-
+<!-- modal account form -->
+@include('tab_widget.partials.listmquote.form_account')
 
 @stop
 @section('js')

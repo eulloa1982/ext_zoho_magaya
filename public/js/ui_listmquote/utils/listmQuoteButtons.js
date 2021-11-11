@@ -24,8 +24,33 @@ $(document).ready(function(){
 
 
 
+    $("#add_account").click(function(e) {
+
+        let account = $("select[name=Account]").val()
+        if (account === null || account === "null" || account.length <= 0) {
+            $("#account_form")[0].reset()
+            $("#NewAccount").show()
+            $("#SaveAccount").hide()
+        } else {
+            $("#NewAccount").hide()
+            $("#SaveAccount").show()
+        }
+
+        $("#modalAccount").modal("show")
+    })
+
     $("#add_contact").click(function(e) {
-        $("#contact_form")[0].reset()
+
+        let contact = $("select[name=magaya__Representative]").val()
+        if (contact === null || contact === "null" || contact.length <= 0) {
+            $("#contact_form")[0].reset()
+            $("#NewContact").show()
+            $("#SaveContact").hide()
+        } else {
+            $("#NewContact").hide()
+            $("#SaveContact").show()
+        }
+
         $("#modalContact").modal("show")
     })
 
@@ -36,7 +61,12 @@ $(document).ready(function(){
         let $form = $("#contact_form");
         let item = getFormData($form);
         Object.assign(item, {'Account_Name': $("select[name=Account]").val()})
-        console.log(item)
+
+        $.map(item, function (k, v) {
+            if (k)
+                item[v] = k.toString()
+        })
+
         ZOHO.CRM.API.insertRecord({Entity:"Contacts",APIData:item,Trigger:[]})
         .then(function(data){
             res = data.data;
@@ -53,9 +83,18 @@ $(document).ready(function(){
                     ZOHO.CRM.API.getRecord({Entity:"Contacts",RecordID:idContact})
                         .then(function(data){
                             //record = data.data[0];
-                            let nameContact = `${item.First_Name} ${item.Last_Name}`
                             storeAccounts.dispatch(addContact(data.data))
-                            $(`<option value="${idContact}">${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
+
+                            let nameContact = `${item.First_Name} ${item.Last_Name}`
+                            let contactsOfAccount = storeAccounts.getState().contactList
+
+                            if (_.isEmpty(contactsOfAccount))
+                                $(`<option></option>`).appendTo("select[name=magaya__Representative]")
+
+                            storeAccounts.dispatch(addContactList(data.data))
+                            //$(`<option value="${idContact}">${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
+
+
                             $("#modalContact").modal("hide")
                         })
                         message = " : Item Updated!!";
@@ -74,6 +113,185 @@ $(document).ready(function(){
         });
 
     })
+
+
+    $("#NewAccount").click(function(e) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+
+        let $form = $("#account_form");
+        let item = getFormData($form);
+
+        $.map(item, function (k, v) {
+            if (k)
+                item[v] = k.toString()
+        })
+
+        ZOHO.CRM.API.insertRecord({Entity:"Accounts",APIData:item,Trigger:[]})
+        .then(function(data){
+            res = data.data;
+            $.map(res, function(k, v) {
+                if (k.code !== "SUCCESS") {
+                    codeError = k.code;
+                    field = k.details.api_name;
+                    show = true;
+                    module = 'Accounts'
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                } else {
+                    let idAccount = data.data[0].details.id
+                    let nameAccount = item.Account_Name
+                    ZOHO.CRM.API.getRecord({Entity:"Accounts",RecordID:idAccount})
+                        .then(function(data){
+                            //record = data.data[0];
+                            storeAccounts.dispatch(addAccount(data.data))
+                            $(`<option value="${idAccount}">${nameAccount}</option>`).appendTo("select[name=Account]")
+
+                            $("#modalAccount").modal("hide")
+                        })
+                        message = " : Item Updated!!";
+                        storeSuccess.dispatch(addSuccess({message: message}))
+                    }
+            })
+        })
+        .catch(function(error) {
+            Utils.unblockUI()
+            codeError = error.data[0].message
+            show = true;
+            field = error.data[0].details.api_name;
+            module = 'Accounts'
+            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+        });
+
+    })
+
+
+    $("#SaveContact").click(function(e) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+
+        let contact = storeAccounts.getState().singleContact
+
+        let contact_id = 0
+        if (!_.isEmpty(contact)) {
+            contact_id = contact[0].id
+        }
+
+        let $form = $("#contact_form");
+        let item = getFormData($form);
+        Object.assign(item, {'Account_Name': $("select[name=Account]").val()})
+        Object.assign(item, {'id': contact_id})
+        $.map(item, function (k, v) {
+            if (k)
+                item[v] = k.toString()
+        })
+
+        var config={
+            Entity:"Contacts",
+            APIData: item,
+            Trigger:[""]
+          }
+
+        ZOHO.CRM.API.updateRecord(config)
+        .then(function(data){
+            res = data.data;
+            $.map(res, function(k, v) {
+                if (k.code !== "SUCCESS") {
+                    codeError = k.code;
+                    field = k.details.api_name;
+                    show = true;
+                    module = 'Contacts'
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                } else {
+                    ZOHO.CRM.API.getRecord({Entity:"Contacts",RecordID:contact_id})
+                        .then(function(data){
+                            //record = data.data[0];
+                            let nameContact = `${item.First_Name} ${item.Last_Name}`
+                            storeAccounts.dispatch(updateContact({id: contact_id, ...data.data}))
+                            //$(`<option value="${idContact}">${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
+                            $("#modalContact").modal("hide")
+                        })
+                        message = " : Item Updated!!";
+                        storeSuccess.dispatch(addSuccess({message: message}))
+                    }
+            })
+        })
+        .catch(function(error) {
+            Utils.unblockUI()
+            codeError = error.data[0].message
+            show = true;
+            field = error.data[0].details.api_name;
+            module = 'Contacts'
+            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+        });
+
+    })
+
+
+    $("#SaveAccount").click(function(e) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+
+        let account = storeAccounts.getState().quoteAccount
+
+        let account_id = 0
+        if (!_.isEmpty(account)) {
+            account_id = account.id
+        }
+
+        let $form = $("#account_form");
+        let item = getFormData($form);
+        Object.assign(item, {'id': account_id})
+        $.map(item, function (k, v) {
+            if (k)
+                item[v] = k.toString()
+        })
+
+        var config={
+            Entity:"Accounts",
+            APIData: item,
+            Trigger:["workflow"]
+          }
+
+        ZOHO.CRM.API.updateRecord(config)
+        .then(function(data){
+            res = data.data;
+            $.map(res, function(k, v) {
+                if (k.code !== "SUCCESS") {
+                    codeError = k.code;
+                    field = k.details.api_name;
+                    show = true;
+                    module = 'Accounts'
+                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+                } else {
+                    ZOHO.CRM.API.getRecord({Entity:"Accounts",RecordID:account_id})
+                        .then(function(data){
+                            //record = data.data[0];
+                            storeAccounts.dispatch(updateAccount({id: account_id, ...data.data}))
+                            //$(`<option value="${idContact}">${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
+                            $("#modalAccount").modal("hide")
+                        })
+                        message = " : Item Updated!!";
+                        storeSuccess.dispatch(addSuccess({message: message}))
+                    }
+            })
+        })
+        .catch(function(error) {
+            Utils.unblockUI()
+            codeError = error.data[0].message
+            show = true;
+            field = error.data[0].details.api_name;
+            module = 'Accounts'
+            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
+
+        });
+
+    })
+
 
 
 
@@ -530,7 +748,7 @@ $(document).ready(function(){
         "magaya__Representative": contact,
         "magaya__ContactName": sanitize($("select[name=magaya__Representative] option:selected").text()),
         "magaya__Terms": sanitize($("#magaya__Terms").val()),
-        "magaya__Incoterms": $("select[name=magaya__Incoterms]").val(),
+        "magaya__Incoterm_rule": $("select[name=magaya__Incoterm_rule]").val(),
         "Owner": $("select[name=Owner]").val(),
         "magaya__Origin": sanitize($(":input[name=magaya__Origin]").val()),
         "magaya__Destination": sanitize($(":input[name=magaya__Destination]").val()),
@@ -727,7 +945,7 @@ $(document).ready(function(){
             "magaya__Seller": $(":input[name=magaya__Seller]").val(),
             "magaya__Terms": sanitize($("#magaya__Terms").val()),
             "magaya__IssuedBy": $(":input[name=magaya__IssuedByName]").val(),
-            "magaya__Incoterms": $("select[name=magaya__Incoterms]").val(),
+            "magaya__Incoterm_rule": $("select[name=magaya__Incoterm_rule]").val(),
             "Owner": $("select[name=Owner]").val()
         }
 
