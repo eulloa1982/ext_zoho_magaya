@@ -224,12 +224,12 @@ table #table-charges-preview #table-items-preview {
     border: none;
 }
 
-#table-items td,
+/*#table-items td,
 #table-items-new th {
     border: 1px solid #dee2e6;
     padding-right: 0px;
     padding-left: 2px;
-}
+}*/
 
 
 /*.table td, .table th{
