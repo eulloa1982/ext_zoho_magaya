@@ -465,11 +465,11 @@ $(document).ready(function(){
         Utils.blockUI()
 
         let item = storeItem.getState().singleItem[1]
-        item.magaya__Volume = item.magaya__Volume.replace(/[,]/g, '')
-        item.magaya__Height = item.magaya__Height.replace(/[,]/g, '')
-        item.magaya__Length = item.magaya__Length.replace(/[,]/g, '')
-        item.magaya__Width = item.magaya__Width.replace(/[,]/g, '')
-        item.magaya__Weigth = item.magaya__Weigth.replace(/[,]/g, '')
+        item.magaya__Volume = item.magaya__Volume ? item.magaya__Volume.toString().replace(/[,]/g, '') : 0
+        item.magaya__Height = item.magaya__Height ? item.magaya__Height.toString().replace(/[,]/g, '') : 0
+        item.magaya__Length = item.magaya__Length ? item.magaya__Length.toString().replace(/[,]/g, '') : 0
+        item.magaya__Width = item.magaya__Width ? item.magaya__Width.toString().replace(/[,]/g, '') : 0
+        item.magaya__Weigth = item.magaya__Weigth ? item.magaya__Weigth.toString().replace(/[,]/g, '') : 0
         let quoteToEdit = storeQuote.getState().quoteToEdit
         Object.assign(item, {'magaya__SQuote_Name': quoteToEdit.id})
         Object.assign(item, {"magaya__Package_Type": $("select[name=magaya__Package_Type]").val()})
