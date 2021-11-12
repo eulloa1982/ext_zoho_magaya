@@ -160,11 +160,11 @@ storeItem.subscribe(() => {
             let total_volume_english = 0
             $.each(u, function(i, k) {
                 //quitar las , separadoras de miles
-                item_volume = k.magaya__Volume.replace(/[,]/g, '')
-                item_height = k.magaya__Height.replace(/[,]/g, '')
-                item_width = k.magaya__Width.replace(/[,]/g, '')
-                item_length = k.magaya__Length.replace(/[,]/g, '')
-                item_weigth = k.magaya__Weigth.replace(/[,]/g, '')
+                item_volume = k.magaya__Volume ? k.magaya__Volume.toString().replace(/[,]/g, '') : 0
+                item_height = k.magaya__Height ? k.magaya__Height.toString().replace(/[,]/g, '') : 0
+                item_width = k.magaya__Width ? k.magaya__Width.toString().replace(/[,]/g, '') : 0
+                item_length = k.magaya__Length ? k.magaya__Length.toString().replace(/[,]/g, '') : 0
+                item_weigth = k.magaya__Weigth ? k.magaya__Weigth.toString().replace(/[,]/g, '') : 0
                 item_pieces = parseInt(k.magaya__Pieces)
 
                 let measure_length = "in";
@@ -192,6 +192,8 @@ storeItem.subscribe(() => {
                 //get totales
                 totalPieces += item_pieces
 
+                if (!k.Name)
+                    k.Name = k.magaya__Package_Type.name
                 $("#table-items-new tbody").append(`<tr>
                 <td class='Delete'>
                     <span class="material-icons oculto btn-slide" data-module="table-items-new" data-id="${i}">create</span>

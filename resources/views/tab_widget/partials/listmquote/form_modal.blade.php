@@ -665,7 +665,7 @@
 
 
                                 <div class="scrollme col-12">
-                                    <table id="table-items" class="table table-responsive table-striped">
+                                    <table id="table-items" class="table table-responsive table-bordered table-striped">
                                         <thead style="text-align:center;">
                                             <tr>
                                                 <th style="width:9%"></th>
@@ -674,8 +674,8 @@
                                                 <th colspan="2" style="width:12%">Length</th>
                                                 <th colspan="2" style="width:12%">Heigth</th>
                                                 <th colspan="2" style="width:12%">Width</th>
-                                                <th colspan="2" style="width:13%">Weigth</th>
-                                                <th colspan="2" style="width:13%">Volume</th>
+                                                <th colspan="2" style="width:12%">Weigth</th>
+                                                <th colspan="2" style="width:12%">Volume</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -684,7 +684,7 @@
                                 </div>
 
                                 <div class="scrollme col-12">
-                                    <table id="table-items-new" class="table table-responsive table-striped" style="width:100%;border: 1px solid #dee2e6;">
+                                    <table id="table-items-new" class="table table-responsive table-bordered table-striped" >
                                             <thead>
                                                 <tr>
                                                     <th style="width:9%"></th>
@@ -693,8 +693,8 @@
                                                     <th colspan="2" style="width:12%">Length</th>
                                                     <th colspan="2" style="width:12%">Heigth</th>
                                                     <th colspan="2" style="width:12%">Width</th>
-                                                    <th colspan="2" style="width:13%">Weigth</th>
-                                                    <th colspan="2" style="width:13%">Volume</th>
+                                                    <th colspan="2" style="width:12%">Weigth</th>
+                                                    <th colspan="2" style="width:12%">Volume</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
