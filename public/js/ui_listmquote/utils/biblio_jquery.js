@@ -691,16 +691,11 @@ async function make_pdf(id) {
 
 
 async function buildPdf(mquote_id) {
-    quoteToEdit = [];
-    //Utils.blockUI()
-    //dispatch
     Utils.blockUI()
-    storeQuote.dispatch(findQuote({ id: mquote_id }))
 
     //general data
     let orgData = localStorage.getItem('organization')
     orgData = JSON.parse(orgData)
-    console.log(orgData)
     let charges = []
     let items = []
     let mquote = storeQuote.getState().quoteToEdit
@@ -709,8 +704,8 @@ async function buildPdf(mquote_id) {
         'organization': {
             "orgData" :orgData,
             'mQuote': mquote,
-            'charges': await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name0", mquote_id),
-            'items': await getRelatedRecordCRM("magaya__SQuotes", "magaya__SQuote_Name1", mquote_id)
+            'charges': storeCharge.getState().charges,
+            'items': storeItem.getState().items
         }
     }
 

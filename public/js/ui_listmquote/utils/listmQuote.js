@@ -93,10 +93,10 @@ $(document).ready(function(){
     $(".toPdf").click(function(e) {
         e.stopImmediatePropagation()
 
-        storeItem.dispatch(emptyItems())
-        storeCharge.dispatch(emptyCharges())
-        storeAccounts.dispatch(emptyAllAccounts())
-        storeQuote.dispatch(clearQuoteToEdit())
+        //storeItem.dispatch(emptyItems())
+        //storeCharge.dispatch(emptyCharges())
+        //storeAccounts.dispatch(emptyAllAccounts())
+        //storeQuote.dispatch(clearQuoteToEdit())
 
         let idmQuote = $(this).attr('data-id')
         let pdf = make_pdf(idmQuote);
@@ -127,21 +127,6 @@ $(document).ready(function(){
             $(this).toggleClass("active"); return false;
 
         });
-
-
-        $(".toPdf").click(function(e) {
-            e.stopImmediatePropagation()
-
-            storeItem.dispatch(emptyItems())
-            storeCharge.dispatch(emptyCharges())
-            storeAccounts.dispatch(emptyAllAccounts())
-            storeQuote.dispatch(clearQuoteToEdit())
-
-            let idmQuote = $(this).attr('data-id')
-            let pdf = make_pdf(idmQuote);
-
-        })
-
 
 
         // Activate tooltip
