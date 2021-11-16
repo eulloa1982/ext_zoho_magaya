@@ -345,96 +345,97 @@
                         <!-- tab customer -->
                         <!------------------------------------------------------------->
 						<div class="tab-pane fade show active" id="menu5" role="tabpanel" aria-labelledby="menu5-tab">
-
-                            <div class="row" style="margin-bottom:20px;margin-top:20px;">
-                                <div class="col-md-4">
-                                    <label class="col-md-12" style="font-weight: bold;">Deal</label>
-                                    <select name="Deal" class="form-control">
-                                        <option></option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label class="col-md-12" style="font-weight: bold;">Customer <span class="material-icons add_contact_link" id="add_account">person_add</span></label>
-                                    <select name="Account" class="form-control no-border">
-                                        <option></option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-4" style="width: 100%;text-align: center;align-self: center;">
-                                    <label class="col-md-12" style="font-weight: bold;">Customer Rol</label>
-                                    <!-- Material inline 1 -->
-                                    <div class="form-check form-check-inline">
-                                        <input type="radio" class="form-check-input" id="rol_shipper" name="customer_rol" value="shipper">
-                                        <label class="form-check-label" for="materialInline1">Shipper</label>
+                            <form id="customer_form" action="https://zm">
+                                <div class="row" style="margin-bottom:20px;margin-top:20px;">
+                                    <div class="col-md-4">
+                                        <label class="col-md-12" style="font-weight: bold;">Deal</label>
+                                        <select name="Deal" class="form-control">
+                                            <option></option>
+                                        </select>
                                     </div>
 
-                                    <!-- Material inline 2 -->
-                                    <div class="form-check form-check-inline">
-                                        <input type="radio" class="form-check-input" id="rol_consignee" name="customer_rol" value="consignee">
-                                        <label class="form-check-label" for="materialInline2">Consignee</label>
+                                    <div class="col-md-4">
+                                        <label class="col-md-12" style="font-weight: bold;">Customer <span class="material-icons add_contact_link" id="add_account">person_add</span></label>
+                                        <select name="Account" class="form-control no-border">
+                                            <option></option>
+                                        </select>
                                     </div>
 
-                                    <!-- Material inline 3 -->
-                                    <div class="form-check form-check-inline">
-                                        <input type="radio" class="form-check-input" id="rol_other" name="customer_rol" value="other">
-                                        <label class="form-check-label" for="materialInline3">Other</label>
+                                    <div class="col-md-4" style="width: 100%;text-align: center;align-self: center;">
+                                        <label class="col-md-12" style="font-weight: bold;">Customer Rol</label>
+                                        <!-- Material inline 1 -->
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" id="rol_shipper" name="customer_rol" value="shipper">
+                                            <label class="form-check-label" for="materialInline1">Shipper</label>
+                                        </div>
+
+                                        <!-- Material inline 2 -->
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" id="rol_consignee" name="customer_rol" value="consignee">
+                                            <label class="form-check-label" for="materialInline2">Consignee</label>
+                                        </div>
+
+                                        <!-- Material inline 3 -->
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" id="rol_other" name="customer_rol" value="other">
+                                            <label class="form-check-label" for="materialInline3">Other</label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <hr>
+                                <hr>
 
-                            <div class="row" style="margin-bottom:20px;">
-                                <div class="col-md-4">
-                                    <div class="row" style="margin-bottom:10px;"></div>
-                                    <label class="col-md-12" style="font-weight: bold;"> &nbsp;</label>
-                                    <label class="col-md-12" style="font-weight: bold;">Representative <span class="material-icons add_contact_link" id="add_contact">person_add</span></label>
-                                    <select name="magaya__Representative" class="form-control no-border">
-                                        <option></option>
-                                    </select>
-                                    <div class="row" style="margin-bottom:10px;"></div>
-                                    <label class="col-md-12" style="font-weight: bold;">Phone</label>
-                                    <input type="text" name="Phone" class="form-control no-border">
-                                    <div class="row" style="margin-bottom:10px;"></div>
-                                    <label class="col-md-12" style="font-weight: bold;">Mobile</label>
-                                    <input type="text" name="Mobile" class="form-control no-border">
-                                    <div class="row" style="margin-bottom:10px;"></div>
-                                    <label class="col-md-12" style="font-weight: bold;">Email</label>
-                                    <div class="row" style="margin-bottom:10px;"></div>
-                                    <input type="text" name="Email" class="form-control no-border" style="margin-bottom: 20px;">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="row" style="margin-bottom:10px;"></div>
-                                    <div class="row" style="margin-bottom:20px;">
-                                        <div class="col-md-6">
-                                            <label class="col-md-12" style="font-weight: bold;">Billing Address</label>
-                                            <label class="col-md-12" style="font-weight: bold;"> Street</label>
-                                            <input type="text" name="Mailing_Street" class="form-control no-border">
-                                            <div class="row" style="margin-bottom:10px;"></div>
+                                <div class="row" style="margin-bottom:20px;">
+                                    <div class="col-md-4">
+                                        <div class="row" style="margin-bottom:10px;"></div>
+                                        <label class="col-md-12" style="font-weight: bold;"> &nbsp;</label>
+                                        <label class="col-md-12" style="font-weight: bold;">Representative <span class="material-icons add_contact_link" id="add_contact">person_add</span></label>
+                                        <select name="magaya__Representative" class="form-control no-border">
+                                            <option></option>
+                                        </select>
+                                        <div class="row" style="margin-bottom:10px;"></div>
+                                        <label class="col-md-12" style="font-weight: bold;">Phone</label>
+                                        <input type="text" name="Phone" class="form-control no-border">
+                                        <div class="row" style="margin-bottom:10px;"></div>
+                                        <label class="col-md-12" style="font-weight: bold;">Mobile</label>
+                                        <input type="text" name="Mobile" class="form-control no-border">
+                                        <div class="row" style="margin-bottom:10px;"></div>
+                                        <label class="col-md-12" style="font-weight: bold;">Email</label>
+                                        <div class="row" style="margin-bottom:10px;"></div>
+                                        <input type="text" name="Email" class="form-control no-border" style="margin-bottom: 20px;">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="row" style="margin-bottom:10px;"></div>
+                                        <div class="row" style="margin-bottom:20px;">
+                                            <div class="col-md-6">
+                                                <label class="col-md-12" style="font-weight: bold;">Billing Address</label>
+                                                <label class="col-md-12" style="font-weight: bold;"> Street</label>
+                                                <input type="text" name="Mailing_Street" class="form-control no-border">
+                                                <div class="row" style="margin-bottom:10px;"></div>
 
-                                            <div class="row" style="margin-bottom:12px;">
-                                                <div class="col-md-6" >
-                                                    <label class="col-md-12" style="width: 100%; font-weight: bold;">City</label>
-                                                    <input type="text" name="Mailing_City" class="form-control">
+                                                <div class="row" style="margin-bottom:12px;">
+                                                    <div class="col-md-6" >
+                                                        <label class="col-md-12" style="width: 100%; font-weight: bold;">City</label>
+                                                        <input type="text" name="Mailing_City" class="form-control">
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label class="col-md-12" style="font-weight: bold;">State</label>
+                                                        <input type="text" name="Mailing_State" class="form-control">
+                                                    </div>
                                                 </div>
 
-                                                <div class="col-md-6">
-                                                    <label class="col-md-12" style="font-weight: bold;">State</label>
-                                                    <input type="text" name="Mailing_State" class="form-control">
+                                                <div class="row" style="margin-bottom:10px;">
+                                                    <div class="col-md-6">
+                                                        <label class="col-md-12" style="width: 100%; font-weight: bold;">Country</label>
+                                                        <input type="text" name="Mailing_Country" class="form-control">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="col-md-12" style="font-weight: bold;">Zip Code</label>
+                                                        <input type="text" name="Mailing_Zip" class="form-control">
+                                                    </div>
                                                 </div>
-                                            </div>
-
-                                            <div class="row" style="margin-bottom:10px;">
-                                                <div class="col-md-6">
-                                                    <label class="col-md-12" style="width: 100%; font-weight: bold;">Country</label>
-                                                    <input type="text" name="Mailing_Country" class="form-control">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="col-md-12" style="font-weight: bold;">Zip Code</label>
-                                                    <input type="text" name="Mailing_Zip" class="form-control">
-                                                </div>
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -664,36 +665,36 @@
 
 
                                 <div class="scrollme col-12">
-                                    <table id="table-items" class="table table-responsive table-striped">
-                                        <thead style="text-align:center;">
-                                            <tr>
-                                                <th style="width:9%"></th>
-                                                <th style="width:23%">Description</th>
-                                                <th style="width:8%">Pieces</th>
-                                                <th colspan="2" style="width:12%">Length</th>
-                                                <th colspan="2" style="width:12%">Heigth</th>
-                                                <th colspan="2" style="width:12%">Width</th>
-                                                <th colspan="2" style="width:13%">Weigth</th>
-                                                <th colspan="2" style="width:13%">Volume</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                        <tfoot></tfoot>
-                                    </table>
+                                    <table id="table-items" class="table table-responsive table-striped" >
+                                            <thead style="text-align:center;">
+                                                <tr>
+                                                    <th style="width:9%"></th>
+                                                    <th style="width:31%">Description</th>
+                                                    <th style="width:10%">Pieces</th>
+                                                    <th colspan="2" style="width:14%">Length</th>
+                                                    <th colspan="2" style="width:14%">Heigth</th>
+                                                    <th colspan="2" style="width:14%">Width</th>
+                                                    <th colspan="2" style="width:14%">Weigth</th>
+                                                    <th colspan="2" style="width:14%">Volume</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                            <tfoot></tfoot>
+                                        </table>
                                 </div>
 
                                 <div class="scrollme col-12">
-                                    <table id="table-items-new" class="table table-responsive table-striped" style="width:100%;border: 1px solid #dee2e6;">
-                                            <thead>
+                                    <table id="table-items-new" class="table table-responsive table-striped" >
+                                            <thead style="text-align:center;">
                                                 <tr>
                                                     <th style="width:9%"></th>
-                                                    <th style="width:23%">Description</th>
-                                                    <th style="width:8%">Pieces</th>
-                                                    <th colspan="2" style="width:12%">Length</th>
-                                                    <th colspan="2" style="width:12%">Heigth</th>
-                                                    <th colspan="2" style="width:12%">Width</th>
-                                                    <th colspan="2" style="width:13%">Weigth</th>
-                                                    <th colspan="2" style="width:13%">Volume</th>
+                                                    <th style="width:31%">Description</th>
+                                                    <th style="width:10%">Pieces</th>
+                                                    <th colspan="2" style="width:14%">Length</th>
+                                                    <th colspan="2" style="width:14%">Heigth</th>
+                                                    <th colspan="2" style="width:14%">Width</th>
+                                                    <th colspan="2" style="width:18%">Weigth</th>
+                                                    <th colspan="2" style="width:18%">Volume</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>

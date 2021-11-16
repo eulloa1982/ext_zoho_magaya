@@ -37,7 +37,9 @@ a {
     padding-bottom: 2px;
 }
 
-
+.modal {
+  overflow-y:auto;
+}
 /**************************************** */
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
 
@@ -78,7 +80,7 @@ a {
 						</div>
                         <div class="col-md-2" style="padding: 5px 0px;">
                             <div class="btn-group">
-                                <span class="material-icons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">view_week</span>
+                                <span class="material-icons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">view_week</span>
                                 <div class="dropdown-menu" style="padding: 10px 5px 5px 10px;">
                                     <a class="toggle-vis dropdown-item"  data-column="1" ><span class="material-icons mr-2 oculto">visibility</span>Number</a>
                                     <a class="toggle-vis dropdown-item"  data-column="2"><span class="material-icons mr-2 oculto">visibility</span>Deal</a>
@@ -94,6 +96,8 @@ a {
                                     <a class="toggle-vis dropdown-item" data-column="12"><span class="material-icons mr-2 oculto">visibility_off</span>Seller</a>
                                     <a class="toggle-vis dropdown-item" data-column="13"><span class="material-icons mr-2 oculto">visibility_off</span>Service</a>
                                     <a class="toggle-vis dropdown-item" data-column="14"><span class="material-icons mr-2 oculto">visibility_off</span>Terms</a>
+                                    <a class="toggle-vis dropdown-item" data-column="15"><span class="material-icons mr-2 oculto">visibility_off</span>Magaya GUID</a>
+
                                 </div>
 					        </div>
 						</div>
