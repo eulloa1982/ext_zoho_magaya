@@ -110,11 +110,12 @@ $(document).ready(function(){
         e.preventDefault()
 
 
-        $('.btn-slide').click(function(e) {
+        $('#table-quotes td').click(function(e) {
             e.preventDefault()
             e.stopImmediatePropagation()
-            let data_id = $(this).attr("data-id");
-            let module = $(this).attr("data-module")
+            //let module = $(this).parent().find(".quoteCheckBox").attr("data-module")
+            let data_id = $(this).parent().find(".quoteCheckBox").attr("data-id")
+
 
             storeQuote.dispatch(clearQuoteToEdit())
             idmQuoteToEdit = $(this).attr('data-id')
@@ -122,7 +123,7 @@ $(document).ready(function(){
 
             //dispatch
             //make_pdf(idmQuoteToEdit);
-            storeQuote.dispatch(findQuote({id: idmQuoteToEdit}))
+            storeQuote.dispatch(findQuote({id: data_id}))
             $("#panel-preview").show("fast");
             $(this).toggleClass("active"); return false;
 

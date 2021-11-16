@@ -72,7 +72,6 @@ storeQuote.subscribe(() => {
                     <a><span class="material-icons oculto edit" data-id="${v.id}">create</span></a>
                     <a><span class="material-icons oculto delete" data-id="${v.id}">delete_forever</span></a>
                     <a><span class="material-icons oculto send" data-id="${v.id}">send</span></a>
-                    <a><span class="material-icons oculto btn-slide" data-id="${v.id}">visibility</span></a>
                     `
             data.push(v)
 
