@@ -93,10 +93,10 @@ $(document).ready(function(){
     $(".toPdf").click(function(e) {
         e.stopImmediatePropagation()
 
-        storeItem.dispatch(emptyItems())
-        storeCharge.dispatch(emptyCharges())
-        storeAccounts.dispatch(emptyAllAccounts())
-        storeQuote.dispatch(clearQuoteToEdit())
+        //storeItem.dispatch(emptyItems())
+        //storeCharge.dispatch(emptyCharges())
+        //storeAccounts.dispatch(emptyAllAccounts())
+        //storeQuote.dispatch(clearQuoteToEdit())
 
         let idmQuote = $(this).attr('data-id')
         let pdf = make_pdf(idmQuote);
@@ -110,11 +110,12 @@ $(document).ready(function(){
         e.preventDefault()
 
 
-        $('.btn-slide').click(function(e) {
+        $('#table-quotes td:nth-child(n+2)').click(function(e) {
             e.preventDefault()
             e.stopImmediatePropagation()
-            let data_id = $(this).attr("data-id");
-            let module = $(this).attr("data-module")
+            //let module = $(this).parent().find(".quoteCheckBox").attr("data-module")
+            let data_id = $(this).parent().find(".quoteCheckBox").attr("data-id")
+
 
             storeQuote.dispatch(clearQuoteToEdit())
             idmQuoteToEdit = $(this).attr('data-id')
@@ -122,26 +123,11 @@ $(document).ready(function(){
 
             //dispatch
             //make_pdf(idmQuoteToEdit);
-            storeQuote.dispatch(findQuote({id: idmQuoteToEdit}))
+            storeQuote.dispatch(findQuote({id: data_id}))
             $("#panel-preview").show("fast");
             $(this).toggleClass("active"); return false;
 
         });
-
-
-        $(".toPdf").click(function(e) {
-            e.stopImmediatePropagation()
-
-            storeItem.dispatch(emptyItems())
-            storeCharge.dispatch(emptyCharges())
-            storeAccounts.dispatch(emptyAllAccounts())
-            storeQuote.dispatch(clearQuoteToEdit())
-
-            let idmQuote = $(this).attr('data-id')
-            let pdf = make_pdf(idmQuote);
-
-        })
-
 
 
         // Activate tooltip
