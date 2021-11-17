@@ -147,7 +147,7 @@ function limpiar_form() {
         elemento.value = ''
     })
     let now = moment().format("YYYY-MM-DD");
-    let expire_date = moment().add(1, 'months').format("YYYY-MM-DD")
+    let expire_date = moment().add(1, 'months').format("YYYY-MM-DD HH:mm:ss")
     $("input[name=magaya__AddedTime]").val(now)
     $("input[name=magaya__ExpirationDate]").val(expire_date)
 
