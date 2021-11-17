@@ -110,7 +110,7 @@ $(document).ready(function(){
         e.preventDefault()
 
 
-        $('#table-quotes td').click(function(e) {
+        $('#table-quotes td:nth-child(n+2)').click(function(e) {
             e.preventDefault()
             e.stopImmediatePropagation()
             //let module = $(this).parent().find(".quoteCheckBox").attr("data-module")
