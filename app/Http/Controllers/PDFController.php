@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
+use App;
 use Illuminate\Database\Eloquent\Model;
 
 class PDFController extends Controller
@@ -31,8 +32,7 @@ class PDFController extends Controller
 
         $dataPdf = ['organization' => $a['organization']];
         //$charges = ['charges' => $a['charges']];
-
-        return PDF::loadView('tab_widget.quotation_pdf', $dataPdf)->setOptions(['defaultFont' => 'sans-serif', 'isRemoteEnabled' => TRUE])->stream('invoice.pdf');
+        return PDF::loadView('tab_widget.quotation_pdf', $dataPdf)->setOptions(['defaultFont' => 'sans-serif', 'isRemoteEnabled' => TRUE, 'isHtml5ParserEnabled' => true])->stream('invoice.pdf');
         //return PDF::loadView('tab_widget.quotation_pdf', $dataPdf)->setOptions(['defaultFont' => 'sans-serif'])->stream('invoice.pdf');
 
 
