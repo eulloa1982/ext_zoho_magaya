@@ -1156,13 +1156,17 @@ $(document).ready(function(){
         } else {
             $("#sortable2").empty()
             $.map(arrayQuote, function(k, v) {
+                let accountQuote = '~'
+                if (!_.isEmpty(k.Account)) {
+                    accountQuote = k.Account.name
+                }
                 append = `<li class="list-group-item" data-id="${k.id}">
                                 <div class="form-check">
                                 <input class="form-check-input-quote-crm" type="checkbox" value="">
                                 </div>
                             <div class="view-quote sm"><i class="fa fa-eye"></i></div>
                             <div class="btn-sm edit-quote"><i class="far fa-edit"></i></div>
-                            <span>${sanitize(k.Name)}</span><span>${sanitize(k.magaya__ContactName)}</span></li>`;
+                            <span>${sanitize(k.Name)}</span><span>${sanitize(accountQuote)}</span></li>`;
                     $("#sortable2").append(append)
 
             })
