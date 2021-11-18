@@ -178,13 +178,15 @@ float:left;
             <!--div class="send-quote-to-magaya"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></div-->
             <div class="delete-quote-from-crm"><i class="fa fa-trash" aria-hidden="true"></i></div>
             <i class="fa fa-plus new-quote" data-toggle="modal" data-target="#QuoteForm" aria-hidden="true"></i>
-                <ul id="sortable2" class="list-group connectedSortable">
+            <input type="search" name="crmQuoteSearch" class="form-control-sm" placeholder="Search CRM mquote"/>
+            <ul id="sortable2" class="list-group connectedSortable">
                 </ul>
             </div>
             <div class="col-md-6">
                 <label><h5 class="list-group-item active">Magaya</h5></label>
             <div class="send-quote-to-crm"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></div>
                 <div class="delete-quote-from-magaya"><i class="fa fa-trash" aria-hidden="true"></i></div>
+                <input type="search" name="magayaQuoteSearch" class="form-control-sm" placeholder="Search Magaya quote"/>
 
               <ul id="sortable1" class="list-group connectedSortable">
                 </ul>
@@ -205,6 +207,7 @@ float:left;
             <div class="send-to-magaya"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></div>
             <div class="delete-from-crm"><i class="fa fa-trash" aria-hidden="true"></i></div>
             <div class="contact"><i class="fa fa-plus" aria-hidden="true"></i></div>
+            <input type="search" name="crmAccountSearch" class="form-control-sm" placeholder="Search CRM Account"/>
 
             <ul id="sortable3" class="list-group connectedSortable">
             </ul>
@@ -214,6 +217,7 @@ float:left;
             <div class="send-to-crm"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></div>
             <div class="delete-from-magaya"><i class="fa fa-trash" aria-hidden="true"></i></div>
             <div class="import-all-customers" data-bs-toggle="tooltip" data-bs-placement="right" title="Import all customer to CRM"><i class="fa fa-database" aria-hidden="true"></i></div>
+            <input type="search" name="magayaCustomerSearch" class="form-control-sm" placeholder="Search Magaya Customer"/>
 
 
             <ul id="sortable4" class="list-group connectedSortable">
@@ -271,6 +275,7 @@ float:left;
   </div>
 </div>
 </div>
+
 
 <!-- Modal NEw Quote-->
 <div class="modal fade" id="QuoteForm" role="dialog">
@@ -1119,6 +1124,147 @@ $(document).ready(function(){
     dataArray = new Array();
     quoteName = "QT-1";
     organizationInfo = [];
+
+    /********************************************************************
+     * crm search
+     * mquotes and accounts
+     ***********************************************************************/
+    $("input[name=crmQuoteSearch]").keyup(function() {
+        let number = $(this).val()
+        console.log("Search ", number)
+        if (number) {
+            $("#sortable2").empty()
+            $.map(arrayQuote, function(k, v) {
+                let numberQuote = k.Name
+                let accountQuote = '~'
+                if (!_.isEmpty(k.Account)) {
+                    accountQuote = k.Account.name
+                }
+
+                if (numberQuote.includes(number) || accountQuote.includes(number)) {
+                    append = `<li class="list-group-item" data-id="${k.id}">
+                                <div class="form-check">
+                                <input class="form-check-input-quote-crm" type="checkbox" value="">
+                                </div>
+                            <div class="view-quote sm"><i class="fa fa-eye"></i></div>
+                            <div class="btn-sm edit-quote"><i class="far fa-edit"></i></div>
+                            <span>${sanitize(k.Name)}</span><span>${sanitize(accountQuote)}</span></li>`;
+                    $("#sortable2").append(append)
+
+                }
+            })
+        } else {
+            $("#sortable2").empty()
+            $.map(arrayQuote, function(k, v) {
+                let accountQuote = '~'
+                if (!_.isEmpty(k.Account)) {
+                    accountQuote = k.Account.name
+                }
+                append = `<li class="list-group-item" data-id="${k.id}">
+                                <div class="form-check">
+                                <input class="form-check-input-quote-crm" type="checkbox" value="">
+                                </div>
+                            <div class="view-quote sm"><i class="fa fa-eye"></i></div>
+                            <div class="btn-sm edit-quote"><i class="far fa-edit"></i></div>
+                            <span>${sanitize(k.Name)}</span><span>${sanitize(accountQuote)}</span></li>`;
+                    $("#sortable2").append(append)
+
+            })
+        }
+    })
+
+    $("input[name=crmAccountSearch]").keyup(function() {
+        let account = $(this).val()
+        if (account) {
+            $("#sortable3").empty()
+            $.map(accounts, function(k, v) {
+                let accountName = k.Account_Name
+                if (accountName.includes(account)) {
+                    $("#sortable3").append(`<li class="list-group-item" data-magayaGuid="${k.magaya__MagayaGUID}" data-id="${k.id}">
+                                       <input class="form-check-input-contact-crm" type="checkbox" value="">
+                                       <button class="btn btn-sm view-account-crm"><i class="fa fa-eye"></i></button>
+
+                                       <i class="far fa-edit"></i>
+                                       ${k.Account_Name}  (${k.magaya__MagayaEmail})</li>`)                }
+            })
+        } else {
+            $("#sortable3").empty()
+            $.map(accounts, function(k, v) {
+                $("#sortable3").append(`<li class="list-group-item" data-magayaGuid="${k.magaya__MagayaGUID}" data-id="${k.id}">
+                                       <input class="form-check-input-contact-crm" type="checkbox" value="">
+                                       <button class="btn btn-sm view-account-crm"><i class="fa fa-eye"></i></button>
+
+                                       <i class="far fa-edit"></i>
+                                       ${k.Account_Name}  (${k.magaya__MagayaEmail})</li>`)
+            })
+        }
+    })
+
+
+    /***************************************************************************
+     * magaya search
+     * quotes and customers
+     ****************************************************************************/
+    $("input[name=magayaQuoteSearch]").keyup(function() {
+        let number = $(this).val()
+        let i = 0
+        if (number) {
+            $("#sortable1").empty()
+            $.map(arrayMagayaQuotes, function(k, v) {
+                let numberQuote = k['Number']
+                if (numberQuote.includes(number)) {
+
+                    append = `<li class="list-group-item" data-id="${k["@attributes"]["GUID"]}" data-idArray="${i}">
+                                <div class="form-check">
+                                    <input class="form-check-input-quote-magaya" type="checkbox" value="">
+                                </div>
+                                <button class="btn btn-primary btn-sm view-quote-magaya"><i class="fa fa-eye"></i></button>
+                                ${sanitize(k.Number)} ${sanitize(k.ContactName)}</li>`;
+                    i++;
+                    $("#sortable1").append(append)
+
+                }
+            })
+        } else {
+            $("#sortable1").empty()
+            $.map(arrayMagayaQuotes, function(k, v) {
+                    append = `<li class="list-group-item" data-id="${k["@attributes"]["GUID"]}" data-idArray="${i}">
+                                <div class="form-check">
+                                    <input class="form-check-input-quote-magaya" type="checkbox" value="">
+                                </div>
+                                <button class="btn btn-primary btn-sm view-quote-magaya"><i class="fa fa-eye"></i></button>
+                                ${sanitize(k.Number)} ${sanitize(k.ContactName)}</li>`;
+                    i++;
+                    $("#sortable1").append(append)
+
+
+            })
+        }
+    })
+
+
+    $("input[name=magayaCustomerSearch]").keyup(function() {
+        let account = $(this).val()
+        if (account) {
+            $("#sortable4").empty()
+            $.map(MagayaUsers, function(k, v) {
+                let accountName = k.Name
+                if (accountName && accountName.includes(account)) {
+                    $("#sortable4").append(`<li class="list-group-item" data-id="${k["@attributes"]["GUID"]}" data-idArray="${i}">
+                               <input class="form-check-input-customer-magaya" type="checkbox" value="">
+                               <button class="btn btn-sm view-customer-magaya"><i class="fa fa-eye"></i></button>
+                               ${k.Name} (${k.Email})</li`)                }
+            })
+        } else {
+            $("#sortable4").empty()
+            $.map(MagayaUsers, function(k, v) {
+                $("#sortable4").append(`<li class="list-group-item" data-id="${k["@attributes"]["GUID"]}" data-idArray="${i}">
+                               <input class="form-check-input-customer-magaya" type="checkbox" value="">
+                               <button class="btn btn-sm view-customer-magaya"><i class="fa fa-eye"></i></button>
+                               ${k.Name} (${k.Email})</li`)
+            })
+        }
+    })
 
 
 

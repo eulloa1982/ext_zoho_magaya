@@ -654,7 +654,7 @@ $('#sortable1').bind("DOMSubtreeModified", function() {
 });
 
 
-$('#sortable2').bind("DOMSubtreeModified", function() {
+$('#sortable2, #quotes_found').bind("DOMSubtreeModified", function() {
     $(".delete-quote-from-crm").show();
     $(".send-quote-to-magaya").show();
 
@@ -1355,13 +1355,17 @@ function drawQuotationCRM() {
                 arrayQuote.push(v)
 
                 id = v.id;
+                let account = `<strong>${v.magaya__ContactName}</strong> (Contact)`
+                if (!_.isEmpty(v.Account))
+                    account = v.Account.name
+
                 dataAppend = `<li class="list-group-item" data-id="${v.id}">
                             <div class="form-check">
                             <input class="form-check-input-quote-crm" type="checkbox" value="">
                             </div>
                         <div class="view-quote sm"><i class="fa fa-eye"></i></div>
                         <div class="btn-sm edit-quote"><i class="far fa-edit"></i></div>
-                        <span>${sanitize(v.Name)}</span><span>${sanitize(v.magaya__ContactName)}</span></li>`;
+                        <span>${sanitize(v.Name)}</span><span>${sanitize(account)}</span></li>`;
                 $("#sortable2").append(dataAppend);
             })
         } else {

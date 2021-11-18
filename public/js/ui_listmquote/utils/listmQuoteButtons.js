@@ -1028,7 +1028,6 @@ $(document).ready(function(){
                                                     <a><span class="material-icons oculto edit" data-id="${record.id}">create</span></a>
                                                     <a><span class="material-icons oculto delete" data-id="${record.id}">delete_forever</span></a>
                                                     <a><span class="material-icons oculto send" data-id="${record.id}">send</span></a>
-                                                    <a><span class="material-icons oculto btn-slide" data-id="${record.id}">visibility</span></a>
                                                     `
                                                 table.rows.add([{...record}]).draw();
                                                 storeQuote.dispatch(addStarting(record))

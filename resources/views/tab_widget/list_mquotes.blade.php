@@ -43,6 +43,12 @@ a {
 /**************************************** */
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
 
+#table-quotes td:hover {
+    text-shadow: -1px -1px 1px #fff, 1px 1px 1px #000;
+	color: #000;
+	opacity: 0.3;
+	font: 'Museo700';
+}
 </style>
 
 
