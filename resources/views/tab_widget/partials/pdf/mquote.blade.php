@@ -66,8 +66,29 @@
         </td>
         <td>Quote Number:</td>
         <td>@if (@isset($organization['mQuote']['Name']))
-                            {{$organization['mQuote']['Name']}}
-                        @endif</td>
+            {{$organization['mQuote']['Name']}}
+            @endif
+        </td>
+
+        <td> Creation Date:</td>
+        <td>@if (@isset($organization['mQuote']['Created_Time']))
+                            <?php echo explode('T',$organization['mQuote']['Created_Time'])[0]; ?>
+                        @endif
+        </td>
+
+        <td>Expiration Date:</td>
+        <td>@if ( @isset($organization['mQuote']['magaya__ExpirationDate']) )
+                            <?php echo explode('T',$organization['mQuote']['magaya__ExpirationDate'])[0]; ?>
+                        @endif
+        </td>
+
+        <td>Contact To:</td>
+        <td>@if (@isset($organization['mQuote']['Owner']['name']))
+                            {{$organization['mQuote']['Owner']['name']}},<br> {{$organization['mQuote']['Owner']['email']}}
+                        @endif
+        </td>
+
+
 
     </tr>
     <tr>
