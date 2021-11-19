@@ -9,8 +9,8 @@
                     </td>
                     <td class="session-first" style="float: left; font-size: 28px; vertical-align:top">
                         @if (@isset($organization['orgData']['company_name']))
-                            {{$organization['orgData']['company_name']}}    
-                        @endif 
+                            {{$organization['orgData']['company_name']}}
+                        @endif
                     </td>
                 </tr>
                 <tr></tr>
@@ -20,34 +20,34 @@
             <table width="100%" cellspacing="0px" cellpadding="0px" style="border: none; text-align: right; vertical-align:center;">
                 <tr>
                     <td colspan="12"class="headerFont">
-                        <span><img src="{{ url('images/pdfv1/language.png') }}" alt="Language" width="24px" height="24px"/></span>
-                        @if (@isset($organization['orgData']['website']))                            
-                            {{$organization['orgData']['website']}}                            
-                        @endif 
+                        @if (@isset($organization['orgData']['website']))
+                            <span><img src="{{ url('images/pdfv1/language.png') }}" alt="Language" width="24px" height="24px"/></span>
+                            {{$organization['orgData']['website']}}
+                        @endif
                     </td>
                 </tr>
                 <tr>
                     <td colspan="12" class="headerFont">
-                        <span><img src="{{ url('images/pdfv1/phone.png') }}" alt="Phone" width="24px" height="24px"/></span>
                         @if (@isset($organization['orgData']['phone']))
-                            {{$organization['orgData']['phone']}}    
-                        @endif                        
+                            <span><img src="{{ url('images/pdfv1/phone.png') }}" alt="Phone" width="24px" height="24px"/></span>
+                            {{$organization['orgData']['phone']}}
+                        @endif
                     </td>
                 </tr>
                 <tr>
                     <td colspan="12" class="headerFont">
-                        <span><img src="{{ url('images/pdfv1/email.png') }}" alt="Email" width="24px" height="24px"/></span>
                         @if (@isset($organization['orgData']['primary_email']))
-                            {{$organization['orgData']['primary_email']}}    
-                        @endif                        
+                            <span><img src="{{ url('images/pdfv1/email.png') }}" alt="Email" width="24px" height="24px"/></span>
+                            {{$organization['orgData']['primary_email']}}
+                        @endif
                     </td>
                 </tr>
                 <tr>
                     <td colspan="12" class="headerFont">
                         <span><img src="{{ url('images/pdfv1/home.png') }}" alt="Home" width="24px" height="24px"/></span>
-                            @if (@isset($organization['orgData']['country'])) {{$organization['orgData']['country']}} @endif 
-                            @if (@isset($organization['orgData']['city'])) , {{$organization['orgData']['city']}} @endif 
-                            @if (@isset($organization['orgData']['state'])) , {{$organization['orgData']['state']}} @endif                            
+                            @if (@isset($organization['orgData']['country'])) {{$organization['orgData']['country']}} @endif
+                            @if (@isset($organization['orgData']['city'])) , {{$organization['orgData']['city']}} @endif
+                            @if (@isset($organization['orgData']['state'])) , {{$organization['orgData']['state']}} @endif
                     </td>
                 </tr>
             </table>
