@@ -14,6 +14,18 @@
                             {{$organization['mQuote']['Account']['name']}}
                         @endif
                     </td>
+
+
+                    <th></th><td></td>
+
+                    <th class="headerFont" style="text-align: right; border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; font-size:14px">
+                    Quote Number</th>
+                    <td class="dataFont" style="text-align: start; border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                    @if (@isset($organization['mQuote']['Name']))
+                        {{$organization['mQuote']['Name']}}
+                    @endif
+                    </td>
+
                 </tr>
                 <tr>
                     <th class="headerFont" style="text-align: right; border-left: 1px #000 solid;border-right: 1px #000 solid;font-size:14px">
@@ -24,6 +36,16 @@
                         @endif
 
                     </td>
+
+                    <th></th><td></td>
+
+                    <th class="headerFont" style="text-align: right; border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; font-size:14px">
+                    Creation Date</th>
+                    <td class="dataFont" style="text-align: start; border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                        @if (@isset($organization['mQuote']['Created_Time']))
+                            <?php echo explode('T',$organization['mQuote']['Created_Time'])[0]; ?>
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <th class="headerFont" style="text-align: right; border: 1px #000 solid;font-size:14px">
@@ -33,6 +55,16 @@
                             {{$organization['mQuote']['magaya__ContactMobile']}}
                         @endif
                     </td>
+
+                    <th></th><td></td>
+
+                    <th class="headerFont" style="text-align: right; border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; font-size:14px">
+                    Expiration Date</th>
+                    <td class="dataFont" style="text-align: start; border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                        @if ( @isset($organization['mQuote']['magaya__ExpirationDate']) )
+                            <?php echo explode('T',$organization['mQuote']['magaya__ExpirationDate'])[0]; ?>
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <th class="headerFont" style="text-align: right; border-left: 1px #000 solid;border-right: 1px #000 solid;font-size:14px">
@@ -40,6 +72,16 @@
                     <td class="dataFont" style="text-align: start; border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
                         @if (@isset($organization['mQuote']['magaya__ContactEmail']))
                             {{$organization['mQuote']['magaya__ContactEmail']}}
+                        @endif
+                    </td>
+
+                    <th></th><td></td>
+
+                    <th class="headerFont" style="text-align: right; border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; font-size:14px">
+                    Contact To</th>
+                    <td class="dataFont" style="text-align: start; border-right: 1px #000 solid;border-bottom: 1px #000 solid;">
+                        @if (@isset($organization['mQuote']['Owner']['name']))
+                            {{$organization['mQuote']['Owner']['name']}},<br> {{$organization['mQuote']['Owner']['email']}}
                         @endif
                     </td>
                 </tr>
@@ -64,31 +106,6 @@
             </table>
 
         </td>
-        <td>Quote Number:</td>
-        <td>@if (@isset($organization['mQuote']['Name']))
-            {{$organization['mQuote']['Name']}}
-            @endif
-        </td>
-
-        <td> Creation Date:</td>
-        <td>@if (@isset($organization['mQuote']['Created_Time']))
-                            <?php echo explode('T',$organization['mQuote']['Created_Time'])[0]; ?>
-                        @endif
-        </td>
-
-        <td>Expiration Date:</td>
-        <td>@if ( @isset($organization['mQuote']['magaya__ExpirationDate']) )
-                            <?php echo explode('T',$organization['mQuote']['magaya__ExpirationDate'])[0]; ?>
-                        @endif
-        </td>
-
-        <td>Contact To:</td>
-        <td>@if (@isset($organization['mQuote']['Owner']['name']))
-                            {{$organization['mQuote']['Owner']['name']}},<br> {{$organization['mQuote']['Owner']['email']}}
-                        @endif
-        </td>
-
-
 
     </tr>
     <tr>
