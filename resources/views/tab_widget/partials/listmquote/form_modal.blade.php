@@ -74,8 +74,8 @@
 								<div class="col-md-3">
 									<label class="col-md-12" style="font-weight: bold;">Direction</label>
                                     <select name='magaya__Direction' class='form-control no-border'>
-                                        <option value='Outgoing'>Out Going</option>
-                                        <option value='Incoming'>In comming</option>
+                                        <option value='Outgoing'>Outgoing</option>
+                                        <option value='Incoming'>Incoming</option>
                                     </select>
 								</div>
 
