@@ -98,7 +98,7 @@
                     <div class="col-sm">
                         <div class="col-sm shadow-sm p-3 bg-white rounded">
                             <h5></h5>
-                            <p>Incoterms:<span class="preview" id="magaya__IncotermsPreview"></span></p>
+                            <p>Incoterms:<span class="preview" id="magaya__Incoterm_rulePreview"></span></p>
                             <p>Service: <span class="preview" id="magaya__ServicePreview"></span></p>
                             <p>Direction: <span class="preview" id="magaya__DirectionPreview"></span></p>
                         </div>
