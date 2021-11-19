@@ -211,7 +211,7 @@
 								</div>
 							</div>
 
-                            <div class="row" style="margin-bottom:20px; margin-top:20px;">
+                            <!--div class="row" style="margin-bottom:20px; margin-top:20px;">
 								<div class="col-md-6">
 									<label class="col-md-12" style="font-weight: bold;";>Port of Loading <span class="existingPorts"></span></label>
 									<select name="magaya__PortofLoading" class="form-control">
@@ -225,9 +225,9 @@
 										<option></option>
 									</select>
 								</div>
-							</div>
+							</div-->
 
-							<div class="row" style="margin-bottom:20px; margin-top:20px;">
+							<!--div class="row" style="margin-bottom:20px; margin-top:20px;">
 								<div class="col-md-6">
 									<label class="col-md-12" style="font-weight: bold;">Place of Receipt</label>
 									<input type="text" name="magaya__OriginReceipt" class="form-control no-border" />
@@ -237,9 +237,9 @@
 									<label class="col-md-12" style="font-weight: bold;">Place of Delivery</label>
 									<input type="text" name="magaya__DestinationReceipt" class="form-control no-border" />
 								</div>
-							</div>
+							</div-->
 
-							<div class="row" style="margin-bottom:20px; margin-top:20px;">
+							<!--div class="row" style="margin-bottom:20px; margin-top:20px;">
 								<div class="col-md-6">
 									<label class="col-md-12" style="font-weight: bold;">Pre Carriage By</label>
 									<input type="text" name="magaya__OriginPrecarriageBy" class="form-control no-border" />
@@ -249,7 +249,7 @@
 									<label class="col-md-12" style="font-weight: bold;">On Carriage By</label>
 									<input type="text" name="magaya__DestinationPrecarriageBy" class="form-control" />
 								</div>
-							</div>
+							</div-->
 
 							<div class="row" style="margin-bottom:20px; margin-top:20px;">
 								<div class="col-md-6" style="font-weight: bold;">
