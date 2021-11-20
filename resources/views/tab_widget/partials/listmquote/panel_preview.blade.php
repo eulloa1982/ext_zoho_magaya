@@ -1,3 +1,13 @@
+<style>
+@import url('http://getbootstrap.com/dist/css/bootstrap.css');
+.dropdown-menu > li{
+  display: inline-block;
+ }
+.open> ul {
+    display: inline-flex !important;
+}
+</style>
+
 <div class="panel-preview" id="panel-preview">
     <div class="panel">
         <fieldset class="fieldset">
@@ -6,18 +16,37 @@
                 <span>Quote Preview</span>
                 <span title="Close panel" class="material-icons close btn btn-danger float-right" style="margin: 0px 0px 0px 4px;color: white;background: none;border: none;" data-close="panel-preview">close</span>
                 <span title="Edit mQuote" id="edit-preview" data-toggle="modal" data-target="#mquoteModal" class="material-icons btn btn-primary float-right" style="background: none;border: none;">create</span>
-                <span title="Get PDF mQuote" id="toPdf" class="material-icons btn btn-primary float-right toPdf" style="background: none;border: none;">picture_as_pdf</span>
                 <span title="Send mQuote to Magaya" id="sendToMagaya" class="material-icons btn btn-primary float-right send" style="background: none;border: none;">send</span>
                 <span title="Delete mQuote" id="deleteQuote" class="material-icons btn btn-primary float-right delete" style="background: none;border: none;">delete_forever</span>
                 <span title="Duplicate mQuote" id="duplicateQuote" class="material-icons btn btn-primary float-right duplicate" style="background: none;border: none;">content_copy</span>
+
+                <div class="btn-group float-right">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="background: none;border: none;">
+                        <span title="Get PDF mQuote" class="material-icons btn btn-primary" style="background: none;border: none;">picture_as_pdf</span>
+                        <ul class="dropdown-menu" role="menu">
+                            <li style="background: none;border: none; margin: 10px">
+                                <a data-type="type1" class="toPdf"><img src="{{ url('images/PDF/pdf_type1.jpg') }}" width="25px" height="25px" alt="T1"/></a>
+                            </li>
+                            <li style="background: none;border: none; margin: 10px">
+                                <a data-type="type2" class="toPdf"><img src="{{ url('images/PDF/pdf_type2.jpg') }}" width="25px" height="25px" alt="T2"/></a>
+                            </li>
+                            <li style="background: none;border: none; margin: 10px">
+                                <a data-type="type3" class="toPdf"><img src="{{ url('images/PDF/pdf_type3.jpg') }}" width="25px" height="25px" alt="T3"/></a>
+                            </li>
+
+                        </ul>
+                </div>
 
             </legend>
 
             <div class="container">
                 <div class="row">
                     <div class="col-sm">
+
+
                         <div class="col-sm-12 shadow p-3 border border-secondary mb-2 bg-white rounded">
-                            <h5 class="text-monospace">Customer</h5>
+
+                        <h5 class="text-monospace">Customer</h5>
                             <p>Name: <span class="preview" id="AccountPreview"></span></p>
                             <h5 class="text-monospace">Representative</h5>
                             <p>Name: <span class="preview" id="RepresentativeNamePreview"></span></p>

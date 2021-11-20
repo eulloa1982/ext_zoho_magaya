@@ -97,9 +97,10 @@ $(document).ready(function(){
         //storeCharge.dispatch(emptyCharges())
         //storeAccounts.dispatch(emptyAllAccounts())
         //storeQuote.dispatch(clearQuoteToEdit())
-
-        let idmQuote = $(this).attr('data-id')
-        let pdf = make_pdf(idmQuote);
+        //let quote = storeQuote.getState().quoteToEdit
+        //let idmQuote = quote.id
+        const pdf_type = $(this).attr("data-type")
+        let pdf = make_pdf(pdf_type);
 
     })
 

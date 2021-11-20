@@ -30,12 +30,15 @@ class PDFController extends Controller
         }
         $b = $a['organization'];
 
+        $typePdf = "type1";
+        if (isset($a['organization']['pdfType']))
+            $typePdf = $a['organization']['pdfType'];
         $dataPdf = ['organization' => $a['organization']];
-        //$charges = ['charges' => $a['charges']];
-        return PDF::loadView('tab_widget.quotation_pdf', $dataPdf)->setOptions(['defaultFont' => 'sans-serif', 'isRemoteEnabled' => TRUE, 'isHtml5ParserEnabled' => true])->stream('invoice.pdf');
-        //return PDF::loadView('tab_widget.quotation_pdf', $dataPdf)->setOptions(['defaultFont' => 'sans-serif'])->stream('invoice.pdf');
+        $nameView = 'quotation_pdf_'.$typePdf;
 
-
-        //return view ('tab_widget.quotation_pdf')->with($dataPdf);
+        if (view() -> exists('tab_widget.'.$nameView))
+            return PDF::loadView('tab_widget.'.$nameView, $dataPdf)->setOptions(['defaultFont' => 'sans-serif', 'isRemoteEnabled' => TRUE, 'isHtml5ParserEnabled' => true])->stream('invoice.pdf');
+        else
+            return view('errors.404');
     }
 }
