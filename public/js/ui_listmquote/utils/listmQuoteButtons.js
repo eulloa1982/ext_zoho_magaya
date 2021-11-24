@@ -396,12 +396,12 @@ $(document).ready(function(){
     })
 
     $("#updateItemss").click(function(e) {
-        e.preventDefault();
+        //e.preventDefault();
 
-        let idItem = $(this).attr('data-id')
+       //let idItem = $(this).attr('data-id')
         //add a change counter
         Utils.blockUI();
-        let a = $("#new-item").serializeArray();
+        /*let a = $("#new-item").serializeArray();
         let item = {}
         $.each(a, function() {
             if (item[this.name]) {
@@ -412,11 +412,19 @@ $(document).ready(function(){
             } else {
                 item[this.name] = sanitize(this.value) || '';
             }
-        });
-
-
+        });*/
         let quoteToEdit = storeQuote.getState().quoteToEdit
-        Object.assign(item, { id: idItem, magaya__SQuote_Name: quoteToEdit.id});
+
+        let item = storeItem.getState().singleItem[1]
+        item.magaya__Volume = item.magaya__Volume ? item.magaya__Volume.toString().replace(/[,]/g, '') : 0
+        item.magaya__Height = item.magaya__Height ? item.magaya__Height.toString().replace(/[,]/g, '') : 0
+        item.magaya__Length = item.magaya__Length ? item.magaya__Length.toString().replace(/[,]/g, '') : 0
+        item.magaya__Width = item.magaya__Width ? item.magaya__Width.toString().replace(/[,]/g, '') : 0
+        item.magaya__Weigth = item.magaya__Weigth ? item.magaya__Weigth.toString().replace(/[,]/g, '') : 0
+        Object.assign(item, {"magaya__Package_Type": $("select[name=magaya__Package_Type]").val()})
+
+
+        Object.assign(item, { id: item.id, magaya__SQuote_Name: quoteToEdit.id});
         let config = { APIData: item }
         Object.assign(config, { Entity: "magaya__ItemQuotes" });
 
@@ -433,7 +441,7 @@ $(document).ready(function(){
                         storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
                     } else {
-                        ZOHO.CRM.API.getRecord({Entity:"magaya__ItemQuotes",RecordID:idItem})
+                        ZOHO.CRM.API.getRecord({Entity:"magaya__ItemQuotes",RecordID:item.id})
                         .then(function(data){
                             record = data.data[0];
                             storeItem.dispatch(updateItem({...record}))
