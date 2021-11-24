@@ -712,8 +712,8 @@ async function buildPdf(pdf_type) {
         }
     }
 
-    const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
-    //const endpoint = `https://zohomagaya.herokuapp.com/pdf`
+    //const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
+    const endpoint = `https://zohomagaya.herokuapp.com/pdf`
 
     fetch(endpoint, {
         mode: 'cors',
