@@ -132,7 +132,7 @@ $("#buton-package").click(function(e) {
 
 
 
-$('#sortable2').bind("DOMSubtreeModified", function() {
+/*$('#sortable2').bind("DOMSubtreeModified", function() {
     //view quote from crm button on dinamic table
     $(".view-quote").click(function(e) {
         e.preventDefault();
@@ -327,7 +327,7 @@ $('#sortable2').bind("DOMSubtreeModified", function() {
         $('#show-quote-id').modal({ show: true });
         //}
     }); //click on view-quote
-})
+})*/
 
 //view magaya quote
 $('#sortable1').bind("DOMSubtreeModified", function() {

@@ -1146,7 +1146,6 @@ $(document).ready(function(){
                                 <div class="form-check">
                                 <input class="form-check-input-quote-crm" type="checkbox" value="">
                                 </div>
-                            <div class="view-quote sm"><i class="fa fa-eye"></i></div>
                             <div class="btn-sm edit-quote"><i class="far fa-edit"></i></div>
                             <span>${sanitize(k.Name)}</span><span>${sanitize(accountQuote)}</span></li>`;
                     $("#sortable2").append(append)
@@ -1164,7 +1163,6 @@ $(document).ready(function(){
                                 <div class="form-check">
                                 <input class="form-check-input-quote-crm" type="checkbox" value="">
                                 </div>
-                            <div class="view-quote sm"><i class="fa fa-eye"></i></div>
                             <div class="btn-sm edit-quote"><i class="far fa-edit"></i></div>
                             <span>${sanitize(k.Name)}</span><span>${sanitize(accountQuote)}</span></li>`;
                     $("#sortable2").append(append)
