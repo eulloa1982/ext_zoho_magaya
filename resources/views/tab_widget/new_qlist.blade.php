@@ -206,7 +206,7 @@ float:left;
 
             <div class="send-to-magaya"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></div>
             <div class="delete-from-crm"><i class="fa fa-trash" aria-hidden="true"></i></div>
-            <div class="contact"><i class="fa fa-plus" aria-hidden="true"></i></div>
+            <!--div class="contact"><i class="fa fa-plus" aria-hidden="true"></i></div-->
             <input type="search" name="crmAccountSearch" class="form-control-sm" placeholder="Search CRM Account"/>
 
             <ul id="sortable3" class="list-group connectedSortable">
