@@ -177,7 +177,7 @@ float:left;
             <label><h5 class="list-group-item active">CRM</h5></label>
             <!--div class="send-quote-to-magaya"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></div-->
             <div class="delete-quote-from-crm"><i class="fa fa-trash" aria-hidden="true"></i></div>
-            <i class="fa fa-plus new-quote" data-toggle="modal" data-target="#QuoteForm" aria-hidden="true"></i>
+            <!--i class="fa fa-plus new-quote" data-toggle="modal" data-target="#QuoteForm" aria-hidden="true"></i-->
             <input type="search" name="crmQuoteSearch" class="form-control-sm" placeholder="Search CRM mquote"/>
             <ul id="sortable2" class="list-group connectedSortable">
                 </ul>
@@ -206,7 +206,7 @@ float:left;
 
             <div class="send-to-magaya"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></div>
             <div class="delete-from-crm"><i class="fa fa-trash" aria-hidden="true"></i></div>
-            <div class="contact"><i class="fa fa-plus" aria-hidden="true"></i></div>
+            <!--div class="contact"><i class="fa fa-plus" aria-hidden="true"></i></div-->
             <input type="search" name="crmAccountSearch" class="form-control-sm" placeholder="Search CRM Account"/>
 
             <ul id="sortable3" class="list-group connectedSortable">
@@ -1146,7 +1146,6 @@ $(document).ready(function(){
                                 <div class="form-check">
                                 <input class="form-check-input-quote-crm" type="checkbox" value="">
                                 </div>
-                            <div class="view-quote sm"><i class="fa fa-eye"></i></div>
                             <div class="btn-sm edit-quote"><i class="far fa-edit"></i></div>
                             <span>${sanitize(k.Name)}</span><span>${sanitize(accountQuote)}</span></li>`;
                     $("#sortable2").append(append)
@@ -1164,7 +1163,6 @@ $(document).ready(function(){
                                 <div class="form-check">
                                 <input class="form-check-input-quote-crm" type="checkbox" value="">
                                 </div>
-                            <div class="view-quote sm"><i class="fa fa-eye"></i></div>
                             <div class="btn-sm edit-quote"><i class="far fa-edit"></i></div>
                             <span>${sanitize(k.Name)}</span><span>${sanitize(accountQuote)}</span></li>`;
                     $("#sortable2").append(append)

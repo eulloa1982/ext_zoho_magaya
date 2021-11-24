@@ -65,7 +65,7 @@ a {
 
                     <div class="row">
                         <div class="col-md-3" style="padding-top: 12px;">
-                            <p style="color: white; font-weight: bold; font-size: 16px;padding-left: 20px;margin:0px">List mQuote</p>
+                            <p style="color: white; font-weight: bold; font-size: 16px;padding-left: 20px;margin:0px">List mQuotes</p>
 						</div>
 
                         <div class="col-md-3" style="padding-top: 12px;">

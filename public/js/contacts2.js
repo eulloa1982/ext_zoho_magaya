@@ -206,7 +206,7 @@ $('#sortable3').bind("DOMSubtreeModified", function() {
     /////////////////////////////////////////////////////////////
     //////// insert new account
     /////////////////////////////////////////////////////////////
-    $("#new-account").click(function(e) {
+    /*$("#new-account").click(function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
 
@@ -250,7 +250,7 @@ $('#sortable3').bind("DOMSubtreeModified", function() {
                 })
             }
         })
-    })
+    })*/
 
     ////////////////////////////////////////////////////////////////////
     ////////////////edit an account
