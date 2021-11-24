@@ -676,9 +676,9 @@ function getFormData($form) {
 /*** *mQuote pdf
  *@id quote id
  */
-async function make_pdf(id) {
+async function make_pdf(pdf_type) {
     try {
-        let pdf = await buildPdf(id);
+        let pdf = await buildPdf(pdf_type);
     } catch (error) {
         let message = error
         codeError = error;
@@ -692,7 +692,7 @@ async function make_pdf(id) {
 
 
 
-async function buildPdf(mquote_id) {
+async function buildPdf(pdf_type) {
     Utils.blockUI()
 
     //general data
@@ -704,6 +704,7 @@ async function buildPdf(mquote_id) {
 
     dataPost = {
         'organization': {
+            "pdfType": pdf_type,
             "orgData" :orgData,
             'mQuote': mquote,
             'charges': storeCharge.getState().charges,
@@ -711,8 +712,8 @@ async function buildPdf(mquote_id) {
         }
     }
 
-    //const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
-    const endpoint = `https://zohomagaya.herokuapp.com/pdf`
+    const endpoint = `http://localhost/zoho_magaya/blog/public/pdf`;
+    //const endpoint = `https://zohomagaya.herokuapp.com/pdf`
 
     fetch(endpoint, {
         mode: 'cors',

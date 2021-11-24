@@ -10,12 +10,12 @@
 <table cellspacing="0px" cellpadding="0px" style="border: none; background-color: none" width="100%">
     <tr>
         <td>
-            @include('tab_widget.partials.pdf.charges')
+            @include('tab_widget.partials.pdf.type2.charges')
         </td>
     </tr>
     <tr>
         <td>
-            @include('tab_widget.partials.pdf.items')
+            @include('tab_widget.partials.pdf.type2.items')
         </td>
     </tr>
 </table>
