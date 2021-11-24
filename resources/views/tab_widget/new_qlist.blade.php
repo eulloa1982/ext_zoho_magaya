@@ -177,7 +177,7 @@ float:left;
             <label><h5 class="list-group-item active">CRM</h5></label>
             <!--div class="send-quote-to-magaya"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></div-->
             <div class="delete-quote-from-crm"><i class="fa fa-trash" aria-hidden="true"></i></div>
-            <i class="fa fa-plus new-quote" data-toggle="modal" data-target="#QuoteForm" aria-hidden="true"></i>
+            <!--i class="fa fa-plus new-quote" data-toggle="modal" data-target="#QuoteForm" aria-hidden="true"></i-->
             <input type="search" name="crmQuoteSearch" class="form-control-sm" placeholder="Search CRM mquote"/>
             <ul id="sortable2" class="list-group connectedSortable">
                 </ul>

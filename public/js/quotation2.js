@@ -231,7 +231,7 @@ function setDataRepresentative() {
 // Get data from table items
 // Get data from table charges
 //////////////////////
-$("#sendQuote").click(function(e) {
+/*$("#sendQuote").click(function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
 
@@ -298,7 +298,7 @@ $("#sendQuote").click(function(e) {
         //get Deal data, if Exists
         /*if (!_.isEmpty(dealData)) {
             Object.assign(recordData, dealData)
-        }*/
+        }*
         //Representative data
         rep = setDataRepresentative()
             .then(r => {
@@ -377,7 +377,7 @@ $("#sendQuote").click(function(e) {
 
 
     }
-})
+})*/
 
 
 //////////////////////
@@ -792,7 +792,7 @@ $('#sortable2, #quotes_found').bind("DOMSubtreeModified", function() {
 
     //new quote
     //set panel quote-for active and show
-    $(".new-quote").click(function() {
+    /*$(".new-quote").click(function() {
         $("#quote-alert").hide().html("")
         $("#nav-tab > a").removeClass("active");
         $("#nav-tabContent > div").removeClass("show active");
@@ -809,7 +809,7 @@ $('#sortable2, #quotes_found').bind("DOMSubtreeModified", function() {
         $("select[name=Stage]").val('');
         //$('.qtForm').next('qtForSelect').html('Accounts')
         $("#QuoteForm").modal();
-    })
+    })*/
 
     //edit quote on CRM
     //show and fill #QuoteForm with Quote Id value
