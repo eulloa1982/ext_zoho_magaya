@@ -1147,7 +1147,7 @@ $(document).ready(function(){
                                 <input class="form-check-input-quote-crm" type="checkbox" value="">
                                 </div>
                             <div class="btn-sm edit-quote"><i class="far fa-edit"></i></div>
-                            <span>${sanitize(k.Name)}</span><span>${sanitize(accountQuote)}</span></li>`;
+                            <span style="margin-right: 15px"s>${sanitize(k.Name)}</span><span>${sanitize(accountQuote)}</span></li>`;
                     $("#sortable2").append(append)
 
                 }
@@ -1164,7 +1164,7 @@ $(document).ready(function(){
                                 <input class="form-check-input-quote-crm" type="checkbox" value="">
                                 </div>
                             <div class="btn-sm edit-quote"><i class="far fa-edit"></i></div>
-                            <span>${sanitize(k.Name)}</span><span>${sanitize(accountQuote)}</span></li>`;
+                            <span style="margin-right: 15px">${sanitize(k.Name)}</span><span>${sanitize(accountQuote)}</span></li>`;
                     $("#sortable2").append(append)
 
             })
@@ -1217,7 +1217,7 @@ $(document).ready(function(){
                                     <input class="form-check-input-quote-magaya" type="checkbox" value="">
                                 </div>
                                 <button class="btn btn-primary btn-sm view-quote-magaya"><i class="fa fa-eye"></i></button>
-                                ${sanitize(k.Number)} ${sanitize(k.ContactName)}</li>`;
+                                <span style="margin-right: 15px">${sanitize(k.Number)}</span><span>${sanitize(k.ContactName)}</span></li>`;
                     i++;
                     $("#sortable1").append(append)
 
@@ -1231,7 +1231,7 @@ $(document).ready(function(){
                                     <input class="form-check-input-quote-magaya" type="checkbox" value="">
                                 </div>
                                 <button class="btn btn-primary btn-sm view-quote-magaya"><i class="fa fa-eye"></i></button>
-                                ${sanitize(k.Number)} ${sanitize(k.ContactName)}</li>`;
+                                <span style="margin-right: 15px">${sanitize(k.Number)}</span><span>${sanitize(k.ContactName)}</span></li>`;
                     i++;
                     $("#sortable1").append(append)
 

@@ -498,7 +498,7 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-3">Tax Rate</div>
+                                                <div class="col-md-3">Tax Rate %</div>
                                                 <div class="col-md-8"><input type="text" class="form-control number new-charge" name="magaya__TaxRate" readonly style="text-align-last:right;"></div>
                                             </div>
 
