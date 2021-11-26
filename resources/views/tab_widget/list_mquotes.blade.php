@@ -135,44 +135,44 @@ a {
 				<div class="card-body">
 
 
-						<table class="display responsive nowrap" width="100%" id="table-quotes">
+						<table class="display responsive nowrap table-hover" width="100%" id="table-quotes">
 							<thead>
 								<tr style="text-transform:uppercase;font-weight: bold;">
-								<th>Edit</th>
-								<th>Number</th>
-                                <th>Deal</th>
-								<th>Customer</th>
-								<th>Stage</th>
-								<th>Amount</th>
-								<th>Modify Time</th>
-                                <th>Created Time</th>
-                                <th>Magaya updated</th>
-                                <th>Description</th>
-                                <th>Destination</th>
-                                <th>Origin</th>
-                                <th>Seller</th>
-                                <th>Service</th>
-                                <th>Terms</th>
-                                <th>Magaya GUID</th>
-                                <th>Created By</th>
-                                <th>Created Name</th>
-                                <th>Incoterms</th>
-                                <th>Is Hazardous</th>
-                                <th>Issued By</th>
-                                <th>Added Time</th>
-                                <th>Mag Status</th>
-                                <th>Modified By</th>
-                                <th>Owner</th>
-                                <th>Contact Email</th>
-                                <th>Contact Home Phone</th>
-                                <th>Contact Mobile</th>
-                                <th>Contact Name</th>
-                                <th>Contact Phone</th>
-                                <th>Billing Street</th>
-                                <th>Billing State</th>
-                                <th>Billing Zip</th>
-                                <th>Billing City</th>
-                                <th>Billing Country</th>
+								<th class="border-top border-right border-bottom-0 border border-secondary">Edit</th>
+								<th class="border-top border-right border-bottom-0 border border-secondary">Number</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Deal</th>
+								<th class="border-top border-right border-bottom-0 border border-secondary">Customer</th>
+								<th class="border-top border-right border-bottom-0 border border-secondary">Stage</th>
+								<th class="border-top border-right border-bottom-0 border border-secondary">Amount</th>
+								<th class="border-top border-right border-bottom-0 border border-secondary">Modify Time</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Created Time</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Magaya updated</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Description</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Destination</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Origin</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Seller</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Service</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Terms</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Magaya GUID</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Created By</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Created Name</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Incoterms</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Is Hazardous</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Issued By</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Added Time</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Mag Status</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Modified By</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Owner</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Contact Email</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Contact Home Phone</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Contact Mobile</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Contact Name</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Contact Phone</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Billing Street</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Billing State</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Billing Zip</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Billing City</th>
+                                <th class="border-top border-right border-bottom-0 border border-secondary">Billing Country</th>
 								</tr>
 							</thead>
 							<tbody>
