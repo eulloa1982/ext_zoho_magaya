@@ -13,7 +13,7 @@
     @endif
 </table>
 
-<div style="opacity: 0.5; width: 260px; padding: 5px 5px 5px 5px; float: left; font-size: 14px; display: block; margin-top:30px;"><strong>Org Info</strong><br />
+<div style="opacity: 0.5; width: 260px; padding: 5px 5px 5px 5px; float: left; font-size: 14px; display: block; margin-top:30px;">
 
     @if (@isset($organization['mQuote']['magaya__Description']))
         <strong>Description: </strong>{{$organization['mQuote']['magaya__Description']}}

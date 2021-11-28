@@ -10,7 +10,7 @@
         border: 1px solid #1a2142;
         white-space: nowrap;
         vertical-align: top;
-        padding: 5px 5px 5px 0px;
+        padding: 5px 5px 5px 5px;
     }
 
 </style>
