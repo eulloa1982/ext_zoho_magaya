@@ -3,7 +3,7 @@
     @if (@isset($organization['orgData']['company_name']))
         <span style="float: right; font-size: 28px; vertical-align:top;">{{$organization['orgData']['company_name']}}</span><br />
     @endif
-    <div style="width: 260px; padding: 5px 5px 5px 5px; float: left; font-size: 14px; display: block; margin-top:30px; border: 1px solid brown;"><strong>Org Info</strong><br />
+    <div style="width: 260px; padding: 5px 5px 5px 5px; float: left; font-size: 14px; display: block; margin-top:30px;"><strong>Org Info</strong><br />
         @if (@isset($organization['orgData']['website']))
             <span><img src="{{ url('images/pdfv1/language.png') }}" alt="Language" width="24px" height="24px"/></span>
             {{$organization['orgData']['website']}}
@@ -45,7 +45,7 @@
             <strong>Contact To:</strong> {{$organization['mQuote']['Owner']['name']}},<br> {{$organization['mQuote']['Owner']['email']}}
         @endif
     </div>
-    <br /><br /><br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
     <div style="width: 93%; padding: 5px 5px 5px 5px; font-size: 14px; border: 1px solid blue; margin-top:30px"><strong>Customer Info</strong><br />
         @if (@isset($organization['mQuote']['Account']))
