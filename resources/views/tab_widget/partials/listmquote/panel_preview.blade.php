@@ -30,9 +30,6 @@
                             <li style="background: none;border: none; margin: 10px">
                                 <a data-type="type2" class="toPdf"><img src="{{ url('images/PDF/pdf_type2.jpg') }}" width="25px" height="25px" alt="T2"/></a>
                             </li>
-                            <li style="background: none;border: none; margin: 10px">
-                                <a data-type="type3" class="toPdf"><img src="{{ url('images/PDF/pdf_type3.jpg') }}" width="25px" height="25px" alt="T3"/></a>
-                            </li>
 
                         </ul>
                 </div>
