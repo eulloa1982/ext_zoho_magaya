@@ -40,9 +40,9 @@
         <br />
     @endif
 
-        @if (@isset($organization['orgData']['country'])) <span style="float: right; font-size: 14px; vertical-align:top;">{{$organization['orgData']['country']}}</span> , @endif
-        @if (@isset($organization['orgData']['city'])) <span style="float: right; font-size: 14px; vertical-align:top;">{{$organization['orgData']['city']}}</span>  , @endif
-        @if (@isset($organization['orgData']['state'])) <span style="float: right; font-size: 14px; vertical-align:top;">{{$organization['orgData']['state']}}</span> <br /> @endif
+    @if (@isset($organization['orgData']['country'])) <span style="float: right; font-size: 14px; vertical-align:top;">{{$organization['orgData']['country']}} , </span> @endif
+    @if (@isset($organization['orgData']['city'])) <span style="float: right; font-size: 14px; vertical-align:top;">{{$organization['orgData']['city']}}  , </span>@endif
+    @if (@isset($organization['orgData']['state'])) <span style="float: right; font-size: 14px; vertical-align:top;">{{$organization['orgData']['state']}}</span><br /> @endif
 
   </div>
 </div>
@@ -102,7 +102,7 @@
             <strong>Contact To:</strong> {{$organization['mQuote']['Owner']['name']}},<br> {{$organization['mQuote']['Owner']['email']}}
         @endif
     </div>
-    <br /><br /><br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
 @endif
 
