@@ -24,7 +24,7 @@
         @foreach ($organization['items'] as $dat=>$v)
         @if ($v['magaya__Measure_System'] === "International") {
             {{$measure_length = "m"}}
-            {{$measure_volume = "m3"}}
+            {{$measure_volume = "m"}}
             {{$measure_weigth = "kg"}}
             {{$total_volume_international += ($v['magaya__Volume'] * $v['magaya__Pieces'])}}
             {{$total_weight_international += ($v['magaya__Weigth'] * $v['magaya__Pieces'])}}
