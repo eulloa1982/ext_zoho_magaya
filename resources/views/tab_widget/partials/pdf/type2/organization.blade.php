@@ -1,54 +1,53 @@
 <style>
     .demo-wrap {
-    overflow: hidden;
-    position: relative;
+        overflow: hidden;
+        position: relative;
     }
 
     .demo-bg {
-    opacity: 0.4;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: auto;
+        opacity: 0.4;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: auto;
     }
 
     .demo-content {
-    position: relative;
+        position: relative;
     }
 </style>
+
 @if (@isset($organization['orgData']))
     <div class="demo-wrap">
         <img class="demo-bg" src="{{ url('images/pdfv2/shipment1.png') }}" alt="Language" />
   
-  <div class="demo-content">
-    @if (@isset($organization['orgData']['company_name']))
-        <span style="float: right; font-size: 18px; vertical-align:top;">{{$organization['orgData']['company_name']}}</span><br />
-    @endif
-    @if (@isset($organization['orgData']['website']))
-        <span style="float: right; font-size: 14px; vertical-align:top;"> {{$organization['orgData']['website']}}</span>
-        <br />
-    @endif
+        <div class="demo-content">
+            @if (@isset($organization['orgData']['company_name']))
+                <div style="text-align: right; font-size: 18px; vertical-align:top;">{{$organization['orgData']['company_name']}}</div>
+            @endif
+            @if (@isset($organization['orgData']['website']))
+                <div style="text-align: right; font-size: 14px; vertical-align:top;"><strong>Website: </strong>{{$organization['orgData']['website']}}</div>
+            @endif
 
-    @if (@isset($organization['orgData']['phone']))
-        <span style="float: right; font-size: 14px; vertical-align:top;">{{$organization['orgData']['phone']}}</span>
-        <br />
-    @endif
+            @if (@isset($organization['orgData']['phone']))
+                <div style="text-align: right; font-size: 14px; vertical-align:top;"><strong>Phone: </strong>{{$organization['orgData']['phone']}}</div>
+            @endif
 
-    @if (@isset($organization['orgData']['primary_email']))
-        <span style="float: right; font-size: 14px; vertical-align:top;">{{$organization['orgData']['primary_email']}}</span>
-        <br />
-    @endif
+            @if (@isset($organization['orgData']['primary_email']))
+                <div style="text-align: right; font-size: 14px; vertical-align:top;"><strong>Email: </strong>{{$organization['orgData']['primary_email']}}</div>
+            @endif
 
-    @if (@isset($organization['orgData']['country'])) <span style="float: right; font-size: 14px; vertical-align:top;">{{$organization['orgData']['country']}} , </span> @endif
-    @if (@isset($organization['orgData']['city'])) <span style="float: right; font-size: 14px; vertical-align:top;">{{$organization['orgData']['city']}}  , </span>@endif
-    @if (@isset($organization['orgData']['state'])) <span style="float: right; font-size: 14px; vertical-align:top;">{{$organization['orgData']['state']}}</span><br /> @endif
-
-  </div>
-</div>
+            <div style="text-align: right; font-size: 14px; vertical-align:top;"><strong>Address: </strong>
+                @if (@isset($organization['orgData']['country'])) {{ $organization['orgData']['country']}} , @endif
+                @if (@isset($organization['orgData']['city'])) {{$organization['orgData']['city']}}  , @endif
+                @if (@isset($organization['orgData']['state'])) {{$organization['orgData']['state']}} @endif
+            </div>
+        </div>
+    </div>
 
     
-    <div style="width: 40%; padding: 5px 5px 5px 5px; float: left; font-size: 12px; display: block; margin-top:30px;"><strong>Customer Info</strong><br />
+    <div style="width: 40%; padding: 5px 5px 5px 5px; float: left; font-size: 12px; display: block; margin-top:10px;"><strong>Customer Info</strong><br />
         @if (@isset($organization['mQuote']['Account']))
         <strong>Customer:</strong> {{$organization['mQuote']['Account']['name']}}
         <br />
@@ -83,7 +82,7 @@
             {{$organization['mQuote']['magaya__BillingCountry']}}
         @endif
     </div>
-    <div style="width: 40%; padding: 5px 5px 5px 5px; float: left; font-size: 12px; display: block; margin-left: 120px; margin-top:30px; border: 1px solid brown;"><strong>Quote Info</strong><br />
+    <div style="width: 40%; padding: 5px 5px 5px 5px; float: left; font-size: 12px; display: block; margin-left: 120px; margin-top:10px; border: 1px solid brown;"><strong>Quote Info</strong><br />
         @if (@isset($organization['mQuote']['Name']))
             <strong>Name: </strong>{{$organization['mQuote']['Name']}} <br />
         @endif
