@@ -3,7 +3,7 @@
         <th colspan="5" style="padding: 5px 0px 5px 5px; background-color: #577BC1; text-align: start;text-transform:uppercase ;border: 1px #000 solid">Charges</th>
     </tr>
     <tr style="font-weight: bold; background-color: #d3daf8; border: 1px solid #1a2142;">
-        <th style="text-align: center;">Charge Description</th>
+        <th style="text-align: center;width: 40%">Charge Description</th>
         <th style="text-align: center;">Price</th>
         <th style="text-align: center;">Quantity</th>
         <th style="text-align: center;">Tax Amount</th>
