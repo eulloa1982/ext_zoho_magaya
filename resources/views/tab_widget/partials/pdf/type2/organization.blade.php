@@ -3,7 +3,7 @@
     @if (@isset($organization['orgData']['company_name']))
         <span style="float: right; font-size: 28px; vertical-align:top;">{{$organization['orgData']['company_name']}}</span><br />
     @endif
-    <div style="width: 260px; padding: 5px 5px 5px 5px; float: left; font-size: 14px; display: block; margin-top:30px;"><strong>Org Info</strong><br />
+    <div style="width: 40%; padding: 5px 5px 5px 5px; float: left; font-size: 14px; display: block; margin-top:30px;"><strong>Org Info</strong><br />
         @if (@isset($organization['orgData']['website']))
             <span><img src="{{ url('images/pdfv1/language.png') }}" alt="Language" width="24px" height="24px"/></span>
             {{$organization['orgData']['website']}}
@@ -26,7 +26,7 @@
         @if (@isset($organization['orgData']['state'])) {{$organization['orgData']['state']}} <br /> @endif
 
     </div>
-    <div style="width: 260px; padding: 5px 5px 5px 5px; float: left; font-size: 14px; display: block; margin-left: 120px; margin-top:30px; border: 1px solid brown;"><strong>Quote Info</strong><br />
+    <div style="width: 40%; padding: 5px 5px 5px 5px; float: left; font-size: 14px; display: block; margin-left: 120px; margin-top:30px; border: 1px solid brown;"><strong>Quote Info</strong><br />
         @if (@isset($organization['mQuote']['Name']))
             <strong>Name: </strong>{{$organization['mQuote']['Name']}} <br />
         @endif
