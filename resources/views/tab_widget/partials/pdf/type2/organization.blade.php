@@ -1,53 +1,54 @@
+<style>
+    .demo-wrap {
+    overflow: hidden;
+    position: relative;
+    }
+
+    .demo-bg {
+    opacity: 0.4;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    }
+
+    .demo-content {
+    position: relative;
+    }
+</style>
 @if (@isset($organization['orgData']))
-
+    <div class="demo-wrap">
+        <img class="demo-bg" src="{{ url('images/pdfv2/shipment1.png') }}" alt="Language" />
+  
+  <div class="demo-content">
     @if (@isset($organization['orgData']['company_name']))
-        <span style="float: right; font-size: 20px; vertical-align:top;">{{$organization['orgData']['company_name']}}</span><br />
+        <span style="float: right; font-size: 18px; vertical-align:top;">{{$organization['orgData']['company_name']}}</span><br />
     @endif
-    <div style="width: 40%; padding: 5px 5px 5px 5px; float: left; font-size: 12px; display: block; margin-top:30px;"><strong>Org Info</strong><br />
-        @if (@isset($organization['orgData']['website']))
-            <span><img src="{{ url('images/pdfv1/language.png') }}" alt="Language" width="24px" height="24px"/></span>
-            {{$organization['orgData']['website']}}
-            <br />
-        @endif
+    @if (@isset($organization['orgData']['website']))
+        <span style="float: right; font-size: 14px; vertical-align:top;"> {{$organization['orgData']['website']}}</span>
+        <br />
+    @endif
 
-        @if (@isset($organization['orgData']['phone']))
-            <span><img src="{{ url('images/pdfv1/phone.png') }}" alt="Phone" width="24px" height="24px"/></span>
-            {{$organization['orgData']['phone']}} <br />
-        @endif
+    @if (@isset($organization['orgData']['phone']))
+        <span style="float: right; font-size: 14px; vertical-align:top;">{{$organization['orgData']['phone']}}</span>
+        <br />
+    @endif
 
-        @if (@isset($organization['orgData']['primary_email']))
-            <span><img src="{{ url('images/pdfv1/email.png') }}" alt="Email" width="24px" height="24px"/></span>
-            {{$organization['orgData']['primary_email']}} <br />
-        @endif
+    @if (@isset($organization['orgData']['primary_email']))
+        <span style="float: right; font-size: 14px; vertical-align:top;">{{$organization['orgData']['primary_email']}}</span>
+        <br />
+    @endif
 
-        <span><img src="{{ url('images/pdfv1/home.png') }}" alt="Home" width="24px" height="24px"/></span>
-        @if (@isset($organization['orgData']['country'])) {{$organization['orgData']['country']}} , @endif
-        @if (@isset($organization['orgData']['city'])) {{$organization['orgData']['city']}}  , @endif
-        @if (@isset($organization['orgData']['state'])) {{$organization['orgData']['state']}} <br /> @endif
+        @if (@isset($organization['orgData']['country'])) <span style="float: right; font-size: 14px; vertical-align:top;">{{$organization['orgData']['country']}}</span> , @endif
+        @if (@isset($organization['orgData']['city'])) <span style="float: right; font-size: 14px; vertical-align:top;">{{$organization['orgData']['city']}}</span>  , @endif
+        @if (@isset($organization['orgData']['state'])) <span style="float: right; font-size: 14px; vertical-align:top;">{{$organization['orgData']['state']}}</span> <br /> @endif
 
-    </div>
-    <div style="width: 40%; padding: 5px 5px 5px 5px; float: left; font-size: 12px; display: block; margin-left: 120px; margin-top:30px; border: 1px solid brown;"><strong>Quote Info</strong><br />
-        @if (@isset($organization['mQuote']['Name']))
-            <strong>Name: </strong>{{$organization['mQuote']['Name']}} <br />
-        @endif
+  </div>
+</div>
 
-        @if (@isset($organization['mQuote']['Created_Time']))
-            <strong>Creation Date:</strong> <?php echo explode('T',$organization['mQuote']['Created_Time'])[0]; ?>
-            <br />
-        @endif
-
-        @if ( @isset($organization['mQuote']['magaya__ExpirationDate']) )
-            <strong>Expiration Date:</strong> <?php echo explode('T',$organization['mQuote']['magaya__ExpirationDate'])[0]; ?>
-            <br />
-        @endif
-
-        @if (@isset($organization['mQuote']['Owner']['name']))
-            <strong>Contact To:</strong> {{$organization['mQuote']['Owner']['name']}},<br> {{$organization['mQuote']['Owner']['email']}}
-        @endif
-    </div>
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-
-    <div style="width: 95%; padding: 5px 5px 5px 5px; font-size: 12px; border: 1px solid blue; margin-top:30px"><strong>Customer Info</strong><br />
+    
+    <div style="width: 40%; padding: 5px 5px 5px 5px; float: left; font-size: 12px; display: block; margin-top:30px;"><strong>Customer Info</strong><br />
         @if (@isset($organization['mQuote']['Account']))
         <strong>Customer:</strong> {{$organization['mQuote']['Account']['name']}}
         <br />
@@ -82,7 +83,26 @@
             {{$organization['mQuote']['magaya__BillingCountry']}}
         @endif
     </div>
-    <br /><br />
+    <div style="width: 40%; padding: 5px 5px 5px 5px; float: left; font-size: 12px; display: block; margin-left: 120px; margin-top:30px; border: 1px solid brown;"><strong>Quote Info</strong><br />
+        @if (@isset($organization['mQuote']['Name']))
+            <strong>Name: </strong>{{$organization['mQuote']['Name']}} <br />
+        @endif
+
+        @if (@isset($organization['mQuote']['Created_Time']))
+            <strong>Creation Date:</strong> <?php echo explode('T',$organization['mQuote']['Created_Time'])[0]; ?>
+            <br />
+        @endif
+
+        @if ( @isset($organization['mQuote']['magaya__ExpirationDate']) )
+            <strong>Expiration Date:</strong> <?php echo explode('T',$organization['mQuote']['magaya__ExpirationDate'])[0]; ?>
+            <br />
+        @endif
+
+        @if (@isset($organization['mQuote']['Owner']['name']))
+            <strong>Contact To:</strong> {{$organization['mQuote']['Owner']['name']}},<br> {{$organization['mQuote']['Owner']['email']}}
+        @endif
+    </div>
+    <br /><br /><br /><br /><br /><br /><br />
 
 @endif
 
