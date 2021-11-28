@@ -27,18 +27,18 @@
                 <div style="text-align: right; font-size: 18px; vertical-align:top;">{{$organization['orgData']['company_name']}}</div>
             @endif
             @if (@isset($organization['orgData']['website']))
-                <div style="text-align: right; font-size: 14px; vertical-align:top;"><strong>Website: </strong>{{$organization['orgData']['website']}}</div>
+                <div style="text-align: right; font-size: 14px"><strong>Website: </strong>{{$organization['orgData']['website']}}</div>
             @endif
 
             @if (@isset($organization['orgData']['phone']))
-                <div style="text-align: right; font-size: 14px; vertical-align:top;"><strong>Phone: </strong>{{$organization['orgData']['phone']}}</div>
+                <div style="text-align: right; font-size: 14px"><strong>Phone: </strong>{{$organization['orgData']['phone']}}</div>
             @endif
 
             @if (@isset($organization['orgData']['primary_email']))
-                <div style="text-align: right; font-size: 14px; vertical-align:top;"><strong>Email: </strong>{{$organization['orgData']['primary_email']}}</div>
+                <div style="text-align: right; font-size: 14px"><strong>Email: </strong>{{$organization['orgData']['primary_email']}}</div>
             @endif
 
-            <div style="text-align: right; font-size: 14px; vertical-align:top;"><strong>Address: </strong>
+            <div style="text-align: right; font-size: 14px"><strong>Address: </strong>
                 @if (@isset($organization['orgData']['country'])) {{ $organization['orgData']['country']}} , @endif
                 @if (@isset($organization['orgData']['city'])) {{$organization['orgData']['city']}}  , @endif
                 @if (@isset($organization['orgData']['state'])) {{$organization['orgData']['state']}} @endif
@@ -82,6 +82,7 @@
             {{$organization['mQuote']['magaya__BillingCountry']}}
         @endif
     </div>
+
     <div style="width: 40%; padding: 5px 5px 5px 5px; float: left; font-size: 12px; display: block; margin-left: 120px; margin-top:10px; border: 1px solid brown;"><strong>Quote Info</strong><br />
         @if (@isset($organization['mQuote']['Name']))
             <strong>Name: </strong>{{$organization['mQuote']['Name']}} <br />
