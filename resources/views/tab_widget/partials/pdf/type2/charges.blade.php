@@ -15,10 +15,10 @@
             {{ $amount_total += $v['magaya__Amount_Total'] }}
         <tr style="padding: 5px 0px 5px 5px;">
             <td style="text-align: center;">{{$v['Name']}}</td>
-            <td style="text-align: right;">{{$v['magaya__Price']}}</td>
+            <td style="text-align: right;">{{number_format($v['magaya__Price'], 2, ',', ' ')}}</td>
             <td style="text-align: right;">{{$v['magaya__CQuantity']}}</td>
-            <td style="text-align:right;">{{$v['magaya__Amount']}}</td>
-            <td style="text-align: right; font-weight: bold;">{{$v['magaya__Amount_Total']}}</td>
+            <td style="text-align:right;">{{number_format($v['magaya__Amount'], 2, ',', ' ')}}</td>
+            <td style="text-align: right; font-weight: bold;">{{number_format($v['magaya__Amount_Total'], 2, ',', ' ')}}</td>
         </tr>
         @endforeach
     @else 
@@ -33,6 +33,6 @@
     <tr>
         <td colspan="3"></td>
         <td style="text-align: right;">TOTAL</td>
-        <td style="text-align: right; font-weight: bold;">{{$amount_total}}</td>
+        <td style="text-align: right; font-weight: bold;">{{number_format($amount_total, 2, ',', ' ')}}</td>
     </tr>
 </table>
