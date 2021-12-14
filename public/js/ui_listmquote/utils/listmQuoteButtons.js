@@ -1008,7 +1008,7 @@ $(document).ready(function(){
         console.log("RecordData", recordData)
 
         //insertind data, get the id and insert items and charges
-        ZOHO.CRM.API.insertRecord({ Entity: "magaya__Routing", APIData: routingData, Trigger: [] })
+        ZOHO.CRM.API.insertRecord({ Entity: "magaya__Routing", APIData: routingData, Trigger: ["workflow"] })
             .then(function(response) {
                 res = response.data
                 id = 0
