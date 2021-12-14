@@ -662,7 +662,7 @@
                                                 <div class="row">
                                                     <div class="col-md-3">Volume</div>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control number new-item" name="magaya__Volume"style="text-align-last:right;" readonly>
+                                                        <input type="text" class="form-control number new-item" name="magaya__Volume0"style="text-align-last:right;" readonly>
                                                     </div>
                                                 </div>
 

@@ -5,17 +5,13 @@
 $("select[name=Account]").change(function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    //storeAccounts.dispatch(emptySingleContact())
     $("select[name=magaya__Representative]").empty();
     store.dispatch(addActionEdited())
 
-    //storeAccounts.dispatch(emptySingleContact())
-    //$("input[id=rol_shipper]").prop("checked", false)
     let account = $("select[name=Account]").val();
     storeAccounts.dispatch(addQuoteAccount({id: account}))
     storeAccounts.dispatch(findContactOfAccount({id: account}))
     //deberia vaciar todo con emptySingleContact (BUG -- No cambia el valor del account)
-
     $("input[name=Phone]").val("")
     $("input[name=Mobile]").val("")
     $("input[name=Email]").val("")
@@ -166,7 +162,6 @@ function rolOther() {
 
 
 //var obs = new MutationObserver(function(mutations, observer) {
-
 $("select[name=magaya__Package_Type]").change(function(e) {
     e.preventDefault()
     e.stopImmediatePropagation()
@@ -201,17 +196,6 @@ $("select[name=magaya__Tax]").change(function(e) {
 
 })
 
-
-/*$("select[name=magaya__ChargeCode]").change(function(e) {
-    e.preventDefault()
-    e.stopImmediatePropagation()
-    let name = $("select[name=magaya__ChargeCode] option:selected").text();
-
-    $("textarea#Name").val(name).change()
-})*/
-
-
-//})
 
 
 /****table notes new change events******/
