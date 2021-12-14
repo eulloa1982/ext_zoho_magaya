@@ -67,8 +67,23 @@
                             <div class="row" style="margin-bottom:10px; margin-top: 30px;">
 								<div class="col-md-3">
 									<label class="col-md-12" style="font-weight: bold;">Mode of Transportation</label>
-                                    <select name='magaya__TransportationMode' class='form-control no-border'>
+                                    <select name='magaya__Mode_of_Transportation' class='form-control no-border'>
                                         <option></option>
+                                        <option value="Vessel, Non-containerized">Vessel, Non-containerized</option>
+                                        <option value="Vessel, Containerized">Vessel, Containerized</option>
+                                        <option value="Barge">Barge</option>
+                                        <option value="Rail, Non-containerized">Rail, Non-containerized</option>
+                                        <option value="Rail, Containerized">Rail, Containerized</option>
+                                        <option value="Truck, Non-containerized">Truck, Non-containerized</option>
+                                        <option value="Truck, Containerized">Truck, Containerized</option>
+                                        <option value="Auto">Auto</option>
+                                        <option value="Pedestrian">Pedestrian</option>
+                                        <option value="Road, other">Road, other</option>
+                                        <option value="Air, Non-containerized">Air, Non-containerized</option>
+                                        <option value="Air, Containerized">Air, Containerized</option>
+                                        <option value="Mail">Mail</option>
+                                        <option value="Passenger, Hand-carried">Passenger, Hand-carried</option>
+                                        <option value="Fixed Transport Installations">Fixed Transport Installations</option>
                                     </select>
 								</div>
 								<div class="col-md-3">

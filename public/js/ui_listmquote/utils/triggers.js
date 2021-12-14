@@ -66,18 +66,18 @@ $("select[name=magaya__Consignee]").change(function(e) {
 })
 
 
-$("select[name=magaya__TransportationMode]").change(function(e) {
+$("select[name=magaya__Mode_of_Transportation]").change(function(e) {
     e.preventDefault()
     e.stopImmediatePropagation()
     /*store.dispatch(addActionEdited())*/
-    let value = $("select[name=magaya__TransportationMode] option:selected").text()
+    let value = $(this).val()
     $("input[name=ModeOfTransportation]").val(value)
 
-    let idT = $(this).val()
+    //let idT = $(this).val()
 
-    let method = transpMethods.filter(k => k.id === idT)
+    //let method = transpMethods.filter(k => k.id === idT)
 
-    if (!_.isEmpty(method)) {
+    /*if (!_.isEmpty(method)) {
         let parentMethod = method[0]['magaya__ParentMethod']
         let query = ''
         switch (parentMethod) {
@@ -104,7 +104,7 @@ $("select[name=magaya__TransportationMode]").change(function(e) {
 
         storePorts.dispatch(searchByType({type: query}))
 
-    }
+    }*/
 
 })
 
