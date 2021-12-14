@@ -134,7 +134,9 @@ function limpiar_form() {
     $("input[name=magaya__Is_Hazardous]").prop("checked", false)
     $("input[name=Magaya_updated]").prop("checked", false)
     $("#magaya__Terms").val("")
-    $("input[name=ModeOfTransportation]").val("")
+    $("select[name=magaya__Mode_of_Transportation]").val("")
+    $("select[name=magaya__Incoterm_rule]").val("")
+
 
     $("select[name=Account]").prop('disabled', false);
 
