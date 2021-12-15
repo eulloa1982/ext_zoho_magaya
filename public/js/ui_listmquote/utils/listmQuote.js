@@ -114,9 +114,9 @@ $(document).ready(function(){
         $('#table-quotes td:nth-child(n+2)').click(function(e) {
             e.preventDefault()
             e.stopImmediatePropagation()
-            //let module = $(this).parent().find(".quoteCheckBox").attr("data-module")
-            let data_id = $(this).parent().find(".quoteCheckBox").attr("data-id")
 
+            //console.log($(e.currentTarget).parent().index());
+            const data_id = $(this).parent().find(".quoteCheckBox").attr("data-id")
 
             storeQuote.dispatch(clearQuoteToEdit())
             idmQuoteToEdit = $(this).attr('data-id')
@@ -196,6 +196,7 @@ $(document).ready(function(){
             e.preventDefault();
             e.stopImmediatePropagation()
 
+            //console.log($(e.currentTarget).parent().parent().parent().index());
             storeQuote.dispatch(clearQuoteToEdit())
             idmQuoteToEdit = $(this).attr('data-id')
             limpiar_form()

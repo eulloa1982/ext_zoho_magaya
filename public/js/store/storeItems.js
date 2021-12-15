@@ -14,7 +14,7 @@ const initialStateIntems = {
         magaya__Pieces: 0,
         magaya__Width: 0,
         magaya__Measure_System: "",
-        magaya__Volume: 0,
+        magaya__Volume0: 0,
         magaya__Package_Description: ""
 
     },
@@ -179,7 +179,7 @@ function reducerItem (state = initialStateIntems, actions)  {
             newArray[1]["magaya__Height"] = height
             newArray[1]["magaya__Width"] = width
             newArray[1]["magaya__Weigth"] = weigth
-            newArray[1]["magaya__Volume"] = roundDec(width * length * height)
+            newArray[1]["magaya__Volume0"] = roundDec(width * length * height)
             newArray[1]["magaya__Measure_System"] = measure_system
 
             return {
@@ -219,7 +219,7 @@ function reducerItem (state = initialStateIntems, actions)  {
             newArray[1]["magaya__Width"] = width.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             newArray[1]["magaya__Weigth"] = weigth.toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             newArray[1]["magaya__Pieces"] = pieces
-            newArray[1]["magaya__Volume"] = roundDec(volume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            newArray[1]["magaya__Volume0"] = roundDec(volume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
             newArray[1]["magaya__Measure_System"] = measure_system.length > 0 ? measure_system : "International"
             return {

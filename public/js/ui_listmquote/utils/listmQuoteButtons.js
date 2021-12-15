@@ -720,8 +720,10 @@ $(document).ready(function(){
 
  //boton send new mquote
  $("#Save").click(function(e) {
+
     e.preventDefault()
     e.stopImmediatePropagation()
+
 
     //get deal and quote account, now editable
     let accountQuoteData = storeAccounts.getState().quoteAccount
@@ -730,6 +732,13 @@ $(document).ready(function(){
     let dealQuote = ""
     if (!_.isEmpty(dealQuoteData))
         dealQuote = dealQuoteData.id
+
+    //obtain row index
+    /*let table = $("#table-quotes tr")
+    $.each(table, function(k, v) {
+        var id = table.find("td:eq(0)").children();
+        console.log(id.firstChild)
+    })*/
     //receipt fields
     if (accountId <= 0)
         throw new UserException('Mandatory data not found: Client Quote is not defined');
@@ -784,16 +793,16 @@ $(document).ready(function(){
         APIData: recordData
     }
 
-    console.log("Updating mquote", recordData)
-
     routingData = {
         "Name": $(":input[name=NameQuote]").val() !== "" ? $(":input[name=NameQuote]").val() : "Routing Data",
+        "magaya__Shipper0": sanitize($(":input[name=magaya__Shipper]").val()),
         "magaya__Shipper": sanitize($(":input[name=magaya__Shipper] option:selected").text()),
         "magaya__ShipperCity": sanitize($("input[name=magaya__ShipperCity]").val()),
         "magaya__ShipperState": sanitize($("input[name=magaya__ShipperState]").val()),
         "magaya__ShipperCountry": sanitize($("input[name=magaya__ShipperCountry]").val()),
         "magaya__ShipperStreet": sanitize($("input[name=magaya__ShipperStreet]").val()),
         "magaya__ShipperCode": sanitize($("input[name=magaya__ShipperCode]").val()),
+        "magaya__Consignee0": sanitize($("select[name=magaya__Consignee]").val()),
         "magaya__Consignee": sanitize($("select[name=magaya__Consignee] option:selected").text()),
         "magaya__ConsigneeCity": sanitize($("input[name=magaya__ConsigneeCity]").val()),
         "magaya__ConsigneeCountry": sanitize($("input[name=magaya__ConsigneeCountry]").val()),
@@ -801,9 +810,8 @@ $(document).ready(function(){
         "magaya__ConsigneeStreet": sanitize($("input[name=magaya__ConsigneeStreet]").val()),
         "magaya__ConsigneeCode": sanitize($("input[name=magaya__ConsigneeCode]").val()),
         "magaya__MainCarrier": $("select[name=magaya__MainCarrier] option:selected").val(),
-        "magaya__ModeofTransportation": $("select[name=magaya__TransportationMode] option:selected").val(),
+        "magaya__Mode_of_Transportation": $("select[name=magaya__Mode_of_Transportation] option:selected").val(),
     }
-
 
     //updating data
     ZOHO.CRM.API.updateRecord(config)
@@ -821,11 +829,26 @@ $(document).ready(function(){
                     storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
 
                 } else {
+
+                    /*let table = $('#table-quotes').DataTable();
+                    let dd = {"aa": "aa"}
+                    var d = table.row( this ).data();
+                    table
+                        .row( this )
+                        .data( dd )
+                        .draw();*/
+                        /*let table = $('#table-quotes').DataTable();
+                        someId = 6 ; //first row
+                        newData = [ "ted", "London", "23" ] //Array, data here must match structure of table data
+                        table.row(someId).data( newData ).draw();*/
+                    //table.row(2).fnUpdate(temp, 2, undefined, false)
+                    //$('#table1').dataTable().fnUpdate(temp,2,undefined,false);
+                    //console.log(table.row(2).data(temp).draw())
+
                     //get the record from zoho
                     ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id})
                         .then(function(data){
                             record = data.data;
-                            console.log("Data returned updated", record)
                             storeQuote.dispatch(updateQuote({id: idQuote, ...record}))
                         })
 
@@ -846,7 +869,7 @@ $(document).ready(function(){
                 }
                 ZOHO.CRM.API.updateRecord(configRouting)
                     .then(function(data) {
-                        console.log("Data routing", data)
+                        location.reload()
                     })
 
 
@@ -855,7 +878,6 @@ $(document).ready(function(){
                     .then(function(response) {
                         res = response.data[0]
                         let id = res.details.id
-                        console.log("Id routing to insert", res)
                         //update mquote with the new record
                         let recordData = {
                             "id": idQuote,
@@ -868,8 +890,8 @@ $(document).ready(function(){
 
                         ZOHO.CRM.API.updateRecord(updatemQuoteRouting)
                             .then(function(data) {
-                                console.log("New Data routing", data)
-                        })
+                                location.reload()
+                            })
                     })
             }
 
@@ -966,12 +988,14 @@ $(document).ready(function(){
 
         routingData = {
             "Name": $(":input[name=NameQuote]").val() !== "" ? $(":input[name=NameQuote]").val() : "Routing Data",
+            "magaya__Shipper0": sanitize($(":input[name=magaya__Shipper]").val()),
             "magaya__Shipper": sanitize($(":input[name=magaya__Shipper] option:selected").text()),
             "magaya__ShipperCity": sanitize($("input[name=magaya__ShipperCity]").val()),
             "magaya__ShipperState": sanitize($("input[name=magaya__ShipperState]").val()),
             "magaya__ShipperCountry": sanitize($("input[name=magaya__ShipperCountry]").val()),
             "magaya__ShipperStreet": sanitize($("input[name=magaya__ShipperStreet]").val()),
             "magaya__ShipperCode": sanitize($("input[name=magaya__ShipperCode]").val()),
+            "magaya__Consignee0": sanitize($("select[name=magaya__Consignee]").val()),
             "magaya__Consignee": sanitize($("select[name=magaya__Consignee] option:selected").text()),
             "magaya__ConsigneeCity": sanitize($("input[name=magaya__ConsigneeCity]").val()),
             "magaya__ConsigneeCountry": sanitize($("input[name=magaya__ConsigneeCountry]").val()),
@@ -979,13 +1003,13 @@ $(document).ready(function(){
             "magaya__ConsigneeStreet": sanitize($("input[name=magaya__ConsigneeStreet]").val()),
             "magaya__ConsigneeCode": sanitize($("input[name=magaya__ConsigneeCode]").val()),
             "magaya__MainCarrier": $("select[name=magaya__MainCarrier] option:selected").val(),
-            "magaya__ModeofTransportation": $("select[name=magaya__TransportationMode] option:selected").val(),
+            "magaya__Mode_of_Transportation": $("select[name=magaya__Mode_of_Transportation] option:selected").val(),
         }
 
         console.log("RecordData", recordData)
 
         //insertind data, get the id and insert items and charges
-        ZOHO.CRM.API.insertRecord({ Entity: "magaya__Routing", APIData: routingData, Trigger: [] })
+        ZOHO.CRM.API.insertRecord({ Entity: "magaya__Routing", APIData: routingData, Trigger: ["workflow"] })
             .then(function(response) {
                 res = response.data
                 id = 0
@@ -1030,13 +1054,13 @@ $(document).ready(function(){
                                         ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id})
                                             .then(function(data){
                                                 record = data.data[0];
-                                                console.log(record)
                                                 record.create = `
                                                     <a><input type="checkbox" class="quoteCheckBox" data-id="${record.id}" /></a>
                                                     <a><span class="material-icons oculto edit" data-id="${record.id}">create</span></a>
                                                     <a><span class="material-icons oculto delete" data-id="${record.id}">delete_forever</span></a>
                                                     <a><span class="material-icons oculto send" data-id="${record.id}">send</span></a>
                                                     `
+
                                                 table.rows.add([{...record}]).draw();
                                                 storeQuote.dispatch(addStarting(record))
                                             })

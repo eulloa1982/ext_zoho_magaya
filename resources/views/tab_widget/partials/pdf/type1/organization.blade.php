@@ -5,10 +5,7 @@
             <table width="90%" cellspacing="0px" cellpadding="0px" style="border: none; text-align: right; margin-right:5%;">
                 <tr>
                     <td>
-                       <!-- <img class="headerIMG" src="{{ url('images/pdfv1/magaya.png') }}" alt="Logo" height="100" width="100" style="text-align: center;">-->
-                       @if (@isset($organization['orgData']['photo_id']))
-                            {{$organization['orgData']['photo_id']}}    
-                        @endif 
+                        <img class="demo-bg" src="{{ url('images/pdfv1/shipment-cargo.jpg') }}" style="opacity: 0.2" width="150" height="65" alt="Language" />
                     </td>
                     <td class="session-first" style="float: left; font-size: 28px; vertical-align:top">
                         @if (@isset($organization['orgData']['company_name']))

@@ -444,14 +444,14 @@ storeQuote.subscribe(() => {
                             })
                         }
 
-                        if (!_.isEmpty(data.magaya__ModeofTransportation)) {
-                            let idMethod = data.magaya__ModeofTransportation.id
-                            let method = getTranspMethod(idMethod).then(res => {
-                                $("select[name=magaya__TransportationMode]").val(res[0]['id'])
-                                $("input[name=ModeOfTransportation]").val(res[0]['Name'])
-                            })
+                        //if (!_.isEmpty(data.magaya__Mode_of_Transportation)) {
+                            //let idMethod = data.magaya__ModeofTransportation.id
+                            //let method = getTranspMethod(idMethod).then(res => {
+                        $("select[name=magaya__Mode_of_Transportation]").val(data.magaya__Mode_of_Transportation).change()
+                            //$("input[name=ModeOfTransportation]").val(res[0]['Name'])
+                            //})
 
-                        }
+                        //}
 
                         let shipper = data.magaya__Shipper;
                         let shipperValues = $("select[name=magaya__Shipper] option")

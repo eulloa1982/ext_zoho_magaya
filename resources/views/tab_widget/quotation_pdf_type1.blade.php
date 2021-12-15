@@ -4,6 +4,13 @@
 <style>
     body {
         background-color: white;
+        font-size: 12px;
+    }
+    table.info > tbody > tr > td {
+        border: 1px solid #1a2142;
+        white-space: nowrap;
+        vertical-align: top;
+        padding: 2px 2px 2px 2px;
     }
 </style>
 
