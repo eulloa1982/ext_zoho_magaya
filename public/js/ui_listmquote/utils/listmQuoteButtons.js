@@ -811,6 +811,9 @@ $(document).ready(function(){
         "magaya__ConsigneeCode": sanitize($("input[name=magaya__ConsigneeCode]").val()),
         "magaya__MainCarrier": $("select[name=magaya__MainCarrier] option:selected").val(),
         "magaya__Mode_of_Transportation": $("select[name=magaya__Mode_of_Transportation] option:selected").val(),
+        "magaya__Port_of_Loading": $("select[name=magaya__Port_of_Loading]").val(),
+        "magaya__Port_of_Unloading": $("select[name=magaya__Port_of_Unloading]").val()
+
     }
 
     //updating data
@@ -1002,8 +1005,10 @@ $(document).ready(function(){
             "magaya__ConsigneeState": sanitize($("input[name=magaya__ConsigneeState]").val()),
             "magaya__ConsigneeStreet": sanitize($("input[name=magaya__ConsigneeStreet]").val()),
             "magaya__ConsigneeCode": sanitize($("input[name=magaya__ConsigneeCode]").val()),
-            "magaya__MainCarrier": $("select[name=magaya__MainCarrier] option:selected").val(),
+            "magaya__MainCarrier": $("select[name=magaya__MainCarrier]").val(),
             "magaya__Mode_of_Transportation": $("select[name=magaya__Mode_of_Transportation] option:selected").val(),
+            "magaya__Port_of_Loading": $("select[name=magaya__Port_of_Loading]").val(),
+            "magaya__Port_of_Unloading": $("select[name=magaya__Port_of_Unloading]").val()
         }
 
         console.log("RecordData", recordData)
