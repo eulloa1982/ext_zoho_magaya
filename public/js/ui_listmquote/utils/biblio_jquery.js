@@ -270,7 +270,18 @@ async function buildStringQuote2(idSQuote) {
         stringQuote += `<Type>Client</Type>
                         <Name>${singleAccount['Account_Name']}</Name>
                         <Email>${singleAccount['magaya__MagayaEmail']}</Email>
-                    </Contact>`
+                        <ContactFirstName>${quoteXML.magaya__ContactName}</ContactFirstName>
+                    </Contact>
+                    <ContactAddress>
+                        <Street>${quoteXML.magaya__BillingStreet}</Street>
+                        <City>${quoteXML.magaya__BillingCity}</City>
+                        <State>${quoteXML.magaya__BillingState}</State>
+                        <ZipCode>${quoteXML.magaya__Billing_Zip}</ZipCode>
+                        <Country>${quoteXML.magaya__BillingCountry}</Country>
+                        <ContactName>${quoteXML.magaya__ContactName}</ContactName>
+                        <ContactPhone>${quoteXML.magaya__ContactPhone}</ContactPhone>
+                        <ContactEmail>${quoteXML.magaya__ContactEmail}</ContactEmail>
+                    </ContactAddress>`
 
 
     } catch (err) {
