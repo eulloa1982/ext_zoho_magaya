@@ -124,7 +124,6 @@ function limpiar_form() {
     $("input[name=magaya__ConsigneeState]").val("")
     $("input[name=magaya__ConsigneeCountry]").val("")
     $("input[name=magaya__ConsigneeStreet]").val("")
-    $("select[name=magaya__Incoterms]").val("")
     $("select[name=magaya__Consignee]").val("")
     $("select[name=magaya__Consignee]").change()
     $("select[name=magaya__Shipper]").val("")
@@ -196,7 +195,7 @@ function buildField(field, value) {
 
 let mapa = {
     "CreatedOn": "Created_Time",
-    "Number": "magaya__Number",
+    "Number": "Name",
     "ExpirationDate": "magaya__ExpirationDate",
     "IssuedByName": "magaya__IssuedBy",
     "SalespersonName": "magaya__Seller",
@@ -228,8 +227,8 @@ async function buildStringQuote2(idSQuote) {
         stringQuote += buildField(v, quoteXML[`${k}`])
     })
 
-    if (!_.isEmpty(quoteXML.magaya__Incoterms)) {
-        let incoterm = quoteXML.magaya__Incoterms.split(" - ")
+    if (!_.isEmpty(quoteXML.magaya__Incoterm_rule)) {
+        let incoterm = quoteXML.magaya__Incoterm_rule.split(" - ")
         let codeIncoterm = incoterm[0]
         let descriptionIncoterm = incoterm[1]
         stringQuote += `<Incoterm>
