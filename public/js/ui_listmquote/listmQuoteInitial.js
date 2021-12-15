@@ -123,14 +123,14 @@ $(document).ready(function(){
             })
 
         //get all transports methods
-        ZOHO.CRM.API.getAllRecords({Entity: "magaya__TransportationMethods", sort_order: "asc"})
+        /*ZOHO.CRM.API.getAllRecords({Entity: "magaya__TransportationMethods", sort_order: "asc"})
             .then(function(response){
                 $.map (response.data, function (k, i) {
                     k.Name = sanitize(k.Name)
                     $("<option value='"+k.id+"'>"+k.Name+"</option>").appendTo("select[name=magaya__TransportationMode]");
                     transpMethods.push (k);
                 })
-            })
+            })*/
 
         //Charges Type
         ZOHO.CRM.API.getAllRecords({Entity: "magaya__Charges_Type", sort_order: "asc"})

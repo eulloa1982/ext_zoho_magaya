@@ -87,10 +87,13 @@ storeQuote.subscribe(() => {
             data: data,
         columns: [
             { "data": "create"},
+
             { "data": "Name" },
+
             { "data": "magaya__Deal.name",
                 "defaultContent": "No set"
             },
+
             { "data": "Account.name",
                 "defaultContent": "No set"
             },
@@ -98,32 +101,84 @@ storeQuote.subscribe(() => {
             { "data": "magaya__Status" ,
             "defaultContent": "No set"
             },
+
             { "data": "magaya__QuoteTotalAmount",
             "defaultContent": "No set"
             },
+
             { "data": "Modified_Time",
             "defaultContent": "No set",
             "visible": false
             },
 
             { "data": "Created_Time", "visible": false},
+
             { "data": "Magaya_updated",
             "defaultContent": "No set",
              "visible": false
             },
+
             { "data": "magaya__Description",
             "defaultContent": "No set",
             "visible": false
             },
+
             { "data": "magaya__Destination",
             "defaultContent": "No set",
             "visible": false
             },
+
             { "data": "magaya__Origin", "visible": false},
+
             { "data": "magaya__Seller", "visible": false},
+
             { "data": "magaya__Service", "visible": false},
+
             { "data": "magaya__Terms", "visible": false},
+
             { "data": "magaya__MagayaGUID", "visible": false},
+
+
+
+            { "data": "Created_By.name", "visible": false},
+
+            { "data": "magaya__CreatedByName", "defaultContent": "No set", "visible": false},
+
+            { "data": "magaya__Incoterm_rule", "defaultContent": "No set", "visible": false},
+
+            { "data": "magaya__Is_Hazardous", "defaultContent": "No set", "visible": false},
+
+            { "data": "magaya__IssuedBy", "defaultContent": "No set", "visible": false},
+
+            { "data": "magaya__AddedTime", "defaultContent": "No set", "visible": false},
+
+            { "data": "magaya__Magaya_Status", "defaultContent": "No set", "visible": false},
+
+            { "data": "Modified_By.name", "visible": false},
+
+            { "data": "Owner.name", "visible": false},
+
+            { "data": "magaya__ContactEmail", "defaultContent": "No set", "visible": false},
+
+            { "data": "magaya__ContactHomePhone", "defaultContent": "No set", "visible": false},
+
+            { "data": "magaya__ContactMobile", "defaultContent": "No set", "visible": false},
+
+            { "data": "magaya__ContactName", "defaultContent": "No set", "visible": false},
+
+            { "data": "magaya__ContactPhone", "defaultContent": "No set", "visible": false},
+
+            { "data": "magaya__BillingStreet", "defaultContent": "No set", "visible": false},
+
+            { "data": "magaya__BillingState", "defaultContent": "No set", "visible": false},
+
+            { "data": "magaya__BillingZip", "defaultContent": "No set", "visible": false},
+
+            { "data": "magaya__BillingCity", "visible": false},
+
+            { "data": "magaya__BillingCountry", "visible": false},
+
+
             //{ title: "magaya__Status" },
 
         ]
@@ -137,11 +192,11 @@ storeQuote.subscribe(() => {
             column.visible( ! column.visible() );
             if (!column.visible()) {
                 $(this).children().remove()
-                $(this).prepend(`<span class="material-icons mr-2 oculto">visibility_off</span>`)
+                $(this).prepend(`<span class="material-icons mr-2 oculto">check_box_outline_blank</span>`)
             }
             else {
                 $(this).children().remove()
-                $(this).prepend(`<span class="material-icons mr-2 oculto">visibility</span>`)
+                $(this).prepend(`<span class="material-icons mr-2 oculto">check_box</span>`)
             }
         } );
 
@@ -389,14 +444,14 @@ storeQuote.subscribe(() => {
                             })
                         }
 
-                        if (!_.isEmpty(data.magaya__ModeofTransportation)) {
-                            let idMethod = data.magaya__ModeofTransportation.id
-                            let method = getTranspMethod(idMethod).then(res => {
-                                $("select[name=magaya__TransportationMode]").val(res[0]['id'])
-                                $("input[name=ModeOfTransportation]").val(res[0]['Name'])
-                            })
+                        //if (!_.isEmpty(data.magaya__Mode_of_Transportation)) {
+                            //let idMethod = data.magaya__ModeofTransportation.id
+                            //let method = getTranspMethod(idMethod).then(res => {
+                        $("select[name=magaya__Mode_of_Transportation]").val(data.magaya__Mode_of_Transportation).change()
+                            //$("input[name=ModeOfTransportation]").val(res[0]['Name'])
+                            //})
 
-                        }
+                        //}
 
                         let shipper = data.magaya__Shipper;
                         let shipperValues = $("select[name=magaya__Shipper] option")

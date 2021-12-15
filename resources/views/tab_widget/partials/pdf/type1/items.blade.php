@@ -1,4 +1,4 @@
-<table cellspacing="0px" cellpadding="0px" width="100%" style="margin-top: 10px">
+<table class="info" cellspacing="0px" cellpadding="0px" width="100%" style="margin-top: 10px">
     <tr>
         <th colspan="6" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid;">Items</th>
     </tr>
@@ -15,7 +15,7 @@
         {{$total_volume = 0}}
         {{$measure_length = "in"}}
         {{$measure_weigth = "lb"}}
-        {{$measure_volume = "ft"}}        
+        {{$measure_volume = "ft"}}
         {{$total_weight_international = 0}}
         {{$total_volume_international = 0}}
         {{$total_weight_english = 0}}
@@ -28,7 +28,7 @@
             {{$measure_weigth = "kg"}}
             {{$total_volume_international += ($v['magaya__Volume'] * $v['magaya__Pieces'])}}
             {{$total_weight_international += ($v['magaya__Weigth'] * $v['magaya__Pieces'])}}
-         @else 
+         @else
             {{/*/pulgadas y libras*/}}
             {{$total_volume_english += ($v['magaya__Volume'] * $v['magaya__Pieces'])}}
             {{$total_weight_english += ($v['magaya__Weigth'] * $v['magaya__Pieces'])}}
@@ -43,8 +43,8 @@
             <td width="15%" style="border-right: 1px #000 solid; text-align: right;border-bottom: 1px #000 solid;">{{$v['magaya__Volume']}} ({{$measure_volume}}<sup>3</sup>)</td>
         </tr>
         @endforeach
-        {{$total_weight = ($total_weight_international + $total_weight_english) * 0.453562}}
-        {{$total_volume = ($total_volume_international + $total_volume_english) * 0.0283168}}
+        {{$total_weight = $total_weight_international + ($total_weight_english * 0.453562) }}
+        {{$total_volume = $total_volume_international + ($total_volume_english * 0.0283168) }}
         <tr>
             <td colspan="3"></td>
             <td style="border-left:1px #000 solid; border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">TOTAL</td>

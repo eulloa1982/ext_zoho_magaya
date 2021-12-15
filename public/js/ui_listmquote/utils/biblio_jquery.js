@@ -134,7 +134,9 @@ function limpiar_form() {
     $("input[name=magaya__Is_Hazardous]").prop("checked", false)
     $("input[name=Magaya_updated]").prop("checked", false)
     $("#magaya__Terms").val("")
-    $("input[name=ModeOfTransportation]").val("")
+    $("select[name=magaya__Mode_of_Transportation]").val("")
+    $("select[name=magaya__Incoterm_rule]").val("")
+
 
     $("select[name=Account]").prop('disabled', false);
 
@@ -238,6 +240,16 @@ async function buildStringQuote2(idSQuote) {
     stringQuote += `<CreatedByName>${quoteXML.Owner.name}</CreatedByName>
                     <Version>104</Version>`
 
+    //representative
+    stringQuote += `<RepresentativeName>${quoteXML.magaya__ContactName}</RepresentativeName>`
+                    /*<Representative GUID="${quoteXML.magaya__MagayaGUID}">
+                        <Type>EntityContact</Type>
+                        <Name>${quoteXML.magaya__ContactName}</Name>
+                        <Email>${quoteXML.magaya__ContactEmail}</Email>
+                        <Phone>${quoteXML.magaya__ContactPhone}</Phone>
+                        <MobilePhone>${quoteXML.magaya__ContactMobile}</MobilePhone>
+                    </Representative>`*/
+
     //<Salesperson GUID=dsfsdfsdfsdf></Salesperson><Type>Salesperson</Type><Name></Name>
 
     stringQuote += `<IsOpenQuote>true</IsOpenQuote><Status>Open</Status>`
@@ -258,7 +270,18 @@ async function buildStringQuote2(idSQuote) {
         stringQuote += `<Type>Client</Type>
                         <Name>${singleAccount['Account_Name']}</Name>
                         <Email>${singleAccount['magaya__MagayaEmail']}</Email>
-                    </Contact>`
+                        <ContactFirstName>${quoteXML.magaya__ContactName}</ContactFirstName>
+                    </Contact>
+                    <ContactAddress>
+                        <Street>${quoteXML.magaya__BillingStreet}</Street>
+                        <City>${quoteXML.magaya__BillingCity}</City>
+                        <State>${quoteXML.magaya__BillingState}</State>
+                        <ZipCode>${quoteXML.magaya__Billing_Zip}</ZipCode>
+                        <Country>${quoteXML.magaya__BillingCountry}</Country>
+                        <ContactName>${quoteXML.magaya__ContactName}</ContactName>
+                        <ContactPhone>${quoteXML.magaya__ContactPhone}</ContactPhone>
+                        <ContactEmail>${quoteXML.magaya__ContactEmail}</ContactEmail>
+                    </ContactAddress>`
 
 
     } catch (err) {
@@ -676,9 +699,9 @@ function getFormData($form) {
 /*** *mQuote pdf
  *@id quote id
  */
-async function make_pdf(id) {
+async function make_pdf(pdf_type) {
     try {
-        let pdf = await buildPdf(id);
+        let pdf = await buildPdf(pdf_type);
     } catch (error) {
         let message = error
         codeError = error;
@@ -692,7 +715,7 @@ async function make_pdf(id) {
 
 
 
-async function buildPdf(mquote_id) {
+async function buildPdf(pdf_type) {
     Utils.blockUI()
 
     //general data
@@ -704,6 +727,7 @@ async function buildPdf(mquote_id) {
 
     dataPost = {
         'organization': {
+            "pdfType": pdf_type,
             "orgData" :orgData,
             'mQuote': mquote,
             'charges': storeCharge.getState().charges,

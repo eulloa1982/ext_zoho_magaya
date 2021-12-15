@@ -41,7 +41,7 @@ class TabWidgetController extends Controller
 
     public function configCrm()
     {
-        return view('tab_widget.config_crm')  ;
+        return view('tab_widget.config_crm') ;
     }
 
     public function configuration()

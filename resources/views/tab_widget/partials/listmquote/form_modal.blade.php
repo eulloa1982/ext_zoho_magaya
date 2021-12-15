@@ -67,15 +67,30 @@
                             <div class="row" style="margin-bottom:10px; margin-top: 30px;">
 								<div class="col-md-3">
 									<label class="col-md-12" style="font-weight: bold;">Mode of Transportation</label>
-                                    <select name='magaya__TransportationMode' class='form-control no-border'>
+                                    <select name='magaya__Mode_of_Transportation' class='form-control no-border'>
                                         <option></option>
+                                        <option value="Vessel, Non-containerized">Vessel, Non-containerized</option>
+                                        <option value="Vessel, Containerized">Vessel, Containerized</option>
+                                        <option value="Barge">Barge</option>
+                                        <option value="Rail, Non-containerized">Rail, Non-containerized</option>
+                                        <option value="Rail, Containerized">Rail, Containerized</option>
+                                        <option value="Truck, Non-containerized">Truck, Non-containerized</option>
+                                        <option value="Truck, Containerized">Truck, Containerized</option>
+                                        <option value="Auto">Auto</option>
+                                        <option value="Pedestrian">Pedestrian</option>
+                                        <option value="Road, other">Road, other</option>
+                                        <option value="Air, Non-containerized">Air, Non-containerized</option>
+                                        <option value="Air, Containerized">Air, Containerized</option>
+                                        <option value="Mail">Mail</option>
+                                        <option value="Passenger, Hand-carried">Passenger, Hand-carried</option>
+                                        <option value="Fixed Transport Installations">Fixed Transport Installations</option>
                                     </select>
 								</div>
 								<div class="col-md-3">
 									<label class="col-md-12" style="font-weight: bold;">Direction</label>
                                     <select name='magaya__Direction' class='form-control no-border'>
-                                        <option value='Outgoing'>Out Going</option>
-                                        <option value='Incoming'>In comming</option>
+                                        <option value='Outgoing'>Outgoing</option>
+                                        <option value='Incoming'>Incoming</option>
                                     </select>
 								</div>
 
@@ -211,7 +226,7 @@
 								</div>
 							</div>
 
-                            <div class="row" style="margin-bottom:20px; margin-top:20px;">
+                            <!--div class="row" style="margin-bottom:20px; margin-top:20px;">
 								<div class="col-md-6">
 									<label class="col-md-12" style="font-weight: bold;";>Port of Loading <span class="existingPorts"></span></label>
 									<select name="magaya__PortofLoading" class="form-control">
@@ -225,9 +240,9 @@
 										<option></option>
 									</select>
 								</div>
-							</div>
+							</div-->
 
-							<div class="row" style="margin-bottom:20px; margin-top:20px;">
+							<!--div class="row" style="margin-bottom:20px; margin-top:20px;">
 								<div class="col-md-6">
 									<label class="col-md-12" style="font-weight: bold;">Place of Receipt</label>
 									<input type="text" name="magaya__OriginReceipt" class="form-control no-border" />
@@ -237,9 +252,9 @@
 									<label class="col-md-12" style="font-weight: bold;">Place of Delivery</label>
 									<input type="text" name="magaya__DestinationReceipt" class="form-control no-border" />
 								</div>
-							</div>
+							</div-->
 
-							<div class="row" style="margin-bottom:20px; margin-top:20px;">
+							<!--div class="row" style="margin-bottom:20px; margin-top:20px;">
 								<div class="col-md-6">
 									<label class="col-md-12" style="font-weight: bold;">Pre Carriage By</label>
 									<input type="text" name="magaya__OriginPrecarriageBy" class="form-control no-border" />
@@ -249,7 +264,7 @@
 									<label class="col-md-12" style="font-weight: bold;">On Carriage By</label>
 									<input type="text" name="magaya__DestinationPrecarriageBy" class="form-control" />
 								</div>
-							</div>
+							</div-->
 
 							<div class="row" style="margin-bottom:20px; margin-top:20px;">
 								<div class="col-md-6" style="font-weight: bold;">
@@ -387,9 +402,8 @@
 
                                 <div class="row" style="margin-bottom:20px;">
                                     <div class="col-md-4">
-                                        <div class="row" style="margin-bottom:10px;"></div>
-                                        <label class="col-md-12" style="font-weight: bold;"> &nbsp;</label>
                                         <label class="col-md-12" style="font-weight: bold;">Representative <span class="material-icons add_contact_link" id="add_contact">person_add</span></label>
+                                        <label class="col-md-12" style="font-weight: bold;"> Name</label>
                                         <select name="magaya__Representative" class="form-control no-border">
                                             <option></option>
                                         </select>
@@ -405,15 +419,15 @@
                                         <input type="text" name="Email" class="form-control no-border" style="margin-bottom: 20px;">
                                     </div>
                                     <div class="col-md-8">
-                                        <div class="row" style="margin-bottom:10px;"></div>
-                                        <div class="row" style="margin-bottom:20px;">
+                                        <div class="row">
                                             <div class="col-md-6">
                                                 <label class="col-md-12" style="font-weight: bold;">Billing Address</label>
                                                 <label class="col-md-12" style="font-weight: bold;"> Street</label>
+                                                <div class="row" style="margin-bottom:3px;"></div>
                                                 <input type="text" name="Mailing_Street" class="form-control no-border">
-                                                <div class="row" style="margin-bottom:10px;"></div>
+                                                <div class="row" style="margin-bottom:11px;"></div>
 
-                                                <div class="row" style="margin-bottom:12px;">
+                                                <div class="row" style="margin-bottom:8px;">
                                                     <div class="col-md-6" >
                                                         <label class="col-md-12" style="width: 100%; font-weight: bold;">City</label>
                                                         <input type="text" name="Mailing_City" class="form-control">
@@ -498,7 +512,7 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-3">Tax Rate</div>
+                                                <div class="col-md-3">Tax Rate %</div>
                                                 <div class="col-md-8"><input type="text" class="form-control number new-charge" name="magaya__TaxRate" readonly style="text-align-last:right;"></div>
                                             </div>
 
@@ -648,7 +662,7 @@
                                                 <div class="row">
                                                     <div class="col-md-3">Volume</div>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control number new-item" name="magaya__Volume"style="text-align-last:right;" readonly>
+                                                        <input type="text" class="form-control number new-item" name="magaya__Volume0"style="text-align-last:right;" readonly>
                                                     </div>
                                                 </div>
 

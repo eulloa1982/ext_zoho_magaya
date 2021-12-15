@@ -104,7 +104,7 @@ storeCharge.subscribe(() => {
                 let id = k.id
                 $(`select[name=${v}]`).attr('data-id', id)
                 if (id > 0)
-                    $(`select[name=${v}]`).val(k.id)
+                    $(`select[name=${v}]`).val(k.id).change()
 
                 $(`select[name=${v}]`).removeClass('no-border-charge-new no-border-charge').addClass('new-charge')
 

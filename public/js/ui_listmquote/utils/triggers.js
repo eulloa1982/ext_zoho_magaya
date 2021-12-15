@@ -5,17 +5,13 @@
 $("select[name=Account]").change(function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    //storeAccounts.dispatch(emptySingleContact())
     $("select[name=magaya__Representative]").empty();
     store.dispatch(addActionEdited())
 
-    //storeAccounts.dispatch(emptySingleContact())
-    //$("input[id=rol_shipper]").prop("checked", false)
     let account = $("select[name=Account]").val();
     storeAccounts.dispatch(addQuoteAccount({id: account}))
     storeAccounts.dispatch(findContactOfAccount({id: account}))
     //deberia vaciar todo con emptySingleContact (BUG -- No cambia el valor del account)
-
     $("input[name=Phone]").val("")
     $("input[name=Mobile]").val("")
     $("input[name=Email]").val("")
@@ -66,45 +62,12 @@ $("select[name=magaya__Consignee]").change(function(e) {
 })
 
 
-$("select[name=magaya__TransportationMode]").change(function(e) {
+$("select[name=magaya__Mode_of_Transportation]").change(function(e) {
     e.preventDefault()
     e.stopImmediatePropagation()
     /*store.dispatch(addActionEdited())*/
-    let value = $("select[name=magaya__TransportationMode] option:selected").text()
+    let value = $(this).val()
     $("input[name=ModeOfTransportation]").val(value)
-
-    let idT = $(this).val()
-
-    let method = transpMethods.filter(k => k.id === idT)
-
-    if (!_.isEmpty(method)) {
-        let parentMethod = method[0]['magaya__ParentMethod']
-        let query = ''
-        switch (parentMethod) {
-            case "Ground":
-                query = `magaya__Roadway`
-                break;
-            case "Air":
-                query = `magaya__Airway`
-                break;
-            case "Rail":
-                query = `magaya__Railway`
-                break;
-            case "Road":
-                query = `magaya__Roadway`
-                break;
-            case "Ocean":
-                query = `magaya__Waterway`
-                break;
-            default:
-                query = `magaya__Other`
-                break;
-
-        }
-
-        storePorts.dispatch(searchByType({type: query}))
-
-    }
 
 })
 
@@ -166,7 +129,6 @@ function rolOther() {
 
 
 //var obs = new MutationObserver(function(mutations, observer) {
-
 $("select[name=magaya__Package_Type]").change(function(e) {
     e.preventDefault()
     e.stopImmediatePropagation()
@@ -201,17 +163,6 @@ $("select[name=magaya__Tax]").change(function(e) {
 
 })
 
-
-/*$("select[name=magaya__ChargeCode]").change(function(e) {
-    e.preventDefault()
-    e.stopImmediatePropagation()
-    let name = $("select[name=magaya__ChargeCode] option:selected").text();
-
-    $("textarea#Name").val(name).change()
-})*/
-
-
-//})
 
 
 /****table notes new change events******/

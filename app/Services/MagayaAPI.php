@@ -25,12 +25,19 @@ class MagayaAPI extends \SoapClient implements MagayaAPIInterface
         'Name'
     ];
 
+    const MAGAYA_CLIENTS = [
+        'http://73.138.232.183:3691'
+    ];
+
     public function __construct(string $url)
     {
+        if (!in_array($url, $this::MAGAYA_CLIENTS))
+            return false;
         @set_exception_handler(array($this, 'exceptionHandler'));
 
         $url_handler = $url."/Invoke?Handler=CSSoapService";
         $url_soap = $url."/CSSoapService?wsdl";
+
 
         $options = [
             'trace' => 1,

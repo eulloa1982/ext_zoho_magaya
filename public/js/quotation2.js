@@ -231,7 +231,7 @@ function setDataRepresentative() {
 // Get data from table items
 // Get data from table charges
 //////////////////////
-$("#sendQuote").click(function(e) {
+/*$("#sendQuote").click(function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
 
@@ -298,7 +298,7 @@ $("#sendQuote").click(function(e) {
         //get Deal data, if Exists
         /*if (!_.isEmpty(dealData)) {
             Object.assign(recordData, dealData)
-        }*/
+        }*
         //Representative data
         rep = setDataRepresentative()
             .then(r => {
@@ -377,7 +377,7 @@ $("#sendQuote").click(function(e) {
 
 
     }
-})
+})*/
 
 
 //////////////////////
@@ -792,7 +792,7 @@ $('#sortable2, #quotes_found').bind("DOMSubtreeModified", function() {
 
     //new quote
     //set panel quote-for active and show
-    $(".new-quote").click(function() {
+    /*$(".new-quote").click(function() {
         $("#quote-alert").hide().html("")
         $("#nav-tab > a").removeClass("active");
         $("#nav-tabContent > div").removeClass("show active");
@@ -809,7 +809,7 @@ $('#sortable2, #quotes_found').bind("DOMSubtreeModified", function() {
         $("select[name=Stage]").val('');
         //$('.qtForm').next('qtForSelect').html('Accounts')
         $("#QuoteForm").modal();
-    })
+    })*/
 
     //edit quote on CRM
     //show and fill #QuoteForm with Quote Id value
@@ -1303,7 +1303,7 @@ $('select[name=ContactName]').bind("DOMSubtreeModified", function(e) {
 
 
 //button toPdf form modal show
-$("#toPdf").click(function() {
+/*$("#toPdf").click(function() {
     //datetime expiration date
 
     //load = $(".loading");
@@ -1332,7 +1332,7 @@ $("#toPdf").click(function() {
             .css("display", "inline").fadeIn("slow").delay(2000).fadeOut("slow");
 
     }).save();
-})
+})*/
 
 
 
@@ -1363,10 +1363,11 @@ function drawQuotationCRM() {
                             <div class="form-check">
                             <input class="form-check-input-quote-crm" type="checkbox" value="">
                             </div>
-                        <div class="view-quote sm"><i class="fa fa-eye"></i></div>
                         <div class="btn-sm edit-quote"><i class="far fa-edit"></i></div>
-                        <span>${sanitize(v.Name)}</span><span>${sanitize(account)}</span></li>`;
+                        <span style="margin-right: 15px">${sanitize(v.Name)}</span><span>${sanitize(account)}</span></li>`;
                 $("#sortable2").append(dataAppend);
+                //<div class="view-quote sm"><i class="fa fa-eye"></i></div>
+
             })
         } else {
             dataAppend = `<li class="list-group-item">No Quotes found in CRM</li>`
@@ -1561,8 +1562,10 @@ async function drawQuotationMagaya() {
                         content = `<li class="list-group-item" data-id="${item["@attributes"]["GUID"]}" data-idArray="${i}">
                         <div class="form-check">
                         <input class="form-check-input-quote-magaya" type="checkbox" value="">
+                        <button class="btn btn-primary btn-sm view-quote-magaya"><i class="fa fa-eye"></i></button>
+                        <span style="margin-right: 15px">${sanitize(item.Number)}</span><span>${sanitize(item.ContactName)}</span></li>
                         </div>
-                        <button class="btn btn-primary btn-sm view-quote-magaya"><i class="fa fa-eye"></i></button> ${item.Number} ${item.ContactName}</li>`
+                        `
                         i++;
                         $("#sortable1").append(content);
                     }) //forEach
@@ -1584,9 +1587,11 @@ function drawQuotationMagayaFromArray() {
         content = `<li class="list-group-item" data-id="${v["@attributes"]["GUID"]}">
                         <div class="form-check">
                         <input class="form-check-input-quote-magaya" type="checkbox" value="">
+                        <button class="btn btn-primary btn-sm view-quote-magaya"><i class="fa fa-eye"></i></button>
+                        <span style="margin-right: 15px">${sanitize(v.Number)}</span><span>${sanitize(v.ContactName)}</span></li>
                         </div>
-                        <button class="btn btn-primary btn-sm view-quote-magaya"><i class="fa fa-eye"></i></button> ${v.Number} ${v.ContactName}</li>`
-
+                        `
+                //
         $("#sortable1").append(content);
     })
 }
