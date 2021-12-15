@@ -533,7 +533,7 @@
 
                                             <div class="row">
                                                 <div class="col-md-3">Paid As</div>
-                                                <div class="col-md-8"><select name="magaya__Paid_As" class="form-control new-charge"><option></option><option value="Paid">Paid</option><option value="Collect">Collect</option></select></div>
+                                                <div class="col-md-8"><select name="magaya__Paid_As" class="form-control new-charge"><option></option><option value="Prepaid">Prepaid</option><option value="Collect">Collect</option></select></div>
                                             </div>
 
                                             <div class="row">
