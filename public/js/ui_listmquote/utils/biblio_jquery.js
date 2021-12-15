@@ -240,6 +240,16 @@ async function buildStringQuote2(idSQuote) {
     stringQuote += `<CreatedByName>${quoteXML.Owner.name}</CreatedByName>
                     <Version>104</Version>`
 
+    //representative
+    stringQuote += `<RepresentativeName>${quoteXML.magaya__ContactName}</RepresentativeName>`
+                    /*<Representative GUID="${quoteXML.magaya__MagayaGUID}">
+                        <Type>EntityContact</Type>
+                        <Name>${quoteXML.magaya__ContactName}</Name>
+                        <Email>${quoteXML.magaya__ContactEmail}</Email>
+                        <Phone>${quoteXML.magaya__ContactPhone}</Phone>
+                        <MobilePhone>${quoteXML.magaya__ContactMobile}</MobilePhone>
+                    </Representative>`*/
+
     //<Salesperson GUID=dsfsdfsdfsdf></Salesperson><Type>Salesperson</Type><Name></Name>
 
     stringQuote += `<IsOpenQuote>true</IsOpenQuote><Status>Open</Status>`
