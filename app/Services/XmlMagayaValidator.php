@@ -23,6 +23,8 @@ class XmlMagayaValidator
         'charge_required'             => "This mquote need a Charge Item",
         'bad_ccode_origin_port'           => "Country Code in Origin Port is missing",
         'bad_method_origin_port'           => "Method in Origin Port is missing",
+        'bad_name_origin_port'           => "Name in Origin Port is missing",
+        'bad_name_destination_port'           => "Name inDestination Port is missing",
         'bad_method_destination_port'           => "Method in Destination Port is missing",
         'bad_ccode_destination_port'           => "Country Code in Destination Port is missing"
 
@@ -139,6 +141,8 @@ class XmlMagayaValidator
                 $message['error'][] = $this::ERROR_CODES['bad_ccode_origin_port'];
             if (empty($xml->OriginPort->Method))
                 $message['error'][] = $this::ERROR_CODES['bad_method_origin_port'];
+            if (empty($xml->OriginPort->Name))
+                $message['error'][] = $this::ERROR_CODES['bad_name_origin_port'];
         }
 
         if (!empty($xml->DestinationPort)) {
@@ -146,6 +150,8 @@ class XmlMagayaValidator
                 $message['error'][] = $this::ERROR_CODES['bad_ccode_destination_port'];
             if (empty($xml->DestinationPort->Method))
                 $message['error'][] = $this::ERROR_CODES['bad_method_destination_port'];
+            if (empty($xml->DestinationPort->Name))
+                $message['error'][] = $this::ERROR_CODES['bad_name_destination_port'];
         }
 
         //cargos
