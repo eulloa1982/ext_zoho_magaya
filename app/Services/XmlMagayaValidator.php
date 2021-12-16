@@ -20,7 +20,9 @@ class XmlMagayaValidator
         'no_transport_method'           =>    "No transport method detected",
         'item_quantity_not_valid'    => "Item quantity must to be greather than 0",
         'item_required'             => "This mquote need a Package Item",
-        'charge_required'             => "This mquote need a Charge Item"
+        'charge_required'             => "This mquote need a Charge Item",
+        'bad_origin_port'           => "Country Code in Origin Port is missing",
+        'bad_destination_port'           => "Country Code in Destination Port is missing"
 
         ];
 
@@ -128,6 +130,18 @@ class XmlMagayaValidator
                 $message['error'][] = $this::ERROR_CODES['charge_required'];
             }
         }
+
+        //puertos
+        if (!empty($xml->OriginPort)) {
+            if ($xml->OriginPort->Country[0]['Code'] == 'null')
+                $message['error'][] = $this::ERROR_CODES['bad_origin_port'];
+        }
+
+        if (!empty($xml->DestinationPort)) {
+            if ($xml->DestinationPort->Country[0]['Code'] == 'null')
+                $message['error'][] = $this::ERROR_CODES['bad_destination_port'];
+        }
+
         //cargos
         /*$charges = $xml->Charges;
         if ($charges && @count ($charges->children()) < 0) {
