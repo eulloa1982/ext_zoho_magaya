@@ -134,12 +134,6 @@ storeQuote.subscribe(() => {
 
             { "data": "magaya__Service", "visible": false},
 
-            { "data": "magaya__Terms", "visible": false},
-
-            { "data": "magaya__MagayaGUID", "visible": false},
-
-
-
             { "data": "Created_By.name", "visible": false},
 
             { "data": "magaya__CreatedByName", "defaultContent": "No set", "visible": false},
