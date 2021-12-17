@@ -152,7 +152,8 @@ $(document).ready(function(){
 
         })
     });
-    let chargesMag = $("#sortable-magaya-charges")[0];
+    //let chargesMag = $("#sortable-magaya-charges")[0];
+    let chargesMag = $(".list-group")[0];
     obs2.observe(chargesMag, {childList: true, subtree: true});
 
 
