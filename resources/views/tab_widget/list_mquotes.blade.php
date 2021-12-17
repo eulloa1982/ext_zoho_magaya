@@ -131,44 +131,42 @@ a {
 					</div>
 				</div>
 				<div class="card-body">
-
-
 						<table class="display responsive nowrap table-hover" width="100%" id="table-quotes">
 							<thead>
 								<tr style="text-transform:uppercase;font-weight: bold;">
-								<th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Edit</th>
-								<th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Number</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Deal</th>
-								<th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Customer</th>
-								<th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Stage</th>
-								<th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Amount</th>
-								<th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Modify Time</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Created Time</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Magaya updated</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Description</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Destination</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Origin</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Seller</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Service</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Created By</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Created Name</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Incoterms</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Is Hazardous</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Issued By</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Added Time</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Mag Status</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Modified By</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Owner</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Contact Email</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Contact Home Phone</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Contact Mobile</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Contact Name</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Contact Phone</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Billing Street</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Billing State</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Billing Zip</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Billing City</th>
-                                <th style="box-shadow: 0 0.5rem 0.5em rgba(0, 0, 0, 0.4);position: relative;z-index: 2;">Billing Country</th>
+								<th class="border-top border-bottom border-right">Edit</th>
+								<th class="border-top border-bottom border-right">Number</th>
+                                <th class="border-top border-bottom border-right">Deal</th>
+								<th class="border-top border-bottom border-right">Customer</th>
+								<th class="border-top border-bottom border-right">Stage</th>
+								<th class="border-top border-bottom border-right">Amount</th>
+								<th class="border-top border-bottom border-right">Modify Time</th>
+                                <th class="border-top border-bottom border-right">Created Time</th>
+                                <th class="border-top border-bottom border-right">Magaya updated</th>
+                                <th class="border-top border-bottom border-right">Description</th>
+                                <th class="border-top border-bottom border-right">Destination</th>
+                                <th class="border-top border-bottom border-right">Origin</th>
+                                <th class="border-top border-bottom border-right">Seller</th>
+                                <th class="border-top border-bottom border-right">Service</th>
+                                <th class="border-top border-bottom border-right">Created By</th>
+                                <th class="border-top border-bottom border-right">Created Name</th>
+                                <th class="border-top border-bottom border-right">Incoterms</th>
+                                <th class="border-top border-bottom border-right">Is Hazardous</th>
+                                <th class="border-top border-bottom border-right">Issued By</th>
+                                <th class="border-top border-bottom border-right">Added Time</th>
+                                <th class="border-top border-bottom border-right">Mag Status</th>
+                                <th class="border-top border-bottom border-right">Modified By</th>
+                                <th class="border-top border-bottom border-right">Owner</th>
+                                <th class="border-top border-bottom border-right">Contact Email</th>
+                                <th class="border-top border-bottom border-right">Contact Home Phone</th>
+                                <th class="border-top border-bottom border-right">Contact Mobile</th>
+                                <th class="border-top border-bottom border-right">Contact Name</th>
+                                <th class="border-top border-bottom border-right">Contact Phone</th>
+                                <th class="border-top border-bottom border-right">Billing Street</th>
+                                <th class="border-top border-bottom border-right">Billing State</th>
+                                <th class="border-top border-bottom border-right">Billing Zip</th>
+                                <th class="border-top border-bottom border-right">Billing City</th>
+                                <th class="border-top border-bottom border-right">Billing Country</th>
 								</tr>
 							</thead>
 							<tbody>
