@@ -442,6 +442,11 @@ storeQuote.subscribe(() => {
                             //let idMethod = data.magaya__ModeofTransportation.id
                             //let method = getTranspMethod(idMethod).then(res => {
                         $("select[name=magaya__Mode_of_Transportation]").val(data.magaya__Mode_of_Transportation).change()
+                        if (!_.isEmpty(data.magaya__Port_of_Loading))
+                            $("select[name=magaya__Port_of_Unloading]").val(data.magaya__Port_of_Loading.id).change()
+                        if (!_.isEmpty(data.magaya__Port_of_Loading))
+                            $("select[name=magaya__Port_of_Unloading]").val(data.magaya__Port_of_Unloading.id).change()
+
                             //$("input[name=ModeOfTransportation]").val(res[0]['Name'])
                             //})
 
