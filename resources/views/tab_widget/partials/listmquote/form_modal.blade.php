@@ -41,11 +41,11 @@
                                     <input type="text" name='magaya__CreatedByName' class='form-control' readonly/>
 								</div>
 
-                                <div class="col-md-3">
+                                <!--div class="col-md-3">
 									<label class="col-md-12" style="font-weight: bold;">Owner</label>
                                     <select name='Owner' class='form-control'>
                                     </select>
-								</div>
+								</div-->
                             </div>
 
                             <div class="row" style="margin-bottom:20px">
