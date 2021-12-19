@@ -58,6 +58,8 @@ storeQuote.subscribe(() => {
         dataQuotes = {id: 1, Name:"Quote Test"}
     } else {
         //alert (dataQuotes)
+
+        i = 1;
         $.map(dataQuotes, function(v) {
             let mt =  v["Modified_Time"]
             //primera porcion
@@ -73,20 +75,23 @@ storeQuote.subscribe(() => {
                     <a><span class="material-icons oculto delete" data-id="${v.id}">delete_forever</span></a>
                     <a><span class="material-icons oculto send" data-id="${v.id}">send</span></a>
                     `
+            v['number'] = i
             data.push(v)
+            i++
 
         })
-
+        localStorage.setItem("number_quotes", i)
 
         var table = $('#table-quotes').DataTable( {
             'destroy': true,
             retrieve: true,
             responsive: true,
             "scrollX": true,
-            "order": [[ 1, "desc" ]], //order by name by default
+            //"order": [[ 5, "desc" ]], //order by name by default
             data: data,
         columns: [
-            { "data": "create"},
+            {"data": "number", "width": "2%"},
+            { "data": "create", "width": "8%"},
 
             { "data": "Name" },
 

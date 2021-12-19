@@ -26,6 +26,7 @@
                     <!----- tab general -------------------------->
                     <!------------------------------------------------------------->
                         <div class="tab-pane fade" id="menu1" role="tabpanel" aria-labelledby="menu1-tab" style="min-height: 600px;">
+                            <input type="hidden" name="RowRecord" />
                             <div class="row" style="margin-bottom:20px;margin-top: 20px;">
                                 <div class="col-md-3">
 									<label class="col-md-12" style="font-weight: bold;">Number</label>

@@ -724,6 +724,8 @@ $(document).ready(function(){
     e.preventDefault()
     e.stopImmediatePropagation()
 
+    //row record table
+    const row_number = $("input[name=RowRecord]").val() - 1
 
     //get deal and quote account, now editable
     let accountQuoteData = storeAccounts.getState().quoteAccount
@@ -833,26 +835,17 @@ $(document).ready(function(){
 
                 } else {
 
-                    /*let table = $('#table-quotes').DataTable();
-                    let dd = {"aa": "aa"}
-                    var d = table.row( this ).data();
-                    table
-                        .row( this )
-                        .data( dd )
-                        .draw();*/
-                        /*let table = $('#table-quotes').DataTable();
-                        someId = 6 ; //first row
-                        newData = [ "ted", "London", "23" ] //Array, data here must match structure of table data
-                        table.row(someId).data( newData ).draw();*/
-                    //table.row(2).fnUpdate(temp, 2, undefined, false)
-                    //$('#table1').dataTable().fnUpdate(temp,2,undefined,false);
-                    //console.log(table.row(2).data(temp).draw())
-
                     //get the record from zoho
                     ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id})
                         .then(function(data){
                             record = data.data;
                             storeQuote.dispatch(updateQuote({id: idQuote, ...record}))
+                            //update table row
+                            let table = $('#table-quotes').DataTable();
+                            table.row(row_number).data( ...record ).draw(false);
+                            //let da = storeQuote.getState.quotes
+                            //var data = JSON.parse(da);
+                            //var myTable = table.DataTable().clear().rows.add(data).draw();
                         })
 
                     message = `mQuote updated!!`
@@ -872,7 +865,7 @@ $(document).ready(function(){
                 }
                 ZOHO.CRM.API.updateRecord(configRouting)
                     .then(function(data) {
-                        location.reload()
+                        //location.reload()
                     })
 
 

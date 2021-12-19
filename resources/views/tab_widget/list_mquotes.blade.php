@@ -88,38 +88,38 @@ a {
                             <div class="btn-group float-right m-1">
                                 <span class="material-icons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">view_week</span>
                                 <div class="dropdown-menu" style="padding: 10px 5px 5px 10px;">
-                                    <a class="toggle-vis dropdown-item"  data-column="1" ><span class="material-icons mr-2 oculto">check_box</span>Number</a>
-                                    <a class="toggle-vis dropdown-item"  data-column="2"><span class="material-icons mr-2 oculto">check_box</span>Deal</a>
-                                    <a class="toggle-vis dropdown-item" data-column="3"><span class="material-icons mr-2 oculto">check_box</span>Customer</a>
-                                    <a class="toggle-vis dropdown-item" data-column="4"><span class="material-icons mr-2 oculto">check_box</span>Stage</a>
-                                    <a class="toggle-vis dropdown-item" data-column="5"><span class="material-icons mr-2 oculto">check_box</span>Amount</a>
-                                    <a class="toggle-vis dropdown-item" data-column="6"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Modified Time</a>
-                                    <a class="toggle-vis dropdown-item" data-column="7"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Created Time</a>
-                                    <a class="toggle-vis dropdown-item" data-column="8"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Magaya updated</a>
-                                    <a class="toggle-vis dropdown-item" data-column="9"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Description</a>
-                                    <a class="toggle-vis dropdown-item" data-column="10"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Destination</a>
-                                    <a class="toggle-vis dropdown-item" data-column="11"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Origin</a>
-                                    <a class="toggle-vis dropdown-item" data-column="12"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Seller</a>
-                                    <a class="toggle-vis dropdown-item" data-column="13"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Service</a>
-                                    <a class="toggle-vis dropdown-item" data-column="14"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Created By</a>
-                                    <a class="toggle-vis dropdown-item" data-column="15"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Created By Name</a>
-                                    <a class="toggle-vis dropdown-item" data-column="16"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Incoterms</a>
-                                    <a class="toggle-vis dropdown-item" data-column="17"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Is Hazardous</a>
-                                    <a class="toggle-vis dropdown-item" data-column="18"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Issued By</a>
-                                    <a class="toggle-vis dropdown-item" data-column="19"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Added Time</a>
-                                    <a class="toggle-vis dropdown-item" data-column="20"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Magaya Status</a>
-                                    <a class="toggle-vis dropdown-item" data-column="21"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Modified By</a>
-                                    <a class="toggle-vis dropdown-item" data-column="22"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Owner</a>
-                                    <a class="toggle-vis dropdown-item" data-column="23"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Email</a>
-                                    <a class="toggle-vis dropdown-item" data-column="24"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Home Phone</a>
-                                    <a class="toggle-vis dropdown-item" data-column="25"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Mobile</a>
-                                    <a class="toggle-vis dropdown-item" data-column="26"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Name</a>
-                                    <a class="toggle-vis dropdown-item" data-column="27"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Phone</a>
-                                    <a class="toggle-vis dropdown-item" data-column="28"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Street</a>
-                                    <a class="toggle-vis dropdown-item" data-column="29"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing State</a>
-                                    <a class="toggle-vis dropdown-item" data-column="30"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Zip</a>
-                                    <a class="toggle-vis dropdown-item" data-column="31"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing City</a>
-                                    <a class="toggle-vis dropdown-item" data-column="32"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Country</a>
+                                    <a class="toggle-vis dropdown-item"  data-column="2" ><span class="material-icons mr-2 oculto">check_box</span>Number</a>
+                                    <a class="toggle-vis dropdown-item"  data-column="3"><span class="material-icons mr-2 oculto">check_box</span>Deal</a>
+                                    <a class="toggle-vis dropdown-item" data-column="4"><span class="material-icons mr-2 oculto">check_box</span>Customer</a>
+                                    <a class="toggle-vis dropdown-item" data-column="5"><span class="material-icons mr-2 oculto">check_box</span>Stage</a>
+                                    <a class="toggle-vis dropdown-item" data-column="6"><span class="material-icons mr-2 oculto">check_box</span>Amount</a>
+                                    <a class="toggle-vis dropdown-item" data-column="7"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Modified Time</a>
+                                    <a class="toggle-vis dropdown-item" data-column="8"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Created Time</a>
+                                    <a class="toggle-vis dropdown-item" data-column="9"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Magaya updated</a>
+                                    <a class="toggle-vis dropdown-item" data-column="10"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Description</a>
+                                    <a class="toggle-vis dropdown-item" data-column="11"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Destination</a>
+                                    <a class="toggle-vis dropdown-item" data-column="12"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Origin</a>
+                                    <a class="toggle-vis dropdown-item" data-column="13"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Seller</a>
+                                    <a class="toggle-vis dropdown-item" data-column="14"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Service</a>
+                                    <a class="toggle-vis dropdown-item" data-column="15"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Created By</a>
+                                    <a class="toggle-vis dropdown-item" data-column="16"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Created By Name</a>
+                                    <a class="toggle-vis dropdown-item" data-column="17"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Incoterms</a>
+                                    <a class="toggle-vis dropdown-item" data-column="18"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Is Hazardous</a>
+                                    <a class="toggle-vis dropdown-item" data-column="19"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Issued By</a>
+                                    <a class="toggle-vis dropdown-item" data-column="20"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Added Time</a>
+                                    <a class="toggle-vis dropdown-item" data-column="21"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Magaya Status</a>
+                                    <a class="toggle-vis dropdown-item" data-column="22"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Modified By</a>
+                                    <a class="toggle-vis dropdown-item" data-column="23"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Owner</a>
+                                    <a class="toggle-vis dropdown-item" data-column="24"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Email</a>
+                                    <a class="toggle-vis dropdown-item" data-column="25"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Home Phone</a>
+                                    <a class="toggle-vis dropdown-item" data-column="26"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Mobile</a>
+                                    <a class="toggle-vis dropdown-item" data-column="27"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Name</a>
+                                    <a class="toggle-vis dropdown-item" data-column="28"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Phone</a>
+                                    <a class="toggle-vis dropdown-item" data-column="29"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Street</a>
+                                    <a class="toggle-vis dropdown-item" data-column="30"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing State</a>
+                                    <a class="toggle-vis dropdown-item" data-column="31"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Zip</a>
+                                    <a class="toggle-vis dropdown-item" data-column="32"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing City</a>
+                                    <a class="toggle-vis dropdown-item" data-column="33"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Country</a>
 
 
 
@@ -134,6 +134,7 @@ a {
 						<table class="display responsive nowrap table-hover" width="100%" id="table-quotes">
 							<thead>
 								<tr style="text-transform:uppercase;font-weight: bold;">
+                                <th style="width=2%;"></th>
 								<th class="border-top border-bottom border-right">Edit</th>
 								<th class="border-top border-bottom border-right">Number</th>
                                 <th class="border-top border-bottom border-right">Deal</th>
