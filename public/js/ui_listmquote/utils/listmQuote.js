@@ -195,14 +195,10 @@ $(document).ready(function(){
         $(".edit").click(function(e) {
             e.preventDefault();
             e.stopImmediatePropagation()
-            let tr = $(this).parent().parent().parent()
-            console.log(tr.find("td:first").html());
             storeQuote.dispatch(clearQuoteToEdit())
             idmQuoteToEdit = $(this).attr('data-id')
             limpiar_form()
             //dispatch
-            $("input[name=RowRecord]").val(tr.find("td:first").html());
-            //$("input[name=RowRecord]").val($(e.currentTarget).parent().parent().parent().index())
             storeQuote.dispatch(findQuote({id: idmQuoteToEdit}))
             $("#mquoteModal").modal("show")
         })

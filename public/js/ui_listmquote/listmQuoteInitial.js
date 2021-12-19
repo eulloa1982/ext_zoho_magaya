@@ -43,14 +43,13 @@ $(document).ready(function(){
             })
             .then(function(quotes) {
                 //sanitizer
+                let i = 1
                 $.map(quotes, function(k, v) {
-                    k.Name = sanitize(k.Name)
-                    k.magaya__Status = sanitize(k.magaya__Status)
-                    if (!_.isEmpty(k.Account)) {
-                        k.Account.name = sanitize(k.Account.name)
-                    }
+                    Object.assign(k, {"number": i})
+                    i++
                 })
                 storeQuote.dispatch(addQuote(quotes))
+                localStorage.setItem("number_quotes", i)
             })
         //Packages Types
         ZOHO.CRM.API.getAllRecords({Entity:"magaya__Package_Types",sort_order:"asc",per_page:120,page:1})

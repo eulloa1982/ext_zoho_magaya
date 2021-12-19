@@ -17,11 +17,11 @@ function paginate() {
                 let table = $('#table-quotes').DataTable();
                 i = localStorage.getItem('number_quotes')
                 $.map(quotes, function(k, v) {
-                    k.Name = sanitize(k.Name)
-                    k.magaya__Status = sanitize(k.magaya__Status)
-                    if (!_.isEmpty(k.Account)) {
-                        k.Account.name = sanitize(k.Account.name)
-                    }
+                    //k.Name = sanitize(k.Name)
+                    //k.magaya__Status = sanitize(k.magaya__Status)
+                   // if (!_.isEmpty(k.Account)) {
+                      //  k.Account.name = sanitize(k.Account.name)
+                    //}
                     k.number = i++
                     k.create = `
                         <a><input type="checkbox" class="quoteCheckBox" data-id="${k.id}" /></a>

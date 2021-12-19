@@ -59,7 +59,6 @@ storeQuote.subscribe(() => {
     } else {
         //alert (dataQuotes)
 
-        i = 1;
         $.map(dataQuotes, function(v) {
             let mt =  v["Modified_Time"]
             //primera porcion
@@ -75,12 +74,8 @@ storeQuote.subscribe(() => {
                     <a><span class="material-icons oculto delete" data-id="${v.id}">delete_forever</span></a>
                     <a><span class="material-icons oculto send" data-id="${v.id}">send</span></a>
                     `
-            v['number'] = i
             data.push(v)
-            i++
-
         })
-        localStorage.setItem("number_quotes", i)
 
         var table = $('#table-quotes').DataTable( {
             'destroy': true,
@@ -90,7 +85,6 @@ storeQuote.subscribe(() => {
             //"order": [[ 5, "desc" ]], //order by name by default
             data: data,
         columns: [
-            {"data": "number", "width": "2%"},
             { "data": "create", "width": "8%"},
 
             { "data": "Name" },
@@ -273,6 +267,7 @@ storeQuote.subscribe(() => {
 
         //relleno los campos
         //campos q no son objetos
+        $("input[name=RowRecord]").val(quoteToEdit.number)
         $("#magaya__Description").val(quoteToEdit.magaya__Description)
         let idAccount = !_.isEmpty(quoteToEdit.Account) ? quoteToEdit.Account.id : 0
             storeAccounts.dispatch(addQuoteAccount({id: idAccount}))

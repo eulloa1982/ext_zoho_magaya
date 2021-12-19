@@ -841,11 +841,9 @@ $(document).ready(function(){
                             record = data.data;
                             storeQuote.dispatch(updateQuote({id: idQuote, ...record}))
                             //update table row
+                            record[0]['number'] = row_number
                             let table = $('#table-quotes').DataTable();
                             table.row(row_number).data( ...record ).draw(false);
-                            //let da = storeQuote.getState.quotes
-                            //var data = JSON.parse(da);
-                            //var myTable = table.DataTable().clear().rows.add(data).draw();
                         })
 
                     message = `mQuote updated!!`
