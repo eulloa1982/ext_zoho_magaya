@@ -101,27 +101,25 @@ a {
                                     <a class="toggle-vis dropdown-item" data-column="11"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Origin</a>
                                     <a class="toggle-vis dropdown-item" data-column="12"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Seller</a>
                                     <a class="toggle-vis dropdown-item" data-column="13"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Service</a>
-                                    <a class="toggle-vis dropdown-item" data-column="14"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Terms</a>
-                                    <a class="toggle-vis dropdown-item" data-column="15"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Magaya GUID</a>
-                                    <a class="toggle-vis dropdown-item" data-column="16"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Created By</a>
-                                    <a class="toggle-vis dropdown-item" data-column="17"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Created By Name</a>
-                                    <a class="toggle-vis dropdown-item" data-column="18"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Incoterms</a>
-                                    <a class="toggle-vis dropdown-item" data-column="19"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Is Hazardous</a>
-                                    <a class="toggle-vis dropdown-item" data-column="20"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Issued By</a>
-                                    <a class="toggle-vis dropdown-item" data-column="21"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Added Time</a>
-                                    <a class="toggle-vis dropdown-item" data-column="22"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Magaya Status</a>
-                                    <a class="toggle-vis dropdown-item" data-column="23"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Modified By</a>
-                                    <a class="toggle-vis dropdown-item" data-column="24"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Owner</a>
-                                    <a class="toggle-vis dropdown-item" data-column="25"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Email</a>
-                                    <a class="toggle-vis dropdown-item" data-column="26"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Home Phone</a>
-                                    <a class="toggle-vis dropdown-item" data-column="27"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Mobile</a>
-                                    <a class="toggle-vis dropdown-item" data-column="28"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Name</a>
-                                    <a class="toggle-vis dropdown-item" data-column="29"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Phone</a>
-                                    <a class="toggle-vis dropdown-item" data-column="30"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Street</a>
-                                    <a class="toggle-vis dropdown-item" data-column="31"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing State</a>
-                                    <a class="toggle-vis dropdown-item" data-column="32"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Zip</a>
-                                    <a class="toggle-vis dropdown-item" data-column="33"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing City</a>
-                                    <a class="toggle-vis dropdown-item" data-column="34"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Country</a>
+                                    <a class="toggle-vis dropdown-item" data-column="14"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Created By</a>
+                                    <a class="toggle-vis dropdown-item" data-column="15"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Created By Name</a>
+                                    <a class="toggle-vis dropdown-item" data-column="16"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Incoterms</a>
+                                    <a class="toggle-vis dropdown-item" data-column="17"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Is Hazardous</a>
+                                    <a class="toggle-vis dropdown-item" data-column="18"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Issued By</a>
+                                    <a class="toggle-vis dropdown-item" data-column="19"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Added Time</a>
+                                    <a class="toggle-vis dropdown-item" data-column="20"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Magaya Status</a>
+                                    <a class="toggle-vis dropdown-item" data-column="21"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Modified By</a>
+                                    <a class="toggle-vis dropdown-item" data-column="22"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Owner</a>
+                                    <a class="toggle-vis dropdown-item" data-column="23"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Email</a>
+                                    <a class="toggle-vis dropdown-item" data-column="24"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Home Phone</a>
+                                    <a class="toggle-vis dropdown-item" data-column="25"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Mobile</a>
+                                    <a class="toggle-vis dropdown-item" data-column="26"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Name</a>
+                                    <a class="toggle-vis dropdown-item" data-column="27"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Phone</a>
+                                    <a class="toggle-vis dropdown-item" data-column="28"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Street</a>
+                                    <a class="toggle-vis dropdown-item" data-column="29"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing State</a>
+                                    <a class="toggle-vis dropdown-item" data-column="30"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Zip</a>
+                                    <a class="toggle-vis dropdown-item" data-column="31"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing City</a>
+                                    <a class="toggle-vis dropdown-item" data-column="32"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Country</a>
 
 
 
@@ -133,46 +131,42 @@ a {
 					</div>
 				</div>
 				<div class="card-body">
-
-
 						<table class="display responsive nowrap table-hover" width="100%" id="table-quotes">
 							<thead>
 								<tr style="text-transform:uppercase;font-weight: bold;">
-								<th class="border-top border-right border-bottom-0 border border-secondary">Edit</th>
-								<th class="border-top border-right border-bottom-0 border border-secondary">Number</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Deal</th>
-								<th class="border-top border-right border-bottom-0 border border-secondary">Customer</th>
-								<th class="border-top border-right border-bottom-0 border border-secondary">Stage</th>
-								<th class="border-top border-right border-bottom-0 border border-secondary">Amount</th>
-								<th class="border-top border-right border-bottom-0 border border-secondary">Modify Time</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Created Time</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Magaya updated</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Description</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Destination</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Origin</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Seller</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Service</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Terms</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Magaya GUID</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Created By</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Created Name</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Incoterms</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Is Hazardous</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Issued By</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Added Time</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Mag Status</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Modified By</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Owner</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Contact Email</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Contact Home Phone</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Contact Mobile</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Contact Name</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Contact Phone</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Billing Street</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Billing State</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Billing Zip</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Billing City</th>
-                                <th class="border-top border-right border-bottom-0 border border-secondary">Billing Country</th>
+								<th class="border-top border-bottom border-right">Edit</th>
+								<th class="border-top border-bottom border-right">Number</th>
+                                <th class="border-top border-bottom border-right">Deal</th>
+								<th class="border-top border-bottom border-right">Customer</th>
+								<th class="border-top border-bottom border-right">Stage</th>
+								<th class="border-top border-bottom border-right">Amount</th>
+								<th class="border-top border-bottom border-right">Modify Time</th>
+                                <th class="border-top border-bottom border-right">Created Time</th>
+                                <th class="border-top border-bottom border-right">Magaya updated</th>
+                                <th class="border-top border-bottom border-right">Description</th>
+                                <th class="border-top border-bottom border-right">Destination</th>
+                                <th class="border-top border-bottom border-right">Origin</th>
+                                <th class="border-top border-bottom border-right">Seller</th>
+                                <th class="border-top border-bottom border-right">Service</th>
+                                <th class="border-top border-bottom border-right">Created By</th>
+                                <th class="border-top border-bottom border-right">Created Name</th>
+                                <th class="border-top border-bottom border-right">Incoterms</th>
+                                <th class="border-top border-bottom border-right">Is Hazardous</th>
+                                <th class="border-top border-bottom border-right">Issued By</th>
+                                <th class="border-top border-bottom border-right">Added Time</th>
+                                <th class="border-top border-bottom border-right">Mag Status</th>
+                                <th class="border-top border-bottom border-right">Modified By</th>
+                                <th class="border-top border-bottom border-right">Owner</th>
+                                <th class="border-top border-bottom border-right">Contact Email</th>
+                                <th class="border-top border-bottom border-right">Contact Home Phone</th>
+                                <th class="border-top border-bottom border-right">Contact Mobile</th>
+                                <th class="border-top border-bottom border-right">Contact Name</th>
+                                <th class="border-top border-bottom border-right">Contact Phone</th>
+                                <th class="border-top border-bottom border-right">Billing Street</th>
+                                <th class="border-top border-bottom border-right">Billing State</th>
+                                <th class="border-top border-bottom border-right">Billing Zip</th>
+                                <th class="border-top border-bottom border-right">Billing City</th>
+                                <th class="border-top border-bottom border-right">Billing Country</th>
 								</tr>
 							</thead>
 							<tbody>

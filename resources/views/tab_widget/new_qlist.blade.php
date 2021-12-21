@@ -232,7 +232,7 @@ float:left;
     <div class="carousel-item table-responsive">
 
         <div class="col-sm-4 demo">
-            <form class="form-search">
+            <form action="https://zm" class="form-search">
                 <div class="input-group">
                 <input class="form-control form-text" placeholder="Buscar" type="text" id="date_range"/>
                 <span class="btn btn-primary" id="shipment_search"><span class="material-icons">manage_search</span></span>

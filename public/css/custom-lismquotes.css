@@ -392,3 +392,9 @@ table td .numeric {
     padding: 10px;
     box-shadow: 5px 10px #b8b4b4;
 }
+
+#table-quotes th {
+    box-shadow: 0 0.6rem 0.6em rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 2;
+}

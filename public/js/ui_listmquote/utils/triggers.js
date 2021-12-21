@@ -69,6 +69,64 @@ $("select[name=magaya__Mode_of_Transportation]").change(function(e) {
     let value = $(this).val()
     $("input[name=ModeOfTransportation]").val(value)
 
+    let port = $(this).val()
+
+    //let method = transpMethods.filter(k => k.id === idT)
+
+    if (!_.isEmpty(port)) {
+        //let parentMethod = method[0]['magaya__ParentMethod']
+        let query = ''
+        switch (port) {
+            case "Vessel, Non-containerized":
+                query = `magaya__Waterway`
+                break;
+            case "Vessel, Containerized":
+                query = `magaya__Waterway`
+                break;
+            case "Barge":
+                query = `magaya__Waterway`
+                break;
+            case "Rail, Non-containerized":
+                query = `magaya__Railway`
+                break;
+            case "Rail, Containerized":
+                query = `magaya__Railway`
+                break;
+            case "Truck, Non-containerized":
+                query = `magaya__Roadway`
+                break;
+            case "Truck, Containerized":
+                query = `magaya__Roadway`
+                break;
+            case "Auto":
+                query = `magaya__Roadway`
+                break;
+            case "Road, other":
+                query = `magaya__Roadway`
+                break;
+            case "Air, Non-containerized":
+                query = `magaya__Airway`
+                break;
+            case "Air, Containerized":
+                query = `magaya__Airway`
+                break;
+            case "Mail":
+                query = `magaya__Roadway`
+                break;
+            default:
+                query = `magaya__Other`
+                break;
+
+        }
+        /*magaya__Roadway
+        magaya__Airway
+        magaya__Railway
+        magaya__Waterway
+        magaya__Other*/
+
+        storePorts.dispatch(searchByType({type: query}))
+    }
+
 })
 
 

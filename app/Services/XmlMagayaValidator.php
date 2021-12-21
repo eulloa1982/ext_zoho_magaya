@@ -20,7 +20,13 @@ class XmlMagayaValidator
         'no_transport_method'           =>    "No transport method detected",
         'item_quantity_not_valid'    => "Item quantity must to be greather than 0",
         'item_required'             => "This mquote need a Package Item",
-        'charge_required'             => "This mquote need a Charge Item"
+        'charge_required'             => "This mquote need a Charge Item",
+        'bad_ccode_origin_port'           => "Country Code in Origin Port is missing",
+        'bad_method_origin_port'           => "Method in Origin Port is missing",
+        'bad_name_origin_port'           => "Name in Origin Port is missing",
+        'bad_name_destination_port'           => "Name inDestination Port is missing",
+        'bad_method_destination_port'           => "Method in Destination Port is missing",
+        'bad_ccode_destination_port'           => "Country Code in Destination Port is missing"
 
         ];
 
@@ -128,6 +134,26 @@ class XmlMagayaValidator
                 $message['error'][] = $this::ERROR_CODES['charge_required'];
             }
         }
+
+        //puertos
+        if (!empty($xml->OriginPort)) {
+            if ($xml->OriginPort->Country[0]['Code'] == 'null')
+                $message['error'][] = $this::ERROR_CODES['bad_ccode_origin_port'];
+            if (empty($xml->OriginPort->Method))
+                $message['error'][] = $this::ERROR_CODES['bad_method_origin_port'];
+            if (empty($xml->OriginPort->Name))
+                $message['error'][] = $this::ERROR_CODES['bad_name_origin_port'];
+        }
+
+        if (!empty($xml->DestinationPort)) {
+            if ($xml->DestinationPort->Country[0]['Code'] == 'null')
+                $message['error'][] = $this::ERROR_CODES['bad_ccode_destination_port'];
+            if (empty($xml->DestinationPort->Method))
+                $message['error'][] = $this::ERROR_CODES['bad_method_destination_port'];
+            if (empty($xml->DestinationPort->Name))
+                $message['error'][] = $this::ERROR_CODES['bad_name_destination_port'];
+        }
+
         //cargos
         /*$charges = $xml->Charges;
         if ($charges && @count ($charges->children()) < 0) {

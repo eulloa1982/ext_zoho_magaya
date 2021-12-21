@@ -110,8 +110,6 @@
     <script type="text/javascript" src="{{ url('js/ui_listmquote/utils/triggers.js', $extra = [], $secure = 1) }}"></script>
 
     <script src="{{ url('js/ui_listmquote/validators/validators.js', $extra = [], $secure = 1) }}"></script>
-    <script src="{{ url('html2pdf/html2canvas.min.js', $extra = [], $secure = 1) }}"></script>
-    <script src="{{ url('html2pdf/html2pdf.bundle.min.js', $extra = [], $secure = 1) }}"></script>
 
     @yield('js')
 
