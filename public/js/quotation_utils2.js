@@ -421,7 +421,7 @@ $('#sortable1').bind("DOMSubtreeModified", function() {
             e.stopImmediatePropagation();
             $("#toPdf").html("Pdf");
             idQuoteMagaya = 0;
-            parent = $(this).parent().attr("data-idArray");
+            parent = $(this).parent().parent().attr("data-idArray");
             quote = arrayMagayaQuotes[parent]
 
             if (quote != null) {

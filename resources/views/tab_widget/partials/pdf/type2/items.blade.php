@@ -15,7 +15,7 @@
         {{$total_volume = 0}}
         {{$measure_length = "in"}}
         {{$measure_weigth = "lb"}}
-        {{$measure_volume = "ft"}}        
+        {{$measure_volume = "ft"}}
         {{$total_weight_international = 0}}
         {{$total_volume_international = 0}}
         {{$total_weight_english = 0}}
@@ -26,11 +26,11 @@
             {{$measure_length = "m"}}
             {{$measure_volume = "m"}}
             {{$measure_weigth = "kg"}}
-            {{$total_volume_international += ($v['magaya__Volume'] * $v['magaya__Pieces'])}}
-            {{$total_weight_international += ($v['magaya__Weigth'] * $v['magaya__Pieces'])}}
-         @else 
+            {{$total_volume_international += $v['magaya__Volume0']}}
+            {{$total_weight_international += $v['magaya__Weigth']}}
+         @else
             {{/*/pulgadas y libras*/}}
-            {{$total_volume_english += ($v['magaya__Volume'] * $v['magaya__Pieces'])}}
+            {{$total_volume_english += ($v['magaya__Volume0'] * $v['magaya__Pieces'])}}
             {{$total_weight_english += ($v['magaya__Weigth'] * $v['magaya__Pieces'])}}
         @endif
         {{$measure_system = $v['magaya__Measure_System']}}
@@ -40,7 +40,7 @@
             <td width="15%" style="text-align: center;">{{$v['magaya__Pieces']}}</td>
             <td width="15%" style="text-align: center;">{{$v['magaya__Length']}} X {{$v['magaya__Width']}} X {{$v['magaya__Height']}} ({{$measure_length}})</td>
             <td width="15%" style="text-align: right;">{{$v['magaya__Weigth']}} ({{$measure_weigth}})</td>
-            <td width="15%" style="text-align: right;">{{$v['magaya__Volume']}} ({{$measure_volume}}<sup>3</sup>)</td>
+            <td width="15%" style="text-align: right;">{{$v['magaya__Volume0']}} ({{$measure_volume}}<sup>3</sup>)</td>
         </tr>
         @endforeach
         {{$total_weight = ($total_weight_international + $total_weight_english) * 0.453562}}

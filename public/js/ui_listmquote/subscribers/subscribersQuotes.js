@@ -58,6 +58,7 @@ storeQuote.subscribe(() => {
         dataQuotes = {id: 1, Name:"Quote Test"}
     } else {
         //alert (dataQuotes)
+
         $.map(dataQuotes, function(v) {
             let mt =  v["Modified_Time"]
             //primera porcion
@@ -74,19 +75,17 @@ storeQuote.subscribe(() => {
                     <a><span class="material-icons oculto send" data-id="${v.id}">send</span></a>
                     `
             data.push(v)
-
         })
-
 
         var table = $('#table-quotes').DataTable( {
             'destroy': true,
             retrieve: true,
             responsive: true,
             "scrollX": true,
-            "order": [[ 1, "desc" ]], //order by name by default
+            //"order": [[ 5, "desc" ]], //order by name by default
             data: data,
         columns: [
-            { "data": "create"},
+            { "data": "create", "width": "8%"},
 
             { "data": "Name" },
 
@@ -133,12 +132,6 @@ storeQuote.subscribe(() => {
             { "data": "magaya__Seller", "visible": false},
 
             { "data": "magaya__Service", "visible": false},
-
-            { "data": "magaya__Terms", "visible": false},
-
-            { "data": "magaya__MagayaGUID", "visible": false},
-
-
 
             { "data": "Created_By.name", "visible": false},
 
@@ -274,6 +267,7 @@ storeQuote.subscribe(() => {
 
         //relleno los campos
         //campos q no son objetos
+        $("input[name=RowRecord]").val(quoteToEdit.number)
         $("#magaya__Description").val(quoteToEdit.magaya__Description)
         let idAccount = !_.isEmpty(quoteToEdit.Account) ? quoteToEdit.Account.id : 0
             storeAccounts.dispatch(addQuoteAccount({id: idAccount}))
@@ -448,6 +442,11 @@ storeQuote.subscribe(() => {
                             //let idMethod = data.magaya__ModeofTransportation.id
                             //let method = getTranspMethod(idMethod).then(res => {
                         $("select[name=magaya__Mode_of_Transportation]").val(data.magaya__Mode_of_Transportation).change()
+                        if (!_.isEmpty(data.magaya__Port_of_Loading))
+                            $("select[name=magaya__Port_of_Unloading]").val(data.magaya__Port_of_Loading.id).change()
+                        if (!_.isEmpty(data.magaya__Port_of_Loading))
+                            $("select[name=magaya__Port_of_Unloading]").val(data.magaya__Port_of_Unloading.id).change()
+
                             //$("input[name=ModeOfTransportation]").val(res[0]['Name'])
                             //})
 

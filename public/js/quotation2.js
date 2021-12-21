@@ -1364,6 +1364,7 @@ function drawQuotationCRM() {
                             <input class="form-check-input-quote-crm" type="checkbox" value="">
                             </div>
                         <div class="btn-sm edit-quote"><i class="far fa-edit"></i></div>
+                        <div class="view-quote sm"><i class="fa fa-eye"></i></div>
                         <span style="margin-right: 15px">${sanitize(v.Name)}</span><span>${sanitize(account)}</span></li>`;
                 $("#sortable2").append(dataAppend);
                 //<div class="view-quote sm"><i class="fa fa-eye"></i></div>
@@ -1614,14 +1615,14 @@ async function sendQuoteMagaya2CRM(dataArray) {
 
     console.log(dataArray)
     //get method code
-    if (!_.isEmpty(dataArray['ModeOfTransportation'])) {
+    /*if (!_.isEmpty(dataArray['ModeOfTransportation'])) {
         //get transportation code
         code = dataArray['ModeOfTransportation']["@attributes"]["Code"];
-        indexArray = transpMethods.findIndex(i => i["magaya__TransportationMethodCode"] == code);
+        indexArray = transpMethods.findIndex(i => i["magaya__Mode_of_Transportation"] == code);
 
         method = transpMethods[indexArray];
         methodCode = method.id;
-    }
+    }*/
 
     //set right stage
     /*if (!_.isEmpty(dataArray['Status'])) {
@@ -1652,30 +1653,29 @@ async function sendQuoteMagaya2CRM(dataArray) {
             console.log("Searching carrier", data)
             resCarrier = data
             status = data.status
-
         })
+            if (status && status == 204) {
+                //create carrier
+                let carrier = {
+                    "Name": dataArray['Carrier'].Name,
+                    "magaya__Magaya_GUID": dataArray['Carrier']['@attributes']["GUID"],
+                    "magaya__Type": dataArray['Carrier'].Type,
+                    "magaya__BillingAddress_City": !_.isEmpty(dataArray['Carrier'].BillingAddress) ? dataArray['Carrier'].BillingAddress.City : "",
+                    "magaya__BillingAddress_Country": !_.isEmpty(dataArray['Carrier'].BillingAddress) ? dataArray['Carrier'].BillingAddress.Country : "",
+                    "magaya__BillingAddress_State": !_.isEmpty(dataArray['Carrier'].BillingAddress) ? dataArray['Carrier'].BillingAddress.State : "",
+                    "magaya__BillingAddress_Street": !_.isEmpty(dataArray['Carrier'].BillingAddress) ? dataArray['Carrier'].BillingAddress.Street : "",
+                    "magaya__BillingAddress_ZipCode": !_.isEmpty(dataArray['Carrier'].BillingAddress) ? dataArray['Carrier'].BillingAddress.ZipCode : "",
+                }
 
-        if (status && status == 204) {
-            //create carrier
-            let carrier = {
-                "Name": dataArray['Carrier'].Name,
-                "magaya__Magaya_GUID": dataArray['Carrier']['@attributes']["GUID"],
-                "magaya__Type": dataArray['Carrier'].Type,
-                "magaya__BillingAddress_City": dataArray['Carrier'].BillingAddress.City,
-                "magaya__BillingAddress_Country": dataArray['Carrier'].BillingAddress.Country,
-                "magaya__BillingAddress_State": dataArray['Carrier'].BillingAddress.State,
-                "magaya__BillingAddress_Street": dataArray['Carrier'].BillingAddress.Street,
-                "magaya__BillingAddress_ZipCode": dataArray['Carrier'].BillingAddress.ZipCode,
+                let a = await insertRecordCRM("magaya__Providers", carrier)
+                        .then(function(data){
+                            idCarrier = data[0]["details"]["id"]
+                            console.log("result inserting", idCarrier)
+                        })
+            } else {
+                idCarrier = resCarrier.data[0]["id"]
             }
 
-            let a = await insertRecordCRM("magaya__Providers", carrier)
-                    .then(function(data){
-                        idCarrier = data[0]["details"]["id"]
-                        console.log("result inserting", idCarrier)
-                    })
-        } else {
-            idCarrier = resCarrier.data[0]["id"]
-        }
     }
     //SQuotes
     //seleccionar account
@@ -1688,7 +1688,6 @@ async function sendQuoteMagaya2CRM(dataArray) {
 
         cc = await ZOHO.CRM.API.searchRecord({Entity:"Accounts",Type:"criteria",Query:"(magaya__MagayaGUID:equals:"+accountGUID+")"})
         .then(function(data){
-            console.log("Searching account", data)
             resAccount = data
             statusAccount = data.status
 
@@ -1746,7 +1745,18 @@ async function sendQuoteMagaya2CRM(dataArray) {
         "magaya__Status": !_.isEmpty(dataArray['Status']) ? dataArray['Status'] : "",
         "magaya__MagayaGUID": guidQuote,
         "magaya__AddedTime": createdAt,
-        "magaya__CreatedByName": dataArray['CreatedByName']
+        "magaya__CreatedByName": dataArray['CreatedByName'],
+        "magaya__ContactName": !_.isEmpty(dataArray["RepresentativeName"]) ? dataArray["RepresentativeName"] : "",
+        "magaya__ContactEmail": !_.isEmpty(dataArray["Representative"]) ? dataArray["Representative"] ["Email"]: "",
+        "magaya__ContactHomePhone": !_.isEmpty(dataArray["Representative"]) ? dataArray["Representative"]["Phone"] : "",
+        "magaya__ContactMobile": !_.isEmpty(dataArray["Representative"]) ? dataArray["Representative"]["MobilePhone"] : "",
+        "magaya__BillingCity": !_.isEmpty(dataArray["Representative"]) ? dataArray["Representative"]["BillingAddress"]["City"] : "",
+        "magaya__BillingCountry": !_.isEmpty(dataArray["Representative"]) ? dataArray["Representative"]["BillingAddress"]["Country"] : "",
+        "magaya__BillingState": !_.isEmpty(dataArray["Representative"]) ? dataArray["Representative"]["BillingAddress"]["State"] : "",
+        "magaya__BillingStreet": !_.isEmpty(dataArray["Representative"]) ? dataArray["Representative"]["BillingAddress"]["Street"] : "",
+        "magaya__Billing_Zip": !_.isEmpty(dataArray["Representative"]) ? dataArray["Representative"]["BillingAddress"]["ZipCode"] : "",
+
+
     };
 
 
@@ -1759,11 +1769,21 @@ async function sendQuoteMagaya2CRM(dataArray) {
     if (idAccount > 0)
         Object.assign(recordData, {"Account": idAccount})
 
-
     routing = {
         "Name": !_.isEmpty(dataArray['Number']) ? dataArray['Number'] : "Data Routing",
         "magaya__Consignee": !_.isEmpty(dataArray['ConsigneeName']) ? dataArray['ConsigneeName'] : "",
+        "magaya__ConsigneeCity": !_.isEmpty(dataArray['ConsigneeAddress']) ? dataArray['ConsigneeAddress']["City"] : "",
+        "magaya__ConsigneeCode": !_.isEmpty(dataArray['ConsigneeAddress']) ? dataArray['ConsigneeAddress']["ZipCode"] : "",
+        "magaya__ConsigneeCountry": !_.isEmpty(dataArray['ConsigneeAddress']) ? dataArray['ConsigneeAddress']["Country"] : "",
+        "magaya__ConsigneeState": !_.isEmpty(dataArray['ConsigneeAddress']) ? dataArray['ConsigneeAddress']["State"] : "",
+        "magaya__ConsigneeStreet": !_.isEmpty(dataArray['ConsigneeAddress']) ? dataArray['ConsigneeAddress']["Street"] : "",
         "magaya__Shipper": !_.isEmpty(dataArray['ShipperName']) ? dataArray['ShipperName'] : "",
+        "magaya__ShipperCity": !_.isEmpty(dataArray['ShipperAddress']) ? dataArray['ShipperAddress']["City"] : "",
+        "magaya__ShipperCode": !_.isEmpty(dataArray['ShipperAddress']) ? dataArray['ShipperAddress']["ZipCode"] : "",
+        "magaya__ShipperCountry": !_.isEmpty(dataArray['ShipperAddress']) ? dataArray['ShipperAddress']["Country"] : "",
+        "magaya__ShipperState": !_.isEmpty(dataArray['ShipperAddress']) ? dataArray['ShipperAddress']["State"] : "",
+        "magaya__ShipperStreet": !_.isEmpty(dataArray['ShipperAddress']) ? dataArray['ShipperAddress']["Street"] : "",
+        "magaya__Mode_of_Transportation": !_.isEmpty(dataArray['ModeOfTransportation']) ? dataArray['ModeOfTransportation']['Description'] : ""
     }
     if (idCarrier > 0)
         Object.assign(routing, {"magaya__MainCarrier": idCarrier})
@@ -1937,7 +1957,7 @@ async function sendQuoteMagaya2CRM(dataArray) {
                                 "magaya__Pieces": k.Pieces,
                                 "magaya__Height": roundDec(k.Height),
                                 "magaya__Status": k.Status,
-                                "magaya__Volume": roundDec(k.Volume),
+                                "magaya__Volume0": roundDec(k.Volume),
                                 "magaya__Weigth": roundDec(k.Weight),
                                 "Name": k.Package.Name,
                                 "magaya__Width": roundDec(k.Width),

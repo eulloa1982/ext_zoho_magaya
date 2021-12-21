@@ -25,10 +25,12 @@
                         <span title="Get PDF mQuote" class="material-icons btn btn-primary" style="background: none;border: none;">picture_as_pdf</span>
                         <ul class="dropdown-menu" role="menu">
                             <li style="background: none;border: none; margin: 10px">
-                                <a data-type="type1" class="toPdf"><img src="{{ url('images/PDF/pdf_type1.jpg') }}" width="25px" height="25px" alt="T1"/></a>
+                                <a data-type="type1" class="toPdf">Plantilla 1</a>
+                                <!--a data-type="type1" class="toPdf"><img src="{{ url('images/PDF/pdf_type1.jpg') }}" width="25px" height="25px" alt="T1"/></a-->
                             </li>
                             <li style="background: none;border: none; margin: 10px">
-                                <a data-type="type2" class="toPdf"><img src="{{ url('images/PDF/pdf_type2.jpg') }}" width="25px" height="25px" alt="T2"/></a>
+                                <a data-type="type2" class="toPdf">Plantilla 2</a>
+                                <!--a data-type="type2" class="toPdf"><img src="{{ url('images/PDF/pdf_type2.jpg') }}" width="25px" height="25px" alt="T2"/></a-->
                             </li>
 
                         </ul>

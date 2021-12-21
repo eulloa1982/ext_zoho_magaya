@@ -26,6 +26,7 @@
                     <!----- tab general -------------------------->
                     <!------------------------------------------------------------->
                         <div class="tab-pane fade" id="menu1" role="tabpanel" aria-labelledby="menu1-tab" style="min-height: 600px;">
+                            <input type="hidden" name="RowRecord" />
                             <div class="row" style="margin-bottom:20px;margin-top: 20px;">
                                 <div class="col-md-3">
 									<label class="col-md-12" style="font-weight: bold;">Number</label>
@@ -41,11 +42,11 @@
                                     <input type="text" name='magaya__CreatedByName' class='form-control' readonly/>
 								</div>
 
-                                <div class="col-md-3">
+                                <!--div class="col-md-3">
 									<label class="col-md-12" style="font-weight: bold;">Owner</label>
                                     <select name='Owner' class='form-control'>
                                     </select>
-								</div>
+								</div-->
                             </div>
 
                             <div class="row" style="margin-bottom:20px">
@@ -226,21 +227,21 @@
 								</div>
 							</div>
 
-                            <!--div class="row" style="margin-bottom:20px; margin-top:20px;">
+                            <div class="row" style="margin-bottom:20px; margin-top:20px;">
 								<div class="col-md-6">
 									<label class="col-md-12" style="font-weight: bold;";>Port of Loading <span class="existingPorts"></span></label>
-									<select name="magaya__PortofLoading" class="form-control">
+									<select name="magaya__Port_of_Loading" class="form-control">
 										<option></option>
 									</select>
 								</div>
 
 								<div class="col-md-6">
 									<label class="col-md-12" style="font-weight: bold;">Port of Unloading <span class="existingPorts"></span></label>
-									<select name="magaya__PortofUnloading" class="form-control">
+									<select name="magaya__Port_of_Unloading" class="form-control">
 										<option></option>
 									</select>
 								</div>
-							</div-->
+							</div>
 
 							<!--div class="row" style="margin-bottom:20px; margin-top:20px;">
 								<div class="col-md-6">
@@ -533,7 +534,7 @@
 
                                             <div class="row">
                                                 <div class="col-md-3">Paid As</div>
-                                                <div class="col-md-8"><select name="magaya__Paid_As" class="form-control new-charge"><option></option><option value="Paid">Paid</option><option value="Collect">Collect</option></select></div>
+                                                <div class="col-md-8"><select name="magaya__Paid_As" class="form-control new-charge"><option></option><option value="Prepaid">Prepaid</option><option value="Collect">Collect</option></select></div>
                                             </div>
 
                                             <div class="row">
@@ -653,14 +654,14 @@
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-3">Weigth</div>
+                                                    <div class="col-md-3">Weigth per Piece</div>
                                                     <div class="col-md-8">
                                                         <input type="text" class="form-control number new-item" name="magaya__Weigth"style="text-align-last:right;">
                                                     </div>
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-3">Volume</div>
+                                                    <div class="col-md-3">Volume per Piece</div>
                                                     <div class="col-md-8">
                                                         <input type="text" class="form-control number new-item" name="magaya__Volume0"style="text-align-last:right;" readonly>
                                                     </div>
@@ -684,12 +685,12 @@
                                                 <tr>
                                                     <th style="width:9%"></th>
                                                     <th style="width:31%">Description</th>
-                                                    <th style="width:10%">Pieces</th>
+                                                    <th style="width:8%">Pieces</th>
                                                     <th colspan="2" style="width:14%">Length</th>
                                                     <th colspan="2" style="width:14%">Heigth</th>
                                                     <th colspan="2" style="width:14%">Width</th>
-                                                    <th colspan="2" style="width:14%">Weigth</th>
-                                                    <th colspan="2" style="width:14%">Volume</th>
+                                                    <th colspan="2" style="width:20%">Total Weigth</th>
+                                                    <th colspan="2" style="width:20%">Total Volume</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -703,12 +704,12 @@
                                                 <tr>
                                                     <th style="width:9%"></th>
                                                     <th style="width:31%">Description</th>
-                                                    <th style="width:10%">Pieces</th>
+                                                    <th style="width:8%">Pieces</th>
                                                     <th colspan="2" style="width:14%">Length</th>
                                                     <th colspan="2" style="width:14%">Heigth</th>
                                                     <th colspan="2" style="width:14%">Width</th>
-                                                    <th colspan="2" style="width:18%">Weigth</th>
-                                                    <th colspan="2" style="width:18%">Volume</th>
+                                                    <th colspan="2" style="width:20%">Total Weigth</th>
+                                                    <th colspan="2" style="width:20%">Total Volume</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>

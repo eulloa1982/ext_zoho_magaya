@@ -724,6 +724,8 @@ $(document).ready(function(){
     e.preventDefault()
     e.stopImmediatePropagation()
 
+    //row record table
+    const row_number = $("input[name=RowRecord]").val() - 1
 
     //get deal and quote account, now editable
     let accountQuoteData = storeAccounts.getState().quoteAccount
@@ -811,6 +813,9 @@ $(document).ready(function(){
         "magaya__ConsigneeCode": sanitize($("input[name=magaya__ConsigneeCode]").val()),
         "magaya__MainCarrier": $("select[name=magaya__MainCarrier] option:selected").val(),
         "magaya__Mode_of_Transportation": $("select[name=magaya__Mode_of_Transportation] option:selected").val(),
+        "magaya__Port_of_Loading": $("select[name=magaya__Port_of_Loading]").val(),
+        "magaya__Port_of_Unloading": $("select[name=magaya__Port_of_Unloading]").val()
+
     }
 
     //updating data
@@ -830,26 +835,15 @@ $(document).ready(function(){
 
                 } else {
 
-                    /*let table = $('#table-quotes').DataTable();
-                    let dd = {"aa": "aa"}
-                    var d = table.row( this ).data();
-                    table
-                        .row( this )
-                        .data( dd )
-                        .draw();*/
-                        /*let table = $('#table-quotes').DataTable();
-                        someId = 6 ; //first row
-                        newData = [ "ted", "London", "23" ] //Array, data here must match structure of table data
-                        table.row(someId).data( newData ).draw();*/
-                    //table.row(2).fnUpdate(temp, 2, undefined, false)
-                    //$('#table1').dataTable().fnUpdate(temp,2,undefined,false);
-                    //console.log(table.row(2).data(temp).draw())
-
                     //get the record from zoho
                     ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id})
                         .then(function(data){
                             record = data.data;
                             storeQuote.dispatch(updateQuote({id: idQuote, ...record}))
+                            //update table row
+                            record[0]['number'] = row_number
+                            let table = $('#table-quotes').DataTable();
+                            table.row(row_number).data( ...record ).draw(false);
                         })
 
                     message = `mQuote updated!!`
@@ -869,7 +863,7 @@ $(document).ready(function(){
                 }
                 ZOHO.CRM.API.updateRecord(configRouting)
                     .then(function(data) {
-                        location.reload()
+                        //location.reload()
                     })
 
 
@@ -1002,8 +996,10 @@ $(document).ready(function(){
             "magaya__ConsigneeState": sanitize($("input[name=magaya__ConsigneeState]").val()),
             "magaya__ConsigneeStreet": sanitize($("input[name=magaya__ConsigneeStreet]").val()),
             "magaya__ConsigneeCode": sanitize($("input[name=magaya__ConsigneeCode]").val()),
-            "magaya__MainCarrier": $("select[name=magaya__MainCarrier] option:selected").val(),
+            "magaya__MainCarrier": $("select[name=magaya__MainCarrier]").val(),
             "magaya__Mode_of_Transportation": $("select[name=magaya__Mode_of_Transportation] option:selected").val(),
+            "magaya__Port_of_Loading": $("select[name=magaya__Port_of_Loading]").val(),
+            "magaya__Port_of_Unloading": $("select[name=magaya__Port_of_Unloading]").val()
         }
 
         console.log("RecordData", recordData)
