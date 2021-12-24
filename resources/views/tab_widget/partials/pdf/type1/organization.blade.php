@@ -21,6 +21,7 @@
                 <tr>
                     <td colspan="12"class="headerFont">
                         @if (@isset($organization['orgData']['website']))
+                            <span><img src="{{ url('images/pdfv1/language.png') }}" alt="Language" width="24px" height="24px"/></span>
                             {{$organization['orgData']['website']}}
                         @endif
                     </td>
@@ -41,7 +42,6 @@
                 </tr>
                 <tr>
                     <td colspan="12" class="headerFont">
-                        <span><img src="{{ url('images/pdfv1/home.png') }}" alt="Home" width="24px" height="24px"/></span>
                             @if (@isset($organization['orgData']['country'])) {{$organization['orgData']['country']}} @endif
                             @if (@isset($organization['orgData']['city'])) , {{$organization['orgData']['city']}} @endif
                             @if (@isset($organization['orgData']['state'])) , {{$organization['orgData']['state']}} @endif
