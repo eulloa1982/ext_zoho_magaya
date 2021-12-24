@@ -4,9 +4,6 @@
         <td width="40%">
             <table width="90%" cellspacing="0px" cellpadding="0px" style="border: none; text-align: right; margin-right:5%;">
                 <tr>
-                    <td>
-                        <!--img class="demo-bg" src="{{ url('images/pdfv1/shipment-cargo.jpg') }}" style="opacity: 0.2" width="150" height="65" alt="Language" /-->
-                    </td>
                     <td class="session-first" style="float: left; font-size: 28px; vertical-align:top">
                         @if (@isset($organization['orgData']['company_name']))
                             {{$organization['orgData']['company_name']}}
