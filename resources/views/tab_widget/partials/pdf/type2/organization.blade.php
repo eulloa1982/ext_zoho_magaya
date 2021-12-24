@@ -5,7 +5,7 @@
     }
 
     .demo-bg {
-        opacity: 0.3;
+        opacity: 0.22;
         position: absolute;
         left: 0;
         top: 0;
