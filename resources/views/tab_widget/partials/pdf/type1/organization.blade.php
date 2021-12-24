@@ -29,7 +29,6 @@
                 <tr>
                     <td colspan="12" class="headerFont">
                         @if (@isset($organization['orgData']['phone']))
-                            <span><img src="{{ url('images/pdfv1/phone.png', $extra = [], $secure = 1) }}" alt="Phone" width="24px" height="24px"/></span>
                             {{$organization['orgData']['phone']}}
                         @endif
                     </td>
@@ -37,14 +36,12 @@
                 <tr>
                     <td colspan="12" class="headerFont">
                         @if (@isset($organization['orgData']['primary_email']))
-                            <span><img src="{{ url('images/pdfv1/email.png', $extra = [], $secure = 1) }}" alt="Email" width="24px" height="24px"/></span>
                             {{$organization['orgData']['primary_email']}}
                         @endif
                     </td>
                 </tr>
                 <tr>
                     <td colspan="12" class="headerFont">
-                        <span><img src="{{ url('images/pdfv1/home.png', $extra = [], $secure = 1) }}" alt="Home" width="24px" height="24px"/></span>
                             @if (@isset($organization['orgData']['country'])) {{$organization['orgData']['country']}} @endif
                             @if (@isset($organization['orgData']['city'])) , {{$organization['orgData']['city']}} @endif
                             @if (@isset($organization['orgData']['state'])) , {{$organization['orgData']['state']}} @endif
