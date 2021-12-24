@@ -110,11 +110,11 @@ a {
                                     <a class="toggle-vis dropdown-item" data-column="20"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Magaya Status</a>
                                     <a class="toggle-vis dropdown-item" data-column="21"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Modified By</a>
                                     <a class="toggle-vis dropdown-item" data-column="22"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Owner</a>
-                                    <a class="toggle-vis dropdown-item" data-column="23"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Email</a>
-                                    <a class="toggle-vis dropdown-item" data-column="24"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Home Phone</a>
-                                    <a class="toggle-vis dropdown-item" data-column="25"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Mobile</a>
-                                    <a class="toggle-vis dropdown-item" data-column="26"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Name</a>
-                                    <a class="toggle-vis dropdown-item" data-column="27"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Phone</a>
+                                    <a class="toggle-vis dropdown-item" data-column="23"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Representative Email</a>
+                                    <a class="toggle-vis dropdown-item" data-column="24"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Representative Home Phone</a>
+                                    <a class="toggle-vis dropdown-item" data-column="25"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Representative Mobile</a>
+                                    <a class="toggle-vis dropdown-item" data-column="26"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Representative Name</a>
+                                    <a class="toggle-vis dropdown-item" data-column="27"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Representative Phone</a>
                                     <a class="toggle-vis dropdown-item" data-column="28"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Street</a>
                                     <a class="toggle-vis dropdown-item" data-column="29"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing State</a>
                                     <a class="toggle-vis dropdown-item" data-column="30"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Zip</a>
