@@ -4,10 +4,10 @@
     </tr>
     <tr style="font-weight: bold; background-color: #d3daf8; ">
         <th style="text-align: center;width: 40%; border: 1px solid #8b8584;">Charge Description</th>
-        <th style="text-align: center; border: 1px solid #8b8584;">Price</th>
-        <th style="text-align: center; border: 1px solid #8b8584;">Quantity</th>
-        <th style="text-align: center; border: 1px solid #8b8584;">Tax Amount</th>
-        <th style="text-align: center; border: 1px solid #8b8584;">Final Amount</th>
+        <th style="text-align: center; width: 8%;border: 1px solid #8b8584;">Price</th>
+        <th style="text-align: center; width: 4%;border: 1px solid #8b8584;">Quantity</th>
+        <th style="text-align: center; width: 14%;border: 1px solid #8b8584;">Tax Amount</th>
+        <th style="text-align: center; width: 14%; border: 1px solid #8b8584;">Final Amount</th>
     </tr>
     {{$amount_total = 0;}}
     @if (@isset($organization['charges']))
@@ -17,7 +17,7 @@
             <td style="text-align: center;">{{$v['Name']}}</td>
             <td style="text-align: right;">{{number_format($v['magaya__Price'], 2, ',', ' ')}}</td>
             <td style="text-align: right;">{{$v['magaya__CQuantity']}}</td>
-            <td style="text-align:right;">{{number_format($v['magaya__Amount'], 2, ',', ' ')}}</td>
+            <td style="text-align:right;">{{number_format($v['magaya__Tax_Amount'], 2, ',', ' ')}}</td>
             <td style="text-align: right; font-weight: bold;">{{number_format($v['magaya__Amount_Total'], 2, ',', ' ')}}</td>
         </tr>
         @endforeach
