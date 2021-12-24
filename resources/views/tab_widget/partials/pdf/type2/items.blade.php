@@ -38,7 +38,7 @@
             <td style="text-align: center;">{{$v['Name']}}</td>
             <td style="text-align: center;">{{$v['magaya__Package_Type']['name']}}</td>
             <td style="text-align: center;">{{$v['magaya__Pieces']}}</td>
-            <td style="text-align: center;">{{$v['magaya__Length']}} X {{$v['magaya__Width']}} X {{$v['magaya__Height']}} ({{$measure_length}})</td>
+            <td style="font-size: 9px; text-align: center;">{{$v['magaya__Length']}} X {{$v['magaya__Width']}} X {{$v['magaya__Height']}} ({{$measure_length}})</td>
             <td style="text-align: right;">{{number_format($v['magaya__Total_Weight'], 2, ',', ' ')}} ({{$measure_weigth}})</td>
             <td style="text-align: right;">{{number_format($v['magaya__Total_V'], 2, ',', ' ')}} ({{$measure_volume}}<sup>3</sup>)</td>
         </tr>
