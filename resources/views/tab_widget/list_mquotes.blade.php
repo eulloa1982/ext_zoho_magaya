@@ -157,11 +157,11 @@ a {
                                 <th class="border-top border-bottom border-right">Mag Status</th>
                                 <th class="border-top border-bottom border-right">Modified By</th>
                                 <th class="border-top border-bottom border-right">Owner</th>
-                                <th class="border-top border-bottom border-right">Contact Email</th>
-                                <th class="border-top border-bottom border-right">Contact Home Phone</th>
-                                <th class="border-top border-bottom border-right">Contact Mobile</th>
-                                <th class="border-top border-bottom border-right">Contact Name</th>
-                                <th class="border-top border-bottom border-right">Contact Phone</th>
+                                <th class="border-top border-bottom border-right">Representative Email</th>
+                                <th class="border-top border-bottom border-right">Representative Home Phone</th>
+                                <th class="border-top border-bottom border-right">Representative Mobile</th>
+                                <th class="border-top border-bottom border-right">Representative Name</th>
+                                <th class="border-top border-bottom border-right">Representative Phone</th>
                                 <th class="border-top border-bottom border-right">Billing Street</th>
                                 <th class="border-top border-bottom border-right">Billing State</th>
                                 <th class="border-top border-bottom border-right">Billing Zip</th>
