@@ -2,13 +2,13 @@
     <tr>
         <th colspan="6" style="padding: 5px 0px 5px 5px; color: white; background-color: #577BC1; text-align: start;text-transform:uppercase ;border: 1px #000 solid">Items</th>
     </tr>
-    <tr style="font-weight: bold; background-color: #d3daf8; border: 1px solid #1a2142;">
-        <th width="20%" style="text-align: center;">Description </th>
-        <th width="15%" style="text-align: center;">Package Type</th>
-        <th width="10%" style="text-align: center;">Quantity</th>
-        <th width="25%" style="text-align: center;">Dimensions</th>
-        <th width="10%" style="text-align: center;">Weight</th>
-        <th width="20%" style="text-align: center;">Volume</th>
+    <tr style="font-weight: bold; background-color: #d3daf8;">
+        <th width="20%" style="text-align: center;border: 1px solid #8b8584;">Description </th>
+        <th width="15%" style="text-align: center;border: 1px solid #8b8584;">Package Type</th>
+        <th width="10%" style="text-align: center;border: 1px solid #8b8584;">Quantity</th>
+        <th width="25%" style="text-align: center;border: 1px solid #8b8584;">Dimensions</th>
+        <th width="10%" style="text-align: center;border: 1px solid #8b8584;">Weight</th>
+        <th width="20%" style="text-align: center;border: 1px solid #8b8584;">Volume</th>
     </tr>
     @if (@isset($organization['items']))
         {{$total_weight = 0}}
