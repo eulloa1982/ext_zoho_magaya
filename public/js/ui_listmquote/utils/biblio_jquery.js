@@ -759,7 +759,7 @@ async function buildPdf(pdf_type) {
 
           let link = document.createElement('a');
           link.href = objUrl;
-          link.download = mquote.magaya__Number;
+          link.download = mquote.Name;
           link.click();
 
           // For Firefox it is necessary to delay revoking the ObjectURL.
