@@ -786,6 +786,7 @@ $(document).ready(function(){
         "magaya__ContactEmail": sanitize($("input[name=Email]").val()),
         "magaya__ContactMobile": sanitize($("input[name=Mobile]").val()),
         "magaya__ContactHomePhone": sanitize($("input[name=Phone]").val()),
+        "Name": sanitize($("input[name=NameQuote]").val()),
 
     }
 

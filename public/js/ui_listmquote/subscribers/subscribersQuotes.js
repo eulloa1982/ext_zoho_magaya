@@ -8,7 +8,7 @@ $(document).ready(function(){
 storeQuote.subscribe(() => {
     $("#quote-search tbody").empty()
     let u = storeQuote.getState()
-    //console.log("State quote now", u)
+    console.log("State quote now", u)
     quoteXML = u.singleQuote
     $(".arrows-quote").html(``)
     let arrow_content = '';
@@ -280,8 +280,8 @@ storeQuote.subscribe(() => {
                     $(`#${preview}`).html(k)
                 }
             })
+
             $("input[name=NameQuote]").val(quoteToEdit.Name)
-            //$("#NamePreview").html(quoteToEdit.Name)
 
             let owner = quoteToEdit.Owner.id
             let ownerName = quoteToEdit.Owner.name
@@ -385,10 +385,6 @@ storeQuote.subscribe(() => {
                 if ($(this).text() === consignee)
                     $("select[name=magaya__ConsigneeName]").val($(this).val())
             })
-
-
-            let nameQuote = quoteToEdit.magaya__Number
-            $(":input[name=NameQuote]").val(nameQuote)
 
             //magaya terms
             let terms = quoteToEdit.magaya__Terms
