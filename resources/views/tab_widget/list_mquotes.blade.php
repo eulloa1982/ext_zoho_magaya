@@ -49,6 +49,12 @@ a {
 	opacity: 0.3;
 	font: 'Museo700';
 }
+
+.dropdown-menu {
+  max-height: 400px;
+  max-width: 210px;
+  overflow-y: auto;
+}
 </style>
 
 
