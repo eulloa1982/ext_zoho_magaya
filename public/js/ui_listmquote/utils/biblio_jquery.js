@@ -378,7 +378,6 @@ async function buildStringXML(idSQuote) {
 })(jQuery);
 
 
-
 //get items cargo table, return xml charge
 (function($) {
     $.fn.getRelatedCharge = function(idSQuote) {
@@ -604,9 +603,6 @@ function getAllsRecordCRM(entity, number, record_per_page = 5) {
 }
 
 
-
-
-
 async function getMagayaVariables() {
     network_id = await getMagayaNetworkId()
     magaya_url = await getMagayaUrl();
@@ -692,7 +688,7 @@ function getTranspMethod(transpId) {
 }
 
 
-//get transp method for string xml quotation
+//
 async function getRecordCRM(entity, idRecord) {
     //code
     return new Promise(function(resolve, reject) {

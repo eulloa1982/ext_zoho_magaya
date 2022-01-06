@@ -10,6 +10,8 @@ $("select[name=Account]").change(function(e) {
 
     let account = $("select[name=Account]").val();
     storeAccounts.dispatch(addQuoteAccount({id: account}))
+
+    //searchContactsAccountCRM(account_name)
     storeAccounts.dispatch(findContactOfAccount({id: account}))
     //deberia vaciar todo con emptySingleContact (BUG -- No cambia el valor del account)
     $("input[name=Phone]").val("")

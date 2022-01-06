@@ -1003,8 +1003,6 @@ $(document).ready(function(){
             "magaya__Port_of_Unloading": $("select[name=magaya__Port_of_Unloading]").val()
         }
 
-        console.log("RecordData", recordData)
-
         //insertind data, get the id and insert items and charges
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__Routing", APIData: routingData, Trigger: ["workflow"] })
             .then(function(response) {
@@ -1063,7 +1061,7 @@ $(document).ready(function(){
                                             })
                                     })
 
-                                $("#mquoteModal").modal("hide")
+                                //$("#mquoteModal").modal("hide")
 
                             }
                         })
@@ -1168,13 +1166,14 @@ $(document).ready(function(){
                             confirmButtonText: "Yes",
                             allowOutsideClick: false
 
-                        })/*.then((result) => {
+                        })
+                        .then((result) => {
 
                             if (result.isConfirmed) {
                                 storeQuote.dispatch(addStarting(data.data[0]))
                                 //location.reload()
                             }
-                        })*/
+                        })
 
                     })
                     .catch(function(error) {

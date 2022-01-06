@@ -102,9 +102,14 @@ $(document).ready(function(){
             })
 
 
-        ZOHO.CRM.API.getAllRecords({Entity: "Contacts", sort_order: "asc"})
+        ZOHO.CRM.API.getAllRecords({Entity: "Contacts", sort_order: "asc", per_page:200,page:1})
             .then(function(response){
                 storeAccounts.dispatch(addContact(response.data))
+                ZOHO.CRM.API.getAllRecords({Entity: "Contacts", sort_order: "asc", per_page:200,page:2})
+                .then(function(response){
+                    if (!_.isEmpty(response.data))
+                        storeAccounts.dispatch(addContact(response.data))
+                })
             })
 
 

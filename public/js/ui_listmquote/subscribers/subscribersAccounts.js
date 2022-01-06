@@ -35,15 +35,19 @@ storeAccounts.subscribe(() => {
             $(`<option value="${k.id}">${k.Full_Name}</option>`).appendTo("select[name=magaya__Representative]")
         })
         if (!_.isEmpty(deal_quote)) {
-            contactId = deal_quote[0]['Contact_Name']['id']
-            contactName = deal_quote[0]['Contact_Name']['name']
-            //check if contact is deal contact
-            let d = contacts.filter(item => item.id === contactId )
-            //draw the contact if not exists
-            if (_.isEmpty(d))
-                $(`<option value="${contactId}">${contactName}</option>`).appendTo("select[name=magaya__Representative]");
-            //$("select[name=magaya__Representative]").change()
-            //storeAccounts.dispatch(findContact({id: contactId}))
+
+            if (!_.isEmpty(deal_quote[0]['Contact_Name']))
+            {
+                contactId = deal_quote[0]['Contact_Name']['id']
+                contactName = deal_quote[0]['Contact_Name']['name']
+                //check if contact is deal contact
+                let d = contacts.filter(item => item.id === contactId )
+                //draw the contact if not exists
+                if (_.isEmpty(d))
+                    $(`<option value="${contactId}">${contactName}</option>`).appendTo("select[name=magaya__Representative]");
+                //$("select[name=magaya__Representative]").change()
+                //storeAccounts.dispatch(findContact({id: contactId}))
+            }
         }
     } else {
         $("select[name=magaya__Representative]").empty();
