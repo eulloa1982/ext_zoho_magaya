@@ -363,6 +363,24 @@ async function buildStringXML(idSQuote) {
 
 //get items cargo table, return xml charge
 (function($) {
+    $.fn.getAllRecordCRM = function(idSQuote) {
+        return new Promise(function(resolve, reject) {
+            var func_name = "magaya__getChargesMquote";
+            var req_data ={
+                "quote_id" : idSQuote
+            };
+            ZOHO.CRM.FUNCTIONS.execute(func_name, req_data)
+                .then(function(data){
+                    resolve(data)
+                })
+        });
+    }
+})(jQuery);
+
+
+
+//get items cargo table, return xml charge
+(function($) {
     $.fn.getRelatedCharge = function(idSQuote) {
         return new Promise(function(resolve, reject) {
             var func_name = "magaya__getChargesMquote";
@@ -568,6 +586,25 @@ function getRelatedRecordCRM(entity, related_list, recordId) {
             })
     })
 }
+
+
+function getAllsRecordCRM(entity, number, record_per_page = 5) {
+    return new Promise(function(resolve, reject) {
+        let data_charge = {}
+        ZOHO.CRM.API.getAllRecords({ Entity: entity, sort_order:"asc",per_page:record_per_page,page: number })
+            .then(function(data) {
+                if (!_.isEmpty(data.data)) {
+                    resolve(data.data)
+                } else {
+                    resolve()
+                }
+
+            })
+    })
+}
+
+
+
 
 
 async function getMagayaVariables() {

@@ -270,15 +270,17 @@
 							<div class="row" style="margin-bottom:20px; margin-top:20px;">
 								<div class="col-md-6" style="font-weight: bold;">
 									<label class="col-md-12">Shipper</label>
-									<select name="magaya__Shipper" class="form-control no-border">
+									<select name="magaya__Shipper" class="accounts form-control no-border" onchange="addItems()">
 										<option></option>
+                                        <option value="SeeMore" class="seeMore">See More...</option>
 									</select>
 								</div>
 
 								<div class="col-md-6">
 									<label class="col-md-12" style="font-weight: bold;">Consignee</label>
-									<select name="magaya__Consignee" class="form-control no-border">
+									<select name="magaya__Consignee" class="accounts form-control no-border" onchange="addItems()">
 										<option></option>
+                                        <option value="SeeMore" class="seeMore">See More...</option>
 									</select>
 								</div>
 							</div>
@@ -372,8 +374,10 @@
 
                                     <div class="col-md-4">
                                         <label class="col-md-12" style="font-weight: bold;">Customer <span class="material-icons add_contact_link" id="add_account">person_add</span></label>
-                                        <select name="Account" class="form-control no-border">
+                                        <select  name="Account" class="accounts form-control no-border" onchange="addItems()">
                                             <option></option>
+                                            <option value="SeeMore" class="seeMore">See More...</option>
+
                                         </select>
                                     </div>
 
@@ -790,3 +794,33 @@
     </div><!-- .modal-dialog -->
 </div><!-- #moquoteModal -->
 
+<script type="text/javascript">
+
+    function addItems(){
+        let number = localStorage.getItem('account_page');
+        number = Number(number)
+
+        if ( $("select[name=Account]").val() == "SeeMore" || $("select[name=magaya__Shipper]").val() == "SeeMore" || $("select[name=magaya__Consignee]").val() == "SeeMore") {
+            getAllsRecordCRM("Accounts", number, 3)
+                .then(function(data) {
+                    console.log(data)
+
+                    if (!_.isEmpty(data)) {
+                        $.map(data, function(k, v) {
+                            $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
+                            $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Shipper]");
+                            $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Consignee]");
+                        })
+
+                        storeAccounts.dispatch(addAccount(data))
+                        $("select[name=Account]").val("").change()
+                        localStorage.setItem('account_page', ++number)
+                    }
+                })
+                .catch(function(err) {
+                    console.log(`Err: ${errs}`)
+                })
+        };
+
+    }
+</script>

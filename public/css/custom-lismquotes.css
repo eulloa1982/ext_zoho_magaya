@@ -398,3 +398,9 @@ table td .numeric {
     position: relative;
     z-index: 1;
 }
+
+.seeMore {
+    font-size: 12px;
+    font-weight: bold;
+    color:rgb(90, 74, 38);
+}
