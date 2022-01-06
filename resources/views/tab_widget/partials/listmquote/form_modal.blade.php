@@ -272,7 +272,6 @@
 									<label class="col-md-12">Shipper</label>
 									<select name="magaya__Shipper" class="accounts form-control no-border" onchange="addItems()">
 										<option></option>
-                                        <option value="SeeMore" class="seeMore">See More...</option>
 									</select>
 								</div>
 
@@ -280,7 +279,6 @@
 									<label class="col-md-12" style="font-weight: bold;">Consignee</label>
 									<select name="magaya__Consignee" class="accounts form-control no-border" onchange="addItems()">
 										<option></option>
-                                        <option value="SeeMore" class="seeMore">See More...</option>
 									</select>
 								</div>
 							</div>
@@ -376,8 +374,6 @@
                                         <label class="col-md-12" style="font-weight: bold;">Customer <span class="material-icons add_contact_link" id="add_account">person_add</span></label>
                                         <select  name="Account" class="accounts form-control no-border" onchange="addItems()">
                                             <option></option>
-                                            <option value="SeeMore" class="seeMore">See More...</option>
-
                                         </select>
                                     </div>
 
@@ -804,6 +800,10 @@
             getAllsRecordCRM("Accounts", number, 3)
                 .then(function(data) {
 
+                    $("select[name=Account] option[value='SeeMore']").remove()
+                    $("select[name=magaya__Shipper] option[value='SeeMore']").remove()
+                    $("select[name=magaya__Consignee] option[value='SeeMore']").remove()
+
                     if (!_.isEmpty(data)) {
                         $.map(data, function(k, v) {
                             $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
@@ -814,10 +814,15 @@
                         storeAccounts.dispatch(addAccount(data))
                         $("select[name=Account],select[name=magaya__Shipper],select[name=magaya__Consignee]").val("").change()
                         localStorage.setItem('account_page', ++number)
-                    } else {
-                        $("select[name=Account] option[value='SeeMore']").remove()
-                        $("select[name=magaya__Shipper] option[value='SeeMore']").remove()
-                        $("select[name=magaya__Consignee] option[value='SeeMore']").remove()
+                    }
+
+                    return data
+                })
+                .then(function(data) {
+                    if (!_.isEmpty(data)) {
+                        $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=Account]");
+                        $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Shipper]");
+                        $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Consignee]");
                     }
                 })
                 .catch(function(err) {
