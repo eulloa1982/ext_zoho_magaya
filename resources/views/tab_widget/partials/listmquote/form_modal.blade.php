@@ -803,7 +803,6 @@
         if ( $("select[name=Account]").val() == "SeeMore" || $("select[name=magaya__Shipper]").val() == "SeeMore" || $("select[name=magaya__Consignee]").val() == "SeeMore") {
             getAllsRecordCRM("Accounts", number, 3)
                 .then(function(data) {
-                    console.log(data)
 
                     if (!_.isEmpty(data)) {
                         $.map(data, function(k, v) {
@@ -813,8 +812,12 @@
                         })
 
                         storeAccounts.dispatch(addAccount(data))
-                        $("select[name=Account]").val("").change()
+                        $("select[name=Account],select[name=magaya__Shipper],select[name=magaya__Consignee]").val("").change()
                         localStorage.setItem('account_page', ++number)
+                    } else {
+                        $("select[name=Account] option[value='SeeMore']").remove()
+                        $("select[name=magaya__Shipper] option[value='SeeMore']").remove()
+                        $("select[name=magaya__Consignee] option[value='SeeMore']").remove()
                     }
                 })
                 .catch(function(err) {
