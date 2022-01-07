@@ -136,7 +136,7 @@ $(document).ready(function(){
             }).then(function (k) {
                 storeDeal.dispatch(addDeal(k))
                 if (data.Entity === "Deals") {
-                    $("select[name=Deal]").val(data.EntityId).change()
+                    $("select[name=Deal]").val(data.EntityId).change().prop('disabled', true);
                 }
             })
 
