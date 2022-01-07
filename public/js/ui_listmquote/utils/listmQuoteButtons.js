@@ -1006,6 +1006,7 @@ $(document).ready(function(){
         //insertind data, get the id and insert items and charges
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__Routing", APIData: routingData, Trigger: ["workflow"] })
             .then(function(response) {
+                Utils.blockUI()
                 res = response.data
                 id = 0
                 $.map(res, function(k) {
@@ -1131,7 +1132,6 @@ $(document).ready(function(){
                             ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: jsonData, Trigger: [] })
                                 .then(function(response) {
                                     res = response.data;
-                                    console.log("CHARGES OPERATION", res)
                                     $.map(res, function(k, v) {
                                         if (k.code !== "SUCCESS") {
                                             codeError = k.code;
@@ -1158,6 +1158,7 @@ $(document).ready(function(){
                     })
                     .then(function() {
                         Utils.unblockUI()
+                        $("#Save").prop("disable", true)
                         Swal.fire({
                             title: "Success",
                             text: "New mQuote inserted!!!",
@@ -1170,8 +1171,8 @@ $(document).ready(function(){
                         .then((result) => {
 
                             if (result.isConfirmed) {
-                                storeQuote.dispatch(addStarting(data.data[0]))
-                                //location.reload()
+                                //storeQuote.dispatch(addStarting(data.data[0]))
+                                location.reload()
                             }
                         })
 
