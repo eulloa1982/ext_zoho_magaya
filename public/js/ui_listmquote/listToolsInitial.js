@@ -9,6 +9,7 @@ $(document).ready(function(){
     //try {
     ZOHO.embeddedApp.on("PageLoad",function(data)
     {
+
         //current user
         //get current user
         ZOHO.CRM.CONFIG.getCurrentUser().then(function(data){
@@ -134,6 +135,9 @@ $(document).ready(function(){
                 return deals
             }).then(function (k) {
                 storeDeal.dispatch(addDeal(k))
+                if (data.Entity === "Deals") {
+                    $("select[name=Deal]").val(data.EntityId).change()
+                }
             })
 
         //get all transports methods
