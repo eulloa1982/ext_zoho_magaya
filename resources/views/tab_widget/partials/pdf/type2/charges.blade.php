@@ -5,7 +5,7 @@
     <tr style="font-weight: bold; background-color: #d3daf8; ">
         <th style="text-align: center;width: 40%; border: 1px solid #8b8584;">Charge Description</th>
         <th style="text-align: center; width: 8%;border: 1px solid #8b8584;">Price</th>
-        <th style="text-align: center; width: 4%;border: 1px solid #8b8584;">Quantity</th>
+        <th style="text-align: center; width: 8%;border: 1px solid #8b8584;">Quantity</th>
         <th style="text-align: center; width: 14%;border: 1px solid #8b8584;">Tax Amount</th>
         <th style="text-align: center; width: 14%; border: 1px solid #8b8584;">Final Amount</th>
     </tr>

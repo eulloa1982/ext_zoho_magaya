@@ -1,6 +1,6 @@
 <table class="info" cellspacing="0px" cellpadding="0px" width="100%" style="margin-top: 10px">
     <tr>
-        <th colspan="5" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid">Charges</th>
+        <th colspan="5" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid; padding: 3px 0px 3px 5px;">Charges</th>
     </tr>
     <tr style="font-weight: bold;">
         <th style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Charge Description</th>
