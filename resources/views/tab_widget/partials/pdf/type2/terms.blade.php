@@ -1,4 +1,4 @@
-<table class="info" width="105%" style="font-size: 11px; margin-top: 10px; border-collapse:separate; border:solid black 1px; border-radius:6px;">
+<table class="info" width="97%" style="font-size: 11px; margin-top: 10px; border-collapse:separate; border:solid black 1px; border-radius:6px;">
     <tr>
         <th colspan="12" style="padding: 5px 0px 5px 5px; color: white; background-color: #577BC1; text-align: start;text-transform:uppercase ;border: 1px #000 solid">TERMS & CONDITIONS</th>
     </tr>

@@ -23,7 +23,7 @@
         <img class="demo-bg" src="{{ url('images/pdfv2/shipment1.png') }}" alt="Language" />
 
         <div class="demo-content" style="width:100%; height: 140px">
-            <div style="text-align: left; float: left; padding: 10px 0px 0px 10px;"></strong>{{$organization['mQuote']['Name']}}</div>
+            <div style="text-align: left; float: left; padding: 10px 0px 0px 10px; font-size: 28px; color: rgb(54, 32, 32)"></strong>{{$organization['mQuote']['Name']}}</div>
 
             <div style="width:300px; float:right; padding: 0px 60px 0px 0px;">
                 @if (@isset($organization['orgData']['company_name']))

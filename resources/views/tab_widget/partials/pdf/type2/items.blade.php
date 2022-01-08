@@ -1,14 +1,14 @@
-<table class="info" width="105%" style="font-size: 11px; margin-top: 10px; border-collapse:separate; border:solid black 1px; border-radius:6px;">
+<table class="info" width="97%" style="font-size: 11px; margin-top: 10px; border-collapse:separate; border:solid black 1px; border-radius:6px;">
     <tr>
         <th colspan="6" style="padding: 5px 0px 5px 5px; color: white; background-color: #577BC1; text-align: start;text-transform:uppercase ;border: 1px #000 solid">Items</th>
     </tr>
     <tr style="font-weight: bold; background-color: #d3daf8;">
-        <th style="text-align: center; border: 1px solid #8b8584;">Description </th>
-        <th style="text-align: center; border: 1px solid #8b8584;">Package Type</th>
-        <th style="text-align: center; border: 1px solid #8b8584;">Quantity</th>
-        <th style="text-align: center;border: 1px solid #8b8584;">Dimensions</th>
-        <th style="text-align: center;border: 1px solid #8b8584;">Weight</th>
-        <th style="text-align: center;border: 1px solid #8b8584;">Volume</th>
+        <th style="text-align: center; border: 1px solid #8b8584; width:20%;">Description </th>
+        <th style="text-align: center; border: 1px solid #8b8584; width:20%">Package Type</th>
+        <th style="text-align: center; border: 1px solid #8b8584; width:8%;">Quantity</th>
+        <th style="text-align: center;border: 1px solid #8b8584; width:20%">Dimensions</th>
+        <th style="text-align: center;border: 1px solid #8b8584; width: 10%">Weight</th>
+        <th style="text-align: center;border: 1px solid #8b8584; width: 10%">Volume</th>
     </tr>
     @if (@isset($organization['items']))
         {{$total_weight = 0}}
