@@ -27,7 +27,7 @@ storeDeal.subscribe(() => {
                         $("select[name=Account] option[value='SeeMore']").remove()
                         $("select[name=magaya__Shipper] option[value='SeeMore']").remove()
                         $("select[name=magaya__Consignee] option[value='SeeMore']").remove()
-                        //storeAccounts.dispatch(addAccount(response[0]))
+                        storeAccounts.dispatch(addAccount(response[0]))
                         return response
 
                     })
