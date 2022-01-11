@@ -27,9 +27,9 @@ storeAccounts.subscribe(() => {
    let contacts = u.contactList;
    let contact = u.singleContact
    $("select[name=magaya__Representative]").empty();
+   $("<option></option>").appendTo("select[name=magaya__Representative]");
    if (!_.isEmpty(contact)) {
 
-        $("<option></option>").appendTo("select[name=magaya__Representative]");
         let idContact = contact[0]["id"];
         let nameContact = contact[0]['Full_Name']
         //storeAccounts.dispatch(findContact({id: idContact}));
