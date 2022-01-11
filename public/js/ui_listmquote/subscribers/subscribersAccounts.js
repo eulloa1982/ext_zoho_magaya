@@ -2,7 +2,7 @@ var singleAccount = []
 //get one charge
 storeAccounts.subscribe(() => {
     let u = storeAccounts.getState();
-    //console.log("State account now", u)
+    console.log("State account now", u)
     singleAccount = u.singleAccount
 
     let accountQuote = u.quoteAccount
@@ -27,14 +27,51 @@ storeAccounts.subscribe(() => {
    let contacts = u.contactList;
    let contact = u.singleContact
 
-    if (!_.isEmpty(contacts)) {
-        let deal_quote = storeDeal.getState().dealQuote
+   if (!_.isEmpty(contact)) {
+
         $("select[name=magaya__Representative]").empty();
-        $("<option></option>").appendTo("select[name=magaya__Representative]");
+        let idContact = contact[0]["id"];
+        let nameContact = contact[0]['Full_Name']
+        //storeAccounts.dispatch(findContact({id: idContact}));
+        $(`<option value='${idContact}' selected>${nameContact}</option>`).appendTo("select[name=magaya__Representative]");
+        $("select[name=magaya__Representative]").val(idContact)
+
+        $.map(contact[0], function (k, v) {
+            if (!_.isObject(v) && !v.includes("$")) {
+                $(`#contact_form input[name=${v}]`).val(k)
+                $(`#contact_form select[name=${v}]`).val(k)
+                $(`#customer_form input[name=${v}]`).val(k)
+                $(`#customer_form select[name=${v}]`).val(k)
+            }
+        })
+
+    } else {
+        //storeAccounts.dispatch(emptySingleContact())
+        /*console.log(" No hay contact sinfle")*
+        //$("select[name=magaya__Representative]").empty();
+        $("input[name=Phone]").val("")
+        $("input[name=Mobile]").val("")
+        $("input[name=Email]").val("")
+        $("input[name=Mailing_Street]").val("")
+        $("input[name=Mailing_City]").val("")
+        $("input[name=Mailing_State]").val("")
+        $("input[name=Mailing_Country]").val("")
+        $("input[name=Mailing_Zip]").val("")*/
+
+
+    }
+
+
+
+
+    if (!_.isEmpty(contacts)) {
+        /*let deal_quote = storeDeal.getState().dealQuote*/
+
+        //$("<option></option>").appendTo("select[name=magaya__Representative]");
         $.map(contacts, function(k, v) {
             $(`<option value="${k.id}">${k.Full_Name}</option>`).appendTo("select[name=magaya__Representative]")
         })
-        if (!_.isEmpty(deal_quote)) {
+        /*if (!_.isEmpty(deal_quote)) {
 
             if (!_.isEmpty(deal_quote[0]['Contact_Name']))
             {
@@ -48,39 +85,12 @@ storeAccounts.subscribe(() => {
                 //$("select[name=magaya__Representative]").change()
                 //storeAccounts.dispatch(findContact({id: contactId}))
             }
-        }
+        }*/
     } else {
-        $("select[name=magaya__Representative]").empty();
-    }
-
-
-   if (!_.isEmpty(contact)) {
-       let idContact = contact[0]["id"];
-       $("select[name=magaya__Representative]").val(idContact)
-
-       $.map(contact[0], function (k, v) {
-            if (!_.isObject(v) && !v.includes("$")) {
-               $(`#contact_form input[name=${v}]`).val(k)
-               $(`#contact_form select[name=${v}]`).val(k)
-               $(`#customer_form input[name=${v}]`).val(k)
-               $(`#customer_form select[name=${v}]`).val(k)
-            }
-        })
-    } else {
-        //storeAccounts.dispatch(emptySingleContact())
-        /*console.log(" No hay contact sinfle")*/
         //$("select[name=magaya__Representative]").empty();
-        $("input[name=Phone]").val("")
-        $("input[name=Mobile]").val("")
-        $("input[name=Email]").val("")
-        $("input[name=Mailing_Street]").val("")
-        $("input[name=Mailing_City]").val("")
-        $("input[name=Mailing_State]").val("")
-        $("input[name=Mailing_Country]").val("")
-        $("input[name=Mailing_Zip]").val("")
-
-
     }
+
+
 
 
 

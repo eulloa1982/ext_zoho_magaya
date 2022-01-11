@@ -791,7 +791,7 @@
 </div><!-- #moquoteModal -->
 
 <script type="text/javascript">
-
+    //discriminar los option anteriores para no repetir los account en el select
     function addItems(){
         let number = localStorage.getItem('account_page');
         number = Number(number)
@@ -805,7 +805,9 @@
                     $("select[name=magaya__Consignee] option[value='SeeMore']").remove()
 
                     if (!_.isEmpty(data)) {
+                        //obtener los valores del select
                         $.map(data, function(k, v) {
+
                             $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
                             $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Shipper]");
                             $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Consignee]");
@@ -819,6 +821,15 @@
                     return data
                 })
                 .then(function(data) {
+                    //do not allow duplicates
+                    let map = {};
+                    $('select[name=Account],select[name=magaya__Shipper],select[name=magaya__Consignee] option').each(function () {
+                        if (map[this.value]) {
+                            $(this).remove()
+                        }
+                        map[this.value] = true;
+                    })
+
                     if (!_.isEmpty(data)) {
                         $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=Account]");
                         $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Shipper]");

@@ -38,9 +38,11 @@ $("select[name=magaya__Representative]").change(function(e) {
 $("select[name=Deal]").change(function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
+    $("select[name=Account]").prop('disabled', false);
 
     storeAccounts.dispatch(emptySingleContact())
     let deal = $(this).val();
+
     storeDeal.dispatch(getDeal({id: deal}))
     store.dispatch(addActionEdited())
 })

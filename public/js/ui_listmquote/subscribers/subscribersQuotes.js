@@ -269,8 +269,7 @@ storeQuote.subscribe(() => {
         //campos q no son objetos
         $("input[name=RowRecord]").val(quoteToEdit.number)
         $("#magaya__Description").val(quoteToEdit.magaya__Description)
-        let idAccount = !_.isEmpty(quoteToEdit.Account) ? quoteToEdit.Account.id : 0
-            storeAccounts.dispatch(addQuoteAccount({id: idAccount}))
+
             $.map(quoteToEdit, function(k, v) {
                 if (!_.isObject(v) && !v.includes("$") && !_.isEmpty(k)) {
                     $(`input[name=${v}]`).val(k)
@@ -297,7 +296,7 @@ storeQuote.subscribe(() => {
             })
 
             //account, cliente de la cotizacion
-            if (!_.isEmpty(quoteToEdit["Account"])) {
+            if (!_.isEmpty(quoteToEdit.Account)) {
                 const id = quoteToEdit["Account"]["id"];
                 const client = sanitize(quoteToEdit["Account"]["name"]);
 
@@ -319,46 +318,65 @@ storeQuote.subscribe(() => {
                             $("select[name=magaya__Shipper] option[value='SeeMore']").remove()
                             $("select[name=magaya__Consignee] option[value='SeeMore']").remove()
                             storeAccounts.dispatch(addAccount(response[0]))
+                            return response
 
                         })
-                        .then(function() {
+                        .then(function(response) {
+                            storeAccounts.dispatch(addQuoteAccount({id: response[0].id}))
+                            storeAccounts.dispatch(findContactOfAccount({id: response[0].id}))
                             $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=Account]");
                             $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Shipper]");
                             $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Consignee]");
-
-
                         })
+
+                //account in store
+                } else {
+                    let idAccount = !_.isEmpty(quoteToEdit.Account) ? quoteToEdit.Account.id : 0
+                    storeAccounts.dispatch(addQuoteAccount({id: idAccount}))
+                    storeAccounts.dispatch(findContactOfAccount({id: idAccount}))
+
                 }
 
 
                 //$(`<option value='${id}' selected>${client}</option>`).appendTo("select[name=Account]");
                 $(`<option value='${id}' selected>${client}</option>`).appendTo("select[name=magaya__Shipper]");
                 $(`<option value='${id}' selected>${client}</option>`).appendTo("select[name=magaya__Consignee]");
-                storeAccounts.dispatch(findContactOfAccount({id: id}))
+
+                //do no t allow duplicates
+                let map = {};
+                $('select[name=magaya__Shipper] option').each(function () {
+                    if (map[this.value]) {
+                        $(this).remove()
+                    }
+                    map[this.value] = true;
+                })
+
+                map = {};
+                $('select[name=magaya__Consignee] option').each(function () {
+                    if (map[this.value]) {
+                        $(this).remove()
+                    }
+                    map[this.value] = true;
+                })
+
                 $("#AccountPreview").html(client)
-                //$("select[name=Account]").val(id)
+
             }
 
             //representative
+            $("select[name=magaya__Representative]").empty()
+            let idContact = 0
+            let nameContact = ''
+
             if (!_.isEmpty(quoteToEdit["magaya__Representative"])) {
                 //$("select[name=magaya__Representative]").empty()
-                let idContact = quoteToEdit["magaya__Representative"]["id"];
-                let nameContact = sanitize(quoteToEdit["magaya__Representative"]["name"]);
-                //storeAccounts.dispatch(findContact({id: idContact}));
-                //get values
-                let contactValues = $("select[name=magaya__Representative] option")
-                $.map(contactValues, function(k, v) {
-                    if (k.value === idContact) {
-                        $(`select[name=magaya__Representative] option:contains(${k.text})`).prop('selected', true);
-                        $(`select[name=magaya__Representative]`).change()
-                    } else {
-                        $(`select[name=magaya__Representative]`).prop('selected', false);
-
-                    }
-                })
+                idContact = quoteToEdit["magaya__Representative"]["id"];
+                nameContact = sanitize(quoteToEdit["magaya__Representative"]["name"]);
+                storeAccounts.dispatch(findContact({id: idContact}));
 
                 $("#RepresentativeNamePreview").html(nameContact)
             }
+
 
            //deal en la cotizacion
             if (!_.isEmpty(quoteToEdit['magaya__Deal'])) {
