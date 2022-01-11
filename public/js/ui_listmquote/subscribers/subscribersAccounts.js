@@ -26,10 +26,10 @@ storeAccounts.subscribe(() => {
     //select rigth one on list
    let contacts = u.contactList;
    let contact = u.singleContact
-
+   $("select[name=magaya__Representative]").empty();
    if (!_.isEmpty(contact)) {
 
-        $("select[name=magaya__Representative]").empty();
+        $("<option></option>").appendTo("select[name=magaya__Representative]");
         let idContact = contact[0]["id"];
         let nameContact = contact[0]['Full_Name']
         //storeAccounts.dispatch(findContact({id: idContact}));
@@ -67,7 +67,7 @@ storeAccounts.subscribe(() => {
     if (!_.isEmpty(contacts)) {
         /*let deal_quote = storeDeal.getState().dealQuote*/
 
-        //$("<option></option>").appendTo("select[name=magaya__Representative]");
+
         $.map(contacts, function(k, v) {
             $(`<option value="${k.id}">${k.Full_Name}</option>`).appendTo("select[name=magaya__Representative]")
         })

@@ -5,7 +5,7 @@
 $("select[name=Account]").change(function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    $("select[name=magaya__Representative]").empty();
+    //$("select[name=magaya__Representative]").empty();
     store.dispatch(addActionEdited())
 
     let account = $("select[name=Account]").val();
@@ -38,6 +38,7 @@ $("select[name=magaya__Representative]").change(function(e) {
 $("select[name=Deal]").change(function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
+
     $("select[name=Account]").prop('disabled', false);
 
     storeAccounts.dispatch(emptySingleContact())

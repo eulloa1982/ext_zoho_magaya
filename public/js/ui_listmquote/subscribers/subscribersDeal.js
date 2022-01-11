@@ -14,15 +14,15 @@ storeDeal.subscribe(() => {
             accountId = k['Account_Name']['id']
             let accounts = storeAccounts.getState().accounts
             let accountA = {}
-                accounts.map(account_f => {
-                    if (account_f.id === accountId) {
-                        accountA = account_f;
-                    }
-                })
+            accounts.map(account_f => {
+                if (account_f.id === accountId) {
+                    accountA = account_f;
+                }
+            })
 
-                //if not in store, get account
-                if (_.isEmpty(accountA)) {
-                    getRecordCRM("Accounts", accountId)
+            //if not in store, get account
+            if (_.isEmpty(accountA)) {
+                getRecordCRM("Accounts", accountId)
                     .then(function(response) {
                         $("select[name=Account] option[value='SeeMore']").remove()
                         $("select[name=magaya__Shipper] option[value='SeeMore']").remove()
@@ -32,10 +32,11 @@ storeDeal.subscribe(() => {
 
                     })
                     .then(function(response) {
-                        console.log(response[0])
                         storeAccounts.dispatch(addQuoteAccount({id: response[0].id}))
                         storeAccounts.dispatch(findContactOfAccount({id: response[0].id}))
                         $("select[name=Account]").append(`<option value="${response[0].id}" selected>${sanitize(response[0]['Account_Name'])}</option>`).change()
+                        $("select[name=magaya__Shipper]").append(`<option value="${response[0].id}">${sanitize(response[0]['Account_Name'])}</option>`).change()
+                        $("select[name=magaya__Consignee]").append(`<option value="${response[0].id}">${sanitize(response[0]['Account_Name'])}</option>`).change()
                         $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=Account]");
                         $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Shipper]");
                         $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Consignee]");
@@ -43,10 +44,9 @@ storeDeal.subscribe(() => {
 
             //account in store
             } else {
-                let idAccount = !_.isEmpty(quoteToEdit.Account) ? quoteToEdit.Account.id : 0
-                storeAccounts.dispatch(addQuoteAccount({id: idAccount}))
-                storeAccounts.dispatch(findContactOfAccount({id: idAccount}))
-
+                storeAccounts.dispatch(addQuoteAccount({id: accountId}))
+                storeAccounts.dispatch(findContactOfAccount({id: accountId}))
+                $("select[name=Account]").val(accountId).change()
             }
 
 

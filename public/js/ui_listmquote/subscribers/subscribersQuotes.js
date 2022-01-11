@@ -364,7 +364,7 @@ storeQuote.subscribe(() => {
             }
 
             //representative
-            $("select[name=magaya__Representative]").empty()
+            //$("select[name=magaya__Representative]").empty()
             let idContact = 0
             let nameContact = ''
 
