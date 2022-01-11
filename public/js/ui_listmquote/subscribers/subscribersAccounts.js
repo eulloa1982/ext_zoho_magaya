@@ -71,6 +71,14 @@ storeAccounts.subscribe(() => {
         $.map(contacts, function(k, v) {
             $(`<option value="${k.id}">${k.Full_Name}</option>`).appendTo("select[name=magaya__Representative]")
         })
+
+        let map = {};
+        $('select[name=magaya__Representative] option').each(function () {
+            if (map[this.value]) {
+                $(this).remove()
+            }
+            map[this.value] = true;
+        })
         /*if (!_.isEmpty(deal_quote)) {
 
             if (!_.isEmpty(deal_quote[0]['Contact_Name']))
