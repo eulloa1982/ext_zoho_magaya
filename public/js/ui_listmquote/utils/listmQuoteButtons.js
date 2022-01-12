@@ -5,7 +5,9 @@ $(document).ready(function(){
     let contact = 0
     //var quoteToEdit = 0
 
-
+    jQuery('input[name=magaya__ExpirationDate]').datetimepicker({
+        format: 'Y-m-d'
+    });
     ////////subscriber singleContact, representative
     storeAccounts.subscribe(() => {
         let contactData = storeAccounts.getState().singleContact
@@ -666,6 +668,22 @@ $(document).ready(function(){
     if (!_.isEmpty(dealQuoteData))
         dealQuote = dealQuoteData.id
 
+    let date = new Date()
+    let day = date.getDate()
+    let month = date.getMonth() + 1
+    let year = date.getFullYear()
+
+    //if date is null, date = today
+    if (month < 10) {
+        expirationDateFinal = `${year}-0${month}-${day}T23:59:59`
+    } else {
+        expirationDateFinal = `${year}-${month}-${day}T23:59:59`
+    }
+
+    let expirationDate = $(":input[name=magaya__ExpirationDate]").val()
+    if (expirationDate !== '' && expirationDate !== undefined && expirationDate !== 'undefined') {
+        expirationDateFinal = expirationDate + "T00:00:00"
+    }
     //obtain row index
     /*let table = $("#table-quotes tr")
     $.each(table, function(k, v) {
@@ -718,6 +736,7 @@ $(document).ready(function(){
         "magaya__ContactMobile": sanitize($("input[name=Mobile]").val()),
         "magaya__ContactHomePhone": sanitize($("input[name=Phone]").val()),
         "Name": sanitize($("input[name=NameQuote]").val()),
+        "magaya__ExpirationDate": expirationDateFinal
 
     }
 
@@ -862,8 +881,8 @@ $(document).ready(function(){
 
         let expirationDate = $(":input[name=magaya__ExpirationDate]").val()
         if (expirationDate !== '' && expirationDate !== undefined && expirationDate !== 'undefined') {
-            expirationDate = expirationDate.split(" ");
-            expirationDateFinal = expirationDate[0] + "T" + expirationDate[1]
+            //expirationDate = expirationDate.split(" ");
+            expirationDateFinal = expirationDate + "T00:00:00"
         }
 
         //let accountId = $(":input[name=Account] option:selected").val()
@@ -1089,7 +1108,7 @@ $(document).ready(function(){
                     })
                     .then(function() {
                         Utils.unblockUI()
-                        $("#Save").prop("disable", true)
+                        $("#New").prop("disable", true)
                         Swal.fire({
                             title: "Success",
                             text: "New mQuote inserted!!!",

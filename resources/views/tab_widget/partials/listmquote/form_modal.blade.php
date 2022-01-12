@@ -823,7 +823,23 @@
                 .then(function(data) {
                     //do not allow duplicates
                     let map = {};
-                    $('select[name=Account],select[name=magaya__Shipper],select[name=magaya__Consignee] option').each(function () {
+                    $('select[name=Account] option').each(function () {
+                        if (map[this.value]) {
+                            $(this).remove()
+                        }
+                        map[this.value] = true;
+                    })
+
+                    map = {};
+                    $('select[name=magaya__Consignee] option').each(function () {
+                        if (map[this.value]) {
+                            $(this).remove()
+                        }
+                        map[this.value] = true;
+                    })
+
+                    map = {};
+                    $('select[name=magaya__Shipper] option').each(function () {
                         if (map[this.value]) {
                             $(this).remove()
                         }

@@ -4,10 +4,6 @@ $(document).ready(function(){
     Utils.blockUI();
     var chargesOnNew = []
 
-    jQuery('input[name=magaya__ExpirationDate]').datetimepicker({
-        format: 'Y-m-d H:m:s'
-    });
-
     let obs = new MutationObserver(function(mutations, observer) {
         $(".startSession").click(function(e) {
             e.preventDefault()

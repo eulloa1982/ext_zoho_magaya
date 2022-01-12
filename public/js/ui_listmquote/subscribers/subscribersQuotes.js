@@ -270,15 +270,18 @@ storeQuote.subscribe(() => {
         $("input[name=RowRecord]").val(quoteToEdit.number)
         $("#magaya__Description").val(quoteToEdit.magaya__Description)
 
-            $.map(quoteToEdit, function(k, v) {
-                if (!_.isObject(v) && !v.includes("$") && !_.isEmpty(k)) {
-                    $(`input[name=${v}]`).val(k)
-                    $(`select[name=${v}]`).val(k)
-                    //preview
-                    let preview = `${v}Preview`
-                    $(`#${preview}`).html(k)
-                }
-            })
+        $.map(quoteToEdit, function(k, v) {
+            if (!_.isObject(v) && !v.includes("$") && !_.isEmpty(k)) {
+                $(`input[name=${v}]`).val(k)
+                $(`select[name=${v}]`).val(k)
+                //preview
+                let preview = `${v}Preview`
+                $(`#${preview}`).html(k)
+            }
+        })
+
+        const edate = quoteToEdit.magaya__ExpirationDate.split("T")
+        $("input[name=magaya__ExpirationDate]").val(edate[0])
 
             $("input[name=NameQuote]").val(quoteToEdit.Name)
 
