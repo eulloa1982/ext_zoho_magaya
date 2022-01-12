@@ -223,7 +223,7 @@
 								</div>
 
 								<div class="col-md-6">
-									<label class="col-md-12" style="text-align: center; font-weight: bold;">Destinitaion</label>
+									<label class="col-md-12" style="text-align: center; font-weight: bold;">Destination</label>
 								</div>
 							</div>
 

@@ -131,6 +131,9 @@ function limpiar_form() {
     $("select[name=magaya__MainCarrier]").val("")
     $("input[name=magaya__Magaya_Status]").val("Open")
     $("input[name=magaya__Is_Hazardous]").prop("checked", false)
+    $("#rol_shipper").prop("checked", false)
+    $("#rol_consignee").prop("checked", false)
+    $("#rol_other").prop("checked", false)
     $("input[name=Magaya_updated]").prop("checked", false)
     $("#magaya__Terms").val("")
     $("select[name=magaya__Mode_of_Transportation]").val("")
@@ -148,7 +151,7 @@ function limpiar_form() {
         elemento.value = ''
     })
     let now = moment().format("YYYY-MM-DD");
-    let expire_date = moment().add(1, 'months').format("YYYY-MM-DD HH:mm:ss")
+    let expire_date = moment().add(1, 'months').format("YYYY-MM-DD")
     $("input[name=magaya__AddedTime]").val(now)
     $("input[name=magaya__ExpirationDate]").val(expire_date)
 
