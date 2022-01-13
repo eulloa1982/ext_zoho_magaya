@@ -29,7 +29,6 @@
             {{$total_volume_international += $v['magaya__Volume0']}}
             {{$total_weight_international += ($v['magaya__Weigth'] * $v['magaya__Pieces'])}}
          @else
-            {{/*/pulgadas y libras*/}}
             {{$total_volume_english += $v['magaya__Volume0']}}
             {{$total_weight_english += ($v['magaya__Weigth'] * $v['magaya__Pieces'])}}
         @endif
