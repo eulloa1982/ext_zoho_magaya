@@ -5,7 +5,7 @@
 $("select[name=Account]").change(function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    //$("select[name=magaya__Representative]").empty();
+    $("select[name=magaya__Representative]").empty();
     store.dispatch(addActionEdited())
 
     let account = $("select[name=Account]").val();
