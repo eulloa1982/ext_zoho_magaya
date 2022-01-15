@@ -180,6 +180,8 @@ storeQuote.subscribe(() => {
         //show and hide columns
         $('a.toggle-vis').on( 'click', function (e) {
             e.preventDefault();
+            e.stopImmediatePropagation()
+
             let column = table.column( $(this).attr('data-column') );
             // Toggle the visibility
             column.visible( ! column.visible() );
