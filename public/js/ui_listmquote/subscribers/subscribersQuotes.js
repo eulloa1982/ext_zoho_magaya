@@ -171,6 +171,7 @@ storeQuote.subscribe(() => {
 
             { "data": "magaya__BillingCountry", "visible": false},
 
+            { "data": "magaya__QuoteInMagaya", "visible": false},
 
             //{ title: "magaya__Status" },
 

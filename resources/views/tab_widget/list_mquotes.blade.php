@@ -105,7 +105,7 @@ a {
                                     <a class="toggle-vis dropdown-item" data-column="9"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Description</a>
                                     <a class="toggle-vis dropdown-item" data-column="10"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Destination</a>
                                     <a class="toggle-vis dropdown-item" data-column="11"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Origin</a>
-                                    <a class="toggle-vis dropdown-item" data-column="12"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Seller</a>
+                                    <a class="toggle-vis dropdown-item" data-column="12"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Sallesperson</a>
                                     <a class="toggle-vis dropdown-item" data-column="13"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Service</a>
                                     <a class="toggle-vis dropdown-item" data-column="14"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Created By</a>
                                     <a class="toggle-vis dropdown-item" data-column="15"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Created By Name</a>
@@ -126,10 +126,7 @@ a {
                                     <a class="toggle-vis dropdown-item" data-column="30"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Zip</a>
                                     <a class="toggle-vis dropdown-item" data-column="31"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing City</a>
                                     <a class="toggle-vis dropdown-item" data-column="32"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Country</a>
-
-
-
-
+                                    <a class="toggle-vis dropdown-item" data-column="33"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>In Magaya</a>
                                 </div>
 					        </div>
 
@@ -173,6 +170,8 @@ a {
                                     <th class="border-left border-top border-bottom border-right">Billing Zip</th>
                                     <th class="border-left border-top border-bottom border-right">Billing City</th>
                                     <th class="border-left border-top border-bottom border-right">Billing Country</th>
+                                    <th class="border-left border-top border-bottom border-right">In Magaya</th>
+
                                     </tr>
 							</thead>
 							<tbody>
