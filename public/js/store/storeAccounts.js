@@ -16,8 +16,8 @@ function reducerAccounts (state = initialStateAccount, actions)  {
         case ADD_ACCOUNT: {
             let new_account = actions.payload
             let accounts = state.accounts.filter(account => account.id === new_account.id)
-            if (_.isEmpty(accounts))
-                console.log(new_account)
+            //if (_.isEmpty(accounts))
+            //    console.log(new_account)
 
             return Object.assign({}, state, {
                 accounts: state.accounts.concat(actions.payload)
