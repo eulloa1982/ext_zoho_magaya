@@ -3,11 +3,11 @@
         <th colspan="5" style="background-color: lightblue; text-align: start;text-transform:uppercase ;border: 1px #000 solid; padding: 3px 0px 3px 5px;">Charges</th>
     </tr>
     <tr style="font-weight: bold;">
-        <th style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Charge Description</th>
-        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Price</th>
-        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Quantity</th>
-        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Tax Amount</th>
-        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;">Final Amount</th>
+        <th style="border-left: 1px #000 solid;border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;width: 40%;">Charge Description</th>
+        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;width: 8%;">Price</th>
+        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;width: 8%;">Quantity</th>
+        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;width: 14%;">Tax Amount</th>
+        <th style="border-right: 1px #000 solid;border-bottom: 1px #000 solid; text-align: center;width: 14%;">Final Amount</th>
     </tr>
     {{$amount_total = 0;}}
     @if (@isset($organization['charges']))
