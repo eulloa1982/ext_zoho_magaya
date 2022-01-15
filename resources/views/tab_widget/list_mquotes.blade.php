@@ -52,9 +52,10 @@ a {
 
 .dropdown-menu {
   max-height: 400px;
-  max-width: 210px;
+  max-width: 300px;
   overflow-y: auto;
 }
+
 </style>
 
 
@@ -93,7 +94,7 @@ a {
 
                             <div class="btn-group float-right m-1">
                                 <span class="material-icons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">view_week</span>
-                                <div class="dropdown-menu" style="padding: 10px 5px 5px 10px;">
+                                <div class="dropdown-menu">
                                     <a class="toggle-vis dropdown-item"  data-column="1" ><span class="material-icons mr-2 oculto">check_box</span>Number</a>
                                     <a class="toggle-vis dropdown-item"  data-column="2"><span class="material-icons mr-2 oculto">check_box</span>Deal</a>
                                     <a class="toggle-vis dropdown-item" data-column="3"><span class="material-icons mr-2 oculto">check_box</span>Customer</a>
