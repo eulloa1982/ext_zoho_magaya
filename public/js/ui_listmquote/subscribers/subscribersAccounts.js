@@ -23,6 +23,8 @@ storeAccounts.subscribe(() => {
             }
         })
     }
+
+
     //select rigth one on list
    let contacts = u.contactList;
    let contact = u.singleContact
@@ -45,25 +47,9 @@ storeAccounts.subscribe(() => {
             }
         })
 
-    } else {
-        //storeAccounts.dispatch(emptySingleContact())
-        /*console.log(" No hay contact sinfle")*
-        //$("select[name=magaya__Representative]").empty();
-        $("input[name=Phone]").val("")
-        $("input[name=Mobile]").val("")
-        $("input[name=Email]").val("")
-        $("input[name=Mailing_Street]").val("")
-        $("input[name=Mailing_City]").val("")
-        $("input[name=Mailing_State]").val("")
-        $("input[name=Mailing_Country]").val("")
-        $("input[name=Mailing_Zip]").val("")*/
-
-
     }
 
-
-
-
+    //contact list
     if (!_.isEmpty(contacts)) {
         /*let deal_quote = storeDeal.getState().dealQuote*/
 
@@ -79,23 +65,6 @@ storeAccounts.subscribe(() => {
             }
             map[this.value] = true;
         })
-        /*if (!_.isEmpty(deal_quote)) {
-
-            if (!_.isEmpty(deal_quote[0]['Contact_Name']))
-            {
-                contactId = deal_quote[0]['Contact_Name']['id']
-                contactName = deal_quote[0]['Contact_Name']['name']
-                //check if contact is deal contact
-                let d = contacts.filter(item => item.id === contactId )
-                //draw the contact if not exists
-                if (_.isEmpty(d))
-                    $(`<option value="${contactId}">${contactName}</option>`).appendTo("select[name=magaya__Representative]");
-                //$("select[name=magaya__Representative]").change()
-                //storeAccounts.dispatch(findContact({id: contactId}))
-            }
-        }*/
-    } else {
-        //$("select[name=magaya__Representative]").empty();
     }
 
 
