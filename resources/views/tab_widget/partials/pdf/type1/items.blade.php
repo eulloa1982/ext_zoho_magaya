@@ -47,8 +47,8 @@
         <tr>
             <td colspan="3"></td>
             <td style="border-left:1px #000 solid; border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">TOTAL</td>
-            <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;"><?php echo round($total_weight, 2); ?> ({{$measure_weigth}})</td>
-            <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;"><?php echo round($total_volume, 2); ?> ({{$measure_volume}}<sup>3</sup>)</td>
+            <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;">{{ number_format($total_weight, 2, ',', ' ') }} ({{$measure_weigth}})</td>
+            <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;">{{ number_format($total_volume, 2, ',', ' ') }} ({{$measure_volume}}<sup>3</sup>)</td>
         </tr>
     @endif
 </table>
