@@ -15,10 +15,10 @@
             {{ $amount_total += $v['magaya__Amount_Total'] }}
         <tr>
             <td style="border-bottom: 1px #000 solid;border-left: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: center;">{{$v['Name']}}</td>
-            <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">{{number_format($v['magaya__Price'], 2, ',', ' ')}}</td>
+            <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">$ {{number_format($v['magaya__Price'], 2, ',', ' ')}}</td>
             <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">{{$v['magaya__CQuantity']}}</td>
-            <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right;">{{number_format($v['magaya__Amount'], 2, ',', ' ')}}</td>
-            <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;">{{number_format($v['magaya__Amount_Total'], 2, ',', ' ')}}</td>
+            <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right;">$ {{number_format($v['magaya__Tax_Amount'], 2, ',', ' ')}}</td>
+            <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;">$ {{number_format($v['magaya__Amount_Total'], 2, ',', ' ')}}</td>
         </tr>
         @endforeach
     @else
@@ -33,6 +33,6 @@
     <tr>
         <td colspan="3"></td>
         <td style="border-left:1px #000 solid; border-bottom: 1px #000 solid;border-right: 1px #000 solid; border-bottom: 1px #000 solid; text-align: right;">TOTAL</td>
-        <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;">{{number_format($amount_total, 2, ',', ' ')}}</td>
+        <td style="border-bottom: 1px #000 solid;border-right: 1px #000 solid; text-align: right; font-weight: bold;">$ {{number_format($amount_total, 2, ',', ' ')}}</td>
     </tr>
 </table>
