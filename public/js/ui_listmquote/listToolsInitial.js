@@ -9,6 +9,7 @@ $(document).ready(function(){
     //try {
     ZOHO.embeddedApp.on("PageLoad",function(data)
     {
+
         //current user
         //get current user
         ZOHO.CRM.CONFIG.getCurrentUser().then(function(data){
@@ -70,18 +71,25 @@ $(document).ready(function(){
 
         });
 
-        ZOHO.CRM.API.getAllRecords({Entity: "Accounts", sort_order: "asc"})
-            .then(function(response){
-                Utils.unblockUI()
-                $.map (response.data, function (k, i) {
-                    k.Account_Name = sanitize(k.Account_Name)
-                    $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
-                    $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Shipper]");
-                    $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Consignee]");
+        ZOHO.CRM.API.getAllRecords({Entity: "Accounts", sort_order: "asc",per_page:3,page:1})
+        .then(function(response){
+            Utils.unblockUI();
+            localStorage.setItem('account_page', 2)
+            $.map (response.data, function (k, i) {
+                k.Account_Name = sanitize(k.Account_Name)
+                $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
+                $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Shipper]");
+                $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Consignee]");
 
-                })
-                storeAccounts.dispatch(addAccount(response.data))
             })
+            storeAccounts.dispatch(addAccount(response.data))
+        })
+        .then(function(){
+            $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=Account]");
+            $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Shipper]");
+            $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Consignee]");
+
+        })
 
         ZOHO.CRM.API.getAllRecords({Entity: "magaya__Providers", sort_order: "asc"})
             .then(function(response){
@@ -127,6 +135,9 @@ $(document).ready(function(){
                 return deals
             }).then(function (k) {
                 storeDeal.dispatch(addDeal(k))
+                if (data.Entity === "Deals") {
+                    $("select[name=Deal]").val(data.EntityId).change().prop('disabled', true);
+                }
             })
 
         //get all transports methods
