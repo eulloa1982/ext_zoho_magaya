@@ -131,7 +131,6 @@
 			<div class="modal-footer" >
 				<div class="col-md-12">
                     <button type="button" id="NewAccount" class="btn btn-primary" style="width:80px;margin-right: 20px; background-color: #0b3355">Save</button>
-                    <button type="button" id="SaveAccount" class="btn btn-primary" style="width:80px;margin-right: 20px; background-color: #0b3355; display: none;">Save</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
 			</div>
