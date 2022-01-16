@@ -60,7 +60,7 @@
                                     <input type="text" autocomplete="autocomplete_off_hack_xfr4!k" name="magaya__ExpirationDate" class="form-control no-border" />
 								</div>
 								<div class="col-md-3">
-									<label class="col-md-12" style="font-weight: bold;">Sales Person</label>
+									<label class="col-md-12" style="font-weight: bold;">Salesperson</label>
                                     <input name="magaya__Seller" class="form-control" />
 								</div>
 							</div>
