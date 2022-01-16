@@ -1,6 +1,6 @@
 //si es quotesOnNew es true, sino es false y son charges en edit
 let data_module_flag_charge = true
-//$("#info-charge").html("Loading, please wait...");
+$("#info-charge").html("Loading, please wait...");
 //get one charge
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
@@ -161,9 +161,8 @@ storeCharge.subscribe(() => {
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().charges;
 
-
     if (!_.isEmpty(u)) {
-        $("#info-charge").html("");
+        $("#info-charge").html(" ");
         data_module_flag_charge = false;
         let accountId = 0;
         //let totalIncome = 0
@@ -171,7 +170,6 @@ storeCharge.subscribe(() => {
         $("#table-charges tfoot").empty();
         $("#table-charges-preview tbody").empty();
         $("#table-charges-preview tfoot").empty();
-
 
         let amount_ = 0
         let tax_amount_total = 0
@@ -253,9 +251,10 @@ storeCharge.subscribe(() => {
         $("#table-charges tbody").empty()
         $("#table-charges tfoot").empty();
 
-        //$("#info-charge").html("No charges found");
+        $("#info-charge").html("No charges found");
     }
 })
+
 
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().chargesOnNew;
@@ -264,13 +263,13 @@ storeCharge.subscribe(() => {
     let amount_total = 0
 
     if (!_.isEmpty(u)) {
+        $("#info-charge").html(" ");
         data_module_flag_charge = true
 
         $("#table-charges-new tbody").empty();
         $("#table-charges-new tfoot").empty();
 
         if (!_.isEmpty(u)) {
-
 
             $.each(u, function(i, k) {
 
