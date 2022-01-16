@@ -1,7 +1,7 @@
 //get one charge
 storeCrm.subscribe(() => {
     let u = storeCrm.getState();
-    console.log("State item crm", u)
+    //console.log("State item crm", u)
     if (!_.isEmpty(u.itemsCrm)) {
         $("#sortable-crm").empty()
         let content = ``
@@ -28,18 +28,19 @@ storeCrm.subscribe(() => {
         let append = ``
         $("#form").empty()
         $.map(u.itemCrm[0], function(k, v) {
+
             idRecord = u.itemCrm[0].id
             if ( _.has(ITEMS_CRM, v)) {
 
                 if (!k)
-                    k = ""
+                    k = false
                 let field = _.get(ITEMS_CRM, [v, 'field'])
                 let values = _.has(ITEMS_CRM, [v, "values"]) ? _.get(ITEMS_CRM, [v, 'values']) : ''
                 input = `<input type="text" class="form-control" name="${v}" value="${k}"/>`
-
                 //append += `<span class="btn btn-primary float-right">Save</span><br /><br />`
 
                 if (!_.isEmpty(values)) {
+
                     input = `<select name="${v}" class="form-control">`
                         $.map(values, function(val) {
                             if (val === k)
