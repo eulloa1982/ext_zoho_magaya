@@ -138,7 +138,8 @@ function limpiar_form() {
     $("#magaya__Terms").val("")
     $("select[name=magaya__Mode_of_Transportation]").val("")
     $("select[name=magaya__Incoterm_rule]").val("")
-
+    $("select[name=magaya__Port_of_Loading]").empty()
+    $("select[name=magaya__Port_of_Unloading]").empty()
 
     $("select[name=Account]").prop('disabled', false);
 

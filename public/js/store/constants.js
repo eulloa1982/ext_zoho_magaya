@@ -116,9 +116,9 @@ const ITEMS_CRM = {
     "magaya__AccountDefinitionDescription": {"field": "Account Description"},
 
     "magaya__This_Port_is_used_by_my_Company":{"field": "Is port", "values":[true, false]}, "magaya__Port_Code": {"field": "Port Code"},
-    "magaya__Country": {"field": "Port Country"}, "magaya__Roadway": {"field": "RoadWay", "values":[true, false]},
-    "magaya__Airway": {"field": "AirWay", "values":[true, false]}, "magaya__Other": {"field": "Other", "values":[true, false]},
-    "magaya__Waterway": {"field": "WaterWay", "values":[true, false]}, "magaya__Railway": {"field": "RailWay", "values":[true, false]},
+    "magaya__Country": {"field": "Port Country"}, "magaya__Roadway": {"field": "RoadWay", "values":[false, true]},
+    "magaya__Airway": {"field": "AirWay", "values":[false, true]}, "magaya__Other": {"field": "Other", "values":[false, true]},
+    "magaya__Waterway": {"field": "WaterWay", "values":[false, true]}, "magaya__Railway": {"field": "RailWay", "values":[false, true]},
 
     "magaya__Carrier_Type":{"field": "Type"}, "magaya__BillingAddress_City": {"field": "City"},
     "magaya__BillingAddress_Country": {"field": "Country"}, "magaya__BillingAddress_State": {"field": "State"},
