@@ -9,6 +9,9 @@ storePorts.subscribe(() => {
     if (!_.isEmpty(u.portsByType)) {
 
         //$(".existingPorts").html("")
+        $(`<option></option>`).appendTo("select[name=magaya__Port_of_Loading]");
+        $(`<option></option>`).appendTo("select[name=magaya__Port_of_Unloading]");
+
         $.map(u.portsByType, function (k, v) {
             k.Name = sanitize(k.Name)
             k.Country = sanitize(k.magaya__Country)

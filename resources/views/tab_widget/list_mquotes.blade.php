@@ -49,6 +49,13 @@ a {
 	opacity: 0.3;
 	font: 'Museo700';
 }
+
+.dropdown-menu {
+  max-height: 400px;
+  max-width: 300px;
+  overflow-y: auto;
+}
+
 </style>
 
 
@@ -87,7 +94,7 @@ a {
 
                             <div class="btn-group float-right m-1">
                                 <span class="material-icons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">view_week</span>
-                                <div class="dropdown-menu" style="padding: 10px 5px 5px 10px;">
+                                <div class="dropdown-menu">
                                     <a class="toggle-vis dropdown-item"  data-column="1" ><span class="material-icons mr-2 oculto">check_box</span>Number</a>
                                     <a class="toggle-vis dropdown-item"  data-column="2"><span class="material-icons mr-2 oculto">check_box</span>Deal</a>
                                     <a class="toggle-vis dropdown-item" data-column="3"><span class="material-icons mr-2 oculto">check_box</span>Customer</a>
@@ -99,7 +106,7 @@ a {
                                     <a class="toggle-vis dropdown-item" data-column="9"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Description</a>
                                     <a class="toggle-vis dropdown-item" data-column="10"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Destination</a>
                                     <a class="toggle-vis dropdown-item" data-column="11"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Origin</a>
-                                    <a class="toggle-vis dropdown-item" data-column="12"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Seller</a>
+                                    <a class="toggle-vis dropdown-item" data-column="12"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Sallesperson</a>
                                     <a class="toggle-vis dropdown-item" data-column="13"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Service</a>
                                     <a class="toggle-vis dropdown-item" data-column="14"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Created By</a>
                                     <a class="toggle-vis dropdown-item" data-column="15"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Created By Name</a>
@@ -110,20 +117,17 @@ a {
                                     <a class="toggle-vis dropdown-item" data-column="20"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Magaya Status</a>
                                     <a class="toggle-vis dropdown-item" data-column="21"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Modified By</a>
                                     <a class="toggle-vis dropdown-item" data-column="22"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Owner</a>
-                                    <a class="toggle-vis dropdown-item" data-column="23"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Email</a>
-                                    <a class="toggle-vis dropdown-item" data-column="24"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Home Phone</a>
-                                    <a class="toggle-vis dropdown-item" data-column="25"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Mobile</a>
-                                    <a class="toggle-vis dropdown-item" data-column="26"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Name</a>
-                                    <a class="toggle-vis dropdown-item" data-column="27"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Contact Phone</a>
+                                    <a class="toggle-vis dropdown-item" data-column="23"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Representative Email</a>
+                                    <a class="toggle-vis dropdown-item" data-column="24"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Representative Home Phone</a>
+                                    <a class="toggle-vis dropdown-item" data-column="25"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Representative Mobile</a>
+                                    <a class="toggle-vis dropdown-item" data-column="26"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Representative Name</a>
+                                    <a class="toggle-vis dropdown-item" data-column="27"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Representative Phone</a>
                                     <a class="toggle-vis dropdown-item" data-column="28"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Street</a>
                                     <a class="toggle-vis dropdown-item" data-column="29"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing State</a>
                                     <a class="toggle-vis dropdown-item" data-column="30"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Zip</a>
                                     <a class="toggle-vis dropdown-item" data-column="31"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing City</a>
                                     <a class="toggle-vis dropdown-item" data-column="32"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Country</a>
-
-
-
-
+                                    <a class="toggle-vis dropdown-item" data-column="33"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>In Magaya</a>
                                 </div>
 					        </div>
 
@@ -134,40 +138,42 @@ a {
 						<table class="display responsive nowrap table-hover" width="100%" id="table-quotes">
 							<thead>
 								<tr style="text-transform:uppercase;font-weight: bold;">
-								<th class="border-top border-bottom border-right">Edit</th>
-								<th class="border-top border-bottom border-right">Number</th>
-                                <th class="border-top border-bottom border-right">Deal</th>
-								<th class="border-top border-bottom border-right">Customer</th>
-								<th class="border-top border-bottom border-right">Stage</th>
-								<th class="border-top border-bottom border-right">Amount</th>
-								<th class="border-top border-bottom border-right">Modify Time</th>
-                                <th class="border-top border-bottom border-right">Created Time</th>
-                                <th class="border-top border-bottom border-right">Magaya updated</th>
-                                <th class="border-top border-bottom border-right">Description</th>
-                                <th class="border-top border-bottom border-right">Destination</th>
-                                <th class="border-top border-bottom border-right">Origin</th>
-                                <th class="border-top border-bottom border-right">Seller</th>
-                                <th class="border-top border-bottom border-right">Service</th>
-                                <th class="border-top border-bottom border-right">Created By</th>
-                                <th class="border-top border-bottom border-right">Created Name</th>
-                                <th class="border-top border-bottom border-right">Incoterms</th>
-                                <th class="border-top border-bottom border-right">Is Hazardous</th>
-                                <th class="border-top border-bottom border-right">Issued By</th>
-                                <th class="border-top border-bottom border-right">Added Time</th>
-                                <th class="border-top border-bottom border-right">Mag Status</th>
-                                <th class="border-top border-bottom border-right">Modified By</th>
-                                <th class="border-top border-bottom border-right">Owner</th>
-                                <th class="border-top border-bottom border-right">Contact Email</th>
-                                <th class="border-top border-bottom border-right">Contact Home Phone</th>
-                                <th class="border-top border-bottom border-right">Contact Mobile</th>
-                                <th class="border-top border-bottom border-right">Contact Name</th>
-                                <th class="border-top border-bottom border-right">Contact Phone</th>
-                                <th class="border-top border-bottom border-right">Billing Street</th>
-                                <th class="border-top border-bottom border-right">Billing State</th>
-                                <th class="border-top border-bottom border-right">Billing Zip</th>
-                                <th class="border-top border-bottom border-right">Billing City</th>
-                                <th class="border-top border-bottom border-right">Billing Country</th>
-								</tr>
+                                    <th class="border-left border-top border-bottom border-right">Edit</th>
+                                    <th class="border-left border-top border-bottom border-right">Number</th>
+                                    <th class="border-left border-top border-bottom border-right">Deal</th>
+                                    <th class="border-left border-top border-bottom border-right">Customer</th>
+                                    <th class="border-left border-top border-bottom border-right">Stage</th>
+                                    <th class="border-left border-top border-bottom border-right">Amount</th>
+                                    <th class="border-left border-top border-bottom border-right">Modify Time</th>
+                                    <th class="border-left border-top border-bottom border-right">Created Time</th>
+                                    <th class="border-left border-top border-bottom border-right">Magaya updated</th>
+                                    <th class="border-left border-top border-bottom border-right">Description</th>
+                                    <th class="border-left border-top border-bottom border-right">Destination</th>
+                                    <th class="border-left border-top border-bottom border-right">Origin</th>
+                                    <th class="border-left border-top border-bottom border-right">Seller</th>
+                                    <th class="border-left border-top border-bottom border-right">Service</th>
+                                    <th class="border-left border-top border-bottom border-right">Created By</th>
+                                    <th class="border-left border-top border-bottom border-right">Created Name</th>
+                                    <th class="border-left border-top border-bottom border-right">Incoterms</th>
+                                    <th class="border-left border-top border-bottom border-right">Is Hazardous</th>
+                                    <th class="border-left border-top border-bottom border-right">Issued By</th>
+                                    <th class="border-left border-top border-bottom border-right">Added Time</th>
+                                    <th class="border-left border-top border-bottom border-right">Mag Status</th>
+                                    <th class="border-left border-top border-bottom border-right">Modified By</th>
+                                    <th class="border-left border-top border-bottom border-right">Owner</th>
+                                    <th class="border-left border-top border-bottom border-right">Representative Email</th>
+                                    <th class="border-left border-top border-bottom border-right">Representative Home Phone</th>
+                                    <th class="border-left border-top border-bottom border-right">Representative Mobile</th>
+                                    <th class="border-left border-top border-bottom border-right">Representative Name</th>
+                                    <th class="border-left border-top border-bottom border-right">Representative Phone</th>
+                                    <th class="border-left border-top border-bottom border-right">Billing Street</th>
+                                    <th class="border-left border-top border-bottom border-right">Billing State</th>
+                                    <th class="border-left border-top border-bottom border-right">Billing Zip</th>
+                                    <th class="border-left border-top border-bottom border-right">Billing City</th>
+                                    <th class="border-left border-top border-bottom border-right">Billing Country</th>
+                                    <th class="border-left border-top border-bottom border-right">In Magaya</th>
+
+                                    </tr>
 							</thead>
 							<tbody>
 

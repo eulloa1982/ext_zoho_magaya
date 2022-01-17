@@ -8,9 +8,9 @@ storeChargesDef.subscribe(() => {
     if (!_.isEmpty(u.chargesDef) && u.active) {
         $.map(u.chargesDef, function(k, v) {
             //if (k.AccountDefinition.Type === "Income") {
-                content = `<label class="list-group-item" data-id="${v}"><div class="sm">
+                content = `<label class="list-group-item" data-id="${v}">
                 <input data-id="${v}" class="form-check-magaya" type="checkbox" value="">
-                </div>${k.Code}  ${k.Description}</label>`
+                ${k.Code}  ${k.Description}</label>`
             //}
             $("#sortable-magaya-charges").append(content);
         })

@@ -5,7 +5,9 @@ $(document).ready(function(){
     let contact = 0
     //var quoteToEdit = 0
 
-
+    jQuery('input[name=magaya__ExpirationDate]').datetimepicker({
+        format: 'Y-m-d'
+    });
     ////////subscriber singleContact, representative
     storeAccounts.subscribe(() => {
         let contactData = storeAccounts.getState().singleContact
@@ -28,15 +30,8 @@ $(document).ready(function(){
     /********************************************************** */
     $("#add_account").click(function(e) {
 
-        let account = $("select[name=Account]").val()
-        if (account === null || account === "null" || account.length <= 0) {
-            $("#account_form")[0].reset()
-            $("#NewAccount").show()
-            $("#SaveAccount").hide()
-        } else {
-            $("#NewAccount").hide()
-            $("#SaveAccount").show()
-        }
+        $("#account_form")[0].reset()
+        $("#NewAccount").show()
 
         $("#modalAccount").modal("show")
     })
@@ -44,15 +39,8 @@ $(document).ready(function(){
 
     $("#add_contact").click(function(e) {
 
-        let contact = $("select[name=magaya__Representative]").val()
-        if (contact === null || contact === "null" || contact.length <= 0) {
-            $("#contact_form")[0].reset()
-            $("#NewContact").show()
-            $("#SaveContact").hide()
-        } else {
-            $("#NewContact").hide()
-            $("#SaveContact").show()
-        }
+        $("#contact_form")[0].reset()
+        $("#NewContact").show()
 
         $("#modalContact").modal("show")
     })
@@ -170,131 +158,6 @@ $(document).ready(function(){
 
     })
 
-
-    $("#SaveContact").click(function(e) {
-        e.preventDefault()
-        e.stopImmediatePropagation()
-
-        let contact = storeAccounts.getState().singleContact
-
-        let contact_id = 0
-        if (!_.isEmpty(contact)) {
-            contact_id = contact[0].id
-        }
-
-        let $form = $("#contact_form");
-        let item = getFormData($form);
-        Object.assign(item, {'Account_Name': $("select[name=Account]").val()})
-        Object.assign(item, {'id': contact_id})
-        $.map(item, function (k, v) {
-            if (k)
-                item[v] = k.toString()
-        })
-
-        var config={
-            Entity:"Contacts",
-            APIData: item,
-            Trigger:[""]
-          }
-
-        ZOHO.CRM.API.updateRecord(config)
-        .then(function(data){
-            res = data.data;
-            $.map(res, function(k, v) {
-                if (k.code !== "SUCCESS") {
-                    codeError = k.code;
-                    field = k.details.api_name;
-                    show = true;
-                    module = 'Contacts'
-                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                } else {
-                    ZOHO.CRM.API.getRecord({Entity:"Contacts",RecordID:contact_id})
-                        .then(function(data){
-                            //record = data.data[0];
-                            let nameContact = `${item.First_Name} ${item.Last_Name}`
-                            storeAccounts.dispatch(updateContact({id: contact_id, ...data.data}))
-                            //$(`<option value="${idContact}">${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
-                            $("#modalContact").modal("hide")
-                        })
-                        message = " : Item Updated!!";
-                        storeSuccess.dispatch(addSuccess({message: message}))
-                    }
-            })
-        })
-        .catch(function(error) {
-            Utils.unblockUI()
-            codeError = error.data[0].message
-            show = true;
-            field = error.data[0].details.api_name;
-            module = 'Contacts'
-            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-        });
-
-    })
-
-
-    $("#SaveAccount").click(function(e) {
-        e.preventDefault()
-        e.stopImmediatePropagation()
-
-        let account = storeAccounts.getState().quoteAccount
-
-        let account_id = 0
-        if (!_.isEmpty(account)) {
-            account_id = account.id
-        }
-
-        let $form = $("#account_form");
-        let item = getFormData($form);
-        Object.assign(item, {'id': account_id})
-        $.map(item, function (k, v) {
-            if (k)
-                item[v] = k.toString()
-        })
-
-        var config={
-            Entity:"Accounts",
-            APIData: item,
-            Trigger:["workflow"]
-          }
-
-        ZOHO.CRM.API.updateRecord(config)
-        .then(function(data){
-            res = data.data;
-            $.map(res, function(k, v) {
-                if (k.code !== "SUCCESS") {
-                    codeError = k.code;
-                    field = k.details.api_name;
-                    show = true;
-                    module = 'Accounts'
-                    storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-                } else {
-                    ZOHO.CRM.API.getRecord({Entity:"Accounts",RecordID:account_id})
-                        .then(function(data){
-                            //record = data.data[0];
-                            storeAccounts.dispatch(updateAccount({id: account_id, account: data.data}))
-                            //$(`<option value="${idContact}">${nameContact}</option>`).appendTo("select[name=magaya__Representative]")
-                            $("#modalAccount").modal("hide")
-                        })
-                        message = " : Item Updated!!";
-                        storeSuccess.dispatch(addSuccess({message: message}))
-                    }
-            })
-        })
-        .catch(function(error) {
-            Utils.unblockUI()
-            codeError = error.data[0].message
-            show = true;
-            field = error.data[0].details.api_name;
-            module = 'Accounts'
-            storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-
-        });
-
-    })
 
     /********************************************************************** */
     /********************************************************************** */
@@ -735,6 +598,22 @@ $(document).ready(function(){
     if (!_.isEmpty(dealQuoteData))
         dealQuote = dealQuoteData.id
 
+    let date = new Date()
+    let day = date.getDate()
+    let month = date.getMonth() + 1
+    let year = date.getFullYear()
+
+    //if date is null, date = today
+    if (month < 10) {
+        expirationDateFinal = `${year}-0${month}-${day}T23:59:59`
+    } else {
+        expirationDateFinal = `${year}-${month}-${day}T23:59:59`
+    }
+
+    let expirationDate = $(":input[name=magaya__ExpirationDate]").val()
+    if (expirationDate !== '' && expirationDate !== undefined && expirationDate !== 'undefined') {
+        expirationDateFinal = expirationDate + "T00:00:00"
+    }
     //obtain row index
     /*let table = $("#table-quotes tr")
     $.each(table, function(k, v) {
@@ -786,6 +665,8 @@ $(document).ready(function(){
         "magaya__ContactEmail": sanitize($("input[name=Email]").val()),
         "magaya__ContactMobile": sanitize($("input[name=Mobile]").val()),
         "magaya__ContactHomePhone": sanitize($("input[name=Phone]").val()),
+        "Name": sanitize($("input[name=NameQuote]").val()),
+        "magaya__ExpirationDate": expirationDateFinal
 
     }
 
@@ -930,8 +811,8 @@ $(document).ready(function(){
 
         let expirationDate = $(":input[name=magaya__ExpirationDate]").val()
         if (expirationDate !== '' && expirationDate !== undefined && expirationDate !== 'undefined') {
-            expirationDate = expirationDate.split(" ");
-            expirationDateFinal = expirationDate[0] + "T" + expirationDate[1]
+            //expirationDate = expirationDate.split(" ");
+            expirationDateFinal = expirationDate + "T00:00:00"
         }
 
         //let accountId = $(":input[name=Account] option:selected").val()
@@ -1002,11 +883,10 @@ $(document).ready(function(){
             "magaya__Port_of_Unloading": $("select[name=magaya__Port_of_Unloading]").val()
         }
 
-        console.log("RecordData", recordData)
-
         //insertind data, get the id and insert items and charges
         ZOHO.CRM.API.insertRecord({ Entity: "magaya__Routing", APIData: routingData, Trigger: ["workflow"] })
             .then(function(response) {
+                Utils.blockUI()
                 res = response.data
                 id = 0
                 $.map(res, function(k) {
@@ -1062,7 +942,7 @@ $(document).ready(function(){
                                             })
                                     })
 
-                                $("#mquoteModal").modal("hide")
+                                //$("#mquoteModal").modal("hide")
 
                             }
                         })
@@ -1132,7 +1012,6 @@ $(document).ready(function(){
                             ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: jsonData, Trigger: [] })
                                 .then(function(response) {
                                     res = response.data;
-                                    console.log("CHARGES OPERATION", res)
                                     $.map(res, function(k, v) {
                                         if (k.code !== "SUCCESS") {
                                             codeError = k.code;
@@ -1159,6 +1038,7 @@ $(document).ready(function(){
                     })
                     .then(function() {
                         Utils.unblockUI()
+                        $("#New").prop("disable", true)
                         Swal.fire({
                             title: "Success",
                             text: "New mQuote inserted!!!",
@@ -1167,13 +1047,14 @@ $(document).ready(function(){
                             confirmButtonText: "Yes",
                             allowOutsideClick: false
 
-                        })/*.then((result) => {
+                        })
+                        .then((result) => {
 
                             if (result.isConfirmed) {
-                                storeQuote.dispatch(addStarting(data.data[0]))
-                                //location.reload()
+                                //storeQuote.dispatch(addStarting(data.data[0]))
+                                location.reload()
                             }
-                        })*/
+                        })
 
                     })
                     .catch(function(error) {

@@ -131,11 +131,15 @@ function limpiar_form() {
     $("select[name=magaya__MainCarrier]").val("")
     $("input[name=magaya__Magaya_Status]").val("Open")
     $("input[name=magaya__Is_Hazardous]").prop("checked", false)
+    $("#rol_shipper").prop("checked", false)
+    $("#rol_consignee").prop("checked", false)
+    $("#rol_other").prop("checked", false)
     $("input[name=Magaya_updated]").prop("checked", false)
     $("#magaya__Terms").val("")
     $("select[name=magaya__Mode_of_Transportation]").val("")
     $("select[name=magaya__Incoterm_rule]").val("")
-
+    $("select[name=magaya__Port_of_Loading]").empty()
+    $("select[name=magaya__Port_of_Unloading]").empty()
 
     $("select[name=Account]").prop('disabled', false);
 
@@ -148,7 +152,7 @@ function limpiar_form() {
         elemento.value = ''
     })
     let now = moment().format("YYYY-MM-DD");
-    let expire_date = moment().add(1, 'months').format("YYYY-MM-DD HH:mm:ss")
+    let expire_date = moment().add(1, 'months').format("YYYY-MM-DD")
     $("input[name=magaya__AddedTime]").val(now)
     $("input[name=magaya__ExpirationDate]").val(expire_date)
 
@@ -363,6 +367,23 @@ async function buildStringXML(idSQuote) {
 
 //get items cargo table, return xml charge
 (function($) {
+    $.fn.getAllRecordCRM = function(idSQuote) {
+        return new Promise(function(resolve, reject) {
+            var func_name = "magaya__getChargesMquote";
+            var req_data ={
+                "quote_id" : idSQuote
+            };
+            ZOHO.CRM.FUNCTIONS.execute(func_name, req_data)
+                .then(function(data){
+                    resolve(data)
+                })
+        });
+    }
+})(jQuery);
+
+
+//get items cargo table, return xml charge
+(function($) {
     $.fn.getRelatedCharge = function(idSQuote) {
         return new Promise(function(resolve, reject) {
             var func_name = "magaya__getChargesMquote";
@@ -570,6 +591,22 @@ function getRelatedRecordCRM(entity, related_list, recordId) {
 }
 
 
+function getAllsRecordCRM(entity, number, record_per_page = 5) {
+    return new Promise(function(resolve, reject) {
+        let data_charge = {}
+        ZOHO.CRM.API.getAllRecords({ Entity: entity, sort_order:"asc",per_page:record_per_page,page: number })
+            .then(function(data) {
+                if (!_.isEmpty(data.data)) {
+                    resolve(data.data)
+                } else {
+                    resolve()
+                }
+
+            })
+    })
+}
+
+
 async function getMagayaVariables() {
     network_id = await getMagayaNetworkId()
     magaya_url = await getMagayaUrl();
@@ -655,7 +692,7 @@ function getTranspMethod(transpId) {
 }
 
 
-//get transp method for string xml quotation
+//
 async function getRecordCRM(entity, idRecord) {
     //code
     return new Promise(function(resolve, reject) {
@@ -759,7 +796,7 @@ async function buildPdf(pdf_type) {
 
           let link = document.createElement('a');
           link.href = objUrl;
-          link.download = mquote.magaya__Number;
+          link.download = mquote.Name;
           link.click();
 
           // For Firefox it is necessary to delay revoking the ObjectURL.
