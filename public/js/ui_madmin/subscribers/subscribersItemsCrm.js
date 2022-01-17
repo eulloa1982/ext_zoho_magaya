@@ -2,15 +2,16 @@
 storeCrm.subscribe(() => {
     let u = storeCrm.getState();
     //console.log("State item crm", u)
+    //pintar la lista
     if (!_.isEmpty(u.itemsCrm)) {
         $("#sortable-crm").empty()
         let content = ``
         $.map(u.itemsCrm, function(k, v) {
             if (!_.isEmpty(k)) {
-                content += ` <label class="list-group-item">
-                <input data-id="${k.id}" class="form-check-crm" type="checkbox" value="">
-
-                <span class="material-icons view-crm" data-id="${sanitize(k.id)}">visibility</span>${sanitize(k.Name)}</label>`
+                content += `<label class="list-group-item">
+                    <input data-id="${k.id}" class="form-check-crm" type="checkbox" value="">
+                    <span class="material-icons view-crm btn-sm" data-id="${sanitize(k.id)}">edit</span>${sanitize(k.Name)}
+                </label>`
 
             }
 
@@ -23,6 +24,7 @@ storeCrm.subscribe(() => {
     }
 
 
+    //pintar el formulario
     if (!_.isEmpty(u.itemCrm)) {
         let idRecord = 0;
         let append = ``

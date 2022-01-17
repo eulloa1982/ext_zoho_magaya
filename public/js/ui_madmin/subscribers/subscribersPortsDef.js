@@ -10,10 +10,11 @@ storePortsDef.subscribe(() => {
     if (!_.isEmpty(portsA) && active) {
         let content = ''
         $.map(portsA, function(k, v) {
+            console.log("Port", k)
             //if (k.AccountDefinition.Type === "Income") {
-            content = `<label class="list-group-item" data-id="${v}"><div class="sm">
+            content = `<label class="list-group-item" data-id="${v}">
                 <input data-id="${v}" class="form-check-magaya" type="checkbox" value="">
-                </div>${k.Name}  ${k.Country}</label>`
+                ${k.Name}  (<strong>Country:</strong> ${k.Country}, <strong>Method: </strong> ${k.Method})</label>`
             //}
             $("#sortable-magaya-ports").append(content);
         })
