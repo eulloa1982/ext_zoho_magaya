@@ -343,27 +343,9 @@ storeQuote.subscribe(() => {
 
                 }
 
-
                 //$(`<option value='${id}' selected>${client}</option>`).appendTo("select[name=Account]");
                 $(`<option value='${id}' selected>${client}</option>`).appendTo("select[name=magaya__Shipper]");
                 $(`<option value='${id}' selected>${client}</option>`).appendTo("select[name=magaya__Consignee]");
-
-                //do no t allow duplicates
-                let map = {};
-                $('select[name=magaya__Shipper] option').each(function () {
-                    if (map[this.value]) {
-                        $(this).remove()
-                    }
-                    map[this.value] = true;
-                })
-
-                map = {};
-                $('select[name=magaya__Consignee] option').each(function () {
-                    if (map[this.value]) {
-                        $(this).remove()
-                    }
-                    map[this.value] = true;
-                })
 
                 $("#AccountPreview").html(client)
 
@@ -428,20 +410,6 @@ storeQuote.subscribe(() => {
             let stage = quoteToEdit["magaya__Status"]
             $("select[name=magaya__mQuoteStatus]").val(stage)
 
-            //Shipper y Consignee
-            //hay que buscar el texto , hasta que tengamos un lookup para eliminar esto
-            let shipper = quoteToEdit.magaya__Shipper
-            $("select[name=magaya__Shipper] option").each(function(k) {
-                if ($(this).text() === shipper)
-                    $("select[name=magaya__Shipper]").val($(this).val())
-            })
-
-
-            let consignee = quoteToEdit.magaya__ConsigneeName
-            $("select[name=magaya__ConsigneeName] option").each(function(k) {
-                if ($(this).text() === consignee)
-                    $("select[name=magaya__ConsigneeName]").val($(this).val())
-            })
 
             //magaya terms
             let terms = quoteToEdit.magaya__Terms
@@ -468,6 +436,8 @@ storeQuote.subscribe(() => {
 
                 ZOHO.CRM.API.getRecord( {Entity: "magaya__Routing", RecordID: routingId })
                     .then(function(response) {
+                        console.log("routing", response)
+
                         $.map(response.data[0], function(k, v) {
                             if (!_.isObject(v) && !v.includes("$") && !_.isEmpty(k)) {
                                 $(`input[name=${v}]`).val(k)
@@ -505,30 +475,36 @@ storeQuote.subscribe(() => {
 
                         //}
 
-                        let shipper = data.magaya__Shipper;
-                        let shipperValues = $("select[name=magaya__Shipper] option")
-                        //$("select[name=magaya__Shipper] option:selected").prop("selected", false)
-                        $.map(shipperValues, function(k, v) {
-                            //$(`select[name=magaya__Shipper] option`).attr('selected', false)
-                            if (k.text === shipper) {
-                                $(`select[name=magaya__Shipper] option:contains(${shipper})`).prop('selected', true);
-                                $(`select[name=magaya__Shipper]`).change()
+                        let shipper_id = 0;
+                        $("select[name=magaya__Shipper]").val("").change()
+                        if (!_.isEmpty(data.magaya__Shipper0)) {
+                            console.log("Searching Shipper")
+                            shipper_id = data.magaya__Shipper0.id
+                            if (!checkAccountInStore(shipper_id)) {
+                                console.log("Shipper en el CRM")
+                                getAccountFromCrmSetStore(shipper_id, 'magaya__Shipper')
                             } else {
-                                $(`select[name=magaya__Shipper]`).prop('selected', false);
+                                $("select[name=magaya__Shipper]").val(shipper_id).change()
+                                dropDuplicateInSelect("magaya__Shipper")
+                            }
+                        }
+
+                        let consignee_id = 0;
+                        $("select[name=magaya__Consignee]").val("").change()
+                        if (!_.isEmpty(data.magaya__Consignee0)) {
+                            console.log("Searching consignee")
+                            consignee_id = data.magaya__Consignee0.id
+                            if (!checkAccountInStore(consignee_id)) {
+                                console.log("Consignee en el Crm")
+                                getAccountFromCrmSetStore(consignee_id, 'magaya__Consignee')
+                            } else {
+                                $("select[name=magaya__Consignee]").val(consignee_id).change()
+                                dropDuplicateInSelect("magaya__Consignee")
 
                             }
-                        })
-                        let consignee = data.magaya__Consignee;
-                        let consigneeValues = $("select[name=magaya__Consignee] option")
-                        $.map(consigneeValues, function(k, v) {
-                            //$(`select[name=magaya__Consignee] option`).attr("selected", false)
-                            if (k.text === consignee) {
-                                $(`select[name=magaya__Consignee] option:contains(${consignee})`).prop('selected', true);
-                                $(`select[name=magaya__Consignee]`).change()
-                            } else {
-                                $(`select[name=magaya__Consignee]`).prop('selected', false)
-                            }
-                        })
+                        }
+
+
 
                         //$(`select[name=magaya__MainCarrier] option:contains(${idMainCarrier})`).val(idMainCarrier);
                         //$("select[name=magaya__MainCarrier]").selectpicker('render');
