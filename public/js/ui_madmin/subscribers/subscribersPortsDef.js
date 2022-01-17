@@ -10,7 +10,6 @@ storePortsDef.subscribe(() => {
     if (!_.isEmpty(portsA) && active) {
         let content = ''
         $.map(portsA, function(k, v) {
-            console.log("Port", k)
             //if (k.AccountDefinition.Type === "Income") {
             content = `<label class="list-group-item" data-id="${v}">
                 <input data-id="${v}" class="form-check-magaya" type="checkbox" value="">
