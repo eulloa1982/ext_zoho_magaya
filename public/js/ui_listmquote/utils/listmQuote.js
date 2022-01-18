@@ -118,7 +118,6 @@ $(document).ready(function(){
 
             //dispatch
             const $row = $(this).closest("tr").index();
-            console.log("Assigning row", $row)
             $("input[name=RowRecord]").val($row)
             storeQuote.dispatch(findQuote({id: data_id}))
             $("#panel-preview").show("fast");
@@ -192,7 +191,6 @@ $(document).ready(function(){
             e.preventDefault();
             e.stopImmediatePropagation()
             const $row = $(this).closest("tr").index();
-            console.log("Assignign row", $row)
             $("input[name=RowRecord]").val($row)
             storeQuote.dispatch(clearQuoteToEdit())
             idmQuoteToEdit = $(this).attr('data-id')
@@ -242,7 +240,6 @@ $(document).ready(function(){
                             //actualizar el store
                             ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id_new_mquote})
                                 .then(function(data){
-                                    console.log(data)
                                     storeQuote.dispatch(addStarting(data.data[0]))
                                 })
                         }
@@ -262,7 +259,6 @@ $(document).ready(function(){
                     show = false;
                     module = 'Cargo Items'
                     storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-                    console.log(error1)
                     Utils.unblockUI()
                 })
 
