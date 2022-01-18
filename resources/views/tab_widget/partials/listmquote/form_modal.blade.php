@@ -96,7 +96,7 @@
 								</div>
 
                                 <div class="col-md-3">
-									<label class="col-md-12" style="font-weight: bold;">Incoterms</label>
+									<label class="col-md-12" style="font-weight: bold;">Incoterm Rule</label>
                                     <select name='magaya__Incoterm_rule' class='form-control no-border'>
                                         <option value=""></option>
                                         <option value="EXW - Ex Works">EXW - Ex Works</option>
