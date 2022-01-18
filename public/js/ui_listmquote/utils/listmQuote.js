@@ -106,7 +106,6 @@ $(document).ready(function(){
     $('#table-quotes').bind("DOMSubtreeModified", function(e) {
         e.preventDefault()
 
-
         $('#table-quotes td:nth-child(n+2)').click(function(e) {
             e.preventDefault()
             e.stopImmediatePropagation()
@@ -118,8 +117,9 @@ $(document).ready(function(){
             limpiar_form()
 
             //dispatch
-            //make_pdf(idmQuoteToEdit);
-            $("input[name=RowRecord]").val($(e.currentTarget).parent().index())
+            const $row = $(this).closest("tr").index();
+            console.log("Assigning row", $row)
+            $("input[name=RowRecord]").val($row)
             storeQuote.dispatch(findQuote({id: data_id}))
             $("#panel-preview").show("fast");
             $(this).toggleClass("active"); return false;
@@ -191,6 +191,9 @@ $(document).ready(function(){
         $(".edit").click(function(e) {
             e.preventDefault();
             e.stopImmediatePropagation()
+            const $row = $(this).closest("tr").index();
+            console.log("Assignign row", $row)
+            $("input[name=RowRecord]").val($row)
             storeQuote.dispatch(clearQuoteToEdit())
             idmQuoteToEdit = $(this).attr('data-id')
             limpiar_form()

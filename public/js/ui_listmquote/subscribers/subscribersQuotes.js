@@ -15,11 +15,11 @@ storeQuote.subscribe(() => {
     let arrow_next = `<span class="material-icons cursor-hand oculto2">arrow_forward_ios</span>`;
     let arrow_prev = `<span class="material-icons cursor-hand oculto2">arrow_back_ios_new</span>`
     if (!_.isEmpty(u.nextQuote)) {
-        arrow_next = `<span class="material-icons cursor-hand" onClick="move_quote('${u.nextQuote.id}')">arrow_forward_ios</span>`
+        arrow_next = `<span class="material-icons cursor-hand" onClick="move_quote('${u.nextQuote.id}', 1)">arrow_forward_ios</span>`
     }
 
     if (!_.isEmpty(u.prevQuote)) {
-        arrow_prev = `<span class="material-icons cursor-hand" onClick="move_quote('${u.prevQuote.id}')">arrow_back_ios_new</span>`
+        arrow_prev = `<span class="material-icons cursor-hand" onClick="move_quote('${u.prevQuote.id}', 0)">arrow_back_ios_new</span>`
     }
 
 
