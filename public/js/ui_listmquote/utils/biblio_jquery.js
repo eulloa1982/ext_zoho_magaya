@@ -816,8 +816,15 @@ async function buildPdf(pdf_type) {
 
 
 
-function move_quote(idQuote) {
+function move_quote(idQuote, where = 0) {
     //drop the state temporal items and charges
+    let row_index =  $("input[name=RowRecord]").val();
+    if (where == 0)
+        row_index--
+    else
+        row_index++
+    $("input[name=RowRecord]").val(row_index);
+
     storeItem.dispatch(emptyItems())
     storeCharge.dispatch(emptyCharges())
     storeAccounts.dispatch(emptyAllAccounts())
