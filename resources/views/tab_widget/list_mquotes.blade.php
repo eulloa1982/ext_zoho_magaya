@@ -103,17 +103,17 @@ a {
                                     <a class="toggle-vis dropdown-item" data-column="6"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Modified Time</a>
                                     <a class="toggle-vis dropdown-item" data-column="7"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Created Time</a>
                                     <a class="toggle-vis dropdown-item" data-column="8"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Magaya updated</a>
-                                    <a class="toggle-vis dropdown-item" data-column="9"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Description</a>
+                                    <a class="toggle-vis dropdown-item" data-column="9"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Description of Goods</a>
                                     <a class="toggle-vis dropdown-item" data-column="10"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Destination</a>
                                     <a class="toggle-vis dropdown-item" data-column="11"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Origin</a>
                                     <a class="toggle-vis dropdown-item" data-column="12"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Sallesperson</a>
-                                    <a class="toggle-vis dropdown-item" data-column="13"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Service</a>
+                                    <a class="toggle-vis dropdown-item" data-column="13"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Service Type</a>
                                     <a class="toggle-vis dropdown-item" data-column="14"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Created By</a>
                                     <a class="toggle-vis dropdown-item" data-column="15"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Created By Name</a>
-                                    <a class="toggle-vis dropdown-item" data-column="16"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Incoterms</a>
+                                    <a class="toggle-vis dropdown-item" data-column="16"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Incoterm Rule</a>
                                     <a class="toggle-vis dropdown-item" data-column="17"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Is Hazardous</a>
                                     <a class="toggle-vis dropdown-item" data-column="18"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Issued By</a>
-                                    <a class="toggle-vis dropdown-item" data-column="19"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Added Time</a>
+                                    <a class="toggle-vis dropdown-item" data-column="19"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Magaya Added Time</a>
                                     <a class="toggle-vis dropdown-item" data-column="20"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Magaya Status</a>
                                     <a class="toggle-vis dropdown-item" data-column="21"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Modified By</a>
                                     <a class="toggle-vis dropdown-item" data-column="22"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Owner</a>
@@ -127,7 +127,9 @@ a {
                                     <a class="toggle-vis dropdown-item" data-column="30"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Zip</a>
                                     <a class="toggle-vis dropdown-item" data-column="31"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing City</a>
                                     <a class="toggle-vis dropdown-item" data-column="32"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Billing Country</a>
-                                    <a class="toggle-vis dropdown-item" data-column="33"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>In Magaya</a>
+                                    <a class="toggle-vis dropdown-item" data-column="33"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Quote In Magaya</a>
+                                    <a class="toggle-vis dropdown-item" data-column="34"><span class="material-icons mr-2 oculto">check_box_outline_blank</span>Sent to Magaya</a>
+
                                 </div>
 					        </div>
 
@@ -147,17 +149,17 @@ a {
                                     <th class="border-left border-top border-bottom border-right">Modify Time</th>
                                     <th class="border-left border-top border-bottom border-right">Created Time</th>
                                     <th class="border-left border-top border-bottom border-right">Magaya updated</th>
-                                    <th class="border-left border-top border-bottom border-right">Description</th>
+                                    <th class="border-left border-top border-bottom border-right">Description of Goods</th>
                                     <th class="border-left border-top border-bottom border-right">Destination</th>
                                     <th class="border-left border-top border-bottom border-right">Origin</th>
                                     <th class="border-left border-top border-bottom border-right">Seller</th>
-                                    <th class="border-left border-top border-bottom border-right">Service</th>
+                                    <th class="border-left border-top border-bottom border-right">Service Type</th>
                                     <th class="border-left border-top border-bottom border-right">Created By</th>
                                     <th class="border-left border-top border-bottom border-right">Created Name</th>
-                                    <th class="border-left border-top border-bottom border-right">Incoterms</th>
+                                    <th class="border-left border-top border-bottom border-right">Incoterm Rule</th>
                                     <th class="border-left border-top border-bottom border-right">Is Hazardous</th>
                                     <th class="border-left border-top border-bottom border-right">Issued By</th>
-                                    <th class="border-left border-top border-bottom border-right">Added Time</th>
+                                    <th class="border-left border-top border-bottom border-right">Magaya Added Time</th>
                                     <th class="border-left border-top border-bottom border-right">Mag Status</th>
                                     <th class="border-left border-top border-bottom border-right">Modified By</th>
                                     <th class="border-left border-top border-bottom border-right">Owner</th>
@@ -171,7 +173,8 @@ a {
                                     <th class="border-left border-top border-bottom border-right">Billing Zip</th>
                                     <th class="border-left border-top border-bottom border-right">Billing City</th>
                                     <th class="border-left border-top border-bottom border-right">Billing Country</th>
-                                    <th class="border-left border-top border-bottom border-right">In Magaya</th>
+                                    <th class="border-left border-top border-bottom border-right">Quote In Magaya</th>
+                                    <th class="border-left border-top border-bottom border-right">Sent to Magaya</th>
 
                                     </tr>
 							</thead>

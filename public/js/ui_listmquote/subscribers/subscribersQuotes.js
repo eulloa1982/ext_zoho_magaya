@@ -173,6 +173,7 @@ storeQuote.subscribe(() => {
 
             { "data": "magaya__QuoteInMagaya", "visible": false},
 
+            { "data": "Magaya_updated", "visible": false},
             //{ title: "magaya__Status" },
 
         ]
@@ -270,7 +271,6 @@ storeQuote.subscribe(() => {
 
         //relleno los campos
         //campos q no son objetos
-        $("input[name=RowRecord]").val(quoteToEdit.number)
         $("#magaya__Description").val(quoteToEdit.magaya__Description)
 
         $.map(quoteToEdit, function(k, v) {
@@ -436,7 +436,6 @@ storeQuote.subscribe(() => {
 
                 ZOHO.CRM.API.getRecord( {Entity: "magaya__Routing", RecordID: routingId })
                     .then(function(response) {
-                        console.log("routing", response)
 
                         $.map(response.data[0], function(k, v) {
                             if (!_.isObject(v) && !v.includes("$") && !_.isEmpty(k)) {
@@ -478,10 +477,8 @@ storeQuote.subscribe(() => {
                         let shipper_id = 0;
                         $("select[name=magaya__Shipper]").val("").change()
                         if (!_.isEmpty(data.magaya__Shipper0)) {
-                            console.log("Searching Shipper")
                             shipper_id = data.magaya__Shipper0.id
                             if (!checkAccountInStore(shipper_id)) {
-                                console.log("Shipper en el CRM")
                                 getAccountFromCrmSetStore(shipper_id, 'magaya__Shipper')
                             } else {
                                 $("select[name=magaya__Shipper]").val(shipper_id).change()
@@ -492,10 +489,8 @@ storeQuote.subscribe(() => {
                         let consignee_id = 0;
                         $("select[name=magaya__Consignee]").val("").change()
                         if (!_.isEmpty(data.magaya__Consignee0)) {
-                            console.log("Searching consignee")
                             consignee_id = data.magaya__Consignee0.id
                             if (!checkAccountInStore(consignee_id)) {
-                                console.log("Consignee en el Crm")
                                 getAccountFromCrmSetStore(consignee_id, 'magaya__Consignee')
                             } else {
                                 $("select[name=magaya__Consignee]").val(consignee_id).change()
