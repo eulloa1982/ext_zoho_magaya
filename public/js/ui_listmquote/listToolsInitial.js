@@ -50,17 +50,16 @@ $(document).ready(function(){
                 storeQuote.dispatch(addQuote(quotes))
                 Utils.unblockUI()
             })*/
-        //Packages Types
-        ZOHO.CRM.API.getAllRecords({Entity:"magaya__Package_Types",sort_order:"asc",per_page:120,page:1})
-            .then(function(data){
-                $("#select-package").empty();
-                $.map (data.data, function (k, i){
-                    k.Name = sanitize(k.Name)
-                    //$("<option value='"+i+"'>"+k.Name+"</option>").appendTo("#new-item select[name=Name]");
-                    $("#new-item select[name=Name]").append("<option value='"+i+"'>"+k.Name+"</option>");
-                    packageType.push(k);
-                })
-            })
+         //Packages Types
+         ZOHO.CRM.API.getAllRecords({Entity:"magaya__Package_Types",sort_order:"asc",per_page:120,page:1})
+         .then(function(data){
+             $("#select-package").empty();
+             $.map (data.data, function (k, i){
+                 k.Name = sanitize(k.Name)
+                 $("select[name=magaya__Package_Type]").append("<option value='"+k.id+"'>"+k.Name+"</option>");
+                 packageType.push(k);
+             })
+         })
 
         //get current user
         ZOHO.CRM.CONFIG.getCurrentUser().then(function(data){
@@ -160,14 +159,13 @@ $(document).ready(function(){
 
                         k.magaya__ChargesCode = sanitize(k.magaya__ChargesCode)
                         k.Name = sanitize(k.Name)
-                        $(`<option value="${k.magaya__ChargesCode}">${k.Name}</option>`).appendTo("select[name=magaya__ChargeCode]");
-
+                        //$(`<option value="${k.magaya__ChargesCode}">${k.Name}</option>`).appendTo("select[name=magaya__ChargeCode]");
+                        $(`<option value="${k.id}">${k.Name}</option>`).appendTo("select[name=magaya__Charge_Type]");
                     })
                 }
 
             })
 
-        //Charges Type
         ZOHO.CRM.API.getAllRecords({Entity: "magaya__Taxes", sort_order: "asc"})
             .then(function (response) {
                 storeChargesType.dispatch(addChargeType(response.data))
