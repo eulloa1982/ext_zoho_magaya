@@ -30,6 +30,7 @@ a {
 
 .material-icons {
 	font-size: 18px;
+    cursor: pointer;
 }
 
 .panel select, .panel input {
