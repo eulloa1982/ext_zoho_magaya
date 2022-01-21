@@ -283,8 +283,12 @@ storeQuote.subscribe(() => {
             }
         })
 
-        const edate = quoteToEdit.magaya__ExpirationDate.split("T")
+        let edate = quoteToEdit.magaya__ExpirationDate.split("T")
+        let mdate = quoteToEdit.Modified_Time.split(" ")
         $("input[name=magaya__ExpirationDate]").val(edate[0])
+        $("#magaya__ExpirationDatePreview").html(edate[0])
+        $("#Modified_TimePreview").html(mdate[0])
+        console.log("MDate", mdate[0])
 
             $("input[name=NameQuote]").val(quoteToEdit.Name)
 
