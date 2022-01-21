@@ -1,6 +1,6 @@
 //si es quotesOnNew es true, sino es false y son charges en edit
 let data_module_flag_charge = true
-$("#info-charge").html("Loading, please wait...");
+//$("#info-charge").html("Loading, please wait...");
 //get one charge
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
@@ -251,7 +251,7 @@ storeCharge.subscribe(() => {
         $("#table-charges tbody").empty()
         $("#table-charges tfoot").empty();
 
-        $("#info-charge").html("No charges found");
+        //$("#info-charge").html("No charges found");
     }
 })
 
