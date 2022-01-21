@@ -328,8 +328,8 @@ storeItem.subscribe(() => {
                                                 <td align="right" class="Delete" style="border-right: none;"><strong>${roundDec(totalWeight).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td><td style="border-left: none;"><strong> kg</strong></td>
                                                 <td align="right" class="Delete" style="border-right: none;"><strong>${roundDec(totalVolume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td><td style="border-left: none;"><strong> m3</strong></td></tr>`)
 
-        $("#table-items-preview tfoot").append(`<tr><td><strong>Totals</td>
-                                                <td></td><td></td>
+        $("#table-items-preview tfoot").append(`<tr><td style="border-right: none;"></td>
+                                                <td style="border: none;"></td><td style="border: none;">Total</td>
                                                 <td align="right" class="Delete"><strong style="margin-right: 4px;">${totalPieces}</strong></td>
                                                 <td align="right" style="border-right: none;"><strong>${roundDec(totalWeight).toLocaleString('en-US', {  minimumFractionDigits: 2  } )} kg</td>
                                                 <td align="right" style="border-right: none;"><strong>${roundDec(totalVolume).toLocaleString('en-US', {  minimumFractionDigits: 2  } )} m3</td></tr>`)

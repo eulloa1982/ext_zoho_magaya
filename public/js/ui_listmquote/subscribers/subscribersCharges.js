@@ -237,9 +237,9 @@ storeCharge.subscribe(() => {
                                         <td align="right"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         </tr>`);
 
-            $("#table-charges-preview tfoot").append(`<tr><td align="right"><strong>Totals USD</strong></td>
-                                        <td></td>
-                                        <td></td>
+            $("#table-charges-preview tfoot").append(`<tr><td style="border-right: none;" align="right"></td>
+                                        <td style="border: none;"></td>
+                                        <td style="border: none;">Total</td>
                                         <td align="right"><strong>${tax_amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         <td align="right"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         </tr>`);
