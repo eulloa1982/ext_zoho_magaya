@@ -188,11 +188,11 @@ storeQuote.subscribe(() => {
             // Toggle the visibility
             column.visible( ! column.visible() );
             if (!column.visible()) {
-                $(this).children().remove()
+                $(this).children(":first").remove()
                 $(this).prepend(`<span class="material-icons mr-2 oculto">check_box_outline_blank</span>`)
             }
             else {
-                $(this).children().remove()
+                $(this).children(":first").remove()
                 $(this).prepend(`<span class="material-icons mr-2 oculto">check_box</span>`)
             }
         } );
