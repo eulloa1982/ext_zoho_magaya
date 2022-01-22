@@ -390,12 +390,6 @@
                                             <input type="radio" class="form-check-input" id="rol_consignee" name="customer_rol" value="consignee">
                                             <label class="form-check-label" for="materialInline2">Consignee</label>
                                         </div>
-
-                                        <!-- Material inline 3 -->
-                                        <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" id="rol_other" name="customer_rol" value="other">
-                                            <label class="form-check-label" for="materialInline3">Other</label>
-                                        </div>
                                     </div>
                                 </div>
 
