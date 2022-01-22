@@ -117,17 +117,17 @@
                     <div class="col-sm">
                         <div class="col-sm-12 shadow-sm p-3 bg-white rounded">
                             <h5 class="text-monospace">Quotation Info</h5>
-                            <p class="secondary">Description of Goods:<span class="preview" style="margin-left: 3px;" id="magaya__DescriptionPreview"></span></p>
-                            <p class="secondary">Origin: <span class="preview" style="margin-left: 3px;" id="magaya__OriginPreview"></span></p>
-                            <p class="secondary">Destination: <span class="preview" style="margin-left: 3px;" id="magaya__DestinationPreview"></span></p>
+                            <p class="secondary">Description of Goods:<span class="preview" style="margin-left: 5px;" id="magaya__DescriptionPreview"></span></p>
+                            <p class="secondary">Origin: <span class="preview" style="margin-left: 5px;" id="magaya__OriginPreview"></span></p>
+                            <p class="secondary">Destination: <span class="preview" style="margin-left: 5px;" id="magaya__DestinationPreview"></span></p>
                         </div>
                     </div>
                     <div class="col-sm">
                         <div class="col-sm shadow-sm p-3 bg-white rounded">
-                            <h5></h5>
-                            <p class="secondary">Incoterms:<span class="preview" style="margin-left: 3px;" id="magaya__Incoterm_rulePreview"></span></p>
-                            <p class="secondary">Service: <span class="preview" style="margin-left: 3px;" id="magaya__ServicePreview"></span></p>
-                            <p class="secondary">Direction: <span class="preview" style="margin-left: 3px;" id="magaya__DirectionPreview"></span></p>
+                            <h5 class="text-monospace" >Other info</h5>
+                            <p class="secondary">Incoterms:<span class="preview" style="margin-left: 5px;" id="magaya__Incoterm_rulePreview"></span></p>
+                            <p class="secondary">Service: <span class="preview" style="margin-left: 5px;" id="magaya__ServicePreview"></span></p>
+                            <p class="secondary">Direction: <span class="preview" style="margin-left: 5px;" id="magaya__DirectionPreview"></span></p>
                         </div>
                     </div>
                 </div>
