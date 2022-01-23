@@ -84,9 +84,9 @@ $(document).ready(function(){
             storeAccounts.dispatch(addAccount(response.data))
         })
         .then(function(){
-            $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=Account]");
-            $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Shipper]");
-            $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Consignee]");
+            //$('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=Account]");
+            //$('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Shipper]");
+            //$('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Consignee]");
 
         })
 

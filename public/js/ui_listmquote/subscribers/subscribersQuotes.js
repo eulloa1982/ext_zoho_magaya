@@ -289,66 +289,59 @@ storeQuote.subscribe(() => {
         $("#magaya__ExpirationDatePreview").html(edate[0])
         $("#Modified_TimePreview").html(mdate[0])
 
-            $("input[name=NameQuote]").val(quoteToEdit.Name)
+        $("input[name=NameQuote]").val(quoteToEdit.Name)
 
-            let owner = quoteToEdit.Owner.id
-            let ownerName = quoteToEdit.Owner.name
-            let ownerValues = $("select[name=Owner] option")
-            $.map(ownerValues, function(k, v) {
-                if (k.value === owner) {
-                    $(`select[name=Owner] option:contains(${k.text})`).prop('selected', true);
-                    $(`select[name=Owner]`).change()
-                } else {
-                    $(`select[name=Owner]`).prop('selected', false)
+        let owner = quoteToEdit.Owner.id
+        let ownerName = quoteToEdit.Owner.name
+        let ownerValues = $("select[name=Owner] option")
+        $.map(ownerValues, function(k, v) {
+            if (k.value === owner) {
+                $(`select[name=Owner] option:contains(${k.text})`).prop('selected', true);
+                $(`select[name=Owner]`).change()
+            } else {
+                $(`select[name=Owner]`).prop('selected', false)
+            }
+
+        })
+
+        //account, cliente de la cotizacion
+        if (!_.isEmpty(quoteToEdit.Account)) {
+            const id = quoteToEdit["Account"]["id"];
+            const client = sanitize(quoteToEdit["Account"]["name"]);
+
+            //check if account is on store
+            let accounts = storeAccounts.getState().accounts
+            let accountA = {}
+            accounts.map(account_f => {
+                if (account_f.id === id) {
+                    accountA = account_f;
                 }
-
             })
 
-            //account, cliente de la cotizacion
-            if (!_.isEmpty(quoteToEdit.Account)) {
-                const id = quoteToEdit["Account"]["id"];
-                const client = sanitize(quoteToEdit["Account"]["name"]);
+            //if not in store, get account
+            if (_.isEmpty(accountA)) {
+                //search by id
+                 getRecordCRM("Accounts", id)
+                    .then(function(response) {
+                        storeAccounts.dispatch(addAccount(response[0]))
+                        return response
+                    })
+                    .then(function(response) {
+                        storeAccounts.dispatch(addQuoteAccount({id: response[0].id}))
+                        storeAccounts.dispatch(findContactOfAccount({id: response[0].id}))
+                    })
 
-                //check if account is on store
-                let accounts = storeAccounts.getState().accounts
-                let accountA = {}
-                accounts.map(account_f => {
-                    if (account_f.id === id) {
-                        accountA = account_f;
-                    }
-                })
-
-                //if not in store, get account
-                if (_.isEmpty(accountA)) {
-                    //search by id
-                    getRecordCRM("Accounts", id)
-                        .then(function(response) {
-                            $("select[name=Account] option[value='SeeMore']").remove()
-                            $("select[name=magaya__Shipper] option[value='SeeMore']").remove()
-                            $("select[name=magaya__Consignee] option[value='SeeMore']").remove()
-                            storeAccounts.dispatch(addAccount(response[0]))
-                            return response
-
-                        })
-                        .then(function(response) {
-                            storeAccounts.dispatch(addQuoteAccount({id: response[0].id}))
-                            storeAccounts.dispatch(findContactOfAccount({id: response[0].id}))
-                            $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=Account]");
-                            $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Shipper]");
-                            $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Consignee]");
-                        })
-
-                //account in store
-                } else {
-                    let idAccount = !_.isEmpty(quoteToEdit.Account) ? quoteToEdit.Account.id : 0
-                    storeAccounts.dispatch(addQuoteAccount({id: idAccount}))
-                    storeAccounts.dispatch(findContactOfAccount({id: idAccount}))
+            //account in store
+            } else {
+                let idAccount = !_.isEmpty(quoteToEdit.Account) ? quoteToEdit.Account.id : 0
+                storeAccounts.dispatch(addQuoteAccount({id: idAccount}))
+                storeAccounts.dispatch(findContactOfAccount({id: idAccount}))
 
                 }
 
                 //$(`<option value='${id}' selected>${client}</option>`).appendTo("select[name=Account]");
-                $(`<option value='${id}' selected>${client}</option>`).appendTo("select[name=magaya__Shipper]");
-                $(`<option value='${id}' selected>${client}</option>`).appendTo("select[name=magaya__Consignee]");
+                //$(`<option value='${id}' selected>${client}</option>`).appendTo("select[name=magaya__Shipper]");
+                //$(`<option value='${id}' selected>${client}</option>`).appendTo("select[name=magaya__Consignee]");
 
                 $("#AccountPreview").html(client)
 
