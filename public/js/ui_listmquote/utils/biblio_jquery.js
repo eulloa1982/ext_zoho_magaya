@@ -872,17 +872,15 @@ function checkAccountInStore( idAccount ) {
 function getAccountFromCrmSetStore( idAccount, selectField ) {
     getRecordCRM("Accounts", idAccount)
         .then(function(response) {
-            $(`select[name=${selectField}] option[value='SeeMore']`).remove()
             storeAccounts.dispatch(addAccount(response[0]))
             return response
 
         })
         .then(function(response) {
             $(`<option value='${response[0].id}' selected>${response[0].Account_Name}</option>`).appendTo(`select[name=${selectField}]`);
-            $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo(`select[name=${selectField}]`);
 
             $(`select[name=${selectField}]`).change()
-            //do no t allow duplicates
+            //do not allow duplicates
             dropDuplicateInSelect(selectField)
         })
 
