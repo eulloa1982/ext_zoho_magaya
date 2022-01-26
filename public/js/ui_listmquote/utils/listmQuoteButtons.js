@@ -237,11 +237,11 @@ $(document).ready(function(){
                 if (result.isConfirmed) {
                     $("input[class=quoteCheckBox]:checked").each(function() {
                         let idQuote = $(this).attr('data-id')
-                        let $tr = $(this).parent().parent();
-                        table
-                        .row( $tr )
-                        .remove()
-                        .draw();
+                        //let $tr = $(this).parent();
+                        //table
+                        //.row( $tr )
+                        //.remove()
+                        //.draw();
                         ZOHO.CRM.API.deleteRecord({Entity:"magaya__SQuotes",RecordID: idQuote})
                             .then(function(data){
 
@@ -250,6 +250,8 @@ $(document).ready(function(){
 
                     })
                 }
+            }).then(function(){
+                location.reload()
             })
     })
 
@@ -720,13 +722,11 @@ $(document).ready(function(){
                     ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id})
                         .then(function(data){
                             record = data.data;
-                            console.log("Row number 1", row_number)
                             record.number = row_number
                             storeQuote.dispatch(updateQuote({id: idQuote, ...record}))
                             //update table row
                             record[0]['number'] = row_number
                             let table = $('#table-quotes').DataTable();
-                            console.log("Row number 2", row_number)
                             table.row(row_number).data( ...record ).draw(false);
                         })
 
