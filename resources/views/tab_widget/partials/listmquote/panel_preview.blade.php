@@ -115,7 +115,7 @@
                 <!-- Quotation info -->
                 <div class="row">
                     <div class="col-sm">
-                        <div class="col-sm-12 shadow-sm p-3 bg-white rounded">
+                        <div class="col-sm-12 shadow-sm p-3 mb-3 bg-white rounded">
                             <h5 class="text-monospace">Quotation Info</h5>
                             <p class="secondary">Description of Goods:<span class="preview" style="margin-left: 5px;" id="magaya__DescriptionPreview"></span></p>
                             <p class="secondary">Origin: <span class="preview" style="margin-left: 5px;" id="magaya__OriginPreview"></span></p>
@@ -135,7 +135,7 @@
                 <!-- Table Charges -->
                 <div class="row">
                     <div class="col-sm">
-                        <div class="col-sm-12 shadow-sm p-2 mb-1 bg-white rounded">
+                        <div class="col-sm-12 shadow-sm p-2 mb-3 bg-white rounded">
                             <h5>Charges</h5>
                             <table id="table-charges-preview" class="table table-sm table-bordered border-secondary">
                                 <thead style="text-align:center;">
@@ -157,7 +157,7 @@
                 <!-- Table Items -->
                 <div class="row">
                     <div class="col-sm">
-                        <div class="col-sm-12 shadow-sm p-2 mb-1 bg-white rounded">
+                        <div class="col-sm-12 shadow-sm p-2 mb-3 bg-white rounded">
                             <h5>Items</h5>
                             <table id="table-items-preview" class="table table-bordered border-secondary table-striped">
                                 <thead style="text-align:center;">
@@ -180,7 +180,7 @@
                 <!-- Table Terms -->
                 <div class="row">
                     <div class="col-sm">
-                        <div class="col-sm-12 shadow-sm p-2 mb-1 bg-white rounded">
+                        <div class="col-sm-12 shadow-sm p-2 mb-3 bg-white rounded">
                             <h5>Terms</h5>
                             <span class="preview" id="magaya__TermsPreview"></span>
                         </div>
