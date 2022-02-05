@@ -60,7 +60,7 @@ a {
     <script>
         Utils.blockUI();
         $(document).ready(function(){
-            $("#Title").html("Add mQuoted <span class='material-icons' id='reload'>restart_alt</span>");
+            $("#Title").html("Add mQuote");
 
             //drop the state temporal items and charges
             storeItem.dispatch(emptyItems())
@@ -111,9 +111,7 @@ a {
 
             $('#mquoteModal').modal('toggle')
 
-            $("#reload").click(function() {
-                location.reload()
-            })
+
     });
    </script>
     @stop

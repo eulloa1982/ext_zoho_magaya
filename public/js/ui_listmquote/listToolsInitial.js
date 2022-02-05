@@ -1,7 +1,7 @@
 $(document).ready(function(){
     packageType = [];
     transpMethods = [];
-
+    taxes = []
     idmQuoteToEdit = 0;
     let page = 1;
 
@@ -171,9 +171,10 @@ $(document).ready(function(){
                 storeChargesType.dispatch(addChargeType(response.data))
                 if (!_.isEmpty (response.data)) {
                     $.map(response.data, function (k, i) {
+                        taxes.push(k)
                         k.magaya__Tax_Rate = sanitize(k.magaya__Tax_Rate)
                         k.Name = sanitize(k.Name)
-                        $(`<option value="${k.magaya__Tax_Rate0}">${k.Name}</option>`).appendTo("select[name=magaya__TaxCode]");
+                        $(`<option value="${k.id}">${k.Name}</option>`).appendTo("select[name=magaya__Tax]");
 
                     })
                 }
@@ -192,12 +193,20 @@ $(document).ready(function(){
 
 
     ZOHO.embeddedApp.init()
+
+    //particularidades
+    $(".reload").click(function() {
+        location.reload()
+    })
+
+    $(".cerrar-modal").hide()
+    $(".reload").show()
 /*}
 catch {
     console.log("Error")
 }*/
-if (_.isEmpty(packageType)) {
+/*if (_.isEmpty(packageType)) {
     console.log("You probably have not zoho content")
-}
+}*/
 
 })
