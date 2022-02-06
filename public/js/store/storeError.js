@@ -52,16 +52,27 @@ storeError.subscribe(() => {
     }
 
     if(_.has(ERRORS_TYPES, [errorCode])) {
-        console.log("Type error encountered", _.get(ERRORS_TYPES, [errorCode]))
         errorCode = _.get(ERRORS_TYPES, [errorCode])
     }
     if(showInfo) {
-        $("#quote-alert").css("display", "block").css("height","100px").delay(3000).fadeOut("slow");
-        $("#message-alert").html(`Upss!!! There is an error: ${errorCode},<br> please check the field "${field}"`);
+        Swal.fire({
+            title: "Upss!!! There is an error",
+            text: `${errorCode}, please check the field "${field}"`,
+            icon: "error",
+            confirmButtonText: "Yes",
+        })
+        //$("#quote-alert").css("display", "block").css("height","100px").delay(3000).fadeOut("slow");
+        //$("#message-alert").html(`Upss!!! There is an error: ${errorCode},<br> please check the field "${field}"`);
     }
     else {
-        $("#quote-alert").css("display", "block").css("height","120px").delay(3000).fadeOut("slow");;
-        $("#message-alert").html(`<p>That's an error: ${errorCode}</p>`)
+        Swal.fire({
+            title: "Error!!!",
+            text: `That's an error: ${errorCode}`,
+            icon: "error",
+            confirmButtonText: "Yes",
+        })
+        //$("#quote-alert").css("display", "block").css("height","120px").delay(3000).fadeOut("slow");;
+        //$("#message-alert").html(`<p>That's an error: ${errorCode}</p>`)
     }
 
 })
