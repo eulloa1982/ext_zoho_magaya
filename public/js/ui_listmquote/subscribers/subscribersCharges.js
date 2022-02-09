@@ -303,6 +303,11 @@ storeCharge.subscribe(() => {
                 <td class="magaya__ChargeCurrency" style="display: none;">${k.magaya__ChargeCurrency}</td>
                 <td class="Name" style="display: none;">${k.Name}</td>
                 </tr>`);
+                /*************************
+                 * 
+                 * LIMPIAR EN LA TABLA LAS CELDAS QUE NO SE MUESTRAN, 
+                 * YA Q SE PROCESAN LAS INSERCIONES DESDE EL STORE
+                ***************************/
 
             })
 
