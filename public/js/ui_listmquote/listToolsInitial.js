@@ -1,7 +1,7 @@
 $(document).ready(function(){
     packageType = [];
     transpMethods = [];
-
+    taxes = []
     idmQuoteToEdit = 0;
     let page = 1;
 
@@ -50,17 +50,16 @@ $(document).ready(function(){
                 storeQuote.dispatch(addQuote(quotes))
                 Utils.unblockUI()
             })*/
-        //Packages Types
-        ZOHO.CRM.API.getAllRecords({Entity:"magaya__Package_Types",sort_order:"asc",per_page:120,page:1})
-            .then(function(data){
-                $("#select-package").empty();
-                $.map (data.data, function (k, i){
-                    k.Name = sanitize(k.Name)
-                    //$("<option value='"+i+"'>"+k.Name+"</option>").appendTo("#new-item select[name=Name]");
-                    $("#new-item select[name=Name]").append("<option value='"+i+"'>"+k.Name+"</option>");
-                    packageType.push(k);
-                })
-            })
+         //Packages Types
+         ZOHO.CRM.API.getAllRecords({Entity:"magaya__Package_Types",sort_order:"asc",per_page:120,page:1})
+         .then(function(data){
+             $("#select-package").empty();
+             $.map (data.data, function (k, i){
+                 k.Name = sanitize(k.Name)
+                 $("select[name=magaya__Package_Type]").append("<option value='"+k.id+"'>"+k.Name+"</option>");
+                 packageType.push(k);
+             })
+         })
 
         //get current user
         ZOHO.CRM.CONFIG.getCurrentUser().then(function(data){
@@ -85,9 +84,9 @@ $(document).ready(function(){
             storeAccounts.dispatch(addAccount(response.data))
         })
         .then(function(){
-            $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=Account]");
-            $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Shipper]");
-            $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Consignee]");
+            //$('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=Account]");
+            //$('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Shipper]");
+            //$('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Consignee]");
 
         })
 
@@ -160,22 +159,22 @@ $(document).ready(function(){
 
                         k.magaya__ChargesCode = sanitize(k.magaya__ChargesCode)
                         k.Name = sanitize(k.Name)
-                        $(`<option value="${k.magaya__ChargesCode}">${k.Name}</option>`).appendTo("select[name=magaya__ChargeCode]");
-
+                        //$(`<option value="${k.magaya__ChargesCode}">${k.Name}</option>`).appendTo("select[name=magaya__ChargeCode]");
+                        $(`<option value="${k.id}">${k.Name}</option>`).appendTo("select[name=magaya__Charge_Type]");
                     })
                 }
 
             })
 
-        //Charges Type
         ZOHO.CRM.API.getAllRecords({Entity: "magaya__Taxes", sort_order: "asc"})
             .then(function (response) {
                 storeChargesType.dispatch(addChargeType(response.data))
                 if (!_.isEmpty (response.data)) {
                     $.map(response.data, function (k, i) {
+                        taxes.push(k)
                         k.magaya__Tax_Rate = sanitize(k.magaya__Tax_Rate)
                         k.Name = sanitize(k.Name)
-                        $(`<option value="${k.magaya__Tax_Rate0}">${k.Name}</option>`).appendTo("select[name=magaya__TaxCode]");
+                        $(`<option value="${k.id}">${k.Name}</option>`).appendTo("select[name=magaya__Tax]");
 
                     })
                 }
@@ -194,12 +193,20 @@ $(document).ready(function(){
 
 
     ZOHO.embeddedApp.init()
+
+    //particularidades
+    $(".reload").click(function() {
+        location.reload()
+    })
+
+    $(".cerrar-modal").hide()
+    $(".reload").show()
 /*}
 catch {
     console.log("Error")
 }*/
-if (_.isEmpty(packageType)) {
+/*if (_.isEmpty(packageType)) {
     console.log("You probably have not zoho content")
-}
+}*/
 
 })

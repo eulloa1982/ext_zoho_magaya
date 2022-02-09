@@ -1,6 +1,6 @@
 //si es quotesOnNew es true, sino es false y son charges en edit
 let data_module_flag_charge = true
-$("#info-charge").html("Loading, please wait...");
+//$("#info-charge").html("Loading, please wait...");
 //get one charge
 storeCharge.subscribe(() => {
     let u = storeCharge.getState().singleCharge;
@@ -237,9 +237,9 @@ storeCharge.subscribe(() => {
                                         <td align="right"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         </tr>`);
 
-            $("#table-charges-preview tfoot").append(`<tr><td align="right"><strong>Totals USD</strong></td>
-                                        <td></td>
-                                        <td></td>
+            $("#table-charges-preview tfoot").append(`<tr><td style="border-right: none;" align="right"></td>
+                                        <td style="border-left: none;"></td>
+                                        <td style="border-left: none;">Total</td>
                                         <td align="right"><strong>${tax_amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         <td align="right"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         </tr>`);
@@ -251,7 +251,7 @@ storeCharge.subscribe(() => {
         $("#table-charges tbody").empty()
         $("#table-charges tfoot").empty();
 
-        $("#info-charge").html("No charges found");
+        //$("#info-charge").html("No charges found");
     }
 })
 
@@ -303,6 +303,11 @@ storeCharge.subscribe(() => {
                 <td class="magaya__ChargeCurrency" style="display: none;">${k.magaya__ChargeCurrency}</td>
                 <td class="Name" style="display: none;">${k.Name}</td>
                 </tr>`);
+                /*************************
+                 * 
+                 * LIMPIAR EN LA TABLA LAS CELDAS QUE NO SE MUESTRAN, 
+                 * YA Q SE PROCESAN LAS INSERCIONES DESDE EL STORE
+                ***************************/
 
             })
 

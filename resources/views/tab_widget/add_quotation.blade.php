@@ -30,6 +30,7 @@ a {
 
 .material-icons {
 	font-size: 18px;
+    cursor: pointer;
 }
 
 .panel select, .panel input {
@@ -50,7 +51,7 @@ a {
 
 
 </style>
-
+<div id="magaya_link"></div>
 <!-- modal to edit and insert mquotes -->
 @include('tab_widget.partials.listmquote.form_modal')
 
@@ -109,6 +110,8 @@ a {
             $("#notes").hide()
 
             $('#mquoteModal').modal('toggle')
+
+
     });
    </script>
     @stop

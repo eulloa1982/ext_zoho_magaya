@@ -15,11 +15,11 @@ storeQuote.subscribe(() => {
     let arrow_next = `<span class="material-icons cursor-hand oculto2">arrow_forward_ios</span>`;
     let arrow_prev = `<span class="material-icons cursor-hand oculto2">arrow_back_ios_new</span>`
     if (!_.isEmpty(u.nextQuote)) {
-        arrow_next = `<span class="material-icons cursor-hand" onClick="move_quote('${u.nextQuote.id}')">arrow_forward_ios</span>`
+        arrow_next = `<span class="material-icons cursor-hand" onClick="move_quote('${u.nextQuote.id}', 1)">arrow_forward_ios</span>`
     }
 
     if (!_.isEmpty(u.prevQuote)) {
-        arrow_prev = `<span class="material-icons cursor-hand" onClick="move_quote('${u.prevQuote.id}')">arrow_back_ios_new</span>`
+        arrow_prev = `<span class="material-icons cursor-hand" onClick="move_quote('${u.prevQuote.id}', 0)">arrow_back_ios_new</span>`
     }
 
 
@@ -173,6 +173,7 @@ storeQuote.subscribe(() => {
 
             { "data": "magaya__QuoteInMagaya", "visible": false},
 
+            { "data": "Magaya_updated", "visible": false},
             //{ title: "magaya__Status" },
 
         ]
@@ -187,11 +188,11 @@ storeQuote.subscribe(() => {
             // Toggle the visibility
             column.visible( ! column.visible() );
             if (!column.visible()) {
-                $(this).children().remove()
+                $(this).children(":first").remove()
                 $(this).prepend(`<span class="material-icons mr-2 oculto">check_box_outline_blank</span>`)
             }
             else {
-                $(this).children().remove()
+                $(this).children(":first").remove()
                 $(this).prepend(`<span class="material-icons mr-2 oculto">check_box</span>`)
             }
         } );
@@ -270,7 +271,6 @@ storeQuote.subscribe(() => {
 
         //relleno los campos
         //campos q no son objetos
-        $("input[name=RowRecord]").val(quoteToEdit.number)
         $("#magaya__Description").val(quoteToEdit.magaya__Description)
 
         $.map(quoteToEdit, function(k, v) {
@@ -283,87 +283,65 @@ storeQuote.subscribe(() => {
             }
         })
 
-        const edate = quoteToEdit.magaya__ExpirationDate.split("T")
+        let edate = quoteToEdit.magaya__ExpirationDate.split("T")
+        let mdate = quoteToEdit.Modified_Time.split(" ")
         $("input[name=magaya__ExpirationDate]").val(edate[0])
+        $("#magaya__ExpirationDatePreview").html(edate[0])
+        $("#Modified_TimePreview").html(mdate[0])
 
-            $("input[name=NameQuote]").val(quoteToEdit.Name)
+        $("input[name=NameQuote]").val(quoteToEdit.Name)
 
-            let owner = quoteToEdit.Owner.id
-            let ownerName = quoteToEdit.Owner.name
-            let ownerValues = $("select[name=Owner] option")
-            $.map(ownerValues, function(k, v) {
-                if (k.value === owner) {
-                    $(`select[name=Owner] option:contains(${k.text})`).prop('selected', true);
-                    $(`select[name=Owner]`).change()
-                } else {
-                    $(`select[name=Owner]`).prop('selected', false)
+        let owner = quoteToEdit.Owner.id
+        let ownerName = quoteToEdit.Owner.name
+        let ownerValues = $("select[name=Owner] option")
+        $.map(ownerValues, function(k, v) {
+            if (k.value === owner) {
+                $(`select[name=Owner] option:contains(${k.text})`).prop('selected', true);
+                $(`select[name=Owner]`).change()
+            } else {
+                $(`select[name=Owner]`).prop('selected', false)
+            }
+
+        })
+
+        //account, cliente de la cotizacion
+        if (!_.isEmpty(quoteToEdit.Account)) {
+            const id = quoteToEdit["Account"]["id"];
+            const client = sanitize(quoteToEdit["Account"]["name"]);
+
+            //check if account is on store
+            let accounts = storeAccounts.getState().accounts
+            let accountA = {}
+            accounts.map(account_f => {
+                if (account_f.id === id) {
+                    accountA = account_f;
                 }
-
             })
 
-            //account, cliente de la cotizacion
-            if (!_.isEmpty(quoteToEdit.Account)) {
-                const id = quoteToEdit["Account"]["id"];
-                const client = sanitize(quoteToEdit["Account"]["name"]);
+            //if not in store, get account
+            if (_.isEmpty(accountA)) {
+                //search by id
+                 getRecordCRM("Accounts", id)
+                    .then(function(response) {
+                        storeAccounts.dispatch(addAccount(response[0]))
+                        return response
+                    })
+                    .then(function(response) {
+                        storeAccounts.dispatch(addQuoteAccount({id: response[0].id}))
+                        storeAccounts.dispatch(findContactOfAccount({id: response[0].id}))
+                    })
 
-                //check if account is on store
-                let accounts = storeAccounts.getState().accounts
-                let accountA = {}
-                accounts.map(account_f => {
-                    if (account_f.id === id) {
-                        accountA = account_f;
-                    }
-                })
-
-                //if not in store, get account
-                if (_.isEmpty(accountA)) {
-                    //search by id
-                    getRecordCRM("Accounts", id)
-                        .then(function(response) {
-                            $("select[name=Account] option[value='SeeMore']").remove()
-                            $("select[name=magaya__Shipper] option[value='SeeMore']").remove()
-                            $("select[name=magaya__Consignee] option[value='SeeMore']").remove()
-                            storeAccounts.dispatch(addAccount(response[0]))
-                            return response
-
-                        })
-                        .then(function(response) {
-                            storeAccounts.dispatch(addQuoteAccount({id: response[0].id}))
-                            storeAccounts.dispatch(findContactOfAccount({id: response[0].id}))
-                            $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=Account]");
-                            $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Shipper]");
-                            $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Consignee]");
-                        })
-
-                //account in store
-                } else {
-                    let idAccount = !_.isEmpty(quoteToEdit.Account) ? quoteToEdit.Account.id : 0
-                    storeAccounts.dispatch(addQuoteAccount({id: idAccount}))
-                    storeAccounts.dispatch(findContactOfAccount({id: idAccount}))
+            //account in store
+            } else {
+                let idAccount = !_.isEmpty(quoteToEdit.Account) ? quoteToEdit.Account.id : 0
+                storeAccounts.dispatch(addQuoteAccount({id: idAccount}))
+                storeAccounts.dispatch(findContactOfAccount({id: idAccount}))
 
                 }
 
-
                 //$(`<option value='${id}' selected>${client}</option>`).appendTo("select[name=Account]");
-                $(`<option value='${id}' selected>${client}</option>`).appendTo("select[name=magaya__Shipper]");
-                $(`<option value='${id}' selected>${client}</option>`).appendTo("select[name=magaya__Consignee]");
-
-                //do no t allow duplicates
-                let map = {};
-                $('select[name=magaya__Shipper] option').each(function () {
-                    if (map[this.value]) {
-                        $(this).remove()
-                    }
-                    map[this.value] = true;
-                })
-
-                map = {};
-                $('select[name=magaya__Consignee] option').each(function () {
-                    if (map[this.value]) {
-                        $(this).remove()
-                    }
-                    map[this.value] = true;
-                })
+                //$(`<option value='${id}' selected>${client}</option>`).appendTo("select[name=magaya__Shipper]");
+                //$(`<option value='${id}' selected>${client}</option>`).appendTo("select[name=magaya__Consignee]");
 
                 $("#AccountPreview").html(client)
 
@@ -428,20 +406,6 @@ storeQuote.subscribe(() => {
             let stage = quoteToEdit["magaya__Status"]
             $("select[name=magaya__mQuoteStatus]").val(stage)
 
-            //Shipper y Consignee
-            //hay que buscar el texto , hasta que tengamos un lookup para eliminar esto
-            let shipper = quoteToEdit.magaya__Shipper
-            $("select[name=magaya__Shipper] option").each(function(k) {
-                if ($(this).text() === shipper)
-                    $("select[name=magaya__Shipper]").val($(this).val())
-            })
-
-
-            let consignee = quoteToEdit.magaya__ConsigneeName
-            $("select[name=magaya__ConsigneeName] option").each(function(k) {
-                if ($(this).text() === consignee)
-                    $("select[name=magaya__ConsigneeName]").val($(this).val())
-            })
 
             //magaya terms
             let terms = quoteToEdit.magaya__Terms
@@ -468,6 +432,7 @@ storeQuote.subscribe(() => {
 
                 ZOHO.CRM.API.getRecord( {Entity: "magaya__Routing", RecordID: routingId })
                     .then(function(response) {
+
                         $.map(response.data[0], function(k, v) {
                             if (!_.isObject(v) && !v.includes("$") && !_.isEmpty(k)) {
                                 $(`input[name=${v}]`).val(k)
@@ -505,30 +470,32 @@ storeQuote.subscribe(() => {
 
                         //}
 
-                        let shipper = data.magaya__Shipper;
-                        let shipperValues = $("select[name=magaya__Shipper] option")
-                        //$("select[name=magaya__Shipper] option:selected").prop("selected", false)
-                        $.map(shipperValues, function(k, v) {
-                            //$(`select[name=magaya__Shipper] option`).attr('selected', false)
-                            if (k.text === shipper) {
-                                $(`select[name=magaya__Shipper] option:contains(${shipper})`).prop('selected', true);
-                                $(`select[name=magaya__Shipper]`).change()
+                        let shipper_id = 0;
+                        $("select[name=magaya__Shipper]").val("").change()
+                        if (!_.isEmpty(data.magaya__Shipper0)) {
+                            shipper_id = data.magaya__Shipper0.id
+                            if (!checkAccountInStore(shipper_id)) {
+                                getAccountFromCrmSetStore(shipper_id, 'magaya__Shipper')
                             } else {
-                                $(`select[name=magaya__Shipper]`).prop('selected', false);
+                                $("select[name=magaya__Shipper]").val(shipper_id).change()
+                                dropDuplicateInSelect("magaya__Shipper")
+                            }
+                        }
+
+                        let consignee_id = 0;
+                        $("select[name=magaya__Consignee]").val("").change()
+                        if (!_.isEmpty(data.magaya__Consignee0)) {
+                            consignee_id = data.magaya__Consignee0.id
+                            if (!checkAccountInStore(consignee_id)) {
+                                getAccountFromCrmSetStore(consignee_id, 'magaya__Consignee')
+                            } else {
+                                $("select[name=magaya__Consignee]").val(consignee_id).change()
+                                dropDuplicateInSelect("magaya__Consignee")
 
                             }
-                        })
-                        let consignee = data.magaya__Consignee;
-                        let consigneeValues = $("select[name=magaya__Consignee] option")
-                        $.map(consigneeValues, function(k, v) {
-                            //$(`select[name=magaya__Consignee] option`).attr("selected", false)
-                            if (k.text === consignee) {
-                                $(`select[name=magaya__Consignee] option:contains(${consignee})`).prop('selected', true);
-                                $(`select[name=magaya__Consignee]`).change()
-                            } else {
-                                $(`select[name=magaya__Consignee]`).prop('selected', false)
-                            }
-                        })
+                        }
+
+
 
                         //$(`select[name=magaya__MainCarrier] option:contains(${idMainCarrier})`).val(idMainCarrier);
                         //$("select[name=magaya__MainCarrier]").selectpicker('render');

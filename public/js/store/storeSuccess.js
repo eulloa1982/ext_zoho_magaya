@@ -35,8 +35,14 @@ storeSuccess.subscribe(() => {
     //$("#show-success").empty()
     //$("#quote-info").html(`Operation Success: ${message}`).css("display", "block").addClass("animate__backInLeft").fadeIn("slow").delay(2000).fadeOut("slow");
     //$("#quote-info").append(`<p class="animate__animated animate__bounceInLeft">Operation success: ${message_success.message}</p>`).css("display", "block").fadeIn("slow").delay(6000).fadeOut("slow");
-    $("#quote-info").css("display", "block").css("height","120px").delay(3000).fadeOut("slow");
-    $("#message-info").html(`<p>Operation success: ${message_success.message}</p>`);
+    //$("#quote-info").css("display", "block").css("height","120px").delay(3000).fadeOut("slow");
+    //$("#message-info").html(`<p>Operation success: ${message_success.message}</p>`);
+    Swal.fire({
+        title: "Operation success",
+        text: message_success.message,
+        icon: "success",
+        confirmButtonText: "Yes",
+    })
 
 })
 

@@ -1,3 +1,9 @@
+<style>
+    .add-accounts {
+        cursor: pointer;
+        margin-left: 10px;
+    }
+</style>
 <!-- Edit Modal HTML -->
 <div id="mquoteModal" class="modal fade" tabindex="-10" role="dialog" aria-labelledby="edit" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 	<div class="modal-dialog">
@@ -96,7 +102,7 @@
 								</div>
 
                                 <div class="col-md-3">
-									<label class="col-md-12" style="font-weight: bold;">Incoterms</label>
+									<label class="col-md-12" style="font-weight: bold;">Incoterm Rule</label>
                                     <select name='magaya__Incoterm_rule' class='form-control no-border'>
                                         <option value=""></option>
                                         <option value="EXW - Ex Works">EXW - Ex Works</option>
@@ -269,15 +275,15 @@
 
 							<div class="row" style="margin-bottom:20px; margin-top:20px;">
 								<div class="col-md-6" style="font-weight: bold;">
-									<label class="col-md-12">Shipper</label>
-									<select name="magaya__Shipper" class="accounts form-control no-border" onchange="addItems()">
+									<label class="col-md-12">Shipper<span class="material-icons add-accounts" onclick="addItems()">keyboard_arrow_right</span></label>
+									<select name="magaya__Shipper" class="accounts form-control no-border">
 										<option></option>
 									</select>
 								</div>
 
 								<div class="col-md-6">
-									<label class="col-md-12" style="font-weight: bold;">Consignee</label>
-									<select name="magaya__Consignee" class="accounts form-control no-border" onchange="addItems()">
+									<label class="col-md-12" style="font-weight: bold;">Consignee<span class="material-icons add-accounts" onclick="addItems()">keyboard_arrow_right</span></label>
+									<select name="magaya__Consignee" class="accounts form-control no-border">
 										<option></option>
 									</select>
 								</div>
@@ -371,8 +377,8 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <label class="col-md-12" style="font-weight: bold;">Customer <span class="material-icons add_contact_link" id="add_account">person_add</span></label>
-                                        <select  name="Account" class="accounts form-control no-border" onchange="addItems()">
+                                        <label class="col-md-12" style="font-weight: bold;">Customer <span class="material-icons add_contact_link" style="margin-left: 10px; cursor: pointer;" id="add_account">person_add</span><span style="margin-left: 10px; cursor: pointer;" class="material-icons add-accounts" onclick="addItems()">keyboard_arrow_right</span></label>
+                                        <select  name="Account" class="accounts form-control no-border">
                                             <option></option>
                                         </select>
                                     </div>
@@ -389,12 +395,6 @@
                                         <div class="form-check form-check-inline">
                                             <input type="radio" class="form-check-input" id="rol_consignee" name="customer_rol" value="consignee">
                                             <label class="form-check-label" for="materialInline2">Consignee</label>
-                                        </div>
-
-                                        <!-- Material inline 3 -->
-                                        <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" id="rol_other" name="customer_rol" value="other">
-                                            <label class="form-check-label" for="materialInline3">Other</label>
                                         </div>
                                     </div>
                                 </div>
@@ -784,6 +784,8 @@
                     <button type="button" id="Save" class="btn btn-primary" style="width:80px;margin-right: 20px; background-color: #0b3355">Save</button>
                     <button type="button" id="New" class="btn btn-primary" style="width:80px;margin-right: 20px; background-color: #0b3355">Save</button>
                     <button type="button" class="btn btn-danger cerrar-modal" style="width:80px;">Cancel</button>
+                    <button type="button" class="btn btn-danger reload" style="width:80px; display: none;">Cancel</button>
+
 				</div>
 			</div>
 		</div><!--modal-content-->
@@ -796,66 +798,57 @@
         let number = localStorage.getItem('account_page');
         number = Number(number)
 
-        if ( $("select[name=Account]").val() == "SeeMore" || $("select[name=magaya__Shipper]").val() == "SeeMore" || $("select[name=magaya__Consignee]").val() == "SeeMore") {
-            getAllsRecordCRM("Accounts", number, 3)
-                .then(function(data) {
+        getAllsRecordCRM("Accounts", number, 3)
+            .then(function(data) {
+                if (!_.isEmpty(data)) {
+                    //obtener los valores del select
+                    $.map(data, function(k, v) {
+                        $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
+                        $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Shipper]");
+                        $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Consignee]");
+                    })
 
-                    $("select[name=Account] option[value='SeeMore']").remove()
-                    $("select[name=magaya__Shipper] option[value='SeeMore']").remove()
-                    $("select[name=magaya__Consignee] option[value='SeeMore']").remove()
+                    storeAccounts.dispatch(addAccount(data))
+                    localStorage.setItem('account_page', ++number)
 
-                    if (!_.isEmpty(data)) {
-                        //obtener los valores del select
-                        $.map(data, function(k, v) {
+                } else {
+                    //no more data
+                    $(".add-accounts").css("opacity", "0.25")
+                }
 
-                            $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=Account]");
-                            $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Shipper]");
-                            $(`<option value="${k.id}">${k.Account_Name}</option>`).appendTo("select[name=magaya__Consignee]");
-                        })
-
-                        storeAccounts.dispatch(addAccount(data))
-                        $("select[name=Account],select[name=magaya__Shipper],select[name=magaya__Consignee]").val("").change()
-                        localStorage.setItem('account_page', ++number)
+                return data
+            })
+            .then(function(data) {
+                //do not allow duplicates
+                let map = {};
+                $('select[name=Account] option').each(function () {
+                    if (map[this.value]) {
+                        $(this).remove()
                     }
-
-                    return data
+                    map[this.value] = true;
                 })
-                .then(function(data) {
-                    //do not allow duplicates
-                    let map = {};
-                    $('select[name=Account] option').each(function () {
-                        if (map[this.value]) {
-                            $(this).remove()
-                        }
-                        map[this.value] = true;
-                    })
 
-                    map = {};
-                    $('select[name=magaya__Consignee] option').each(function () {
-                        if (map[this.value]) {
-                            $(this).remove()
-                        }
-                        map[this.value] = true;
-                    })
-
-                    map = {};
-                    $('select[name=magaya__Shipper] option').each(function () {
-                        if (map[this.value]) {
-                            $(this).remove()
-                        }
-                        map[this.value] = true;
-                    })
-
-                    if (!_.isEmpty(data)) {
-                        $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=Account]");
-                        $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Shipper]");
-                        $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Consignee]");
+                map = {};
+                $('select[name=magaya__Consignee] option').each(function () {
+                    if (map[this.value]) {
+                        $(this).remove()
                     }
+                    map[this.value] = true;
                 })
-                .catch(function(err) {
-                    console.log(`Err: ${errs}`)
+
+                map = {};
+                $('select[name=magaya__Shipper] option').each(function () {
+                    if (map[this.value]) {
+                        $(this).remove()
+                    }
+                    map[this.value] = true;
                 })
-        };
+
+
+            })
+            .catch(function(err) {
+                console.log(`Err: ${errs}`)
+            })
 
     }
 </script>

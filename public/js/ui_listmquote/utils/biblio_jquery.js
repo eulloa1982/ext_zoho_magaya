@@ -816,8 +816,15 @@ async function buildPdf(pdf_type) {
 
 
 
-function move_quote(idQuote) {
+function move_quote(idQuote, where = 0) {
     //drop the state temporal items and charges
+    let row_index =  $("input[name=RowRecord]").val();
+    if (where == 0)
+        row_index--
+    else
+        row_index++
+    $("input[name=RowRecord]").val(row_index);
+
     storeItem.dispatch(emptyItems())
     storeCharge.dispatch(emptyCharges())
     storeAccounts.dispatch(emptyAllAccounts())
@@ -843,3 +850,49 @@ $(function () {
 //checa cantidad de digitos
 //https://www.it-swarm-es.com/es/javascript/obtener-numero-de-digitos-con-javascript/1071038179/
 const digitCount2 = num => String( Math.floor( Math.abs(num) ) ).length;
+
+
+//checa si un account esta en el store
+function checkAccountInStore( idAccount ) {
+    //check if account is on store
+    let accounts = storeAccounts.getState().accounts
+    let accountA = {}
+    accounts.map(account_f => {
+        if (account_f.id === idAccount) {
+            accountA = account_f;
+        }
+    })
+
+    if (_.isEmpty(accountA))
+        return false;
+    return true;
+}
+
+//get account, update store
+function getAccountFromCrmSetStore( idAccount, selectField ) {
+    getRecordCRM("Accounts", idAccount)
+        .then(function(response) {
+            storeAccounts.dispatch(addAccount(response[0]))
+            return response
+
+        })
+        .then(function(response) {
+            $(`<option value='${response[0].id}' selected>${response[0].Account_Name}</option>`).appendTo(`select[name=${selectField}]`);
+
+            $(`select[name=${selectField}]`).change()
+            //do not allow duplicates
+            dropDuplicateInSelect(selectField)
+        })
+
+}
+
+//delete duplicate options in selects fields
+function dropDuplicateInSelect( selectField ) {
+    let map = {};
+    $(`select[name=${selectField}] option`).each(function () {
+        if (map[this.value]) {
+            $(this).remove()
+        }
+        map[this.value] = true;
+    })
+}

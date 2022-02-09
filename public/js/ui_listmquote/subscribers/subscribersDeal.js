@@ -24,9 +24,6 @@ storeDeal.subscribe(() => {
             if (_.isEmpty(accountA)) {
                 getRecordCRM("Accounts", accountId)
                     .then(function(response) {
-                        $("select[name=Account] option[value='SeeMore']").remove()
-                        $("select[name=magaya__Shipper] option[value='SeeMore']").remove()
-                        $("select[name=magaya__Consignee] option[value='SeeMore']").remove()
                         storeAccounts.dispatch(addAccount(response[0]))
                         return response
 
@@ -37,9 +34,6 @@ storeDeal.subscribe(() => {
                         $("select[name=Account]").append(`<option value="${response[0].id}" selected>${sanitize(response[0]['Account_Name'])}</option>`).change()
                         $("select[name=magaya__Shipper]").append(`<option value="${response[0].id}">${sanitize(response[0]['Account_Name'])}</option>`).change()
                         $("select[name=magaya__Consignee]").append(`<option value="${response[0].id}">${sanitize(response[0]['Account_Name'])}</option>`).change()
-                        $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=Account]");
-                        $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Shipper]");
-                        $('<option value="SeeMore" class="seeMore">See More...</option>').appendTo("select[name=magaya__Consignee]");
                     })
 
             //account in store
