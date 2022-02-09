@@ -106,7 +106,6 @@ $(document).ready(function(){
     $('#table-quotes').bind("DOMSubtreeModified", function(e) {
         e.preventDefault()
 
-
         $('#table-quotes td:nth-child(n+2)').click(function(e) {
             e.preventDefault()
             e.stopImmediatePropagation()
@@ -118,8 +117,8 @@ $(document).ready(function(){
             limpiar_form()
 
             //dispatch
-            //make_pdf(idmQuoteToEdit);
-            $("input[name=RowRecord]").val($(e.currentTarget).parent().index())
+            const $row = $(this).closest("tr").index();
+            $("input[name=RowRecord]").val($row)
             storeQuote.dispatch(findQuote({id: data_id}))
             $("#panel-preview").show("fast");
             $(this).toggleClass("active"); return false;
@@ -191,6 +190,8 @@ $(document).ready(function(){
         $(".edit").click(function(e) {
             e.preventDefault();
             e.stopImmediatePropagation()
+            const $row = $(this).closest("tr").index();
+            $("input[name=RowRecord]").val($row)
             storeQuote.dispatch(clearQuoteToEdit())
             idmQuoteToEdit = $(this).attr('data-id')
             limpiar_form()
@@ -239,7 +240,6 @@ $(document).ready(function(){
                             //actualizar el store
                             ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id_new_mquote})
                                 .then(function(data){
-                                    console.log(data)
                                     storeQuote.dispatch(addStarting(data.data[0]))
                                 })
                         }
@@ -259,7 +259,6 @@ $(document).ready(function(){
                     show = false;
                     module = 'Cargo Items'
                     storeError.dispatch(addError({errorCode: codeError, showInfo: show, field: field, module: module}))
-                    console.log(error1)
                     Utils.unblockUI()
                 })
 

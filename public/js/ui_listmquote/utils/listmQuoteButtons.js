@@ -237,11 +237,11 @@ $(document).ready(function(){
                 if (result.isConfirmed) {
                     $("input[class=quoteCheckBox]:checked").each(function() {
                         let idQuote = $(this).attr('data-id')
-                        let $tr = $(this).parent().parent();
-                        table
-                        .row( $tr )
-                        .remove()
-                        .draw();
+                        //let $tr = $(this).parent();
+                        //table
+                        //.row( $tr )
+                        //.remove()
+                        //.draw();
                         ZOHO.CRM.API.deleteRecord({Entity:"magaya__SQuotes",RecordID: idQuote})
                             .then(function(data){
 
@@ -250,6 +250,8 @@ $(document).ready(function(){
 
                     })
                 }
+            }).then(function(){
+                location.reload()
             })
     })
 
@@ -588,7 +590,7 @@ $(document).ready(function(){
     e.stopImmediatePropagation()
 
     //row record table
-    const row_number = $("input[name=RowRecord]").val() - 1
+    const row_number = $("input[name=RowRecord]").val()
 
     //get deal and quote account, now editable
     let accountQuoteData = storeAccounts.getState().quoteAccount
@@ -720,6 +722,7 @@ $(document).ready(function(){
                     ZOHO.CRM.API.getRecord({Entity:"magaya__SQuotes",RecordID:id})
                         .then(function(data){
                             record = data.data;
+                            record.number = row_number
                             storeQuote.dispatch(updateQuote({id: idQuote, ...record}))
                             //update table row
                             record[0]['number'] = row_number
@@ -947,39 +950,26 @@ $(document).ready(function(){
                             }
                         })
 
-                        //console.log("Dat to returne", data_return)
-
                         return id
                     })
                     .then(function(idQuote) {
-                        //let idQuote = data.idQuote
-                        //let name = data.name
 
-                        jsonItems = $(this).tableToJson('table-items-new', idQuote);
-                        jsonItems = JSON.parse(`[${jsonItems}]`)
+                        //get the items and charges from store
+                        let items = storeItem.getState().itemsOnNew;
+                        $.map(items, function(k) {
+                            Object.assign(k, {'magaya__SQuote_Name': idQuote, 'magaya__Package_Type': k.magaya__Package_Type.id, 'magaya__Status': 'InQuote'})
+                        })
+                        
+                        let charges = storeCharge.getState().chargesOnNew;
+                        $.map(charges, function(k) {
+                            Object.assign(k, {'magaya__SQuote_Name': idQuote})
+                        })
 
-                        jsonCharges = $(this).tableToJson('table-charges-new', idQuote);
-                        jsonData = JSON.parse(`[${jsonCharges}]`)
-
-                        /*jsonNotes = $(this).tableToJson('notes-new', idQuote)
-                        jsonNotesData = JSON.parse(`[${jsonNotes}]`)
-                        console.log("Notes", jsonNotesData)
-                        //check the data
-                        /*if (!_.isEmpty(jsonNotes)) {
-
-                            Object.assign(jsonNotesData, {"Parent_Id": {"name": name, "id": idQuote}})
-                            ZOHO.CRM.API.insertRecord({ Entity: "Notes", APIData: jsonNotesData, Trigger: [] })
-                                .then(function(response) {
-                                    console.log("Response Notes", response)
-                                })
-                        }*/
-
-
-                        if (!_.isEmpty(jsonItems)) {
-                            ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: jsonItems, Trigger: [] })
+                        //insert items
+                        if (!_.isEmpty(items)) {
+                            ZOHO.CRM.API.insertRecord({ Entity: "magaya__ItemQuotes", APIData: items, Trigger: [] })
                                 .then(function(response) {
                                     res = response.data;
-                                    console.log("ITEM Operation", res)
                                     $.map(res, function(k, v) {
                                         if (k.code !== "SUCCESS") {
                                             codeError = k.code;
@@ -1002,14 +992,9 @@ $(document).ready(function(){
                                 })
                         }
 
-                        if (!_.isEmpty(jsonCharges)) {
-                            jsonCharges[0]['Name'] = jsonCharges[0]['magaya__Charge_Description'];
-
-                            $.map(jsonData, function(k) {
-                                Object.assign(k, {"magaya__ApplyToAccounts": accountId})
-                            })
-
-                            ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: jsonData, Trigger: [] })
+                        //insert charges
+                        if (!_.isEmpty(charges)) {
+                            ZOHO.CRM.API.insertRecord({ Entity: "magaya__ChargeQuote", APIData: charges, Trigger: [] })
                                 .then(function(response) {
                                     res = response.data;
                                     $.map(res, function(k, v) {

@@ -23,7 +23,7 @@
         <img class="demo-bg" src="{{ url('images/pdfv2/shipment1.png') }}" alt="Language" />
 
         <div class="demo-content" style="width:100%; height: 140px">
-            <div style="text-align: left; float: left; padding: 10px 0px 0px 10px; font-size: 28px; color: rgb(54, 32, 32)"></strong>{{$organization['mQuote']['Name']}}</div>
+            <div style="text-align: left; float: left; padding: 10px 0px 0px 10px; font-size: 28px;"></strong>{{$organization['mQuote']['Name']}}</div>
 
             <div style="width:300px; float:right; padding: 0px 60px 0px 0px;">
                 @if (@isset($organization['orgData']['company_name']))
@@ -51,7 +51,7 @@
     </div>
 
 
-    <div style="width: 40%; padding: 5px 5px 5px 5px; float: left; font-size: 12px; display: block; margin-top:10px;"><strong>Customer Info</strong><br />
+    <div style="width: 40%; padding: 5px 5px 5px 5px; float: left; font-size: 12px; display: block; margin-top:10px;"><span style="font-size: 16px">Customer Info</span><br />
         @if (@isset($organization['mQuote']['Account']))
         <strong>Customer:</strong> {{$organization['mQuote']['Account']['name']}}
         <br />
@@ -87,7 +87,7 @@
         @endif
     </div>
 
-    <div style="width: 40%; padding: 5px 5px 5px 5px; float: left; font-size: 12px; display: block; margin-left: 120px; margin-top:10px; border-collapse:separate; border:solid black 1px; border-radius:6px;"><strong>Quote Info</strong><br />
+    <div style="width: 40%; padding: 5px 5px 5px 5px; float: left; font-size: 12px; display: block; margin-left: 120px; margin-top:10px; border-collapse:separate; border:solid black 1px; border-radius:6px;"><span style="font-size: 16px">Quote Info</span><br />
         @if (@isset($organization['mQuote']['Name']))
             <strong>Name: </strong>{{$organization['mQuote']['Name']}} <br />
         @endif
@@ -106,7 +106,7 @@
             <strong>Contact To:</strong> {{$organization['mQuote']['Owner']['name']}},<br> {{$organization['mQuote']['Owner']['email']}}
         @endif
     </div>
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
 @endif
 

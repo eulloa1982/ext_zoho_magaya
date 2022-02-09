@@ -163,12 +163,6 @@ function rolShipper(){
     let mailing_zip = $("input[name=Mailing_Zip]").val()
 
     storeAccounts.dispatch(setAccountShipper({id: account}))
-    $("select[name=magaya__Consignee]").val("")
-    $("input[name=magaya__ConsigneeCity]").val("")
-    $("input[name=magaya__ConsigneeState").val("")
-    $("input[name=magaya__ConsigneeCountry]").val("")
-    $("input[name=magaya__ConsigneeStreet]").val("")
-    $("input[name=magaya__ConsigneeCode]").val("")
 
     $("input[name=Phone]").val(phone)
     $("input[name=Mobile]").val(mobile)
@@ -193,12 +187,6 @@ function rolConsignee() {
     let mailing_zip = $("input[name=Mailing_Zip]").val()
 
     storeAccounts.dispatch(setAccountConsignee({id: account}))
-    $("select[name=magaya__Shipper]").val("")
-    $("input[name=magaya__ShipperCity]").val("")
-    $("input[name=magaya__ShipperState").val("")
-    $("input[name=magaya__ShipperCountry]").val("")
-    $("input[name=magaya__ShipperStreet]").val("")
-    $("input[name=magaya__ShipperCode]").val("")
 
     $("input[name=Phone]").val(phone)
     $("input[name=Mobile]").val(mobile)
@@ -211,43 +199,6 @@ function rolConsignee() {
 
 }
 
-function rolOther() {
-
-    let phone = $("input[name=Phone]").val()
-    let mobile = $("input[name=Mobile]").val()
-    let email = $("input[name=Email]").val()
-    let mailing_street = $("input[name=Mailing_Street]").val()
-    let mailing_city = $("input[name=Mailing_City]").val()
-    let mailing_country = $("input[name=Mailing_Country]").val()
-    let mailing_state = $("input[name=Mailing_State]").val()
-    let mailing_zip = $("input[name=Mailing_Zip]").val()
-
-    $("select[name=magaya__Consignee]").val("")
-    $("input[name=magaya__ConsigneeCity]").val("")
-    $("input[name=magaya__ConsigneeState").val("")
-    $("input[name=magaya__ConsigneeCountry]").val("")
-    $("input[name=magaya__ConsigneeStreet]").val("")
-    $("select[name=magaya__Shipper]").val("")
-    $("input[name=magaya__ShipperCity]").val("")
-    $("input[name=magaya__ShipperState").val("")
-    $("input[name=magaya__ShipperCountry]").val("")
-    $("input[name=magaya__ShipperStreet]").val("")
-    $("input[name=magaya__ShipperCode]").val("")
-    $("input[name=magaya__ConsigneeCode]").val("")
-
-    $("input[name=Phone]").val(phone)
-    $("input[name=Mobile]").val(mobile)
-    $("input[name=Email]").val(email)
-    $("input[name=Mailing_Street]").val(mailing_street)
-    $("input[name=Mailing_City]").val(mailing_city)
-    $("input[name=Mailing_Country]").val(mailing_country)
-    $("input[name=Mailing_State]").val(mailing_state)
-    $("input[name=Mailing_Zip]").val(mailing_zip)
-}
-
-function stayContact() {
-
-}
 
 //var obs = new MutationObserver(function(mutations, observer) {
 $("select[name=magaya__Package_Type]").change(function(e) {
