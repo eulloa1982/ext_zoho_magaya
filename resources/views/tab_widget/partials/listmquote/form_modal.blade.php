@@ -553,17 +553,17 @@
 
                             <div class="scrollme col-12">
                                 <div id="info-charge"></div>
-                                <table id="table-charges" class="table table-responsive table-bordered table-striped">
+                                <table id="table-charges" class="table-striped">
 									<thead style="text-align:center;">
                                         <tr>
-                                            <th style="width:10%"></th>
-											<th style="width:10%">Status</th>
-                                            <th style="width:26%">Description</th>
-											<th style="width:9%">Quantity</th>
-                                            <th style="width:9%">Price</th>
-                                            <th style="width:9%">Amount</th>
-                                            <th style="width:9%">Tax Amount</th>
-											<th style="width:9%">Amount + Tax</th>
+                                            <th class="edit"></th>
+											<th class="edit">Status</th>
+                                            <th class="description">Description</th>
+											<th class="pieces">Quantity</th>
+                                            <th class="measure">Price</th>
+                                            <th class="measure">Amount</th>
+                                            <th class="totals">Tax Amount</th>
+											<th class="totals">Amount + Tax</th>
 										</tr>
 									</thead>
 									<tbody></tbody>
@@ -572,17 +572,17 @@
                             </div>
 
                             <div class="scrollme col-12">
-                                <table id="table-charges-new" class="table table-responsive table-bordered table-striped">
+                                <table id="table-charges-new" class="table-striped">
                                     <thead>
                                         <tr>
-                                            <th style="width:10%"></th>
-											<th style="width:10%">Status</th>
-                                            <th style="width:26%">Description</th>
-											<th style="width:9%">Quantity</th>
-                                            <th style="width:9%">Price</th>
-                                            <th style="width:9%">Amount</th>
-                                            <th style="width:9%">Tax Amount</th>
-											<th style="width:9%">Amount + Tax</th>
+                                            <th class="edit"></th>
+											<th class="edit">Status</th>
+                                            <th class="description">Description</th>
+											<th class="pieces">Quantity</th>
+                                            <th class="measure">Price</th>
+                                            <th class="measure">Amount</th>
+                                            <th class="totals">Tax Amount</th>
+											<th class="totals">Amount + Tax</th>
 										</tr>
 									</thead>
 									<tbody></tbody>
@@ -680,17 +680,17 @@
 
 
                                 <div class="scrollme col-12">
-                                    <table id="table-items" class="table table-responsive table-striped" >
+                                    <table id="table-items" class="table-striped" >
                                             <thead style="text-align:center;">
                                                 <tr>
-                                                    <th style="width:9%"></th>
-                                                    <th style="width:31%">Description</th>
-                                                    <th style="width:8%">Pieces</th>
-                                                    <th colspan="2" style="width:14%">Length</th>
-                                                    <th colspan="2" style="width:14%">Heigth</th>
-                                                    <th colspan="2" style="width:14%">Width</th>
-                                                    <th colspan="2" style="width:20%">Total Weigth</th>
-                                                    <th colspan="2" style="width:20%">Total Volume</th>
+                                                    <th class="edit">Edit</th>
+                                                    <th class="description">Description</th>
+                                                    <th class="pieces">Pieces</th>
+                                                    <th colspan="2" class="measure">Length</th>
+                                                    <th colspan="2" class="measure">Heigth</th>
+                                                    <th colspan="2" class="measure">Width</th>
+                                                    <th colspan="2" class="totals">Total Weigth</th>
+                                                    <th colspan="2" class="totals">Total Volume</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -699,17 +699,17 @@
                                 </div>
 
                                 <div class="scrollme col-12">
-                                    <table id="table-items-new" class="table table-responsive table-striped" >
+                                    <table id="table-items-new" class="table-striped">
                                             <thead style="text-align:center;">
                                                 <tr>
-                                                    <th style="width:9%"></th>
-                                                    <th style="width:31%">Description</th>
-                                                    <th style="width:8%">Pieces</th>
-                                                    <th colspan="2" style="width:14%">Length</th>
-                                                    <th colspan="2" style="width:14%">Heigth</th>
-                                                    <th colspan="2" style="width:14%">Width</th>
-                                                    <th colspan="2" style="width:20%">Total Weigth</th>
-                                                    <th colspan="2" style="width:20%">Total Volume</th>
+                                                    <th class="edit">Edit</th>
+                                                    <th class="description">Description</th>
+                                                    <th class="pieces">Pieces</th>
+                                                    <th colspan="2" class="measure">Length</th>
+                                                    <th colspan="2" class="measure">Heigth</th>
+                                                    <th colspan="2" class="measure">Width</th>
+                                                    <th colspan="2" class="totals">Total Weigth</th>
+                                                    <th colspan="2" class="totals">Total Volume</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>

@@ -235,9 +235,65 @@ table #table-charges-preview #table-items-preview {
     border: none;
 }
 
+#table-charges,
+#table-charges-new,
+#table-items,
+#table-items-new {
+    table-layout: auto;
+    overflow: auto;
+}
+
+#table-charges td,
+#table-charges-new td,
 #table-items td,
+#table-items-new td {
+    padding: 3px 3px 3px 3px;
+    border-left: 1px solid rgb(189, 176, 176);
+    border-bottom: 1px solid rgb(189, 176, 176);
+    border-top: 1px solid rgb(189, 176, 176);
+}
+
+#table-charges .edit,
+#table-charges-new .edit,
+#table-items .edit,
+#table-items-new .edit {
+    width: 5%;
+}
+
+#table-charges .description,
+#table-charges-new .description,
+#table-items .description,
+#table-items-new .description {
+    width: 25%;
+}
+
+#table-charges .pieces,
+#table-charges-new .pieces,
+#table-items .pieces,
+#table-items-new .pieces {
+    width: 5%;
+
+}
+
+#table-charges .measure,
+#table-charges-new .measure,
+#table-items .measure,
+#table-items-new .measure {
+    min-width: 10%;
+}
+
+#table-charges .totals,
+#table-charges-new .totals,
+#table-items .totals,
+#table-items-new .totals {
+    min-width: 12%;
+}
+
+#table-charges th,
+#table-charges-new th,
+#table-items th,
 #table-items-new th {
-    border: 1px solid #dee2e6;
+    border: 1px solid rgb(189, 176, 176);
     padding-right: 0px;
     padding-left: 2px;
 }

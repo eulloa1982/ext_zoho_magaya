@@ -197,24 +197,17 @@ storeCharge.subscribe(() => {
             }
 
             $("#table-charges tbody").append(`<tr>
-                    <td class="Delete">
+                    <td>
                         <span class="material-icons oculto btn-slide" data-module="table-charges" data-id="${i}">create</span>
                         <span class="material-icons oculto del-item-charge" data-id=${k.id}>delete_forever</span>
                     </td>
-                    <td class="magaya__Status">${k.magaya__Status}</td>
-                    <td class="Name" id="first">${name_charge}</td>
-                    <td align="right" class="magaya__CQuantity">${k.magaya__CQuantity}</td>
-                    <td align="right" class="magaya__Price">${roundDec(k.magaya__Price).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-                    <td align="right" class="magaya__Amount">${roundDec(k.magaya__Amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-                    <td align="right" class="magaya__Tax_Amount">${roundDec(k.magaya__Tax_Amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-                    <td align="right" class="magaya__Amount_Total">${roundDec(k.magaya__Amount_Total).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-                    <td class="magaya__Charge_Type" style="display: none;">${k.magaya__Charge_Type}</td>
-                    <td style="display: none;" class="magaya__Tax">${k.magaya__Tax}</td>
-                    <td style="display: none;" clss="magaya__Unit">${k.magaya__Unit}</td>
-                    <td style="display: none;" class="magaya__Paid_As">${k.magaya__Paid_As}</td>
-                    <td style="display: none;" class="magaya__ChargeCurrency">${k.magaya__ChargeCurrency}</td>
-                    <td style="display: none;" class="Name">${k.Name}</td>
-                    <td style="display: none;" class="magaya__ApplyToAccounts">${accountId}</td>
+                    <td>${k.magaya__Status}</td>
+                    <td id="first">${name_charge}</td>
+                    <td align="right">${k.magaya__CQuantity}</td>
+                    <td align="right">${roundDec(k.magaya__Price).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                    <td align="right">${roundDec(k.magaya__Amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                    <td align="right">${roundDec(k.magaya__Tax_Amount).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                    <td align="right">${roundDec(k.magaya__Amount_Total).toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
 
                 </tr>`);
 
@@ -284,38 +277,31 @@ storeCharge.subscribe(() => {
                 amount_total += roundDec(k.magaya__Amount_Total)
 
                 $("#table-charges-new tbody").append(`<tr>
-                <td class="Delete">
+                <td>
                     <span class="material-icons oculto btn-slide" data-module="table-charges-new" data-id="${i}">create</span>
                     <span class="material-icons oculto del-item-charge-new" data-id=${i}>delete_forever</span>
                 </td>
-                <td class="magaya__Status">${k.magaya__Status}</td>
-                <td align="right" data-type="number" class="NoData">${k.magaya__Charge_Name}</td>
-                <td align="right" data-type="number" class="magaya__CQuantity">${k.magaya__CQuantity}</td>
-                <td align="right" data-type="number" class="magaya__Price">${k.magaya__Price.toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-                <td align="right" data-type="number" class="magaya__Amount">${k.magaya__Amount.toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-                <td align="right" data-type="number" class="magaya__Tax_Amount">${k.magaya__Tax_Amount.toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-                <td align="right" data-type="number" class="magaya__Amount_Total">${k.magaya__Amount_Total.toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
-                <td class="magaya__Charge_Type" style="display: none;">${k.magaya__Charge_Type}</td>
-                <td class="magaya__Tax" style="display: none;">${k.magaya__Tax}</td>
-                <td class="magaya__TaxRate" style="display: none;">${k.magaya__TaxRate}</td>
-                <td class="magaya__Unit" style="display: none;">${k.magaya__Unit}</td>
-                <td class="magaya__Paid_As" style="display: none;">${k.magaya__Paid_As}</td>
-                <td class="magaya__ChargeCurrency" style="display: none;">${k.magaya__ChargeCurrency}</td>
-                <td class="Name" style="display: none;">${k.Name}</td>
+                <td>${k.magaya__Status}</td>
+                <td>${k.magaya__Charge_Name}</td>
+                <td align="right" data-type="number">${k.magaya__CQuantity}</td>
+                <td align="right" data-type="number">${k.magaya__Price.toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                <td align="right" data-type="number">${k.magaya__Amount.toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                <td align="right" data-type="number">${k.magaya__Tax_Amount.toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
+                <td align="right" data-type="number">${k.magaya__Amount_Total.toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 </tr>`);
                 /*************************
-                 * 
-                 * LIMPIAR EN LA TABLA LAS CELDAS QUE NO SE MUESTRAN, 
+                 *
+                 * LIMPIAR EN LA TABLA LAS CELDAS QUE NO SE MUESTRAN,
                  * YA Q SE PROCESAN LAS INSERCIONES DESDE EL STORE
                 ***************************/
 
             })
 
 
-            $("#table-charges-new tfoot").append(`<tr><td colspan="5"class="Delete"><strong>Totals USD</strong></td>
-                                        <td align="right" class="Delete"><strong>${amount_.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
-                                        <td align="right" class="Delete"><strong>${tax_amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
-                                        <td align="right" class="Delete"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
+            $("#table-charges-new tfoot").append(`<tr><td colspan="5"><strong>Totals USD</strong></td>
+                                        <td align="right"><strong>${amount_.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
+                                        <td align="right"><strong>${tax_amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
+                                        <td align="right"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         </tr>`);
         }
 
