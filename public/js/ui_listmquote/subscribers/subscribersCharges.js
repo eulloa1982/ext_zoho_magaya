@@ -1,12 +1,23 @@
-//si es quotesOnNew es true, sino es false y son charges en edit
+/**************************************************************************************
+ *
+ *  subscriptor de store/storeCharges.js
+ * Este archivo dibuja los charges en las tablas charges del modal de cotizacion,
+ * y en la tabla charge del preview de cotizacion
+ *
+ ************************************************************************************/
+
+//nueva cotizacion = true, edit cotizacion = false
+//se utiliza para discriminar el dibujo de los botones y tablas
+//por ejemplo: si es una edicion de mquote, el boton del charge seria updateCharge
 let data_module_flag_charge = true
-//$("#info-charge").html("Loading, please wait...");
-//get one charge
+
 storeCharge.subscribe(() => {
+    //storeCharge.getState().singleCharge => charge activo en cotizacion nueva o editada
     let u = storeCharge.getState().singleCharge;
     let y = storeCharge.getState().emptyCharge[1];
     let showEmpty = storeCharge.getState().showEmptyCharge;
-    //console.log("State charges now", storeCharge.getState())
+
+    //dibujo del charge activo (el que se encuentra en el formulario)
     if (!_.isEmpty(u)) {
         let k = parseInt(u[0])
         //construir los campos y la data
@@ -16,19 +27,18 @@ storeCharge.subscribe(() => {
         let applyToName = ''
         $.map(u[1], function(k, v) {
             idCharge = u[1].id
-            //applyToName = u[1].magaya__ApplyToAccounts.name
         })
 
-
-
+        //formulario charge -> barra de navegacion
+        //establece tipo de tabla y botones
         let data_module = data_module_flag_charge ? "table-charges-new" : "table-charges"
         let button_type = data_module_flag_charge ? "updateChargeNew" : "updateCharge"
         let no_border = data_module_flag_charge ? "no-border-charge-new" : "no-border-charge"
 
-
+        //editar charges
         if ($("#table-charges").is(':hidden')) {
 
-
+            //no existe charge aun, esconder los indicadores de navegacion (< >)
             if (showEmpty) {
                 $("#arrows-charge").empty()
                 $("#title_legend").html("New Charge")
@@ -97,9 +107,12 @@ storeCharge.subscribe(() => {
 
         let arr = {}
 
+        //llenar el formulario charges
         $.map(u[1], function(k, v) {
             if (k === null || k === 'null')
                 k = ''
+
+            //establecer el id del charge que se utiliza despues
             if (_.isObject(k) && !v.includes("$")) {
                 let id = k.id
                 $(`select[name=${v}]`).attr('data-id', id)
@@ -122,60 +135,56 @@ storeCharge.subscribe(() => {
 
                     if (!k)
                         k = 0
-                    //if (k) {
-                        //console.log(v, k)
-                        $(`input[name=${v}]`).val(k.toLocaleString('en-US', {  minimumFractionDigits: 2  } ))
-                        $(`select[name=${v}]`).val(k)
-                        $(`#${v}`).val(k)
-                    //}
 
+                    $(`input[name=${v}]`).val(k.toLocaleString('en-US', {  minimumFractionDigits: 2  } ))
+                    $(`select[name=${v}]`).val(k)
+                    $(`#${v}`).val(k)
                 }
             }
 
 
         })
 
-
+        //agregar apply to a modo de informacion
         append = `<div class="row">
         <div class="col-md-4">Apply To</div>
         <div class="col-md-6"><input type="text" class="form-control" value="" readonly></div>
         </div>`
 
-
+        //append
         $("#info-datad").append(append)
     }
 
 
-    //empty charge
-    //console.log("State charges now", storeCharge.getState())
+    /**************************************************************
+     * ************************************************************
+     * tablas de charges (new y edit mquote)
+    ***************************************************************
+    **************************************************************/
 
+    //charges en editar cotizacion
+    //el charge se inserta o edita directamente en el crm
+    //se lee en el store charges y se dibuja lo que hay en ella
+    let chargeEdit = storeCharge.getState().charges;
 
-    /*if (!_.isEmpty(y) && showEmpty) {
-        $.map(y, function (k, v) {
-            $(`input[name=${v}`).val(k)
-        })
-    }*/
-})
+    //si existen charges en la mquote, dibujarlos
+    //inicialmente limpiar las tablas
+    $("#table-charges tbody").empty();
+    $("#table-charges tfoot").empty();
+    $("#table-charges-preview tbody").empty();
+    $("#table-charges-preview tfoot").empty();
 
-///////subscriber charges, render UI table
-storeCharge.subscribe(() => {
-    let u = storeCharge.getState().charges;
-
-    if (!_.isEmpty(u)) {
+    if (!_.isEmpty(chargeEdit)) {
         $("#info-charge").html(" ");
+        console.log(chargeEdit)
         data_module_flag_charge = false;
         let accountId = 0;
-        //let totalIncome = 0
-        $("#table-charges tbody").empty();
-        $("#table-charges tfoot").empty();
-        $("#table-charges-preview tbody").empty();
-        $("#table-charges-preview tfoot").empty();
-
         let amount_ = 0
         let tax_amount_total = 0
         let amount_total = 0
 
-        $.each(u, function(i, k) {
+        //preparar los charges para dibujarlos en la tabla
+        $.each(chargeEdit, function(i, k) {
             if (!_.isEmpty(k.magaya__ApplyToAccounts)) {
                 accountId = k.magaya__ApplyToAccounts.id
             }
@@ -196,6 +205,7 @@ storeCharge.subscribe(() => {
                 name_charge = k.magaya__Charge_Type.name
             }
 
+            //dibujar los datos de los charges que lleva la tabla
             $("#table-charges tbody").append(`<tr>
                     <td>
                         <span class="material-icons oculto btn-slide" data-module="table-charges" data-id="${i}">create</span>
@@ -211,7 +221,7 @@ storeCharge.subscribe(() => {
 
                 </tr>`);
 
-
+                //tabla preview de la mquote
                 $("#table-charges-preview tbody").append(`<tr>
 
                     <td class="Name" id="first">${k.Name}</td>
@@ -222,14 +232,15 @@ storeCharge.subscribe(() => {
                 </tr>`);
 
             })
-            //totalIncome = roundDec(totalIncome)
-            //incorporando data de totales
+
+            //fila de los totales tabla modal
             $("#table-charges tfoot").append(`<tr><td align="right" colspan="5"><strong>Totals USD</strong></td>
                                         <td align="right"><strong>${amount_.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         <td align="right"><strong>${tax_amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         <td align="right"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         </tr>`);
 
+            //fila de los totales tabla preview
             $("#table-charges-preview tfoot").append(`<tr><td style="border-right: none;" align="right"></td>
                                         <td style="border-left: none;"></td>
                                         <td style="border-left: none;">Total</td>
@@ -237,38 +248,28 @@ storeCharge.subscribe(() => {
                                         <td align="right"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         </tr>`);
 
-                                        //console.log(totn_number.toLocaleString('fr-FR'));
-            //$("input[name=TotalIncomeCharges]").val(totalIncome)
 
-    } else {
-        $("#table-charges tbody").empty()
-        $("#table-charges tfoot").empty();
-
-        //$("#info-charge").html("No charges found");
     }
-})
 
-
-storeCharge.subscribe(() => {
-    let u = storeCharge.getState().chargesOnNew;
+    //charges en nueva cotizacion
+    //el charge se agrega a la tabla charges
+    //se lee del store chargesOnNew y se dibuja lo que hay en ella
+    let chargesNew = storeCharge.getState().chargesOnNew;
     let amount_ = 0
     let tax_amount_total = 0
     let amount_total = 0
 
-    if (!_.isEmpty(u)) {
+    $("#table-charges-new tbody").empty();
+    $("#table-charges-new tfoot").empty();
+
+    if (!_.isEmpty(chargesNew)) {
         $("#info-charge").html(" ");
         data_module_flag_charge = true
 
-        $("#table-charges-new tbody").empty();
-        $("#table-charges-new tfoot").empty();
-
-        if (!_.isEmpty(u)) {
-
-            $.each(u, function(i, k) {
+            $.each(chargesNew, function(i, k) {
 
                 k.magaya__Status = sanitize(k.magaya__Status);
                 k.Name = sanitize(k.Name);
-                //k.magaya__ChargeCode = sanitize(k.magaya__ChargeCode);
                 k.magaya__Paid_As = sanitize(k.magaya__Paid_As);
                 k.magaya__ChargeCurrency = sanitize(k.magaya__ChargeCurrency);
 
@@ -289,25 +290,15 @@ storeCharge.subscribe(() => {
                 <td align="right" data-type="number">${k.magaya__Tax_Amount.toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 <td align="right" data-type="number">${k.magaya__Amount_Total.toLocaleString('en-US', {  minimumFractionDigits: 2  } )}</td>
                 </tr>`);
-                /*************************
-                 *
-                 * LIMPIAR EN LA TABLA LAS CELDAS QUE NO SE MUESTRAN,
-                 * YA Q SE PROCESAN LAS INSERCIONES DESDE EL STORE
-                ***************************/
-
             })
 
-
+            //fila de totales
             $("#table-charges-new tfoot").append(`<tr><td colspan="5"><strong>Totals USD</strong></td>
                                         <td align="right"><strong>${amount_.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         <td align="right"><strong>${tax_amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         <td align="right"><strong>${amount_total.toLocaleString('en-US', {style:'currency', currency:'USD'})}</strong></td>
                                         </tr>`);
-        }
-
-    } else {
-        $("#table-charges-new tbody").empty()
-        $("#table-charges-new tfoot").empty();
-
     }
+
 })
+

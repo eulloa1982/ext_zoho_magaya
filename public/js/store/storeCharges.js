@@ -197,8 +197,8 @@ function reducerCharge (state = initialStateCharge, actions)  {
 
             //calculos
             amount = price * quantity;
-            amount_tax = (roundDec(amount) / 100) * roundDec(tax_rate)
-            amount_total = roundDec(amount + amount_tax)
+            amount_tax = (roundDec(amount) / 100 * roundDec(tax_rate)).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
+            amount_total = roundDec(roundDec(amount) + roundDec(amount_tax)).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
             //back to field
             newArray[1]['magaya__Price'] = price
