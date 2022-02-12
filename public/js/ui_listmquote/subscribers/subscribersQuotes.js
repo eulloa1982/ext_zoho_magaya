@@ -348,21 +348,10 @@ storeQuote.subscribe(() => {
             }
 
             //representative
-            //$("select[name=magaya__Representative]").empty()
             let idContact = 0
             let nameContact = ''
 
-            if (!_.isEmpty(quoteToEdit["magaya__Representative"])) {
-                //$("select[name=magaya__Representative]").empty()
-                idContact = quoteToEdit["magaya__Representative"]["id"];
-                nameContact = sanitize(quoteToEdit["magaya__Representative"]["name"]);
-                storeAccounts.dispatch(findContact({id: idContact}));
-
-                $("#RepresentativeNamePreview").html(nameContact)
-            }
-
-
-           //deal en la cotizacion
+            //deal en la cotizacion
             if (!_.isEmpty(quoteToEdit['magaya__Deal'])) {
                 //$("select[name=Deal]").empty()
                 let idDeal = quoteToEdit["magaya__Deal"]["id"];
@@ -530,15 +519,26 @@ storeQuote.subscribe(() => {
                     } //IF
                 }) //then*/
 
-                //si existen valores en el mquote, sobreescribirlos
-                $("input[name=Mailing_City]").val(quoteToEdit.magaya__BillingCity)
-                $("input[name=Mailing_Country]").val(quoteToEdit.magaya__BillingCountry)
-                $("input[name=Mailing_State]").val(quoteToEdit.magaya__BillingState)
-                $("input[name=Mailing_Street]").val(quoteToEdit.magaya__BillingStreet)
-                $("input[name=Mailing_Zip]").val(quoteToEdit.magaya__Billing_Zip)
-                $("input[name=Email]").val(quoteToEdit.magaya__ContactEmail)
-                $("input[name=Mobile]").val(quoteToEdit.magaya__ContactMobile)
-                $("input[name=Phone]").val(quoteToEdit.magaya__ContactPhone)
+
+
+                if (!_.isEmpty(quoteToEdit["magaya__Representative"])) {
+                    idContact = quoteToEdit["magaya__Representative"]["id"];
+                    nameContact = sanitize(quoteToEdit["magaya__Representative"]["name"]);
+                    //$("input[name=Mailing_City]").val(quoteToEdit.magaya__BillingCity)
+                   // $("input[name=Mailing_Country]").val(quoteToEdit.magaya__BillingCountry)
+                    //$("input[name=Mailing_State]").val(quoteToEdit.magaya__BillingState)
+                    //$("input[name=Mailing_Street]").val(quoteToEdit.magaya__BillingStreet)
+                    //$("input[name=Mailing_Zip]").val(quoteToEdit.magaya__Billing_Zip)
+                    //$("input[name=Email]").val(quoteToEdit.magaya__ContactEmail)
+                    //$("input[name=Mobile]").val(quoteToEdit.magaya__ContactMobile)
+                    //$("input[name=Phone]").val(quoteToEdit.magaya__ContactPhone)
+                    $("select[name=magaya__Representative]").val(quoteToEdit.magaya__Representative.id).change()
+                    //storeAccounts.dispatch(findContact({id: idContact}));
+                    console.log("Representante", quoteToEdit.magaya__Representative.id)
+                    console.log("Representante Email", quoteToEdit.magaya__ContactEmail)
+
+                    $("#RepresentativeNamePreview").html(nameContact)
+                }
 
                 //service items
                 /*ZOHO.CRM.API.getRelatedRecords({ Entity: "magaya__SQuotes", RecordID: idmQuoteToEdit, RelatedList: "Notes", page: 1, per_page: 200 })

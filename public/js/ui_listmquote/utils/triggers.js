@@ -5,7 +5,9 @@
 $("select[name=Account]").change(function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    $("select[name=magaya__Representative]").empty();
+
+
+    //storeAccounts.dispatch(emptySingleContact())
     store.dispatch(addActionEdited())
 
     let account = $("select[name=Account]").val();
@@ -13,7 +15,9 @@ $("select[name=Account]").change(function(e) {
 
     //searchContactsAccountCRM(account_name)
     storeAccounts.dispatch(findContactOfAccount({id: account}))
+
     //deberia vaciar todo con emptySingleContact (BUG -- No cambia el valor del account)
+    //storeAccounts.dispatch(emptySingleContact())
     $("input[name=Phone]").val("")
     $("input[name=Mobile]").val("")
     $("input[name=Email]").val("")
@@ -22,6 +26,7 @@ $("select[name=Account]").change(function(e) {
     $("input[name=Mailing_State]").val("")
     $("input[name=Mailing_Country]").val("")
     $("input[name=Mailing_Zip]").val("")
+    $("select[name=magaya__Representative]").empty().change();
 
 })
 
@@ -31,7 +36,10 @@ $("select[name=magaya__Representative]").change(function(e) {
     e.stopImmediatePropagation();
 
     let contact = $(this).val();
+    let quoteToEdit = storeQuote.getState().quoteToEdit
+
     storeAccounts.dispatch(findContact({id: contact}))
+
 })
 
 ////////// Deal data //////////////////

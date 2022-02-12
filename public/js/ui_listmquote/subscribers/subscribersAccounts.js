@@ -28,10 +28,11 @@ storeAccounts.subscribe(() => {
     //select rigth one on list
    let contacts = u.contactList;
    let contact = u.singleContact
-   $("select[name=magaya__Representative]").empty();
+   let quoteToEdit = storeQuote.getState().quoteToEdit
+   //
    $("<option></option>").appendTo("select[name=magaya__Representative]");
-   if (!_.isEmpty(contact)) {
-
+    if (!_.isEmpty(contact)) {
+        $("select[name=magaya__Representative]").empty();
         let idContact = contact[0]["id"];
         let nameContact = contact[0]['Full_Name']
         //storeAccounts.dispatch(findContact({id: idContact}));
@@ -46,6 +47,18 @@ storeAccounts.subscribe(() => {
                 $(`#customer_form select[name=${v}]`).val(k)
             }
         })
+
+        //if is a quote, get the values from the mquote
+        if (!_.isEmpty(quoteToEdit)) {
+            $("input[name=Mailing_City]").val(quoteToEdit.magaya__BillingCity)
+            $("input[name=Mailing_Country]").val(quoteToEdit.magaya__BillingCountry)
+            $("input[name=Mailing_State]").val(quoteToEdit.magaya__BillingState)
+            $("input[name=Mailing_Street]").val(quoteToEdit.magaya__BillingStreet)
+            $("input[name=Mailing_Zip]").val(quoteToEdit.magaya__Billing_Zip)
+            $("input[name=Email]").val(quoteToEdit.magaya__ContactEmail)
+            $("input[name=Mobile]").val(quoteToEdit.magaya__ContactMobile)
+            $("input[name=Phone]").val(quoteToEdit.magaya__ContactPhone)
+        }
 
     }
 
