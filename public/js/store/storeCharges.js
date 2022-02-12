@@ -196,7 +196,7 @@ function reducerCharge (state = initialStateCharge, actions)  {
             tax_rate = tax_rate > 0 ? tax_rate : 0
 
             //calculos
-            amount = price * quantity;
+            amount = (price * quantity).toLocaleString('en-US', {  minimumFractionDigits: 2  } );
             amount_tax = (roundDec(amount) / 100 * roundDec(tax_rate)).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
             amount_total = roundDec(roundDec(amount) + roundDec(amount_tax)).toLocaleString('en-US', {  minimumFractionDigits: 2  } )
 
