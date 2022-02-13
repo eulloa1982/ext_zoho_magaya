@@ -1,8 +1,10 @@
 /**************************************************************************************
  *
  *  subscriptor de store/storeCharges.js
- * Este archivo dibuja los charges en las tablas charges del modal de cotizacion,
- * y en la tabla charge del preview de cotizacion
+ * Este archivo:
+ * 1- Dibuja el formulario de charges en nueva cotizacion y edicion de cotizacion
+ * 2- Dibuja las tablas de los charges en el modal de nueva cotizacion y edicion de cotizacion ,
+ * 3- Dibuja la tabla charge del preview de cotizacion
  *
  ************************************************************************************/
 
@@ -12,7 +14,7 @@
 let data_module_flag_charge = true
 
 storeCharge.subscribe(() => {
-    //storeCharge.getState().singleCharge => charge activo en cotizacion nueva o editada
+    //storeCharge.getState().singleCharge => charge activo (en formulario) en cotizacion nueva o editada
     let u = storeCharge.getState().singleCharge;
     let y = storeCharge.getState().emptyCharge[1];
     let showEmpty = storeCharge.getState().showEmptyCharge;
@@ -162,10 +164,12 @@ storeCharge.subscribe(() => {
     ***************************************************************
     **************************************************************/
 
-    //charges en editar cotizacion
-    //el charge se inserta o edita directamente en el crm
-    //se lee en el store charges y se dibuja lo que hay en ella
-    let chargeEdit = storeCharge.getState().charges;
+    /*********************************************************************
+     * charges en editar cotizacion
+     * el charge del formulario se agrega al store
+     * se lee del store la variable charges y se dibuja lo que hay en ella
+    **********************************************************************/
+     let chargeEdit = storeCharge.getState().charges;
 
     //si existen charges en la mquote, dibujarlos
     //inicialmente limpiar las tablas
@@ -251,9 +255,11 @@ storeCharge.subscribe(() => {
 
     }
 
-    //charges en nueva cotizacion
-    //el charge se agrega a la tabla charges
-    //se lee del store chargesOnNew y se dibuja lo que hay en ella
+    /******************************************************************************
+     * charges en nueva cotizacion
+     * el charge del formulario se agrega al store
+     * se lee del store la variable 'chargesOnNew' y se dibuja lo que hay en ella
+    *******************************************************************************/
     let chargesNew = storeCharge.getState().chargesOnNew;
     let amount_ = 0
     let tax_amount_total = 0
